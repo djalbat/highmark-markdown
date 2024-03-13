@@ -5,19 +5,37 @@ import { arrayUtilities } from "necessary";
 import MarkdownNode from "../../node/markdown";
 
 import { START_ATTRIBUTE_NAME } from "../../attributeNames";
+import {EMPTY_STRING} from "../../constants";
 
 const { first } = arrayUtilities;
 
 export default class OrderedListMarkdownNode extends MarkdownNode {
-  createDOMElement(context) {
-    const domElement = super.createDOMElement(context),
-          start = this.getStart(),
-          name = START_ATTRIBUTE_NAME,  ///
-          value = start; ///
+  asHTML(indent, context) {
+    indent = this.adjustIndent(indent);
 
-    this.setAttribute(name, value);
+    const start = this.getStart(),
+          tagName = this.getTagName(),
+          childNodesHTML = this.childNodesAsHTML(indent, context),
+          startingTag = `<${tagName} start="${start}">`,
+          closingTag = `<\\${tagName}>`,
+          html = `${indent}${startingTag}
+${childNodesHTML}${indent}${closingTag}
+`;
 
-    return domElement;
+    return html;
+  }
+
+  getAttributeName() {
+    const attributeName = START_ATTRIBUTE_NAME;
+
+    return attributeName;
+  }
+
+  getAttributeValue(context) {
+    const start = this.getStart(),
+          attributeValue = start; ///
+
+    return attributeValue;
   }
 
   getStart() {

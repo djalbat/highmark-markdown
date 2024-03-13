@@ -39,7 +39,23 @@ class MarkdownNode extends NonTerminalNode {
 
   setInnerHTML(innerHTML) { this.domElement.innerHTML = innerHTML; }
 
-  setAttribute(name, value) { this.domElement.setAttribute(name, value); }
+  getInnerHTML(context) {
+    const innerHTML = null;
+
+    return innerHTML;
+  }
+
+  getAttributeName() {
+    const attributeName = null;
+
+    return attributeName;
+  }
+
+  getAttributeValue(context) {
+    const attributeValue = null;
+
+    return attributeValue;
+  }
 
   asHTML(indent, context) {
     if (context === undefined) {
@@ -48,10 +64,9 @@ class MarkdownNode extends NonTerminalNode {
       indent = EMPTY_STRING;
     }
 
-    let html = null;
+    const tagName = this.getTagName();
 
-    const tagName = this.getTagName(),
-          className = this.getClassName();
+    let html = null;
 
     if (tagName !== null) {
       indent = this.adjustIndent(indent);
@@ -59,25 +74,78 @@ class MarkdownNode extends NonTerminalNode {
       const childNodesHTML = this.childNodesAsHTML(indent, context);
 
       if (childNodesHTML === null) {
-        const selfClosingTag = (className !== null) ?
-                                `<${tagName} class="${className}"/>` :
-                                  `<${tagName}/>`;
+        const selfClosingTag = this.selfClosingTag(context);
 
-        html = `${indent}${selfClosingTag}
+        html = (indent === null) ?
+                 selfClosingTag :  ///
+                  `${indent}${selfClosingTag}
 `;
       } else {
-        const startTag = (className !== null) ?
-                          `<${tagName} class="${className}">` :
-                            `<${tagName}>`,
-              endTag = `<\\${tagName}>`;
+        const startingTag = this.startingTag(context),
+              closingTag = this.closingTag(context);
 
-        html = `${indent}${startTag}
-${childNodesHTML}${indent}${endTag}
+        html = (indent === null) ?
+                 `${startingTag}${childNodesHTML}${closingTag}`
+                   :`${indent}${startingTag}
+${childNodesHTML}${indent}${closingTag}
 `;
       }
     }
 
     return html;
+  }
+
+  adjustIndent(indent) {
+    if (indent !== null) {
+      indent = `  ${indent}`;
+    }
+
+    return indent;
+  }
+
+  closingTag(context) {
+    const tagName = this.getTagName(),
+          closingTag = `<\\${tagName}>`;
+
+    return closingTag;
+  }
+
+  startingTag(context) {
+    const tagName = this.getTagName(),
+          className = this.getClassName(),
+          attributeName = this.getAttributeName();
+
+    let classHTML = EMPTY_STRING,
+        attributeHTML = EMPTY_STRING;
+
+    if (className !== null) {
+      classHTML = ` class="${className}"`;
+    }
+
+    if (attributeName !== null) {
+      const attributeValue = this.getAttributeValue(context);
+
+      attributeHTML = ` ${attributeName}="${attributeValue}"`;
+    }
+
+    const startingTag = `<${tagName}${classHTML}${attributeHTML}>`;
+
+    return startingTag;
+  }
+
+  selfClosingTag(context) {
+    const tagName = this.getTagName(),
+          className = this.getClassName();
+
+    let classHTML = EMPTY_STRING;
+
+    if (className !== null) {
+      classHTML = ` class="${className}"`;
+    }
+
+    const selfClosingTag = `<${tagName}${classHTML}/>`;
+
+    return selfClosingTag;
   }
 
   childNodesAsHTML(indent, context) {
@@ -101,12 +169,6 @@ ${childNodesHTML}${indent}${endTag}
     return childNodesHTML;
   }
 
-  adjustIndent(indent) {
-    indent = `  ${indent}`;
-
-    return indent;
-  }
-
   createDOMElement(context) {
     let domElement = null;
 
@@ -121,6 +183,22 @@ ${childNodesHTML}${indent}${endTag}
         Object.assign(domElement, {
           className
         });
+      }
+
+      const innerHTML = this.getInnerHTML(context);
+
+      if (innerHTML !== null) {
+        Object.assign(domElement, {
+          innerHTML
+        });
+      }
+
+      const attributeName = this.getAttributeName();
+
+      if (attributeName !== null) {
+        const attributeValue = this.getAttributeValue(context);
+
+        domElement.setAttribute(attributeName, attributeValue);
       }
 
       this.setDOMElement(domElement);

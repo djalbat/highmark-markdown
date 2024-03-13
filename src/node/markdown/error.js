@@ -11,12 +11,10 @@ export default class ErrorMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
     indent = this.adjustIndent(indent);
 
-    const tagName = this.getTagName(),
-          className = this.getClassName(),
-          childNodesHTML = this.childNodesAsHTML(indent, context),
-          startTag = `<${tagName} class="${className}">`,
-          endTag = `<\\${tagName}>`,
-          html = `${indent}${startTag}${childNodesHTML}${endTag}
+    const childNodesHTML = this.childNodesAsHTML(indent, context),
+          startingTag = this.startingTag(context),
+          closingTag = this.closingTag(context),
+          html = `${indent}${startingTag}${childNodesHTML}${closingTag}
 `;
 
     return html;

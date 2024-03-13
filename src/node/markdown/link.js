@@ -10,15 +10,11 @@ import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 const { second } = arrayUtilities;
 
 export default class LinkMarkdownNode extends MarkdownNode {
-  createDOMElement(context) {
-    const domElement = super.createDOMElement(context),
-          href = this.getHRef(context),
-          name = HREF_ATTRIBUTE_NAME,
-          value = href; ///
+  getHRef(context) {
+    const identifier = this.getIdentifier(context),
+          href = `#${identifier}`;
 
-    this.setAttribute(name, value);
-
-    return domElement;
+    return href;
   }
 
   getIdentifier(context) {
@@ -31,11 +27,17 @@ export default class LinkMarkdownNode extends MarkdownNode {
     return identifier;
   }
 
-  getHRef(context) {
-    const identifier = this.getIdentifier(context),
-          href = `#${identifier}`;
+  getAttributeName() {
+    const attributeName = HREF_ATTRIBUTE_NAME;
 
-    return href;
+    return attributeName;
+  }
+
+  getAttributeValue(context) {
+    const href = this.getHRef(context),
+          attributeValue = href; ///
+
+    return attributeValue;
   }
 
   clear() {

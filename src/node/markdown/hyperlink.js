@@ -9,20 +9,6 @@ import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 const { second, secondLast } = arrayUtilities;
 
 export default class HyperlinkMarkdownNode extends MarkdownNode {
-  createDOMElement(context) {
-    const domElement = super.createDOMElement(context),
-          innerHTML = this.getInnerHTML(context),
-          href = this.getHref(context),
-          name = HREF_ATTRIBUTE_NAME,
-          value = href; ///
-
-    this.setAttribute(name, value);
-
-    this.setInnerHTML(innerHTML);
-
-    return domElement;
-  }
-
   getInnerHTML(context) {
     const childNodes = this.getChildNodes(),
           secondChildNode = second(childNodes),
@@ -31,6 +17,19 @@ export default class HyperlinkMarkdownNode extends MarkdownNode {
           innerHTML = inlineTextMarkdownNodeContent; ///
 
     return innerHTML;
+  }
+
+  getAttributeName() {
+    const attributeName = HREF_ATTRIBUTE_NAME;
+
+    return attributeName;
+  }
+
+  getAttributeValue(context) {
+    const href = this.getHref(context),
+          attributeValue = href; ///
+
+    return attributeValue;
   }
 
   getHref(context) {

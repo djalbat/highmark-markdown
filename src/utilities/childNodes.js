@@ -75,7 +75,9 @@ export function htmlFromChildNodes(childNodes, context) {
           htmls.push(html);
         }
 
-        html = childNode.asHTML(context);
+        const indent = null;
+
+        html = childNode.asHTML(indent, context);
 
         if (html !== null) {
           htmls.push(html);

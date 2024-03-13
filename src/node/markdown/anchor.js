@@ -16,14 +16,16 @@ export default class AnchorMarkdownNode extends MarkdownNode {
     return this.identifier;
   }
 
-  createDOMElement(context) {
-    const domElement = super.createDOMElement(context),
-          name = ID_ATTRIBUTE_NAME,
-          value = this.identifier;
+  getAttributeName() {
+    const attributeName = ID_ATTRIBUTE_NAME;
 
-    this.setAttribute(name, value);
+    return attributeName;
+  }
 
-    return domElement;
+  getAttributeValue(context) {
+    const attributeValue = this.identifier; ///
+
+    return attributeValue;
   }
 
   static fromIdentifier(identifier) {

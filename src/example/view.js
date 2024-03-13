@@ -107,7 +107,7 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `* Item
+  static initialMarkdown = `A [link](https://occam.science).
 `;
 
   static tagName = "div";

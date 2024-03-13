@@ -9,20 +9,6 @@ import { SRC_ATTRIBUTE_NAME } from "../../attributeNames";
 const { second, secondLast } = arrayUtilities;
 
 export default class ImageMarkdownNode extends MarkdownNode {
-  createDOMElement(context) {
-    const domElement = super.createDOMElement(context),
-          innerHTML = this.getInnerHTML(context),
-          src = this.getSrc(context),
-          name = SRC_ATTRIBUTE_NAME,
-          value = src; ///
-
-    this.setAttribute(name, value);
-
-    this.setInnerHTML(innerHTML);
-
-    return domElement;
-  }
-
   getInnerHTML(context) {
     const childNodes = this.getChildNodes(),
           secondChildNode = second(childNodes),
@@ -31,6 +17,19 @@ export default class ImageMarkdownNode extends MarkdownNode {
           innerHTML = inlineTextMarkdownNodeContent; ///
 
     return innerHTML;
+  }
+
+  getAttributeName() {
+    const attributeName = SRC_ATTRIBUTE_NAME;
+
+    return attributeName;
+  }
+
+  getAttributeValue(context) {
+    const src = this.getSrc(context),
+          attributeValue = src; ///
+
+    return attributeValue;
   }
 
   getSrc(context) {
