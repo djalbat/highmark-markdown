@@ -6,9 +6,13 @@ import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 import { renumberLinkMarkdownNodes } from "../../utilities/link";
 
 export default class DocumentMarkdownNode extends MarkdownNode {
+  adjustIndent(indent) {
+    return indent;
+  }
+
   createChildNodeDOMElements(context) {
     const documentMarkdownNode = this,  ///
-          footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDocumentMarkdownNode(documentMarkdownNode);
+          footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDocumentMarkdownNode(documentMarkdownNode, context);
 
     super.createChildNodeDOMElements(context);
 

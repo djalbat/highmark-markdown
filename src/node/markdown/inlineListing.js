@@ -7,7 +7,7 @@ import MarkdownNode from "../../node/markdown";
 const { second } = arrayUtilities;
 
 export default class InlineListingMarkdownNode extends MarkdownNode {
-  getContent() {
+  getContent(context) {
     const childNodes = this.getChildNodes(),
           secondChildNode = second(childNodes),
           blockTextMarkdownNode = secondChildNode,  ///

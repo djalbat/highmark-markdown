@@ -4,6 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import TextMarkdownNode from "../node/markdown/text";
 
+import { EMPTY_STRING } from "../constants";
 import { contentFromMarkdownNodes } from "./content";
 
 const { clear } = arrayUtilities;
@@ -51,6 +52,49 @@ export function domElementsFromChildNodes(childNodes, context) {
   return domElements;
 }
 
+export function htmlFromChildNodes(childNodes, context) {
+  let html;
+
+  const htmls = [],
+        textMarkdownNodes = [];
+
+  childNodes.forEach((childNode) => {
+    const childNodeNonTerminalNode = childNode.isNonTerminalNode();
+
+    if (childNodeNonTerminalNode) {
+      const childNodeTextMarkdownNode = (childNode instanceof TextMarkdownNode);
+
+      if (childNodeTextMarkdownNode) {
+        const textMarkdownNode = childNode; ///
+
+        textMarkdownNodes.push(textMarkdownNode);
+      } else {
+        html = htmlFromTextMarkdownNodes(textMarkdownNodes, context)
+
+        if (html !== null) {
+          htmls.push(html);
+        }
+
+        html = childNode.asHTML(context);
+
+        if (html !== null) {
+          htmls.push(html);
+        }
+      }
+    }
+  });
+
+  html = htmlFromTextMarkdownNodes(textMarkdownNodes, context)
+
+  if (html !== null) {
+    htmls.push(htmls);
+  }
+
+  html = htmls.join(EMPTY_STRING);
+
+  return html;
+}
+
 function textDOMElementFromTextMarkdownNodes(textMarkdownNodes, context) {
   let textDOMElement = null;
 
@@ -68,3 +112,19 @@ function textDOMElementFromTextMarkdownNodes(textMarkdownNodes, context) {
   return textDOMElement;
 }
 
+function htmlFromTextMarkdownNodes(textMarkdownNodes, context) {
+  let html = null;
+
+  const textMarkdownNodesLength = textMarkdownNodes.length;
+
+  if (textMarkdownNodesLength > 0) {
+    const markdownNodes = textMarkdownNodes,  ///
+          content = contentFromMarkdownNodes(markdownNodes, context);
+
+    html = content;
+
+    clear(textMarkdownNodes);
+  }
+
+  return html;
+}

@@ -10,11 +10,11 @@ import { FOOTNOTE_ITEM_RULE_NAME } from "../../ruleNames";
 const { first, second } = arrayUtilities;
 
 export default class FootnoteItemMarkdownNode extends MarkdownNode {
-  getIdentifier() {
+  getIdentifier(context) {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           anchorMarkdownNode = firstChildNode,  ///
-          identifier = anchorMarkdownNode.getIdentifier();
+          identifier = anchorMarkdownNode.getIdentifier(context);
 
     return identifier;
   }

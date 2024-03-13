@@ -6,6 +6,8 @@ import nodeMixins from "../mixins/node";
 import elementMixins from "../mixins/element";
 import ruleNameToHTMLMap from "../ruleNameToHTMLMap";
 
+import { EMPTY_STRING } from "../constants";
+
 class MarkdownNode extends NonTerminalNode {
   constructor(ruleName, childNodes, precedence, ambiguous, domElement) {
     super(ruleName, childNodes, precedence, ambiguous);
@@ -38,6 +40,72 @@ class MarkdownNode extends NonTerminalNode {
   setInnerHTML(innerHTML) { this.domElement.innerHTML = innerHTML; }
 
   setAttribute(name, value) { this.domElement.setAttribute(name, value); }
+
+  asHTML(indent, context) {
+    if (context === undefined) {
+      context = indent; ///
+
+      indent = EMPTY_STRING;
+    }
+
+    let html = null;
+
+    const tagName = this.getTagName(),
+          className = this.getClassName();
+
+    if (tagName !== null) {
+      indent = this.adjustIndent(indent);
+
+      const childNodesHTML = this.childNodesAsHTML(indent, context);
+
+      if (childNodesHTML === null) {
+        const selfClosingTag = (className !== null) ?
+                                `<${tagName} class="${className}"/>` :
+                                  `<${tagName}/>`;
+
+        html = `${indent}${selfClosingTag}
+`;
+      } else {
+        const startTag = (className !== null) ?
+                          `<${tagName} class="${className}">` :
+                            `<${tagName}>`,
+              endTag = `<\\${tagName}>`;
+
+        html = `${indent}${startTag}
+${childNodesHTML}${indent}${endTag}
+`;
+      }
+    }
+
+    return html;
+  }
+
+  childNodesAsHTML(indent, context) {
+    const childNodes = this.getChildNodes(),
+          childNodesHTML = childNodes.reduce((childNodesHTML, childNode) => {
+            const childNodeNonTerminalNode = childNode.isNonTerminalNode();
+
+            if (childNodeNonTerminalNode) {
+              const childNodeHTML = childNode.asHTML(indent, context);
+
+              if (childNodeHTML !== null) {
+                childNodesHTML = (childNodesHTML === null) ?
+                                   childNodeHTML :  ///
+                                    `${childNodesHTML}${childNodeHTML}`;
+              }
+            }
+
+            return childNodesHTML;
+          }, null);
+
+    return childNodesHTML;
+  }
+
+  adjustIndent(indent) {
+    indent = `  ${indent}`;
+
+    return indent;
+  }
 
   createDOMElement(context) {
     let domElement = null;

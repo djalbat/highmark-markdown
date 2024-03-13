@@ -7,7 +7,7 @@ import MarkdownNode from "../../node/markdown";
 const { first } = arrayUtilities;
 
 export default class TextMarkdownNode extends MarkdownNode {
-  getContent() {
+  getContent(context) {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           terminalNode = firstChildNode,  ///

@@ -3,6 +3,13 @@
 import MarkdownNode from "../../node/markdown";
 
 export default class EndOfLineMarkdownNode extends MarkdownNode {
+  asHTML(indent, context) {
+    const content = this.getContent(context),
+          html = content; ///
+
+    return html;
+  }
+
   createDOMElement(context) {
     const content = this.getContent(context),
           domElement = document.createTextNode(content);
@@ -12,7 +19,7 @@ export default class EndOfLineMarkdownNode extends MarkdownNode {
     return domElement;
   }
 
-  getContent() {
+  getContent(context) {
     const firstSignificantToken = this.getFirstSignificantToken(),
           endOfLineToken = firstSignificantToken, ///
           content = endOfLineToken.getContent();

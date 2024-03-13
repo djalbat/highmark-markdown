@@ -9,7 +9,7 @@ export function renumberLinkMarkdownNodes(documentMarkdownNode, footnotesListMar
         linkMarkdownNodes = linkMarkdownNodesFromNode(documentMarkdownNode);
 
   linkMarkdownNodes.forEach((linkMarkdownNode) => {
-    const identifier = linkMarkdownNode.getIdentifier(),
+    const identifier = linkMarkdownNode.getIdentifier(context),
           identifiersIncludesIdentifier = identifiers.includes(identifier);
 
     if (identifiersIncludesIdentifier) {

@@ -21,7 +21,7 @@ export default class TableCellMarkdownNode extends MarkdownNode {
 
       if (firstChildNodeTextMarkdownNode) {
         const textMarkdownNode = firstChildNode,  ///
-              content = textMarkdownNode.getContent();
+              content = textMarkdownNode.getContent(context);
 
         if (content === PERIOD) {
           return;

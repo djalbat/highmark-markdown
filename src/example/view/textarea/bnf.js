@@ -5,13 +5,6 @@ import withStyle from "easy-with-style";  ///
 import Textarea from "../textarea";
 
 class BNFTextarea extends Textarea {
-  getBNF() {
-    const value = this.getValue(),
-          bnf = value; ///
-
-    return bnf;
-  }
-
   setBNF(bnf) {
     const value = bnf;
 
@@ -19,16 +12,15 @@ class BNFTextarea extends Textarea {
   }
 
   parentContext() {
-    const getBNF = this.getBNF.bind(this),
-          setBNF = this.setBNF.bind(this);
+    const setBNF = this.setBNF.bind(this);
 
     return ({
-      getBNF,
       setBNF
     });
   }
 
   static defaultProperties = {
+    readOnly: true,
     className: "bnf",
     spellCheck: "false"
   };

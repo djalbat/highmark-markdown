@@ -5,6 +5,13 @@ import contentMixins from "../../mixins/content";
 import MarkdownNode from "../markdown";
 
 class BlockTextMarkdownNode extends MarkdownNode {
+  asHTML(indent, context) {
+    const content = this.getContent(context),
+          html = content; ///
+
+    return html;
+  }
+
   createDOMElement(context) {
     const content = this.getContent(context),
           domElement = document.createTextNode(content);

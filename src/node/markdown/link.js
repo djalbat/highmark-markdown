@@ -12,7 +12,7 @@ const { second } = arrayUtilities;
 export default class LinkMarkdownNode extends MarkdownNode {
   createDOMElement(context) {
     const domElement = super.createDOMElement(context),
-          href = this.getHRef(),
+          href = this.getHRef(context),
           name = HREF_ATTRIBUTE_NAME,
           value = href; ///
 
@@ -21,18 +21,18 @@ export default class LinkMarkdownNode extends MarkdownNode {
     return domElement;
   }
 
-  getIdentifier() {
+  getIdentifier(context) {
     const childNodes = this.getChildNodes(),
           secondChildNode = second(childNodes),
           textMarkdownNode = secondChildNode,  ///
-          textMarkdownNodeContent = textMarkdownNode.getContent(),
+          textMarkdownNodeContent = textMarkdownNode.getContent(context),
           identifier = textMarkdownNodeContent; ///
 
     return identifier;
   }
 
-  getHRef() {
-    const identifier = this.getIdentifier(),
+  getHRef(context) {
+    const identifier = this.getIdentifier(context),
           href = `#${identifier}`;
 
     return href;

@@ -2,12 +2,19 @@
 
 import MarkdownNode from "../../node/markdown";
 
-import { domElementsFromChildNodes } from "../../utilities/childNodes";
+import { htmlFromChildNodes, domElementsFromChildNodes } from "../../utilities/childNodes";
 
 export default class LineMarkdownNode extends MarkdownNode {
+  asHTML(indent, context) {
+    const childNodes = this.getChildNodes(),
+          html = htmlFromChildNodes(childNodes, context);
+
+    return html;
+  }
+
   createChildNodeDOMElements(context) {
-    const domElement = this.getDOMElement(),
-          childNodes = this.getChildNodes(),
+    const childNodes = this.getChildNodes(),
+          domElement = this.getDOMElement(),
           domElements = domElementsFromChildNodes(childNodes, context),
           parentDOMElement = domElement,  ///
           siblingDOMElement = null;
