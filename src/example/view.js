@@ -58,15 +58,15 @@ class View extends Element {
         <LeftSizeableDiv>
           <SubHeading>
             Lexical entries
-          </SubHeading>,
-          <LexicalEntriesTextarea onKeyUp={this.keyUpHandler} />,
+          </SubHeading>
+          <LexicalEntriesTextarea onKeyUp={this.keyUpHandler} />
           <SubHeading>
             BNF
-          </SubHeading>,
-          <BNFTextarea onKeyUp={this.keyUpHandler} />,
+          </SubHeading>
+          <BNFTextarea onKeyUp={this.keyUpHandler} />
           <SubHeading>
             Parse tree
-          </SubHeading>,
+          </SubHeading>
           <ParseTreeTextarea/>
         </LeftSizeableDiv>
         <VerticalSplitterDiv/>
@@ -80,8 +80,8 @@ class View extends Element {
               <RowsDiv>
                 <SubHeading>
                   Markdown
-                </SubHeading>,
-                <MarkdownTextarea onKeyUp={this.keyUpHandler} />,
+                </SubHeading>
+                <MarkdownTextarea onKeyUp={this.keyUpHandler} />
               </RowsDiv>
             </RowDiv>
           </RowsDiv>
@@ -125,13 +125,13 @@ export default withStyle(View)`
 
 function lexerFromLexicalEntries(lexicalEntries) {
   const entries = lexicalEntries, ///
-        lexer = MarkdownLexer.fromEntries(entries);
+        lexer = MarkdownLexer.fromEntries(entries); ///
 
   return lexer;
 }
 
 function parserFromRules(rules) {
-  const parser = MarkdownParser.fromRules(rules);
+  const parser = MarkdownParser.fromRules(rules); ///
 
   setNonTerminalNodes(parser, nodeMap);
 
