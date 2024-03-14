@@ -89,7 +89,7 @@ export function htmlFromChildNodes(childNodes, context) {
   html = htmlFromTextMarkdownNodes(textMarkdownNodes, context)
 
   if (html !== null) {
-    htmls.push(htmls);
+    htmls.push(html);
   }
 
   html = htmls.join(EMPTY_STRING);

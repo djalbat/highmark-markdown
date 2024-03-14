@@ -7,15 +7,25 @@ import ruleNameToHTMLMap from "../../ruleNameToHTMLMap";
 
 import { STRONG_TEXT_RULE_NAME } from "../../ruleNames";
 
-const strongTextHTML = ruleNameToHTMLMap[STRONG_TEXT_RULE_NAME],
-      { tagName: strongTextTagName } = strongTextHTML;
+const { tagName } = ruleNameToHTMLMap[STRONG_TEXT_RULE_NAME];
 
 class StronglyEmphasisedTextMarkdownNode extends MarkdownNode {
+  asHTML(indent, context) {
+    let html = super.asHTML(indent, context);
+
+    const childNodesHTML = html,  ///
+          startingTag = `<${tagName}>`,
+          closingTag = `<\\${tagName}>`;
+
+    html = `${startingTag}${childNodesHTML}${closingTag}`;
+
+    return html;
+  }
+
   createDOMElement(context) {
     let domElement = super.createDOMElement(context);
 
-    const childDOMElement = domElement, ///
-          tagName = strongTextTagName; ///
+    const childDOMElement = domElement; ///
 
     domElement = document.createElement(tagName);
 

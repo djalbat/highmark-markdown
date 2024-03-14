@@ -6,12 +6,14 @@ import MarkdownNode from "../../node/markdown";
 import TextMarkdownNode from "./text";
 
 import { PERIOD } from "../../constants";
-import { domElementsFromChildNodes } from "../../utilities/childNodes";
+import { htmlFromChildNodes, domElementsFromChildNodes } from "../../utilities/childNodes";
 
 const { first } = arrayUtilities;
 
 export default class TableCellMarkdownNode extends MarkdownNode {
-  createChildNodeDOMElements(domElement, context) {
+  isEmpty(context) {
+    let empty = false;
+
     const childNodes = this.getChildNodes(),
           childNodesLength = childNodes.length;
 
@@ -24,17 +26,44 @@ export default class TableCellMarkdownNode extends MarkdownNode {
               content = textMarkdownNode.content(context);
 
         if (content === PERIOD) {
-          return;
+          empty = true;
         }
       }
     }
 
-    const domElements = domElementsFromChildNodes(childNodes, context),
+    return empty;
+  }
+
+  childNodesAsHTML(indent, context) {
+    let childNodesHTML = null;
+
+    const empty = this.isEmpty(context);
+
+    if (!empty) {
+      const childNodes = this.getChildNodes(),
+            html = htmlFromChildNodes(childNodes, context);
+
+      childNodesHTML = html;  ///
+    }
+
+    return childNodesHTML;
+  }
+
+  createChildNodeDOMElements(domElement, context) {
+    const empty = this.isEmpty(context);
+
+    if (empty) {
+      return;
+    }
+
+    const childNodes = this.getChildNodes(),
+          domElements = domElementsFromChildNodes(childNodes, context),
           parentDOMElement = domElement,  ///
+          childDOMElements = domElements,  ///
           siblingDOMElement = null;
 
-    domElements.forEach((domElement) => {
-      parentDOMElement.insertBefore(domElement, siblingDOMElement);
+    childDOMElements.forEach((childDOMElement) => {
+      parentDOMElement.insertBefore(childDOMElement, siblingDOMElement);
     });
   }
 

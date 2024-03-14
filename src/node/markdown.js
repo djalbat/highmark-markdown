@@ -6,6 +6,7 @@ import nodeMixins from "../mixins/node";
 import elementMixins from "../mixins/element";
 import ruleNameToHTMLMap from "../ruleNameToHTMLMap";
 
+import { trim } from "../utilities/string";
 import { EMPTY_STRING } from "../constants";
 
 class MarkdownNode extends NonTerminalNode {
@@ -24,17 +25,21 @@ class MarkdownNode extends NonTerminalNode {
   }
 
   getTagName() {
-    const html = ruleNameToHTMLMap[this.ruleName],
-          { tagName } = html;
+    const { tagName } = ruleNameToHTMLMap[this.ruleName];
 
     return tagName;
   }
 
   getClassName() {
-    const html = ruleNameToHTMLMap[this.ruleName],
-          { className } = html;
+    const { className } = ruleNameToHTMLMap[this.ruleName];
 
     return className;
+  }
+
+  isEndOfLineMarkdownNode() {
+    const endOfLineMarkdownNode = false;
+
+    return endOfLineMarkdownNode;
   }
 
   setInnerHTML(innerHTML) { this.domElement.innerHTML = innerHTML; }
@@ -72,9 +77,10 @@ class MarkdownNode extends NonTerminalNode {
               closingTag = this.closingTag(context);
 
         html = (indent === null) ?
-                `${startingTag}${childNodesHTML}${closingTag}` :
+                `${startingTag}${trim(childNodesHTML)}${closingTag}` :
                   `${indent}${startingTag}
-${childNodesHTML}${indent}${closingTag}
+${trim(childNodesHTML)}
+${indent}${closingTag}
 `;
       } else {
         const selfClosingTag = this.selfClosingTag(context);
@@ -148,12 +154,16 @@ ${childNodesHTML}${indent}${closingTag}
             const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
             if (childNodeNonTerminalNode) {
-              const childNodeHTML = childNode.asHTML(indent, context);
+              const childNodeEndOfLineMarkdownNode = childNode.isEndOfLineMarkdownNode();
 
-              if (childNodeHTML !== null) {
-                childNodesHTML = (childNodesHTML === null) ?
-                                   childNodeHTML :  ///
-                                    `${childNodesHTML}${childNodeHTML}`;
+              if (!childNodeEndOfLineMarkdownNode) {
+                const childNodeHTML = childNode.asHTML(indent, context);
+
+                if (childNodeHTML !== null) {
+                  childNodesHTML = (childNodesHTML === null) ?
+                                     childNodeHTML :  ///
+                                      `${childNodesHTML}${childNodeHTML}`;
+                }
               }
             }
 
