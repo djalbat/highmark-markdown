@@ -20,11 +20,12 @@ export default class DocumentMarkdownNode extends MarkdownNode {
     super.createChildNodeDOMElements(context);
 
     if (footnotesListMarkdownNode !== null) {
-      const domElement = footnotesListMarkdownNode.createDOMElement(context);
+      const footnotesListMarkdownNodeDOMElement = footnotesListMarkdownNode.createDOMElement(context),
+            childNodeDOMElement = footnotesListMarkdownNodeDOMElement;  ///
 
-      this.insertDOMElement(domElement);
+      this.insertDOMElement(childNodeDOMElement);
 
-      renumberLinkMarkdownNodes(documentMarkdownNode, footnotesListMarkdownNode);
+      renumberLinkMarkdownNodes(documentMarkdownNode, footnotesListMarkdownNode, context);
     }
   }
 

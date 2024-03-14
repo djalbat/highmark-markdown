@@ -9,37 +9,46 @@ import { SRC_ATTRIBUTE_NAME } from "../../attributeNames";
 const { second, secondLast } = arrayUtilities;
 
 export default class ImageMarkdownNode extends MarkdownNode {
-  getInnerHTML(context) {
+  childNodesAsHTML(indent, context) {
+    const content = this.content(context),
+          childNodesHTML = content; ///
+
+    return childNodesHTML;
+  }
+
+  createChildNodeDOMElements(context) {
+    const content = this.content(context),
+          domElement = this.getDOMElement(),
+          parentDOMElement = domElement,  ///
+          siblingDOMElement = null,
+          childNodeDOMElement = document.createTextNode(content);
+
+    parentDOMElement.insertBefore(childNodeDOMElement, siblingDOMElement);
+  }
+
+  content(context) {
     const childNodes = this.getChildNodes(),
           secondChildNode = second(childNodes),
           inlineTextMarkdownNode = secondChildNode,  ///
-          inlineTextMarkdownNodeContent = inlineTextMarkdownNode.getContent(context),
-          innerHTML = inlineTextMarkdownNodeContent; ///
+          content = inlineTextMarkdownNode.content(context);
 
-    return innerHTML;
+    return content;
   }
 
-  getAttributeName() {
+  attributeName() {
     const attributeName = SRC_ATTRIBUTE_NAME;
 
     return attributeName;
   }
 
-  getAttributeValue(context) {
-    const src = this.getSrc(context),
-          attributeValue = src; ///
-
-    return attributeValue;
-  }
-
-  getSrc(context) {
+  attributeValue(context) {
     const childNodes = this.getChildNodes(),
           secondLastChildNode = secondLast(childNodes),
           URLMarkdownNode = secondLastChildNode,  ///
-          URLMarkdownNodeContent = URLMarkdownNode.getContent(context),
-          src = URLMarkdownNodeContent; ///
+          URLMarkdownNodeContent = URLMarkdownNode.content(context),
+          attributeValue = URLMarkdownNodeContent; ///
 
-    return src;
+    return attributeValue;
   }
 
   static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(ImageMarkdownNode, ruleName, childNodes, ambiguous); }

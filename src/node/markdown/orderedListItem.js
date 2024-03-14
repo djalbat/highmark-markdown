@@ -7,7 +7,7 @@ import MarkdownNode from "../../node/markdown";
 const { first } = arrayUtilities;
 
 export default class OrderedListItemMarkdownNode extends MarkdownNode {
-  getStart() {
+  start() {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           markerTerminalNode = firstChildNode,  ///

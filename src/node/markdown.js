@@ -39,19 +39,13 @@ class MarkdownNode extends NonTerminalNode {
 
   setInnerHTML(innerHTML) { this.domElement.innerHTML = innerHTML; }
 
-  getInnerHTML(context) {
-    const innerHTML = null;
-
-    return innerHTML;
-  }
-
-  getAttributeName() {
+  attributeName() {
     const attributeName = null;
 
     return attributeName;
   }
 
-  getAttributeValue(context) {
+  attributeValue(context) {
     const attributeValue = null;
 
     return attributeValue;
@@ -73,34 +67,26 @@ class MarkdownNode extends NonTerminalNode {
 
       const childNodesHTML = this.childNodesAsHTML(indent, context);
 
-      if (childNodesHTML === null) {
-        const selfClosingTag = this.selfClosingTag(context);
-
-        html = (indent === null) ?
-                 selfClosingTag :  ///
-                  `${indent}${selfClosingTag}
-`;
-      } else {
+      if (childNodesHTML !== null) {
         const startingTag = this.startingTag(context),
               closingTag = this.closingTag(context);
 
         html = (indent === null) ?
-                 `${startingTag}${childNodesHTML}${closingTag}`
-                   :`${indent}${startingTag}
+                `${startingTag}${childNodesHTML}${closingTag}` :
+                  `${indent}${startingTag}
 ${childNodesHTML}${indent}${closingTag}
+`;
+      } else {
+        const selfClosingTag = this.selfClosingTag(context);
+
+        html = (indent === null) ?
+                selfClosingTag :  ///
+                 `${indent}${selfClosingTag}
 `;
       }
     }
 
     return html;
-  }
-
-  adjustIndent(indent) {
-    if (indent !== null) {
-      indent = `  ${indent}`;
-    }
-
-    return indent;
   }
 
   closingTag(context) {
@@ -113,7 +99,7 @@ ${childNodesHTML}${indent}${closingTag}
   startingTag(context) {
     const tagName = this.getTagName(),
           className = this.getClassName(),
-          attributeName = this.getAttributeName();
+          attributeName = this.attributeName();
 
     let classHTML = EMPTY_STRING,
         attributeHTML = EMPTY_STRING;
@@ -123,7 +109,7 @@ ${childNodesHTML}${indent}${closingTag}
     }
 
     if (attributeName !== null) {
-      const attributeValue = this.getAttributeValue(context);
+      const attributeValue = this.attributeValue(context);
 
       attributeHTML = ` ${attributeName}="${attributeValue}"`;
     }
@@ -146,6 +132,14 @@ ${childNodesHTML}${indent}${closingTag}
     const selfClosingTag = `<${tagName}${classHTML}/>`;
 
     return selfClosingTag;
+  }
+
+  adjustIndent(indent) {
+    if (indent !== null) {
+      indent = `  ${indent}`;
+    }
+
+    return indent;
   }
 
   childNodesAsHTML(indent, context) {
@@ -177,7 +171,10 @@ ${childNodesHTML}${indent}${closingTag}
     if (tagName !== null) {
       domElement = document.createElement(tagName);
 
-      const className = this.getClassName();
+      this.setDOMElement(domElement);
+
+      const className = this.getClassName(),
+            attributeName = this.attributeName();
 
       if (className !== null) {
         Object.assign(domElement, {
@@ -185,23 +182,11 @@ ${childNodesHTML}${indent}${closingTag}
         });
       }
 
-      const innerHTML = this.getInnerHTML(context);
-
-      if (innerHTML !== null) {
-        Object.assign(domElement, {
-          innerHTML
-        });
-      }
-
-      const attributeName = this.getAttributeName();
-
       if (attributeName !== null) {
-        const attributeValue = this.getAttributeValue(context);
+        const attributeValue = this.attributeValue(context);
 
         domElement.setAttribute(attributeName, attributeValue);
       }
-
-      this.setDOMElement(domElement);
 
       this.createChildNodeDOMElements(context);
     }
@@ -216,10 +201,10 @@ ${childNodesHTML}${indent}${closingTag}
       const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
       if (childNodeNonTerminalNode) {
-        const domElement = childNode.createDOMElement(context);
+        const childNodeDOMElement = childNode.createDOMElement(context);
 
-        if (domElement !== null) {
-          this.insertDOMElement(domElement);
+        if (childNodeDOMElement !== null) {
+          this.insertDOMElement(childNodeDOMElement);
         }
       }
     });

@@ -6,14 +6,14 @@ import MarkdownNode from "../markdown";
 
 class InlineTextMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
-    const content = this.getContent(context),
+    const content = this.content(context),
           html = content; ///
 
     return html;
   }
 
   createDOMElement(context) {
-    const content = this.getContent(context),
+    const content = this.content(context),
           domElement = document.createTextNode(content);
 
     this.setDOMElement(domElement);

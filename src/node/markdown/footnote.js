@@ -7,11 +7,11 @@ import MarkdownNode from "../../node/markdown";
 const { first } = arrayUtilities;
 
 export default class FootnoteMarkdownNode extends MarkdownNode {
-  getIdentifier(context) {
+  identifier(context) {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           referenceMarkdownNode = firstChildNode,  ///
-          referenceMarkdownNodeIdentifier = referenceMarkdownNode.getIdentifier(context),
+          referenceMarkdownNodeIdentifier = referenceMarkdownNode.identifier(context),
           identifier = referenceMarkdownNodeIdentifier;  ///
 
     return identifier;

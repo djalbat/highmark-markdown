@@ -9,37 +9,39 @@ import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 const { second, secondLast } = arrayUtilities;
 
 export default class HyperlinkMarkdownNode extends MarkdownNode {
-  getInnerHTML(context) {
+  childNodesAsHTML(indent, context) {
     const childNodes = this.getChildNodes(),
           secondChildNode = second(childNodes),
-          inlineTextMarkdownNode = secondChildNode,  ///
-          inlineTextMarkdownNodeContent = inlineTextMarkdownNode.getContent(context),
-          innerHTML = inlineTextMarkdownNodeContent; ///
+          inlineTextMarkdownNode = secondChildNode, ///
+          inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context),
+          childNodesHTML = inlineTextMarkdownNodeHTML; ///
 
-    return innerHTML;
+    return childNodesHTML;
   }
 
-  getAttributeName() {
+  createChildNodeDOMElements(context) {
+    const childNodes = this.getChildNodes(),
+          secondChildNode = second(childNodes),
+          inlineTextMarkdownNode = secondChildNode, ///
+          inlineTextMarkdownNodeDOMElement = inlineTextMarkdownNode.createDOMElement(context);
+
+    this.insertDOMElement(inlineTextMarkdownNodeDOMElement);
+  }
+
+  attributeName() {
     const attributeName = HREF_ATTRIBUTE_NAME;
 
     return attributeName;
   }
 
-  getAttributeValue(context) {
-    const href = this.getHref(context),
-          attributeValue = href; ///
-
-    return attributeValue;
-  }
-
-  getHref(context) {
+  attributeValue(context) {
     const childNodes = this.getChildNodes(),
           secondLastChildNode = secondLast(childNodes),
           URLMarkdownNode = secondLastChildNode,  ///
-          URLMarkdownNodeContent = URLMarkdownNode.getContent(context),
-          href = URLMarkdownNodeContent; ///
+          URLMarkdownNodeContent = URLMarkdownNode.content(context),
+          attributeValue = URLMarkdownNodeContent; ///
 
-    return href;
+    return attributeValue;
   }
 
   static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(HyperlinkMarkdownNode, ruleName, childNodes, ambiguous); }

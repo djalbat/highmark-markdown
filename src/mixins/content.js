@@ -2,7 +2,7 @@
 
 import { contentFromMarkdownNodes } from "../utilities/content";
 
-function getContent(context) {
+function content(context) {
   const markdownNode = this, ///
         markdownNodes = [
           markdownNode
@@ -13,7 +13,7 @@ function getContent(context) {
 }
 
 const contentMixins = {
-  getContent
+  content
 };
 
 export default contentMixins;

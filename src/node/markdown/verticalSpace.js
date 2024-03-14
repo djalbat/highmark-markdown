@@ -6,7 +6,7 @@ import MarkdownNode from "../../node/markdown";
 
 class VerticalSpaceMarkdownNode extends MarkdownNode {
   createDOMElement(context) {
-    const content = this.getContent(context),
+    const content = this.content(context),
           domElement = document.createTextNode(content);
 
     this.setDOMElement(domElement);

@@ -5,11 +5,11 @@ import MarkdownNode from "../../node/markdown";
 import { htmlFromChildNodes, domElementsFromChildNodes } from "../../utilities/childNodes";
 
 export default class LineMarkdownNode extends MarkdownNode {
-  asHTML(indent, context) {
+  childNodesAsHTML(indent, context) {
     const childNodes = this.getChildNodes(),
-          html = htmlFromChildNodes(childNodes, context);
+          childNodesHTML = htmlFromChildNodes(childNodes, context);
 
-    return html;
+    return childNodesHTML;
   }
 
   createChildNodeDOMElements(context) {
@@ -17,10 +17,11 @@ export default class LineMarkdownNode extends MarkdownNode {
           domElement = this.getDOMElement(),
           domElements = domElementsFromChildNodes(childNodes, context),
           parentDOMElement = domElement,  ///
-          siblingDOMElement = null;
+          siblingDOMElement = null,
+          childNodeDOMElements = domElements; ///
 
-    domElements.forEach((domElement) => {
-      parentDOMElement.insertBefore(domElement, siblingDOMElement);
+    childNodeDOMElements.forEach((childNodeDOMElement) => {
+      parentDOMElement.insertBefore(childNodeDOMElement, siblingDOMElement);
     });
   }
 

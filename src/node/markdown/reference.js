@@ -7,11 +7,11 @@ import MarkdownNode from "../../node/markdown";
 const { second } = arrayUtilities;
 
 export default class ReferenceMarkdownNode extends MarkdownNode {
-  getIdentifier(context) {
+  identifier(context) {
     const childNodes = this.getChildNodes(),
           secondChildNode = second(childNodes),
           textMarkdownNode = secondChildNode,  ///
-          textMarkdownNodeContent = textMarkdownNode.getContent(context),
+          textMarkdownNodeContent = textMarkdownNode.content(context),
           identifier = textMarkdownNodeContent; ///
 
     return identifier;

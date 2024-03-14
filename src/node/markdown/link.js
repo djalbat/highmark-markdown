@@ -10,32 +10,25 @@ import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 const { second } = arrayUtilities;
 
 export default class LinkMarkdownNode extends MarkdownNode {
-  getHRef(context) {
-    const identifier = this.getIdentifier(context),
-          href = `#${identifier}`;
-
-    return href;
-  }
-
-  getIdentifier(context) {
+  identifier(context) {
     const childNodes = this.getChildNodes(),
           secondChildNode = second(childNodes),
           textMarkdownNode = secondChildNode,  ///
-          textMarkdownNodeContent = textMarkdownNode.getContent(context),
+          textMarkdownNodeContent = textMarkdownNode.content(context),
           identifier = textMarkdownNodeContent; ///
 
     return identifier;
   }
 
-  getAttributeName() {
+  attributeName() {
     const attributeName = HREF_ATTRIBUTE_NAME;
 
     return attributeName;
   }
 
-  getAttributeValue(context) {
-    const href = this.getHRef(context),
-          attributeValue = href; ///
+  attributeValue(context) {
+    const identifier = this.identifier(context),
+          attributeValue = `#${identifier}`; ///
 
     return attributeValue;
   }

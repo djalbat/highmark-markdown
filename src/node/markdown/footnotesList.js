@@ -8,11 +8,11 @@ import { FOOTNOTES_LIST_RULE_NAME } from "../../ruleNames";
 import { linkMarkdownNodesFromNode, footnoteMarkdownNodesFromNode } from "../../utilities/query";
 
 export default class FootnotesListMarkdownNode extends MarkdownNode {
-  getIdentifiers(context) {
+  identifiers(context) {
     const childNodes = this.getChildNodes(),
           footnoteItemMarkdownNodes = childNodes, ///
           identifiers = footnoteItemMarkdownNodes.map((footnoteItemMarkdownNode) => {
-            const identifier = footnoteItemMarkdownNode.getIdentifier(context);
+            const identifier = footnoteItemMarkdownNode.identifier(context);
 
             return identifier;
           });
@@ -43,13 +43,13 @@ function footnoteItemMarkdownNodesFromDocumentMarkdownNode(documentMarkdownNode,
         footnoteMarkdownNodes = footnoteMarkdownNodesFromNode(documentMarkdownNode),
         linkMarkdownNodes = linkMarkdownNodesFromNode(documentMarkdownNode),
         identifiers = footnoteMarkdownNodes.map((footnoteMarkdownNode) => {
-          const identifier = footnoteMarkdownNode.getIdentifier(context);
+          const identifier = footnoteMarkdownNode.identifier(context);
 
           return identifier;
         });
 
   linkMarkdownNodes.forEach((linkMarkdownNode) => {
-    const identifier = linkMarkdownNode.getIdentifier(),
+    const identifier = linkMarkdownNode.identifier(),
           index = identifiers.indexOf(identifier);
 
     if (index > -1) {
