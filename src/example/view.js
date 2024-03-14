@@ -107,9 +107,11 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `|head|
-------
-|body|  
+  static initialMarkdown = `A paragraph.[^paragraph]
+  
+Another paragraph...
+
+[^paragraph]: A paragraph footnote!  
 `;
 
   static tagName = "div";

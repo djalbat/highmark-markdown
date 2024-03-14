@@ -13,9 +13,9 @@ export default class LinkMarkdownNode extends MarkdownNode {
   identifier(context) {
     const childNodes = this.getChildNodes(),
           secondChildNode = second(childNodes),
-          textMarkdownNode = secondChildNode,  ///
-          textMarkdownNodeContent = textMarkdownNode.content(context),
-          identifier = textMarkdownNodeContent; ///
+          identifierTerminalNode = secondChildNode,  ///
+          identifierTerminalNodeContent = identifierTerminalNode.getContent(),
+          identifier = identifierTerminalNodeContent; ///
 
     return identifier;
   }

@@ -40,8 +40,9 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
 
 function footnoteItemMarkdownNodesFromDocumentMarkdownNode(documentMarkdownNode, context) {
   const footnoteItemMarkdownNodes = [],
-        footnoteMarkdownNodes = footnoteMarkdownNodesFromNode(documentMarkdownNode),
-        linkMarkdownNodes = linkMarkdownNodesFromNode(documentMarkdownNode),
+        node = documentMarkdownNode,  ///
+        linkMarkdownNodes = linkMarkdownNodesFromNode(node),
+        footnoteMarkdownNodes = footnoteMarkdownNodesFromNode(node),
         identifiers = footnoteMarkdownNodes.map((footnoteMarkdownNode) => {
           const identifier = footnoteMarkdownNode.identifier(context);
 
@@ -49,7 +50,8 @@ function footnoteItemMarkdownNodesFromDocumentMarkdownNode(documentMarkdownNode,
         });
 
   linkMarkdownNodes.forEach((linkMarkdownNode) => {
-    const identifier = linkMarkdownNode.identifier(),
+    const linkMarkdownNodeIdentifier = linkMarkdownNode.identifier(context),
+          identifier = linkMarkdownNodeIdentifier,  ///
           index = identifiers.indexOf(identifier);
 
     if (index > -1) {

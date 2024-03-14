@@ -10,9 +10,9 @@ export default class ReferenceMarkdownNode extends MarkdownNode {
   identifier(context) {
     const childNodes = this.getChildNodes(),
           secondChildNode = second(childNodes),
-          textMarkdownNode = secondChildNode,  ///
-          textMarkdownNodeContent = textMarkdownNode.content(context),
-          identifier = textMarkdownNodeContent; ///
+          identiierTerminalNode = secondChildNode,  ///
+          identiierTerminalNodeContent = identiierTerminalNode.getContent(),
+          identifier = identiierTerminalNodeContent; ///
 
     return identifier;
   }

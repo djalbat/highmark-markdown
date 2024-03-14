@@ -127,15 +127,23 @@ ${indent}${closingTag}
 
   selfClosingTag(context) {
     const tagName = this.getTagName(),
-          className = this.getClassName();
+          className = this.getClassName(),
+          attributeName = this.attributeName();
 
-    let classHTML = EMPTY_STRING;
+    let classHTML = EMPTY_STRING,
+        attributeHTML = EMPTY_STRING;
 
     if (className !== null) {
       classHTML = ` class="${className}"`;
     }
 
-    const selfClosingTag = `<${tagName}${classHTML}/>`;
+    if (attributeName !== null) {
+      const attributeValue = this.attributeValue(context);
+
+      attributeHTML = ` ${attributeName}="${attributeValue}"`;
+    }
+
+    const selfClosingTag = `<${tagName}${classHTML}${attributeHTML}/>`;
 
     return selfClosingTag;
   }

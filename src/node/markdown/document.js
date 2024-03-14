@@ -13,6 +13,23 @@ export default class DocumentMarkdownNode extends MarkdownNode {
     return indent;
   }
 
+  childNodesAsHTML(indent, context) {
+    const documentMarkdownNode = this,  ///
+          footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDocumentMarkdownNode(documentMarkdownNode, context);
+
+    let childNodesHTML = super.childNodesAsHTML(indent, context);
+
+    if (footnotesListMarkdownNode !== null) {
+      renumberLinkMarkdownNodes(documentMarkdownNode, footnotesListMarkdownNode, context);
+
+      const footnotesListMarkdownNodeHTML = footnotesListMarkdownNode.asHTML(indent, context);
+
+      childNodesHTML = `${childNodesHTML}${footnotesListMarkdownNodeHTML}`;
+    }
+
+    return childNodesHTML;
+  }
+
   createChildNodeDOMElements(context) {
     const documentMarkdownNode = this,  ///
           footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDocumentMarkdownNode(documentMarkdownNode, context);
@@ -20,12 +37,12 @@ export default class DocumentMarkdownNode extends MarkdownNode {
     super.createChildNodeDOMElements(context);
 
     if (footnotesListMarkdownNode !== null) {
+      renumberLinkMarkdownNodes(documentMarkdownNode, footnotesListMarkdownNode, context);
+
       const footnotesListMarkdownNodeDOMElement = footnotesListMarkdownNode.createDOMElement(context),
             childNodeDOMElement = footnotesListMarkdownNodeDOMElement;  ///
 
       this.insertDOMElement(childNodeDOMElement);
-
-      renumberLinkMarkdownNodes(documentMarkdownNode, footnotesListMarkdownNode, context);
     }
   }
 

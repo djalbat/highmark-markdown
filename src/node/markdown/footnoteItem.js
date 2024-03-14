@@ -14,7 +14,7 @@ export default class FootnoteItemMarkdownNode extends MarkdownNode {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           anchorMarkdownNode = firstChildNode,  ///
-          identifier = anchorMarkdownNode.identifier(context);
+          identifier = anchorMarkdownNode.getIdentifier();
 
     return identifier;
   }
