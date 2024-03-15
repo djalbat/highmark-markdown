@@ -77,11 +77,14 @@ const bnf = `
     tableBodyRow            ::=  [vertical-bar] tableBodyCell+ endOfLine ;
 
 
-    tableHeadCell!          ::=  tableCell ;
+    tableHeadCell!          ::=  emptyTableCell | tableCell ;
 
 
-    tableBodyCell!          ::=  tableCell ; 
+    tableBodyCell!          ::=  emptyTableCell | tableCell ; 
 
+
+    emptyTableCell          ::=  "." [vertical-bar];
+    
 
     tableCell               ::=  ( link | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ [vertical-bar] ;
 

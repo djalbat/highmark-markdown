@@ -107,13 +107,9 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `A paragraph...
-  
-  
-Another paragraph!
-
-And yet another'
-\`\`\`  
+  static initialMarkdown = `|.   |
+------
+|Body|  
 `;
 
   static tagName = "div";

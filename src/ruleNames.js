@@ -36,6 +36,7 @@ export const TABLE_BODY_CELL_RULE_NAME = "tableBodyCell";
 export const TABLE_SEPARATOR_RULE_NAME = "tableSeparator";
 export const EMPHASISED_TEXT_RULE_NAME = "emphasisedText";
 export const PRIMARY_HEADING_RULE_NAME = "primaryHeading";
+export const EMPTY_TABLE_CELL_RULE_NAME = "emptyTableCell";
 export const TERTIARY_HEADING_RULE_NAME = "tertiaryHeading";
 export const ORDERED_LIST_ITEM_RULE_NAME = "orderedListItem";
 export const BLOCK_LISTING_END_RULE_NAME = "blockListingEnd";
@@ -82,6 +83,7 @@ const ruleNames = {
   TABLE_SEPARATOR_RULE_NAME,
   EMPHASISED_TEXT_RULE_NAME,
   PRIMARY_HEADING_RULE_NAME,
+  EMPTY_TABLE_CELL_RULE_NAME,
   TERTIARY_HEADING_RULE_NAME,
   ORDERED_LIST_ITEM_RULE_NAME,
   BLOCK_LISTING_END_RULE_NAME,

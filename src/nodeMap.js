@@ -36,6 +36,7 @@ import TableBodyCellMarkdownNode from "./node/markdown/tableBodyCell";
 import TableSeparatorMarkdownNode from "./node/markdown/tableSeparator";
 import EmphasisedTextMarkdownNode from "./node/markdown/emphasisedText";
 import PrimaryHeadingMarkdownNode from "./node/markdown/primaryHeading";
+import EmptyTableCellMarkdownNode from "./node/markdown/emptyTableCell";
 import TertiaryHeadingMarkdownNode from "./node/markdown/tertiaryHeading";
 import OrderedListItemMarkdownNode from "./node/markdown/orderedListItem";
 import BlockListingEndMarkdownNode from "./node/markdown/blockListingEnd";
@@ -81,6 +82,7 @@ import { URL_RULE_NAME,
          TABLE_SEPARATOR_RULE_NAME,
          EMPHASISED_TEXT_RULE_NAME,
          PRIMARY_HEADING_RULE_NAME,
+         EMPTY_TABLE_CELL_RULE_NAME,
          TERTIARY_HEADING_RULE_NAME,
          ORDERED_LIST_ITEM_RULE_NAME,
          BLOCK_LISTING_END_RULE_NAME,
@@ -127,6 +129,7 @@ const nodeMap = {
   [TABLE_SEPARATOR_RULE_NAME]: TableSeparatorMarkdownNode,
   [EMPHASISED_TEXT_RULE_NAME]: EmphasisedTextMarkdownNode,
   [PRIMARY_HEADING_RULE_NAME]: PrimaryHeadingMarkdownNode,
+  [EMPTY_TABLE_CELL_RULE_NAME]: EmptyTableCellMarkdownNode,
   [TERTIARY_HEADING_RULE_NAME]: TertiaryHeadingMarkdownNode,
   [ORDERED_LIST_ITEM_RULE_NAME]: OrderedListItemMarkdownNode,
   [BLOCK_LISTING_END_RULE_NAME]: BlockListingEndMarkdownNode,
