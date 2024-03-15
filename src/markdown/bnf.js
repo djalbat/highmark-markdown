@@ -92,16 +92,16 @@ const bnf = `
     line!                   ::=  ( link | image | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ endOfLine ;
 
 
-    link!                   ::=  [open-square-bracket-caret] [identifier] [close-square-bracket] ;
+    link!                   ::=  "[^" [identifier] "]" ;
     
 
-    image                   ::=  [exclamation-mark-open-square-bracket] inlineText... [close-square-bracket]<NO_WHITESPACE>"(" url ")" ;
+    image                   ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" url ")" ;
 
 
-    hyperlink               ::=  [open-square-bracket] inlineText... [close-square-bracket]<NO_WHITESPACE>"(" url ")" ;
+    hyperlink               ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" url ")" ;
 
 
-    reference!              ::=  [open-square-bracket-caret] [identifier] [close-square-bracket-colon] ;
+    reference!              ::=  "[^" [identifier] "]:" ;
     
 
     inlineListing           ::=  [backtick] inlineText... [backtick] ;

@@ -109,7 +109,7 @@ class View extends Element {
 
   static initialMarkdown = `|.   |
 ------
-|Body|  
+|[Body]|  
 `;
 
   static tagName = "div";

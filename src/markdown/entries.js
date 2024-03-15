@@ -5,21 +5,6 @@ const entries = [
     "escaped": "^\\\\[^\\s]"
   },
   {
-    "exclamation-mark-open-square-bracket": "^!\\["
-  },
-  {
-    "close-square-bracket-colon": "^\\]:"
-  },
-  {
-    "open-square-bracket-caret": "^\\[\\^"
-  },
-  {
-    "close-square-bracket": "^\\]"
-  },
-  {
-    "open-square-bracket": "^\\["
-  },
-  {
     "triple-asterisk": "^\\*\\*\\*"
   },
   {
@@ -74,7 +59,7 @@ const entries = [
     "word": "^\\w+"
   },
   {
-    "special": "^\\.\\.\\.|\\.|\\?|\\(|\\)|\\^|\\/|-|@|,|!|;|:|`|'|\""
+    "special": "^\\.\\.\\.|\\.|\\?|\\(|\\)|!\\[|\\[\\^|\\]:|\\[|\\]|\\^|\\/|-|@|,|!|;|:|`|'|\""
   },
   {
     "unassigned": "^[^\\s]+"

@@ -21,11 +21,6 @@ export const QUADRUPLE_HASH_TOKEN_TYPE = "quadruple-hash";
 export const SINGLE_ASTERISK_TOKEN_TYPE = "single-asterisk";
 export const DOUBLE_ASTERISK_TOKEN_TYPE = "double-asterisk";
 export const TRIPLE_ASTERISK_TOKEN_TYPE = "triple-asterisk";
-export const OPEN_SQUARE_BRACKET_TOKEN_TYPE = "open-square-bracket";
-export const CLOSE_SQUARE_BRACKET_TOKEN_TYPE = "close-square-bracket";
-export const OPEN_SQUARE_BRACKET_CARET_TOKEN_TYPE = "open-square-bracket-caret";
-export const CLOSE_SQUARE_BRACKET_COLON_TOKEN_TYPE = "close-square-bracket-colon";
-export const EXCLAMATION_MARK_OPEN_SQUARE_BRACKET_TOKEN_TYPE = "exclamation-mark-open-square-bracket";
 
 const tokenTypes = {
   WORD_TOKEN_TYPE,
@@ -48,12 +43,7 @@ const tokenTypes = {
   QUADRUPLE_HASH_TOKEN_TYPE,
   SINGLE_ASTERISK_TOKEN_TYPE,
   DOUBLE_ASTERISK_TOKEN_TYPE,
-  TRIPLE_ASTERISK_TOKEN_TYPE,
-  OPEN_SQUARE_BRACKET_TOKEN_TYPE,
-  CLOSE_SQUARE_BRACKET_TOKEN_TYPE,
-  OPEN_SQUARE_BRACKET_CARET_TOKEN_TYPE,
-  CLOSE_SQUARE_BRACKET_COLON_TOKEN_TYPE,
-  EXCLAMATION_MARK_OPEN_SQUARE_BRACKET_TOKEN_TYPE
+  TRIPLE_ASTERISK_TOKEN_TYPE
 };
 
 export default tokenTypes;
