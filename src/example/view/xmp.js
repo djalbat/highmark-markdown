@@ -21,6 +21,7 @@ export default withStyle(XMP)`
   width: 100%;  
   border: 1px solid darkgrey;
   padding: 0.25rem;
+  overflow: scroll;
   font-size: 1.2rem;
   line-height: 1.5rem;
   font-family: monospace;
