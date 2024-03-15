@@ -36,14 +36,6 @@ class MarkdownNode extends NonTerminalNode {
     return className;
   }
 
-  isEndOfLineMarkdownNode() {
-    const endOfLineMarkdownNode = false;
-
-    return endOfLineMarkdownNode;
-  }
-
-  setInnerHTML(innerHTML) { this.domElement.innerHTML = innerHTML; }
-
   attributeName() {
     const attributeName = null;
 
@@ -162,16 +154,12 @@ ${indent}${closingTag}
             const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
             if (childNodeNonTerminalNode) {
-              const childNodeEndOfLineMarkdownNode = childNode.isEndOfLineMarkdownNode();
+              const childNodeHTML = childNode.asHTML(indent, context);
 
-              if (!childNodeEndOfLineMarkdownNode) {
-                const childNodeHTML = childNode.asHTML(indent, context);
-
-                if (childNodeHTML !== null) {
-                  childNodesHTML = (childNodesHTML === null) ?
-                                     childNodeHTML :  ///
-                                      `${childNodesHTML}${childNodeHTML}`;
-                }
+              if (childNodeHTML !== null) {
+                childNodesHTML = (childNodesHTML === null) ?
+                                   childNodeHTML :  ///
+                                    `${childNodesHTML}${childNodeHTML}`;
               }
             }
 

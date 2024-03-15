@@ -3,12 +3,6 @@
 import MarkdownNode from "../../node/markdown";
 
 export default class EndOfLineMarkdownNode extends MarkdownNode {
-  isEndOfLineMarkdownNode() {
-    const endOfLineMarkdownNode = true;
-
-    return endOfLineMarkdownNode;
-  }
-
   asHTML(indent, context) {
     const content = this.content(context),
           html = content; ///

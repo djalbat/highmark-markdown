@@ -4,12 +4,28 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
-import { EMPTY_STRING } from "../../constants";
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 
 const { second } = arrayUtilities;
 
 export default class LinkMarkdownNode extends MarkdownNode {
+  asHTML(indent, context, number = null) {
+    let html;
+
+    if (number === null) {
+      const selfClosingTag = this.selfClosingTag(context);
+
+      html = selfClosingTag;  ///
+    } else {
+      const startingTag = this.startingTag(context),
+            closingTag = this.closingTag(context);
+
+      html = `${startingTag}${number}${closingTag}`;
+    }
+
+    return html;
+  }
+
   identifier(context) {
     const childNodes = this.getChildNodes(),
           secondChildNode = second(childNodes),
@@ -31,18 +47,6 @@ export default class LinkMarkdownNode extends MarkdownNode {
           attributeValue = `#${identifier}`; ///
 
     return attributeValue;
-  }
-
-  clear() {
-    const innerHTML = EMPTY_STRING;
-
-    this.setInnerHTML(innerHTML);
-  }
-
-  setNumber(number) {
-    const innerHTML = `${number}`;
-
-    this.setInnerHTML(innerHTML);
   }
 
   static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(LinkMarkdownNode, ruleName, childNodes, ambiguous); }

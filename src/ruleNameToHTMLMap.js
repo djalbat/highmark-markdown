@@ -75,7 +75,7 @@ const ruleNameToHTMLMap = {
     className: "error"
   },
   [ANCHOR_RULE_NAME]: {
-    tagName: "A",
+    tagName: "a",
     className: "anchor"
   },
   [DOCUMENT_RULE_NAME]: {
