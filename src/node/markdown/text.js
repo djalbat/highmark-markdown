@@ -16,5 +16,5 @@ export default class TextMarkdownNode extends MarkdownNode {
     return content;
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(TextMarkdownNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(TextMarkdownNode, ruleName, childNodes, opacity); }
 }

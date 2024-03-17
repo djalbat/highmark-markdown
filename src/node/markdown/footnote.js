@@ -17,5 +17,5 @@ export default class FootnoteMarkdownNode extends MarkdownNode {
     return identifier;
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(FootnoteMarkdownNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnoteMarkdownNode, ruleName, childNodes, opacity); }
 }

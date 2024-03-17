@@ -29,8 +29,8 @@ export default class FootnoteItemMarkdownNode extends MarkdownNode {
             anchorMarkdownNode,
             paragraphMarkdownNode
           ],
-          ambiguous = false,
-          footnoteItemMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndAmbiguous(FootnoteItemMarkdownNode, ruleName, childNodes, ambiguous);
+          opacity = false,
+          footnoteItemMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnoteItemMarkdownNode, ruleName, childNodes, opacity);
 
     return footnoteItemMarkdownNode;
   }

@@ -17,5 +17,5 @@ export default class OrderedListItemMarkdownNode extends MarkdownNode {
     return start;
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(OrderedListItemMarkdownNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(OrderedListItemMarkdownNode, ruleName, childNodes, opacity); }
 }

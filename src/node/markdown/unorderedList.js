@@ -3,5 +3,5 @@
 import MarkdownNode from "../../node/markdown";
 
 export default class UnorderedListMarkdownNode extends MarkdownNode {
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(UnorderedListMarkdownNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(UnorderedListMarkdownNode, ruleName, childNodes, opacity); }
 }

@@ -6,8 +6,8 @@ import { ID_ATTRIBUTE_NAME } from "../../attributeNames";
 import { ANCHOR_RULE_NAME } from "../../ruleNames";
 
 export default class AnchorMarkdownNode extends MarkdownNode {
-  constructor(ruleName, childNodes, ambiguous, precedence, domElement, identifier) {
-    super(ruleName, childNodes, ambiguous, precedence, domElement);
+  constructor(ruleName, childNodes, opacity, precedence, domElement, identifier) {
+    super(ruleName, childNodes, opacity, precedence, domElement);
 
     this.identifier = identifier;
   }
@@ -31,8 +31,8 @@ export default class AnchorMarkdownNode extends MarkdownNode {
   static fromIdentifier(identifier) {
     const ruleName = ANCHOR_RULE_NAME,
           childNodes = [],
-          ambiguous = false,
-          anchorMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndAmbiguous(AnchorMarkdownNode, ruleName, childNodes, ambiguous, identifier);
+          opacity = false,
+          anchorMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(AnchorMarkdownNode, ruleName, childNodes, opacity, identifier);
 
     return anchorMarkdownNode;
   }

@@ -3,5 +3,5 @@
 import MarkdownNode from "../../node/markdown";
 
 export default class TableHeadMarkdownNode extends MarkdownNode {
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(TableHeadMarkdownNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(TableHeadMarkdownNode, ruleName, childNodes, opacity); }
 }

@@ -21,7 +21,7 @@ class InlineTextMarkdownNode extends MarkdownNode {
     return domElement;
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(InlineTextMarkdownNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(InlineTextMarkdownNode, ruleName, childNodes, opacity); }
 }
 
 Object.assign(InlineTextMarkdownNode.prototype, contentMixins);

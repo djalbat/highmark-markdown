@@ -4,7 +4,7 @@ import MarkdownNode from "../../node/markdown";
 import contentMixins from "../../mixins/content";
 
 export default class URLMarkdownNode extends MarkdownNode {
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(URLMarkdownNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(URLMarkdownNode, ruleName, childNodes, opacity); }
 }
 
 Object.assign(URLMarkdownNode.prototype, contentMixins);

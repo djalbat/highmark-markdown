@@ -46,6 +46,6 @@ export default class DocumentMarkdownNode extends MarkdownNode {
     }
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(DocumentMarkdownNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(DocumentMarkdownNode, ruleName, childNodes, opacity); }
 }
 

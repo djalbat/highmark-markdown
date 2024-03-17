@@ -13,5 +13,5 @@ export default class EmptyTableCellMarkdownNode extends MarkdownNode {
     ///
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(EmptyTableCellMarkdownNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EmptyTableCellMarkdownNode, ruleName, childNodes, opacity); }
 }

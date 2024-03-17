@@ -44,7 +44,7 @@ const bnf = `
     verticalSpace!          ::=  endOfLine+ ;
 
 
-    error!                  ::=  . ;
+    error.                  ::=  . ;
 
 
     blockListingStart       ::=  [backticks] className? endOfLine ;

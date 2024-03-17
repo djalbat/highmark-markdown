@@ -17,5 +17,5 @@ export default class ReferenceMarkdownNode extends MarkdownNode {
     return identifier;
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(ReferenceMarkdownNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ReferenceMarkdownNode, ruleName, childNodes, opacity); }
 }

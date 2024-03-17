@@ -3,5 +3,5 @@
 import MarkdownNode from "../../node/markdown";
 
 export default class LineBreakMarkdownNode extends MarkdownNode {
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(LineBreakMarkdownNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(LineBreakMarkdownNode, ruleName, childNodes, opacity); }
 }

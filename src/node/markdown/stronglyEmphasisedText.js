@@ -41,7 +41,7 @@ class StronglyEmphasisedTextMarkdownNode extends MarkdownNode {
     return domElement;
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(StronglyEmphasisedTextMarkdownNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(StronglyEmphasisedTextMarkdownNode, ruleName, childNodes, opacity); }
 }
 
 Object.assign(StronglyEmphasisedTextMarkdownNode.prototype, contentMixins);

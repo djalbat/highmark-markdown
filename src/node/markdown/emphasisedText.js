@@ -5,7 +5,7 @@ import contentMixins from "../../mixins/content";
 import MarkdownNode from "../markdown";
 
 class EmphasisedTextMarkdownNode extends MarkdownNode {
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(EmphasisedTextMarkdownNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EmphasisedTextMarkdownNode, ruleName, childNodes, opacity); }
 }
 
 Object.assign(EmphasisedTextMarkdownNode.prototype, contentMixins);

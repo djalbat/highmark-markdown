@@ -49,5 +49,5 @@ export default class LinkMarkdownNode extends MarkdownNode {
     return attributeValue;
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(ruleName, childNodes, ambiguous) { return MarkdownNode.fromRuleNameChildNodesAndAmbiguous(LinkMarkdownNode, ruleName, childNodes, ambiguous); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(LinkMarkdownNode, ruleName, childNodes, opacity); }
 }

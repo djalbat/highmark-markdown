@@ -10,8 +10,8 @@ import { trim } from "../utilities/string";
 import { EMPTY_STRING } from "../constants";
 
 class MarkdownNode extends NonTerminalNode {
-  constructor(ruleName, childNodes, precedence, ambiguous, domElement) {
-    super(ruleName, childNodes, precedence, ambiguous);
+  constructor(ruleName, childNodes, precedence, opacity, domElement) {
+    super(ruleName, childNodes, precedence, opacity);
 
     this.domElement = domElement;
   }
@@ -223,9 +223,9 @@ ${indent}${closingTag}
     parentDOMElement.insertBefore(domElement, siblingDOMElement);
   }
 
-  static fromRuleNameChildNodesAndAmbiguous(Class, ruleName, childNodes, ambiguous, ...remainingArguments) {
+  static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments) {
     const domElement = null,
-          markdownNode = NonTerminalNode.fromRuleNameChildNodesAndAmbiguous(Class, ruleName, childNodes, ambiguous, domElement, ...remainingArguments);
+          markdownNode = NonTerminalNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, domElement, ...remainingArguments);
 
     return markdownNode;
   }

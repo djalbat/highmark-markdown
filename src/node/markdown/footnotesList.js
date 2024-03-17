@@ -29,9 +29,9 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
     if (footnoteItemMarkdownNodesLength > 0) {
       const ruleName = FOOTNOTES_LIST_RULE_NAME,
             childNodes = footnoteItemMarkdownNodes, ///
-            ambiguous = false;
+            opacity = false;
 
-      footnotesListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndAmbiguous(FootnotesListMarkdownNode, ruleName, childNodes, ambiguous);
+      footnotesListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnotesListMarkdownNode, ruleName, childNodes, opacity);
     }
 
     return footnotesListMarkdownNode;
