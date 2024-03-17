@@ -2,7 +2,33 @@
 
 const bnf = `
 
-    document                ::=  ( blockListing | orderedList | unorderedList | table | footnote | primaryHeading | secondaryHeading | tertiaryHeading | quaternaryHeading | lineBreak | paragraph | verticalSpace | error )+ ;
+    document                ::=  ( blockListing 
+    
+                                 | orderedList 
+                                 
+                                 | unorderedList 
+                                 
+                                 | table 
+                                 
+                                 | footnote 
+                                 
+                                 | primaryHeading 
+                                 
+                                 | secondaryHeading 
+                                 
+                                 | tertiaryHeading 
+                                 
+                                 | quaternaryHeading 
+                                 
+                                 | lineBreak 
+                                 
+                                 | paragraph 
+                                 
+                                 | verticalSpace 
+                                 
+                                 | error )+ 
+                                 
+                              ;
 
     
     blockListing            ::=  blockListingStart blockText blockListingEnd ;
@@ -35,13 +61,13 @@ const bnf = `
     quaternaryHeading       ::=  [quadruple-hash] line ;
 
 
-    lineBreak!              ::=  [dashes] endOfLine ;
+    lineBreak.              ::=  [dashes] endOfLine ;
 
 
     paragraph               ::=  line+ ;
     
 
-    verticalSpace!          ::=  endOfLine+ ;
+    verticalSpace.          ::=  endOfLine+ ;
 
 
     error.                  ::=  . ;
@@ -68,7 +94,7 @@ const bnf = `
     tableBody               ::=  tableBodyRow+ ;
 
     
-    tableSeparator!         ::=  [many-dashes] endOfLine ;
+    tableSeparator.         ::=  [many-dashes] endOfLine ;
 
     
     tableHeadRow            ::=  [vertical-bar] tableHeadCell+ endOfLine ;
@@ -77,10 +103,10 @@ const bnf = `
     tableBodyRow            ::=  [vertical-bar] tableBodyCell+ endOfLine ;
 
 
-    tableHeadCell!          ::=  emptyTableCell | tableCell ;
+    tableHeadCell.          ::=  emptyTableCell | tableCell ;
 
 
-    tableBodyCell!          ::=  emptyTableCell | tableCell ; 
+    tableBodyCell.          ::=  emptyTableCell | tableCell ; 
 
 
     emptyTableCell          ::=  "." [vertical-bar];
@@ -89,19 +115,19 @@ const bnf = `
     tableCell               ::=  ( link | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ [vertical-bar] ;
 
 
-    line!                   ::=  ( link | image | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ endOfLine ;
+    line.                   ::=  ( link | image | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ endOfLine ;
 
 
-    link!                   ::=  "[^" [identifier] "]" ;
+    link.                   ::=  "[^" [identifier] "]" ;
     
 
-    image                   ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" url ")" ;
+    image                   ::=  ".[" inlineText... "]"<NO_WHITESPACE>"(" url ")" ;
 
 
     hyperlink               ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" url ")" ;
 
 
-    reference!              ::=  "[^" [identifier] "]:" ;
+    reference.              ::=  "[^" [identifier] "]:" ;
     
 
     inlineListing           ::=  [backtick] inlineText... [backtick] ;
@@ -116,7 +142,7 @@ const bnf = `
     strongText              ::=  [double-asterisk] inlineText... [double-asterisk] ;
 
 
-    blockText!              ::=  ( text | endOfLine )+ ;
+    blockText.              ::=  ( text | endOfLine )+ ;
     
 
     inlineText              ::=  text+ ;

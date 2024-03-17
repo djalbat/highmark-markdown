@@ -4,12 +4,22 @@ import withStyle from "easy-with-style";
 
 import { Element } from "easy";
 
+import { EMPTY_STRING } from "../constants";
+
 class XMP extends Element {
+  clear() {
+    const html = EMPTY_STRING;
+
+    this.html(html);
+  }
+
   parentContext() {
-    const xmpHTML = this.html.bind(this);  ///
+    const xmpHTML = this.html.bind(this),  ///
+          clearXMP = this.clear.bind(this); ///
 
     return ({
-      xmpHTML
+      xmpHTML,
+      clearXMP
     });
   }
 

@@ -46,6 +46,8 @@ class View extends Element {
       this.xmpHTML(html);
 
       parseTree = node.asParseTree(tokens);
+    } else {
+      this.clearXMP();
     }
 
     this.setParseTree(parseTree);
