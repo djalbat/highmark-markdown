@@ -42,11 +42,16 @@ export default class ImageMarkdownNode extends MarkdownNode {
   }
 
   attributeValue(context) {
-    const childNodes = this.getChildNodes(),
+    const { imageURLFromPath = null } = context,
+          childNodes = this.getChildNodes(),
           secondLastChildNode = secondLast(childNodes),
           pathTerminalNode = secondLastChildNode,  ///
           pathTerminalNodeContent = pathTerminalNode.getContent(),
-          attributeValue = pathTerminalNodeContent; ///
+          path = pathTerminalNodeContent, ///
+          imageURL = (imageURLFromPath === null) ?
+                      path : ///
+                        imageURLFromPath(path),
+          attributeValue = imageURL; ///
 
     return attributeValue;
   }
