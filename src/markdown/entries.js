@@ -50,7 +50,7 @@ const entries = [
     "domain": "^[a-z\\-]+(?:\\.[a-z\\-]+)+"
   },
   {
-    "protocol": "^[a-z]+:\\/\\/"
+    "scheme": "^[a-z]+:\\/\\/"
   },
   {
     "identifier": "^[a-z]+(?:-[a-z]+)*"

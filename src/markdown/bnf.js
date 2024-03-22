@@ -151,10 +151,10 @@ const bnf = `
     anchor                  ::=  [number] ;
     
 
-    text                    ::=  [escaped] | [number] | [path] | [domain] | [protocol] | [identifier] | [word] | [special] | [unassigned] ;
+    text                    ::=  [escaped] | [number] | [path] | [domain] | [scheme] | [identifier] | [word] | [special] | [unassigned] ;
     
 
-    url                     ::=  [protocol]? ( ( [domain] [path] )
+    url                     ::=  [scheme]? ( ( [domain] [path] )
                                    
                                              | [domain] 
                                  
