@@ -10,24 +10,45 @@ import { setNonTerminalNodes } from "../utilities/node";
 export default class MarkdownParser extends CommonParser {
   static bnf = bnf;
 
-  static fromNothing() {
-    const markdownParser = CommonParser.fromNothing(MarkdownParser);
+  static nodeMap = nodeMap;
+
+  static fromNothing(Class) {
+    if (Class === undefined) {
+      Class = MarkdownParser; ///
+    }
+
+    const { nodeMap } = Class,
+          markdownParser = CommonParser.fromNothing(MarkdownParser);
 
     setNonTerminalNodes(markdownParser, nodeMap);
 
     return markdownParser;
   }
 
-  static fromBNF(bnf) {
-    const markdownParser = CommonParser.fromBNF(MarkdownParser, bnf);
+  static fromBNF(Class, bnf) {
+    if (bnf === undefined) {
+      bnf = Class;  ///
+
+      Class = MarkdownParser; ///
+    }
+
+    const { nodeMap } = Class,
+          markdownParser = CommonParser.fromBNF(MarkdownParser, bnf);
 
     setNonTerminalNodes(markdownParser, nodeMap);
 
     return markdownParser;
   }
 
-  static fromRules(rules) {
-    const markdownParser = CommonParser.fromRules(MarkdownParser, rules);
+  static fromRules(Class, rules) {
+    if (rules === undefined) {
+      rules = Class;  ///
+
+      Class = MarkdownParser; ///
+    }
+
+    const { nodeMap } = Class,
+          markdownParser = CommonParser.fromRules(MarkdownParser, rules);
 
     setNonTerminalNodes(markdownParser, nodeMap);
 
