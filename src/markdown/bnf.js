@@ -154,13 +154,11 @@ const bnf = `
     text                    ::=  [escaped] | [number] | [path] | [domain] | [protocol] | [identifier] | [word] | [special] | [unassigned] ;
     
 
-    url                     ::=  [protocol]? 
-    
-                                 ( ( [domain] [path] )
+    url                     ::=  [protocol]? ( ( [domain] [path] )
                                    
-                                 | [domain] 
+                                             | [domain] 
                                  
-                                 | [path] ) ;
+                                             | [path] ) ;
     
 
     className               ::=  <NO_WHITESPACE>[identifier] ;
