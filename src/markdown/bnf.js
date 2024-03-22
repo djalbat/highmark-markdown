@@ -121,7 +121,7 @@ const bnf = `
     link.                   ::=  "[^" [identifier] "]" ;
     
 
-    image                   ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" url ")" ;
+    image                   ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" [path] ")" ;
 
 
     hyperlink               ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" url ")" ;

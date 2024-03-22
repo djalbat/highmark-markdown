@@ -109,9 +109,7 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `|.   |
-------
-|[Body]|  
+  static initialMarkdown = `![Occam](/image/image.jpg)
 `;
 
   static tagName = "div";
