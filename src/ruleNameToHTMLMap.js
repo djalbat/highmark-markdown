@@ -167,7 +167,7 @@ const ruleNameToHTMLMap = {
     className: null
   },
   [FOOTNOTES_LIST_RULE_NAME]: {
-    tagName: "ul",
+    tagName: "ol",
     className: "footnotes"
   },
   [TABLE_HEAD_CELL_RULE_NAME]: {
