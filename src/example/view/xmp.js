@@ -28,10 +28,12 @@ class XMP extends Element {
 
 export default withStyle(XMP)`
 
-  width: 100%;  
+  width: 100%;
+  height: 100%;  
   border: 1px solid darkgrey;
   padding: 0.25rem;
   overflow: scroll;
+  position: absolute;
   font-size: 1.2rem;
   line-height: 1.5rem;
   font-family: monospace;
