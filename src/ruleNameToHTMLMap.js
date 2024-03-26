@@ -83,7 +83,8 @@ const ruleNameToHTMLMap = {
     className: null
   },
   [DIVISION_RULE_NAME]: {
-    tagName: "div"
+    tagName: "div",
+    className: null
   },
   [REFERENCE_RULE_NAME]: {
     tagName: null,
