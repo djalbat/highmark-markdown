@@ -20,10 +20,10 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
     return identifiers;
   }
 
-  static fromDocumentMarkdownNode(documentMarkdownNode, context) {
+  static fromDivisionMarkdownNode(divisionMarkdownNode, context) {
     let footnotesListMarkdownNode = null;
 
-    const footnoteItemMarkdownNodes = footnoteItemMarkdownNodesFromDocumentMarkdownNode(documentMarkdownNode, context),
+    const footnoteItemMarkdownNodes = footnoteItemMarkdownNodesFromDivisionMarkdownNode(divisionMarkdownNode, context),
           footnoteItemMarkdownNodesLength = footnoteItemMarkdownNodes.length;
 
     if (footnoteItemMarkdownNodesLength > 0) {
@@ -38,9 +38,9 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
   }
 }
 
-function footnoteItemMarkdownNodesFromDocumentMarkdownNode(documentMarkdownNode, context) {
+function footnoteItemMarkdownNodesFromDivisionMarkdownNode(divisionMarkdownNode, context) {
   const footnoteItemMarkdownNodes = [],
-        node = documentMarkdownNode,  ///
+        node = divisionMarkdownNode,  ///
         linkMarkdownNodes = linkMarkdownNodesFromNode(node),
         footnoteMarkdownNodes = footnoteMarkdownNodesFromNode(node),
         identifiers = footnoteMarkdownNodes.map((footnoteMarkdownNode) => {

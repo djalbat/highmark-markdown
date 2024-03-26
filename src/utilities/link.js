@@ -8,11 +8,11 @@ import { linkMarkdownNodesFromNode } from "../utilities/query";
 
 const { strlen, indexOf } = stringUtilities;
 
-export function renumberLinkMarkdownNodesHTML(childNodesHTML, documentMarkdownNode, footnotesListMarkdownNode, context) {
+export function renumberLinkMarkdownNodesHTML(childNodesHTML, divisionMarkdownNode, footnotesListMarkdownNode, context) {
   let number = 1;
 
   const identifiers = footnotesListMarkdownNode.identifiers(),
-        linkMarkdownNodes = linkMarkdownNodesFromNode(documentMarkdownNode);
+        linkMarkdownNodes = linkMarkdownNodesFromNode(divisionMarkdownNode);
 
   linkMarkdownNodes.forEach((linkMarkdownNode) => {
     const indent = null,
@@ -38,11 +38,11 @@ export function renumberLinkMarkdownNodesHTML(childNodesHTML, documentMarkdownNo
   return childNodesHTML;
 }
 
-export function renumberLinkMarkdownNodes(documentMarkdownNode, footnotesListMarkdownNode, context) {
+export function renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context) {
   let number = 1;
 
   const identifiers = footnotesListMarkdownNode.identifiers(),
-        linkMarkdownNodes = linkMarkdownNodesFromNode(documentMarkdownNode);
+        linkMarkdownNodes = linkMarkdownNodesFromNode(divisionMarkdownNode);
 
   linkMarkdownNodes.forEach((linkMarkdownNode) => {
     const identifier = linkMarkdownNode.identifier(context),

@@ -8,8 +8,8 @@ import { URL_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
-         DOCUMENT_RULE_NAME,
          FOOTNOTE_RULE_NAME,
+         DIVISTION_RULE_NAME,
          REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
@@ -78,13 +78,12 @@ const ruleNameToHTMLMap = {
     tagName: "a",
     className: "anchor"
   },
-  [DOCUMENT_RULE_NAME]: {
-    tagName: "section",
-    className: "document"
-  },
   [FOOTNOTE_RULE_NAME]: {
     tagName: null,
     className: null
+  },
+  [DIVISTION_RULE_NAME]: {
+    tagName: "div"
   },
   [REFERENCE_RULE_NAME]: {
     tagName: null,

@@ -8,7 +8,7 @@ import ImageMarkdownNode from "./node/markdown/image";
 import TableMarkdownNode from "./node/markdown/table";
 import ErrorMarkdownNode from "./node/markdown/error";
 import AnchorMarkdownNode from "./node/markdown/anchor";
-import DocumentMarkdownNode from "./node/markdown/document";
+import DivisionMarkdownNode from "./node/markdown/division";
 import FootnoteMarkdownNode from "./node/markdown/footnote";
 import ReferenceMarkdownNode from "./node/markdown/reference";
 import ParagraphMarkdownNode from "./node/markdown/paragraph";
@@ -54,8 +54,8 @@ import { URL_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
-         DOCUMENT_RULE_NAME,
          FOOTNOTE_RULE_NAME,
+         DIVISION_RULE_NAME,
          REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
@@ -101,8 +101,8 @@ const nodeMap = {
   [TABLE_RULE_NAME]: TableMarkdownNode,
   [ERROR_RULE_NAME]: ErrorMarkdownNode,
   [ANCHOR_RULE_NAME]: AnchorMarkdownNode,
-  [DOCUMENT_RULE_NAME]: DocumentMarkdownNode,
   [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
+  [DIVISION_RULE_NAME]: DivisionMarkdownNode,
   [REFERENCE_RULE_NAME]: ReferenceMarkdownNode,
   [PARAGRAPH_RULE_NAME]: ParagraphMarkdownNode,
   [HYPERLINK_RULE_NAME]: HyperlinkMarkdownNode,

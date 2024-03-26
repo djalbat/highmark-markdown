@@ -6,7 +6,7 @@ import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 import { EMPTY_STRING } from "../../constants";
 import { renumberLinkMarkdownNodes, renumberLinkMarkdownNodesHTML } from "../../utilities/link";
 
-export default class DocumentMarkdownNode extends MarkdownNode {
+export default class DivisionMarkdownNode extends MarkdownNode {
   adjustIndent(indent) {
     indent = EMPTY_STRING;
 
@@ -14,8 +14,8 @@ export default class DocumentMarkdownNode extends MarkdownNode {
   }
 
   childNodesAsHTML(indent, context) {
-    const documentMarkdownNode = this,  ///
-          footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDocumentMarkdownNode(documentMarkdownNode, context);
+    const divisionMarkdownNode = this,  ///
+          footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
 
     let childNodesHTML = super.childNodesAsHTML(indent, context);
 
@@ -24,15 +24,15 @@ export default class DocumentMarkdownNode extends MarkdownNode {
 
       childNodesHTML = `${childNodesHTML}${footnotesListMarkdownNodeHTML}`;
 
-      childNodesHTML = renumberLinkMarkdownNodesHTML(childNodesHTML, documentMarkdownNode, footnotesListMarkdownNode, context);
+      childNodesHTML = renumberLinkMarkdownNodesHTML(childNodesHTML, divisionMarkdownNode, footnotesListMarkdownNode, context);
     }
 
     return childNodesHTML;
   }
 
   createChildNodeDOMElements(context) {
-    const documentMarkdownNode = this,  ///
-          footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDocumentMarkdownNode(documentMarkdownNode, context);
+    const divisionMarkdownNode = this,  ///
+          footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
 
     super.createChildNodeDOMElements(context);
 
@@ -42,10 +42,10 @@ export default class DocumentMarkdownNode extends MarkdownNode {
 
       this.insertDOMElement(childNodeDOMElement);
 
-      renumberLinkMarkdownNodes(documentMarkdownNode, footnotesListMarkdownNode, context);
+      renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context);
     }
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(DocumentMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(DivisionMarkdownNode, ruleName, childNodes, opacity); }
 }
 

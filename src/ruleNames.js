@@ -8,8 +8,8 @@ export const IMAGE_RULE_NAME = "image";
 export const TABLE_RULE_NAME = "table";
 export const ERROR_RULE_NAME = "error";
 export const ANCHOR_RULE_NAME = "anchor";
-export const DOCUMENT_RULE_NAME = "document";
 export const FOOTNOTE_RULE_NAME = "footnote";
+export const DIVISION_RULE_NAME = "division";
 export const REFERENCE_RULE_NAME = "reference";
 export const PARAGRAPH_RULE_NAME = "paragraph";
 export const HYPERLINK_RULE_NAME = "hyperlink";
@@ -55,8 +55,8 @@ const ruleNames = {
   TABLE_RULE_NAME,
   ERROR_RULE_NAME,
   ANCHOR_RULE_NAME,
-  DOCUMENT_RULE_NAME,
   FOOTNOTE_RULE_NAME,
+  DIVISION_RULE_NAME,
   REFERENCE_RULE_NAME,
   PARAGRAPH_RULE_NAME,
   HYPERLINK_RULE_NAME,
