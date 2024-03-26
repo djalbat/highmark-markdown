@@ -16,7 +16,7 @@ export default class AnchorMarkdownNode extends MarkdownNode {
     return this.identifier;
   }
 
-  attributeName() {
+  attributeName(context) {
     const attributeName = ID_ATTRIBUTE_NAME;
 
     return attributeName;

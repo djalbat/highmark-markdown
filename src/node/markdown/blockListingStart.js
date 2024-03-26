@@ -8,7 +8,7 @@ import ClassNameMarkdownNode from "./className";
 const { second } = arrayUtilities;
 
 export default class BlockListingStartMarkdownNode extends MarkdownNode {
-  getClassName() {
+  className(context) {
     let className = null;
 
     const childNodes = this.getChildNodes(),
@@ -18,7 +18,7 @@ export default class BlockListingStartMarkdownNode extends MarkdownNode {
     if (secondChildNodeClassNameMarkdownNode) {
       const classNameMarkdownNode = secondChildNode; ///
 
-      className = classNameMarkdownNode.getClassName();
+      className = classNameMarkdownNode.className(context);
     }
 
     return className;

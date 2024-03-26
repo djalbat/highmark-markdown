@@ -28,7 +28,7 @@ export default class HyperlinkMarkdownNode extends MarkdownNode {
     this.insertDOMElement(inlineTextMarkdownNodeDOMElement);
   }
 
-  attributeName() {
+  attributeName(context) {
     const attributeName = HREF_ATTRIBUTE_NAME;
 
     return attributeName;

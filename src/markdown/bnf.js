@@ -2,7 +2,7 @@
 
 const bnf = `
 
-    document                ::=  ( blockListing 
+    division                ::=  ( blockListing 
     
                                  | orderedList 
                                  

@@ -24,19 +24,19 @@ class MarkdownNode extends NonTerminalNode {
     this.domElement = domElement;
   }
 
-  getTagName() {
+  tagName(context) {
     const { tagName } = ruleNameToHTMLMap[this.ruleName];
 
     return tagName;
   }
 
-  getClassName() {
+  className(context) {
     const { className } = ruleNameToHTMLMap[this.ruleName];
 
     return className;
   }
 
-  attributeName() {
+  attributeName(context) {
     const attributeName = null;
 
     return attributeName;
@@ -55,7 +55,7 @@ class MarkdownNode extends NonTerminalNode {
       indent = EMPTY_STRING;
     }
 
-    const tagName = this.getTagName();
+    const tagName = this.tagName(context);
 
     let html = null;
 
@@ -88,16 +88,16 @@ ${indent}${closingTag}
   }
 
   closingTag(context) {
-    const tagName = this.getTagName(),
+    const tagName = this.tagName(context),
           closingTag = `<\\${tagName}>`;
 
     return closingTag;
   }
 
   startingTag(context) {
-    const tagName = this.getTagName(),
-          className = this.getClassName(),
-          attributeName = this.attributeName();
+    const tagName = this.tagName(context),
+          className = this.className(context),
+          attributeName = this.attributeName(context);
 
     let classHTML = EMPTY_STRING,
         attributeHTML = EMPTY_STRING;
@@ -118,9 +118,9 @@ ${indent}${closingTag}
   }
 
   selfClosingTag(context) {
-    const tagName = this.getTagName(),
-          className = this.getClassName(),
-          attributeName = this.attributeName();
+    const tagName = this.tagName(context),
+          className = this.className(context),
+          attributeName = this.attributeName(context);
 
     let classHTML = EMPTY_STRING,
         attributeHTML = EMPTY_STRING;
@@ -172,15 +172,15 @@ ${indent}${closingTag}
   createDOMElement(context) {
     let domElement = null;
 
-    const tagName = this.getTagName();
+    const tagName = this.tagName(context);
 
     if (tagName !== null) {
       domElement = document.createElement(tagName);
 
       this.setDOMElement(domElement);
 
-      const className = this.getClassName(),
-            attributeName = this.attributeName();
+      const className = this.className(context),
+            attributeName = this.attributeName(context);
 
       if (className !== null) {
         Object.assign(domElement, {

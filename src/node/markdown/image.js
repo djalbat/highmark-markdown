@@ -35,7 +35,7 @@ export default class ImageMarkdownNode extends MarkdownNode {
     return content;
   }
 
-  attributeName() {
+  attributeName(context) {
     const attributeName = SRC_ATTRIBUTE_NAME;
 
     return attributeName;

@@ -36,7 +36,7 @@ export default class LinkMarkdownNode extends MarkdownNode {
     return identifier;
   }
 
-  attributeName() {
+  attributeName(context) {
     const attributeName = HREF_ATTRIBUTE_NAME;
 
     return attributeName;

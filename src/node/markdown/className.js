@@ -7,7 +7,7 @@ import MarkdownNode from "../../node/markdown";
 const { second } = arrayUtilities;
 
 export default class ClassNameMarkdownNode extends MarkdownNode {
-  getClassName() {
+  className(context) {
     const childNodes = this.getChildNodes(),
           secondChildNode = second(childNodes),
           identifierTerminalNode = secondChildNode, ///

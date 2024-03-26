@@ -16,13 +16,13 @@ export default class BlockListingMarkdownNode extends MarkdownNode {
     return content;
   }
 
-  getClassName() {
-    let className = super.getClassName();
+  className(context) {
+    let className = super.className(context);
 
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           blockListingStartMarkdownNode = firstChildNode, ///
-          blockListingStartMarkdownNodeClassName = blockListingStartMarkdownNode.getClassName();
+          blockListingStartMarkdownNodeClassName = blockListingStartMarkdownNode.className(context);
 
     if (blockListingStartMarkdownNodeClassName !== null) {
       className = `${className} ${blockListingStartMarkdownNodeClassName}`;
