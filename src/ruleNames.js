@@ -7,7 +7,9 @@ export const LINE_RULE_NAME = "line";
 export const IMAGE_RULE_NAME = "image";
 export const TABLE_RULE_NAME = "table";
 export const ERROR_RULE_NAME = "error";
+export const EMAIL_RULE_NAME = "email";
 export const ANCHOR_RULE_NAME = "anchor";
+export const ADDRESS_RULE_NAME = "address";
 export const FOOTNOTE_RULE_NAME = "footnote";
 export const DIVISION_RULE_NAME = "division";
 export const REFERENCE_RULE_NAME = "reference";
@@ -54,7 +56,9 @@ const ruleNames = {
   IMAGE_RULE_NAME,
   TABLE_RULE_NAME,
   ERROR_RULE_NAME,
+  EMAIL_RULE_NAME,
   ANCHOR_RULE_NAME,
+  ADDRESS_RULE_NAME,
   FOOTNOTE_RULE_NAME,
   DIVISION_RULE_NAME,
   REFERENCE_RULE_NAME,

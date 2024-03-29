@@ -7,7 +7,9 @@ import LineMarkdownNode from "./node/markdown/line";
 import ImageMarkdownNode from "./node/markdown/image";
 import TableMarkdownNode from "./node/markdown/table";
 import ErrorMarkdownNode from "./node/markdown/error";
+import EmailMarkdownNode from "./node/markdown/email";
 import AnchorMarkdownNode from "./node/markdown/anchor";
+import AddressMarkdownNode from "./node/markdown/address";
 import DivisionMarkdownNode from "./node/markdown/division";
 import FootnoteMarkdownNode from "./node/markdown/footnote";
 import ReferenceMarkdownNode from "./node/markdown/reference";
@@ -53,7 +55,9 @@ import { URL_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
+         EMAIL_RULE_NAME,
          ANCHOR_RULE_NAME,
+         ADDRESS_RULE_NAME,
          FOOTNOTE_RULE_NAME,
          DIVISION_RULE_NAME,
          REFERENCE_RULE_NAME,
@@ -100,7 +104,9 @@ const nodeMap = {
   [IMAGE_RULE_NAME]: ImageMarkdownNode,
   [TABLE_RULE_NAME]: TableMarkdownNode,
   [ERROR_RULE_NAME]: ErrorMarkdownNode,
+  [EMAIL_RULE_NAME]: EmailMarkdownNode,
   [ANCHOR_RULE_NAME]: AnchorMarkdownNode,
+  [ADDRESS_RULE_NAME]: AddressMarkdownNode,
   [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
   [DIVISION_RULE_NAME]: DivisionMarkdownNode,
   [REFERENCE_RULE_NAME]: ReferenceMarkdownNode,

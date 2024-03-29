@@ -112,16 +112,19 @@ const bnf = `
     emptyTableCell          ::=  "." [vertical-bar];
     
 
-    tableCell               ::=  ( link | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ [vertical-bar] ;
+    tableCell               ::=  ( link | email | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ [vertical-bar] ;
 
 
-    line.                   ::=  ( link | image | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ endOfLine ;
+    line.                   ::=  ( link | image | email | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ endOfLine ;
 
 
     link.                   ::=  "[^" [identifier] "]" ;
     
 
     image                   ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" [path] ")" ;
+
+
+    email                   ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" address ")" ;
 
 
     hyperlink               ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" url ")" ;
@@ -159,6 +162,9 @@ const bnf = `
                                              | [domain] 
                                  
                                              | [path] ) ;
+    
+
+    address                 ::=  [domain]<NO_WHITESPACE>"@"<NO_WHITESPACE>[domain] ;
     
 
     className               ::=  <NO_WHITESPACE>[identifier] ;

@@ -7,7 +7,9 @@ import { URL_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
+         EMAIL_RULE_NAME,
          ANCHOR_RULE_NAME,
+         ADDRESS_RULE_NAME,
          FOOTNOTE_RULE_NAME,
          DIVISION_RULE_NAME,
          REFERENCE_RULE_NAME,
@@ -74,9 +76,17 @@ const ruleNameToHTMLMap = {
     tagName: "span",
     className: "error"
   },
+  [EMAIL_RULE_NAME]: {
+    tagName: "a",
+    className: "email"
+  },
   [ANCHOR_RULE_NAME]: {
     tagName: "a",
     className: "anchor"
+  },
+  [ADDRESS_RULE_NAME]: {
+    tagName: null,
+    className: null
   },
   [FOOTNOTE_RULE_NAME]: {
     tagName: null,
