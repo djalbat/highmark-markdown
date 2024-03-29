@@ -6,26 +6,49 @@ import MarkdownNode from "../../node/markdown";
 
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 
-const { second, secondLast } = arrayUtilities;
+const { first, second, secondLast } = arrayUtilities;
 
 export default class HyperlinkMarkdownNode extends MarkdownNode {
   childNodesAsHTML(indent, context) {
+    let childNodesHTML;
+
     const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          inlineTextMarkdownNode = secondChildNode, ///
-          inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context),
-          childNodesHTML = inlineTextMarkdownNodeHTML; ///
+      childNodesLength = childNodes.length;
+
+    if (childNodesLength === 1) {
+      const firstChildNode = first(childNodes),
+            urlMarkdownNode = firstChildNode,
+            urlMarkdownNodeHTML = urlMarkdownNode.asHTML(indent, context);
+
+      childNodesHTML = urlMarkdownNodeHTML;  ///
+    } else {
+      const secondChildNode = second(childNodes),
+            inlineTextMarkdownNode = secondChildNode, ///
+            inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context);
+
+      childNodesHTML = inlineTextMarkdownNodeHTML; ///
+    }
 
     return childNodesHTML;
   }
 
   createChildNodeDOMElements(context) {
     const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          inlineTextMarkdownNode = secondChildNode, ///
-          inlineTextMarkdownNodeDOMElement = inlineTextMarkdownNode.createDOMElement(context);
+      childNodesLength = childNodes.length;
 
-    this.insertDOMElement(inlineTextMarkdownNodeDOMElement);
+    if (childNodesLength === 1) {
+      const firstChildNode = first(childNodes),
+            urlMarkdownNode = firstChildNode, ///
+            urlMarkdownNodeDOMElement = urlMarkdownNode.createDOMElement(context);
+
+      this.insertDOMElement(urlMarkdownNodeDOMElement);
+    } else {
+      const secondChildNode = second(childNodes),
+            inlineTextMarkdownNode = secondChildNode, ///
+            inlineTextMarkdownNodeDOMElement = inlineTextMarkdownNode.createDOMElement(context);
+
+      this.insertDOMElement(inlineTextMarkdownNodeDOMElement);
+    }
   }
 
   attributeName(context) {
@@ -36,10 +59,22 @@ export default class HyperlinkMarkdownNode extends MarkdownNode {
 
   attributeValue(context) {
     const childNodes = this.getChildNodes(),
-          secondLastChildNode = secondLast(childNodes),
-          URLMarkdownNode = secondLastChildNode,  ///
-          URLMarkdownNodeContent = URLMarkdownNode.content(context),
-          attributeValue = URLMarkdownNodeContent; ///
+          childNodesLength = childNodes.length;
+
+    let urlMarkdownNode;
+
+    if (childNodesLength === 1) {
+      const firstChildNode = first(childNodes);
+
+      urlMarkdownNode = firstChildNode;  ///
+    } else {
+      const secondLastChildNode = secondLast(childNodes);
+
+      urlMarkdownNode = secondLastChildNode;  ///
+    }
+
+    const urlMarkdownNodeContent = urlMarkdownNode.content(context),
+          attributeValue = urlMarkdownNodeContent;  ///
 
     return attributeValue;
   }

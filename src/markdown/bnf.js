@@ -124,10 +124,18 @@ const bnf = `
     image.                  ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" [path] ")" ;
 
 
-    hyperlink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" url ")" ;
+    hyperlink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" url ")" 
+    
+                              |  url
+                              
+                              ;
 
 
-    mailToLink.             ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" address ")" | address ;
+    mailToLink.             ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" address ")" 
+    
+                              |  address 
+                              
+                              ;
 
 
     reference.              ::=  "[^" [identifier] "]:" ;

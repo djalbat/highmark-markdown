@@ -109,9 +109,10 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `I have tried to make Occam[^occam] as useable as possible but there are limits.
-
-[^occam]: The word Occam is used somewhat nebulously here.
+  static initialMarkdown = `
+  
+https://occam.science
+  
 `;
 
   static tagName = "div";
