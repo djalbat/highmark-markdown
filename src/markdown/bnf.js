@@ -121,13 +121,13 @@ const bnf = `
     link.                   ::=  "[^" [identifier] "]" ;
     
 
-    image                   ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" [path] ")" ;
+    image.                  ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" [path] ")" ;
 
 
-    email                   ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" address ")" ;
+    email.                  ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" address ")" ;
 
 
-    hyperlink               ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" url ")" ;
+    hyperlink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" url ")" ;
 
 
     reference.              ::=  "[^" [identifier] "]:" ;
