@@ -34,11 +34,21 @@ export default class MailToLinkMarkdownNode extends MarkdownNode {
 
   createChildNodeDOMElements(context) {
     const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          inlineTextMarkdownNode = secondChildNode, ///
-          inlineTextMarkdownNodeDOMElement = inlineTextMarkdownNode.createDOMElement(context);
+          childNodesLength = childNodes.length;
 
-    this.insertDOMElement(inlineTextMarkdownNodeDOMElement);
+    if (childNodesLength === 1) {
+      const firstChildNode = first(childNodes),
+            addressMarkdownNode = firstChildNode, ///
+            addressMarkdownNodeDOMElement = addressMarkdownNode.createDOMElement(context);
+
+      this.insertDOMElement(addressMarkdownNodeDOMElement);
+    } else {
+      const secondChildNode = second(childNodes),
+            inlineTextMarkdownNode = secondChildNode, ///
+            inlineTextMarkdownNodeDOMElement = inlineTextMarkdownNode.createDOMElement(context);
+
+      this.insertDOMElement(inlineTextMarkdownNodeDOMElement);
+    }
   }
 
   attributeName(context) {
