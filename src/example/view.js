@@ -109,13 +109,8 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `
-
-[djalbat.com](https://djalbat.com)
-
-[James Smith](james.smith@djalbat.com)
-  
-  `;
+  static initialMarkdown = `- james.smith@djalbat.com
+`;
 
   static tagName = "div";
 

@@ -85,7 +85,7 @@ const bnf = `
     orderedListItem         ::=  [number]<NO_WHITESPACE>"." line ;
     
     
-    unorderedListItem       ::=  [single-asterisk] line ;
+    unorderedListItem       ::=  ( [single-dash] | [single-asterisk] ) line ;
 
 
     tableHead               ::=  tableHeadRow ;
@@ -112,10 +112,10 @@ const bnf = `
     emptyTableCell          ::=  "." [vertical-bar];
     
 
-    tableCell               ::=  ( link | email | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ [vertical-bar] ;
+    tableCell               ::=  ( link | hyperlink | mailToLink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ [vertical-bar] ;
 
 
-    line.                   ::=  ( link | image | email | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ endOfLine ;
+    line.                   ::=  ( link | image | hyperlink | mailToLink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ endOfLine ;
 
 
     link.                   ::=  "[^" [identifier] "]" ;
@@ -124,10 +124,10 @@ const bnf = `
     image.                  ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" [path] ")" ;
 
 
-    email.                  ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" address ")" ;
-
-
     hyperlink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" url ")" ;
+
+
+    mailToLink.             ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" address ")" | address ;
 
 
     reference.              ::=  "[^" [identifier] "]:" ;

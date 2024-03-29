@@ -7,7 +7,6 @@ import { URL_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
-         EMAIL_RULE_NAME,
          ANCHOR_RULE_NAME,
          ADDRESS_RULE_NAME,
          FOOTNOTE_RULE_NAME,
@@ -24,6 +23,7 @@ import { URL_RULE_NAME,
          END_OF_LINE_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
+         MAIL_TO_LINK_RULE_NAME,
          ORDERED_LIST_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
          FOOTNOTE_ITEM_RULE_NAME,
@@ -75,10 +75,6 @@ const ruleNameToHTMLMap = {
   [ERROR_RULE_NAME]: {
     tagName: "span",
     className: "error"
-  },
-  [EMAIL_RULE_NAME]: {
-    tagName: "a",
-    className: "email"
   },
   [ANCHOR_RULE_NAME]: {
     tagName: "a",
@@ -143,6 +139,10 @@ const ruleNameToHTMLMap = {
   [STRONG_TEXT_RULE_NAME]: {
     tagName: "strong",
     className: null
+  },
+  [MAIL_TO_LINK_RULE_NAME]: {
+    tagName: "a",
+    className: "email"
   },
   [ORDERED_LIST_RULE_NAME]: {
     tagName: "ol",

@@ -7,7 +7,6 @@ import LineMarkdownNode from "./node/markdown/line";
 import ImageMarkdownNode from "./node/markdown/image";
 import TableMarkdownNode from "./node/markdown/table";
 import ErrorMarkdownNode from "./node/markdown/error";
-import EmailMarkdownNode from "./node/markdown/email";
 import AnchorMarkdownNode from "./node/markdown/anchor";
 import AddressMarkdownNode from "./node/markdown/address";
 import DivisionMarkdownNode from "./node/markdown/division";
@@ -24,6 +23,7 @@ import ClassNameMarkdownNode from "./node/markdown/className";
 import EndOfLineMarkdownNode from "./node/markdown/endOfLine";
 import InlineTextMarkdownNode from "./node/markdown/inlineText";
 import StrongTextMarkdownNode from "./node/markdown/strongText";
+import MailToLinkMarkdownNode from "./node/markdown/mailToLink";
 import OrderedListMarkdownNode from "./node/markdown/orderedList";
 import BlockListingMarkdownNode from "./node/markdown/blockListing";
 import FootnoteItemMarkdownNode from "./node/markdown/footnoteItem";
@@ -55,7 +55,6 @@ import { URL_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
-         EMAIL_RULE_NAME,
          ANCHOR_RULE_NAME,
          ADDRESS_RULE_NAME,
          FOOTNOTE_RULE_NAME,
@@ -72,6 +71,7 @@ import { URL_RULE_NAME,
          END_OF_LINE_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
+         MAIL_TO_LINK_RULE_NAME,
          ORDERED_LIST_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
          FOOTNOTE_ITEM_RULE_NAME,
@@ -104,7 +104,6 @@ const nodeMap = {
   [IMAGE_RULE_NAME]: ImageMarkdownNode,
   [TABLE_RULE_NAME]: TableMarkdownNode,
   [ERROR_RULE_NAME]: ErrorMarkdownNode,
-  [EMAIL_RULE_NAME]: EmailMarkdownNode,
   [ANCHOR_RULE_NAME]: AnchorMarkdownNode,
   [ADDRESS_RULE_NAME]: AddressMarkdownNode,
   [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
@@ -121,6 +120,7 @@ const nodeMap = {
   [END_OF_LINE_RULE_NAME]: EndOfLineMarkdownNode,
   [INLINE_TEXT_RULE_NAME]: InlineTextMarkdownNode,
   [STRONG_TEXT_RULE_NAME]: StrongTextMarkdownNode,
+  [MAIL_TO_LINK_RULE_NAME]: MailToLinkMarkdownNode,
   [ORDERED_LIST_RULE_NAME]: OrderedListMarkdownNode,
   [BLOCK_LISTING_RULE_NAME]: BlockListingMarkdownNode,
   [FOOTNOTE_ITEM_RULE_NAME]: FootnoteItemMarkdownNode,

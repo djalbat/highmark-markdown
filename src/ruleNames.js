@@ -7,7 +7,6 @@ export const LINE_RULE_NAME = "line";
 export const IMAGE_RULE_NAME = "image";
 export const TABLE_RULE_NAME = "table";
 export const ERROR_RULE_NAME = "error";
-export const EMAIL_RULE_NAME = "email";
 export const ANCHOR_RULE_NAME = "anchor";
 export const ADDRESS_RULE_NAME = "address";
 export const FOOTNOTE_RULE_NAME = "footnote";
@@ -24,6 +23,7 @@ export const CLASS_NAME_RULE_NAME = "className";
 export const END_OF_LINE_RULE_NAME = "endOfLine";
 export const INLINE_TEXT_RULE_NAME = "inlineText";
 export const STRONG_TEXT_RULE_NAME = "strongText";
+export const MAIL_TO_LINK_RULE_NAME = "mailToLink";
 export const ORDERED_LIST_RULE_NAME = "orderedList";
 export const BLOCK_LISTING_RULE_NAME = "blockListing";
 export const FOOTNOTE_ITEM_RULE_NAME = "footnoteItem";
@@ -56,7 +56,6 @@ const ruleNames = {
   IMAGE_RULE_NAME,
   TABLE_RULE_NAME,
   ERROR_RULE_NAME,
-  EMAIL_RULE_NAME,
   ANCHOR_RULE_NAME,
   ADDRESS_RULE_NAME,
   FOOTNOTE_RULE_NAME,
@@ -73,6 +72,7 @@ const ruleNames = {
   END_OF_LINE_RULE_NAME,
   INLINE_TEXT_RULE_NAME,
   STRONG_TEXT_RULE_NAME,
+  MAIL_TO_LINK_RULE_NAME,
   ORDERED_LIST_RULE_NAME,
   BLOCK_LISTING_RULE_NAME,
   FOOTNOTE_ITEM_RULE_NAME,
