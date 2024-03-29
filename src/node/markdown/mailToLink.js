@@ -18,9 +18,9 @@ export default class MailToLinkMarkdownNode extends MarkdownNode {
     if (childNodesLength === 1) {
       const firstChildNode = first(childNodes),
             addressMarkdownNode = firstChildNode,
-            addressMarkdownNodeContent = addressMarkdownNode.content(context);
+            addressMarkdownNodeHTML = addressMarkdownNode.asHTML(indent, context);
 
-      childNodesHTML = addressMarkdownNodeContent;  ///
+      childNodesHTML = addressMarkdownNodeHTML;  ///
     } else {
       const secondChildNode = second(childNodes),
             inlineTextMarkdownNode = secondChildNode, ///
