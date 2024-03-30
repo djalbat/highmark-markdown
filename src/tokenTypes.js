@@ -3,11 +3,11 @@
 export const WORD_TOKEN_TYPE = "word";
 export const PATH_TOKEN_TYPE = "path";
 export const DOMAIN_TOKEN_TYPE = "domain";
+export const SCHEME_TOKEN_TYPE = "scheme";
 export const NUMBER_TOKEN_TYPE = "number";
 export const DASHES_TOKEN_TYPE = "dashes";
-export const SCHEME_TOKEN_TYPE = "scheme";
-export const ESCAPED_TOKEN_TYPE = "escaped";
 export const SPECIAL_TOKEN_TYPE = "special";
+export const ESCAPED_TOKEN_TYPE = "escaped";
 export const BACKTICK_TOKEN_TYPE = "backtick";
 export const BACKTICKS_TOKEN_TYPE = "backticks";
 export const IDENTIFIER_TOKEN_TYPE = "identifier";
@@ -26,11 +26,11 @@ const tokenTypes = {
   WORD_TOKEN_TYPE,
   PATH_TOKEN_TYPE,
   DOMAIN_TOKEN_TYPE,
+  SCHEME_TOKEN_TYPE,
   NUMBER_TOKEN_TYPE,
   DASHES_TOKEN_TYPE,
-  SCHEME_TOKEN_TYPE,
-  ESCAPED_TOKEN_TYPE,
   SPECIAL_TOKEN_TYPE,
+  ESCAPED_TOKEN_TYPE,
   BACKTICK_TOKEN_TYPE,
   BACKTICKS_TOKEN_TYPE,
   IDENTIFIER_TOKEN_TYPE,

@@ -2,23 +2,23 @@
 
 const bnf = `
 
-    division                ::=  ( blockListing 
-    
-                                 | orderedList 
-                                 
-                                 | unorderedList 
-                                 
-                                 | table 
-                                 
-                                 | footnote 
-                                 
-                                 | primaryHeading 
+    division                ::=  ( primaryHeading 
                                  
                                  | secondaryHeading 
                                  
                                  | tertiaryHeading 
                                  
                                  | quaternaryHeading 
+                                 
+                                 | orderedList 
+                                 
+                                 | unorderedList 
+                                 
+                                 | blockListing 
+    
+                                 | table 
+                                 
+                                 | footnote 
                                  
                                  | lineBreak 
                                  
@@ -31,24 +31,6 @@ const bnf = `
                               ;
 
     
-    blockListing            ::=  blockListingStart blockText blockListingEnd ;
-
-
-    orderedList             ::=  orderedListItem+ ;
-
-
-    unorderedList           ::=  unorderedListItem+ ;
-
-
-    footnotesList           ::=  footnoteItem+ ;
-
-
-    table                   ::=  tableHead tableSeparator tableBody ;
-
-
-    footnote                ::=  reference paragraph ;
-
-
     primaryHeading          ::=  [single-hash] line ;
 
 
@@ -59,6 +41,24 @@ const bnf = `
     
     
     quaternaryHeading       ::=  [quadruple-hash] line ;
+
+
+    orderedList             ::=  orderedListItem+ ;
+
+
+    unorderedList           ::=  unorderedListItem+ ;
+
+
+    blockListing            ::=  blockListingStart blockText blockListingEnd ;
+
+
+    footnotesList           ::=  footnoteItem+ ;
+
+
+    table                   ::=  tableHead tableSeparator tableBody ;
+
+
+    footnote                ::=  reference paragraph ;
 
 
     lineBreak.              ::=  [dashes] endOfLine ;
@@ -112,7 +112,7 @@ const bnf = `
     emptyTableCell          ::=  "." [vertical-bar];
     
 
-    tableCell               ::=  ( link | hyperlink | mailToLink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ [vertical-bar] ;
+    tableCell               ::=  ( link | image | hyperlink | mailToLink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ [vertical-bar] ;
 
 
     line.                   ::=  ( link | image | hyperlink | mailToLink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ endOfLine ;
@@ -162,7 +162,31 @@ const bnf = `
     anchor                  ::=  [number] ;
     
 
-    text                    ::=  [regular-expression] | [string-literal] | [escaped] | [number] | [path] | [domain] | [scheme] | [identifier] | [word] | [special] | [unassigned] ;
+    text                    ::=  [regular-expression] 
+    
+                              |  [string-literal] 
+                              
+                              |  [escaped] 
+                              
+                              |  [many-dashes] 
+                              
+                              |  [dashes] 
+                              
+                              |  [number] 
+                              
+                              |  [path] 
+                              
+                              |  [domain] 
+                              
+                              |  [scheme] 
+                              
+                              |  [identifier] 
+                              
+                              |  [word] 
+                              
+                              |  [special] 
+                              
+                              |  [unassigned] ;
     
 
     url                     ::=  [scheme]? [domain] [path]? ;

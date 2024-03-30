@@ -109,19 +109,9 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `\`\`\`
-[
-  {
-    "alpha-numeric": "^[a\\-zA\\-Z0-9]+"
-  },
-  {
-    "punctuation": "^[@,\\\\.\\"'\`]+"
-  },
-  {
-    "unassigned": "^[^\\\\s]+"
-  }
-]
-\`\`\`
+  static initialMarkdown = `|asdf|
+------------
+|asdf|
 `;
 
   static tagName = "div";
