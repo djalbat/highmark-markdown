@@ -6,19 +6,19 @@ import MarkdownNode from "../markdown";
 
 class BlockTextMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
-    const content = this.content(context),
+    const trimmed = false,
+          content = this.content(context, trimmed),
           html = content; ///
 
     return html;
   }
 
   createDOMElement(context) {
-    const content = this.content(context),
-          domElement = document.createTextNode(content);
+    const trimmed = false,
+          content = this.content(context),
+          domElement = document.createTextNode(content, trimmed);
 
     this.setDOMElement(domElement);
-
-    return domElement;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(BlockTextMarkdownNode, ruleName, childNodes, opacity); }

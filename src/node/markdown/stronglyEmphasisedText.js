@@ -37,8 +37,6 @@ class StronglyEmphasisedTextMarkdownNode extends MarkdownNode {
     domElement = childDOMElement; ///
 
     parentDOMElement.insertBefore(domElement, siblingDOMElement);
-
-    return domElement;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(StronglyEmphasisedTextMarkdownNode, ruleName, childNodes, opacity); }

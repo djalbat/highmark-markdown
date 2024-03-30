@@ -7,15 +7,6 @@ import MarkdownNode from "../../node/markdown";
 const { first, second } = arrayUtilities;
 
 export default class BlockListingMarkdownNode extends MarkdownNode {
-  content(context) {
-    const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          blockTextMarkdownNode = secondChildNode,  ///
-          content = blockTextMarkdownNode.content(context);
-
-    return content;
-  }
-
   className(context) {
     let className = super.className(context);
 

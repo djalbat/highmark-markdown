@@ -7,7 +7,7 @@ import { ESCAPED_TOKEN_TYPE } from "../tokenTypes";
 
 const { first, last } = arrayUtilities;
 
-export function contentFromMarkdownNodes(markdownNodes, context) {
+export function contentFromMarkdownNodes(markdownNodes, context, trimmed = false) {
   let content = EMPTY_STRING;
 
   let { tokens } = context;
@@ -25,26 +25,28 @@ export function contentFromMarkdownNodes(markdownNodes, context) {
   let firstTokenIndex = firstSignificantTokenIndex,  ///
       lastTokenIndex = lastSignificantTokenIndex; ///
 
-  const previousTokenIndex = firstTokenIndex - 1,
-        nextTokenIndex = lastTokenIndex + 1;
+  if (!trimmed) {
+    const previousTokenIndex = firstTokenIndex - 1,
+          nextTokenIndex = lastTokenIndex + 1;
 
-  if (previousTokenIndex > -1) {
-    const previousToken = tokens[previousTokenIndex],
-          previousTokenSignificant = previousToken.isSignificant();
+    if (previousTokenIndex > -1) {
+      const previousToken = tokens[previousTokenIndex],
+            previousTokenSignificant = previousToken.isSignificant();
 
-    if (!previousTokenSignificant) {
-      firstTokenIndex--;
+      if (!previousTokenSignificant) {
+        firstTokenIndex--;
+      }
     }
-  }
 
-  const tokensLength = tokens.length;
+    const tokensLength = tokens.length;
 
-  if (nextTokenIndex < tokensLength) {
-    const nextToken = tokens[nextTokenIndex],
-          nextTokenSignificant = nextToken.isSignificant();
+    if (nextTokenIndex < tokensLength) {
+      const nextToken = tokens[nextTokenIndex],
+            nextTokenSignificant = nextToken.isSignificant();
 
-    if (!nextTokenSignificant) {
-      lastTokenIndex++;
+      if (!nextTokenSignificant) {
+        lastTokenIndex++;
+      }
     }
   }
 

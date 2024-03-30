@@ -3,7 +3,7 @@
 import MarkdownNode from "../../node/markdown";
 import contentMixins from "../../mixins/content";
 
-export default class URLMarkdownNode extends MarkdownNode {
+class URLMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
     const content = this.content(context),
           html = content; ///
@@ -16,11 +16,11 @@ export default class URLMarkdownNode extends MarkdownNode {
           domElement = document.createTextNode(content);
 
     this.setDOMElement(domElement);
-
-    return domElement;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(URLMarkdownNode, ruleName, childNodes, opacity); }
 }
 
 Object.assign(URLMarkdownNode.prototype, contentMixins);
+
+export default URLMarkdownNode;

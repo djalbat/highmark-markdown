@@ -110,7 +110,14 @@ class View extends Element {
   }
 
   static initialMarkdown = `
-- james.smith@djalbat.com
+|asdf|
+------
+|asdf|  
+  
+2. Regular expressions,[^regular-expressions] to collect these characters.
+
+[^regular-expressions]: https://en.wikipedia.org/wiki/Regular_expression
+
 `;
 
   static tagName = "div";

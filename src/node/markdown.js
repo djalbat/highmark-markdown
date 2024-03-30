@@ -36,18 +36,6 @@ class MarkdownNode extends NonTerminalNode {
     return className;
   }
 
-  attributeName(context) {
-    const attributeName = null;
-
-    return attributeName;
-  }
-
-  attributeValue(context) {
-    const attributeValue = null;
-
-    return attributeValue;
-  }
-
   asHTML(indent, context) {
     if (context === undefined) {
       context = indent; ///
@@ -148,6 +136,18 @@ ${indent}${closingTag}
     return indent;
   }
 
+  attributeName(context) {
+    const attributeName = null;
+
+    return attributeName;
+  }
+
+  attributeValue(context) {
+    const attributeValue = null;
+
+    return attributeValue;
+  }
+
   childNodesAsHTML(indent, context) {
     const childNodes = this.getChildNodes(),
           childNodesHTML = childNodes.reduce((childNodesHTML, childNode) => {
@@ -196,8 +196,6 @@ ${indent}${closingTag}
 
       this.createChildNodeDOMElements(context);
     }
-
-    return domElement;
   }
 
   createChildNodeDOMElements(context) {

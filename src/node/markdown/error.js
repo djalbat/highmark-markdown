@@ -1,12 +1,9 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
+import contentMixins from "../../mixins/content";
 
-const { first } = arrayUtilities;
-
-export default class ErrorMarkdownNode extends MarkdownNode {
+class ErrorMarkdownNode extends MarkdownNode {
   childNodesAsHTML(indent, context) {
     const content = this.content(context),
           childNodesHTML = content;  ///
@@ -16,22 +13,14 @@ export default class ErrorMarkdownNode extends MarkdownNode {
 
   createChildNodeDOMElements(context) {
     const content = this.content(context),
-          domElement = this.getDOMElement(),
-          parentDOMElement = domElement,  ///
-          siblingDOMElement = null,
           childNodeDOMElement = document.createTextNode(content);
 
-    parentDOMElement.insertBefore(childNodeDOMElement, siblingDOMElement);
-  }
-
-  content(context) {
-    const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          terminalNode = firstChildNode,  ///
-          content = terminalNode.getContent();
-
-    return content;
+    this.insertDOMElement(childNodeDOMElement);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ErrorMarkdownNode, ruleName, childNodes, opacity); }
 }
+
+Object.assign(ErrorMarkdownNode.prototype, contentMixins);
+
+export default ErrorMarkdownNode;

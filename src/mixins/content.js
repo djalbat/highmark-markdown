@@ -3,11 +3,12 @@
 import { contentFromMarkdownNodes } from "../utilities/content";
 
 function content(context) {
-  const markdownNode = this, ///
+  const trimmed = true,
+        markdownNode = this, ///
         markdownNodes = [
           markdownNode
         ],
-        content = contentFromMarkdownNodes(markdownNodes, context);
+        content = contentFromMarkdownNodes(markdownNodes, context, trimmed);
 
   return content;
 }

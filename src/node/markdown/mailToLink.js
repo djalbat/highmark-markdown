@@ -9,6 +9,34 @@ import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 const { first, second, secondLast } = arrayUtilities;
 
 export default class MailToLinkMarkdownNode extends MarkdownNode {
+  attributeName(context) {
+    const attributeName = HREF_ATTRIBUTE_NAME;
+
+    return attributeName;
+  }
+
+  attributeValue(context) {
+    const childNodes = this.getChildNodes(),
+          childNodesLength = childNodes.length;
+
+    let addressMarkdownNode;
+
+    if (childNodesLength === 1) {
+      const firstChildNode = first(childNodes);
+
+      addressMarkdownNode = firstChildNode;  ///
+    } else {
+      const secondLastChildNode = secondLast(childNodes);
+
+      addressMarkdownNode = secondLastChildNode;  ///
+    }
+
+    const addressMarkdownNodeContent = addressMarkdownNode.content(context),
+          attributeValue = `mailto:${addressMarkdownNodeContent}`;
+
+    return attributeValue;
+  }
+
   childNodesAsHTML(indent, context) {
     let childNodesHTML;
 
@@ -49,34 +77,6 @@ export default class MailToLinkMarkdownNode extends MarkdownNode {
 
       this.insertDOMElement(inlineTextMarkdownNodeDOMElement);
     }
-  }
-
-  attributeName(context) {
-    const attributeName = HREF_ATTRIBUTE_NAME;
-
-    return attributeName;
-  }
-
-  attributeValue(context) {
-    const childNodes = this.getChildNodes(),
-          childNodesLength = childNodes.length;
-
-    let addressMarkdownNode;
-
-    if (childNodesLength === 1) {
-      const firstChildNode = first(childNodes);
-
-      addressMarkdownNode = firstChildNode;  ///
-    } else {
-      const secondLastChildNode = secondLast(childNodes);
-
-      addressMarkdownNode = secondLastChildNode;  ///
-    }
-
-    const addressMarkdownNodeContent = addressMarkdownNode.content(context),
-          attributeValue = `mailto:${addressMarkdownNodeContent}`;
-
-    return attributeValue;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(MailToLinkMarkdownNode, ruleName, childNodes, opacity); }

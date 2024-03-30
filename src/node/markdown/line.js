@@ -14,14 +14,11 @@ export default class LineMarkdownNode extends MarkdownNode {
 
   createChildNodeDOMElements(context) {
     const childNodes = this.getChildNodes(),
-          domElement = this.getDOMElement(),
           domElements = domElementsFromChildNodes(childNodes, context),
-          parentDOMElement = domElement,  ///
-          siblingDOMElement = null,
           childNodeDOMElements = domElements; ///
 
     childNodeDOMElements.forEach((childNodeDOMElement) => {
-      parentDOMElement.insertBefore(childNodeDOMElement, siblingDOMElement);
+      this.insertDOMElement(childNodeDOMElement);
     });
   }
 
