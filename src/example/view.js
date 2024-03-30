@@ -109,7 +109,19 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `\`\\(1\\+2\\)÷3\`
+  static initialMarkdown = `\`\`\`
+expression ::= "(" expression ")"
+
+             \\| expression operator expression
+
+             \\| number
+
+             ;
+
+  operator ::= "+" \\| "-" \\| "÷" \\| "×" ;
+
+    number ::= /\\d+/ ;
+\`\`\`
 `;
 
   static tagName = "div";
