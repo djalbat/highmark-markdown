@@ -1,8 +1,7 @@
 "use strict";
 
-import contentMixins from "../../mixins/content";
-
 import MarkdownNode from "../markdown";
+import contentMixins from "../../mixins/content";
 
 class BlockTextMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
@@ -19,6 +18,8 @@ class BlockTextMarkdownNode extends MarkdownNode {
           domElement = document.createTextNode(content, trimmed);
 
     this.setDOMElement(domElement);
+
+    return domElement;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(BlockTextMarkdownNode, ruleName, childNodes, opacity); }

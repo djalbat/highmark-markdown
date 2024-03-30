@@ -196,6 +196,8 @@ ${indent}${closingTag}
 
       this.createChildNodeDOMElements(context);
     }
+
+    return domElement;
   }
 
   createChildNodeDOMElements(context) {

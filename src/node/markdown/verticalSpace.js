@@ -1,26 +1,31 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import MarkdownNode from "../../node/markdown";
-import contentMixins from "../../mixins/content";
 
-class VerticalSpaceMarkdownNode extends MarkdownNode {
-  asHTML(indent, context) {
-    const content = this.content(context),
-          html = content; ///
+const { first } = arrayUtilities;
 
-    return html;
+export default class VerticalSpaceMarkdownNode extends MarkdownNode {
+  childNodesAsHTML(indent, context) {
+    const childNodes = this.getChildNodes(),
+          firstChildNode = first(childNodes),
+          endOfLineMarkdownNode = firstChildNode,
+          content = endOfLineMarkdownNode.content(context),
+          childNodesHTML = content; ///
+
+    return childNodesHTML;
   }
 
-  createDOMElement(context) {
-    const content = this.content(context),
-          domElement = document.createTextNode(content);
+  createChildNodeDOMElements(context) {
+    const childNodes = this.getChildNodes(),
+          firstChildNode = first(childNodes),
+          inlineTextMarkdownNode = firstChildNode,  ///
+          content = inlineTextMarkdownNode.content(context),
+          childNodeDOMElement = document.createTextNode(content);
 
-    this.setDOMElement(domElement);
+    this.insertDOMElement(childNodeDOMElement);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(VerticalSpaceMarkdownNode, ruleName, childNodes, opacity); }
 }
-
-Object.assign(VerticalSpaceMarkdownNode.prototype, contentMixins);
-
-export default VerticalSpaceMarkdownNode;

@@ -2,7 +2,6 @@
 
 import { CommonLexer } from "occam-lexers";
 import { WhitespaceToken,
-         RegularExpressionToken,
          EndOfLineSignificantToken,
          CStyleSingleLineCommentToken,
          SinglyQuotedStringLiteralToken,
@@ -25,7 +24,7 @@ export default class MarkdownLexer extends CommonLexer {
 
   static SingleLineCommentToken = CStyleSingleLineCommentToken; ///
 
-  static RegularExpressionToken = RegularExpressionToken;
+  static RegularExpressionToken = null;
 
   static EndOfMultiLineCommentToken = CStyleEndOfMultiLineCommentToken; ///
 

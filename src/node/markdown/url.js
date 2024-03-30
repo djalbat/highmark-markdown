@@ -16,6 +16,8 @@ class URLMarkdownNode extends MarkdownNode {
           domElement = document.createTextNode(content);
 
     this.setDOMElement(domElement);
+
+    return domElement;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(URLMarkdownNode, ruleName, childNodes, opacity); }

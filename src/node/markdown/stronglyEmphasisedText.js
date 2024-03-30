@@ -1,8 +1,7 @@
 "use strict";
 
-import contentMixins from "../../mixins/content";
-
 import MarkdownNode from "../markdown";
+import contentMixins from "../../mixins/content";
 import ruleNameToHTMLMap from "../../ruleNameToHTMLMap";
 
 import { STRONG_TEXT_RULE_NAME } from "../../ruleNames";
@@ -37,6 +36,8 @@ class StronglyEmphasisedTextMarkdownNode extends MarkdownNode {
     domElement = childDOMElement; ///
 
     parentDOMElement.insertBefore(domElement, siblingDOMElement);
+
+    return domElement;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(StronglyEmphasisedTextMarkdownNode, ruleName, childNodes, opacity); }

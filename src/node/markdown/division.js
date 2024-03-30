@@ -5,7 +5,6 @@ import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
 import { EMPTY_STRING } from "../../constants";
 import { renumberLinkMarkdownNodes, renumberLinkMarkdownNodesHTML } from "../../utilities/link";
-import ruleNameToHTMLMap from "../../ruleNameToHTMLMap";
 
 export default class DivisionMarkdownNode extends MarkdownNode {
   className(context) {
