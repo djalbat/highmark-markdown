@@ -82,10 +82,10 @@ const bnf = `
     footnoteItem            ::=  anchor paragraph ;
     
     
-    orderedListItem         ::=  [number]<NO_WHITESPACE>"." line ;
+    orderedListItem.        ::=  [number]<NO_WHITESPACE>"." line ;
     
     
-    unorderedListItem       ::=  ( [single-dash] | [single-asterisk] ) line ;
+    unorderedListItem.      ::=  ( [single-dash] | [single-asterisk] ) line ;
 
 
     tableHead               ::=  tableHeadRow ;
