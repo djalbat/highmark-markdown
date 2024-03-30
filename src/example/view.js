@@ -109,14 +109,8 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `## Prerequisites
+  static initialMarkdown = `Moving swiftly on, assuming that the fully qualified path of the npm global installation directory is \`/usr/local/bin\`, add the following line to the requisite terminal or command prompt configuration file:
 
-It almost goes without saying then that in order to use Occam you will need to have Node installed.
-
-\`\`\`
-node --version
-\`\`\`
-  
 `;
 
   static tagName = "div";

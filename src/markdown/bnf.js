@@ -165,11 +165,7 @@ const bnf = `
     text                    ::=  [escaped] | [number] | [path] | [domain] | [scheme] | [identifier] | [word] | [special] | [unassigned] ;
     
 
-    url                     ::=  [scheme]? ( ( [domain] [path] )
-                                   
-                                             | [domain] 
-                                 
-                                             | [path] ) ;
+    url                     ::=  [scheme]? [domain] [path]? ;
     
 
     address                 ::=  [domain]<NO_WHITESPACE>"@"<NO_WHITESPACE>[domain] ;
