@@ -110,10 +110,7 @@ class View extends Element {
   }
 
   static initialMarkdown = `
-Occam grammars package.[^occam-grammars]
-Occam grammars package.[^occam-grammars]
-
-[^occam-grammars]: https://github.com/djalbat/occam-grammars
+\`npm install juxtapose sufficient easy-with-style\`
 `;
 
   static tagName = "div";

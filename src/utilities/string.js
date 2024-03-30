@@ -12,6 +12,12 @@ export function trim(string) {
   return trimmedString;
 }
 
+export function shave(string) {
+  const shavenString = string.replace(/^.|.$/g, EMPTY_STRING);
+
+  return shavenString;
+}
+
 export function chop(string, start, deleteCount) {
   let begin,
       end;
@@ -53,3 +59,4 @@ export function splice(string, start, deleteCount, middleString) {
 
   return string;
 }
+
