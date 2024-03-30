@@ -12,7 +12,7 @@ export default class TableCellMarkdownNode extends MarkdownNode {
     return childNodesHTML;
   }
 
-  createChildNodeDOMElements(context) {
+  createChildNodeDOMElements(domElement, context) {
     const childNodes = this.getChildNodes(),
           domElements = domElementsFromChildNodes(childNodes, context),
           parentDOMElement = domElement,  ///
