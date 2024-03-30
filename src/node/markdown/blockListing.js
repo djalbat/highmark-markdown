@@ -4,7 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
-const { first, second } = arrayUtilities;
+const { first } = arrayUtilities;
 
 export default class BlockListingMarkdownNode extends MarkdownNode {
   className(context) {
