@@ -109,19 +109,8 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `\`\`\`
-expression ::= "(" expression ")"
-
-             \\| expression operator expression
-
-             \\| number
-
-             ;
-
-  operator ::= "+" \\| "-" \\| "÷" \\| "×" ;
-
-    number ::= /\\d+/ ;
-\`\`\`
+  static initialMarkdown = `
+- james.smith@djalbat.com
 `;
 
   static tagName = "div";

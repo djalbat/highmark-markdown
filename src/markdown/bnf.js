@@ -112,10 +112,10 @@ const bnf = `
     emptyTableCell          ::=  "." [vertical-bar];
     
 
-    tableCell               ::=  ( link | image | hyperlink | mailToLink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ [vertical-bar] ;
+    tableCell               ::=  ( link | image | mailToLink | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ [vertical-bar] ;
 
 
-    line.                   ::=  ( link | image | hyperlink | mailToLink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ endOfLine ;
+    line.                   ::=  ( link | image | mailToLink | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ endOfLine ;
 
 
     link.                   ::=  "[^" [identifier] "]" ;
