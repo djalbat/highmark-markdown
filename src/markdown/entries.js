@@ -26,13 +26,16 @@ const entries = [
     "single-hash": "^#"
   },
   {
-    "vertical-bar": "^\\|"
-  },
-  {
     "many-dashes": "^-{4,}"
   },
   {
-    "dashes": "^-{2,3}"
+    "few-dashes": "^-{2,3}"
+  },
+  {
+    "single-dash": "^-"
+  },
+  {
+    "vertical-bar": "^\\|"
   },
   {
     "backticks": "^```"

@@ -61,7 +61,7 @@ const bnf = `
     footnote                ::=  reference paragraph ;
 
 
-    lineBreak.              ::=  [dashes] endOfLine ;
+    lineBreak.              ::=  [few-dashes] endOfLine ;
 
 
     paragraph               ::=  line+ ;
@@ -85,7 +85,7 @@ const bnf = `
     orderedListItem         ::=  [number]<NO_WHITESPACE>"." line ;
     
     
-    unorderedListItem       ::=  [single-asterisk] line ;
+    unorderedListItem       ::=  ( [single-dash] | [single-asterisk] ) line ;
 
 
     tableHead               ::=  tableHeadRow ;
@@ -168,9 +168,17 @@ const bnf = `
                               
                               |  [escaped] 
                               
+                              |  [triple-asterisk] 
+                              
+                              |  [double-asterisk] 
+                              
+                              |  [single-asterisk] 
+                              
+                              |  [single-dash] 
+                              
                               |  [many-dashes] 
                               
-                              |  [dashes] 
+                              |  [few-dashes] 
                               
                               |  [number] 
                               
@@ -186,7 +194,9 @@ const bnf = `
                               
                               |  [special] 
                               
-                              |  [unassigned] ;
+                              |  [unassigned] 
+                              
+                              ;
     
 
     url                     ::=  [scheme]? [domain] [path]? ;

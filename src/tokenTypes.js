@@ -5,14 +5,15 @@ export const PATH_TOKEN_TYPE = "path";
 export const DOMAIN_TOKEN_TYPE = "domain";
 export const SCHEME_TOKEN_TYPE = "scheme";
 export const NUMBER_TOKEN_TYPE = "number";
-export const DASHES_TOKEN_TYPE = "dashes";
 export const SPECIAL_TOKEN_TYPE = "special";
 export const ESCAPED_TOKEN_TYPE = "escaped";
 export const BACKTICK_TOKEN_TYPE = "backtick";
 export const BACKTICKS_TOKEN_TYPE = "backticks";
 export const IDENTIFIER_TOKEN_TYPE = "identifier";
 export const UNASSIGNED_TOKEN_TYPE = "unassigned";
+export const FEW_DASHES_TOKEN_TYPE = "few-dashes";
 export const MANY_DASHES_TOKEN_TYPE = "many-dashes";
+export const SINGLE_DASH_TOKEN_TYPE = "single-dash";
 export const SINGLE_HASH_TOKEN_TYPE = "single-hash";
 export const DOUBLE_HASH_TOKEN_TYPE = "double-hash";
 export const TRIPLE_HASH_TOKEN_TYPE = "triple-hash";
@@ -28,14 +29,15 @@ const tokenTypes = {
   DOMAIN_TOKEN_TYPE,
   SCHEME_TOKEN_TYPE,
   NUMBER_TOKEN_TYPE,
-  DASHES_TOKEN_TYPE,
   SPECIAL_TOKEN_TYPE,
   ESCAPED_TOKEN_TYPE,
   BACKTICK_TOKEN_TYPE,
   BACKTICKS_TOKEN_TYPE,
   IDENTIFIER_TOKEN_TYPE,
   UNASSIGNED_TOKEN_TYPE,
+  FEW_DASHES_TOKEN_TYPE,
   MANY_DASHES_TOKEN_TYPE,
+  SINGLE_DASH_TOKEN_TYPE,
   SINGLE_HASH_TOKEN_TYPE,
   DOUBLE_HASH_TOKEN_TYPE,
   TRIPLE_HASH_TOKEN_TYPE,
