@@ -15,10 +15,12 @@ export default class TableCellMarkdownNode extends MarkdownNode {
   createChildNodeDOMElements(context) {
     const childNodes = this.getChildNodes(),
           domElements = domElementsFromChildNodes(childNodes, context),
+          parentDOMElement = domElement,  ///
+          siblingDOMElement = null,
           childNodeDOMElements = domElements; ///
 
     childNodeDOMElements.forEach((childNodeDOMElement) => {
-      this.insertDOMElement(childNodeDOMElement);
+      parentDOMElement.insertBefore(childNodeDOMElement, siblingDOMElement);
     });
   }
 

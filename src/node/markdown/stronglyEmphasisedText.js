@@ -24,7 +24,7 @@ class StronglyEmphasisedTextMarkdownNode extends MarkdownNode {
   createDOMElement(context) {
     let domElement = super.createDOMElement(context);
 
-    const childDOMElement = domElement; ///
+    const childNodeDOMElement = domElement; ///
 
     domElement = document.createElement(tagName);
 
@@ -33,7 +33,7 @@ class StronglyEmphasisedTextMarkdownNode extends MarkdownNode {
     const parentDOMElement = domElement,  ///
           siblingDOMElement = null;
 
-    domElement = childDOMElement; ///
+    domElement = childNodeDOMElement; ///
 
     parentDOMElement.insertBefore(domElement, siblingDOMElement);
 
