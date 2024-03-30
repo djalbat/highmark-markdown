@@ -111,7 +111,10 @@ class View extends Element {
 
   static initialMarkdown = `
   
-https://en.wikipedia.org/wiki/Regular_expression
+1. Regular expressions[^regular-expressions].
+
+[^regular-expressions]: A footnote about regular expressions.
+
 `;
 
   static tagName = "div";
