@@ -110,6 +110,7 @@ class View extends Element {
   }
 
   static initialMarkdown = `
+/path
   
 1. Regular expressions[^regular-expressions].
 
