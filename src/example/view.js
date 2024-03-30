@@ -109,9 +109,7 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `|asdf|
-------------
-|--asdf|
+  static initialMarkdown = `\`\\(1\\+2\\)÷3\`
 `;
 
   static tagName = "div";

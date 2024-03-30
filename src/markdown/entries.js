@@ -38,10 +38,10 @@ const entries = [
     "vertical-bar": "^\\|"
   },
   {
-    "backticks": "^```"
+    "backticked-literal": "^`(?:\\\\[^\\s]|[^`\\\\\\r\\n])*`"
   },
   {
-    "backtick": "^`"
+    "backticks": "^```"
   },
   {
     "number": "^[1-9][0-9]*"

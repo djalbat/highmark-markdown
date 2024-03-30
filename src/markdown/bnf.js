@@ -141,7 +141,7 @@ const bnf = `
     reference.              ::=  "[^" [identifier] "]:" ;
     
 
-    inlineListing           ::=  [backtick] inlineText... [backtick] ;
+    inlineListing           ::=  [backticked-literal] ;
     
 
     stronglyEmphasisedText  ::=  [triple-asterisk] inlineText... [triple-asterisk] ;

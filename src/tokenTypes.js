@@ -7,7 +7,6 @@ export const SCHEME_TOKEN_TYPE = "scheme";
 export const NUMBER_TOKEN_TYPE = "number";
 export const SPECIAL_TOKEN_TYPE = "special";
 export const ESCAPED_TOKEN_TYPE = "escaped";
-export const BACKTICK_TOKEN_TYPE = "backtick";
 export const BACKTICKS_TOKEN_TYPE = "backticks";
 export const IDENTIFIER_TOKEN_TYPE = "identifier";
 export const UNASSIGNED_TOKEN_TYPE = "unassigned";
@@ -22,6 +21,7 @@ export const QUADRUPLE_HASH_TOKEN_TYPE = "quadruple-hash";
 export const SINGLE_ASTERISK_TOKEN_TYPE = "single-asterisk";
 export const DOUBLE_ASTERISK_TOKEN_TYPE = "double-asterisk";
 export const TRIPLE_ASTERISK_TOKEN_TYPE = "triple-asterisk";
+export const BACKTICKED_LITERAL_TOKEN_TYPE = "backticked-literal";
 
 const tokenTypes = {
   WORD_TOKEN_TYPE,
@@ -31,7 +31,6 @@ const tokenTypes = {
   NUMBER_TOKEN_TYPE,
   SPECIAL_TOKEN_TYPE,
   ESCAPED_TOKEN_TYPE,
-  BACKTICK_TOKEN_TYPE,
   BACKTICKS_TOKEN_TYPE,
   IDENTIFIER_TOKEN_TYPE,
   UNASSIGNED_TOKEN_TYPE,
@@ -45,7 +44,8 @@ const tokenTypes = {
   QUADRUPLE_HASH_TOKEN_TYPE,
   SINGLE_ASTERISK_TOKEN_TYPE,
   DOUBLE_ASTERISK_TOKEN_TYPE,
-  TRIPLE_ASTERISK_TOKEN_TYPE
+  TRIPLE_ASTERISK_TOKEN_TYPE,
+  BACKTICKED_LITERAL_TOKEN_TYPE
 };
 
 export default tokenTypes;
