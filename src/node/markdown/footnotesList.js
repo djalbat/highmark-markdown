@@ -1,7 +1,6 @@
 "use strict";
 
 import MarkdownNode from "../../node/markdown";
-
 import FootnoteItemMarkdownNode from "./footnoteItem";
 
 import { FOOTNOTES_LIST_RULE_NAME } from "../../ruleNames";
@@ -55,8 +54,12 @@ function footnoteItemMarkdownNodesFromDivisionMarkdownNode(divisionMarkdownNode,
           index = identifiers.indexOf(identifier);
 
     if (index > -1) {
-      const footnoteMarkdownNode = footnoteMarkdownNodes[index],
+      const start = index,  ///
+            deleteCount = 1,
+            footnoteMarkdownNode = footnoteMarkdownNodes[index],
             footnoteItemMarkdownNode = FootnoteItemMarkdownNode.fromFootnoteMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier);
+
+      identifiers.splice(start, deleteCount);
 
       footnoteItemMarkdownNodes.push(footnoteItemMarkdownNode);
     }

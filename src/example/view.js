@@ -110,12 +110,10 @@ class View extends Element {
   }
 
   static initialMarkdown = `
-/path
-  
-1. Regular expressions[^regular-expressions].
+Occam grammars package.[^occam-grammars]
+Occam grammars package.[^occam-grammars]
 
-[^regular-expressions]: A footnote about regular expressions.
-
+[^occam-grammars]: https://github.com/djalbat/occam-grammars
 `;
 
   static tagName = "div";
