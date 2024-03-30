@@ -109,9 +109,13 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `
-  
-https://occam.science
+  static initialMarkdown = `## Prerequisites
+
+It almost goes without saying then that in order to use Occam you will need to have Node installed.
+
+\`\`\`
+node --version
+\`\`\`
   
 `;
 
