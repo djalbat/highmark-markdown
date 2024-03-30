@@ -174,6 +174,14 @@ const bnf = `
                               
                               |  [single-asterisk] 
                               
+                              |  [quadruple-hash]
+                              
+                              |  [triple-hash]
+                              
+                              |  [double-hash]
+                              
+                              |  [single-hash]
+
                               |  [single-dash] 
                               
                               |  [many-dashes] 

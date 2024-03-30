@@ -6,26 +6,24 @@ import contentMixins from "../../mixins/content";
 import { shave } from "../../utilities/string";
 
 class InlineListingMarkdownNode extends MarkdownNode {
-  asHTML(indent, context) {
+  childNodesAsHTML(indent, context) {
     let content = this.content(context);
 
     content = shave(content); ///
 
-    const html = content; ///
+    const childNodesHTML = content; ///
 
-    return html;
+    return childNodesHTML;
   }
 
-  createDOMElement(context) {
+  createChildNodeDOMElements(context) {
     let content = this.content(context);
 
     content = shave(content); ///
 
-    const domElement = document.createTextNode(content);
+    const childNodeDOMElement = document.createTextNode(content);
 
-    this.setDOMElement(domElement);
-
-    return domElement;
+    this.insertDOMElement(childNodeDOMElement);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(InlineListingMarkdownNode, ruleName, childNodes, opacity); }
