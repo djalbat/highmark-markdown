@@ -110,7 +110,7 @@ class View extends Element {
   }
 
   static initialMarkdown = `
-\`npm install juxtapose sufficient easy-with-style\`
+https://react.js/react.js
 `;
 
   static tagName = "div";
