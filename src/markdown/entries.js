@@ -26,9 +26,6 @@ const entries = [
     "single-hash": "^#"
   },
   {
-    "single-dash": "^-"
-  },
-  {
     "vertical-bar": "^\\|"
   },
   {

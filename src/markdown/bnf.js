@@ -85,7 +85,7 @@ const bnf = `
     orderedListItem         ::=  [number]<NO_WHITESPACE>"." line ;
     
     
-    unorderedListItem       ::=  ( [single-dash] | [single-asterisk] ) line ;
+    unorderedListItem       ::=  [single-asterisk] line ;
 
 
     tableHead               ::=  tableHeadRow ;
@@ -162,7 +162,7 @@ const bnf = `
     anchor                  ::=  [number] ;
     
 
-    text                    ::=  [escaped] | [number] | [path] | [domain] | [scheme] | [identifier] | [word] | [special] | [unassigned] ;
+    text                    ::=  [regular-expression] | [string-literal] | [escaped] | [number] | [path] | [domain] | [scheme] | [identifier] | [word] | [special] | [unassigned] ;
     
 
     url                     ::=  [scheme]? [domain] [path]? ;

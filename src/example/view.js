@@ -109,8 +109,19 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `Moving swiftly on, assuming that the fully qualified path of the npm global installation directory is \`/usr/local/bin\`, add the following line to the requisite terminal or command prompt configuration file:
-
+  static initialMarkdown = `\`\`\`
+[
+  {
+    "alpha-numeric": "^[a\\-zA\\-Z0-9]+"
+  },
+  {
+    "punctuation": "^[@,\\\\.\\"'\`]+"
+  },
+  {
+    "unassigned": "^[^\\\\s]+"
+  }
+]
+\`\`\`
 `;
 
   static tagName = "div";
