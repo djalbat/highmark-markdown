@@ -110,6 +110,10 @@ class View extends Element {
   }
 
   static initialMarkdown = `
+  |asdf|
+  ------
+  |asdfa|
+  
 https://react.js/react.js
 `;
 

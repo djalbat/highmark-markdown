@@ -112,10 +112,29 @@ const bnf = `
     emptyTableCell          ::=  "." [vertical-bar];
     
 
-    tableCell               ::=  ( link | image | mailToLink | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | plainText )+ [vertical-bar] ;
+    tableCell               ::=  markedText... [vertical-bar] ;
 
 
-    line.                   ::=  ( link | image | mailToLink | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | plainText )+ endOfLine ;
+    line.                   ::=  markedText endOfLine ;
+
+
+    markedText              ::=  ( link 
+    
+                                 | image 
+                                 
+                                 | emailLink 
+                                 
+                                 | hyperlink 
+                                 
+                                 | inlineListing 
+                                 
+                                 | stronglyEmphasisedText 
+                                 
+                                 | emphasisedText 
+                                 
+                                 | strongText 
+                                 
+                                 | plainText )+ ;
 
 
     link.                   ::=  "[^" [identifier] "]" ;
@@ -124,22 +143,19 @@ const bnf = `
     image.                  ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" [path] ")" ;
 
 
-    hyperlink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" url ")" 
-    
-                              |  url
-                              
-                              ;
-
-
-    mailToLink.             ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" address ")" 
+    emailLink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" address ")" 
     
                               |  address 
                               
                               ;
 
 
-    reference.              ::=  "[^" [identifier] "]:" ;
+    hyperlink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" url ")" 
     
+                              |  url
+                              
+                              ;
+
 
     inlineListing           ::=  [backticked-literal] ;
     
@@ -152,15 +168,6 @@ const bnf = `
 
     strongText              ::=  [double-asterisk] inlineText... [double-asterisk] ;
 
-
-    blockText.              ::=  ( plainText | endOfLine )+ ;
-    
-
-    inlineText              ::=  plainText+ ;
-    
-    
-    anchor                  ::=  [number] ;
-    
 
     plainText               ::=  [regular-expression] 
     
@@ -184,6 +191,8 @@ const bnf = `
 
                               |  [single-dash] 
                               
+                              |  [vertical-bar] 
+                              
                               |  [many-dashes] 
                               
                               |  [few-dashes] 
@@ -205,6 +214,18 @@ const bnf = `
                               |  [unassigned] 
                               
                               ;
+    
+
+    reference.              ::=  "[^" [identifier] "]:" ;
+    
+
+    blockText.              ::=  ( plainText | endOfLine )+ ;
+    
+
+    inlineText              ::=  plainText+ ;
+    
+    
+    anchor                  ::=  [number] ;
     
 
     url                     ::=  [scheme]? [domain] [path]? ;

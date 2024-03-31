@@ -8,7 +8,7 @@ import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 
 const { first, second, secondLast } = arrayUtilities;
 
-export default class MailToLinkMarkdownNode extends MarkdownNode {
+export default class EmailLinkMarkdownNode extends MarkdownNode {
   attributeName(context) {
     const attributeName = HREF_ATTRIBUTE_NAME;
 
@@ -79,5 +79,5 @@ export default class MailToLinkMarkdownNode extends MarkdownNode {
     }
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(MailToLinkMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EmailLinkMarkdownNode, ruleName, childNodes, opacity); }
 }
