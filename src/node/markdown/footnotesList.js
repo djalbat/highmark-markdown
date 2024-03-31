@@ -38,32 +38,24 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
 }
 
 function footnoteItemMarkdownNodesFromDivisionMarkdownNode(divisionMarkdownNode, context) {
-  const footnoteItemMarkdownNodes = [],
-        node = divisionMarkdownNode,  ///
+  const node = divisionMarkdownNode,  ///
+        footnoteItemMarkdownNodes = [],
+        identifierToFootnoteMarkdownNodeMap = {},
         linkMarkdownNodes = linkMarkdownNodesFromNode(node),
-        footnoteMarkdownNodes = footnoteMarkdownNodesFromNode(node),
-        identifiers = footnoteMarkdownNodes.reduce((identifiers, footnoteMarkdownNode) => {
-          const identifier = footnoteMarkdownNode.identifier(context),
-                identifiersIncludesIdentifier = identifiers.includes(identifier);
+        footnoteMarkdownNodes = footnoteMarkdownNodesFromNode(node);
 
-          if (!identifiersIncludesIdentifier) {
-            identifiers.push(identifier);
-          }
+  footnoteMarkdownNodes.forEach((footnoteMarkdownNode) => {
+    const identifier = footnoteMarkdownNode.identifier(context);
 
-          return identifiers;
-        }, []);
+    identifierToFootnoteMarkdownNodeMap[identifier] = footnoteMarkdownNode;
+  });
 
   linkMarkdownNodes.forEach((linkMarkdownNode) => {
     const identifier = linkMarkdownNode.identifier(context),
-          index = identifiers.indexOf(identifier);
+          footnoteMarkdownNode = identifierToFootnoteMarkdownNodeMap[identifier] || null;
 
-    if (index > -1) {
-      const start = index,  ///
-            deleteCount = 1,
-            footnoteMarkdownNode = footnoteMarkdownNodes[index],
-            footnoteItemMarkdownNode = FootnoteItemMarkdownNode.fromFootnoteMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier);
-
-      identifiers.splice(start, deleteCount);
+    if (footnoteMarkdownNode !== null) {
+      const footnoteItemMarkdownNode = FootnoteItemMarkdownNode.fromFootnoteMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier);
 
       footnoteItemMarkdownNodes.push(footnoteItemMarkdownNode);
     }
