@@ -2,7 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
-import TextMarkdownNode from "../node/markdown/text";
+import PlainTextMarkdownNode from "../node/markdown/plainText";
 
 import { EMPTY_STRING } from "../constants";
 import { contentFromMarkdownNodes } from "./content";
@@ -11,20 +11,20 @@ const { clear } = arrayUtilities;
 
 export function domElementsFromChildNodes(childNodes, context) {
   const domElements = [],
-        textMarkdownNodes = [];
+        plainTextMarkdownNodes = [];
 
   childNodes.forEach((childNode) => {
     const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
     if (childNodeNonTerminalNode) {
-      const childNodeTextMarkdownNode = (childNode instanceof TextMarkdownNode);
+      const childNodePlainTextMarkdownNode = (childNode instanceof PlainTextMarkdownNode);
 
-      if (childNodeTextMarkdownNode) {
-        const textMarkdownNode = childNode; ///
+      if (childNodePlainTextMarkdownNode) {
+        const plainTextMarkdownNode = childNode; ///
 
-        textMarkdownNodes.push(textMarkdownNode);
+        plainTextMarkdownNodes.push(plainTextMarkdownNode);
       } else {
-        const textDOMElement = textDOMElementFromTextMarkdownNodes(textMarkdownNodes, context)
+        const textDOMElement = textDOMElementFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context)
 
         if (textDOMElement !== null) {
           const domElement = textDOMElement;  ///
@@ -41,7 +41,7 @@ export function domElementsFromChildNodes(childNodes, context) {
     }
   });
 
-  const textDOMElement = textDOMElementFromTextMarkdownNodes(textMarkdownNodes, context)
+  const textDOMElement = textDOMElementFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context)
 
   if (textDOMElement !== null) {
     const domElement = textDOMElement;  ///
@@ -56,20 +56,20 @@ export function htmlFromChildNodes(childNodes, context) {
   let html;
 
   const htmls = [],
-        textMarkdownNodes = [];
+        plainTextMarkdownNodes = [];
 
   childNodes.forEach((childNode) => {
     const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
     if (childNodeNonTerminalNode) {
-      const childNodeTextMarkdownNode = (childNode instanceof TextMarkdownNode);
+      const childNodePlainTextMarkdownNode = (childNode instanceof PlainTextMarkdownNode);
 
-      if (childNodeTextMarkdownNode) {
-        const textMarkdownNode = childNode; ///
+      if (childNodePlainTextMarkdownNode) {
+        const plainTextMarkdownNode = childNode; ///
 
-        textMarkdownNodes.push(textMarkdownNode);
+        plainTextMarkdownNodes.push(plainTextMarkdownNode);
       } else {
-        html = htmlFromTextMarkdownNodes(textMarkdownNodes, context)
+        html = htmlFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context)
 
         if (html !== null) {
           htmls.push(html);
@@ -86,7 +86,7 @@ export function htmlFromChildNodes(childNodes, context) {
     }
   });
 
-  html = htmlFromTextMarkdownNodes(textMarkdownNodes, context)
+  html = htmlFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context)
 
   if (html !== null) {
     htmls.push(html);
@@ -97,35 +97,35 @@ export function htmlFromChildNodes(childNodes, context) {
   return html;
 }
 
-function textDOMElementFromTextMarkdownNodes(textMarkdownNodes, context) {
+function textDOMElementFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context) {
   let textDOMElement = null;
 
-  const textMarkdownNodesLength = textMarkdownNodes.length;
+  const plainTextMarkdownNodesLength = plainTextMarkdownNodes.length;
 
-  if (textMarkdownNodesLength > 0) {
-    const markdownNodes = textMarkdownNodes,  ///
+  if (plainTextMarkdownNodesLength > 0) {
+    const markdownNodes = plainTextMarkdownNodes,  ///
           content = contentFromMarkdownNodes(markdownNodes, context);
 
     textDOMElement = document.createTextNode(content);
 
-    clear(textMarkdownNodes);
+    clear(plainTextMarkdownNodes);
   }
 
   return textDOMElement;
 }
 
-function htmlFromTextMarkdownNodes(textMarkdownNodes, context) {
+function htmlFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context) {
   let html = null;
 
-  const textMarkdownNodesLength = textMarkdownNodes.length;
+  const plainTextMarkdownNodesLength = plainTextMarkdownNodes.length;
 
-  if (textMarkdownNodesLength > 0) {
-    const markdownNodes = textMarkdownNodes,  ///
+  if (plainTextMarkdownNodesLength > 0) {
+    const markdownNodes = plainTextMarkdownNodes,  ///
           content = contentFromMarkdownNodes(markdownNodes, context);
 
     html = content;
 
-    clear(textMarkdownNodes);
+    clear(plainTextMarkdownNodes);
   }
 
   return html;

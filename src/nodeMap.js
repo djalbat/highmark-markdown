@@ -1,7 +1,6 @@
 "use strict";
 
 import URLMarkdownNode from "./node/markdown/url";
-import TextMarkdownNode from "./node/markdown/text";
 import LinkMarkdownNode from "./node/markdown/link";
 import LineMarkdownNode from "./node/markdown/line";
 import ImageMarkdownNode from "./node/markdown/image";
@@ -20,6 +19,7 @@ import TableHeadMarkdownNode from "./node/markdown/tableHead";
 import TableBodyMarkdownNode from "./node/markdown/tableBody";
 import BlockTextMarkdownNode from "./node/markdown/blockText";
 import ClassNameMarkdownNode from "./node/markdown/className";
+import PlainTextMarkdownNode from "./node/markdown/plainText";
 import EndOfLineMarkdownNode from "./node/markdown/endOfLine";
 import InlineTextMarkdownNode from "./node/markdown/inlineText";
 import StrongTextMarkdownNode from "./node/markdown/strongText";
@@ -49,7 +49,6 @@ import UnorderedListItemMarkdownNode from "./node/markdown/unorderedListItem";
 import StronglyEmphasisedTextMarkdownNode from "./node/markdown/stronglyEmphasisedText";
 
 import { URL_RULE_NAME,
-         TEXT_RULE_NAME,
          LINK_RULE_NAME,
          LINE_RULE_NAME,
          IMAGE_RULE_NAME,
@@ -68,6 +67,7 @@ import { URL_RULE_NAME,
          TABLE_BODY_RULE_NAME,
          BLOCK_TEXT_RULE_NAME,
          CLASS_NAME_RULE_NAME,
+         PLAIN_TEXT_RULE_NAME,
          END_OF_LINE_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
@@ -98,7 +98,6 @@ import { URL_RULE_NAME,
 
 const nodeMap = {
   [URL_RULE_NAME]: URLMarkdownNode,
-  [TEXT_RULE_NAME]: TextMarkdownNode,
   [LINK_RULE_NAME]: LinkMarkdownNode,
   [LINE_RULE_NAME]: LineMarkdownNode,
   [IMAGE_RULE_NAME]: ImageMarkdownNode,
@@ -117,6 +116,7 @@ const nodeMap = {
   [TABLE_BODY_RULE_NAME]: TableBodyMarkdownNode,
   [BLOCK_TEXT_RULE_NAME]: BlockTextMarkdownNode,
   [CLASS_NAME_RULE_NAME]: ClassNameMarkdownNode,
+  [PLAIN_TEXT_RULE_NAME]: PlainTextMarkdownNode,
   [END_OF_LINE_RULE_NAME]: EndOfLineMarkdownNode,
   [INLINE_TEXT_RULE_NAME]: InlineTextMarkdownNode,
   [STRONG_TEXT_RULE_NAME]: StrongTextMarkdownNode,

@@ -1,7 +1,6 @@
 "use strict";
 
 export const URL_RULE_NAME = "url";
-export const TEXT_RULE_NAME = "text";
 export const LINK_RULE_NAME = "link";
 export const LINE_RULE_NAME = "line";
 export const IMAGE_RULE_NAME = "image";
@@ -20,6 +19,7 @@ export const TABLE_HEAD_RULE_NAME = "tableHead";
 export const TABLE_BODY_RULE_NAME = "tableBody";
 export const BLOCK_TEXT_RULE_NAME = "blockText";
 export const CLASS_NAME_RULE_NAME = "className";
+export const PLAIN_TEXT_RULE_NAME = "plainText";
 export const END_OF_LINE_RULE_NAME = "endOfLine";
 export const INLINE_TEXT_RULE_NAME = "inlineText";
 export const STRONG_TEXT_RULE_NAME = "strongText";
@@ -50,7 +50,6 @@ export const STRONGLY_EMPHASISED_TEXT_RULE_NAME = "stronglyEmphasisedText";
 
 const ruleNames = {
   URL_RULE_NAME,
-  TEXT_RULE_NAME,
   LINK_RULE_NAME,
   LINE_RULE_NAME,
   IMAGE_RULE_NAME,
@@ -69,6 +68,7 @@ const ruleNames = {
   TABLE_BODY_RULE_NAME,
   BLOCK_TEXT_RULE_NAME,
   CLASS_NAME_RULE_NAME,
+  PLAIN_TEXT_RULE_NAME,
   END_OF_LINE_RULE_NAME,
   INLINE_TEXT_RULE_NAME,
   STRONG_TEXT_RULE_NAME,

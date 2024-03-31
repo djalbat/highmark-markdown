@@ -1,7 +1,6 @@
 "use strict";
 
 import { URL_RULE_NAME,
-         TEXT_RULE_NAME,
          LINK_RULE_NAME,
          LINE_RULE_NAME,
          IMAGE_RULE_NAME,
@@ -20,6 +19,7 @@ import { URL_RULE_NAME,
          TABLE_BODY_RULE_NAME,
          BLOCK_TEXT_RULE_NAME,
          CLASS_NAME_RULE_NAME,
+         PLAIN_TEXT_RULE_NAME,
          END_OF_LINE_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
@@ -49,10 +49,6 @@ import { URL_RULE_NAME,
 
 const ruleNameToHTMLMap = {
   [URL_RULE_NAME]: {
-    tagName: null,
-    className: null
-  },
-  [TEXT_RULE_NAME]: {
     tagName: null,
     className: null
   },
@@ -121,6 +117,10 @@ const ruleNameToHTMLMap = {
     className: null
   },
   [BLOCK_TEXT_RULE_NAME]: {
+    tagName: null,
+    className: null
+  },
+  [PLAIN_TEXT_RULE_NAME]: {
     tagName: null,
     className: null
   },

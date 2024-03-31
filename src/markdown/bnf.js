@@ -112,10 +112,10 @@ const bnf = `
     emptyTableCell          ::=  "." [vertical-bar];
     
 
-    tableCell               ::=  ( link | image | mailToLink | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ [vertical-bar] ;
+    tableCell               ::=  ( link | image | mailToLink | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | plainText )+ [vertical-bar] ;
 
 
-    line.                   ::=  ( link | image | mailToLink | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | text )+ endOfLine ;
+    line.                   ::=  ( link | image | mailToLink | hyperlink | inlineListing | stronglyEmphasisedText | emphasisedText | strongText | plainText )+ endOfLine ;
 
 
     link.                   ::=  "[^" [identifier] "]" ;
@@ -153,16 +153,16 @@ const bnf = `
     strongText              ::=  [double-asterisk] inlineText... [double-asterisk] ;
 
 
-    blockText.              ::=  ( text | endOfLine )+ ;
+    blockText.              ::=  ( plainText | endOfLine )+ ;
     
 
-    inlineText              ::=  text+ ;
+    inlineText              ::=  plainText+ ;
     
     
     anchor                  ::=  [number] ;
     
 
-    text                    ::=  [regular-expression] 
+    plainText               ::=  [regular-expression] 
     
                               |  [string-literal] 
                               
