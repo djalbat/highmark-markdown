@@ -224,9 +224,9 @@ ${indent}${closingTag}
     parentDOMElement.insertBefore(childNodeDOMElement, siblingDOMElement);
   }
 
-  static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity) {
+  static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments) {
     const domElement = null,
-          markdownNode = NonTerminalNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, domElement);
+          markdownNode = NonTerminalNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, domElement, ...remainingArguments);
 
     return markdownNode;
   }

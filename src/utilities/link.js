@@ -45,8 +45,6 @@ export function renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMar
         linkMarkdownNodes = linkMarkdownNodesFromNode(divisionMarkdownNode);
 
   linkMarkdownNodes.forEach((linkMarkdownNode) => {
-    linkMarkdownNode.createDOMElement(context, number);
-
     const identifier = linkMarkdownNode.identifier(context),
           linkMarkdownNodeDOMElement = linkMarkdownNode.getDOMElement(),
           identifiersIncludesIdentifier = identifiers.includes(identifier);

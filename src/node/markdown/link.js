@@ -39,31 +39,6 @@ ${indent}${closingTag}
     return html;
   }
 
-  createDOMElement(context, number = null) {
-    let domElement;
-
-    const tagName = this.tagName(context);
-
-    domElement = document.createElement(tagName);
-
-    this.setDOMElement(domElement);
-
-    const className = this.className(context),
-          attributeName = this.attributeName(context);
-
-    Object.assign(domElement, {
-      className
-    });
-
-    const attributeValue = this.attributeValue(context);
-
-    domElement.setAttribute(attributeName, attributeValue);
-
-    this.createChildNodeDOMElements(context, number);
-
-    return domElement;
-  }
-
   childNodesAsHTML(indent, context, number) {
     const childNodesHTML = (number === null) ?
                              null :
@@ -72,13 +47,8 @@ ${indent}${closingTag}
     return childNodesHTML;
   }
 
-  createChildNodeDOMElements(context, number) {
-    if (number !== null) {
-      const content = `${number}`,
-            childNodeDOMElement = document.createTextNode(content);
-
-      this.insertDOMElement(childNodeDOMElement);
-    }
+  createChildNodeDOMElements(context) {
+    ///
   }
 
   identifier(context) {

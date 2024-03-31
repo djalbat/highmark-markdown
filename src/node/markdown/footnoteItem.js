@@ -29,7 +29,7 @@ export default class FootnoteItemMarkdownNode extends MarkdownNode {
             anchorMarkdownNode,
             paragraphMarkdownNode
           ],
-          opacity = false,
+          opacity = null,
           footnoteItemMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnoteItemMarkdownNode, ruleName, childNodes, opacity);
 
     return footnoteItemMarkdownNode;

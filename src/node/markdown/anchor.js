@@ -31,7 +31,7 @@ export default class AnchorMarkdownNode extends MarkdownNode {
   static fromIdentifier(identifier) {
     const ruleName = ANCHOR_RULE_NAME,
           childNodes = [],
-          opacity = false,
+          opacity = null,
           anchorMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(AnchorMarkdownNode, ruleName, childNodes, opacity, identifier);
 
     return anchorMarkdownNode;

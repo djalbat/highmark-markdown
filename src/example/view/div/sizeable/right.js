@@ -12,7 +12,7 @@ class RightSizeableDiv extends SizeableDiv {
 
 export default withStyle(RightSizeableDiv)`
 
-  height: 48rem;
+  height: 32rem;
   position: relative;
   min-height: 12rem;
   
