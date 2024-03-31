@@ -123,9 +123,9 @@ class View extends Element {
   }
 
   static initialMarkdown = `
-Occam [^occam].
-
-[^occam]: Occam footnote.  
+|asdf|
+------
+|asdf|
 `;
 
   static tagName = "div";

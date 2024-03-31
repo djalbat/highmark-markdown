@@ -17,9 +17,8 @@ export default class TableCellMarkdownNode extends MarkdownNode {
     return childNodesHTML;
   }
 
-  createChildNodeDOMElements(context) {
+  createChildNodeDOMElements(domElement, context) {
     const childNodes = this.getChildNodes(),
-          domElement = this.getDOMElement(),
           firstChildNode = first(childNodes),
           markedTextChildNode = firstChildNode;
 
