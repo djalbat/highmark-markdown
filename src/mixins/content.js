@@ -2,9 +2,8 @@
 
 import { contentFromMarkdownNodes } from "../utilities/content";
 
-function content(context) {
-  const trimmed = true,
-        markdownNode = this, ///
+function content(context, trimmed = true) {
+  const markdownNode = this, ///
         markdownNodes = [
           markdownNode
         ],

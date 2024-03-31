@@ -14,7 +14,7 @@ class BlockTextMarkdownNode extends MarkdownNode {
 
   createDOMElement(context) {
     const trimmed = false,
-          content = this.content(context),
+          content = this.content(context, trimmed),
           domElement = document.createTextNode(content, trimmed);
 
     this.setDOMElement(domElement);

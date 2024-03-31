@@ -123,9 +123,11 @@ class View extends Element {
   }
 
   static initialMarkdown = `
-|asdf|
-------
-|asdf|
+\`\`\`
+      |
+--------------
+|            |       
+\`\`\`
 `;
 
   static tagName = "div";
