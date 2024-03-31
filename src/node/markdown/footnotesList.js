@@ -58,6 +58,8 @@ function footnoteItemMarkdownNodesFromDivisionMarkdownNode(divisionMarkdownNode,
       const footnoteItemMarkdownNode = FootnoteItemMarkdownNode.fromFootnoteMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier);
 
       footnoteItemMarkdownNodes.push(footnoteItemMarkdownNode);
+
+      delete identifierToFootnoteMarkdownNodeMap[identifier];
     }
   });
 
