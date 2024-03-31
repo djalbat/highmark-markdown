@@ -162,7 +162,7 @@ ${indent}${closingTag}
         html = (indent === null) ?
                 selfClosingTag :  ///
 `${indent}${selfClosingTag}
-      `;
+`;
       }
     }
 
