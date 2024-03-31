@@ -6,6 +6,7 @@ import { Element } from "easy";
 import { RowDiv, RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv, HorizontalSplitterDiv } from "easy-layout";
 
 import XMP from "./view/xmp";
+import PreviewDiv from "./view/div/preview";
 import SubHeading from "./view/subHeading";
 import BNFTextarea from "./view/textarea/bnf";
 import LeftSizeableDiv from "./view/div/sizeable/left";
@@ -14,6 +15,7 @@ import MarkdownTextarea from "./view/textarea/markdown";
 import ParseTreeTextarea from "./view/textarea/parseTree";
 import LexicalEntriesTextarea from "./view/textarea/lexicalEntries";
 
+import { DOCUMENT_DIVISION_NAME } from "./constants";
 import { MarkdownLexer, MarkdownParser } from "../index";
 
 const { bnf } = MarkdownParser,
@@ -38,16 +40,23 @@ class View extends Element {
     let parseTree = null;
 
     if (node !== null) {
-      const context = {
-              tokens
+      const divisionName = DOCUMENT_DIVISION_NAME,
+            context = {
+              tokens,
+              divisionName
             },
-            html = node.asHTML(context);
+            html = node.asHTML(context),
+            domElement = node.createDOMElement(context);
 
       this.xmpHTML(html);
+
+      this.updatePreviewDiv(domElement);
 
       parseTree = node.asParseTree(tokens);
     } else {
       this.clearXMP();
+
+      this.clearPreviewDiv();
     }
 
     this.setParseTree(parseTree);
@@ -81,6 +90,10 @@ class View extends Element {
             <RowDiv>
               <RowsDiv>
                 <SubHeading>
+                  Preview
+                </SubHeading>
+                <PreviewDiv/>
+                <SubHeading>
                   Markdown
                 </SubHeading>
                 <MarkdownTextarea onKeyUp={this.keyUpHandler} />
@@ -110,11 +123,9 @@ class View extends Element {
   }
 
   static initialMarkdown = `
-  |asdf|
-  ------
-  |asdfa|
-  
-https://react.js/react.js
+Occam [^occam].
+
+[^occam]: Occam footnote.  
 `;
 
   static tagName = "div";

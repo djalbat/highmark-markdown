@@ -1,27 +1,29 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import MarkdownNode from "../../node/markdown";
 
-import { htmlFromChildNodes, domElementsFromChildNodes } from "../../utilities/childNodes";
+const { first } = arrayUtilities;
 
 export default class TableCellMarkdownNode extends MarkdownNode {
   childNodesAsHTML(indent, context) {
     const childNodes = this.getChildNodes(),
-          childNodesHTML = htmlFromChildNodes(childNodes, context);
+          firstChildNode = first(childNodes),
+          markedTextChildNode = firstChildNode, ///
+          markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context),
+          childNodesHTML = markedTextChildNodeChildNodesHTML; ///
 
     return childNodesHTML;
   }
 
-  createChildNodeDOMElements(domElement, context) {
+  createChildNodeDOMElements(context) {
     const childNodes = this.getChildNodes(),
-          domElements = domElementsFromChildNodes(childNodes, context),
-          parentDOMElement = domElement,  ///
-          siblingDOMElement = null,
-          childNodeDOMElements = domElements; ///
+          domElement = this.getDOMElement(),
+          firstChildNode = first(childNodes),
+          markedTextChildNode = firstChildNode;
 
-    childNodeDOMElements.forEach((childNodeDOMElement) => {
-      parentDOMElement.insertBefore(childNodeDOMElement, siblingDOMElement);
-    });
+    markedTextChildNode.createChildNodeDOMElements(domElement, context);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(TableCellMarkdownNode, ruleName, childNodes, opacity); }

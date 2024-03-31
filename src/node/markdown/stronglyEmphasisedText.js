@@ -33,9 +33,7 @@ class StronglyEmphasisedTextMarkdownNode extends MarkdownNode {
     const parentDOMElement = domElement,  ///
           siblingDOMElement = null;
 
-    domElement = childNodeDOMElement; ///
-
-    parentDOMElement.insertBefore(domElement, siblingDOMElement);
+    parentDOMElement.insertBefore(childNodeDOMElement, siblingDOMElement);
 
     return domElement;
   }

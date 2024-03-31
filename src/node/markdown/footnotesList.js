@@ -42,15 +42,19 @@ function footnoteItemMarkdownNodesFromDivisionMarkdownNode(divisionMarkdownNode,
         node = divisionMarkdownNode,  ///
         linkMarkdownNodes = linkMarkdownNodesFromNode(node),
         footnoteMarkdownNodes = footnoteMarkdownNodesFromNode(node),
-        identifiers = footnoteMarkdownNodes.map((footnoteMarkdownNode) => {
-          const identifier = footnoteMarkdownNode.identifier(context);
+        identifiers = footnoteMarkdownNodes.reduce((identifiers, footnoteMarkdownNode) => {
+          const identifier = footnoteMarkdownNode.identifier(context),
+                identifiersIncludesIdentifier = identifiers.includes(identifier);
 
-          return identifier;
-        });
+          if (!identifiersIncludesIdentifier) {
+            identifiers.push(identifier);
+          }
+
+          return identifiers;
+        }, []);
 
   linkMarkdownNodes.forEach((linkMarkdownNode) => {
-    const linkMarkdownNodeIdentifier = linkMarkdownNode.identifier(context),
-          identifier = linkMarkdownNodeIdentifier,  ///
+    const identifier = linkMarkdownNode.identifier(context),
           index = identifiers.indexOf(identifier);
 
     if (index > -1) {

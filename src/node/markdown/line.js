@@ -1,25 +1,29 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import MarkdownNode from "../../node/markdown";
 
-import { htmlFromChildNodes, domElementsFromChildNodes } from "../../utilities/childNodes";
+const { first } = arrayUtilities;
 
 export default class LineMarkdownNode extends MarkdownNode {
   childNodesAsHTML(indent, context) {
     const childNodes = this.getChildNodes(),
-          childNodesHTML = htmlFromChildNodes(childNodes, context);
+          firstChildNode = first(childNodes),
+          markedTextChildNode = firstChildNode, ///
+          markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context),
+          childNodesHTML = markedTextChildNodeChildNodesHTML; ///
 
     return childNodesHTML;
   }
 
   createChildNodeDOMElements(context) {
     const childNodes = this.getChildNodes(),
-          domElements = domElementsFromChildNodes(childNodes, context),
-          childNodeDOMElements = domElements; ///
+          domElement = this.getDOMElement(),
+          firstChildNode = first(childNodes),
+          markedTextChildNode = firstChildNode;
 
-    childNodeDOMElements.forEach((childNodeDOMElement) => {
-      this.insertDOMElement(childNodeDOMElement);
-    });
+    markedTextChildNode.createChildNodeDOMElements(domElement, context);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(LineMarkdownNode, ruleName, childNodes, opacity); }
