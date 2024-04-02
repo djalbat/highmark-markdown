@@ -26,10 +26,10 @@ const entries = [
     "single-hash": "^#"
   },
   {
-    "many-dashes": "^-{4,}"
+    "many-dashes": "^-{3,}"
   },
   {
-    "few-dashes": "^-{2,3}"
+    "two-dashes": "^--"
   },
   {
     "single-dash": "^-"

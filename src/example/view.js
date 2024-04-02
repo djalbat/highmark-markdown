@@ -123,21 +123,7 @@ class View extends Element {
   }
 
   static initialMarkdown = `
-Regular expressions [^regular-expressions].
 
-BNF [^bnf].
-
-JuliaMono [^juliamono].
-
-Occam grammars [^occam-grammars].
-
-[^bnf]: [https://en.wikipedia.org/wiki/Backus-Naur_form](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form)
-
-[^juliamono]: https://juliamono.netlify.app/
-
-[^occam-grammars]: https://github.com/djalbat/occam-grammars
-
-[^regular-expressions]: https://en.wikipedia.org/wiki/Regular_expression
 `;
 
   static tagName = "div";

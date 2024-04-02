@@ -21,10 +21,10 @@ import { URL_RULE_NAME,
          CLASS_NAME_RULE_NAME,
          PLAIN_TEXT_RULE_NAME,
          EMAIL_LINK_RULE_NAME,
-         END_OF_LINE_RULE_NAME,
          MARKED_TEXT_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
+         SUB_DIVISION_RULE_NAME,
          ORDERED_LIST_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
          FOOTNOTE_ITEM_RULE_NAME,
@@ -133,10 +133,6 @@ const ruleNameToHTMLMap = {
     tagName: "a",
     className: "email"
   },
-  [END_OF_LINE_RULE_NAME]: {
-    tagName: null,
-    className: null
-  },
   [MARKED_TEXT_RULE_NAME]: {
     tagName: null,
     className: null
@@ -147,6 +143,10 @@ const ruleNameToHTMLMap = {
   },
   [STRONG_TEXT_RULE_NAME]: {
     tagName: "strong",
+    className: null
+  },
+  [SUB_DIVISION_RULE_NAME]: {
+    tagName: null,
     className: null
   },
   [ORDERED_LIST_RULE_NAME]: {

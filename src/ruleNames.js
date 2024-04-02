@@ -21,10 +21,10 @@ export const BLOCK_TEXT_RULE_NAME = "blockText";
 export const CLASS_NAME_RULE_NAME = "className";
 export const PLAIN_TEXT_RULE_NAME = "plainText";
 export const EMAIL_LINK_RULE_NAME = "emailLink";
-export const END_OF_LINE_RULE_NAME = "endOfLine";
 export const MARKED_TEXT_RULE_NAME = "markedText";
 export const INLINE_TEXT_RULE_NAME = "inlineText";
 export const STRONG_TEXT_RULE_NAME = "strongText";
+export const SUB_DIVISION_RULE_NAME = "subDivision";
 export const ORDERED_LIST_RULE_NAME = "orderedList";
 export const BLOCK_LISTING_RULE_NAME = "blockListing";
 export const FOOTNOTE_ITEM_RULE_NAME = "footnoteItem";
@@ -71,10 +71,10 @@ const ruleNames = {
   CLASS_NAME_RULE_NAME,
   PLAIN_TEXT_RULE_NAME,
   EMAIL_LINK_RULE_NAME,
-  END_OF_LINE_RULE_NAME,
   MARKED_TEXT_RULE_NAME,
   INLINE_TEXT_RULE_NAME,
   STRONG_TEXT_RULE_NAME,
+  SUB_DIVISION_RULE_NAME,
   ORDERED_LIST_RULE_NAME,
   BLOCK_LISTING_RULE_NAME,
   FOOTNOTE_ITEM_RULE_NAME,

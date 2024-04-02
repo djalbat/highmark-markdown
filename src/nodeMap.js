@@ -20,11 +20,11 @@ import TableBodyMarkdownNode from "./node/markdown/tableBody";
 import BlockTextMarkdownNode from "./node/markdown/blockText";
 import ClassNameMarkdownNode from "./node/markdown/className";
 import PlainTextMarkdownNode from "./node/markdown/plainText";
-import EndOfLineMarkdownNode from "./node/markdown/endOfLine";
+import EmailLinkMarkdownNode from "./node/markdown/emailLink";
 import MarkedTextMarkdownNode from "./node/markdown/markedText";
 import InlineTextMarkdownNode from "./node/markdown/inlineText";
 import StrongTextMarkdownNode from "./node/markdown/strongText";
-import EmailLinkMarkdownNode from "./node/markdown/emailLink";
+import SubDivisionMarkdownNode from "./node/markdown/subDivision";
 import OrderedListMarkdownNode from "./node/markdown/orderedList";
 import BlockListingMarkdownNode from "./node/markdown/blockListing";
 import FootnoteItemMarkdownNode from "./node/markdown/footnoteItem";
@@ -71,10 +71,10 @@ import {
   CLASS_NAME_RULE_NAME,
   PLAIN_TEXT_RULE_NAME,
   EMAIL_LINK_RULE_NAME,
-  END_OF_LINE_RULE_NAME,
   MARKED_TEXT_RULE_NAME,
   INLINE_TEXT_RULE_NAME,
   STRONG_TEXT_RULE_NAME,
+  SUB_DIVISION_RULE_NAME,
   ORDERED_LIST_RULE_NAME,
   BLOCK_LISTING_RULE_NAME,
   FOOTNOTE_ITEM_RULE_NAME,
@@ -97,8 +97,7 @@ import {
   QUATERNARY_HEADING_RULE_NAME,
   BLOCK_LISTING_START_RULE_NAME,
   UNORDERED_LIST_ITEM_RULE_NAME,
-  STRONGLY_EMPHASISED_TEXT_RULE_NAME
-} from "./ruleNames";
+  STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "./ruleNames";
 
 const nodeMap = {
   [URL_RULE_NAME]: URLMarkdownNode,
@@ -122,10 +121,10 @@ const nodeMap = {
   [CLASS_NAME_RULE_NAME]: ClassNameMarkdownNode,
   [PLAIN_TEXT_RULE_NAME]: PlainTextMarkdownNode,
   [EMAIL_LINK_RULE_NAME]: EmailLinkMarkdownNode,
-  [END_OF_LINE_RULE_NAME]: EndOfLineMarkdownNode,
   [MARKED_TEXT_RULE_NAME]: MarkedTextMarkdownNode,
   [INLINE_TEXT_RULE_NAME]: InlineTextMarkdownNode,
   [STRONG_TEXT_RULE_NAME]: StrongTextMarkdownNode,
+  [SUB_DIVISION_RULE_NAME]: SubDivisionMarkdownNode,
   [ORDERED_LIST_RULE_NAME]: OrderedListMarkdownNode,
   [BLOCK_LISTING_RULE_NAME]: BlockListingMarkdownNode,
   [FOOTNOTE_ITEM_RULE_NAME]: FootnoteItemMarkdownNode,

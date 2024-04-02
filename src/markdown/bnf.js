@@ -2,35 +2,38 @@
 
 const bnf = `
 
-    division                ::=  ( primaryHeading 
-                                 
-                                 | secondaryHeading 
-                                 
-                                 | tertiaryHeading 
-                                 
-                                 | quaternaryHeading 
-                                 
-                                 | orderedList 
-                                 
-                                 | unorderedList 
-                                 
-                                 | blockListing 
-    
-                                 | table 
-                                 
-                                 | footnote 
-                                 
-                                 | lineBreak 
-                                 
-                                 | paragraph 
-                                 
-                                 | verticalSpace 
-                                 
-                                 | error )+ 
-                                 
-                              ;
+    division                ::=  ( subDivision | verticalSpace | error )+ ;
 
     
+    subDivision..           ::=  ( primaryHeading 
+                                 
+                                 | secondaryHeading 
+                                     
+                                 | tertiaryHeading 
+                                     
+                                 | quaternaryHeading 
+                                     
+                                 | orderedList 
+                                     
+                                 | unorderedList 
+                                     
+                                 | blockListing 
+        
+                                 | table 
+                                     
+                                 | footnote 
+                                     
+                                 | lineBreak 
+                                     
+                                 | paragraph ) <END_OF_LINE> ;
+
+    
+    verticalSpace.          ::=  <END_OF_LINE>+ ;
+
+
+    error.                  ::=  . ;
+
+
     primaryHeading          ::=  [single-hash] line ;
 
 
@@ -52,41 +55,32 @@ const bnf = `
     blockListing            ::=  blockListingStart blockText blockListingEnd ;
 
 
-    footnotesList           ::=  footnoteItem+ ;
-
-
     table                   ::=  tableHead tableSeparator tableBody ;
 
 
     footnote                ::=  reference paragraph ;
 
 
-    lineBreak.              ::=  [few-dashes] endOfLine ;
+    lineBreak               ::=  [two-dashes] <END_OF_LINE> ;
 
 
     paragraph               ::=  line+ ;
     
 
-    verticalSpace.          ::=  endOfLine+ ;
-
-
-    error.                  ::=  . ;
-
-
-    blockListingStart       ::=  [backticks] className? endOfLine ;
-
-
-    blockListingEnd         ::=  [backticks] endOfLine ;
-
-
-    footnoteItem            ::=  anchor paragraph ;
+    orderedListItem         ::=  [number]<NO_WHITESPACE>"." line ;
     
     
-    orderedListItem.        ::=  [number]<NO_WHITESPACE>"." line ;
-    
-    
-    unorderedListItem.      ::=  ( [single-dash] | [single-asterisk] ) line ;
+    unorderedListItem       ::=  ( [single-dash] | [single-asterisk] ) line ;
 
+
+    blockListingStart       ::=  [backticks] className? <END_OF_LINE> ;
+
+
+    blockListingEnd         ::=  [backticks] <END_OF_LINE> ;
+
+
+    blockText               ::=  ( plainText | <END_OF_LINE> )+ ;
+    
 
     tableHead               ::=  tableHeadRow ;
 
@@ -94,13 +88,13 @@ const bnf = `
     tableBody               ::=  tableBodyRow+ ;
 
     
-    tableSeparator.         ::=  [many-dashes] endOfLine ;
+    tableSeparator.         ::=  [many-dashes] <END_OF_LINE> ;
 
     
-    tableHeadRow            ::=  [vertical-bar] tableHeadCell+ endOfLine ;
+    tableHeadRow            ::=  [vertical-bar] tableHeadCell+ <END_OF_LINE> ;
 
     
-    tableBodyRow            ::=  [vertical-bar] tableBodyCell+ endOfLine ;
+    tableBodyRow            ::=  [vertical-bar] tableBodyCell+ <END_OF_LINE> ;
 
 
     tableHeadCell.          ::=  emptyTableCell | tableCell ;
@@ -115,7 +109,7 @@ const bnf = `
     tableCell               ::=  markedText... [vertical-bar] ;
 
 
-    line.                   ::=  markedText endOfLine ;
+    line.                   ::=  markedText <END_OF_LINE> ;
 
 
     markedText              ::=  ( link 
@@ -195,7 +189,7 @@ const bnf = `
                               
                               |  [many-dashes] 
                               
-                              |  [few-dashes] 
+                              |  [two-dashes] 
                               
                               |  [number] 
                               
@@ -219,9 +213,6 @@ const bnf = `
     reference.              ::=  "[^" [identifier] "]:" ;
     
 
-    blockText.              ::=  ( plainText | endOfLine )+ ;
-    
-
     inlineText              ::=  plainText+ ;
     
     
@@ -237,8 +228,12 @@ const bnf = `
     className               ::=  <NO_WHITESPACE>[identifier] ;
 
 
-    endOfLine               ::=  <END_OF_LINE> ;
+    footnotesList           ::=  footnoteItem+ ;
 
+
+    footnoteItem            ::=  anchor paragraph ;
+    
+    
 `;
 
 export default bnf;
