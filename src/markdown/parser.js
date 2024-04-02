@@ -18,7 +18,7 @@ export default class MarkdownParser extends CommonParser {
     }
 
     const { nodeMap } = Class,
-          markdownParser = CommonParser.fromNothing(MarkdownParser);
+          markdownParser = CommonParser.fromNothing(Class);
 
     setNonTerminalNodes(markdownParser, nodeMap);
 
@@ -33,7 +33,7 @@ export default class MarkdownParser extends CommonParser {
     }
 
     const { nodeMap } = Class,
-          markdownParser = CommonParser.fromBNF(MarkdownParser, bnf);
+          markdownParser = CommonParser.fromBNF(Class, bnf);
 
     setNonTerminalNodes(markdownParser, nodeMap);
 
@@ -48,7 +48,7 @@ export default class MarkdownParser extends CommonParser {
     }
 
     const { nodeMap } = Class,
-          markdownParser = CommonParser.fromRules(MarkdownParser, rules);
+          markdownParser = CommonParser.fromRules(Class, rules);
 
     setNonTerminalNodes(markdownParser, nodeMap);
 

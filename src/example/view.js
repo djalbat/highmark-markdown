@@ -123,7 +123,11 @@ class View extends Element {
   }
 
   static initialMarkdown = `
-Occam grammars [^occam-grammars].
+Regular expressions [^regular-expressions].
+
+BNF [^bnf].
+
+JuliaMono [^juliamono].
 
 Occam grammars [^occam-grammars].
 
