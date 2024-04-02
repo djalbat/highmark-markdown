@@ -21,19 +21,19 @@ function getDescendantElements(descendantElements = []) {
     const descendantElement = this; ///
 
     descendantElements.push(descendantElement);
-
-    const childNodes = this.getChildNodes();
-
-    childNodes.forEach((childNode) => {
-      const childNodeNonTerminalNode = childNode.isNonTerminalNode();
-
-      if (childNodeNonTerminalNode) {
-        const nonTerminalNode = childNode;  ///
-
-        nonTerminalNode.getDescendantElements(descendantElements);
-      }
-    });
   }
+
+  const childNodes = this.getChildNodes();
+
+  childNodes.forEach((childNode) => {
+    const childNodeNonTerminalNode = childNode.isNonTerminalNode();
+
+    if (childNodeNonTerminalNode) {
+      const nonTerminalNode = childNode;  ///
+
+      nonTerminalNode.getDescendantElements(descendantElements);
+    }
+  });
 
   return descendantElements;
 }
