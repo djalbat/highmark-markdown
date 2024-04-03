@@ -115,7 +115,7 @@ const bnf = `
     tableCell               ::=  markedText... [vertical-bar] ;
     
     
-    line                    ::=  markedText <END_OF_LINE> ;
+    line.                   ::=  markedText <END_OF_LINE> ;
 
 
     markedText              ::=  ( link 
