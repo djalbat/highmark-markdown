@@ -7,24 +7,27 @@ import MarkdownNode from "../../node/markdown";
 const { first } = arrayUtilities;
 
 export default class VerticalSpaceMarkdownNode extends MarkdownNode {
-  childNodesAsHTML(indent, context) {
+  asHTML(indent, context) {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
-          endOfLineMarkdownNode = firstChildNode,
-          content = endOfLineMarkdownNode.content(context),
-          childNodesHTML = content; ///
+          endOfLineTerminalNode = firstChildNode, ///
+          endOfLineTerminalNodeContent = endOfLineTerminalNode.getContent(),
+          html = endOfLineTerminalNodeContent; ///
 
-    return childNodesHTML;
+    return html;
   }
 
-  createChildNodeDOMElements(context) {
+  createDOMElement(context) {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
-          inlineTextMarkdownNode = firstChildNode,  ///
-          content = inlineTextMarkdownNode.content(context),
-          childNodeDOMElement = document.createTextNode(content);
+          endOfLineTerminalNode = firstChildNode, ///
+          endOfLineTerminalNodeContent = endOfLineTerminalNode.getContent(),
+          content = endOfLineTerminalNodeContent, ///
+          domElement = document.createTextNode(content);
 
-    this.insertDOMElement(childNodeDOMElement);
+    this.setDOMElement(domElement);
+
+    return domElement;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(VerticalSpaceMarkdownNode, ruleName, childNodes, opacity); }

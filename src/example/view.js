@@ -125,7 +125,7 @@ class View extends Element {
   static initialMarkdown = `
 * Unordered list
 
-1. Ordered list`;
+`;
 
   static tagName = "div";
 
