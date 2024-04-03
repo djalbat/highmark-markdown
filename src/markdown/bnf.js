@@ -103,10 +103,10 @@ const bnf = `
     blockText               ::=  ( plainText | <END_OF_LINE> )+ ;
     
 
-    tableHeadCell.          ::=  emptyTableCell | tableCell ;
+    tableHeadCell           ::=  emptyTableCell | tableCell ;
 
 
-    tableBodyCell.          ::=  emptyTableCell | tableCell ; 
+    tableBodyCell           ::=  emptyTableCell | tableCell ; 
 
 
     emptyTableCell          ::=  "." [vertical-bar];
