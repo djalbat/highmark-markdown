@@ -5,30 +5,30 @@ const bnf = `
     division                ::=  ( subDivision | verticalSpace | error )+ ;
 
     
-    subDivision..           ::=  ( primaryHeading 
+    subDivision..           ::=  <END_OF_LINE> ( primaryHeading 
                                  
-                                 | secondaryHeading 
-                                     
-                                 | tertiaryHeading 
-                                     
-                                 | quaternaryHeading 
-                                     
-                                 | orderedList 
-                                     
-                                 | unorderedList 
-                                     
-                                 | blockListing 
-        
-                                 | table 
-                                     
-                                 | footnote 
-                                     
-                                 | lineBreak 
-                                     
-                                 | paragraph ) <END_OF_LINE> ;
+                                               | secondaryHeading 
+                                                   
+                                               | tertiaryHeading 
+                                                   
+                                               | quaternaryHeading 
+                                                   
+                                               | lineBreak 
+                                                   
+                                               | footnote 
+                                                   
+                                               | orderedList 
+                                                   
+                                               | unorderedList 
+                                                   
+                                               | blockListing 
+                      
+                                               | table 
+                                                   
+                                               | paragraph ) ;
 
     
-    verticalSpace.          ::=  <END_OF_LINE>+ ;
+    verticalSpace.          ::=  <END_OF_LINE> ;
 
 
     error.                  ::=  . ;
@@ -46,6 +46,15 @@ const bnf = `
     quaternaryHeading       ::=  [quadruple-hash] line ;
 
 
+    lineBreak               ::=  [two-dashes] <END_OF_LINE> ;
+
+
+    footnote                ::=  reference paragraph <END_OF_LINE> ;
+
+
+    table                   ::=  tableHead tableSeparator tableBody ;
+
+
     orderedList             ::=  orderedListItem+ ;
 
 
@@ -55,18 +64,18 @@ const bnf = `
     blockListing            ::=  blockListingStart blockText blockListingEnd ;
 
 
-    table                   ::=  tableHead tableSeparator tableBody ;
-
-
-    footnote                ::=  reference paragraph ;
-
-
-    lineBreak               ::=  [two-dashes] <END_OF_LINE> ;
-
-
     paragraph               ::=  line+ ;
     
 
+    tableHead               ::=  tableHeadRow ;
+
+    
+    tableBody               ::=  tableBodyRow+ ;
+
+    
+    tableSeparator          ::=  [many-dashes] <END_OF_LINE> ;
+
+    
     orderedListItem         ::=  [number]<NO_WHITESPACE>"." line ;
     
     
@@ -79,23 +88,14 @@ const bnf = `
     blockListingEnd         ::=  [backticks] <END_OF_LINE> ;
 
 
-    blockText               ::=  ( plainText | <END_OF_LINE> )+ ;
-    
-
-    tableHead               ::=  tableHeadRow ;
-
-    
-    tableBody               ::=  tableBodyRow+ ;
-
-    
-    tableSeparator.         ::=  [many-dashes] <END_OF_LINE> ;
-
-    
     tableHeadRow            ::=  [vertical-bar] tableHeadCell+ <END_OF_LINE> ;
 
     
     tableBodyRow            ::=  [vertical-bar] tableBodyCell+ <END_OF_LINE> ;
 
+
+    blockText               ::=  ( plainText | <END_OF_LINE> )+ ;
+    
 
     tableHeadCell.          ::=  emptyTableCell | tableCell ;
 
@@ -106,10 +106,10 @@ const bnf = `
     emptyTableCell          ::=  "." [vertical-bar];
     
 
-    tableCell               ::=  markedText... [vertical-bar] ;
-
-
-    line.                   ::=  markedText <END_OF_LINE> ;
+    tableCell               ::=  line... [vertical-bar] ;
+    
+    
+    line                    ::=  markedText <END_OF_LINE> ;
 
 
     markedText              ::=  ( link 

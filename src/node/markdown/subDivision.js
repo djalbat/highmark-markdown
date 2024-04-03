@@ -4,23 +4,23 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
-const { first } = arrayUtilities;
+const { second } = arrayUtilities;
 
 export default class SubDivisionMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
     const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          firstChildNodeHTML = firstChildNode.asHTML(indent, context),
-          html = firstChildNodeHTML;  ///
+          secondChildNode = second(childNodes),
+          secondChildNodeHTML = secondChildNode.asHTML(indent, context),
+          html = secondChildNodeHTML;  ///
 
     return html;
   }
 
   createDOMElement(context) {
     const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          firstChildNodeDOMElement = firstChildNode.createDOMElement(context),
-          domElement = firstChildNodeDOMElement;  ///
+          secondChildNode = second(childNodes),
+          secondChildNodeDOMElement = secondChildNode.createDOMElement(context),
+          domElement = secondChildNodeDOMElement;  ///
 
     return domElement;
   }

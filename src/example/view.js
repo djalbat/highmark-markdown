@@ -122,12 +122,8 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `\`\`\`javascript
-export default function blah() {
-  ///
-}
-\`\`\`
-
+  static initialMarkdown = `
+# Primary heading  
 `;
 
   static tagName = "div";
