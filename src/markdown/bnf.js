@@ -112,7 +112,7 @@ const bnf = `
     emptyTableCell          ::=  "." [vertical-bar];
     
 
-    tableCell               ::=  markedText... [vertical-bar] ;
+    tableCell.              ::=  markedText... [vertical-bar] ;
     
     
     line.                   ::=  markedText <END_OF_LINE> ;
