@@ -1,19 +1,5 @@
 "use strict";
 
-function addDOMElement(parentDOMElement, siblingDOMElement = null) {
-  if ((parentDOMElement !== null ) && (this.domElement !== null)) {
-    parentDOMElement.insertBefore(this.domElement, siblingDOMElement);
-  }
-}
-
-function removeDOMElement(parentDOMElement) {
-  if ((parentDOMElement !== null ) && (this.domElement !== null)) {
-    parentDOMElement.removeChild(this.domElement);
-
-    this.domElement = null;
-  }
-}
-
 function getDescendantElements(descendantElements = []) {
   const domElement = this.getDOMElement();
 
@@ -39,8 +25,6 @@ function getDescendantElements(descendantElements = []) {
 }
 
 const elementMixins = {
-  addDOMElement,
-  removeDOMElement,
   getDescendantElements
 };
 
