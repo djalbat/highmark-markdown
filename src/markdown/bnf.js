@@ -28,7 +28,7 @@ const bnf = `
                                                | paragraph ) ;
 
     
-    verticalSpace.          ::=  <END_OF_LINE> ;
+    verticalSpace           ::=  <END_OF_LINE> ;
 
 
     error.                  ::=  . ;

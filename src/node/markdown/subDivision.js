@@ -7,6 +7,15 @@ import MarkdownNode from "../../node/markdown";
 const { second } = arrayUtilities;
 
 export default class SubDivisionMarkdownNode extends MarkdownNode {
+  getDOMElement() {
+    const childNodes = this.getChildNodes(),
+          secondChildNode = second(childNodes),
+          secondChildNodeDOMElement = secondChildNode.getDOMElement(),
+          domElement = secondChildNodeDOMElement;  ///
+
+    return domElement;
+  }
+
   asHTML(indent, context) {
     const childNodes = this.getChildNodes(),
           secondChildNode = second(childNodes),
