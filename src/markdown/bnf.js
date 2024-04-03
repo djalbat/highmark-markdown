@@ -49,11 +49,20 @@ const bnf = `
     lineBreak               ::=  [two-dashes] <END_OF_LINE> ;
 
 
-    footnote                ::=  reference paragraph <END_OF_LINE> ;
+    footnotesList           ::=  footnoteItem+ ;
+
+
+    footnoteItem            ::=  anchor paragraph ;
+
+
+    footnote                ::=  reference paragraph ;
 
 
     table                   ::=  tableHead tableSeparator tableBody ;
 
+
+    paragraph               ::=  line+ ;
+    
 
     orderedList             ::=  orderedListItem+ ;
 
@@ -63,9 +72,6 @@ const bnf = `
 
     blockListing            ::=  blockListingStart blockText blockListingEnd ;
 
-
-    paragraph               ::=  line+ ;
-    
 
     tableHead               ::=  tableHeadRow ;
 
@@ -106,7 +112,7 @@ const bnf = `
     emptyTableCell          ::=  "." [vertical-bar];
     
 
-    tableCell               ::=  line... [vertical-bar] ;
+    tableCell               ::=  markedText... [vertical-bar] ;
     
     
     line                    ::=  markedText <END_OF_LINE> ;
@@ -163,6 +169,9 @@ const bnf = `
     strongText              ::=  [double-asterisk] inlineText... [double-asterisk] ;
 
 
+    inlineText              ::=  plainText+ ;
+    
+    
     plainText               ::=  [regular-expression] 
     
                               |  [string-literal] 
@@ -213,9 +222,6 @@ const bnf = `
     reference.              ::=  "[^" [identifier] "]:" ;
     
 
-    inlineText              ::=  plainText+ ;
-    
-    
     anchor                  ::=  [number] ;
     
 
@@ -226,12 +232,6 @@ const bnf = `
     
 
     className               ::=  <NO_WHITESPACE>[identifier] ;
-
-
-    footnotesList           ::=  footnoteItem+ ;
-
-
-    footnoteItem            ::=  anchor paragraph ;
     
     
 `;

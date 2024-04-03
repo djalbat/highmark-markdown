@@ -123,7 +123,12 @@ class View extends Element {
   }
 
   static initialMarkdown = `
-# Primary heading  
+| .         | .                                                      | Files  | Lines of code |
+-----------------------------------------------------------------------------------------------
+| Juxtapose | \`npm install juxtapose sufficient easy-with-style\`     | 677    |       186,816 |
+| Angular   | \`npm install angular @angular/cli\`                     | 10,564 |       773,738 |
+| React     | \`npm install create-react-app redux styled-components\` | 2,471  |       252,305 |
+| Vue       | \`npm install vue @vue/cli\`                             | 19,841 |     2,415,161 |
 `;
 
   static tagName = "div";
