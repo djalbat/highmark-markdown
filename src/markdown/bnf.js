@@ -5,27 +5,27 @@ const bnf = `
     division                ::=  ( subDivision | verticalSpace | error )+ ;
 
     
-    subDivision..           ::=  <END_OF_LINE> ( primaryHeading 
+    subDivision..           ::=  ( <END_OF_LINE> | <START_OF_CONTENT> ) ( primaryHeading 
                                  
-                                               | secondaryHeading 
-                                                   
-                                               | tertiaryHeading 
-                                                   
-                                               | quaternaryHeading 
-                                                   
-                                               | lineBreak 
-                                                   
-                                               | footnote 
-                                                   
-                                               | orderedList 
-                                                   
-                                               | unorderedList 
-                                                   
-                                               | blockListing 
-                      
-                                               | table 
-                                                   
-                                               | paragraph ) ;
+                                                                        | secondaryHeading 
+                                                                           
+                                                                        | tertiaryHeading 
+                                                                           
+                                                                        | quaternaryHeading 
+                                                                           
+                                                                        | lineBreak 
+                                                                           
+                                                                        | footnote 
+                                                                           
+                                                                        | orderedList 
+                                                                           
+                                                                        | unorderedList 
+                                                                           
+                                                                        | blockListing 
+                                              
+                                                                        | table 
+                                                                           
+                                                                        | paragraph ) ;
 
     
     verticalSpace           ::=  <END_OF_LINE> ;
