@@ -43,6 +43,7 @@ class View extends Element {
       const divisionName = DOCUMENT_DIVISION_NAME,
             context = {
               tokens,
+              importer,
               divisionName
             },
             html = node.asHTML(context),
@@ -138,3 +139,7 @@ export default withStyle(View)`
   padding: 1rem;
   
 `;
+
+function importer(path, indent, context) {
+  console.log(path, indent)
+}
