@@ -4,6 +4,8 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
+import { shave } from "../../utilities/string";
+
 const { sixth } = arrayUtilities;
 
 export default class ImportMarkdownNode extends MarkdownNode {
@@ -25,9 +27,10 @@ export default class ImportMarkdownNode extends MarkdownNode {
     const childNodes = this.getChildNodes(),
           sixthChildNode = sixth(childNodes),
           doublyQuotedStringLiteralTerminalNode  = sixthChildNode,
-          content = doublyQuotedStringLiteralTerminalNode.getContent();
+          content = doublyQuotedStringLiteralTerminalNode.getContent(),
+          path = shave(content);  ///
 
-    debugger
+    return path;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ImportMarkdownNode, ruleName, childNodes, opacity); }

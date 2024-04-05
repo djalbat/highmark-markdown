@@ -3,14 +3,11 @@
 import MarkdownNode from "../../node/markdown";
 import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
-import { EMPTY_STRING } from "../../constants";
 import { ID_ATTRIBUTE_NAME } from "../../attributeNames";
 import { renumberLinkMarkdownNodes, renumberLinkMarkdownNodesHTML } from "../../utilities/link";
 
 export default class DivisionMarkdownNode extends MarkdownNode {
   adjustIndent(indent) {
-    indent = EMPTY_STRING;
-
     return indent;
   }
 

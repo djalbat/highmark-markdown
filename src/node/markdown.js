@@ -46,22 +46,15 @@ class MarkdownNode extends NonTerminalNode {
   startingTag(context) {
     const tagName = this.tagName(context),
           className = this.className(context),
-          attributeName = this.attributeName(context);
-
-    let classHTML = EMPTY_STRING,
-        attributeHTML = EMPTY_STRING;
-
-    if (className !== null) {
-      classHTML = ` class="${className}"`;
-    }
-
-    if (attributeName !== null) {
-      const attributeValue = this.attributeValue(context);
-
-      attributeHTML = ` ${attributeName}="${attributeValue}"`;
-    }
-
-    const startingTag = `<${tagName}${classHTML}${attributeHTML}>`;
+          attributeName = this.attributeName(context),
+          attributeValue = this.attributeValue(context),
+          classHTML = (className !== null) ?
+                       ` class="${className}"` :
+                          EMPTY_STRING,
+          attributeHTML = ((attributeName !== null) && (attributeValue !== null)) ?
+                           ` ${attributeName}="${attributeValue}"` :
+                              EMPTY_STRING,
+          startingTag = `<${tagName}${classHTML}${attributeHTML}>`;
 
     return startingTag;
   }
@@ -69,22 +62,15 @@ class MarkdownNode extends NonTerminalNode {
   selfClosingTag(context) {
     const tagName = this.tagName(context),
           className = this.className(context),
-          attributeName = this.attributeName(context);
-
-    let classHTML = EMPTY_STRING,
-        attributeHTML = EMPTY_STRING;
-
-    if (className !== null) {
-      classHTML = ` class="${className}"`;
-    }
-
-    if (attributeName !== null) {
-      const attributeValue = this.attributeValue(context);
-
-      attributeHTML = ` ${attributeName}="${attributeValue}"`;
-    }
-
-    const selfClosingTag = `<${tagName}${classHTML}${attributeHTML}/>`;
+          attributeName = this.attributeName(context),
+          attributeValue = this.attributeValue(context),
+          classHTML = (className !== null) ?
+                       ` class="${className}"` :
+                          EMPTY_STRING,
+          attributeHTML = ((attributeName !== null) && (attributeValue !== null)) ?
+                           ` ${attributeName}="${attributeValue}"` :
+                              EMPTY_STRING,
+          selfClosingTag = `<${tagName}${classHTML}${attributeHTML}/>`;
 
     return selfClosingTag;
   }
@@ -177,21 +163,19 @@ ${indent}${closingTag}
     if (tagName !== null) {
       domElement = document.createElement(tagName);
 
-      this.setDOMElement(domElement);
-
       const className = this.className(context),
             attributeName = this.attributeName(context),
             attributeValue = this.attributeValue(context);
 
       if (className !== null) {
-        Object.assign(domElement, {
-          className
-        });
+        domElement.className = className;
       }
 
       if ((attributeName !== null) && (attributeValue !== null)) {
         domElement.setAttribute(attributeName, attributeValue);
       }
+
+      this.setDOMElement(domElement);
 
       this.createChildNodeDOMElements(context);
     }
