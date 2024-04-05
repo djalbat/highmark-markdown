@@ -4,20 +4,27 @@ import MarkdownNode from "../../node/markdown";
 import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
 import { EMPTY_STRING } from "../../constants";
+import { ID_ATTRIBUTE_NAME } from "../../attributeNames";
 import { renumberLinkMarkdownNodes, renumberLinkMarkdownNodesHTML } from "../../utilities/link";
 
 export default class DivisionMarkdownNode extends MarkdownNode {
-  className(context) {
-    const { divisionName = null } = context,
-          className = divisionName; ///
-
-    return className;
-  }
-
   adjustIndent(indent) {
     indent = EMPTY_STRING;
 
     return indent;
+  }
+
+  attributeName(context) {
+    const attributeName = ID_ATTRIBUTE_NAME;
+
+    return attributeName;
+  }
+
+  attributeValue(context) {
+    const { divisionIdentifier = null } = context,
+          attributeValue = divisionIdentifier; ///
+
+    return attributeValue;
   }
 
   childNodesAsHTML(indent, context) {

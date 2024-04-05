@@ -2,7 +2,10 @@
 
 const bnf = `
 
-    division                ::=  ( subDivision | verticalSpace | error )+ ;
+    division                ::=  ( directive | subDivision | verticalSpace | error )+ ;
+    
+    
+    directive.              ::=  import ;
 
     
     subDivision..           ::=  ( <END_OF_LINE> | <START_OF_CONTENT> ) ( primaryHeading 
@@ -32,6 +35,9 @@ const bnf = `
 
 
     error.                  ::=  . ;
+
+
+    import                  ::= "@"<NO_WHITESPACE>"import"<NO_WHITESPACE>"(" [string-literal] ")" ;
 
 
     primaryHeading          ::=  [single-hash] line ;

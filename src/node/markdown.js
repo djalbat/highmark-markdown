@@ -180,7 +180,8 @@ ${indent}${closingTag}
       this.setDOMElement(domElement);
 
       const className = this.className(context),
-            attributeName = this.attributeName(context);
+            attributeName = this.attributeName(context),
+            attributeValue = this.attributeValue(context);
 
       if (className !== null) {
         Object.assign(domElement, {
@@ -188,9 +189,7 @@ ${indent}${closingTag}
         });
       }
 
-      if (attributeName !== null) {
-        const attributeValue = this.attributeValue(context);
-
+      if ((attributeName !== null) && (attributeValue !== null)) {
         domElement.setAttribute(attributeName, attributeValue);
       }
 

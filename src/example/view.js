@@ -122,8 +122,7 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `
-* Unordered list
+  static initialMarkdown = `@import("/grammars")
 
 `;
 
