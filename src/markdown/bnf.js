@@ -5,7 +5,7 @@ const bnf = `
     division                ::=  ( directive | subDivision | verticalSpace | error )+ ;
     
     
-    directive.              ::=  import ;
+    directive.              ::=  ( <END_OF_LINE> | <START_OF_CONTENT> ) import ;
 
     
     subDivision..           ::=  ( <END_OF_LINE> | <START_OF_CONTENT> ) ( primaryHeading 
