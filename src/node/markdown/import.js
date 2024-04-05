@@ -4,7 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
-const { fifth } = arrayUtilities;
+const { sixth } = arrayUtilities;
 
 export default class ImportMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
@@ -23,8 +23,8 @@ export default class ImportMarkdownNode extends MarkdownNode {
 
   path(context) {
     const childNodes = this.getChildNodes(),
-          fifthChildNode = fifth(childNodes),
-          doublyQuotedStringLiteralTerminalNode  = fifthChildNode,
+          sixthChildNode = sixth(childNodes),
+          doublyQuotedStringLiteralTerminalNode  = sixthChildNode,
           content = doublyQuotedStringLiteralTerminalNode.getContent();
 
     debugger
