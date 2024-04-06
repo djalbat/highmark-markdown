@@ -15,23 +15,31 @@ export default class ImportMarkdownNode extends MarkdownNode {
     const { importer = null } = context;
 
     if (importer !== null) {
-      const path = this.path(context);
+      const filePath = this.filePath(context);
 
-      html = importer(path, indent, context);
+      html = importer(filePath, indent, context);
     }
 
     return html;
   }
 
-  path(context) {
+  filePath(context) {
     const childNodes = this.getChildNodes(),
           sixthChildNode = sixth(childNodes),
           doublyQuotedStringLiteralTerminalNode  = sixthChildNode,
           content = doublyQuotedStringLiteralTerminalNode.getContent(),
-          path = shave(content);  ///
+          filePath = filePathFromContent(content);
 
-    return path;
+    return filePath;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ImportMarkdownNode, ruleName, childNodes, opacity); }
+}
+
+function filePathFromContent(content) {
+  content = shave(content); ///
+
+  const filePath = content;
+
+  return filePath;
 }
