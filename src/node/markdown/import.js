@@ -17,6 +17,8 @@ export default class ImportMarkdownNode extends MarkdownNode {
     if (importer !== null) {
       const filePath = this.filePath(context);
 
+      indent = this.adjustIndent(indent);
+
       html = importer(filePath, indent, context);
     }
 

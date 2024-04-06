@@ -152,8 +152,6 @@ function importer(path, indent, context) {
         node = markdownParser.parse(tokens),
         divisionIdentifier = FRONT_MATTER_DIVISION_IDENTIFIER;  //
 
-  indent = `  ${indent}`;
-
   context = { ///
     tokens,
     divisionIdentifier
