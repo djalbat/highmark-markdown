@@ -37,7 +37,7 @@ const bnf = `
     error.                  ::=  . ;
 
 
-    import                  ::= "@"<NO_WHITESPACE>"import"<NO_WHITESPACE>"(" [string-literal] ")" ;
+    import                  ::= "@"<NO_WHITESPACE>"import" [string-literal] ;
 
 
     primaryHeading          ::=  [single-hash] line ;

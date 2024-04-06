@@ -6,7 +6,7 @@ import MarkdownNode from "../../node/markdown";
 
 import { shave } from "../../utilities/string";
 
-const { sixth } = arrayUtilities;
+const { fourth } = arrayUtilities;
 
 export default class ImportMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
@@ -27,8 +27,8 @@ export default class ImportMarkdownNode extends MarkdownNode {
 
   filePath(context) {
     const childNodes = this.getChildNodes(),
-          sixthChildNode = sixth(childNodes),
-          doublyQuotedStringLiteralTerminalNode  = sixthChildNode,
+          fourthChildNode = fourth(childNodes),
+          doublyQuotedStringLiteralTerminalNode  = fourthChildNode,
           content = doublyQuotedStringLiteralTerminalNode.getContent(),
           filePath = filePathFromContent(content);
 
