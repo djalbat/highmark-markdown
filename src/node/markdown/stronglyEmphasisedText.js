@@ -14,7 +14,7 @@ class StronglyEmphasisedTextMarkdownNode extends MarkdownNode {
 
     const childNodesHTML = html,  ///
           startingTag = `<${tagName}>`,
-          closingTag = `<\\${tagName}>`;
+          closingTag = `</${tagName}>`;
 
     html = `${startingTag}${childNodesHTML}${closingTag}`;
 

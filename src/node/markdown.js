@@ -38,7 +38,7 @@ class MarkdownNode extends NonTerminalNode {
 
   closingTag(context) {
     const tagName = this.tagName(context),
-          closingTag = `<\\${tagName}>`;
+          closingTag = `</${tagName}>`;
 
     return closingTag;
   }
