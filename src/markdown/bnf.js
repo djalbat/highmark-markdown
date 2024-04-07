@@ -2,13 +2,12 @@
 
 const bnf = `
 
-    division                ::=  ( directive | subDivision | verticalSpace | error )+ ;
+    division                ::=  ( subDivision | verticalSpace | error )+ ;
     
     
-    directive.              ::=  ( <END_OF_LINE> | <START_OF_CONTENT> ) import ;
-
+    subDivision..           ::=  ( <END_OF_LINE> | <START_OF_CONTENT> ) ( header 
     
-    subDivision..           ::=  ( <END_OF_LINE> | <START_OF_CONTENT> ) ( primaryHeading 
+                                                                        | primaryHeading 
                                  
                                                                         | secondaryHeading 
                                                                            
@@ -37,7 +36,7 @@ const bnf = `
     error.                  ::=  . ;
 
 
-    import                  ::= "@"<NO_WHITESPACE>"import" [string-literal] ;
+    header                  ::=  import+ ;
 
 
     primaryHeading          ::=  [single-hash] line ;
@@ -77,6 +76,9 @@ const bnf = `
 
 
     blockListing            ::=  blockListingStart blockText blockListingEnd ;
+
+
+    import                  ::=  "@"<NO_WHITESPACE>"import" [string-literal] <END_OF_LINE> ;
 
 
     tableHead               ::=  tableHeadRow ;

@@ -123,7 +123,7 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `@import("/grammars")
+  static initialMarkdown = `@import("/grammars" 
 
 `;
 

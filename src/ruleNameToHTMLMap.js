@@ -7,11 +7,11 @@ import { URL_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
+         HEADER_RULE_NAME,
          IMPORT_RULE_NAME,
          ADDRESS_RULE_NAME,
          FOOTNOTE_RULE_NAME,
          DIVISION_RULE_NAME,
-         DIRECTIVE_RULE_NAME,
          REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
@@ -79,6 +79,10 @@ const ruleNameToHTMLMap = {
     tagName: "a",
     className: "anchor"
   },
+  [HEADER_RULE_NAME]: {
+    tagName: null,
+    className: null
+  },
   [IMPORT_RULE_NAME]: {
     tagName: null,
     className: null
@@ -93,10 +97,6 @@ const ruleNameToHTMLMap = {
   },
   [DIVISION_RULE_NAME]: {
     tagName: "div",
-    className: null
-  },
-  [DIRECTIVE_RULE_NAME]: {
-    tagName: null,
     className: null
   },
   [REFERENCE_RULE_NAME]: {
