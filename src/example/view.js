@@ -16,7 +16,7 @@ import ParseTreeTextarea from "./view/textarea/parseTree";
 import LexicalEntriesTextarea from "./view/textarea/lexicalEntries";
 
 import { MarkdownLexer, MarkdownParser } from "../index";
-import { DOCUMENT_DIVISION_IDENTIFIER, FRONT_MATTER_DIVISION_IDENTIFIER } from "./constants";
+import { DOCUMENT_DIVISION_CLASS_NAME, FRONT_MATTER_DIVISION_CLASS_NAME } from "./constants";
 
 const { bnf } = MarkdownParser,
       { entries } = MarkdownLexer;
@@ -40,11 +40,11 @@ class View extends Element {
     let parseTree = null;
 
     if (node !== null) {
-      const divisionIdentifier = DOCUMENT_DIVISION_IDENTIFIER,
+      const divisionClassName = DOCUMENT_DIVISION_CLASS_NAME,
             context = {
               tokens,
               importer,
-              divisionIdentifier
+              divisionClassName
             },
             html = node.asHTML(context),
             domElement = node.createDOMElement(context);
@@ -150,11 +150,11 @@ function importer(path, indent, context) {
   const content = divisionContent,  ///
         tokens = markdownLexer.tokenise(content),
         node = markdownParser.parse(tokens),
-        divisionIdentifier = FRONT_MATTER_DIVISION_IDENTIFIER;  //
+        divisionClassName = FRONT_MATTER_DIVISION_CLASS_NAME;  //
 
   context = { ///
     tokens,
-    divisionIdentifier
+    divisionClassName
   }
 
   const html = node.asHTML(indent, context);
