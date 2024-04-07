@@ -36,6 +36,16 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return html;
   }
 
+  createDOMElement(context) {
+    const { divisionClassName = null } = context;
+
+    this.divisionClassName = divisionClassName; ///
+
+    const domElement = super.createDOMElement(context);
+
+    return domElement;
+  }
+
   childNodesAsHTML(indent, context) {
     const divisionMarkdownNode = this,  ///
           footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
