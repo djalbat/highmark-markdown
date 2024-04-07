@@ -7,6 +7,16 @@ import { ID_ATTRIBUTE_NAME } from "../../attributeNames";
 import { renumberLinkMarkdownNodes, renumberLinkMarkdownNodesHTML } from "../../utilities/link";
 
 export default class DivisionMarkdownNode extends MarkdownNode {
+  constructor(ruleName, childNodes, precedence, opacity, domElement, identifier) {
+    super(ruleName, childNodes, precedence, opacity, domElement);
+
+    this.identifier = identifier;
+  }
+
+  getIdentifier() {
+    return this.identifier;
+  }
+
   adjustIndent(indent) {
     return indent;
   }
@@ -18,10 +28,19 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 
   attributeValue(context) {
-    const { divisionIdentifier = null } = context,
-          attributeValue = divisionIdentifier; ///
+    const attributeValue = this.identifier; ///
 
     return attributeValue;
+  }
+
+  asHTML(indent, context) {
+    const { divisionIdentifier = null } = context;
+
+    this.identifier = divisionIdentifier; ///
+
+    const html = super.asHTML(indent, context);
+
+    return html;
   }
 
   childNodesAsHTML(indent, context) {
@@ -57,6 +76,11 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     }
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(DivisionMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
+    const identifier = null,
+          divisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(DivisionMarkdownNode, ruleName, childNodes, opacity, identifier);
+
+    return divisionMarkdownNode;
+  }
 }
 
