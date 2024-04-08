@@ -24,8 +24,7 @@ export default class TableCellMarkdownNode extends MarkdownNode {
 
     markedTextChildNode.createChildNodeDOMElements(domElement, context);
 
-    const childNodeDOMElement = document.createTextNode(`
-`);
+    const childNodeDOMElement = document.createTextNode(`\n`);
 
     this.insertDOMElement(childNodeDOMElement)
   }

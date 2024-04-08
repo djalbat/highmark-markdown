@@ -25,8 +25,7 @@ export default class LineMarkdownNode extends MarkdownNode {
 
     markedTextChildNode.createChildNodeDOMElements(domElement, context);
 
-    const childNodeDOMElement = document.createTextNode(`
-`);
+    const childNodeDOMElement = document.createTextNode(`\n`);
 
     this.insertDOMElement(childNodeDOMElement)
   }
