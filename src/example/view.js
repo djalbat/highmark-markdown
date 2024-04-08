@@ -124,9 +124,10 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `\`\`\`
-Some code.
-\`\`\`
+  static initialMarkdown = `|asdf|
+------
+|asdf|
+
 
 `;
 

@@ -25,9 +25,11 @@ export default class LineMarkdownNode extends MarkdownNode {
 
     markedTextChildNode.createChildNodeDOMElements(domElement, context);
 
-    const childNodeDOMElement = document.createTextNode(`\n`);
+    const parentDOMElement = domElement,  ///
+          siblingDOMElement = null,
+          childNodeDOMElement = document.createTextNode(`\n`);
 
-    this.insertDOMElement(childNodeDOMElement)
+    parentDOMElement.insertBefore(childNodeDOMElement, siblingDOMElement);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(LineMarkdownNode, ruleName, childNodes, opacity); }
