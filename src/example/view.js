@@ -124,8 +124,9 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `One line. [occam](https://occam.science)
-Another line.
+  static initialMarkdown = `\`\`\`
+Some code.
+\`\`\`
 
 `;
 
