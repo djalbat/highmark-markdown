@@ -3,13 +3,13 @@
 import MarkdownNode from "../../node/markdown";
 import contentMixins from "../../mixins/content";
 
-import { shave } from "../../utilities/string";
+import { trim } from "../../utilities/string";
 
 class InlineListingMarkdownNode extends MarkdownNode {
   childNodesAsHTML(indent, context) {
     let content = this.content(context);
 
-    content = shave(content); ///
+    content = trim(content); ///
 
     const childNodesHTML = content; ///
 
@@ -19,7 +19,7 @@ class InlineListingMarkdownNode extends MarkdownNode {
   createChildNodeDOMElements(context) {
     let content = this.content(context);
 
-    content = shave(content); ///
+    content = trim(content); ///
 
     const childNodeDOMElement = document.createTextNode(content);
 

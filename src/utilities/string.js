@@ -6,7 +6,7 @@ import { EMPTY_STRING } from "../constants";
 
 const { substring } = stringUtilities;
 
-export function shave(string) {
+export function trim(string) {
   const shavenString = string.replace(/^.|.$/g, EMPTY_STRING);
 
   return shavenString;

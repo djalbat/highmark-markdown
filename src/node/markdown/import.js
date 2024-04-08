@@ -4,7 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
-import { shave } from "../../utilities/string";
+import { trim } from "../../utilities/string";
 
 const { fourth } = arrayUtilities;
 
@@ -45,7 +45,7 @@ export default class ImportMarkdownNode extends MarkdownNode {
 }
 
 function filePathFromContent(content) {
-  content = shave(content); ///
+  content = trim(content); ///
 
   const filePath = content;
 
