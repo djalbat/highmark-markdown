@@ -4,50 +4,101 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
-import { SRC_ATTRIBUTE_NAME } from "../../attributeNames";
+import { ALT_ATTRIBUTE_NAME, SRC_ATTRIBUTE_NAME} from "../../attributeNames";
 
 const { second, secondLast } = arrayUtilities;
 
 export default class ImageMarkdownNode extends MarkdownNode {
-  attributeName(context) {
-    const attributeName = SRC_ATTRIBUTE_NAME;
+  alt(context) {
+    const childNodes = this.getChildNodes(),
+          secondChildNode = second(childNodes),
+          inlineTextMarkdownNode = secondChildNode,  ///
+          inlineTextMarkdownNodeContent = inlineTextMarkdownNode.content(context),
+          alt = inlineTextMarkdownNodeContent; ///
 
-    return attributeName;
+    return alt;
   }
 
-  attributeValue(context) {
+  src(context) {
     const { pathToURL = null } = context,
           childNodes = this.getChildNodes(),
           secondLastChildNode = secondLast(childNodes),
           pathTerminalNode = secondLastChildNode,  ///
           pathTerminalNodeContent = pathTerminalNode.getContent(),
           path = pathTerminalNodeContent, ///
-          imageURL = (pathToURL === null) ?
-                       path : ///
-                         pathToURL(path),
-          attributeValue = imageURL; ///
+          src = (pathToURL === null) ?
+                  path : ///
+                    pathToURL(path); ///
 
-    return attributeValue;
+    return src;
   }
 
-  childNodesAsHTML(indent, context) {
-    const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          inlineTextMarkdownNode = secondChildNode,  ///
-          content = inlineTextMarkdownNode.content(context),
-          childNodesHTML = content; ///
+  asHTML(indent, context) {
+    indent = this.adjustIndent(indent);
 
-    return childNodesHTML;
+    const selfClosingTag = this.selfClosingTag(context),
+          html = (indent === null) ?
+                   selfClosingTag :  ///
+                     `${indent}${selfClosingTag}
+`;
+
+    return html;
   }
 
-  createChildNodeDOMElements(context) {
-    const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          inlineTextMarkdownNode = secondChildNode,  ///
-          content = inlineTextMarkdownNode.content(context),
-          childNodeDOMElement = document.createTextNode(content);
+  createDOMElement(context) {
+    const tagName = this.tagName(context),
+          domElement = document.createElement(tagName),
+          attributeNames = this.attributeNames(context),
+          attributeValues = this.attributeValues(context);
 
-    this.insertDOMElement(childNodeDOMElement);
+    attributeNames.forEach((attributeName, index) => {
+      const attributeValue = attributeValues[index];
+
+      domElement.setAttribute(attributeName, attributeValue);
+    });
+
+    this.setDOMElement(domElement);
+
+    return domElement;
+  }
+
+  selfClosingTag(context) {
+    const tagName = this.tagName(context),
+          attributeNames = this.attributeNames(context),
+          attributeValues = this.attributeValues(context),
+          attributesHTML = attributeNames.reduce((attributesHML, attributeName, index) => {
+            const attributeValue = attributeValues[index];
+
+            attributesHML = (attributesHML === null) ?
+                             `${attributeName}="${attributeValue}"` :
+                               `${attributesHML} ${attributeName}="${attributeValue}"`;
+
+            return attributesHML;
+
+          }, null),
+          selfClosingTag = `<${tagName} ${attributesHTML}/?`;
+
+    return selfClosingTag;
+  }
+
+  attributeNames(context) {
+    const attributeNames = [
+      ALT_ATTRIBUTE_NAME,
+      SRC_ATTRIBUTE_NAME
+    ];
+
+    return attributeNames;
+  }
+
+  attributeValues(context) {
+    const alt = this.alt(context),
+          src = this.src(context),
+          attributeValues = [
+            alt,
+            src
+          ];
+
+    return attributeValues;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ImageMarkdownNode, ruleName, childNodes, opacity); }

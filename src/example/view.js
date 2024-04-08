@@ -124,7 +124,10 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `|asdf|
+  static initialMarkdown = `
+![occam](/occam.jpg)
+
+|asdf|
 ------
 |asdf|
 
