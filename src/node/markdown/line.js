@@ -12,7 +12,8 @@ export default class LineMarkdownNode extends MarkdownNode {
           firstChildNode = first(childNodes),
           markedTextChildNode = firstChildNode, ///
           markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context),
-          childNodesHTML = markedTextChildNodeChildNodesHTML; ///
+          childNodesHTML = `${markedTextChildNodeChildNodesHTML}
+`;
 
     return childNodesHTML;
   }
@@ -21,9 +22,14 @@ export default class LineMarkdownNode extends MarkdownNode {
     const childNodes = this.getChildNodes(),
           domElement = this.getDOMElement(),
           firstChildNode = first(childNodes),
-          markedTextChildNode = firstChildNode;
+          markedTextChildNode = firstChildNode; ///
 
     markedTextChildNode.createChildNodeDOMElements(domElement, context);
+
+    const childNodeDOMElement = document.createTextNode(`
+`);
+
+    this.insertDOMElement(childNodeDOMElement)
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(LineMarkdownNode, ruleName, childNodes, opacity); }

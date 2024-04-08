@@ -24,8 +24,7 @@ export default class LinkMarkdownNode extends MarkdownNode {
       html = (indent === null) ?
               `${startingTag}${trim(childNodesHTML)}${closingTag}` :
                 `${indent}${startingTag}
-${trim(childNodesHTML)}
-${indent}${closingTag}
+${trim(childNodesHTML)}${indent}${closingTag}
 `;
     } else {
       const selfClosingTag = this.selfClosingTag(context);

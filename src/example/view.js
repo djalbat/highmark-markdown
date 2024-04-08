@@ -124,7 +124,8 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `@import("/grammars" 
+  static initialMarkdown = `One line.
+Another line.
 
 `;
 

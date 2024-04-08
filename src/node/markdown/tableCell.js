@@ -12,7 +12,8 @@ export default class TableCellMarkdownNode extends MarkdownNode {
           firstChildNode = first(childNodes),
           markedTextChildNode = firstChildNode, ///
           markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context),
-          childNodesHTML = markedTextChildNodeChildNodesHTML; ///
+          childNodesHTML = `${markedTextChildNodeChildNodesHTML}
+`;
 
     return childNodesHTML;
   }
@@ -20,9 +21,14 @@ export default class TableCellMarkdownNode extends MarkdownNode {
   createChildNodeDOMElements(domElement, context) {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
-          markedTextChildNode = firstChildNode;
+          markedTextChildNode = firstChildNode; ///
 
     markedTextChildNode.createChildNodeDOMElements(domElement, context);
+
+    const childNodeDOMElement = document.createTextNode(`
+`);
+
+    this.insertDOMElement(childNodeDOMElement)
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(TableCellMarkdownNode, ruleName, childNodes, opacity); }

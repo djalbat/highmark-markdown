@@ -137,10 +137,9 @@ class MarkdownNode extends NonTerminalNode {
               closingTag = this.closingTag(context);
 
         html = (indent === null) ?
-                 `${startingTag}${trim(childNodesHTML)}${closingTag}` :
+                 `${startingTag}${childNodesHTML}${closingTag}` :
                    `${indent}${startingTag}
-${trim(childNodesHTML)}
-${indent}${closingTag}
+${childNodesHTML}${indent}${closingTag}
 `;
       } else {
         const selfClosingTag = this.selfClosingTag(context);
