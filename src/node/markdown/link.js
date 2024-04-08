@@ -4,7 +4,6 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
-import { trim } from "../../utilities/string";
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 
 const { second } = arrayUtilities;
@@ -22,9 +21,9 @@ export default class LinkMarkdownNode extends MarkdownNode {
             closingTag = this.closingTag(context);
 
       html = (indent === null) ?
-              `${startingTag}${trim(childNodesHTML)}${closingTag}` :
+              `${startingTag}${childNodesHTML}${closingTag}` :
                 `${indent}${startingTag}
-${trim(childNodesHTML)}${indent}${closingTag}
+${childNodesHTML}${indent}${closingTag}
 `;
     } else {
       const selfClosingTag = this.selfClosingTag(context);

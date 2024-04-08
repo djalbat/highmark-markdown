@@ -6,7 +6,6 @@ import nodeMixins from "../mixins/node";
 import elementMixins from "../mixins/element";
 import ruleNameToHTMLMap from "../ruleNameToHTMLMap";
 
-import { trim } from "../utilities/string";
 import { EMPTY_STRING } from "../constants";
 
 class MarkdownNode extends NonTerminalNode {

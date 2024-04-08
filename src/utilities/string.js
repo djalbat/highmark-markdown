@@ -6,12 +6,6 @@ import { EMPTY_STRING } from "../constants";
 
 const { substring } = stringUtilities;
 
-export function trim(string) {
-  const trimmedString = string.replace(/[\n\r]$/g, EMPTY_STRING);
-
-  return trimmedString;
-}
-
 export function shave(string) {
   const shavenString = string.replace(/^.|.$/g, EMPTY_STRING);
 
