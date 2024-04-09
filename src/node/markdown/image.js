@@ -76,7 +76,7 @@ export default class ImageMarkdownNode extends MarkdownNode {
             return attributesHML;
 
           }, null),
-          selfClosingTag = `<${tagName} ${attributesHTML}/?`;
+          selfClosingTag = `<${tagName} ${attributesHTML}/>`;
 
     return selfClosingTag;
   }
