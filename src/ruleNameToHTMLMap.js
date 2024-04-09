@@ -21,6 +21,7 @@ import { LINK_RULE_NAME,
          CLASS_NAME_RULE_NAME,
          PLAIN_TEXT_RULE_NAME,
          EMAIL_LINK_RULE_NAME,
+         END_OF_LINE_RULE_NAME,
          MARKED_TEXT_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
@@ -31,7 +32,6 @@ import { LINK_RULE_NAME,
          TABLE_HEAD_ROW_RULE_NAME,
          TABLE_BODY_ROW_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
-         VERTICAL_SPACE_RULE_NAME,
          UNORDERED_LIST_RULE_NAME,
          FOOTNOTES_LIST_RULE_NAME,
          TABLE_HEAD_CELL_RULE_NAME,
@@ -133,6 +133,10 @@ const ruleNameToHTMLMap = {
     tagName: "a",
     className: "email"
   },
+  [END_OF_LINE_RULE_NAME]: {
+    tagName: null,
+    className: null
+  },
   [MARKED_TEXT_RULE_NAME]: {
     tagName: null,
     className: null
@@ -172,10 +176,6 @@ const ruleNameToHTMLMap = {
   [INLINE_LISTING_RULE_NAME]: {
     tagName: "pre",
     className: "inline"
-  },
-  [VERTICAL_SPACE_RULE_NAME]: {
-    tagName: null,
-    className: null
   },
   [UNORDERED_LIST_RULE_NAME]: {
     tagName: "ul",

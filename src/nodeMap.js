@@ -21,6 +21,7 @@ import BlockTextMarkdownNode from "./node/markdown/blockText";
 import ClassNameMarkdownNode from "./node/markdown/className";
 import PlainTextMarkdownNode from "./node/markdown/plainText";
 import EmailLinkMarkdownNode from "./node/markdown/emailLink";
+import EndOfLineMarkdownNode from "./node/markdown/endOfLine";
 import MarkedTextMarkdownNode from "./node/markdown/markedText";
 import InlineTextMarkdownNode from "./node/markdown/inlineText";
 import StrongTextMarkdownNode from "./node/markdown/strongText";
@@ -31,7 +32,6 @@ import FootnoteItemMarkdownNode from "./node/markdown/footnoteItem";
 import TableHeadRowMarkdownNode from "./node/markdown/tableHeadRow";
 import TableBodyRowMarkdownNode from "./node/markdown/tableBodyRow";
 import InlineListingMarkdownNode from "./node/markdown/inlineListing";
-import VerticalSpaceMarkdownNode from "./node/markdown/verticalSpace";
 import UnorderedListMarkdownNode from "./node/markdown/unorderedList";
 import FootnotesListMarkdownNode from "./node/markdown/footnotesList";
 import TableHeadCellMarkdownNode from "./node/markdown/tableHeadCell";
@@ -49,55 +49,54 @@ import BlockListingStartMarkdownNode from "./node/markdown/blockListingStart";
 import UnorderedListItemMarkdownNode from "./node/markdown/unorderedListItem";
 import StronglyEmphasisedTextMarkdownNode from "./node/markdown/stronglyEmphasisedText";
 
-import {
-  LINK_RULE_NAME,
-  LINE_RULE_NAME,
-  IMAGE_RULE_NAME,
-  TABLE_RULE_NAME,
-  ERROR_RULE_NAME,
-  ANCHOR_RULE_NAME,
-  HEADER_RULE_NAME,
-  IMPORT_RULE_NAME,
-  FOOTNOTE_RULE_NAME,
-  DIVISION_RULE_NAME,
-  REFERENCE_RULE_NAME,
-  PARAGRAPH_RULE_NAME,
-  HYPERLINK_RULE_NAME,
-  LINE_BREAK_RULE_NAME,
-  TABLE_CELL_RULE_NAME,
-  TABLE_HEAD_RULE_NAME,
-  TABLE_BODY_RULE_NAME,
-  BLOCK_TEXT_RULE_NAME,
-  CLASS_NAME_RULE_NAME,
-  PLAIN_TEXT_RULE_NAME,
-  EMAIL_LINK_RULE_NAME,
-  MARKED_TEXT_RULE_NAME,
-  INLINE_TEXT_RULE_NAME,
-  STRONG_TEXT_RULE_NAME,
-  SUB_DIVISION_RULE_NAME,
-  ORDERED_LIST_RULE_NAME,
-  BLOCK_LISTING_RULE_NAME,
-  FOOTNOTE_ITEM_RULE_NAME,
-  TABLE_HEAD_ROW_RULE_NAME,
-  TABLE_BODY_ROW_RULE_NAME,
-  INLINE_LISTING_RULE_NAME,
-  VERTICAL_SPACE_RULE_NAME,
-  UNORDERED_LIST_RULE_NAME,
-  FOOTNOTES_LIST_RULE_NAME,
-  TABLE_HEAD_CELL_RULE_NAME,
-  TABLE_BODY_CELL_RULE_NAME,
-  TABLE_SEPARATOR_RULE_NAME,
-  EMPHASISED_TEXT_RULE_NAME,
-  PRIMARY_HEADING_RULE_NAME,
-  EMPTY_TABLE_CELL_RULE_NAME,
-  TERTIARY_HEADING_RULE_NAME,
-  ORDERED_LIST_ITEM_RULE_NAME,
-  BLOCK_LISTING_END_RULE_NAME,
-  SECONDARY_HEADING_RULE_NAME,
-  QUATERNARY_HEADING_RULE_NAME,
-  BLOCK_LISTING_START_RULE_NAME,
-  UNORDERED_LIST_ITEM_RULE_NAME,
-  STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "./ruleNames";
+import { LINK_RULE_NAME,
+         LINE_RULE_NAME,
+         IMAGE_RULE_NAME,
+         TABLE_RULE_NAME,
+         ERROR_RULE_NAME,
+         ANCHOR_RULE_NAME,
+         HEADER_RULE_NAME,
+         IMPORT_RULE_NAME,
+         FOOTNOTE_RULE_NAME,
+         DIVISION_RULE_NAME,
+         REFERENCE_RULE_NAME,
+         PARAGRAPH_RULE_NAME,
+         HYPERLINK_RULE_NAME,
+         LINE_BREAK_RULE_NAME,
+         TABLE_CELL_RULE_NAME,
+         TABLE_HEAD_RULE_NAME,
+         TABLE_BODY_RULE_NAME,
+         BLOCK_TEXT_RULE_NAME,
+         CLASS_NAME_RULE_NAME,
+         PLAIN_TEXT_RULE_NAME,
+         EMAIL_LINK_RULE_NAME,
+         END_OF_LINE_RULE_NAME,
+         MARKED_TEXT_RULE_NAME,
+         INLINE_TEXT_RULE_NAME,
+         STRONG_TEXT_RULE_NAME,
+         SUB_DIVISION_RULE_NAME,
+         ORDERED_LIST_RULE_NAME,
+         BLOCK_LISTING_RULE_NAME,
+         FOOTNOTE_ITEM_RULE_NAME,
+         TABLE_HEAD_ROW_RULE_NAME,
+         TABLE_BODY_ROW_RULE_NAME,
+         INLINE_LISTING_RULE_NAME,
+         UNORDERED_LIST_RULE_NAME,
+         FOOTNOTES_LIST_RULE_NAME,
+         TABLE_HEAD_CELL_RULE_NAME,
+         TABLE_BODY_CELL_RULE_NAME,
+         TABLE_SEPARATOR_RULE_NAME,
+         EMPHASISED_TEXT_RULE_NAME,
+         PRIMARY_HEADING_RULE_NAME,
+         EMPTY_TABLE_CELL_RULE_NAME,
+         TERTIARY_HEADING_RULE_NAME,
+         ORDERED_LIST_ITEM_RULE_NAME,
+         BLOCK_LISTING_END_RULE_NAME,
+         SECONDARY_HEADING_RULE_NAME,
+         QUATERNARY_HEADING_RULE_NAME,
+         BLOCK_LISTING_START_RULE_NAME,
+         UNORDERED_LIST_ITEM_RULE_NAME,
+         STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "./ruleNames";
 
 const nodeMap = {
   [LINK_RULE_NAME]: LinkMarkdownNode,
@@ -121,6 +120,7 @@ const nodeMap = {
   [CLASS_NAME_RULE_NAME]: ClassNameMarkdownNode,
   [PLAIN_TEXT_RULE_NAME]: PlainTextMarkdownNode,
   [EMAIL_LINK_RULE_NAME]: EmailLinkMarkdownNode,
+  [END_OF_LINE_RULE_NAME]: EndOfLineMarkdownNode,
   [MARKED_TEXT_RULE_NAME]: MarkedTextMarkdownNode,
   [INLINE_TEXT_RULE_NAME]: InlineTextMarkdownNode,
   [STRONG_TEXT_RULE_NAME]: StrongTextMarkdownNode,
@@ -131,7 +131,6 @@ const nodeMap = {
   [TABLE_HEAD_ROW_RULE_NAME]: TableHeadRowMarkdownNode,
   [TABLE_BODY_ROW_RULE_NAME]: TableBodyRowMarkdownNode,
   [INLINE_LISTING_RULE_NAME]: InlineListingMarkdownNode,
-  [VERTICAL_SPACE_RULE_NAME]: VerticalSpaceMarkdownNode,
   [UNORDERED_LIST_RULE_NAME]: UnorderedListMarkdownNode,
   [FOOTNOTES_LIST_RULE_NAME]: FootnotesListMarkdownNode,
   [TABLE_HEAD_CELL_RULE_NAME]: TableHeadCellMarkdownNode,

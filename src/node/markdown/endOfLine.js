@@ -6,7 +6,7 @@ import MarkdownNode from "../../node/markdown";
 
 const { first } = arrayUtilities;
 
-export default class VerticalSpaceMarkdownNode extends MarkdownNode {
+export default class EndOfLineMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
@@ -30,5 +30,5 @@ export default class VerticalSpaceMarkdownNode extends MarkdownNode {
     return domElement;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(VerticalSpaceMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EndOfLineMarkdownNode, ruleName, childNodes, opacity); }
 }

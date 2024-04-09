@@ -21,6 +21,7 @@ export const BLOCK_TEXT_RULE_NAME = "blockText";
 export const CLASS_NAME_RULE_NAME = "className";
 export const PLAIN_TEXT_RULE_NAME = "plainText";
 export const EMAIL_LINK_RULE_NAME = "emailLink";
+export const END_OF_LINE_RULE_NAME = "endOfLine";
 export const MARKED_TEXT_RULE_NAME = "markedText";
 export const INLINE_TEXT_RULE_NAME = "inlineText";
 export const STRONG_TEXT_RULE_NAME = "strongText";
@@ -31,7 +32,6 @@ export const FOOTNOTE_ITEM_RULE_NAME = "footnoteItem";
 export const TABLE_HEAD_ROW_RULE_NAME = "tableHeadRow";
 export const TABLE_BODY_ROW_RULE_NAME = "tableBodyRow";
 export const INLINE_LISTING_RULE_NAME = "inlineListing";
-export const VERTICAL_SPACE_RULE_NAME = "verticalSpace";
 export const UNORDERED_LIST_RULE_NAME = "unorderedList";
 export const FOOTNOTES_LIST_RULE_NAME = "footnotesList";
 export const TABLE_HEAD_CELL_RULE_NAME = "tableHeadCell";
@@ -71,6 +71,7 @@ const ruleNames = {
   CLASS_NAME_RULE_NAME,
   PLAIN_TEXT_RULE_NAME,
   EMAIL_LINK_RULE_NAME,
+  END_OF_LINE_RULE_NAME,
   MARKED_TEXT_RULE_NAME,
   INLINE_TEXT_RULE_NAME,
   STRONG_TEXT_RULE_NAME,
@@ -81,7 +82,6 @@ const ruleNames = {
   TABLE_HEAD_ROW_RULE_NAME,
   TABLE_BODY_ROW_RULE_NAME,
   INLINE_LISTING_RULE_NAME,
-  VERTICAL_SPACE_RULE_NAME,
   UNORDERED_LIST_RULE_NAME,
   FOOTNOTES_LIST_RULE_NAME,
   TABLE_HEAD_CELL_RULE_NAME,

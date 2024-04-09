@@ -2,35 +2,35 @@
 
 const bnf = `
 
-    division                ::=  ( subDivision | verticalSpace | error )+ ;
+    division                ::=  ( subDivision | endOfLine | error )+ ;
     
     
-    subDivision..           ::=  ( <END_OF_LINE> | <START_OF_CONTENT> ) ( header 
+    subDivision..           ::=  ( endOfLine | <START_OF_CONTENT> ) ( header 
     
-                                                                        | primaryHeading 
-                                 
-                                                                        | secondaryHeading 
-                                                                           
-                                                                        | tertiaryHeading 
-                                                                           
-                                                                        | quaternaryHeading 
-                                                                           
-                                                                        | lineBreak 
-                                                                           
-                                                                        | footnote 
-                                                                           
-                                                                        | orderedList 
-                                                                           
-                                                                        | unorderedList 
-                                                                           
-                                                                        | blockListing 
-                                              
-                                                                        | table 
-                                                                           
-                                                                        | paragraph ) ;
+                                                                    | primaryHeading 
+                             
+                                                                    | secondaryHeading 
+                                                                       
+                                                                    | tertiaryHeading 
+                                                                       
+                                                                    | quaternaryHeading 
+                                                                       
+                                                                    | lineBreak 
+                                                                       
+                                                                    | footnote 
+                                                                       
+                                                                    | orderedList 
+                                                                       
+                                                                    | unorderedList 
+                                                                       
+                                                                    | blockListing 
+                                          
+                                                                    | table 
+                                                                       
+                                                                    | paragraph ) ;
 
     
-    verticalSpace           ::=  <END_OF_LINE> ;
+    endOfLine.              ::=  <END_OF_LINE> ;
 
 
     error.                  ::=  . ;
@@ -51,7 +51,7 @@ const bnf = `
     quaternaryHeading       ::=  [quadruple-hash] line ;
 
 
-    lineBreak               ::=  [two-dashes] <END_OF_LINE> ;
+    lineBreak               ::=  [two-dashes] endOfLine ;
 
 
     footnotesList           ::=  footnoteItem+ ;
@@ -78,7 +78,7 @@ const bnf = `
     blockListing            ::=  blockListingStart blockText blockListingEnd ;
 
 
-    import                  ::=  "@"<NO_WHITESPACE>"import" [path] <END_OF_LINE> ;
+    import                  ::=  "@"<NO_WHITESPACE>"import" [path] endOfLine ;
 
 
     tableHead               ::=  tableHeadRow ;
@@ -87,7 +87,7 @@ const bnf = `
     tableBody               ::=  tableBodyRow+ ;
 
     
-    tableSeparator          ::=  [many-dashes] <END_OF_LINE> ;
+    tableSeparator          ::=  [many-dashes] endOfLine ;
 
     
     orderedListItem         ::=  [number]<NO_WHITESPACE>"." line ;
@@ -96,19 +96,19 @@ const bnf = `
     unorderedListItem       ::=  ( [single-dash] | [single-asterisk] ) line ;
 
 
-    blockListingStart       ::=  [backticks] className? <END_OF_LINE> ;
+    blockListingStart       ::=  [backticks] className? endOfLine ;
 
 
-    blockListingEnd         ::=  [backticks] <END_OF_LINE> ;
+    blockListingEnd         ::=  [backticks] endOfLine ;
 
 
-    tableHeadRow            ::=  [vertical-bar] tableHeadCell+ <END_OF_LINE> ;
+    tableHeadRow            ::=  [vertical-bar] tableHeadCell+ endOfLine ;
 
     
-    tableBodyRow            ::=  [vertical-bar] tableBodyCell+ <END_OF_LINE> ;
+    tableBodyRow            ::=  [vertical-bar] tableBodyCell+ endOfLine ;
 
 
-    blockText               ::=  ( plainText | <END_OF_LINE> )+ ;
+    blockText               ::=  ( plainText | endOfLine )+ ;
     
 
     tableHeadCell           ::=  emptyTableCell | tableCell ;
@@ -123,7 +123,7 @@ const bnf = `
     tableCell.              ::=  markedText... [vertical-bar] ;
     
     
-    line.                   ::=  markedText <END_OF_LINE> ;
+    line.                   ::=  markedText endOfLine ;
 
 
     markedText              ::=  ( link 
