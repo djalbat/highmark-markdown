@@ -108,7 +108,7 @@ const bnf = `
     tableBodyRow            ::=  [vertical-bar] tableBodyCell+ endOfLine ;
 
 
-    blockText               ::=  ( plainText | endOfLine )+ ;
+    blockText.              ::=  ( plainText | endOfLine )+ ;
     
 
     tableHeadCell           ::=  emptyTableCell | tableCell ;
