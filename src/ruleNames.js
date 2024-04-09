@@ -1,6 +1,5 @@
 "use strict";
 
-export const URL_RULE_NAME = "url";
 export const LINK_RULE_NAME = "link";
 export const LINE_RULE_NAME = "line";
 export const IMAGE_RULE_NAME = "image";
@@ -9,7 +8,6 @@ export const ERROR_RULE_NAME = "error";
 export const ANCHOR_RULE_NAME = "anchor";
 export const HEADER_RULE_NAME = "header";
 export const IMPORT_RULE_NAME = "import";
-export const ADDRESS_RULE_NAME = "address";
 export const FOOTNOTE_RULE_NAME = "footnote";
 export const DIVISION_RULE_NAME = "division";
 export const REFERENCE_RULE_NAME = "reference";
@@ -52,7 +50,6 @@ export const UNORDERED_LIST_ITEM_RULE_NAME = "unorderedListItem";
 export const STRONGLY_EMPHASISED_TEXT_RULE_NAME = "stronglyEmphasisedText";
 
 const ruleNames = {
-  URL_RULE_NAME,
   LINK_RULE_NAME,
   LINE_RULE_NAME,
   IMAGE_RULE_NAME,
@@ -61,7 +58,6 @@ const ruleNames = {
   ANCHOR_RULE_NAME,
   HEADER_RULE_NAME,
   IMPORT_RULE_NAME,
-  ADDRESS_RULE_NAME,
   FOOTNOTE_RULE_NAME,
   DIVISION_RULE_NAME,
   REFERENCE_RULE_NAME,

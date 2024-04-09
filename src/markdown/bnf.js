@@ -78,7 +78,7 @@ const bnf = `
     blockListing            ::=  blockListingStart blockText blockListingEnd ;
 
 
-    import                  ::=  "@"<NO_WHITESPACE>"import" [string-literal] <END_OF_LINE> ;
+    import                  ::=  "@"<NO_WHITESPACE>"import" [path] <END_OF_LINE> ;
 
 
     tableHead               ::=  tableHeadRow ;
@@ -151,16 +151,16 @@ const bnf = `
     image.                  ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" [path] ")" ;
 
 
-    emailLink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" address ")" 
+    emailLink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [email-address] ")" 
     
-                              |  address 
+                              |  [email-address] 
                               
                               ;
 
 
-    hyperlink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" url ")" 
+    hyperlink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [url] ")" 
     
-                              |  url
+                              |  [url]
                               
                               ;
 
@@ -180,11 +180,7 @@ const bnf = `
     inlineText              ::=  plainText+ ;
     
     
-    plainText               ::=  [regular-expression] 
-    
-                              |  [string-literal] 
-                              
-                              |  [escaped] 
+    plainText               ::=  [escaped] 
                               
                               |  [triple-asterisk] 
                               
@@ -231,12 +227,6 @@ const bnf = `
     
 
     anchor                  ::=  [number] ;
-    
-
-    url                     ::=  [scheme]? [domain] [path]? ;
-    
-
-    address                 ::=  [domain]<NO_WHITESPACE>"@"<NO_WHITESPACE>[domain] ;
     
 
     className               ::=  <NO_WHITESPACE>[identifier] ;

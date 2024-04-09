@@ -3,12 +3,53 @@
 import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
+import contentMixins from "../../mixins/content";
 
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 
 const { first, second, secondLast } = arrayUtilities;
 
-export default class EmailLinkMarkdownNode extends MarkdownNode {
+class EmailLinkMarkdownNode extends MarkdownNode {
+  inlineText(context) {
+    let inlineText = null;
+
+    const childNodes = this.getChildNodes(),
+          childNodesLength = childNodes.length;
+
+    if (childNodesLength !== 1) {
+      const indent = null,
+            secondChildNode = second(childNodes),
+            inlineTextMarkdownNode = secondChildNode, ///
+            inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context);
+
+      inlineText = inlineTextMarkdownNodeHTML;  ///
+    }
+
+    return inlineText;
+  }
+
+  emailAddress(context) {
+    const childNodes = this.getChildNodes(),
+          childNodesLength = childNodes.length;
+
+    let emailAddressTerminalNode;
+
+    if (childNodesLength === 1) {
+      const firstChildNode = first(childNodes);
+
+      emailAddressTerminalNode = firstChildNode;  ///
+    } else {
+      const secondLastChildNode = secondLast(childNodes);
+
+      emailAddressTerminalNode = secondLastChildNode;  ///
+    }
+
+    const emailAddressTerminalNodeContent = emailAddressTerminalNode.getContent(),
+          emailAddress = emailAddressTerminalNodeContent; ///
+
+    return emailAddress;
+  }
+
   attributeName(context) {
     const attributeName = HREF_ATTRIBUTE_NAME;
 
@@ -16,23 +57,8 @@ export default class EmailLinkMarkdownNode extends MarkdownNode {
   }
 
   attributeValue(context) {
-    const childNodes = this.getChildNodes(),
-          childNodesLength = childNodes.length;
-
-    let addressMarkdownNode;
-
-    if (childNodesLength === 1) {
-      const firstChildNode = first(childNodes);
-
-      addressMarkdownNode = firstChildNode;  ///
-    } else {
-      const secondLastChildNode = secondLast(childNodes);
-
-      addressMarkdownNode = secondLastChildNode;  ///
-    }
-
-    const addressMarkdownNodeContent = addressMarkdownNode.content(context),
-          attributeValue = `mailto:${addressMarkdownNodeContent}`;
+    const emailAddress = this.emailAddress(context),
+          attributeValue = `mailto:${emailAddress}`;
 
     return attributeValue;
   }
@@ -40,44 +66,33 @@ export default class EmailLinkMarkdownNode extends MarkdownNode {
   childNodesAsHTML(indent, context) {
     let childNodesHTML;
 
-    const childNodes = this.getChildNodes(),
-          childNodesLength = childNodes.length;
+    const inlineText = this.inlineText(context);
 
-    if (childNodesLength === 1) {
-      const firstChildNode = first(childNodes),
-            addressMarkdownNode = firstChildNode,
-            addressMarkdownNodeHTML = addressMarkdownNode.asHTML(indent, context);
-
-      childNodesHTML = addressMarkdownNodeHTML;  ///
+    if (inlineText !== null) {
+      childNodesHTML = inlineText;  ///
     } else {
-      const secondChildNode = second(childNodes),
-            inlineTextMarkdownNode = secondChildNode, ///
-            inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context);
+      const content = this.content(context);
 
-      childNodesHTML = inlineTextMarkdownNodeHTML; ///
+      childNodesHTML = content; ///
     }
 
     return childNodesHTML;
   }
 
   createChildNodeDOMElements(context) {
-    const childNodes = this.getChildNodes(),
-          childNodesLength = childNodes.length;
+    const inlineText = this.inlineText(context),
+          content = (inlineText !== null) ?
+                      inlineText :
+                        this.content(context);
 
-    if (childNodesLength === 1) {
-      const firstChildNode = first(childNodes),
-            addressMarkdownNode = firstChildNode, ///
-            addressMarkdownNodeDOMElement = addressMarkdownNode.createDOMElement(context);
+    const childNodeDOMElement = document.createTextNode(content);
 
-      this.insertDOMElement(addressMarkdownNodeDOMElement);
-    } else {
-      const secondChildNode = second(childNodes),
-            inlineTextMarkdownNode = secondChildNode, ///
-            inlineTextMarkdownNodeDOMElement = inlineTextMarkdownNode.createDOMElement(context);
-
-      this.insertDOMElement(inlineTextMarkdownNodeDOMElement);
-    }
+    this.insertDOMElement(childNodeDOMElement);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EmailLinkMarkdownNode, ruleName, childNodes, opacity); }
 }
+
+Object.assign(EmailLinkMarkdownNode.prototype, contentMixins);
+
+export default EmailLinkMarkdownNode;

@@ -3,12 +3,53 @@
 import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
+import contentMixins from "../../mixins/content";
 
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 
 const { first, second, secondLast } = arrayUtilities;
 
-export default class HyperlinkMarkdownNode extends MarkdownNode {
+class HyperlinkLinkMarkdownNode extends MarkdownNode {
+  url(context) {
+    const childNodes = this.getChildNodes(),
+          childNodesLength = childNodes.length;
+
+    let urlTerminalNode;
+
+    if (childNodesLength === 1) {
+      const firstChildNode = first(childNodes);
+
+      urlTerminalNode = firstChildNode;  ///
+    } else {
+      const secondLastChildNode = secondLast(childNodes);
+
+      urlTerminalNode = secondLastChildNode;  ///
+    }
+
+    const urlTerminalNodeContent = urlTerminalNode.getContent(),
+          url = urlTerminalNodeContent; ///
+
+    return url;
+  }
+
+  inlineText(context) {
+    let inlineText = null;
+
+    const childNodes = this.getChildNodes(),
+          childNodesLength = childNodes.length;
+
+    if (childNodesLength !== 1) {
+      const indent = null,
+            secondChildNode = second(childNodes),
+            inlineTextMarkdownNode = secondChildNode, ///
+            inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context);
+
+      inlineText = inlineTextMarkdownNodeHTML;  ///
+    }
+
+    return inlineText;
+  }
+
   attributeName(context) {
     const attributeName = HREF_ATTRIBUTE_NAME;
 
@@ -16,23 +57,8 @@ export default class HyperlinkMarkdownNode extends MarkdownNode {
   }
 
   attributeValue(context) {
-    const childNodes = this.getChildNodes(),
-          childNodesLength = childNodes.length;
-
-    let urlMarkdownNode;
-
-    if (childNodesLength === 1) {
-      const firstChildNode = first(childNodes);
-
-      urlMarkdownNode = firstChildNode;  ///
-    } else {
-      const secondLastChildNode = secondLast(childNodes);
-
-      urlMarkdownNode = secondLastChildNode;  ///
-    }
-
-    const urlMarkdownNodeContent = urlMarkdownNode.content(context),
-          attributeValue = urlMarkdownNodeContent;  ///
+    const url = this.url(context),
+          attributeValue = url; ///
 
     return attributeValue;
   }
@@ -40,44 +66,33 @@ export default class HyperlinkMarkdownNode extends MarkdownNode {
   childNodesAsHTML(indent, context) {
     let childNodesHTML;
 
-    const childNodes = this.getChildNodes(),
-          childNodesLength = childNodes.length;
+    const inlineText = this.inlineText(context);
 
-    if (childNodesLength === 1) {
-      const firstChildNode = first(childNodes),
-            urlMarkdownNode = firstChildNode,
-            urlMarkdownNodeHTML = urlMarkdownNode.asHTML(indent, context);
-
-      childNodesHTML = urlMarkdownNodeHTML;  ///
+    if (inlineText !== null) {
+      childNodesHTML = inlineText;  ///
     } else {
-      const secondChildNode = second(childNodes),
-            inlineTextMarkdownNode = secondChildNode, ///
-            inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context);
+      const content = this.content(context);
 
-      childNodesHTML = inlineTextMarkdownNodeHTML; ///
+      childNodesHTML = content; ///
     }
 
     return childNodesHTML;
   }
 
   createChildNodeDOMElements(context) {
-    const childNodes = this.getChildNodes(),
-          childNodesLength = childNodes.length;
+    const inlineText = this.inlineText(context),
+          content = (inlineText !== null) ?
+                      inlineText :
+                        this.content(context);
 
-    if (childNodesLength === 1) {
-      const firstChildNode = first(childNodes),
-            urlMarkdownNode = firstChildNode, ///
-            urlMarkdownNodeDOMElement = urlMarkdownNode.createDOMElement(context);
+    const childNodeDOMElement = document.createTextNode(content);
 
-      this.insertDOMElement(urlMarkdownNodeDOMElement);
-    } else {
-      const secondChildNode = second(childNodes),
-            inlineTextMarkdownNode = secondChildNode, ///
-            inlineTextMarkdownNodeDOMElement = inlineTextMarkdownNode.createDOMElement(context);
-
-      this.insertDOMElement(inlineTextMarkdownNodeDOMElement);
-    }
+    this.insertDOMElement(childNodeDOMElement);
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(HyperlinkMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(HyperlinkLinkMarkdownNode, ruleName, childNodes, opacity); }
 }
+
+Object.assign(HyperlinkLinkMarkdownNode.prototype, contentMixins);
+
+export default HyperlinkLinkMarkdownNode;

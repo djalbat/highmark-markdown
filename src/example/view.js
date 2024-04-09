@@ -124,14 +124,7 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `
-![occam](/occam.jpg)
-
-|asdf|
-------
-|asdf|
-
-
+  static initialMarkdown = `@import cover.mds
 `;
 
   static tagName = "div";

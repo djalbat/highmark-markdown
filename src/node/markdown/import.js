@@ -4,8 +4,6 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
-import { trim } from "../../utilities/string";
-
 const { fourth } = arrayUtilities;
 
 export default class ImportMarkdownNode extends MarkdownNode {
@@ -34,20 +32,12 @@ export default class ImportMarkdownNode extends MarkdownNode {
   filePath(context) {
     const childNodes = this.getChildNodes(),
           fourthChildNode = fourth(childNodes),
-          doublyQuotedStringLiteralTerminalNode  = fourthChildNode,
-          content = doublyQuotedStringLiteralTerminalNode.getContent(),
-          filePath = filePathFromContent(content);
+          pathTerminalNode  = fourthChildNode, ///
+          pathTerminalNodeContent = pathTerminalNode.getContent(),
+          filePath = pathTerminalNodeContent; ///
 
     return filePath;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ImportMarkdownNode, ruleName, childNodes, opacity); }
-}
-
-function filePathFromContent(content) {
-  content = trim(content); ///
-
-  const filePath = content;
-
-  return filePath;
 }

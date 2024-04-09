@@ -1,6 +1,5 @@
 "use strict";
 
-import URLMarkdownNode from "./node/markdown/url";
 import LinkMarkdownNode from "./node/markdown/link";
 import LineMarkdownNode from "./node/markdown/line";
 import ImageMarkdownNode from "./node/markdown/image";
@@ -9,7 +8,6 @@ import ErrorMarkdownNode from "./node/markdown/error";
 import AnchorMarkdownNode from "./node/markdown/anchor";
 import HeaderMarkdownNode from "./node/markdown/header";
 import ImportMarkdownNode from "./node/markdown/import";
-import AddressMarkdownNode from "./node/markdown/address";
 import DivisionMarkdownNode from "./node/markdown/division";
 import FootnoteMarkdownNode from "./node/markdown/footnote";
 import ReferenceMarkdownNode from "./node/markdown/reference";
@@ -52,7 +50,6 @@ import UnorderedListItemMarkdownNode from "./node/markdown/unorderedListItem";
 import StronglyEmphasisedTextMarkdownNode from "./node/markdown/stronglyEmphasisedText";
 
 import {
-  URL_RULE_NAME,
   LINK_RULE_NAME,
   LINE_RULE_NAME,
   IMAGE_RULE_NAME,
@@ -61,7 +58,6 @@ import {
   ANCHOR_RULE_NAME,
   HEADER_RULE_NAME,
   IMPORT_RULE_NAME,
-  ADDRESS_RULE_NAME,
   FOOTNOTE_RULE_NAME,
   DIVISION_RULE_NAME,
   REFERENCE_RULE_NAME,
@@ -104,7 +100,6 @@ import {
   STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "./ruleNames";
 
 const nodeMap = {
-  [URL_RULE_NAME]: URLMarkdownNode,
   [LINK_RULE_NAME]: LinkMarkdownNode,
   [LINE_RULE_NAME]: LineMarkdownNode,
   [IMAGE_RULE_NAME]: ImageMarkdownNode,
@@ -113,7 +108,6 @@ const nodeMap = {
   [ANCHOR_RULE_NAME]: AnchorMarkdownNode,
   [HEADER_RULE_NAME]: HeaderMarkdownNode,
   [IMPORT_RULE_NAME]: ImportMarkdownNode,
-  [ADDRESS_RULE_NAME]: AddressMarkdownNode,
   [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
   [DIVISION_RULE_NAME]: DivisionMarkdownNode,
   [REFERENCE_RULE_NAME]: ReferenceMarkdownNode,
