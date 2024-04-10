@@ -18,18 +18,12 @@ export default class LineMarkdownNode extends MarkdownNode {
   }
 
   createChildNodeDOMElements(context) {
-    const childNodes = this.getChildNodes(),
-          domElement = this.getDOMElement(),
+    const domElement = this.getDOMElement(),
+          childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           markedTextChildNode = firstChildNode; ///
 
     markedTextChildNode.createChildNodeDOMElements(domElement, context);
-
-    const parentDOMElement = domElement,  ///
-          siblingDOMElement = null,
-          childNodeDOMElement = document.createTextNode(`\n`);
-
-    parentDOMElement.insertBefore(childNodeDOMElement, siblingDOMElement);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(LineMarkdownNode, ruleName, childNodes, opacity); }

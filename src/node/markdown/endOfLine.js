@@ -1,28 +1,18 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
 
-const { first } = arrayUtilities;
+import { EMPTY_STRING } from "../../constants";
 
 export default class EndOfLineMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
-    const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          endOfLineTerminalNode = firstChildNode, ///
-          endOfLineTerminalNodeContent = endOfLineTerminalNode.getContent(),
-          html = endOfLineTerminalNodeContent; ///
+    const html = EMPTY_STRING;  ///
 
     return html;
   }
 
   createDOMElement(context) {
-    const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          endOfLineTerminalNode = firstChildNode, ///
-          endOfLineTerminalNodeContent = endOfLineTerminalNode.getContent(),
-          content = endOfLineTerminalNodeContent, ///
+    const content = EMPTY_STRING, ///
           domElement = document.createTextNode(content);
 
     this.setDOMElement(domElement);

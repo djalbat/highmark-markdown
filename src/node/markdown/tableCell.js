@@ -23,12 +23,6 @@ export default class TableCellMarkdownNode extends MarkdownNode {
           markedTextChildNode = firstChildNode; ///
 
     markedTextChildNode.createChildNodeDOMElements(domElement, context);
-
-    const parentDOMElement = domElement,  ///
-          siblingDOMElement = null,
-          childNodeDOMElement = document.createTextNode(`\n`);
-
-    parentDOMElement.insertBefore(childNodeDOMElement, siblingDOMElement);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(TableCellMarkdownNode, ruleName, childNodes, opacity); }
