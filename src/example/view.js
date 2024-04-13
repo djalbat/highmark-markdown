@@ -52,7 +52,7 @@ class View extends Element {
               importer
             };
 
-      // divisionMarkdownNode.resolveImports(parentNode, context);
+      divisionMarkdownNode.resolveImports(parentNode, context);
 
       divisionMarkdownNode.createContents(context);
 
@@ -141,13 +141,7 @@ class View extends Element {
 
 ## Secondary heading 1
 
-## Secondary heading 2
-
-A short paragraph.
-
-### Tertiary heading
-
-# Primary heading 2
+@import cover.mds
 
 `;
 
@@ -167,9 +161,14 @@ export default withStyle(View)`
 function importer(path, context) {
   const content = `
 
-# Primary heading
+## Secondary heading 2
 
-@import cover.mds
+A short paragraph.
+
+### Tertiary heading
+
+# Primary heading 2
+
 
 `       ,
         tokens = markdownLexer.tokenise(content),
