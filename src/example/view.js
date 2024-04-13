@@ -52,7 +52,7 @@ class View extends Element {
               importer
             };
 
-      divisionMarkdownNode.resolveImports(parentNode, context);
+      // divisionMarkdownNode.resolveImports(parentNode, context);
 
       divisionMarkdownNode.createContents(context);
 
@@ -136,9 +136,19 @@ class View extends Element {
   }
 
   static initialMarkdown = `@contents 3
-  
-@import cover.mds
-   
+
+# Primary heading 1
+
+## Secondary heading 1
+
+## Secondary heading 2
+
+A short paragraph.
+
+### Tertiary heading
+
+# Primary heading 2
+
 `;
 
   static tagName = "div";
@@ -158,6 +168,8 @@ function importer(path, context) {
   const content = `
 
 # Primary heading
+
+@import cover.mds
 
 `       ,
         tokens = markdownLexer.tokenise(content),

@@ -56,7 +56,6 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     const nodes = headingMarkdownNodes, ///
           nestedNode = nestNodes(nodes),
           childNestedNodes = nestedNode.getChildNestedNodes(),
-          replacedChildNode = contentsMarkdownNode, ///
           replacementTokens = []
 
     Object.assign(context, {
@@ -66,6 +65,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     const nestedHeadingMarkdownNodes = childNestedNodes,  ///
           contentsListMarkdownNode = ContentsListMarkdownNode.fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
           replacementChildNode = contentsListMarkdownNode,
+          replacedChildNode = contentsMarkdownNode, ///
           parentNode = parentNodeFromNodeAndReplacedChildNode(node, replacedChildNode);
 
     parentNode.replaceChildNode(replacedChildNode, replacementChildNode);

@@ -12,15 +12,13 @@ export default class ContentsItemMarkdownNode extends MarkdownNode {
   static fromNestedHeadingMarkdownNodeAndContentsListMarkdownNode(nestedHeadingMarkdownNode, ContentsListMarkdownNode, context) {
     const node = nestedHeadingMarkdownNode.getNode(),
           childNestedNodes = nestedHeadingMarkdownNode.getChildNestedNodes(),
-          nestedHeadingMarkdownNodes = childNestedNodes,  ///
-          contentsListMarkdownNode = ContentsListMarkdownNode.fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes);
+          headingMarkdownNode = node, ///
+          nestedHeadingMarkdownNodes = childNestedNodes;  ///
 
-    const ruleName = CONTENTS_ITEM_RULE_NAME,
-          childNodes = [];
+    const childNodes = [];
 
-    if (node !== null) {
+    if (headingMarkdownNode !== null) {
       const { replacementTokens } = context,
-            headingMarkdownNode = node,
             headingMarkdownNodeOffset = offsetFromNode(headingMarkdownNode, context), ///
             headingMarkdownNodeTokens = tokensFromNode(headingMarkdownNode, context),
             headingMarkdownNodeChildNodes = childNodesFromNode(headingMarkdownNode);
@@ -32,11 +30,14 @@ export default class ContentsItemMarkdownNode extends MarkdownNode {
       replaceChildNodesTokens(headingMarkdownNodeChildNodes, headingMarkdownNodeTokens, headingMarkdownNodeOffset, context);
     }
 
+    const contentsListMarkdownNode = ContentsListMarkdownNode.fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context);
+
     if (contentsListMarkdownNode !== null) {
       childNodes.push(contentsListMarkdownNode);
     }
 
-    const opacity = null,
+    const ruleName = CONTENTS_ITEM_RULE_NAME,
+          opacity = null,
           contentsItemMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(ContentsItemMarkdownNode, ruleName, childNodes, opacity);
 
     return contentsItemMarkdownNode;
