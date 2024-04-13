@@ -157,15 +157,7 @@ export default withStyle(View)`
 function importer(path, context) {
   const content = `
 
-## First secondary heading
-
-### Tertiary heading
-
-# Second primary heading
-
-## Second tertiary heading
-
-Short paragraph.
+# Primary heading
 
 `       ,
         tokens = markdownLexer.tokenise(content),

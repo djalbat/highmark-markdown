@@ -168,7 +168,7 @@ const ruleNameToHTMLMap = {
     className: "contents"
   },
   [CONTENTS_LIST_RULE_NAME]: {
-    tagName: "ol",
+    tagName: "ul",
     className: "contents"
   },
   [FOOTNOTE_ITEM_RULE_NAME]: {

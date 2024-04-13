@@ -3,10 +3,12 @@
 import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
+import ContentsListMarkdownNode from "../../node/markdown/contentsList";
 
 const { filter } = arrayUtilities;
 
 import { nestNodes } from "../../utilities/tree";
+import { replaceTokens } from "../../utilities/tokens";
 import { headingMarkdownNodesFromNode, contentsMarkdownNodeFromNode } from "../../utilities/query";
 // import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
@@ -34,8 +36,16 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 
   createContents(context) {
-    const divisionMarkdownNode = this,  ///
-          headingMarkdownNodes = headingMarkdownNodesFromDivisionMarkdownNode(divisionMarkdownNode, context),
+    const node = this,  ///
+          contentsMarkdownNode = contentsMarkdownNodeFromNode(node);
+
+    if (contentsMarkdownNode === null) {
+      return;
+    }
+
+    const maximumLevel = contentsMarkdownNode.maximumLevel(context);
+
+    const headingMarkdownNodes = headingMarkdownNodesFromNodeAndMaximumLevel(node, maximumLevel, context),
           headingMarkdownNodesLength = headingMarkdownNodes.length;
 
     if (headingMarkdownNodesLength === 0) {
@@ -43,14 +53,24 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     }
 
     const nodes = headingMarkdownNodes, ///
-          levels = headingMarkdownNodes.map((headingMarkdownNode) => {
-            const level = headingMarkdownNode.level(context);
+          nestedNode = nestNodes(nodes),
+          childNestedNodes = nestedNode.getChildNestedNodes(),
+          replacementTokens = [];
 
-            return level;
-          }),
-          nestedNodes = nestNodes(nodes, levels);
+    Object.assign(context, {
+      replacementTokens
+    });
 
-    debugger
+    const nestedHeadingMarkdownNodes = childNestedNodes,  ///
+          contentsListMarkdownNode = ContentsListMarkdownNode.fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
+          replacementChildNode = contentsListMarkdownNode,
+          replacedChildNode = contentsMarkdownNode; ///
+
+    this.replaceChildNode(replacedChildNode, replacementChildNode);
+
+    // replaceTokens(replacedChildNode, replacementTokens, context);
+
+    delete context.replacementTokens;
   }
 
   createFootnotes(context) {
@@ -97,6 +117,10 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   //   }
   // }
 
+  clone() {
+    debugger
+  }
+
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
     const divisionClassName = null,
           divisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(DivisionMarkdownNode, ruleName, childNodes, opacity, divisionClassName);
@@ -105,25 +129,16 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 }
 
-function headingMarkdownNodesFromDivisionMarkdownNode(divisionMarkdownNode, context) {
-  let headingMarkdownNodes = [];
+function headingMarkdownNodesFromNodeAndMaximumLevel(node, maximumLevel) {
+  const  headingMarkdownNodes = headingMarkdownNodesFromNode(node);
 
-  const node = divisionMarkdownNode,  ///
-        contentsMarkdownNode = contentsMarkdownNodeFromNode(node);
+  filter(headingMarkdownNodes, (headingMarkdownNode) => {
+    const level = headingMarkdownNode.getLevel();
 
-  if (contentsMarkdownNode !== null) {
-    const maximumLevel = contentsMarkdownNode.maximumLevel(context);
-
-    headingMarkdownNodesFromNode(node, headingMarkdownNodes);
-
-    filter(headingMarkdownNodes, (headingMarkdownNode) => {
-      const level = headingMarkdownNode.level(context);
-
-      if (level <= maximumLevel) {
-        return true;
-      }
-    });
-  }
+    if (level <= maximumLevel) {
+      return true;
+    }
+  });
 
   return headingMarkdownNodes;
 }

@@ -4,6 +4,8 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
+import { replaceTokens } from "../../utilities/tokens";
+
 const { fourth } = arrayUtilities;
 
 export default class ImportMarkdownNode extends MarkdownNode {
@@ -53,17 +55,4 @@ export default class ImportMarkdownNode extends MarkdownNode {
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ImportMarkdownNode, ruleName, childNodes, opacity); }
-}
-
-function replaceTokens(replacedChildNode, replacementTokens, context) {
-  const { tokens } = context,
-        nonTerminalNode = replacedChildNode,  ///
-        lastSignificantToken = nonTerminalNode.getLastSignificantToken(),
-        firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),
-        lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken),
-        firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
-        start = firstSignificantTokenIndex, ///
-        deleteCount = lastSignificantTokenIndex - firstSignificantTokenIndex; ///
-
-  tokens.splice(start, deleteCount, ...replacementTokens);
 }

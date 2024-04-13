@@ -17,7 +17,3 @@ export function setNonTerminalNodes(parser, nodeMap) {
     rule.setNonTerminalNode(NonTerminalNode);
   });
 }
-
-export default {
-  setNonTerminalNodes
-};

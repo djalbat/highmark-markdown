@@ -3,7 +3,7 @@
 import MarkdownNode from "../../node/markdown";
 
 export default class HeadingMarkdownNode extends MarkdownNode {
-  level(context) {
+  getLevel() {
     const { level } = this.constructor;
 
     return level;

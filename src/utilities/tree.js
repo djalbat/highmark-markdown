@@ -4,11 +4,11 @@ import { arrayUtilities } from "necessary";
 
 const { first, last } = arrayUtilities;
 
-export function nestNodes(nodes, levels) {
+export function nestNodes(nodes) {
   const nestedNodesStack = NestedNodeStack.fromNothing();
 
-  nodes.forEach((node, index) => {
-    const level = levels[index];
+  nodes.forEach((node) => {
+    const level = node.getLevel();
 
     let nestedNodesStackLevel = nestedNodesStack.getLevel()
 
@@ -25,10 +25,9 @@ export function nestNodes(nodes, levels) {
     nestedNodesStack.addNestedNode(nestedNode);
   });
 
-  const topmostNestedNodes = nestedNodesStack.getTopmostNestedNodes(),
-        nestedNodes = topmostNestedNodes; ///
+  const nestedNode = nestedNodesStack.getNestedNode();
 
-  return nestedNodes;
+  return nestedNode;
 }
 
 class NestedNode {
@@ -82,12 +81,11 @@ class NestedNodeStack {
     return lastNestedNode;
   }
 
-  getTopmostNestedNodes() {
+  getNestedNode() {
     const firstNestedNode = first(this.nestedNodes),
-          firstNestedNodeChildNestedNodes = firstNestedNode.getChildNestedNodes(),
-          topmostNestedNodes = firstNestedNodeChildNestedNodes; ///
+          nestedNode = firstNestedNode;  ///
 
-    return topmostNestedNodes;
+    return nestedNode;
   }
 
   getLevel() {
