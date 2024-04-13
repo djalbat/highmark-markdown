@@ -5,19 +5,19 @@ import MarkdownNode from "../../node/markdown";
 import { htmlFromChildNodes, domElementsFromChildNodes } from "../../utilities/childNodes";
 
 export default class MarkedTextMarkdownNode extends MarkdownNode {
-  childNodesAsHTML(indent, context) {
+  childNodesAsHTML(indent, context, trimmed = false) {
     const childNodes = this.getChildNodes(),
-          html = htmlFromChildNodes(childNodes, context);
+          html = htmlFromChildNodes(childNodes, context, trimmed);
 
     return html;
   }
 
-  createChildNodeDOMElements(domElement, context) {
+  createChildNodeDOMElements(domElement, context, trimmed = false) {
     const parentDOMElement = domElement,  ///
           siblingDOMElement = null;
 
     const childNodes = this.getChildNodes(),
-          domElements = domElementsFromChildNodes(childNodes, context),
+          domElements = domElementsFromChildNodes(childNodes, context, trimmed),
           childNodeDOMElements = domElements; ///
 
     childNodeDOMElements.forEach((childNodeDOMElement) => {

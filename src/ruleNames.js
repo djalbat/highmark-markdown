@@ -6,8 +6,8 @@ export const IMAGE_RULE_NAME = "image";
 export const TABLE_RULE_NAME = "table";
 export const ERROR_RULE_NAME = "error";
 export const ANCHOR_RULE_NAME = "anchor";
-export const HEADER_RULE_NAME = "header";
 export const IMPORT_RULE_NAME = "import";
+export const CONTENTS_RULE_NAME = "contents";
 export const FOOTNOTE_RULE_NAME = "footnote";
 export const DIVISION_RULE_NAME = "division";
 export const REFERENCE_RULE_NAME = "reference";
@@ -28,6 +28,8 @@ export const STRONG_TEXT_RULE_NAME = "strongText";
 export const SUB_DIVISION_RULE_NAME = "subDivision";
 export const ORDERED_LIST_RULE_NAME = "orderedList";
 export const BLOCK_LISTING_RULE_NAME = "blockListing";
+export const CONTENTS_ITEM_RULE_NAME = "contentsItem";
+export const CONTENTS_LIST_RULE_NAME = "contentsList";
 export const FOOTNOTE_ITEM_RULE_NAME = "footnoteItem";
 export const TABLE_HEAD_ROW_RULE_NAME = "tableHeadRow";
 export const TABLE_BODY_ROW_RULE_NAME = "tableBodyRow";
@@ -56,8 +58,8 @@ const ruleNames = {
   TABLE_RULE_NAME,
   ERROR_RULE_NAME,
   ANCHOR_RULE_NAME,
-  HEADER_RULE_NAME,
   IMPORT_RULE_NAME,
+  CONTENTS_RULE_NAME,
   FOOTNOTE_RULE_NAME,
   DIVISION_RULE_NAME,
   REFERENCE_RULE_NAME,
@@ -78,6 +80,8 @@ const ruleNames = {
   SUB_DIVISION_RULE_NAME,
   ORDERED_LIST_RULE_NAME,
   BLOCK_LISTING_RULE_NAME,
+  CONTENTS_ITEM_RULE_NAME,
+  CONTENTS_LIST_RULE_NAME,
   FOOTNOTE_ITEM_RULE_NAME,
   TABLE_HEAD_ROW_RULE_NAME,
   TABLE_BODY_ROW_RULE_NAME,

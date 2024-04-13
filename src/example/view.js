@@ -40,15 +40,26 @@ class View extends Element {
     let parseTree = null;
 
     if (node !== null) {
-      const divisionClassName = DOCUMENT_DIVISION_CLASS_NAME,
+      const divisionMarkdownNode = node,  ///
+            divisionClassName = DOCUMENT_DIVISION_CLASS_NAME;
+
+      divisionMarkdownNode.setDivisionClassName(divisionClassName);
+
+      const parentNode = null,
             indent = EMPTY_STRING,
             context = {
               tokens,
-              importer,
-              divisionClassName
-            },
-            html = node.asHTML(indent, context),
-            domElement = node.createDOMElement(context);
+              importer
+            };
+
+      divisionMarkdownNode.resolveImports(parentNode, context);
+
+      divisionMarkdownNode.createContents(context);
+
+      divisionMarkdownNode.createFootnotes(context);
+
+      const html = divisionMarkdownNode.asHTML(indent, context),
+            domElement = divisionMarkdownNode.createDOMElement(context);
 
       this.xmpHTML(html);
 
@@ -124,7 +135,10 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `@import cover.mds
+  static initialMarkdown = `@contents 3
+  
+@import cover.mds
+   
 `;
 
   static tagName = "div";
@@ -140,24 +154,32 @@ export default withStyle(View)`
   
 `;
 
-const divisionContent = `
+function importer(path, context) {
+  const content = `
 
-Hello, world!
+## First secondary heading
 
-`;
+### Tertiary heading
 
-function importer(path, indent, context) {
-  const content = divisionContent,  ///
+# Second primary heading
+
+## Second tertiary heading
+
+Short paragraph.
+
+`       ,
         tokens = markdownLexer.tokenise(content),
         node = markdownParser.parse(tokens),
-        divisionClassName = FRONT_MATTER_DIVISION_CLASS_NAME;  //
+        divisionMarkdownNode = node,  ///
+        divisionClassName = FRONT_MATTER_DIVISION_CLASS_NAME;
 
-  context = { ///
-    tokens,
-    divisionClassName
-  }
+  divisionMarkdownNode.setDivisionClassName(divisionClassName);
 
-  const html = node.asHTML(indent, context);
+  const importedNode = node, ///
+        importedTokens = tokens;  ///
 
-  return html;
+  Object.assign(context, {
+    importedNode,
+    importedTokens
+  });
 }

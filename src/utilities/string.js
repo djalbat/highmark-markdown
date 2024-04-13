@@ -7,7 +7,7 @@ import { EMPTY_STRING } from "../constants";
 const { substring } = stringUtilities;
 
 export function trim(string) {
-  const shavenString = string.replace(/^.|.$/g, EMPTY_STRING);
+  const shavenString = string.replace(/^["`'\s]+|["`'\s]+$/g, EMPTY_STRING);
 
   return shavenString;
 }
@@ -53,4 +53,3 @@ export function splice(string, start, deleteCount, middleString) {
 
   return string;
 }
-

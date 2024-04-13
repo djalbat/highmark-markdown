@@ -8,6 +8,14 @@ import { linkMarkdownNodesFromNode } from "../utilities/query";
 
 const { strlen, indexOf } = stringUtilities;
 
+export function appendFootnotesListMarkdownNodeHTML(childNodesHTML, footnotesListMarkdownNode, indent, context) {
+  const footnotesListMarkdownNodeHTML = footnotesListMarkdownNode.asHTML(indent, context);
+
+  childNodesHTML = `${childNodesHTML}${footnotesListMarkdownNodeHTML}`;
+
+  return childNodesHTML;
+}
+
 export function renumberLinkMarkdownNodesHTML(childNodesHTML, divisionMarkdownNode, footnotesListMarkdownNode, context) {
   let number = 1;
 

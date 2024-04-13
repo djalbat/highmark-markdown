@@ -1,9 +1,16 @@
 "use strict";
 
-import MarkdownNode from "../../node/markdown";
-import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
+import { arrayUtilities } from "necessary";
 
-import { renumberLinkMarkdownNodes, renumberLinkMarkdownNodesHTML } from "../../utilities/link";
+import MarkdownNode from "../../node/markdown";
+
+const { filter } = arrayUtilities;
+
+import { nestNodes } from "../../utilities/tree";
+import { headingMarkdownNodesFromNode, contentsMarkdownNodeFromNode } from "../../utilities/query";
+// import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
+
+// import { renumberLinkMarkdownNodes, renumberLinkMarkdownNodesHTML, appendFootnotesListMarkdownNodeHTML } from "../../utilities/footnotes";
 
 export default class DivisionMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, precedence, opacity, domElement, divisionClassName) {
@@ -16,8 +23,8 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return this.divisionClassName;
   }
 
-  adjustIndent(indent) {
-    return indent;
+  setDivisionClassName(divisionClassName) {
+    this.divisionClassName = divisionClassName;
   }
 
   className(context) {
@@ -26,58 +33,69 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return className;
   }
 
-  asHTML(indent, context) {
-    const { divisionClassName = null } = context;
-
-    this.divisionClassName = divisionClassName; ///
-
-    const html = super.asHTML(indent, context);
-
-    return html;
-  }
-
-  createDOMElement(context) {
-    const { divisionClassName = null } = context;
-
-    this.divisionClassName = divisionClassName; ///
-
-    const domElement = super.createDOMElement(context);
-
-    return domElement;
-  }
-
-  childNodesAsHTML(indent, context) {
+  createContents(context) {
     const divisionMarkdownNode = this,  ///
-          footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
+          headingMarkdownNodes = headingMarkdownNodesFromDivisionMarkdownNode(divisionMarkdownNode, context),
+          headingMarkdownNodesLength = headingMarkdownNodes.length;
 
-    let childNodesHTML = super.childNodesAsHTML(indent, context);
-
-    if (footnotesListMarkdownNode !== null) {
-      const footnotesListMarkdownNodeHTML = footnotesListMarkdownNode.asHTML(indent, context);
-
-      childNodesHTML = `${childNodesHTML}${footnotesListMarkdownNodeHTML}`;
-
-      childNodesHTML = renumberLinkMarkdownNodesHTML(childNodesHTML, divisionMarkdownNode, footnotesListMarkdownNode, context);
+    if (headingMarkdownNodesLength === 0) {
+      return;
     }
 
-    return childNodesHTML;
+    const nodes = headingMarkdownNodes, ///
+          levels = headingMarkdownNodes.map((headingMarkdownNode) => {
+            const level = headingMarkdownNode.level(context);
+
+            return level;
+          }),
+          nestedNodes = nestNodes(nodes, levels);
+
+    debugger
   }
 
-  createChildNodeDOMElements(context) {
-    const divisionMarkdownNode = this,  ///
-          footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
+  createFootnotes(context) {
 
-    super.createChildNodeDOMElements(context);
-
-    if (footnotesListMarkdownNode !== null) {
-      const footnotesListMarkdownNodeDOMElement = footnotesListMarkdownNode.createDOMElement(context),
-            childNodeDOMElement = footnotesListMarkdownNodeDOMElement;  ///
-
-      this.insertDOMElement(childNodeDOMElement);
-
-      renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context);
-    }
   }
+
+  recreateFootnotes(context) {
+
+  }
+
+  // childNodesAsHTML(indent, context) {
+  //   const divisionMarkdownNode = this,  ///
+  //         contentsListMarkdownNode = ContentsListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context),
+  //         footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
+  //
+  //   let childNodesHTML = super.childNodesAsHTML(indent, context);
+  //
+  //   if (contentsListMarkdownNode !== null) {
+  //     childNodesHTML = replaceContentsMarkdownNodeHTML(childNodesHTML, divisionMarkdownNode, contentsListMarkdownNode, context);
+  //   }
+  //
+  //   if (footnotesListMarkdownNode !== null) {
+  //     childNodesHTML = renumberLinkMarkdownNodesHTML(childNodesHTML, divisionMarkdownNode, footnotesListMarkdownNode, context);
+  //
+  //     childNodesHTML = appendFootnotesListMarkdownNodeHTML(childNodesHTML, footnotesListMarkdownNode, indent, context);
+  //   }
+  //
+  //   return childNodesHTML;
+  // }
+
+  // createChildNodeDOMElements(context) {
+  //   const divisionMarkdownNode = this,  ///
+  //         footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
+  //
+  //   super.createChildNodeDOMElements(context);
+  //
+  //   if (footnotesListMarkdownNode !== null) {
+  //     const footnotesListMarkdownNodeDOMElement = footnotesListMarkdownNode.createDOMElement(context),
+  //           childNodeDOMElement = footnotesListMarkdownNodeDOMElement;  ///
+  //
+  //     this.insertDOMElement(childNodeDOMElement);
+  //
+  //     renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context);
+  //   }
+  // }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
     const divisionClassName = null,
@@ -87,3 +105,25 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 }
 
+function headingMarkdownNodesFromDivisionMarkdownNode(divisionMarkdownNode, context) {
+  let headingMarkdownNodes = [];
+
+  const node = divisionMarkdownNode,  ///
+        contentsMarkdownNode = contentsMarkdownNodeFromNode(node);
+
+  if (contentsMarkdownNode !== null) {
+    const maximumLevel = contentsMarkdownNode.maximumLevel(context);
+
+    headingMarkdownNodesFromNode(node, headingMarkdownNodes);
+
+    filter(headingMarkdownNodes, (headingMarkdownNode) => {
+      const level = headingMarkdownNode.level(context);
+
+      if (level <= maximumLevel) {
+        return true;
+      }
+    });
+  }
+
+  return headingMarkdownNodes;
+}

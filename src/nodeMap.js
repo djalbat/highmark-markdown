@@ -6,8 +6,8 @@ import ImageMarkdownNode from "./node/markdown/image";
 import TableMarkdownNode from "./node/markdown/table";
 import ErrorMarkdownNode from "./node/markdown/error";
 import AnchorMarkdownNode from "./node/markdown/anchor";
-import HeaderMarkdownNode from "./node/markdown/header";
 import ImportMarkdownNode from "./node/markdown/import";
+import ContentsMarkdownNode from "./node/markdown/contents";
 import DivisionMarkdownNode from "./node/markdown/division";
 import FootnoteMarkdownNode from "./node/markdown/footnote";
 import ReferenceMarkdownNode from "./node/markdown/reference";
@@ -38,13 +38,13 @@ import TableHeadCellMarkdownNode from "./node/markdown/tableHeadCell";
 import TableBodyCellMarkdownNode from "./node/markdown/tableBodyCell";
 import TableSeparatorMarkdownNode from "./node/markdown/tableSeparator";
 import EmphasisedTextMarkdownNode from "./node/markdown/emphasisedText";
-import PrimaryHeadingMarkdownNode from "./node/markdown/primaryHeading";
+import PrimaryHeadingMarkdownNode from "./node/markdown/heading/primary";
 import EmptyTableCellMarkdownNode from "./node/markdown/emptyTableCell";
-import TertiaryHeadingMarkdownNode from "./node/markdown/tertiaryHeading";
+import TertiaryHeadingMarkdownNode from "./node/markdown/heading/tertiary";
 import OrderedListItemMarkdownNode from "./node/markdown/orderedListItem";
 import BlockListingEndMarkdownNode from "./node/markdown/blockListingEnd";
-import SecondaryHeadingMarkdownNode from "./node/markdown/secondaryHeading";
-import QuaternaryHeadingMarkdownNode from "./node/markdown/quaternaryHeading";
+import SecondaryHeadingMarkdownNode from "./node/markdown/heading/secondary";
+import QuaternaryHeadingMarkdownNode from "./node/markdown/heading/quaternary";
 import BlockListingStartMarkdownNode from "./node/markdown/blockListingStart";
 import UnorderedListItemMarkdownNode from "./node/markdown/unorderedListItem";
 import StronglyEmphasisedTextMarkdownNode from "./node/markdown/stronglyEmphasisedText";
@@ -55,8 +55,8 @@ import { LINK_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
-         HEADER_RULE_NAME,
          IMPORT_RULE_NAME,
+         CONTENTS_RULE_NAME,
          FOOTNOTE_RULE_NAME,
          DIVISION_RULE_NAME,
          REFERENCE_RULE_NAME,
@@ -105,8 +105,8 @@ const nodeMap = {
   [TABLE_RULE_NAME]: TableMarkdownNode,
   [ERROR_RULE_NAME]: ErrorMarkdownNode,
   [ANCHOR_RULE_NAME]: AnchorMarkdownNode,
-  [HEADER_RULE_NAME]: HeaderMarkdownNode,
   [IMPORT_RULE_NAME]: ImportMarkdownNode,
+  [CONTENTS_RULE_NAME]: ContentsMarkdownNode,
   [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
   [DIVISION_RULE_NAME]: DivisionMarkdownNode,
   [REFERENCE_RULE_NAME]: ReferenceMarkdownNode,

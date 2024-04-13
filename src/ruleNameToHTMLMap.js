@@ -6,8 +6,8 @@ import { LINK_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
-         HEADER_RULE_NAME,
          IMPORT_RULE_NAME,
+         CONTENTS_RULE_NAME,
          FOOTNOTE_RULE_NAME,
          DIVISION_RULE_NAME,
          REFERENCE_RULE_NAME,
@@ -28,6 +28,8 @@ import { LINK_RULE_NAME,
          SUB_DIVISION_RULE_NAME,
          ORDERED_LIST_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
+         CONTENTS_ITEM_RULE_NAME,
+         CONTENTS_LIST_RULE_NAME,
          FOOTNOTE_ITEM_RULE_NAME,
          TABLE_HEAD_ROW_RULE_NAME,
          TABLE_BODY_ROW_RULE_NAME,
@@ -73,13 +75,13 @@ const ruleNameToHTMLMap = {
     tagName: "a",
     className: "anchor"
   },
-  [HEADER_RULE_NAME]: {
-    tagName: null,
-    className: null
-  },
   [IMPORT_RULE_NAME]: {
     tagName: null,
     className: null
+  },
+  [CONTENTS_RULE_NAME]: {
+    tagName: "a",
+    className: "contents"
   },
   [FOOTNOTE_RULE_NAME]: {
     tagName: null,
@@ -160,6 +162,14 @@ const ruleNameToHTMLMap = {
   [BLOCK_LISTING_RULE_NAME]: {
     tagName: "pre",
     className: "block"
+  },
+  [CONTENTS_ITEM_RULE_NAME]: {
+    tagName: "li",
+    className: "contents"
+  },
+  [CONTENTS_LIST_RULE_NAME]: {
+    tagName: "ol",
+    className: "contents"
   },
   [FOOTNOTE_ITEM_RULE_NAME]: {
     tagName: "li",

@@ -9,50 +9,7 @@ import { contentFromMarkdownNodes } from "./content";
 
 const { clear } = arrayUtilities;
 
-export function domElementsFromChildNodes(childNodes, context) {
-  const domElements = [],
-        plainTextMarkdownNodes = [];
-
-  childNodes.forEach((childNode) => {
-    const childNodeNonTerminalNode = childNode.isNonTerminalNode();
-
-    if (childNodeNonTerminalNode) {
-      const childNodePlainTextMarkdownNode = (childNode instanceof PlainTextMarkdownNode);
-
-      if (childNodePlainTextMarkdownNode) {
-        const plainTextMarkdownNode = childNode; ///
-
-        plainTextMarkdownNodes.push(plainTextMarkdownNode);
-      } else {
-        const textDOMElement = textDOMElementFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context)
-
-        if (textDOMElement !== null) {
-          const domElement = textDOMElement;  ///
-
-          domElements.push(domElement);
-        }
-
-        const domElement = childNode.createDOMElement(context);
-
-        if (domElement !== null) {
-          domElements.push(domElement);
-        }
-      }
-    }
-  });
-
-  const textDOMElement = textDOMElementFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context)
-
-  if (textDOMElement !== null) {
-    const domElement = textDOMElement;  ///
-
-    domElements.push(domElement);
-  }
-
-  return domElements;
-}
-
-export function htmlFromChildNodes(childNodes, context) {
+export function htmlFromChildNodes(childNodes, context, trimmed) {
   let html;
 
   const htmls = [],
@@ -62,22 +19,26 @@ export function htmlFromChildNodes(childNodes, context) {
     const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
     if (childNodeNonTerminalNode) {
-      const childNodePlainTextMarkdownNode = (childNode instanceof PlainTextMarkdownNode);
+      const nonTerminalNode = childNode,  ///
+            markdownNode = nonTerminalNode, ///
+            markdownNodePlainTextMarkdownNode = (markdownNode instanceof PlainTextMarkdownNode);
 
-      if (childNodePlainTextMarkdownNode) {
-        const plainTextMarkdownNode = childNode; ///
+      if (markdownNodePlainTextMarkdownNode) {
+        const plainTextMarkdownNode = markdownNode; ///
 
         plainTextMarkdownNodes.push(plainTextMarkdownNode);
       } else {
-        html = htmlFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context)
+        html = htmlFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, trimmed)
 
         if (html !== null) {
           htmls.push(html);
+
+          trimmed = false;
         }
 
         const indent = null;
 
-        html = childNode.asHTML(indent, context);
+        html = markdownNode.asHTML(indent, context);
 
         if (html !== null) {
           htmls.push(html);
@@ -86,7 +47,7 @@ export function htmlFromChildNodes(childNodes, context) {
     }
   });
 
-  html = htmlFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context)
+  html = htmlFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, trimmed)
 
   if (html !== null) {
     htmls.push(html);
@@ -97,14 +58,78 @@ export function htmlFromChildNodes(childNodes, context) {
   return html;
 }
 
-function textDOMElementFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context) {
+export function domElementsFromChildNodes(childNodes, context, trimmed) {
+  const domElements = [],
+        plainTextMarkdownNodes = [];
+
+  childNodes.forEach((childNode) => {
+    const childNodeNonTerminalNode = childNode.isNonTerminalNode();
+
+    if (childNodeNonTerminalNode) {
+      const nonTerminalNode = childNode,  ///
+            markdownNode = nonTerminalNode, ///
+            markdownNodePlainTextMarkdownNode = (markdownNode instanceof PlainTextMarkdownNode);
+
+      if (markdownNodePlainTextMarkdownNode) {
+        const plainTextMarkdownNode = markdownNode; ///
+
+        plainTextMarkdownNodes.push(plainTextMarkdownNode);
+      } else {
+        const textDOMElement = textDOMElementFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, trimmed)
+
+        if (textDOMElement !== null) {
+          const domElement = textDOMElement;  ///
+
+          domElements.push(domElement);
+
+          trimmed = false;
+        }
+
+        const domElement = markdownNode.createDOMElement(context);
+
+        if (domElement !== null) {
+          domElements.push(domElement);
+        }
+      }
+    }
+  });
+
+  const textDOMElement = textDOMElementFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, trimmed)
+
+  if (textDOMElement !== null) {
+    const domElement = textDOMElement;  ///
+
+    domElements.push(domElement);
+  }
+
+  return domElements;
+}
+
+function htmlFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, trimmed) {
+  let html = null;
+
+  const plainTextMarkdownNodesLength = plainTextMarkdownNodes.length;
+
+  if (plainTextMarkdownNodesLength > 0) {
+    const markdownNodes = plainTextMarkdownNodes,  ///
+          content = contentFromMarkdownNodes(markdownNodes, context, trimmed);
+
+    html = content; ///
+
+    clear(plainTextMarkdownNodes);
+  }
+
+  return html;
+}
+
+function textDOMElementFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, trimmed) {
   let textDOMElement = null;
 
   const plainTextMarkdownNodesLength = plainTextMarkdownNodes.length;
 
   if (plainTextMarkdownNodesLength > 0) {
     const markdownNodes = plainTextMarkdownNodes,  ///
-          content = contentFromMarkdownNodes(markdownNodes, context);
+          content = contentFromMarkdownNodes(markdownNodes, context, trimmed);
 
     textDOMElement = document.createTextNode(content);
 
@@ -112,21 +137,4 @@ function textDOMElementFromPlainTextMarkdownNodes(plainTextMarkdownNodes, contex
   }
 
   return textDOMElement;
-}
-
-function htmlFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context) {
-  let html = null;
-
-  const plainTextMarkdownNodesLength = plainTextMarkdownNodes.length;
-
-  if (plainTextMarkdownNodesLength > 0) {
-    const markdownNodes = plainTextMarkdownNodes,  ///
-          content = contentFromMarkdownNodes(markdownNodes, context);
-
-    html = content;
-
-    clear(plainTextMarkdownNodes);
-  }
-
-  return html;
 }

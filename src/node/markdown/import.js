@@ -7,7 +7,7 @@ import MarkdownNode from "../../node/markdown";
 const { fourth } = arrayUtilities;
 
 export default class ImportMarkdownNode extends MarkdownNode {
-  asHTML(indent, context) {
+  resolveImports(parentNode, context) {
     let html = null;
 
     const { importer = null } = context;
@@ -15,15 +15,28 @@ export default class ImportMarkdownNode extends MarkdownNode {
     if (importer !== null) {
       const filePath = this.filePath(context);
 
-      indent = this.adjustIndent(indent);
+      importer(filePath, context);
 
-      const { tokens } = context;
+      const { importedNode = null, importedTokens = null } = context;
 
-      html = importer(filePath, indent, context);
+      if (importedNode !== null) {
+        const replacedChildNode = this, ///
+              replacementTokens = importedTokens, ///
+              replacementChildNode = importedNode;  ///
 
-      Object.assign(context, {
-        tokens
-      });
+        parentNode.replaceChildNode(replacedChildNode, replacementChildNode);
+
+        replaceTokens(replacedChildNode, replacementTokens, context);
+
+        delete context.importedNode;
+        delete context.importedTokens;
+
+        parentNode = this;  ///
+
+        const divisionMarkdownNode = importedNode;  ///
+
+        divisionMarkdownNode.resolveImports(parentNode, context);
+      }
     }
 
     return html;
@@ -40,4 +53,17 @@ export default class ImportMarkdownNode extends MarkdownNode {
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ImportMarkdownNode, ruleName, childNodes, opacity); }
+}
+
+function replaceTokens(replacedChildNode, replacementTokens, context) {
+  const { tokens } = context,
+        nonTerminalNode = replacedChildNode,  ///
+        lastSignificantToken = nonTerminalNode.getLastSignificantToken(),
+        firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),
+        lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken),
+        firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
+        start = firstSignificantTokenIndex, ///
+        deleteCount = lastSignificantTokenIndex - firstSignificantTokenIndex; ///
+
+  tokens.splice(start, deleteCount, ...replacementTokens);
 }

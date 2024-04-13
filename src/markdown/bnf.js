@@ -5,7 +5,9 @@ const bnf = `
     division                ::=  ( subDivision | endOfLine | error )+ ;
     
     
-    subDivision..           ::=  ( endOfLine | <START_OF_CONTENT> ) ( header 
+    subDivision..           ::=  ( endOfLine | <START_OF_CONTENT> ) ( import 
+    
+                                                                    | contents 
     
                                                                     | primaryHeading 
                              
@@ -34,9 +36,6 @@ const bnf = `
 
 
     error.                  ::=  . ;
-
-
-    header                  ::=  import+ ;
 
 
     primaryHeading          ::=  [single-hash] line ;
@@ -79,6 +78,9 @@ const bnf = `
 
 
     import                  ::=  "@"<NO_WHITESPACE>"import" [path] endOfLine ;
+
+
+    contents                ::=  "@"<NO_WHITESPACE>"contents" [number]? endOfLine ;
 
 
     tableHead               ::=  tableHeadRow ;

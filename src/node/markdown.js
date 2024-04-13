@@ -23,6 +23,15 @@ class MarkdownNode extends NonTerminalNode {
     this.domElement = domElement;
   }
 
+  replaceChildNode(replacedChildNode, replacementChildNode) {
+    const childNodes = this.getChildNodes(),
+          index = childNodes.indexOf(replacedChildNode),
+          start = index,  ///
+          deleteCount = 1;
+
+    childNodes.splice(start, deleteCount, replacementChildNode);
+  }
+
   tagName(context) {
     const { tagName } = ruleNameToHTMLMap[this.ruleName];
 
@@ -94,25 +103,21 @@ class MarkdownNode extends NonTerminalNode {
     return attributeValue;
   }
 
-  childNodesAsHTML(indent, context) {
-    const childNodes = this.getChildNodes(),
-          childNodesHTML = childNodes.reduce((childNodesHTML, childNode) => {
-            const childNodeNonTerminalNode = childNode.isNonTerminalNode();
+  resolveImports(parentNode, context) {
+    parentNode = this;  ///\
 
-            if (childNodeNonTerminalNode) {
-              const childNodeHTML = childNode.asHTML(indent, context);
+    const childNodes = this.getChildNodes();
 
-              if (childNodeHTML !== null) {
-                childNodesHTML = (childNodesHTML === null) ?
-                                   childNodeHTML :  ///
-                                    `${childNodesHTML}${childNodeHTML}`;
-              }
-            }
+    childNodes.forEach((childNode) => {
+      const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
-            return childNodesHTML;
-          }, null);
+      if (childNodeNonTerminalNode) {
+        const nonTerminalNode = childNode,  ///
+              markdownNode = nonTerminalNode; ///
 
-    return childNodesHTML;
+        markdownNode.resolveImports(parentNode, context);
+      }
+    });
   }
 
   asHTML(indent, context) {
@@ -181,6 +186,29 @@ ${childNodesHTML}${indent}${closingTag}
     return domElement;
   }
 
+  childNodesAsHTML(indent, context) {
+    const childNodes = this.getChildNodes(),
+          childNodesHTML = childNodes.reduce((childNodesHTML, childNode) => {
+            const childNodeNonTerminalNode = childNode.isNonTerminalNode();
+
+            if (childNodeNonTerminalNode) {
+              const nonTerminalNode = childNode,  ///
+                    markdownNode = nonTerminalNode, ///
+                    markdownNodeHTML = markdownNode.asHTML(indent, context);
+
+              if (markdownNodeHTML !== null) {
+                childNodesHTML = (childNodesHTML === null) ?
+                                   markdownNodeHTML :  ///
+                                    `${childNodesHTML}${markdownNodeHTML}`;
+              }
+            }
+
+            return childNodesHTML;
+          }, null);
+
+    return childNodesHTML;
+  }
+
   createChildNodeDOMElements(context) {
     const childNodes = this.getChildNodes();
 
@@ -188,10 +216,12 @@ ${childNodesHTML}${indent}${closingTag}
       const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
       if (childNodeNonTerminalNode) {
-        const childNodeDOMElement = childNode.createDOMElement(context);
+        const nonTerminalNode = childNode,  ///
+              markdownNode = nonTerminalNode, ///
+              markdownNodeDOMElement = markdownNode.createDOMElement(context);
 
-        if (childNodeDOMElement !== null) {
-          this.insertDOMElement(childNodeDOMElement);
+        if (markdownNodeDOMElement !== null) {
+          this.insertDOMElement(markdownNodeDOMElement);
         }
       }
     });
