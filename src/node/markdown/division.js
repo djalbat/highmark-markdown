@@ -10,6 +10,7 @@ const { filter } = arrayUtilities;
 import { nestNodes } from "../../utilities/tree";
 import { replaceTokens } from "../../utilities/tokens";
 import { headingMarkdownNodesFromNode, contentsMarkdownNodeFromNode } from "../../utilities/query";
+
 // import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
 // import { renumberLinkMarkdownNodes, renumberLinkMarkdownNodesHTML, appendFootnotesListMarkdownNodeHTML } from "../../utilities/footnotes";
@@ -55,7 +56,8 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     const nodes = headingMarkdownNodes, ///
           nestedNode = nestNodes(nodes),
           childNestedNodes = nestedNode.getChildNestedNodes(),
-          replacementTokens = [];
+          replacedChildNode = contentsMarkdownNode, ///
+          replacementTokens = []
 
     Object.assign(context, {
       replacementTokens
@@ -64,11 +66,11 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     const nestedHeadingMarkdownNodes = childNestedNodes,  ///
           contentsListMarkdownNode = ContentsListMarkdownNode.fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
           replacementChildNode = contentsListMarkdownNode,
-          replacedChildNode = contentsMarkdownNode; ///
+          parentNode = parentNodeFromNodeAndReplacedChildNode(node, replacedChildNode);
 
-    this.replaceChildNode(replacedChildNode, replacementChildNode);
+    parentNode.replaceChildNode(replacedChildNode, replacementChildNode);
 
-    // replaceTokens(replacedChildNode, replacementTokens, context);
+    replaceTokens(replacedChildNode, replacementTokens, context);
 
     delete context.replacementTokens;
   }
@@ -127,6 +129,34 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
     return divisionMarkdownNode;
   }
+}
+
+function parentNodeFromNodeAndReplacedChildNode(node, replacedChildNode) {
+  let parentNode = null
+
+  const nodeNonTerminalNode = node.isNonTerminalNode();
+
+  if (nodeNonTerminalNode) {
+    const nonTerminalNode = node, ///
+          childNodes = nonTerminalNode.getChildNodes(),
+          index = childNodes.indexOf(replacedChildNode);
+
+    if (index !== -1) {
+      parentNode = node;  ///
+    } else {
+      childNodes.some((childNode) => {
+        const node = childNode; ///
+
+        parentNode = parentNodeFromNodeAndReplacedChildNode(node, replacedChildNode);
+
+        if (parentNode !== null) {
+          return true;
+        }
+      });
+    }
+  }
+
+  return parentNode;
 }
 
 function headingMarkdownNodesFromNodeAndMaximumLevel(node, maximumLevel) {

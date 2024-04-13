@@ -8,7 +8,8 @@ export function replaceTokens(replacedChildNode, replacementTokens, context) {
         lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken),
         firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
         start = firstSignificantTokenIndex, ///
-        deleteCount = lastSignificantTokenIndex - firstSignificantTokenIndex; ///
+        end = lastSignificantTokenIndex + 1,
+        deleteCount = end - start;
 
   tokens.splice(start, deleteCount, ...replacementTokens);
 }
