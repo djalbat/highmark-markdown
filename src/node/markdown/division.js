@@ -1,18 +1,11 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
 import ContentsListMarkdownNode from "../../node/markdown/contentsList";
 import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
-const { filter } = arrayUtilities;
-
-import { nestNodes } from "../../utilities/contents";
 import { replaceTokens } from "../../utilities/tokens";
-import { headingMarkdownNodesFromNode, contentsMarkdownNodeFromNode } from "../../utilities/query";
-
-// import { renumberLinkMarkdownNodes, renumberLinkMarkdownNodesHTML, appendFootnotesListMarkdownNodeHTML } from "../../utilities/footnotes";
+import { parentNodeFromNodeAndChildNode } from "../../utilities/node";
 
 export default class DivisionMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, precedence, opacity, domElement, divisionClassName) {
@@ -36,76 +29,44 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 
   createContents(context) {
-    const node = this,  ///
-          contentsMarkdownNode = contentsMarkdownNodeFromNode(node);
-
-    if (contentsMarkdownNode === null) {
-      return;
-    }
-
-    const maximumLevel = contentsMarkdownNode.maximumLevel(context),
-          headingMarkdownNodes = headingMarkdownNodesFromNodeAndMaximumLevel(node, maximumLevel, context),
-          headingMarkdownNodesLength = headingMarkdownNodes.length;
-
-    if (headingMarkdownNodesLength === 0) {
-      return;
-    }
-
-    const replacementTokens = []
+    const replacementTokens = [],
+          divisionMarkdownNode = this;
 
     Object.assign(context, {
       replacementTokens
     });
 
-    const nodes = headingMarkdownNodes, ///
-          nestedNode = nestNodes(nodes),
-          nestedHeadingMarkdownNode = nestedNode, ///
-          contentsListMarkdownNode = ContentsListMarkdownNode.fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context),
-          replacementChildNode = contentsListMarkdownNode,
-          replacedChildNode = contentsMarkdownNode, ///
-          parentNode = parentNodeFromNodeAndReplacedChildNode(node, replacedChildNode);
+    ContentsListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
 
-    parentNode.replaceChildNode(replacedChildNode, replacementChildNode);
+    const { replacedChildNode = null, replacementChildNode = null } = context;
 
-    replaceTokens(replacedChildNode, replacementTokens, context);
+    if ((replacementChildNode !== null) && (replacedChildNode !== null)) {
+      const node = this,  ///
+            childNode = replacedChildNode,  ///
+            parentNode = parentNodeFromNodeAndChildNode(node, childNode);
+
+      parentNode.replaceChildNode(replacedChildNode, replacementChildNode);
+
+      replaceTokens(replacedChildNode, replacementTokens, context);
+    }
 
     delete context.replacementTokens;
+    delete context.replacedChildNode;
+    delete context.replacementChildNode;
   }
 
   createFootnotes(context) {
+    const replacementTokens = [],
+          divisionMarkdownNode = this;  ///
 
+    Object.assign(context, {
+      replacementTokens
+    });
+
+    FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode);
+
+    debugger
   }
-
-  // childNodesAsHTML(indent, context) {
-  //   const divisionMarkdownNode = this,  ///
-  //         footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
-  //
-  //   let childNodesHTML = super.childNodesAsHTML(indent, context);
-  //
-  //   if (footnotesListMarkdownNode !== null) {
-  //     childNodesHTML = renumberLinkMarkdownNodesHTML(childNodesHTML, divisionMarkdownNode, footnotesListMarkdownNode, context);
-  //
-  //     childNodesHTML = appendFootnotesListMarkdownNodeHTML(childNodesHTML, footnotesListMarkdownNode, indent, context);
-  //   }
-  //
-  //   return childNodesHTML;
-  // }
-
-  // createChildNodeDOMElements(context) {
-  //   const divisionMarkdownNode = this,  ///
-  //         footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
-  //
-  //   super.createChildNodeDOMElements(context);
-  //
-  //   if (footnotesListMarkdownNode !== null) {
-  //     const footnotesListMarkdownNodeDOMElement = footnotesListMarkdownNode.createDOMElement(context),
-  //           childNodeDOMElement = footnotesListMarkdownNodeDOMElement;  ///
-  //
-  //     this.insertDOMElement(childNodeDOMElement);
-  //
-  //     renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context);
-  //   }
-  // }
 
   clone() {
     debugger
@@ -117,46 +78,4 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
     return divisionMarkdownNode;
   }
-}
-
-function parentNodeFromNodeAndReplacedChildNode(node, replacedChildNode) {
-  let parentNode = null
-
-  const nodeNonTerminalNode = node.isNonTerminalNode();
-
-  if (nodeNonTerminalNode) {
-    const nonTerminalNode = node, ///
-          childNodes = nonTerminalNode.getChildNodes(),
-          index = childNodes.indexOf(replacedChildNode);
-
-    if (index !== -1) {
-      parentNode = node;  ///
-    } else {
-      childNodes.some((childNode) => {
-        const node = childNode; ///
-
-        parentNode = parentNodeFromNodeAndReplacedChildNode(node, replacedChildNode);
-
-        if (parentNode !== null) {
-          return true;
-        }
-      });
-    }
-  }
-
-  return parentNode;
-}
-
-function headingMarkdownNodesFromNodeAndMaximumLevel(node, maximumLevel) {
-  const  headingMarkdownNodes = headingMarkdownNodesFromNode(node);
-
-  filter(headingMarkdownNodes, (headingMarkdownNode) => {
-    const level = headingMarkdownNode.getLevel();
-
-    if (level <= maximumLevel) {
-      return true;
-    }
-  });
-
-  return headingMarkdownNodes;
 }

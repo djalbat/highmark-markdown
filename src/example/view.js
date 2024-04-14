@@ -16,7 +16,7 @@ import ParseTreeTextarea from "./view/textarea/parseTree";
 import LexicalEntriesTextarea from "./view/textarea/lexicalEntries";
 
 import { MarkdownLexer, MarkdownParser } from "../index";
-import { EMPTY_STRING, DOCUMENT_DIVISION_CLASS_NAME, FRONT_MATTER_DIVISION_CLASS_NAME } from "./constants";
+import { EMPTY_STRING, DOCUMENT_DIVISION_CLASS_NAME } from "./constants";
 
 const { bnf } = MarkdownParser,
       { entries } = MarkdownLexer;
@@ -55,7 +55,7 @@ class View extends Element {
 
       divisionMarkdownNode.createContents(context);
 
-      // divisionMarkdownNode.createFootnotes(context);
+      divisionMarkdownNode.createFootnotes(context);
 
       const html = divisionMarkdownNode.asHTML(indent, context),
             domElement = divisionMarkdownNode.createDOMElement(context);

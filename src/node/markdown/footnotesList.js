@@ -19,7 +19,7 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
     return identifiers;
   }
 
-  static fromDivisionMarkdownNode(divisionMarkdownNode, context) {
+  static fromDivisionMarkdownNodeAndFootnoteLinkMarkdownNodes(divisionMarkdownNode, context) {
     let footnotesListMarkdownNode = null;
 
     const footnoteItemMarkdownNodes = footnoteItemMarkdownNodesFromDivisionMarkdownNode(divisionMarkdownNode, context),
