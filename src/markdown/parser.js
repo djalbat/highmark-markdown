@@ -5,7 +5,7 @@ import { CommonParser } from "occam-parsers";
 import bnf from "./bnf";
 import nodeMap from "../nodeMap";
 
-import { setNonTerminalNodes } from "../utilities/nodes";
+import { setNonTerminalNodes } from "../utilities/parser";
 
 export default class MarkdownParser extends CommonParser {
   static bnf = bnf;

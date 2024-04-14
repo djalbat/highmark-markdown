@@ -4,14 +4,13 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 import ContentsListMarkdownNode from "../../node/markdown/contentsList";
+import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
 const { filter } = arrayUtilities;
 
-import { nestNodes } from "../../utilities/tree";
+import { nestNodes } from "../../utilities/contents";
 import { replaceTokens } from "../../utilities/tokens";
 import { headingMarkdownNodesFromNode, contentsMarkdownNodeFromNode } from "../../utilities/query";
-
-// import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
 // import { renumberLinkMarkdownNodes, renumberLinkMarkdownNodesHTML, appendFootnotesListMarkdownNodeHTML } from "../../utilities/footnotes";
 
@@ -77,20 +76,11 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
   }
 
-  recreateFootnotes(context) {
-
-  }
-
   // childNodesAsHTML(indent, context) {
   //   const divisionMarkdownNode = this,  ///
-  //         contentsListMarkdownNode = ContentsListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context),
   //         footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
   //
   //   let childNodesHTML = super.childNodesAsHTML(indent, context);
-  //
-  //   if (contentsListMarkdownNode !== null) {
-  //     childNodesHTML = replaceContentsMarkdownNodeHTML(childNodesHTML, divisionMarkdownNode, contentsListMarkdownNode, context);
-  //   }
   //
   //   if (footnotesListMarkdownNode !== null) {
   //     childNodesHTML = renumberLinkMarkdownNodesHTML(childNodesHTML, divisionMarkdownNode, footnotesListMarkdownNode, context);

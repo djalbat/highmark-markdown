@@ -48,11 +48,10 @@ class View extends Element {
       const parentNode = null,
             indent = EMPTY_STRING,
             context = {
-              tokens,
-              importer
+              tokens
             };
 
-      // divisionMarkdownNode.resolveImports(parentNode, context);
+      divisionMarkdownNode.resolveImports(parentNode, context);
 
       divisionMarkdownNode.createContents(context);
 
@@ -135,9 +134,10 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `@contents 3
+  static initialMarkdown = `
+# Occam [^occam]
 
-# *Primary* heading
+[^occam]: An occam footnote.
 
 `;
 
@@ -153,32 +153,3 @@ export default withStyle(View)`
   padding: 1rem;
   
 `;
-
-function importer(path, context) {
-  const content = `
-
-## Secondary heading 2
-
-A short paragraph.
-
-### Tertiary heading
-
-# Primary heading 2
-
-
-`       ,
-        tokens = markdownLexer.tokenise(content),
-        node = markdownParser.parse(tokens),
-        divisionMarkdownNode = node,  ///
-        divisionClassName = FRONT_MATTER_DIVISION_CLASS_NAME;
-
-  divisionMarkdownNode.setDivisionClassName(divisionClassName);
-
-  const importedNode = node, ///
-        importedTokens = tokens;  ///
-
-  Object.assign(context, {
-    importedNode,
-    importedTokens
-  });
-}
