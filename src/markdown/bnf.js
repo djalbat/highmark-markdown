@@ -228,7 +228,7 @@ const bnf = `
     reference.              ::=  "[^" [identifier] "]:" ;
     
 
-    anchor                  ::=  [number] ;
+    anchor                  ::=  [identifier] ;
     
 
     className               ::=  <NO_WHITESPACE>[identifier] ;

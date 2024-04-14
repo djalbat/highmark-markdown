@@ -56,7 +56,7 @@ const entries = [
     "path": "^[a-z0-9\\-_]+(?:\\/[a-z0-9\\-_]+)*\\.[a-z0-9\\-_]+"
   },
   {
-    "identifier": "^[a-z]+(?:-[a-z]+)*"
+    "identifier": "[a-z]+(?:-[a-z]+)*"
   },
   {
     "word": "^\\w+"

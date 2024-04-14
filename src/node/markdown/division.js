@@ -44,26 +44,24 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       return;
     }
 
-    const maximumLevel = contentsMarkdownNode.maximumLevel(context);
-
-    const headingMarkdownNodes = headingMarkdownNodesFromNodeAndMaximumLevel(node, maximumLevel, context),
+    const maximumLevel = contentsMarkdownNode.maximumLevel(context),
+          headingMarkdownNodes = headingMarkdownNodesFromNodeAndMaximumLevel(node, maximumLevel, context),
           headingMarkdownNodesLength = headingMarkdownNodes.length;
 
     if (headingMarkdownNodesLength === 0) {
       return;
     }
 
-    const nodes = headingMarkdownNodes, ///
-          nestedNode = nestNodes(nodes),
-          childNestedNodes = nestedNode.getChildNestedNodes(),
-          replacementTokens = []
+    const replacementTokens = []
 
     Object.assign(context, {
       replacementTokens
     });
 
-    const nestedHeadingMarkdownNodes = childNestedNodes,  ///
-          contentsListMarkdownNode = ContentsListMarkdownNode.fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
+    const nodes = headingMarkdownNodes, ///
+          nestedNode = nestNodes(nodes),
+          nestedHeadingMarkdownNode = nestedNode, ///
+          contentsListMarkdownNode = ContentsListMarkdownNode.fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context),
           replacementChildNode = contentsListMarkdownNode,
           replacedChildNode = contentsMarkdownNode, ///
           parentNode = parentNodeFromNodeAndReplacedChildNode(node, replacedChildNode);

@@ -23,6 +23,12 @@ class MarkdownNode extends NonTerminalNode {
     this.domElement = domElement;
   }
 
+  addChildNode(childNode) {
+    const childNodes = this.getChildNodes();
+
+    childNodes.push(childNode);
+  }
+
   replaceChildNode(replacedChildNode, replacementChildNode) {
     const childNodes = this.getChildNodes(),
           index = childNodes.indexOf(replacedChildNode),

@@ -6,10 +6,12 @@ import ContentsItemMarkdownNode from "../../node/markdown/contentsItem";
 import { CONTENTS_LIST_RULE_NAME } from "../../ruleNames";
 
 export default class ContentsListMarkdownNode extends MarkdownNode {
-  static fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context) {
+  static fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context) {
     let contentsListMarkdownNode = null;
 
-    const nestedHeadingMarkdownNodesLength = nestedHeadingMarkdownNodes.length;
+    const childNestedNodes = nestedHeadingMarkdownNode.getChildNestedNodes(),
+          nestedHeadingMarkdownNodes = childNestedNodes,  ///
+          nestedHeadingMarkdownNodesLength = nestedHeadingMarkdownNodes.length;
 
     if (nestedHeadingMarkdownNodesLength > 0) {
       const ruleName = CONTENTS_LIST_RULE_NAME,
@@ -25,7 +27,7 @@ export default class ContentsListMarkdownNode extends MarkdownNode {
 
 function childNodesFromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context) {
   const childNodes = nestedHeadingMarkdownNodes.map((nestedHeadingMarkdownNode) => {
-    const contentsItemMarkdownNode = ContentsItemMarkdownNode.fromNestedHeadingMarkdownNodeAndContentsListMarkdownNode(nestedHeadingMarkdownNode, ContentsListMarkdownNode, context),
+    const contentsItemMarkdownNode = ContentsItemMarkdownNode.fromContentsListMarkdownNodeAndNestedHeadingMarkdownNode(ContentsListMarkdownNode, nestedHeadingMarkdownNode, context),
           childNode = contentsItemMarkdownNode; ///
 
     return childNode;

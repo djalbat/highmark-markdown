@@ -28,6 +28,7 @@ import { LINK_RULE_NAME,
          SUB_DIVISION_RULE_NAME,
          ORDERED_LIST_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
+         CONTENTS_LINK_RULE_NAME,
          CONTENTS_ITEM_RULE_NAME,
          CONTENTS_LIST_RULE_NAME,
          FOOTNOTE_ITEM_RULE_NAME,
@@ -162,6 +163,10 @@ const ruleNameToHTMLMap = {
   [BLOCK_LISTING_RULE_NAME]: {
     tagName: "pre",
     className: "block"
+  },
+  [CONTENTS_LINK_RULE_NAME]: {
+    tagName: "a",
+    className: "contents"
   },
   [CONTENTS_ITEM_RULE_NAME]: {
     tagName: "li",
