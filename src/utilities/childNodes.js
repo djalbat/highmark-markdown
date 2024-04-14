@@ -9,7 +9,7 @@ import { contentFromMarkdownNodes } from "./content";
 
 const { clear } = arrayUtilities;
 
-export function htmlFromChildNodes(childNodes, context, trimmed) {
+export function htmlFromChildNodes(childNodes, context, leftTrimmed) {
   let html;
 
   const htmls = [],
@@ -28,28 +28,31 @@ export function htmlFromChildNodes(childNodes, context, trimmed) {
 
         plainTextMarkdownNodes.push(plainTextMarkdownNode);
       } else {
-        html = htmlFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, trimmed)
+        const plainText = plainTextFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, leftTrimmed);
 
-        if (html !== null) {
+        if (plainText !== null) {
+          const html = plainText; ///
+
           htmls.push(html);
-
-          trimmed = false;
         }
 
-        const indent = null;
-
-        html = markdownNode.asHTML(indent, context);
+        const indent = null,
+              html = markdownNode.asHTML(indent, context);
 
         if (html !== null) {
           htmls.push(html);
         }
       }
     }
+
+    leftTrimmed = false;
   });
 
-  html = htmlFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, trimmed)
+  const plainText = plainTextFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, leftTrimmed);
 
-  if (html !== null) {
+  if (plainText !== null) {
+    const html = plainText; ///
+
     htmls.push(html);
   }
 
@@ -58,7 +61,56 @@ export function htmlFromChildNodes(childNodes, context, trimmed) {
   return html;
 }
 
-export function domElementsFromChildNodes(childNodes, context, trimmed) {
+export function plainTextFromChildNodes(childNodes, context, leftTrimmed) {
+  let plainText;
+
+  const plainTexts = [],
+        plainTextMarkdownNodes = [];
+
+  childNodes.forEach((childNode) => {
+    const childNodeNonTerminalNode = childNode.isNonTerminalNode();
+
+    if (childNodeNonTerminalNode) {
+      const nonTerminalNode = childNode,  ///
+            markdownNode = nonTerminalNode, ///
+            markdownNodePlainTextMarkdownNode = (markdownNode instanceof PlainTextMarkdownNode);
+
+      if (markdownNodePlainTextMarkdownNode) {
+        const plainTextMarkdownNode = markdownNode; ///
+
+        plainTextMarkdownNodes.push(plainTextMarkdownNode);
+      } else {
+        plainText = plainTextFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, leftTrimmed);
+
+        if (plainText !== null) {
+          plainTexts.push(plainText);
+        }
+
+        const childNodes = markdownNode.getChildNodes();
+
+        plainText = plainTextFromChildNodes(childNodes, context, leftTrimmed);
+
+        if (plainText !== EMPTY_STRING) {
+          plainTexts.push(plainText);
+        }
+      }
+    }
+
+    leftTrimmed = false;
+  });
+
+  plainText = plainTextFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, leftTrimmed);
+
+  if (plainText !== null) {
+    plainTexts.push(plainText);
+  }
+
+  plainText = plainTexts.join(EMPTY_STRING);
+
+  return plainText;
+}
+
+export function domElementsFromChildNodes(childNodes, context, leftTrimmed) {
   const domElements = [],
         plainTextMarkdownNodes = [];
 
@@ -75,14 +127,14 @@ export function domElementsFromChildNodes(childNodes, context, trimmed) {
 
         plainTextMarkdownNodes.push(plainTextMarkdownNode);
       } else {
-        const textDOMElement = textDOMElementFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, trimmed)
+        const plainText = plainTextFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, leftTrimmed);
 
-        if (textDOMElement !== null) {
-          const domElement = textDOMElement;  ///
+        if (plainText !== null) {
+          const content = plainText,  ///
+                textNode = document.createTextNode(content),
+                domElement = textNode;  ///
 
           domElements.push(domElement);
-
-          trimmed = false;
         }
 
         const domElement = markdownNode.createDOMElement(context);
@@ -92,12 +144,16 @@ export function domElementsFromChildNodes(childNodes, context, trimmed) {
         }
       }
     }
+
+    leftTrimmed = false;
   });
 
-  const textDOMElement = textDOMElementFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, trimmed)
+  const plainText = plainTextFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, leftTrimmed);
 
-  if (textDOMElement !== null) {
-    const domElement = textDOMElement;  ///
+  if (plainText !== null) {
+    const content = plainText,  ///
+          textNode = document.createTextNode(content),
+          domElement = textNode;  ///
 
     domElements.push(domElement);
   }
@@ -105,36 +161,20 @@ export function domElementsFromChildNodes(childNodes, context, trimmed) {
   return domElements;
 }
 
-function htmlFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, trimmed) {
-  let html = null;
+function plainTextFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, leftTrimmed) {
+  let plainText = null;
 
   const plainTextMarkdownNodesLength = plainTextMarkdownNodes.length;
 
   if (plainTextMarkdownNodesLength > 0) {
     const markdownNodes = plainTextMarkdownNodes,  ///
-          content = contentFromMarkdownNodes(markdownNodes, context, trimmed);
+          rightTrimmed = false,
+          content = contentFromMarkdownNodes(markdownNodes, context, leftTrimmed, rightTrimmed);
 
-    html = content; ///
-
-    clear(plainTextMarkdownNodes);
-  }
-
-  return html;
-}
-
-function textDOMElementFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, trimmed) {
-  let textDOMElement = null;
-
-  const plainTextMarkdownNodesLength = plainTextMarkdownNodes.length;
-
-  if (plainTextMarkdownNodesLength > 0) {
-    const markdownNodes = plainTextMarkdownNodes,  ///
-          content = contentFromMarkdownNodes(markdownNodes, context, trimmed);
-
-    textDOMElement = document.createTextNode(content);
+    plainText = content; ///
 
     clear(plainTextMarkdownNodes);
   }
 
-  return textDOMElement;
+  return plainText;
 }

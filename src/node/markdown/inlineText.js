@@ -13,7 +13,8 @@ class InlineTextMarkdownNode extends MarkdownNode {
 
   createDOMElement(context) {
     const content = this.content(context),
-          domElement = document.createTextNode(content);
+          textNode = document.createTextNode(content),
+          domElement = textNode;  ///
 
     this.setDOMElement(domElement);
 

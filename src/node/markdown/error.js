@@ -13,7 +13,8 @@ class ErrorMarkdownNode extends MarkdownNode {
 
   createChildNodeDOMElements(context) {
     const content = this.content(context),
-          childNodeDOMElement = document.createTextNode(content);
+          textNode  = document.createTextNode(content),
+          childNodeDOMElement = textNode; ///
 
     this.insertDOMElement(childNodeDOMElement);
   }

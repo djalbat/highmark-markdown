@@ -52,11 +52,11 @@ class View extends Element {
               importer
             };
 
-      divisionMarkdownNode.resolveImports(parentNode, context);
+      // divisionMarkdownNode.resolveImports(parentNode, context);
 
       divisionMarkdownNode.createContents(context);
 
-      divisionMarkdownNode.createFootnotes(context);
+      // divisionMarkdownNode.createFootnotes(context);
 
       const html = divisionMarkdownNode.asHTML(indent, context),
             domElement = divisionMarkdownNode.createDOMElement(context);
@@ -137,11 +137,7 @@ class View extends Element {
 
   static initialMarkdown = `@contents 3
 
-# Primary heading 1
-
-## Secondary heading 1
-
-@import cover.mds
+# *Primary* heading
 
 `;
 

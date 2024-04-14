@@ -5,17 +5,20 @@ import contentMixins from "../../mixins/content";
 
 class BlockTextMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
-    const trimmed = false,
-          content = this.content(context, trimmed),
+    const leftTrimmed = false,
+          rightTrimmed = false,
+          content = this.content(context, leftTrimmed, rightTrimmed),
           html = content; ///
 
     return html;
   }
 
   createDOMElement(context) {
-    const trimmed = false,
-          content = this.content(context, trimmed),
-          domElement = document.createTextNode(content, trimmed);
+    const leftTrimmed = false,
+          rightTrimmed = false,
+          content = this.content(context, leftTrimmed, rightTrimmed),
+          textNode = document.createTextNode(content),
+          domElement = textNode;
 
     this.setDOMElement(domElement);
 

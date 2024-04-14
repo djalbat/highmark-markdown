@@ -2,12 +2,12 @@
 
 import { contentFromMarkdownNodes } from "../utilities/content";
 
-function content(context, trimmed = true) {
+function content(context, leftTrimmed = true, rightTrimmed = true) {
   const markdownNode = this, ///
         markdownNodes = [
           markdownNode
         ],
-        content = contentFromMarkdownNodes(markdownNodes, context, trimmed);
+        content = contentFromMarkdownNodes(markdownNodes, context, leftTrimmed, rightTrimmed);
 
   return content;
 }

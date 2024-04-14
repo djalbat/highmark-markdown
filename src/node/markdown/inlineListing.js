@@ -21,7 +21,8 @@ class InlineListingMarkdownNode extends MarkdownNode {
 
     content = trim(content); ///
 
-    const childNodeDOMElement = document.createTextNode(content);
+    const textNode = document.createTextNode(content),
+          childNodeDOMElement = textNode; ///
 
     this.insertDOMElement(childNodeDOMElement);
   }

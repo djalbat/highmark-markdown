@@ -19,6 +19,7 @@ export default class ContentsItemMarkdownNode extends MarkdownNode {
 
     if (headingMarkdownNode !== null) {
       const { replacementTokens } = context,
+            identifier = headingMarkdownNode.identifier(context),
             headingMarkdownNodeOffset = offsetFromNode(headingMarkdownNode, context), ///
             headingMarkdownNodeTokens = tokensFromNode(headingMarkdownNode, context),
             headingMarkdownNodeChildNodes = childNodesFromNode(headingMarkdownNode);

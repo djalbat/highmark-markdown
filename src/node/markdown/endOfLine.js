@@ -13,7 +13,8 @@ export default class EndOfLineMarkdownNode extends MarkdownNode {
 
   createDOMElement(context) {
     const content = EMPTY_STRING, ///
-          domElement = document.createTextNode(content);
+          textNode = document.createTextNode(content),
+          domElement = textNode;  ///
 
     this.setDOMElement(domElement);
 

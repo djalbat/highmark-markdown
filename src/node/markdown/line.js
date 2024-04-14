@@ -8,24 +8,24 @@ const { first } = arrayUtilities;
 
 export default class LineMarkdownNode extends MarkdownNode {
   childNodesAsHTML(indent, context) {
-    const trimmed = true,
+    const leftTrimmed = true,
           childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           markedTextChildNode = firstChildNode, ///
-          markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context, trimmed),
+          markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context, leftTrimmed),
           childNodesHTML = `${markedTextChildNodeChildNodesHTML}\n`;
 
     return childNodesHTML;
   }
 
   createChildNodeDOMElements(context) {
-    const trimmed = true,
+    const leftTrimmed = true,
           domElement = this.getDOMElement(),
           childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           markedTextChildNode = firstChildNode; ///
 
-    markedTextChildNode.createChildNodeDOMElements(domElement, context, trimmed);
+    markedTextChildNode.createChildNodeDOMElements(domElement, context, leftTrimmed);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(LineMarkdownNode, ruleName, childNodes, opacity); }

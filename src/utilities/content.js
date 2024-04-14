@@ -7,7 +7,7 @@ import { ESCAPED_TOKEN_TYPE } from "../tokenTypes";
 
 const { first, last } = arrayUtilities;
 
-export function contentFromMarkdownNodes(markdownNodes, context, trimmed = false) {
+export function contentFromMarkdownNodes(markdownNodes, context, leftTrimmed, rightTrimmed) {
   let content = EMPTY_STRING;
 
   let { tokens } = context;
@@ -25,9 +25,8 @@ export function contentFromMarkdownNodes(markdownNodes, context, trimmed = false
   let firstTokenIndex = firstSignificantTokenIndex,  ///
       lastTokenIndex = lastSignificantTokenIndex; ///
 
-  if (!trimmed) {
-    const previousTokenIndex = firstTokenIndex - 1,
-          nextTokenIndex = lastTokenIndex + 1;
+  if (!leftTrimmed) {
+    const previousTokenIndex = firstTokenIndex - 1;
 
     if (previousTokenIndex > -1) {
       const previousToken = tokens[previousTokenIndex],
@@ -37,8 +36,11 @@ export function contentFromMarkdownNodes(markdownNodes, context, trimmed = false
         firstTokenIndex--;
       }
     }
+  }
 
-    const tokensLength = tokens.length;
+  if (!rightTrimmed) {
+    const tokensLength = tokens.length,
+          nextTokenIndex = lastTokenIndex + 1;
 
     if (nextTokenIndex < tokensLength) {
       const nextToken = tokens[nextTokenIndex],
