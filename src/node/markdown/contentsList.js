@@ -31,12 +31,12 @@ export default class ContentsListMarkdownNode extends MarkdownNode {
           childNodes = childNodesFromHeadingMarkdownNodes(headingMarkdownNodes, context),
           opacity = null,
           contentsListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(ContentsListMarkdownNode, ruleName, childNodes, opacity),
-          replacementNode = contentsListMarkdownNode, ///
-          replacedNode = contentsMarkdownNode;  ///
+          replacementChildNode = contentsListMarkdownNode, ///
+          replacedChildNode = contentsMarkdownNode;  ///
 
     Object.assign(context, {
-      replacedNode,
-      replacementNode
+      replacedChildNode,
+      replacementChildNode
     });
   }
 }

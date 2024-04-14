@@ -19,49 +19,48 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
     return identifiers;
   }
 
-  static fromDivisionMarkdownNodeAndFootnoteLinkMarkdownNodes(divisionMarkdownNode, context) {
-    let footnotesListMarkdownNode = null;
+  static fromDivisionMarkdownNode(divisionMarkdownNode, context) {
+    const node = divisionMarkdownNode,  ///
+          linkMarkdownNodes = linkMarkdownNodesFromNode(node),
+          footnoteMarkdownNodes = footnoteMarkdownNodesFromNode(node),
+          linkMarkdownNodesLength = linkMarkdownNodes.length,
+          footnoteMarkdownNodesLength = footnoteMarkdownNodes.length;
 
-    const footnoteItemMarkdownNodes = footnoteItemMarkdownNodesFromDivisionMarkdownNode(divisionMarkdownNode, context),
-          footnoteItemMarkdownNodesLength = footnoteItemMarkdownNodes.length;
-
-    if (footnoteItemMarkdownNodesLength > 0) {
-      const ruleName = FOOTNOTES_LIST_RULE_NAME,
-            childNodes = footnoteItemMarkdownNodes, ///
-            opacity = null;
-
-      footnotesListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnotesListMarkdownNode, ruleName, childNodes, opacity);
+    if ((linkMarkdownNodesLength === 0) || (footnoteMarkdownNodesLength === 0)) {
+      return;
     }
 
-    return footnotesListMarkdownNode;
+    const identifierToFootnoteMarkdownNodeMap = {};
+
+    footnoteMarkdownNodes.forEach((footnoteMarkdownNode) => {
+      const identifier = footnoteMarkdownNode.identifier(context);
+
+      identifierToFootnoteMarkdownNodeMap[identifier] = footnoteMarkdownNode;
+    });
+
+    const footnoteItemMarkdownNodes = [];
+
+    linkMarkdownNodes.forEach((linkMarkdownNode) => {
+      const identifier = linkMarkdownNode.identifier(context),
+            footnoteMarkdownNode = identifierToFootnoteMarkdownNodeMap[identifier] || null;
+
+      if (footnoteMarkdownNode !== null) {
+        const footnoteItemMarkdownNode = FootnoteItemMarkdownNode.fromFootnoteMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier);
+
+        footnoteItemMarkdownNodes.push(footnoteItemMarkdownNode);
+
+        delete identifierToFootnoteMarkdownNodeMap[identifier];
+      }
+    });
+
+    const ruleName = FOOTNOTES_LIST_RULE_NAME,
+          childNodes = footnoteItemMarkdownNodes, ///
+          opacity = null,
+          footnotesListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnotesListMarkdownNode, ruleName, childNodes, opacity),
+          replacementChildNode = footnotesListMarkdownNode;  ///
+
+    Object.assign(context, {
+      replacementChildNode
+    });
   }
-}
-
-function footnoteItemMarkdownNodesFromDivisionMarkdownNode(divisionMarkdownNode, context) {
-  const node = divisionMarkdownNode,  ///
-        footnoteItemMarkdownNodes = [],
-        identifierToFootnoteMarkdownNodeMap = {},
-        linkMarkdownNodes = linkMarkdownNodesFromNode(node),
-        footnoteMarkdownNodes = footnoteMarkdownNodesFromNode(node);
-
-  footnoteMarkdownNodes.forEach((footnoteMarkdownNode) => {
-    const identifier = footnoteMarkdownNode.identifier(context);
-
-    identifierToFootnoteMarkdownNodeMap[identifier] = footnoteMarkdownNode;
-  });
-
-  linkMarkdownNodes.forEach((linkMarkdownNode) => {
-    const identifier = linkMarkdownNode.identifier(context),
-          footnoteMarkdownNode = identifierToFootnoteMarkdownNodeMap[identifier] || null;
-
-    if (footnoteMarkdownNode !== null) {
-      const footnoteItemMarkdownNode = FootnoteItemMarkdownNode.fromFootnoteMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier);
-
-      footnoteItemMarkdownNodes.push(footnoteItemMarkdownNode);
-
-      delete identifierToFootnoteMarkdownNodeMap[identifier];
-    }
-  });
-
-  return footnoteItemMarkdownNodes;
 }

@@ -38,7 +38,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
     ContentsListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
 
-    const { replacedChildNode = null, replacementChildNode = null } = context;
+    const { replacementChildNode = null, replacedChildNode = null } = context;
 
     if ((replacementChildNode !== null) && (replacedChildNode !== null)) {
       const node = this,  ///
@@ -63,9 +63,16 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       replacementTokens
     });
 
-    FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode);
+    FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
 
-    debugger
+    const { replacementChildNode = null } = context;
+
+    if (replacementChildNode !== null) {
+      const childNode = replacementChildNode,  ///
+            parentNode = this;  ///
+
+      parentNode.addChildNode(childNode);
+    }
   }
 
   clone() {
