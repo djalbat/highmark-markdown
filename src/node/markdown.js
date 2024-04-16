@@ -241,14 +241,7 @@ ${childNodesHTML}${indent}${closingTag}
     parentDOMElement.insertBefore(childNodeDOMElement, siblingDOMElement);
   }
 
-  clone(...remainingArguments) {
-    const ruleName = this.getRuleName(),
-          childNodes = this.getChildNodes(),
-          precedence = this.getPrecedence(),
-          opacity = this.getOpacity(),
-          markdownNode = super.clone()
-
-  }
+  clone(...remainingArguments) { return super.clone(this.domElement, ...remainingArguments); }
 
   static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments) {
     const domElement = null,
