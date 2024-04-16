@@ -28,9 +28,7 @@ export default class AnchorMarkdownNode extends MarkdownNode {
     return attributeValue;
   }
 
-  clone() {
-    debugger
-  }
+  clone() { return super.clone(this.identifier); }
 
   static fromIdentifier(identifier) {
     const ruleName = ANCHOR_RULE_NAME,
