@@ -5,7 +5,6 @@ import ContentsListMarkdownNode from "../../node/markdown/contentsList";
 import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
 import { replaceTokens } from "../../utilities/tokens";
-import { parentNodeFromNodeAndChildNode } from "../../utilities/node";
 
 export default class DivisionMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, precedence, opacity, domElement, divisionClassName) {
@@ -32,18 +31,22 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     const replacementTokens = [],
           divisionMarkdownNode = this;
 
+    let replacedChildNode = null,
+        replacementChildNode = null;
+
     Object.assign(context, {
-      replacementTokens
+      replacementTokens,
+      replacedChildNode,
+      replacementChildNode
     });
 
     ContentsListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
 
-    const { replacementChildNode = null, replacedChildNode = null } = context;
+    ({ replacementChildNode, replacedChildNode } = context);
 
     if ((replacementChildNode !== null) && (replacedChildNode !== null)) {
-      const node = this,  ///
-            childNode = replacedChildNode,  ///
-            parentNode = parentNodeFromNodeAndChildNode(node, childNode);
+      const childNode = replacedChildNode,  ///
+            parentNode = this.findParentNode(childNode);
 
       parentNode.replaceChildNode(replacedChildNode, replacementChildNode);
 
@@ -56,16 +59,17 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 
   createFootnotes(context) {
-    const replacementTokens = [],
-          divisionMarkdownNode = this;  ///
+    const divisionMarkdownNode = this;  ///
+
+    let replacementChildNode = null;
 
     Object.assign(context, {
-      replacementTokens
+      replacementChildNode
     });
 
     FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
 
-    const { replacementChildNode = null } = context;
+    ({ replacementChildNode = null } = context);
 
     if (replacementChildNode !== null) {
       const childNode = replacementChildNode,  ///
@@ -73,6 +77,34 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
       parentNode.addChildNode(childNode);
     }
+  }
+
+  findParentNode(childNode, node = this) {
+    let parentNode = null
+
+    const nodeNonTerminalNode = node.isNonTerminalNode();
+
+    if (nodeNonTerminalNode) {
+      const nonTerminalNode = node, ///
+            childNodes = nonTerminalNode.getChildNodes(),
+            index = childNodes.indexOf(childNode);
+
+      if (index !== -1) {
+        parentNode = node;  ///
+      } else {
+        childNodes.some((childNode) => {
+          const node = childNode; ///
+
+          parentNode = this.findParentNode(childNode, node);
+
+          if (parentNode !== null) {
+            return true;
+          }
+        });
+      }
+    }
+
+    return parentNode;
   }
 
   clone() {
