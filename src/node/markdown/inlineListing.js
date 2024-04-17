@@ -3,13 +3,13 @@
 import MarkdownNode from "../../node/markdown";
 import contentMixins from "../../mixins/content";
 
-import { trim } from "../../utilities/string";
+import { EMPTY_STRING } from "../../constants";
 
 class InlineListingMarkdownNode extends MarkdownNode {
   childNodesAsHTML(indent, context) {
     let content = this.content(context);
 
-    content = trim(content); ///
+    content = removeBackticks(content); ///
 
     const childNodesHTML = content; ///
 
@@ -19,7 +19,7 @@ class InlineListingMarkdownNode extends MarkdownNode {
   createChildNodeDOMElements(context) {
     let content = this.content(context);
 
-    content = trim(content); ///
+    content = removeBackticks(content); ///
 
     const textNode = document.createTextNode(content),
           childNodeDOMElement = textNode; ///
@@ -33,3 +33,9 @@ class InlineListingMarkdownNode extends MarkdownNode {
 Object.assign(InlineListingMarkdownNode.prototype, contentMixins);
 
 export default InlineListingMarkdownNode;
+
+export function removeBackticks(content) {
+  content = content.replace(/^`|`$/g, EMPTY_STRING);  ///
+
+  return content;
+}

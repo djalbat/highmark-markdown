@@ -2,15 +2,7 @@
 
 import { stringUtilities } from "necessary";
 
-import { EMPTY_STRING } from "../constants";
-
 const { substring } = stringUtilities;
-
-export function trim(string) {
-  const shavenString = string.replace(/^["`'\s]+|["`'\s]+$/g, EMPTY_STRING);
-
-  return shavenString;
-}
 
 export function chop(string, start, deleteCount) {
   let begin,
