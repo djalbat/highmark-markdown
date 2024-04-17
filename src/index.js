@@ -9,4 +9,3 @@ export { default as MarkdownParser } from "./markdown/parser";
 export { default as queryUtilities } from "./utilities/query";
 export { default as ruleNameToHTMLMap } from "./ruleNameToHTMLMap";
 export { default as footnotesUtilities } from "./utilities/footnotes";
-export { default as FootnotesListMarkdownNode } from "./node/markdown/footnotesList";

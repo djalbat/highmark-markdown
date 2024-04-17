@@ -7,37 +7,26 @@ import ContentsItemMarkdownNode from "../../node/markdown/contentsItem";
 
 import { nestNodes } from "../../utilities/contents";
 import { CONTENTS_LIST_RULE_NAME } from "../../ruleNames";
-import { headingMarkdownNodesFromNode, contentsMarkdownNodeFromNode } from "../../utilities/query";
+import { headingMarkdownNodesFromNode } from "../../utilities/query";
 
 const { filter } = arrayUtilities;
 
 export default class ContentsListMarkdownNode extends MarkdownNode {
-  static fromDivisionMarkdownNode(divisionMarkdownNode, context) {
-    const node = divisionMarkdownNode,  ///
-          contentsMarkdownNode = contentsMarkdownNodeFromNode(node);
-
-    if (contentsMarkdownNode === null) {
-      return;
-    }
+  static fromDivisionMarkdownNodeAndContentsMarkdownNode(divisionMarkdownNode, contentsMarkdownNode, context) {
+    let contentsListMarkdownNode = null;
 
     const headingMarkdownNodes = headingMarkdownNodesFromDivisionMarkdownNodeAndContentsMarkdownNode(divisionMarkdownNode, contentsMarkdownNode, context),
           headingMarkdownNodesLength = headingMarkdownNodes.length;
 
-    if (headingMarkdownNodesLength === 0) {
-      return;
+    if (headingMarkdownNodesLength > 0) {
+      const ruleName = CONTENTS_LIST_RULE_NAME,
+            childNodes = childNodesFromHeadingMarkdownNodes(headingMarkdownNodes, context),
+            opacity = null;
+
+      contentsListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(ContentsListMarkdownNode, ruleName, childNodes, opacity);
     }
 
-    const ruleName = CONTENTS_LIST_RULE_NAME,
-          childNodes = childNodesFromHeadingMarkdownNodes(headingMarkdownNodes, context),
-          opacity = null,
-          contentsListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(ContentsListMarkdownNode, ruleName, childNodes, opacity),
-          replacementChildNode = contentsListMarkdownNode, ///
-          replacedChildNode = contentsMarkdownNode;  ///
-
-    Object.assign(context, {
-      replacedChildNode,
-      replacementChildNode
-    });
+    return contentsListMarkdownNode;
   }
 }
 
