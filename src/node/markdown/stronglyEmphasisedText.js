@@ -22,18 +22,17 @@ class StronglyEmphasisedTextMarkdownNode extends MarkdownNode {
   }
 
   createDOMElement(context) {
-    let domElement = super.createDOMElement(context);
-
-    const childNodeDOMElement = domElement; ///
+    let domElement;
 
     domElement = document.createElement(tagName);
 
     this.setDOMElement(domElement);
 
-    const parentDOMElement = domElement,  ///
-          siblingDOMElement = null;
+    const parentDOMElement = domElement;  ///
 
-    parentDOMElement.insertBefore(childNodeDOMElement, siblingDOMElement);
+    domElement = super.createDOMElement(context);
+
+    parentDOMElement.appendChild(domElement);
 
     return domElement;
   }

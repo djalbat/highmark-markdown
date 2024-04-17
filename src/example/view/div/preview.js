@@ -7,6 +7,13 @@ import { Element } from "easy";
 import { EMPTY_STRING } from "../../constants";
 
 class PreviewDiv extends Element {
+  getParentDOMElement() {
+    const domElement = this.getDOMElement(),
+          parentDOMElement = domElement;  ///
+
+    return parentDOMElement;
+  }
+
   clear() {
     const html = EMPTY_STRING;
 
@@ -16,11 +23,9 @@ class PreviewDiv extends Element {
   update(domElement) {
     this.clear();
 
-    const childDOMElement = domElement; ///
+    const parentDOMElement = this.getParentDOMElement();
 
-    domElement = this.getDOMElement();
-
-    domElement.appendChild(childDOMElement);
+    parentDOMElement.appendChild(domElement);
   }
 
   parentContext() {

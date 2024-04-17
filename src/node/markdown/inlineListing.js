@@ -22,9 +22,9 @@ class InlineListingMarkdownNode extends MarkdownNode {
     content = removeBackticks(content); ///
 
     const textNode = document.createTextNode(content),
-          childNodeDOMElement = textNode; ///
+          domElement = textNode; ///
 
-    this.insertDOMElement(childNodeDOMElement);
+    this.addDOMElement(domElement);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(InlineListingMarkdownNode, ruleName, childNodes, opacity); }

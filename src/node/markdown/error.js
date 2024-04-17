@@ -14,9 +14,9 @@ class ErrorMarkdownNode extends MarkdownNode {
   createChildNodeDOMElements(context) {
     const content = this.content(context),
           textNode  = document.createTextNode(content),
-          childNodeDOMElement = textNode; ///
+          domElement = textNode; ///
 
-    this.insertDOMElement(childNodeDOMElement);
+    this.addDOMElement(domElement);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ErrorMarkdownNode, ruleName, childNodes, opacity); }

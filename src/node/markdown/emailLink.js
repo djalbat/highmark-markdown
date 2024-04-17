@@ -85,9 +85,9 @@ class EmailLinkMarkdownNode extends MarkdownNode {
                       inlineText :
                         this.content(context),
           textNode = document.createTextNode(content),
-          childNodeDOMElement = textNode; ///
+          domElement = textNode; ///
 
-    this.insertDOMElement(childNodeDOMElement);
+    this.addDOMElement(domElement);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EmailLinkMarkdownNode, ruleName, childNodes, opacity); }

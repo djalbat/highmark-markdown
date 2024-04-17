@@ -233,21 +233,23 @@ ${childNodesHTML}${indent}${closingTag}
       if (childNodeNonTerminalNode) {
         const nonTerminalNode = childNode,  ///
               markdownNode = nonTerminalNode, ///
-              markdownNodeDOMElement = markdownNode.createDOMElement(context);
+              domElement = markdownNode.createDOMElement(context);
 
-        if (markdownNodeDOMElement !== null) {
-          this.insertDOMElement(markdownNodeDOMElement);
+        if (domElement !== null) {
+          this.addDOMElement(domElement);
         }
       }
     });
   }
 
-  insertDOMElement(domElement) {
-    const parentDOMElement = this.domElement,  ///
-          siblingDOMElement = null,
-          childNodeDOMElement = domElement; ///
+  addDOMElement(domElement) {
+    const parentDOMElement = this.domElement; ///
 
-    parentDOMElement.insertBefore(childNodeDOMElement, siblingDOMElement);
+    parentDOMElement.appendChild(domElement);
+  }
+
+  removeDOMElement(domElement) {
+    domElement.remove();
   }
 
   clone(...remainingArguments) { return super.clone(this.domElement, ...remainingArguments); }

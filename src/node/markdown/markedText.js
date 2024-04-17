@@ -16,11 +16,12 @@ export default class MarkedTextMarkdownNode extends MarkdownNode {
     const childNodes = this.getChildNodes(),
           domElements = domElementsFromChildNodes(childNodes, context, leftTrimmed),
           parentDOMElement = domElement,  ///
-          siblingDOMElement = null,
           childNodeDOMElements = domElements; ///
 
     childNodeDOMElements.forEach((childNodeDOMElement) => {
-      parentDOMElement.insertBefore(childNodeDOMElement, siblingDOMElement);
+      const domElement = childNodeDOMElement; ///
+
+      parentDOMElement.appendChild(domElement);
     });
   }
 
