@@ -90,11 +90,13 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   createFootnotes(context) {
     const footnotesListMarkdownNode = this.createFootnotesListMarkdownNode(context);
 
-    if (footnotesListMarkdownNode) {
+    if (footnotesListMarkdownNode !== null) {
       const childNode = footnotesListMarkdownNode;  ///
 
       this.addChildNode(childNode);
     }
+
+    return footnotesListMarkdownNode;
   }
 
   removeFootnotesListMarkdownNode(footnotesListMarkdownNode) {
