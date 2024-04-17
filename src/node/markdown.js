@@ -23,30 +23,6 @@ class MarkdownNode extends NonTerminalNode {
     this.domElement = domElement;
   }
 
-  addChildNode(childNode) {
-    const childNodes = this.getChildNodes();
-
-    childNodes.push(childNode);
-  }
-
-  removeChildNode(childNode) {
-    const childNodes = this.getChildNodes(),
-          index = childNodes.indexOf(childNode),
-          start = index,  ///
-          deleteCount = 1;
-
-    childNodes.splice(start, deleteCount);
-  }
-
-  replaceChildNode(replacedChildNode, replacementChildNode) {
-    const childNodes = this.getChildNodes(),
-          index = childNodes.indexOf(replacedChildNode),
-          start = index,  ///
-          deleteCount = 1;
-
-    childNodes.splice(start, deleteCount, replacementChildNode);
-  }
-
   tagName(context) {
     const { tagName } = ruleNameToHTMLMap[this.ruleName];
 
@@ -173,34 +149,6 @@ ${childNodesHTML}${indent}${closingTag}
     return html;
   }
 
-  createDOMElement(context) {
-    let domElement = null;
-
-    const tagName = this.tagName(context);
-
-    if (tagName !== null) {
-      domElement = document.createElement(tagName);
-
-      const className = this.className(context),
-            attributeName = this.attributeName(context),
-            attributeValue = this.attributeValue(context);
-
-      if (className !== null) {
-        domElement.className = className;
-      }
-
-      if ((attributeName !== null) && (attributeValue !== null)) {
-        domElement.setAttribute(attributeName, attributeValue);
-      }
-
-      this.setDOMElement(domElement);
-
-      this.createChildNodeDOMElements(context);
-    }
-
-    return domElement;
-  }
-
   childNodesAsHTML(indent, context) {
     const childNodes = this.getChildNodes(),
           childNodesHTML = childNodes.reduce((childNodesHTML, childNode) => {
@@ -224,6 +172,36 @@ ${childNodesHTML}${indent}${closingTag}
     return childNodesHTML;
   }
 
+  createDOMElement(context) {
+    let domElement = null;
+
+    const tagName = this.tagName(context);
+
+    if (tagName !== null) {
+      domElement = document.createElement(tagName);
+
+      const className = this.className(context),
+            attributeName = this.attributeName(context),
+            attributeValue = this.attributeValue(context);
+
+      if (className !== null) {
+        Object.assign(domElement, {
+          className
+        });
+      }
+
+      if ((attributeName !== null) && (attributeValue !== null)) {
+        domElement.setAttribute(attributeName, attributeValue);
+      }
+
+      this.setDOMElement(domElement);
+
+      this.createChildNodeDOMElements(context);
+    }
+
+    return domElement;
+  }
+
   createChildNodeDOMElements(context) {
     const childNodes = this.getChildNodes();
 
@@ -240,16 +218,6 @@ ${childNodesHTML}${indent}${closingTag}
         }
       }
     });
-  }
-
-  addDOMElement(domElement) {
-    const parentDOMElement = this.domElement; ///
-
-    parentDOMElement.appendChild(domElement);
-  }
-
-  removeDOMElement(domElement) {
-    domElement.remove();
   }
 
   clone(...remainingArguments) { return super.clone(this.domElement, ...remainingArguments); }

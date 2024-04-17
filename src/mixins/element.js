@@ -1,5 +1,15 @@
 "use strict";
 
+function addDOMElement(domElement) {
+  const parentDOMElement = this.domElement; ///
+
+  parentDOMElement.appendChild(domElement);
+}
+
+function removeDOMElement(domElement) {
+  domElement.remove();
+}
+
 function getDescendantElements(descendantElements = []) {
   const domElement = this.getDOMElement();
 
@@ -25,6 +35,8 @@ function getDescendantElements(descendantElements = []) {
 }
 
 const elementMixins = {
+  addDOMElement,
+  removeDOMElement,
   getDescendantElements
 };
 

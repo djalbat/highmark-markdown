@@ -99,17 +99,17 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return footnotesListMarkdownNode;
   }
 
-  removeFootnotesListMarkdownNode(footnotesListMarkdownNode) {
-    const childNode = footnotesListMarkdownNode;  ///
-
-    this.removeChildNode(childNode);
-  }
-
   createFootnotesListMarkdownNode(context) {
     const divisionMarkdownNode = this,  ///
           footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
 
     return footnotesListMarkdownNode;
+  }
+
+  removeFootnotesListMarkdownNode(footnotesListMarkdownNode) {
+    const childNode = footnotesListMarkdownNode;  ///
+
+    this.removeChildNode(childNode);
   }
 
   clone() { return super.clone(this.divisionClassName); }

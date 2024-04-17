@@ -1,5 +1,29 @@
 "use strict";
 
+function addChildNode(childNode) {
+  const childNodes = this.getChildNodes();
+
+  childNodes.push(childNode);
+}
+
+function removeChildNode(childNode) {
+  const childNodes = this.getChildNodes(),
+        index = childNodes.indexOf(childNode),
+        start = index,  ///
+        deleteCount = 1;
+
+  childNodes.splice(start, deleteCount);
+}
+
+function replaceChildNode(replacedChildNode, replacementChildNode) {
+  const childNodes = this.getChildNodes(),
+        index = childNodes.indexOf(replacedChildNode),
+        start = index,  ///
+        deleteCount = 1;
+
+  childNodes.splice(start, deleteCount, replacementChildNode);
+}
+
 function getDescendantNodes(descendantNodes = []) {
   const descendantNode = this; ///
 
@@ -21,6 +45,9 @@ function getDescendantNodes(descendantNodes = []) {
 }
 
 const nodeMixins = {
+  addChildNode,
+  removeChildNode,
+  replaceChildNode,
   getDescendantNodes
 };
 

@@ -23,7 +23,9 @@ ${childNodesHTML}${closingTag}
           className = this.className(context),
           domElement = document.createElement(tagName);
 
-    domElement.className = className;
+    Object.assign(domElement, {
+      className
+    });
 
     this.setDOMElement(domElement);
 
