@@ -25,32 +25,31 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
     const node = divisionMarkdownNode,  ///
           linkMarkdownNodes = linkMarkdownNodesFromNode(node),
           footnoteMarkdownNodes = footnoteMarkdownNodesFromNode(node),
-          linkMarkdownNodesLength = linkMarkdownNodes.length,
-          footnoteMarkdownNodesLength = footnoteMarkdownNodes.length;
+          footnoteItemMarkdownNodes = [],
+          identifierToFootnoteMarkdownNodeMap = {};
 
-    if ((linkMarkdownNodesLength > 0) && (footnoteMarkdownNodesLength > 0)) {
-      const footnoteItemMarkdownNodes = [],
-            identifierToFootnoteMarkdownNodeMap = {};
+    footnoteMarkdownNodes.forEach((footnoteMarkdownNode) => {
+      const identifier = footnoteMarkdownNode.identifier(context);
 
-      footnoteMarkdownNodes.forEach((footnoteMarkdownNode) => {
-        const identifier = footnoteMarkdownNode.identifier(context);
+      identifierToFootnoteMarkdownNodeMap[identifier] = footnoteMarkdownNode;
+    });
 
-        identifierToFootnoteMarkdownNodeMap[identifier] = footnoteMarkdownNode;
-      });
+    linkMarkdownNodes.forEach((linkMarkdownNode) => {
+      const identifier = linkMarkdownNode.identifier(context),
+            footnoteMarkdownNode = identifierToFootnoteMarkdownNodeMap[identifier] || null;
 
-      linkMarkdownNodes.forEach((linkMarkdownNode) => {
-        const identifier = linkMarkdownNode.identifier(context),
-              footnoteMarkdownNode = identifierToFootnoteMarkdownNodeMap[identifier] || null;
+      if (footnoteMarkdownNode !== null) {
+        const footnoteItemMarkdownNode = FootnoteItemMarkdownNode.fromFootnoteMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier);
 
-        if (footnoteMarkdownNode !== null) {
-          const footnoteItemMarkdownNode = FootnoteItemMarkdownNode.fromFootnoteMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier);
+        footnoteItemMarkdownNodes.push(footnoteItemMarkdownNode);
 
-          footnoteItemMarkdownNodes.push(footnoteItemMarkdownNode);
+        delete identifierToFootnoteMarkdownNodeMap[identifier];
+      }
+    });
 
-          delete identifierToFootnoteMarkdownNodeMap[identifier];
-        }
-      });
+    const footnoteItemMarkdownNodesLength = footnoteItemMarkdownNodes.length;
 
+    if (footnoteItemMarkdownNodesLength > 0) {
       const ruleName = FOOTNOTES_LIST_RULE_NAME,
             childNodes = footnoteItemMarkdownNodes, ///
             opacity = null;
