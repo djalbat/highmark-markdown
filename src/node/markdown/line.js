@@ -13,7 +13,7 @@ export default class LineMarkdownNode extends MarkdownNode {
           firstChildNode = first(childNodes),
           markedTextChildNode = firstChildNode, ///
           markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context, leftTrimmed),
-          childNodesHTML = `${markedTextChildNodeChildNodesHTML}\n`;
+          childNodesHTML = markedTextChildNodeChildNodesHTML; ///
 
     return childNodesHTML;
   }

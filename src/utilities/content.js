@@ -44,9 +44,10 @@ export function contentFromMarkdownNodes(markdownNodes, context, leftTrimmed, ri
 
     if (nextTokenIndex < tokensLength) {
       const nextToken = tokens[nextTokenIndex],
-            nextTokenSignificant = nextToken.isSignificant();
+            nextTokenSignificant = nextToken.isSignificant(),
+            nextTokenEndOfLineToken = nextToken.isEndOfLineToken();
 
-      if (!nextTokenSignificant) {
+      if (nextTokenEndOfLineToken || !nextTokenSignificant) {
         lastTokenIndex++;
       }
     }

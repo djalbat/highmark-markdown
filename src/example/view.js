@@ -15,8 +15,8 @@ import MarkdownTextarea from "./view/textarea/markdown";
 import ParseTreeTextarea from "./view/textarea/parseTree";
 import LexicalEntriesTextarea from "./view/textarea/lexicalEntries";
 
+import { DOCUMENT_DIVISION_CLASS_NAME } from "./constants";
 import { MarkdownLexer, MarkdownParser } from "../index";
-import { EMPTY_STRING, DOCUMENT_DIVISION_CLASS_NAME } from "./constants";
 
 const { bnf } = MarkdownParser,
       { entries } = MarkdownLexer;
@@ -46,7 +46,6 @@ class View extends Element {
       divisionMarkdownNode.setDivisionClassName(divisionClassName);
 
       const parentNode = null,
-            indent = EMPTY_STRING,
             context = {
               tokens
             };
@@ -57,7 +56,7 @@ class View extends Element {
 
       divisionMarkdownNode.createFootnotes(context);
 
-      const html = divisionMarkdownNode.asHTML(indent, context),
+      const html = divisionMarkdownNode.asHTML(context),
             domElement = divisionMarkdownNode.createDOMElement(context);
 
       this.xmpHTML(html);
@@ -135,9 +134,12 @@ class View extends Element {
   }
 
   static initialMarkdown = `
-# Occam [^occam]
+Short
+paragraph.
 
-[^occam]: An occam footnote.
+|Small|
+-------
+|Table|
 
 `;
 
