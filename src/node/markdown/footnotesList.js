@@ -7,16 +7,19 @@ import { FOOTNOTES_LIST_RULE_NAME } from "../../ruleNames";
 import { linkMarkdownNodesFromNode, footnoteMarkdownNodesFromNode } from "../../utilities/query";
 
 export default class FootnotesListMarkdownNode extends MarkdownNode {
-  identifiers(context) {
+  identifierToNumberMap(context) {
     const childNodes = this.getChildNodes(),
           footnoteItemMarkdownNodes = childNodes, ///
-          identifiers = footnoteItemMarkdownNodes.map((footnoteItemMarkdownNode) => {
-            const identifier = footnoteItemMarkdownNode.identifier(context);
+          identifierToNumberMap = footnoteItemMarkdownNodes.map((identifierToNumberMap, footnoteItemMarkdownNode, index) => {
+            const number = index + 1,
+                  identifier = footnoteItemMarkdownNode.identifier(context);
 
-            return identifier;
-          });
+            identifierToNumberMap[identifier] = number;
 
-    return identifiers;
+            return identifierToNumberMap;
+          }, {});
+
+    return identifierToNumberMap;
   }
 
   static fromDivisionMarkdownNode(divisionMarkdownNode, context) {
