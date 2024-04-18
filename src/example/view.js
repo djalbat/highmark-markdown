@@ -47,7 +47,8 @@ class View extends Element {
 
       const parentNode = null,
             context = {
-              tokens
+              tokens,
+              importer
             };
 
       divisionMarkdownNode.resolveImports(parentNode, context);
@@ -136,9 +137,7 @@ class View extends Element {
   static initialMarkdown = `
 @contents 2
 
-# Primary heading
-
-## Secondary heading
+@import front-matter.md
 
 `;
 
@@ -154,3 +153,19 @@ export default withStyle(View)`
   padding: 1rem;
   
 `;
+
+function importer(filePath, context) {
+  const content = `
+# Primary heading
+
+## Secondary heading
+        
+        `,
+        tokens = markdownLexer.tokenise(content),
+        node = markdownParser.parse(tokens);
+
+  Object.assign(context, {
+    node,
+    tokens
+  });
+}

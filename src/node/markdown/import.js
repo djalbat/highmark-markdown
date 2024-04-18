@@ -15,11 +15,21 @@ export default class ImportMarkdownNode extends MarkdownNode {
     const { importer = null } = context;
 
     if (importer !== null) {
-      const filePath = this.filePath(context);
+      const { tokens } = context,
+            filePath = this.filePath(context);
 
       importer(filePath, context);
 
-      const { importedNode = null, importedTokens = null } = context;
+      const { node: importedNode = null,
+              tokens: importedTokens = null,
+              className: divisionClassName = null } = context;
+
+      Object.assign(context, {
+        tokens
+      });
+
+      delete context.node;
+      delete context.className;
 
       if (importedNode !== null) {
         const replacedChildNode = this, ///
@@ -30,12 +40,11 @@ export default class ImportMarkdownNode extends MarkdownNode {
 
         replaceTokens(replacedChildNode, replacementTokens, context);
 
-        delete context.importedNode;
-        delete context.importedTokens;
-
         parentNode = this;  ///
 
         const divisionMarkdownNode = importedNode;  ///
+
+        divisionMarkdownNode.setDivisionClassName(divisionClassName);
 
         divisionMarkdownNode.resolveImports(parentNode, context);
       }
