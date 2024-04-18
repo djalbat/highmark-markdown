@@ -3,8 +3,8 @@
 import MarkdownNode from "../../node/markdown";
 import AnchorMarkdownNode from "../../node/markdown/anchor";
 
-import { HYPHEN, EMPTY_STRING } from "../../constants";
 import { plainTextFromChildNodes } from "../../utilities/childNodes";
+import { replaceSpacesWithHyphens, removedLeadingWhitespace, removeNonAlphabeticAndSpaceCharacters } from "../../utilities/string";
 
 export default class HeadingMarkdownNode extends MarkdownNode {
   getLevel() {
@@ -36,9 +36,11 @@ export default class HeadingMarkdownNode extends MarkdownNode {
 function identifierFromPlainText(plainText) {
   plainText = plainText.toLowerCase();  ///
 
-  plainText = plainText.replace(/[^a-z ]/g, EMPTY_STRING);
+  plainText = removedLeadingWhitespace(plainText);
 
-  plainText = plainText.replace(/ +/, HYPHEN);
+  plainText = removeNonAlphabeticAndSpaceCharacters(plainText);
+
+  plainText = replaceSpacesWithHyphens(plainText);
 
   const identifier = plainText; ///
 

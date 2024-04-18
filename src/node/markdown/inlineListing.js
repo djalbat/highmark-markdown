@@ -3,7 +3,7 @@
 import MarkdownNode from "../../node/markdown";
 import contentMixins from "../../mixins/content";
 
-import { EMPTY_STRING } from "../../constants";
+import { removeBackticks } from "../../utilities/string";
 
 class InlineListingMarkdownNode extends MarkdownNode {
   childNodesAsHTML(indent, context) {
@@ -33,9 +33,3 @@ class InlineListingMarkdownNode extends MarkdownNode {
 Object.assign(InlineListingMarkdownNode.prototype, contentMixins);
 
 export default InlineListingMarkdownNode;
-
-export function removeBackticks(content) {
-  content = content.replace(/^`|`$/g, EMPTY_STRING);  ///
-
-  return content;
-}

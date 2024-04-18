@@ -15,7 +15,6 @@ import MarkdownTextarea from "./view/textarea/markdown";
 import ParseTreeTextarea from "./view/textarea/parseTree";
 import LexicalEntriesTextarea from "./view/textarea/lexicalEntries";
 
-import { DOCUMENT_DIVISION_CLASS_NAME } from "./constants";
 import { MarkdownLexer, MarkdownParser } from "../index";
 
 const { bnf } = MarkdownParser,
@@ -41,11 +40,7 @@ class View extends Element {
 
     if (node !== null) {
       const divisionMarkdownNode = node,  ///
-            divisionClassName = DOCUMENT_DIVISION_CLASS_NAME;
-
-      divisionMarkdownNode.setDivisionClassName(divisionClassName);
-
-      const parentNode = null,
+            parentNode = null,
             context = {
               tokens,
               importer
@@ -134,11 +129,7 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `
-@contents 2
-
-@import front-matter.md
-
+  static initialMarkdown = `@import introduction.md
 `;
 
   static tagName = "div";
@@ -156,16 +147,18 @@ export default withStyle(View)`
 
 function importer(filePath, context) {
   const content = `
-# Primary heading
+Occam.[^occam]
 
-## Secondary heading
+[^occam]: Occam footnote.
         
         `,
+        className = "introduction",
         tokens = markdownLexer.tokenise(content),
         node = markdownParser.parse(tokens);
 
   Object.assign(context, {
     node,
-    tokens
+    tokens,
+    className
   });
 }
