@@ -51,7 +51,7 @@ import { LINK_RULE_NAME,
          UNORDERED_LIST_ITEM_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "./ruleNames";
 
-const ruleNameToHTMLMap = {
+const ruleNameMap = {
   [LINK_RULE_NAME]: {
     tagName: "a",
     className: "link"
@@ -254,4 +254,4 @@ const ruleNameToHTMLMap = {
   }
 };
 
-export default ruleNameToHTMLMap;
+export default ruleNameMap;
