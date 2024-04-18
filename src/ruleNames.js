@@ -29,7 +29,7 @@ export const STRONG_TEXT_RULE_NAME = "strongText";
 export const SUB_DIVISION_RULE_NAME = "subDivision";
 export const ORDERED_LIST_RULE_NAME = "orderedList";
 export const BLOCK_LISTING_RULE_NAME = "blockListing";
-export const CONTENTS_link_RULE_NAME = "contentsLink";
+export const CONTENTS_LINK_RULE_NAME = "contentsLink";
 export const CONTENTS_ITEM_RULE_NAME = "contentsItem";
 export const CONTENTS_LIST_RULE_NAME = "contentsList";
 export const FOOTNOTE_ITEM_RULE_NAME = "footnoteItem";
@@ -83,7 +83,7 @@ const ruleNames = {
   SUB_DIVISION_RULE_NAME,
   ORDERED_LIST_RULE_NAME,
   BLOCK_LISTING_RULE_NAME,
-  CONTENTS_link_RULE_NAME,
+  CONTENTS_LINK_RULE_NAME,
   CONTENTS_ITEM_RULE_NAME,
   CONTENTS_LIST_RULE_NAME,
   FOOTNOTE_ITEM_RULE_NAME,
