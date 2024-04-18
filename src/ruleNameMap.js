@@ -7,6 +7,7 @@ import { LINK_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
          IMPORT_RULE_NAME,
+         IMPORTS_RULE_NAME,
          CONTENTS_RULE_NAME,
          FOOTNOTE_RULE_NAME,
          DIVISION_RULE_NAME,
@@ -77,6 +78,10 @@ const ruleNameMap = {
     className: "anchor"
   },
   [IMPORT_RULE_NAME]: {
+    tagName: null,
+    className: null
+  },
+  [IMPORTS_RULE_NAME]: {
     tagName: null,
     className: null
   },

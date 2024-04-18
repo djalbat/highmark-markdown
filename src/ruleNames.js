@@ -7,6 +7,7 @@ export const TABLE_RULE_NAME = "table";
 export const ERROR_RULE_NAME = "error";
 export const ANCHOR_RULE_NAME = "anchor";
 export const IMPORT_RULE_NAME = "import";
+export const IMPORTS_RULE_NAME = "imports";
 export const CONTENTS_RULE_NAME = "contents";
 export const FOOTNOTE_RULE_NAME = "footnote";
 export const DIVISION_RULE_NAME = "division";
@@ -60,6 +61,7 @@ const ruleNames = {
   ERROR_RULE_NAME,
   ANCHOR_RULE_NAME,
   IMPORT_RULE_NAME,
+  IMPORTS_RULE_NAME,
   CONTENTS_RULE_NAME,
   FOOTNOTE_RULE_NAME,
   DIVISION_RULE_NAME,

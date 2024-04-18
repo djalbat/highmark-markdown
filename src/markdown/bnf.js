@@ -5,7 +5,7 @@ const bnf = `
     division                ::=  ( subDivision | endOfLine | error )+ ;
     
     
-    subDivision..           ::=  ( endOfLine | <START_OF_CONTENT> ) ( import 
+    subDivision..           ::=  ( endOfLine | <START_OF_CONTENT> ) ( imports 
     
                                                                     | contents 
     
@@ -75,6 +75,9 @@ const bnf = `
 
 
     blockListing            ::=  blockListingStart blockText blockListingEnd ;
+
+
+    imports                 ::=  import+ ;
 
 
     import                  ::=  "@"<NO_WHITESPACE>"import" [path] endOfLine ;
