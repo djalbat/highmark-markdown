@@ -134,16 +134,11 @@ class View extends Element {
   }
 
   static initialMarkdown = `
-Short
-paragraph.
+@contents 2
 
-|Small|
--------
-|Table|
+# Primary heading
 
-\`\`\`
-Block listing...
-\`\`\`
+## Secondary heading
 
 `;
 

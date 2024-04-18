@@ -1,11 +1,16 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import MarkdownNode from "../../node/markdown";
 import ContentsListMarkdownNode from "../../node/markdown/contentsList";
 import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
+import { nestNodes } from "../../utilities/contents";
 import { replaceTokens } from "../../utilities/tokens";
-import { contentsMarkdownNodeFromNode } from "../../utilities/query";
+import { contentsMarkdownNodeFromNode, headingMarkdownNodesFromNode } from "../../utilities/query";
+
+const { filter } = arrayUtilities;
 
 export default class DivisionMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, precedence, opacity, domElement, divisionClassName) {
@@ -28,39 +33,8 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return className;
   }
 
-  createContents(context) {
-    const node = this,  ///
-          contentsMarkdownNode = contentsMarkdownNodeFromNode(node);
-
-    if (contentsMarkdownNode === null) {
-      return;
-    }
-
-    const replacementTokens = [];
-
-    Object.assign(context, {
-      replacementTokens
-    });
-
-    const divisionMarkdownNode = this,  ///
-          contentsListMarkdownNode = ContentsListMarkdownNode.fromDivisionMarkdownNodeAndContentsMarkdownNode(divisionMarkdownNode, contentsMarkdownNode, context);
-
-    if (contentsListMarkdownNode !== null) {
-      const childNode = contentsMarkdownNode,  ///
-            parentNode = this.findParentNode(childNode),
-            replacedChildNode = contentsMarkdownNode,  ///
-            replacementChildNode = contentsListMarkdownNode; ///
-
-      parentNode.replaceChildNode(replacedChildNode, replacementChildNode);
-
-      replaceTokens(replacedChildNode, replacementTokens, context);
-    }
-
-    delete context.replacementTokens;
-  }
-
   findParentNode(childNode, node = this) {
-    let parentNode = null
+    let parentNode = null;
 
     const nodeNonTerminalNode = node.isNonTerminalNode();
 
@@ -72,9 +46,9 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       if (index !== -1) {
         parentNode = node;  ///
       } else {
-        childNodes.some((childNode) => {
-          const node = childNode; ///
+        const nodes = childNodes; ///
 
+        nodes.some((node) => {
           parentNode = this.findParentNode(childNode, node);
 
           if (parentNode !== null) {
@@ -85,6 +59,54 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     }
 
     return parentNode;
+  }
+
+  createContents(context) {
+    const node = this,  ///
+          contentsMarkdownNode = contentsMarkdownNodeFromNode(node);
+
+    if (contentsMarkdownNode === null) {
+      return;
+    }
+
+    const headingMarkdownNodes = headingMarkdownNodesFromNode(node),
+          maximumLevel = contentsMarkdownNode.maximumLevel(context);
+
+    filter(headingMarkdownNodes, (headingMarkdownNode) => {
+      const level = headingMarkdownNode.getLevel();
+
+      if (level <= maximumLevel) {
+        return true;
+      }
+    });
+
+    const headingMarkdownNodesLength = headingMarkdownNodes.length;
+
+    if (headingMarkdownNodesLength === 0) {
+      return;
+    }
+
+    const nodes = headingMarkdownNodes, ///
+          nestedNode = nestNodes(nodes),
+          childNestedNodes = nestedNode.getChildNestedNodes(),
+          replacementTokens = [],
+          nestedHeadingMarkdownNodes = childNestedNodes;  ///
+
+    Object.assign(context, {
+      replacementTokens
+    });
+
+    const contentsListMarkdownNode = ContentsListMarkdownNode.fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
+          childNode = contentsMarkdownNode,  ///
+          parentNode = this.findParentNode(childNode),
+          replacedChildNode = contentsMarkdownNode,  ///
+          replacementChildNode = contentsListMarkdownNode; ///
+
+    parentNode.replaceChildNode(replacedChildNode, replacementChildNode);
+
+    replaceTokens(replacedChildNode, replacementTokens, context);
+
+    delete context.replacementTokens;
   }
 
   createFootnotes(context) {
