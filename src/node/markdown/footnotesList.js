@@ -10,7 +10,7 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
   identifierToNumberMap(context) {
     const childNodes = this.getChildNodes(),
           footnoteItemMarkdownNodes = childNodes, ///
-          identifierToNumberMap = footnoteItemMarkdownNodes.map((identifierToNumberMap, footnoteItemMarkdownNode, index) => {
+          identifierToNumberMap = footnoteItemMarkdownNodes.reduce((identifierToNumberMap, footnoteItemMarkdownNode, index) => {
             const number = index + 1,
                   identifier = footnoteItemMarkdownNode.identifier(context);
 
