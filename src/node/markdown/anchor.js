@@ -2,8 +2,9 @@
 
 import MarkdownNode from "../../node/markdown";
 
-import { ID_ATTRIBUTE_NAME } from "../../attributeNames";
+import { EMPTY_STRING } from "../../constants";
 import { ANCHOR_RULE_NAME } from "../../ruleNames";
+import { ID_ATTRIBUTE_NAME } from "../../attributeNames";
 
 export default class AnchorMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, opacity, precedence, domElement, identifier) {
@@ -26,6 +27,21 @@ export default class AnchorMarkdownNode extends MarkdownNode {
     const attributeValue = this.identifier; ///
 
     return attributeValue;
+  }
+
+  childNodesAsHTML(indent, context) {
+    const content = EMPTY_STRING,
+          childNodesHTML = content; ///
+
+    return childNodesHTML;
+  }
+
+  createChildNodeDOMElements(context) {
+    const content = EMPTY_STRING,
+          textNode = document.createTextNode(content),
+          domElement = textNode; ///
+
+    this.addDOMElement(domElement);
   }
 
   clone() { return super.clone(this.identifier); }
