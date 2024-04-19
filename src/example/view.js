@@ -149,7 +149,7 @@ function importer(filePath, context) {
   const content = `
 Occam.[^occam]
 
-[^occam]: Occam footnote.
+[^another]: Occam footnote.
         
         `,
         className = "introduction",
