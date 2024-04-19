@@ -10,6 +10,28 @@ import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 const { second } = arrayUtilities;
 
 export default class LinkMarkdownNode extends MarkdownNode {
+  constructor(ruleName, childNodes, opacity, precedence, domElement, number) {
+    super(ruleName, childNodes, opacity, precedence, domElement);
+
+    this.number = number;
+  }
+
+  getNumber() {
+    return this.number;
+  }
+
+  setNumber(number) {
+    this.number = number;
+  }
+
+  content(context) {
+    const content = (this.number !== null) ?
+                      this.number :
+                        EMPTY_STRING;
+
+    return content;
+  }
+
   identifier(context) {
     const childNodes = this.getChildNodes(),
           secondChildNode = second(childNodes),
@@ -34,19 +56,24 @@ export default class LinkMarkdownNode extends MarkdownNode {
   }
 
   childNodesAsHTML(indent, context) {
-    const content = EMPTY_STRING,
+    const content = this.content(context),
           childNodesHTML = content; ///
 
     return childNodesHTML;
   }
 
   createChildNodeDOMElements(context) {
-    const content = EMPTY_STRING,
+    const content = this.content(context),
           textNode = document.createTextNode(content),
           domElement = textNode; ///
 
     this.addDOMElement(domElement);
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(LinkMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
+    const number = null,
+          linkMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(LinkMarkdownNode, ruleName, childNodes, opacity, number);
+
+    return linkMarkdownNode;
+  }
 }

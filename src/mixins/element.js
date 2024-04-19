@@ -1,13 +1,19 @@
 "use strict";
 
+import {EMPTY_STRING} from "../constants";
+
 function addDOMElement(domElement) {
   const parentDOMElement = this.domElement; ///
 
   parentDOMElement.appendChild(domElement);
 }
 
-function removeDOMElement(domElement) {
-  domElement.remove();
+function removeDOMElements() {
+  const innerHTML = EMPTY_STRING; ///
+
+  Object.assign(this.domElement, {
+    innerHTML
+  });
 }
 
 function getDescendantElements(descendantElements = []) {
@@ -36,7 +42,7 @@ function getDescendantElements(descendantElements = []) {
 
 const elementMixins = {
   addDOMElement,
-  removeDOMElement,
+  removeDOMElements,
   getDescendantElements
 };
 

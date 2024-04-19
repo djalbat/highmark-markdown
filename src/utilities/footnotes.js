@@ -1,6 +1,5 @@
 "use strict";
 
-import { EMPTY_STRING } from "../constants";
 import { linkMarkdownNodesFromNode } from "../utilities/query";
 
 export function renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context) {
@@ -9,19 +8,9 @@ export function renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMar
         identifierToNumberNap = footnotesListMarkdownNode.identifierToNumberMap();
 
   linkMarkdownNodes.forEach((linkMarkdownNode) => {
-    const linkMarkdownNodeDOMElement = linkMarkdownNode.getDOMElement(),
-          identifier = linkMarkdownNode.identifier(context),
-          number = identifierToNumberNap[identifier] || null,
-          innerHTML = (number === null) ?
-                        EMPTY_STRING :
-                         `${number}`;
+    const identifier = linkMarkdownNode.identifier(context),
+          number = identifierToNumberNap[identifier] || null;
 
-    Object.assign(linkMarkdownNodeDOMElement, {
-      innerHTML
-    });
+    linkMarkdownNode.setNumber(number);
   });
 }
-
-export default {
-  renumberLinkMarkdownNodes
-};
