@@ -8,6 +8,7 @@ import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
 import { nestNodes } from "../../utilities/contents";
 import { replaceTokens } from "../../utilities/tokens";
+import { renumberLinkMarkdownNodes } from "../../utilities/footnotes";
 import { contentsMarkdownNodeFromNode, headingMarkdownNodesFromNode } from "../../utilities/query";
 
 const { filter } = arrayUtilities;
@@ -113,9 +114,12 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     const footnotesListMarkdownNode = this.createFootnotesListMarkdownNode(context);
 
     if (footnotesListMarkdownNode !== null) {
-      const childNode = footnotesListMarkdownNode;  ///
+      const childNode = footnotesListMarkdownNode,  ///
+            divisionMarkdownNode = this;  ///
 
       this.addChildNode(childNode);
+
+      renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context)
     }
 
     return footnotesListMarkdownNode;
