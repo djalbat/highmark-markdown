@@ -171,7 +171,7 @@ const ruleNameMap = {
   },
   [CONTENTS_LINK_RULE_NAME]: {
     tagName: "a",
-    className: "contents-link"
+    className: "contents"
   },
   [CONTENTS_ITEM_RULE_NAME]: {
     tagName: "li",
