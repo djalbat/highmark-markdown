@@ -129,11 +129,8 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `# Primary Heading
-  
-@contents
-
-# Another primary heading  
+  static initialMarkdown = `1. First item.
+3. Third item.
 `;
 
   static tagName = "div";

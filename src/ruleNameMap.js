@@ -79,8 +79,8 @@ const ruleNameMap = {
     className: "anchor"
   },
   [MARKER_RULE_NAME]: {
-    tagName: null,
-    className: null
+    tagName: "span",
+    className: "marker"
   },
   [IMPORT_RULE_NAME]: {
     tagName: null,
