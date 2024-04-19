@@ -86,8 +86,8 @@ const ruleNameMap = {
     className: null
   },
   [CONTENTS_RULE_NAME]: {
-    tagName: "a",
-    className: "contents"
+    tagName: null,
+    className: null
   },
   [FOOTNOTE_RULE_NAME]: {
     tagName: null,
@@ -107,7 +107,7 @@ const ruleNameMap = {
   },
   [HYPERLINK_RULE_NAME]: {
     tagName: "a",
-    className: null
+    className: "hyperlink"
   },
   [LINE_BREAK_RULE_NAME]: {
     tagName: "br",
@@ -139,7 +139,7 @@ const ruleNameMap = {
   },
   [EMAIL_LINK_RULE_NAME]: {
     tagName: "a",
-    className: "email"
+    className: "email-link"
   },
   [END_OF_LINE_RULE_NAME]: {
     tagName: null,
@@ -171,7 +171,7 @@ const ruleNameMap = {
   },
   [CONTENTS_LINK_RULE_NAME]: {
     tagName: "a",
-    className: "contents"
+    className: "contents-link"
   },
   [CONTENTS_ITEM_RULE_NAME]: {
     tagName: "li",
