@@ -19,8 +19,8 @@ export default class OrderedListMarkdownNode extends MarkdownNode {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           firstOrderedListItemMarkdownNode = firstChildNode,  ///
-          start = firstOrderedListItemMarkdownNode.start(),
-          attributeValue = start; ///
+          number = firstOrderedListItemMarkdownNode.number(context),
+          attributeValue = number; ///
 
     return attributeValue;
   }

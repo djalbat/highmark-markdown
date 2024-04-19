@@ -6,6 +6,7 @@ import { LINK_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
+         MARKER_RULE_NAME,
          IMPORT_RULE_NAME,
          IMPORTS_RULE_NAME,
          CONTENTS_RULE_NAME,
@@ -76,6 +77,10 @@ const ruleNameMap = {
   [ANCHOR_RULE_NAME]: {
     tagName: "a",
     className: "anchor"
+  },
+  [MARKER_RULE_NAME]: {
+    tagName: null,
+    className: null
   },
   [IMPORT_RULE_NAME]: {
     tagName: null,

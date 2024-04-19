@@ -95,7 +95,7 @@ const bnf = `
     tableSeparator          ::=  [many-dashes] endOfLine ;
 
     
-    orderedListItem         ::=  [number]<NO_WHITESPACE>"." line ;
+    orderedListItem         ::=  marker line ;
     
     
     unorderedListItem       ::=  ( [single-dash] | [single-asterisk] ) line ;
@@ -231,12 +231,14 @@ const bnf = `
     reference.              ::=  "[^" [identifier] "]:" ;
     
 
-    anchor                  ::=  [identifier] ;
+    anchor.                 ::=  [identifier] ;
     
 
+    marker.                 ::=  [number]<NO_WHITESPACE>"." ;
+
+
     className               ::=  <NO_WHITESPACE>[identifier] ;
-    
-    
+      
 `;
 
 export default bnf;
