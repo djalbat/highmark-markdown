@@ -1,6 +1,6 @@
 "use strict";
 
-import MarkdownNode from "../markdown";
+import MarkdownNode from "../../node/markdown";
 import contentMixins from "../../mixins/content";
 
 class StrongTextMarkdownNode extends MarkdownNode {

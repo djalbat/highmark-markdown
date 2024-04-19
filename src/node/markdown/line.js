@@ -12,8 +12,7 @@ export default class LineMarkdownNode extends MarkdownNode {
           childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
           markedTextChildNode = firstChildNode, ///
-          markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context, leftTrimmed),
-          childNodesHTML = markedTextChildNodeChildNodesHTML; ///
+          childNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context, leftTrimmed);
 
     return childNodesHTML;
   }

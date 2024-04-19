@@ -7,6 +7,7 @@ import { LINK_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
          MARKER_RULE_NAME,
+         BULLET_RULE_NAME,
          IMPORT_RULE_NAME,
          IMPORTS_RULE_NAME,
          CONTENTS_RULE_NAME,
@@ -53,7 +54,7 @@ import { LINK_RULE_NAME,
          UNORDERED_LIST_ITEM_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "./ruleNames";
 
-const ruleNameMap = {
+const elementMap = {
   [LINK_RULE_NAME]: {
     tagName: "a",
     className: "link"
@@ -79,8 +80,12 @@ const ruleNameMap = {
     className: "anchor"
   },
   [MARKER_RULE_NAME]: {
-    tagName: "span",
-    className: "marker"
+    tagName: null,
+    className: null
+  },
+  [BULLET_RULE_NAME]: {
+    tagName: null,
+    className: null
   },
   [IMPORT_RULE_NAME]: {
     tagName: null,
@@ -264,4 +269,4 @@ const ruleNameMap = {
   }
 };
 
-export default ruleNameMap;
+export default elementMap;

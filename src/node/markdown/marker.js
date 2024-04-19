@@ -1,27 +1,21 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import MarkdownNode from "../../node/markdown";
-import contentMixins from "../../mixins/content";
 
-class MarkerMarkdownNode extends MarkdownNode {
-  childNodesAsHTML(indent, context) {
-    const content = this.content(context),
-          childNodesHTML = `${content}\n`;
+const { first } = arrayUtilities;
 
-    return childNodesHTML;
-  }
+export default class MarkerMarkdownNode extends MarkdownNode {
+  value(context) {
+    const childNodes = this.getChildNodes(),
+          firstChildNode = first(childNodes),
+          numberTerminalNode = firstChildNode,  ///
+          numberTerminalNodeContent = numberTerminalNode.getContent(),
+          value = numberTerminalNodeContent;  ///
 
-  createChildNodeDOMElements(context) {
-    const content = this.content(context),
-          textNode = document.createTextNode(content),
-          domElement = textNode; ///
-
-    this.addDOMElement(domElement);
+    return value;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(MarkerMarkdownNode, ruleName, childNodes, opacity); }
 }
-
-Object.assign(MarkerMarkdownNode.prototype, contentMixins);
-
-export default MarkerMarkdownNode;

@@ -2,8 +2,8 @@
 
 import { NonTerminalNode } from "occam-parsers";
 
+import elementMap from "../elementMap";
 import nodeMixins from "../mixins/node";
-import ruleNameMap from "../ruleNameMap";
 import elementMixins from "../mixins/element";
 
 import { EMPTY_STRING } from "../constants";
@@ -24,13 +24,13 @@ class MarkdownNode extends NonTerminalNode {
   }
 
   tagName(context) {
-    const { tagName } = ruleNameMap[this.ruleName];
+    const { tagName } = elementMap[this.ruleName];
 
     return tagName;
   }
 
   className(context) {
-    const { className } = ruleNameMap[this.ruleName];
+    const { className } = elementMap[this.ruleName];
 
     return className;
   }

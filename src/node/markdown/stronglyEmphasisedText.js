@@ -1,12 +1,12 @@
 "use strict";
 
-import ruleNameMap from "../../ruleNameMap";
-import MarkdownNode from "../markdown";
+import elementMap from "../../elementMap";
+import MarkdownNode from "../../node/markdown";
 import contentMixins from "../../mixins/content";
 
 import { STRONG_TEXT_RULE_NAME } from "../../ruleNames";
 
-const { tagName } = ruleNameMap[STRONG_TEXT_RULE_NAME];
+const { tagName } = elementMap[STRONG_TEXT_RULE_NAME];
 
 class StronglyEmphasisedTextMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {

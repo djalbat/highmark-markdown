@@ -98,7 +98,7 @@ const bnf = `
     orderedListItem         ::=  marker line ;
     
     
-    unorderedListItem       ::=  ( [single-dash] | [single-asterisk] ) line ;
+    unorderedListItem       ::=  bullet line ;
 
 
     blockListingStart       ::=  [backticks] className? endOfLine ;
@@ -235,6 +235,9 @@ const bnf = `
     
 
     marker.                 ::=  [number]<NO_WHITESPACE>"." ;
+
+
+    bullet.                 ::=  [single-dash] | [single-asterisk] ;
 
 
     className               ::=  <NO_WHITESPACE>[identifier] ;
