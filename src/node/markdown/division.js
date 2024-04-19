@@ -71,12 +71,14 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     }
 
     const headingMarkdownNodes = headingMarkdownNodesFromNode(node),
+          minimumPosition = contentsMarkdownNode.minimumPosition(context),
           maximumLevel = contentsMarkdownNode.maximumLevel(context);
 
     filter(headingMarkdownNodes, (headingMarkdownNode) => {
-      const level = headingMarkdownNode.getLevel();
+      const level = headingMarkdownNode.getLevel(),
+            position = headingMarkdownNode.position(context);
 
-      if (level <= maximumLevel) {
+      if ((level <= maximumLevel) && (position > minimumPosition)) {
         return true;
       }
     });

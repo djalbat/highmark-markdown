@@ -30,6 +30,15 @@ export default class HeadingMarkdownNode extends MarkdownNode {
     return identifier;
   }
 
+  position(context) {
+    const { tokens } = context,
+          firstSignificantToken = this.getFirstSignificantToken(),
+          firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
+          position = firstSignificantTokenIndex; ///
+
+    return position;
+  }
+
   static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity); }
 }
 

@@ -129,7 +129,11 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdown = `@import introduction.md
+  static initialMarkdown = `# Primary Heading
+  
+@contents
+
+# Another primary heading  
 `;
 
   static tagName = "div";

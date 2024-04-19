@@ -36,5 +36,14 @@ export default class ContentsMarkdownNode extends MarkdownNode {
     return maximumLevel;
   }
 
+  minimumPosition(context) {
+    const { tokens } = context,
+          firstSignificantToken = this.getFirstSignificantToken(),
+          firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
+          minimumPosition = firstSignificantTokenIndex; ///
+
+    return minimumPosition;
+  }
+
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ContentsMarkdownNode, ruleName, childNodes, opacity); }
 }
