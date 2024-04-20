@@ -95,7 +95,7 @@ const bnf = `
     tableSeparator          ::=  [many-dashes] endOfLine ;
 
     
-    orderedListItem         ::=  marker line ;
+    orderedListItem.        ::=  marker line ;
     
     
     unorderedListItem       ::=  bullet line ;
