@@ -15,9 +15,12 @@ class PreviewDiv extends Element {
   }
 
   clear() {
-    const html = EMPTY_STRING;
+    const parentDOMElement = this.getParentDOMElement(),
+          innerHTML = EMPTY_STRING; ///
 
-    this.html(html);
+    Object.assign(parentDOMElement, {
+      innerHTML
+    });
   }
 
   update(domElement) {

@@ -4,30 +4,30 @@ import withStyle from "easy-with-style";  ///
 
 import Textarea from "../textarea";
 
-class BNFTextarea extends Textarea {
-  setBNF(bnf) {
-    const value = bnf;
+class CSSTreeTextarea extends Textarea {
+  setCSS(css) {
+    const value = css;  ///
 
     this.setValue(value);
   }
 
   parentContext() {
-    const setBNF = this.setBNF.bind(this);
+    const setCSS = this.setCSS.bind(this);
 
     return ({
-      setBNF
+      setCSS
     });
   }
 
   static defaultProperties = {
     readOnly: true,
-    className: "bnf",
+    className: "css",
     spellCheck: "false"
   };
 }
 
-export default withStyle(BNFTextarea)`
+export default withStyle(CSSTreeTextarea)`
 
-  height: 16rem;
-
+  height: 24rem;
+  
 `;

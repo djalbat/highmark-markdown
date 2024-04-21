@@ -11,6 +11,35 @@ const linkMarkdownNodesQuery = Query.fromExpression(`//link`),
       footnoteMarkdownNodesQuery = Query.fromExpression(`//footnote`),
       referenceMarkdownNodesQuery = Query.fromExpression(`//reference`);
 
+export function nodeQuery(expression) {
+  const query = Query.fromExpression(expression);
+
+  return function(node) {
+    const nodes = query.execute(node),
+      nodesLength = nodes.length;
+
+    if (nodesLength > 0) {
+      const firstNode = first(nodes);
+
+      node = firstNode; ///
+    } else {
+      node = null;
+    }
+
+    return node;
+  }
+}
+
+export function nodesQuery(expression) {
+  const query = Query.fromExpression(expression);
+
+  return function(node) {
+    const nodes = query.execute(node);
+
+    return nodes;
+  }
+}
+
 export function linkMarkdownNodesFromNode(node, linkMarkdownNodes = []) {
   nodesFromNodeAndQuery(node, linkMarkdownNodesQuery, linkMarkdownNodes);
 

@@ -3,22 +3,16 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { RowDiv, RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv, HorizontalSplitterDiv } from "easy-layout";
+import { MarkdownLexer, MarkdownParser } from "../index";
+import { RowDiv, RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 
 import XMP from "./view/xmp";
 import PreviewDiv from "./view/div/preview";
 import SubHeading from "./view/subHeading";
-import BNFTextarea from "./view/textarea/bnf";
+import CSSTextarea from "./view/textarea/css";
 import LeftSizeableDiv from "./view/div/sizeable/left";
-import RightSizeableDiv from "./view/div/sizeable/right";
 import MarkdownTextarea from "./view/textarea/markdown";
-import ParseTreeTextarea from "./view/textarea/parseTree";
-import LexicalEntriesTextarea from "./view/textarea/lexicalEntries";
-
-import { MarkdownLexer, MarkdownParser } from "../index";
-
-const { bnf } = MarkdownParser,
-      { entries } = MarkdownLexer;
+import MarkdownStyleTextarea from "./view/textarea/markdownStyle";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing();
@@ -28,15 +22,21 @@ class View extends Element {
     this.update();
   }
 
-  update() {
+  updateMarkdownStyle() {
+    const { markdownStyleElement } = this.properties,
+          markdownStyle = this.getMarkdownStyle(),
+          css = markdownStyleElement.update(markdownStyle);
+
+    this.setCSS(css);
+  }
+
+  updateMarkdown() {
     const markdown = this.getMarkdown(),
-          lexer = markdownLexer,  ///
-          parser =  markdownParser, ///
           content = markdown, ///
+          lexer = markdownLexer,
+          parser =  markdownParser,
           tokens = lexer.tokenise(content),
           node = parser.parse(tokens);
-
-    let parseTree = null;
 
     if (node !== null) {
       const divisionMarkdownNode = node,  ///
@@ -58,15 +58,16 @@ class View extends Element {
       this.xmpHTML(html);
 
       this.updatePreviewDiv(domElement);
-
-      parseTree = node.asParseTree(tokens);
     } else {
       this.clearXMP();
 
       this.clearPreviewDiv();
     }
+  }
 
-    this.setParseTree(parseTree);
+  update() {
+    this.updateMarkdown();
+    this.updateMarkdownStyle();
   }
 
   childElements() {
@@ -75,37 +76,29 @@ class View extends Element {
       <ColumnsDiv>
         <LeftSizeableDiv>
           <SubHeading>
-            Lexical entries
+            Markdown
           </SubHeading>
-          <LexicalEntriesTextarea onKeyUp={this.keyUpHandler} />
+          <MarkdownTextarea onKeyUp={this.keyUpHandler} />
           <SubHeading>
-            BNF
+            Markdown style
           </SubHeading>
-          <BNFTextarea onKeyUp={this.keyUpHandler} />
-          <SubHeading>
-            Parse tree
-          </SubHeading>
-          <ParseTreeTextarea/>
+          <MarkdownStyleTextarea onKeyUp={this.keyUpHandler} />
         </LeftSizeableDiv>
         <VerticalSplitterDiv/>
         <ColumnDiv>
           <RowsDiv>
-            <RightSizeableDiv>
-              <XMP/>
-            </RightSizeableDiv>
-            <HorizontalSplitterDiv/>
-            <RowDiv>
-              <RowsDiv>
-                <SubHeading>
-                  Preview
-                </SubHeading>
-                <PreviewDiv/>
-                <SubHeading>
-                  Markdown
-                </SubHeading>
-                <MarkdownTextarea onKeyUp={this.keyUpHandler} />
-              </RowsDiv>
-            </RowDiv>
+            <SubHeading>
+              HTML
+            </SubHeading>
+            <XMP/>
+            <SubHeading>
+              CSS
+            </SubHeading>
+            <CSSTextarea/>
+            <SubHeading>
+              Preview
+            </SubHeading>
+            <PreviewDiv/>
           </RowsDiv>
         </ColumnDiv>
       </ColumnsDiv>
@@ -116,24 +109,35 @@ class View extends Element {
   initialise() {
     this.assignContext();
 
-    const { initialMarkdown } = this.constructor,
-          markdown = initialMarkdown, ///
-          lexicalEntries = entries; ///
-
-    this.setBNF(bnf);
+    const { initialMarkdown, initialMarkdownStyle } = this.constructor,
+          markdownStyle = initialMarkdownStyle, ///
+          markdown = initialMarkdown; ///
 
     this.setMarkdown(markdown);
 
-    this.setLexicalEntries(lexicalEntries);
+    this.setMarkdownStyle(markdownStyle);
 
     this.update();
   }
+
+  static initialMarkdownStyle = `
+min-height: initial;
+  
+paragraph {
+  colour: red;
+}
+
+`;
 
   static initialMarkdown = `1. First item.
 3. Third item.
 `;
 
   static tagName = "div";
+
+  static ignoredProperties = [
+    "markdownStyleElement"
+  ];
 
   static defaultProperties = {
     className: "view"
