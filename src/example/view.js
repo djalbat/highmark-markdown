@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 import { MarkdownLexer, MarkdownParser } from "../index";
-import { RowDiv, RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
+import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 
 import XMP from "./view/xmp";
 import PreviewDiv from "./view/div/preview";
@@ -129,8 +129,9 @@ paragraph {
 
 `;
 
-  static initialMarkdown = `1. First item.
-3. Third item.
+  static initialMarkdown = `Occam [^occam]
+
+[^occam]: Footnote
 `;
 
   static tagName = "div";

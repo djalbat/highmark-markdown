@@ -11,8 +11,9 @@ export const BULLET_RULE_NAME = "bullet";
 export const IMPORT_RULE_NAME = "import";
 export const IMPORTS_RULE_NAME = "imports";
 export const CONTENTS_RULE_NAME = "contents";
-export const FOOTNOTE_RULE_NAME = "footnote";
 export const DIVISION_RULE_NAME = "division";
+export const FOOTNOTE_RULE_NAME = "footnote";
+export const FOOTNOTES_RULE_NAME = "footnotes";
 export const REFERENCE_RULE_NAME = "reference";
 export const PARAGRAPH_RULE_NAME = "paragraph";
 export const HYPERLINK_RULE_NAME = "hyperlink";
@@ -67,8 +68,9 @@ const ruleNames = {
   IMPORT_RULE_NAME,
   IMPORTS_RULE_NAME,
   CONTENTS_RULE_NAME,
-  FOOTNOTE_RULE_NAME,
   DIVISION_RULE_NAME,
+  FOOTNOTE_RULE_NAME,
+  FOOTNOTES_RULE_NAME,
   REFERENCE_RULE_NAME,
   PARAGRAPH_RULE_NAME,
   HYPERLINK_RULE_NAME,

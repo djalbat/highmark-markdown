@@ -13,6 +13,7 @@ import ImportsMarkdownNode from "./node/markdown/imports";
 import ContentsMarkdownNode from "./node/markdown/contents";
 import DivisionMarkdownNode from "./node/markdown/division";
 import FootnoteMarkdownNode from "./node/markdown/footnote";
+import FootnotesMarkdownNode from "./node/markdown/footnotes";
 import ReferenceMarkdownNode from "./node/markdown/reference";
 import ParagraphMarkdownNode from "./node/markdown/paragraph";
 import HyperlinkMarkdownNode from "./node/markdown/hyperlink";
@@ -63,8 +64,9 @@ import { LINK_RULE_NAME,
          IMPORT_RULE_NAME,
          IMPORTS_RULE_NAME,
          CONTENTS_RULE_NAME,
-         FOOTNOTE_RULE_NAME,
          DIVISION_RULE_NAME,
+         FOOTNOTE_RULE_NAME,
+         FOOTNOTES_RULE_NAME,
          REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
@@ -116,8 +118,9 @@ const nodeMap = {
   [IMPORT_RULE_NAME]: ImportMarkdownNode,
   [IMPORTS_RULE_NAME]: ImportsMarkdownNode,
   [CONTENTS_RULE_NAME]: ContentsMarkdownNode,
-  [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
   [DIVISION_RULE_NAME]: DivisionMarkdownNode,
+  [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
+  [FOOTNOTES_RULE_NAME]: FootnotesMarkdownNode,
   [REFERENCE_RULE_NAME]: ReferenceMarkdownNode,
   [PARAGRAPH_RULE_NAME]: ParagraphMarkdownNode,
   [HYPERLINK_RULE_NAME]: HyperlinkMarkdownNode,

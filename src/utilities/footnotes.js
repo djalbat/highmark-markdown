@@ -2,8 +2,8 @@
 
 import { linkMarkdownNodesFromNode } from "../utilities/query";
 
-export function renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context) {
-  const node = divisionMarkdownNode,  ///
+export function renumberLinkMarkdownNodes(markdownNode, footnotesListMarkdownNode, context) {
+  const node = markdownNode,  ///
         linkMarkdownNodes = linkMarkdownNodesFromNode(node),
         identifierToNumberNap = footnotesListMarkdownNode.identifierToNumberMap();
 

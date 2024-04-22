@@ -6,9 +6,10 @@ import { arrayUtilities } from "necessary";
 const { first, push } = arrayUtilities;
 
 const linkMarkdownNodesQuery = Query.fromExpression(`//link`),
-      contentMarkdownNodeQuery = Query.fromExpression(`//contents`),
       headingMarkdownNodesQuery = Query.fromExpression(`//primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading`),
+      contentsMarkdownNodeQuery = Query.fromExpression(`//contents`),
       footnoteMarkdownNodesQuery = Query.fromExpression(`//footnote`),
+      footnotesMarkdownNodesQuery = Query.fromExpression(`//footnotes`),
       referenceMarkdownNodesQuery = Query.fromExpression(`//reference`);
 
 export function nodeQuery(expression) {
@@ -47,7 +48,7 @@ export function linkMarkdownNodesFromNode(node, linkMarkdownNodes = []) {
 }
 
 export function contentsMarkdownNodeFromNode(node) {
-  const contentsMarkdownNode = nodeFromNodeAndQuery(node, contentMarkdownNodeQuery);
+  const contentsMarkdownNode = nodeFromNodeAndQuery(node, contentsMarkdownNodeQuery);
 
   return contentsMarkdownNode;
 }
@@ -70,12 +71,19 @@ export function referenceMarkdownNodesFromNode(node, referenceMarkdownNodes = []
   return referenceMarkdownNodes;
 }
 
+export function footnotesMarkdownNodesFromNode(node, footnotesMarkdownNodes = []) {
+  nodesFromNodeAndQuery(node, footnotesMarkdownNodesQuery, footnotesMarkdownNodes);
+
+  return footnotesMarkdownNodes;
+}
+
 export default {
   linkMarkdownNodesFromNode,
   contentsMarkdownNodeFromNode,
   headingMarkdownNodesFromNode,
   footnoteMarkdownNodesFromNode,
-  referenceMarkdownNodesFromNode
+  referenceMarkdownNodesFromNode,
+  footnotesMarkdownNodesFromNode
 };
 
 function nodeFromNodeAndQuery(node, query) {

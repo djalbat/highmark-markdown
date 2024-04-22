@@ -9,6 +9,8 @@ const bnf = `
     
                                                                     | contents 
     
+                                                                    | footnotes 
+    
                                                                     | primaryHeading 
                              
                                                                     | secondaryHeading 
@@ -84,6 +86,9 @@ const bnf = `
 
 
     contents                ::=  "@"<NO_WHITESPACE>"contents" [number]? endOfLine ;
+
+
+    footnotes               ::=  "@"<NO_WHITESPACE>"footnotes" endOfLine ;
 
 
     tableHead               ::=  tableHeadRow ;

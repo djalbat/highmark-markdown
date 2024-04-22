@@ -9,7 +9,7 @@ import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 import { nestNodes } from "../../utilities/contents";
 import { replaceTokens } from "../../utilities/tokens";
 import { renumberLinkMarkdownNodes } from "../../utilities/footnotes";
-import { contentsMarkdownNodeFromNode, headingMarkdownNodesFromNode } from "../../utilities/query";
+import { headingMarkdownNodesFromNode, contentsMarkdownNodeFromNode, footnotesMarkdownNodesFromNode } from "../../utilities/query";
 
 const { filter } = arrayUtilities;
 
@@ -113,18 +113,34 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 
   createFootnotes(context) {
-    const footnotesListMarkdownNode = this.createFootnotesListMarkdownNode(context);
+    const node = this,  ///
+          footnotesMarkdownNodes = footnotesMarkdownNodesFromNode(node);
 
-    if (footnotesListMarkdownNode !== null) {
-      const childNode = footnotesListMarkdownNode,  ///
-            divisionMarkdownNode = this;  ///
+    footnotesMarkdownNodes.forEach((footnotesMarkdownNode) => {
+      let childNode,
+          parentNode;
 
-      this.addChildNode(childNode);
+      childNode = footnotesMarkdownNode;  ///
+
+      parentNode = this.findParentNode(childNode);
+
+      const subDivisionMarkdownNode = parentNode;  ///
+
+      childNode = subDivisionMarkdownNode;  ///
+
+      parentNode = this.findParentNode(childNode);
+
+      const divisionMarkdownNode = parentNode,  ///
+            footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context),
+            replacedChildNode = footnotesMarkdownNode,  ///
+            replacementChildNode = footnotesListMarkdownNode; ///
+
+      parentNode = subDivisionMarkdownNode; ///
+
+      parentNode.replaceChildNode(replacedChildNode, replacementChildNode);
 
       renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context)
-    }
-
-    return footnotesListMarkdownNode;
+    });
   }
 
   createFootnotesListMarkdownNode(context) {

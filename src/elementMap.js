@@ -11,8 +11,9 @@ import { LINK_RULE_NAME,
          IMPORT_RULE_NAME,
          IMPORTS_RULE_NAME,
          CONTENTS_RULE_NAME,
-         FOOTNOTE_RULE_NAME,
          DIVISION_RULE_NAME,
+         FOOTNOTE_RULE_NAME,
+         FOOTNOTES_RULE_NAME,
          REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
@@ -99,12 +100,16 @@ const elementMap = {
     tagName: null,
     className: null
   },
+  [DIVISION_RULE_NAME]: {
+    tagName: "div",
+    className: null
+  },
   [FOOTNOTE_RULE_NAME]: {
     tagName: null,
     className: null
   },
-  [DIVISION_RULE_NAME]: {
-    tagName: "div",
+  [FOOTNOTES_RULE_NAME]: {
+    tagName: null,
     className: null
   },
   [REFERENCE_RULE_NAME]: {
