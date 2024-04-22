@@ -9,6 +9,7 @@ const linkMarkdownNodesQuery = Query.fromExpression(`//link`),
       headingMarkdownNodesQuery = Query.fromExpression(`//primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading`),
       contentsMarkdownNodeQuery = Query.fromExpression(`//contents`),
       footnoteMarkdownNodesQuery = Query.fromExpression(`//footnote`),
+      footnotesMarkdownNodeQuery = Query.fromExpression(`//footnotes`),
       footnotesMarkdownNodesQuery = Query.fromExpression(`//footnotes`),
       referenceMarkdownNodesQuery = Query.fromExpression(`//reference`);
 
@@ -53,6 +54,12 @@ export function contentsMarkdownNodeFromNode(node) {
   return contentsMarkdownNode;
 }
 
+export function footnotesMarkdownNodeFromNode(node) {
+  const footnotesMarkdownNode = nodeFromNodeAndQuery(node, footnotesMarkdownNodeQuery);
+
+  return footnotesMarkdownNode;
+}
+
 export function headingMarkdownNodesFromNode(node, headingMarkdownNodes = []) {
   nodesFromNodeAndQuery(node, headingMarkdownNodesQuery, headingMarkdownNodes);
 
@@ -80,6 +87,7 @@ export function footnotesMarkdownNodesFromNode(node, footnotesMarkdownNodes = []
 export default {
   linkMarkdownNodesFromNode,
   contentsMarkdownNodeFromNode,
+  footnotesMarkdownNodeFromNode,
   headingMarkdownNodesFromNode,
   footnoteMarkdownNodesFromNode,
   referenceMarkdownNodesFromNode,
