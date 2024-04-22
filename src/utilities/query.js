@@ -9,7 +9,7 @@ const linkMarkdownNodesQuery = Query.fromExpression(`//link`),
       headingMarkdownNodesQuery = Query.fromExpression(`//primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading`),
       contentsMarkdownNodeQuery = Query.fromExpression(`//contents`),
       footnoteMarkdownNodesQuery = Query.fromExpression(`//footnote`),
-      footnotesMarkdownNodeQuery = Query.fromExpression(`//footnotes`),
+      footnotesMarkdownNodeQuery = Query.fromExpression(`/division/subDivision/footnotes`),
       footnotesMarkdownNodesQuery = Query.fromExpression(`//footnotes`),
       referenceMarkdownNodesQuery = Query.fromExpression(`//reference`);
 
