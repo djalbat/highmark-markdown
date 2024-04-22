@@ -11,7 +11,8 @@ const linkMarkdownNodesQuery = Query.fromExpression(`//link`),
       footnoteMarkdownNodesQuery = Query.fromExpression(`//footnote`),
       footnotesMarkdownNodeQuery = Query.fromExpression(`/division/subDivision/footnotes`),
       footnotesMarkdownNodesQuery = Query.fromExpression(`//footnotes`),
-      referenceMarkdownNodesQuery = Query.fromExpression(`//reference`);
+      referenceMarkdownNodesQuery = Query.fromExpression(`//reference`),
+      linkReferenceOrFootnotesMarkdownNodesQuery = Query.fromExpression(`//link|reference|footnotes`);
 
 export function nodeQuery(expression) {
   const query = Query.fromExpression(expression);
@@ -84,6 +85,12 @@ export function footnotesMarkdownNodesFromNode(node, footnotesMarkdownNodes = []
   return footnotesMarkdownNodes;
 }
 
+export function linkReferenceOrFootnotesMarkdownNodesFromNode(node, linkReferenceOrFootnotesMarkdownNodes = []) {
+  nodesFromNodeAndQuery(node, linkReferenceOrFootnotesMarkdownNodesQuery, linkReferenceOrFootnotesMarkdownNodes);
+
+  return linkReferenceOrFootnotesMarkdownNodes;
+}
+
 export default {
   linkMarkdownNodesFromNode,
   contentsMarkdownNodeFromNode,
@@ -91,7 +98,8 @@ export default {
   headingMarkdownNodesFromNode,
   footnoteMarkdownNodesFromNode,
   referenceMarkdownNodesFromNode,
-  footnotesMarkdownNodesFromNode
+  footnotesMarkdownNodesFromNode,
+  linkReferenceOrFootnotesMarkdownNodesFromNode
 };
 
 function nodeFromNodeAndQuery(node, query) {
