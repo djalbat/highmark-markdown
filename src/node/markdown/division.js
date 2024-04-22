@@ -131,13 +131,11 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       parentNode = this.findParentNode(childNode);
 
       const divisionMarkdownNode = parentNode,  ///
-            footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context),
-            replacedChildNode = footnotesMarkdownNode,  ///
-            replacementChildNode = footnotesListMarkdownNode; ///
+            footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
 
-      parentNode = subDivisionMarkdownNode; ///
+      childNode = footnotesListMarkdownNode;  ///
 
-      parentNode.replaceChildNode(replacedChildNode, replacementChildNode);
+      divisionMarkdownNode.addChildNode(childNode);
 
       renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context)
     });
