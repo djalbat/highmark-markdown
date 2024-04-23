@@ -133,11 +133,13 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       const divisionMarkdownNode = parentNode,  ///
             footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
 
-      childNode = footnotesListMarkdownNode;  ///
+      if (footnotesListMarkdownNode !== null) {
+        childNode = footnotesListMarkdownNode;  ///
 
-      divisionMarkdownNode.addChildNode(childNode);
+        divisionMarkdownNode.addChildNode(childNode);
 
-      renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context)
+        renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context)
+      }
     });
   }
 
