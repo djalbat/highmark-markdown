@@ -124,10 +124,10 @@ class View extends Element {
 min-height: initial;
 
 @media preview {
-  paragraph {
-    colour: red;
+  division division {
+    padding: 24pt;
   }
-}  
+}
 
 `;
 

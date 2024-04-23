@@ -7,8 +7,7 @@ import { nodeQuery } from "../utilities/query";
 import { EMPTY_STRING } from "../constants";
 import { remainingContentFromNodeTokensAndOffset } from "../utilities/content";
 
-const { DIVISION_RULE_NAME,
-        STRONG_TEXT_RULE_NAME,
+const { STRONG_TEXT_RULE_NAME,
         ORDERED_LIST_RULE_NAME,
         UNORDERED_LIST_RULE_NAME,
         ORDERED_LIST_ITEM_RULE_NAME,
@@ -77,12 +76,6 @@ function contentFromNodeAndTokens(node, tokens) {
       }
 
       switch (ruleName) {
-        case DIVISION_RULE_NAME: {
-          content = null;
-
-          break;
-        }
-
         case ORDERED_LIST_ITEM_RULE_NAME: {
           content = `${orderedListTagName} > ${content}`;
 
@@ -106,14 +99,10 @@ function contentFromNodeAndTokens(node, tokens) {
         content = `${content}.${className}`;
       }
 
-      if (ruleName === DIVISION_RULE_NAME) {
-        content = null;
-      } else {
-        const offset = 1,
-              remainingContent = remainingContentFromNodeTokensAndOffset(node, tokens, offset);
+      const offset = 1,
+            remainingContent = remainingContentFromNodeTokensAndOffset(node, tokens, offset);
 
-        content = `${content}${remainingContent}`;
-      }
+      content = `${content}${remainingContent}`;
     }
   } else {
     const offset = 0,
