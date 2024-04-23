@@ -1,25 +1,31 @@
 "use strict";
 
+import MediaType from "../style/mediaType";
 import StyleElement from "../styleElement";
 import SelectorsList from "../style/selectorsList";
 
 import { EMPTY_STRING } from "../constants";
 import { createDOMElement } from "../styleElement";
-import { cssFromMarkdownStyleAndSelectorsList } from "../utilities/css";
+import { cssFromMarkdownStyleMediaTypeAndSelectorsList } from "../utilities/css";
 
 export default class MarkdownStyleElement extends StyleElement {
-  constructor(domElement, selectorsList) {
+  constructor(domElement, mediaType, selectorsList) {
     super(domElement);
 
+    this.mediaType = mediaType;
     this.selectorsList = selectorsList;
+  }
+
+  getMediaType() {
+    return this.mediaType;
   }
 
   getSelectorsList() {
     return this.selectorsList;
   }
 
-  update(markdownStyle = null) {
-    const css = cssFromMarkdownStyleAndSelectorsList(markdownStyle, this.selectorsList);
+  update(markdownStyle) {
+    const css = cssFromMarkdownStyleMediaTypeAndSelectorsList(markdownStyle, this.mediaType, this.selectorsList);
 
     this.setCSS(css);
 
@@ -32,16 +38,19 @@ export default class MarkdownStyleElement extends StyleElement {
     this.update(markdownStyle)
   }
 
-  static fromSelectorsString(Class, selectorString) {
+  static fromMediaTypeNameAndSelectorsString(Class, mediaTypeName, selectorString) {
     if (selectorString === undefined) {
-      selectorString = Class; ///
+      selectorString = mediaTypeName; ///
+
+      mediaTypeName = Class; ///
 
       Class = MarkdownStyleElement; ///
     }
 
     const domElement = createDOMElement(),
+          mediaType = MediaType.fromMediaTypeName(mediaTypeName),
           selectorsList = SelectorsList.fromSelectorsString(selectorString),
-          markdownStyleElement = new Class(domElement, selectorsList);
+          markdownStyleElement = new Class(domElement, mediaType, selectorsList);
 
     return markdownStyleElement;
   }

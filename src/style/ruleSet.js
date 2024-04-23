@@ -37,7 +37,7 @@ ${ruleSetsCSS}`;
     return css;
   }
 
-  static fromRuleSetsNodeAndTokens(RuleSets, node, tokens) {
+  static fromNodeAndTokens(node, tokens, RuleSets) {
     const ruleSets = RuleSets.fromNodeAndTokens(node, tokens),
           declarations = Declarations.fromNodeAndTokens(node, tokens),
           selectorsList = SelectorsList.fromNodeAndTokens(node, tokens),

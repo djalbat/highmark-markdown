@@ -5,19 +5,21 @@ import "juxtapose";
 import withStyle from "easy-with-style";  ///
 
 import { Body } from "easy";
-import { MarkdownStyleElement, DefaultMarkdownStyleElement } from "./index";  ///
+import { mediaTypeNames, MarkdownStyleElement, DefaultMarkdownStyleElement } from "./index";  ///
 
 import View from "./example/view";
 
 import { PREVIEW_DIV_SELECTORS_STRING } from "./example/constants";
 
-const { renderStyles } = withStyle;
+const { renderStyles } = withStyle,
+      { PREVIEW_MEDIA_TYPE_NAME } = mediaTypeNames;
 
-const selectorSString = PREVIEW_DIV_SELECTORS_STRING;
+const mediaTypeName = PREVIEW_MEDIA_TYPE_NAME,
+      selectorSString = PREVIEW_DIV_SELECTORS_STRING;
 
-DefaultMarkdownStyleElement.fromSelectorsString(selectorSString);
+DefaultMarkdownStyleElement.fromMediaTypeNameAndSelectorsString(mediaTypeName, selectorSString);
 
-const markdownStyleElement = MarkdownStyleElement.fromSelectorsString(selectorSString);
+const markdownStyleElement = MarkdownStyleElement.fromMediaTypeNameAndSelectorsString(mediaTypeName, selectorSString);
 
 renderStyles();
 

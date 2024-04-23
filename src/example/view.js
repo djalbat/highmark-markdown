@@ -122,16 +122,21 @@ class View extends Element {
 
   static initialMarkdownStyle = `
 min-height: initial;
-  
-paragraph {
-  colour: red;
-}
+
+@media preview {
+  paragraph {
+    colour: red;
+  }
+}  
 
 `;
 
   static initialMarkdown = `Occam [^occam]
 
 [^occam]: Footnote
+
+@footnotes
+
 `;
 
   static tagName = "div";

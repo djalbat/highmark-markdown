@@ -7,6 +7,7 @@ export { default as elementMap } from "./elementMap";
 export { default as cssUtilities } from "./utilities/css";
 export { default as MarkdownNode } from "./node/markdown";
 export { default as MarkdownLexer } from "./markdown/lexer";
+export { default as mediaTypeNames } from "./mediaTypeNames";
 export { default as MarkdownParser } from "./markdown/parser";
 export { default as queryUtilities } from "./utilities/query";
 export { default as MarkdownStyleLexer } from "./markdownStyle/lexer";

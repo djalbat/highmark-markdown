@@ -35,18 +35,11 @@ export default class RuleSets {
     return css;
   }
 
-  static fromNothing() {
-    const array = [],
-          ruleSets = new RuleSets(array);
-
-    return ruleSets;
-  }
-
   static fromNodeAndTokens(node, tokens) {
     const ruleSetNonTerminalNodes = ruleSetNonTerminalNodesQuery(node),
           array = ruleSetNonTerminalNodes.map((ruleSetNonTerminalNode) => {
             const node = ruleSetNonTerminalNode, ///
-                  ruleSet = RuleSet.fromRuleSetsNodeAndTokens(RuleSets, node, tokens);
+                  ruleSet = RuleSet.fromNodeAndTokens(node, tokens, RuleSets);
 
             return ruleSet;
           }),

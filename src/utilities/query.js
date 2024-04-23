@@ -19,7 +19,7 @@ export function nodeQuery(expression) {
 
   return function(node) {
     const nodes = query.execute(node),
-      nodesLength = nodes.length;
+          nodesLength = nodes.length;
 
     if (nodesLength > 0) {
       const firstNode = first(nodes);

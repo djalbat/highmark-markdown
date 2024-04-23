@@ -1,15 +1,20 @@
 "use strict";
 
+import Medias from "./medias";
 import RuleSets from "./ruleSets";
 import Declarations from "./declarations";
 
-import { EMPTY_STRING } from "../constants";
-
 export default class Division {
-  constructor(ruleSets, declarations, selectorsList) {
+  constructor(medias, ruleSets, declarations, mediaType, selectorsList) {
+    this.medias = medias;
     this.ruleSets = ruleSets;
     this.declarations = declarations;
+    this.mediaType = mediaType;
     this.selectorsList = selectorsList;
+  }
+
+  getMedias() {
+    return this.medias;
   }
 
   getRuleSets() {
@@ -20,26 +25,35 @@ export default class Division {
     return this.declarations;
   }
 
+  getMediaType() {
+    return this.mediaType;
+  }
+
   getSelectorsList() {
     return this.selectorsList;
   }
 
   asCSS() {
     const outermost = true,
+          mediasCSS = this.medias.asCSS(this.mediaType, this.selectorsList, outermost),
           ruleSetsCSS = this.ruleSets.asCSS(this.selectorsList, outermost),
           declarationsCSS = this.declarations.asCSS(this.selectorsList, outermost),
-          css = (declarationsCSS === EMPTY_STRING) ?
-                  ruleSetsCSS : ///
-                    `${declarationsCSS}
-${ruleSetsCSS}`;
+          css = `
+
+${declarationsCSS}
+${mediasCSS}
+${ruleSetsCSS}
+
+`;
 
     return css;
   }
 
-  static fromNodeTokensAndSelectorsList(node, tokens, selectorsList) {
-    const ruleSets = RuleSets.fromNodeAndTokens(node, tokens),
+  static fromNodeTokensMediaTypeAndSelectorsList(node, tokens, mediaType, selectorsList) {
+    const medias = Medias.fromNodeAndTokens(node, tokens),
+          ruleSets = RuleSets.fromNodeAndTokens(node, tokens),
           declarations = Declarations.fromNodeAndTokens(node, tokens),
-          division = new Division(ruleSets, declarations, selectorsList);
+          division = new Division(medias, ruleSets, declarations, mediaType, selectorsList);
 
     return division;
   }

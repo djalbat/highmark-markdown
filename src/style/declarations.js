@@ -42,13 +42,6 @@ ${declarationsCSS}
     return css;
   }
 
-  static fromNothing() {
-    const array = [],
-          declarations = new Declarations(array);
-
-    return declarations;
-  }
-
   static fromNodeAndTokens(node, tokens) {
     const declarationNonTerminalNodes = declarationNonTerminalNodesQuery(node),
           array = declarationNonTerminalNodes.map((declarationNonTerminalNode) => {
