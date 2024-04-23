@@ -3,12 +3,21 @@
 import { HEAD, STYLE } from "./constants";
 
 export default class StyleElement {
-  constructor(domElement) {
+  constructor(mediaType, domElement) {
+    this.mediaType = mediaType;
     this.domElement = domElement;
+  }
+
+  getMediaType() {
+    return this.mediaType;
   }
 
   getDOMElement() {
     return this.domElement;
+  }
+
+  setMediaType(mediaType) {
+    this.mediaType = mediaType;
   }
 
   setDOMElement(domElement) {
@@ -28,13 +37,6 @@ ${css}
   }
 
   remove() { this.domElement.remove(); }
-
-  static fromNothing() {
-    const domElement = createDOMElement(),
-          styleElement = new StyleElement(domElement);
-
-    return styleElement;
-  }
 }
 
 export function createDOMElement() {

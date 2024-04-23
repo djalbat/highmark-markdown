@@ -9,15 +9,10 @@ import { createDOMElement } from "../styleElement";
 import { cssFromMarkdownStyleMediaTypeAndSelectorsList } from "../utilities/css";
 
 export default class MarkdownStyleElement extends StyleElement {
-  constructor(domElement, mediaType, selectorsList) {
-    super(domElement);
+  constructor(mediaType, domElement, selectorsList) {
+    super(mediaType, domElement);
 
-    this.mediaType = mediaType;
     this.selectorsList = selectorsList;
-  }
-
-  getMediaType() {
-    return this.mediaType;
   }
 
   getSelectorsList() {
@@ -25,7 +20,8 @@ export default class MarkdownStyleElement extends StyleElement {
   }
 
   update(markdownStyle) {
-    const css = cssFromMarkdownStyleMediaTypeAndSelectorsList(markdownStyle, this.mediaType, this.selectorsList);
+    const mediaType = this.getMediaType(),
+          css = cssFromMarkdownStyleMediaTypeAndSelectorsList(markdownStyle, mediaType, this.selectorsList);
 
     this.setCSS(css);
 
@@ -47,10 +43,10 @@ export default class MarkdownStyleElement extends StyleElement {
       Class = MarkdownStyleElement; ///
     }
 
-    const domElement = createDOMElement(),
-          mediaType = MediaType.fromMediaTypeName(mediaTypeName),
+    const mediaType = MediaType.fromMediaTypeName(mediaTypeName),
+          domElement = createDOMElement(),
           selectorsList = SelectorsList.fromSelectorsString(selectorString),
-          markdownStyleElement = new Class(domElement, mediaType, selectorsList);
+          markdownStyleElement = new Class(mediaType, domElement, selectorsList);
 
     return markdownStyleElement;
   }
