@@ -123,10 +123,8 @@ class View extends Element {
   static initialMarkdownStyle = `
 min-height: initial;
 
-@media preview {
-  division division {
-    padding: 24pt;
-  }
+division {
+  colour: red;
 }
 
 `;

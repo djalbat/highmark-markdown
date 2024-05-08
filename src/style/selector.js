@@ -5,6 +5,7 @@ import elementMap from "../elementMap";
 
 import { nodeQuery } from "../utilities/query";
 import { EMPTY_STRING } from "../constants";
+import { DIVISION_RULE_NAME } from "../ruleNames";
 import { remainingContentFromNodeTokensAndOffset } from "../utilities/content";
 
 const { STRONG_TEXT_RULE_NAME,
@@ -62,47 +63,52 @@ function contentFromNodeAndTokens(node, tokens) {
   const ruleNameTerminalNode = ruleNameTerminalNodeQuery(node);
 
   if (ruleNameTerminalNode !== null) {
-    content = EMPTY_STRING;
-
     const ruleNameTerminalNodeContent = ruleNameTerminalNode.getContent(),
-          ruleName = ruleNameTerminalNodeContent, ///
-          ruleNameValuesIncludesRuleName = ruleNameValues.includes(ruleName);
+          ruleName = ruleNameTerminalNodeContent; ///
 
-    if (ruleNameValuesIncludesRuleName) {
-      const { tagName, className } = elementMap[ruleName];
+    if (ruleName === DIVISION_RULE_NAME) {
+      content = null;
+    } else {
+      content = EMPTY_STRING;
 
-      if (tagName !== null) {
-        content = `${content}${tagName}`;
-      }
+      const ruleNameValuesIncludesRuleName = ruleNameValues.includes(ruleName);
 
-      switch (ruleName) {
-        case ORDERED_LIST_ITEM_RULE_NAME: {
-          content = `${orderedListTagName} > ${content}`;
+      if (ruleNameValuesIncludesRuleName) {
+        const { tagName, className } = elementMap[ruleName];
 
-          break;
+        if (tagName !== null) {
+          content = `${content}${tagName}`;
         }
 
-        case UNORDERED_LIST_ITEM_RULE_NAME: {
-          content = `${unorderedListTagName} > ${content}`;
+        switch (ruleName) {
+          case ORDERED_LIST_ITEM_RULE_NAME: {
+            content = `${orderedListTagName} > ${content}`;
 
-          break;
+            break;
+          }
+
+          case UNORDERED_LIST_ITEM_RULE_NAME: {
+            content = `${unorderedListTagName} > ${content}`;
+
+            break;
+          }
+
+          case STRONGLY_EMPHASISED_TEXT_RULE_NAME: {
+            content = `${content} > ${strongTextTagName}`;
+
+            break;
+          }
         }
 
-        case STRONGLY_EMPHASISED_TEXT_RULE_NAME: {
-          content = `${content} > ${strongTextTagName}`;
-
-          break;
+        if (className !== null) {
+          content = `${content}.${className}`;
         }
+
+        const offset = 1,
+              remainingContent = remainingContentFromNodeTokensAndOffset(node, tokens, offset);
+
+        content = `${content}${remainingContent}`;
       }
-
-      if (className !== null) {
-        content = `${content}.${className}`;
-      }
-
-      const offset = 1,
-            remainingContent = remainingContentFromNodeTokensAndOffset(node, tokens, offset);
-
-      content = `${content}${remainingContent}`;
     }
   } else {
     const offset = 0,
