@@ -70,6 +70,12 @@ export default class LinkMarkdownNode extends MarkdownNode {
     this.addDOMElement(domElement);
   }
 
+  clone() {
+    debugger
+
+    return super.clone(this.number);
+  }
+
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
     const number = null,
           linkMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(LinkMarkdownNode, ruleName, childNodes, opacity, number);

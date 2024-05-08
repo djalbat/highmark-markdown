@@ -5,7 +5,9 @@ const bnf = `
     division                ::=  ( subDivision | endOfLine | error )+ ;
     
     
-    subDivision..           ::=  ( endOfLine | <START_OF_CONTENT> ) ( imports 
+    subDivision..           ::=  ( endOfLine | <START_OF_CONTENT> ) ( ignore 
+    
+                                                                    | imports 
     
                                                                     | contents 
     
@@ -77,6 +79,9 @@ const bnf = `
 
 
     blockListing            ::=  blockListingStart blockText blockListingEnd ;
+
+
+    ignore                  ::=  "@"<NO_WHITESPACE>"ignore" ;
 
 
     imports                 ::=  import+ ;

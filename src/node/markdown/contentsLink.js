@@ -2,6 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
+import ClonedNode from "../../clonedNode";
 import MarkdownNode from "../../node/markdown";
 
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
@@ -32,6 +33,12 @@ export default class ContentsLinkMarkdownNode extends MarkdownNode {
     return attributeValue;
   }
 
+  clone() {
+    debugger
+
+    return super.clone(this.identifier);
+  }
+
   static fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context) {
     let contentsLinkMarkdownNode = null;
 
@@ -39,16 +46,14 @@ export default class ContentsLinkMarkdownNode extends MarkdownNode {
           headingMarkdownNode = node;  ///
 
     if (headingMarkdownNode !== null) {
-      const { replacementTokens } = context,
-            headingMarkdownNodeOffset = offsetFromNode(headingMarkdownNode, context), ///
-            headingMarkdownNodeTokens = tokensFromNode(headingMarkdownNode, context),
-            headingMarkdownNodeChildNodes = childNodesFromNode(headingMarkdownNode);
+      const { tokens, replacementTokens } = context,
+            node = headingMarkdownNode, ///
+            clonedNode = ClonedNode.fromNodeAndTokens(node, tokens),
+            clonedNodeTokens = clonedNode.getTokens();
 
-      push(replacementTokens, headingMarkdownNodeTokens);
+      push(replacementTokens, clonedNodeTokens);  ///
 
-      replaceChildNodesTokens(headingMarkdownNodeChildNodes, headingMarkdownNodeTokens, headingMarkdownNodeOffset, context);
-
-      const childNodes = headingMarkdownNodeChildNodes, ///
+      const childNodes = clonedNode.getChildNodes(),
             ruleName = CONTENTS_LINK_RULE_NAME,
             opacity = null,
             identifier = headingMarkdownNode.identifier(context);
@@ -58,105 +63,4 @@ export default class ContentsLinkMarkdownNode extends MarkdownNode {
 
     return contentsLinkMarkdownNode;
   }
-}
-
-function offsetFromNode(node, context) {
-  const { tokens } = context,
-        nonTerminalNode = node,  ///
-        firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),
-        firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
-        offset = firstSignificantTokenIndex;  ///
-
-  return offset;
-}
-
-function tokensFromNode(node, context) {
-  let tokens;
-
-  ({ tokens } = context);
-
-  const nonTerminalNode = node,  ///
-        lastSignificantToken = nonTerminalNode.getLastSignificantToken(),
-        firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),
-        lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken),
-        firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
-        start = firstSignificantTokenIndex, ///
-        end = lastSignificantTokenIndex + 1;
-
-  tokens = tokens.slice(start, end);
-
-  tokens = tokens.map((token) => {  ///
-    token = token.clone();  ///
-
-    return token;
-  });
-
-  return tokens;
-}
-
-function childNodesFromNode(node) {
-  let childNodes;
-
-  const nonTerminalNode = node;  ///
-
-  childNodes = nonTerminalNode.getChildNodes();
-
-  childNodes = childNodes.map((childNode) => { ///
-    childNode = childNode.clone();  ///
-
-    return childNode;
-  });
-
-  return childNodes;
-}
-
-function replaceNodeTokens(node, replacementTokens, offset, context) {
-  const nodeTerminalNode = node.isTerminalNode();
-
-  if (nodeTerminalNode) {
-    const terminalNode = node;  ///
-
-    replaceTerminalNodeTokens(terminalNode, replacementTokens, offset, context);
-  } else {
-    const nonTerminalNode = node;  ///
-
-    replaceNonTerminalNodeTokens(nonTerminalNode, replacementTokens, offset, context);
-  }
-}
-
-function replaceChildNodesTokens(childNodes, tokens, offset, context) {
-  childNodes.forEach((childNode) => {
-    const node = childNode; ///
-
-    replaceNodeTokens(node, tokens, offset, context);
-  });
-}
-
-function replaceTerminalNodeTokens(terminalNode, tokens, offset, context) {
-  let index,
-      significantToken;
-
-  const temporaryTokens = tokens; ///
-
-  ({ tokens } = context);
-
-  significantToken = terminalNode.getSignificantToken();
-
-  index = tokens.indexOf(significantToken);
-
-  index -= offset;
-
-  tokens = temporaryTokens; ///
-
-  const token = tokens[index];
-
-  significantToken = token;  ///
-
-  terminalNode.setSignificantToken(significantToken);
-}
-
-function replaceNonTerminalNodeTokens(nonTerminalNode, tokens, offset, context) {
-  const childNodes = nonTerminalNode.getChildNodes();
-
-  replaceChildNodesTokens(childNodes, tokens, offset, context);
 }

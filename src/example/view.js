@@ -130,6 +130,10 @@ division {
 `;
 
   static initialMarkdown = `Occam [^occam]
+  
+@contents
+    
+# Title
 
 [^occam]: Footnote
 

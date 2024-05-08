@@ -8,6 +8,7 @@ import { LINK_RULE_NAME,
          ANCHOR_RULE_NAME,
          MARKER_RULE_NAME,
          BULLET_RULE_NAME,
+         IGNORE_RULE_NAME,
          IMPORT_RULE_NAME,
          IMPORTS_RULE_NAME,
          CONTENTS_RULE_NAME,
@@ -85,6 +86,10 @@ const elementMap = {
     className: null
   },
   [BULLET_RULE_NAME]: {
+    tagName: null,
+    className: null
+  },
+  [IGNORE_RULE_NAME]: {
     tagName: null,
     className: null
   },
