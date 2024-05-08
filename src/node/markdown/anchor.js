@@ -44,11 +44,7 @@ export default class AnchorMarkdownNode extends MarkdownNode {
     this.addDOMElement(domElement);
   }
 
-  clone() {
-    debugger
-
-    return super.clone(this.identifier);
-  }
+  clone() { return super.clone(this.identifier); }
 
   static fromIdentifier(identifier) {
     const ruleName = ANCHOR_RULE_NAME,

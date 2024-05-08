@@ -42,16 +42,13 @@ export default class ContentsLinkMarkdownNode extends MarkdownNode {
   }
 
   clone() {
-    debugger
-
     const tokens = this.tokens.map((token) => {
-            token = token.clone();  ///
+      token = token.clone();  ///
 
-            return token;
-          }),
-          identifier = this.identifier;
+      return token;
+    });
 
-    return super.clone(tokens, identifier);
+    return super.clone(tokens, this.identifier);
   }
 
   static fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context) {
