@@ -6,7 +6,6 @@ import MarkdownNode from "../../node/markdown";
 import ContentsListMarkdownNode from "../../node/markdown/contentsList";
 import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
-import { nestNodes } from "../../utilities/contents";
 import { renumberLinkMarkdownNodes } from "../../utilities/footnotes";
 import { replaceNode, replaceTokens } from "../../utilities/replace";
 import { headingMarkdownNodesFromNode, contentsMarkdownNodeFromNode, footnotesMarkdownNodesFromNode } from "../../utilities/query";
@@ -90,11 +89,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     }
 
     const { tokens } = context,
-          nodes = headingMarkdownNodes, ///
-          nestedNode = nestNodes(nodes),
-          childNestedNodes = nestedNode.getChildNestedNodes(),
-          nestedHeadingMarkdownNodes = childNestedNodes,  ///
-          contentsListMarkdownNode = ContentsListMarkdownNode.fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
+          contentsListMarkdownNode = ContentsListMarkdownNode.fromHeadingMarkdownNodes(headingMarkdownNodes, context),
           contentsListMarkdownNodeTokens = contentsListMarkdownNode.getTokens(),
           childNode = contentsMarkdownNode,  ///
           parentNode = this.findParentNode(childNode),
