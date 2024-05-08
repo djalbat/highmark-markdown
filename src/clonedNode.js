@@ -16,7 +16,9 @@ export default class ClonedNode {
 
   getChildNodes() { return this.node.getChildNodes(); }
 
-  static fromNodeAndTokens(node, tokens) {
+  static fromNode(node, context) {
+    let { tokens } = context;
+
     const offset = offsetFromNodeAndTokens(node, tokens),
           replacementTokens = replacementTokensFromNodeAndTokens(node, tokens);
 

@@ -131,9 +131,11 @@ division {
 
   static initialMarkdown = `Occam [^occam]
   
-@contents
+@contents 2
     
 # Title
+
+## Subtitle
 
 [^occam]: Footnote
 

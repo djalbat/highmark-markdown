@@ -7,8 +7,8 @@ import ContentsListMarkdownNode from "../../node/markdown/contentsList";
 import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
 import { nestNodes } from "../../utilities/contents";
-import { replaceTokens } from "../../utilities/tokens";
 import { renumberLinkMarkdownNodes } from "../../utilities/footnotes";
+import { replaceNode, replaceTokens } from "../../utilities/replace";
 import { headingMarkdownNodesFromNode, contentsMarkdownNodeFromNode, footnotesMarkdownNodesFromNode } from "../../utilities/query";
 
 const { filter } = arrayUtilities;
@@ -89,27 +89,22 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       return;
     }
 
-    const nodes = headingMarkdownNodes, ///
+    const { tokens } = context,
+          nodes = headingMarkdownNodes, ///
           nestedNode = nestNodes(nodes),
           childNestedNodes = nestedNode.getChildNestedNodes(),
-          replacementTokens = [],
-          nestedHeadingMarkdownNodes = childNestedNodes;  ///
-
-    Object.assign(context, {
-      replacementTokens
-    });
-
-    const contentsListMarkdownNode = ContentsListMarkdownNode.fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
+          nestedHeadingMarkdownNodes = childNestedNodes,  ///
+          contentsListMarkdownNode = ContentsListMarkdownNode.fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
+          contentsListMarkdownNodeTokens = contentsListMarkdownNode.getTokens(),
           childNode = contentsMarkdownNode,  ///
           parentNode = this.findParentNode(childNode),
-          replacedChildNode = contentsMarkdownNode,  ///
-          replacementChildNode = contentsListMarkdownNode; ///
+          replacedNode = contentsMarkdownNode, ///
+          replacementNode = contentsListMarkdownNode,  ///
+          replacementTokens = contentsListMarkdownNodeTokens; ///
 
-    parentNode.replaceChildNode(replacedChildNode, replacementChildNode);
+    replaceNode(replacementNode, replacedNode, parentNode);
 
-    replaceTokens(replacedChildNode, replacementTokens, context);
-
-    delete context.replacementTokens;
+    replaceTokens(replacementTokens, replacedNode, tokens);
   }
 
   createFootnotes(context) {

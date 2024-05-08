@@ -11,10 +11,18 @@ import { CONTENTS_LINK_RULE_NAME } from "../../ruleNames";
 const { push } = arrayUtilities;
 
 export default class ContentsLinkMarkdownNode extends MarkdownNode {
-  constructor(ruleName, childNodes, opacity, precedence, domElement, identifier) {
-    super(ruleName, childNodes, opacity, precedence, domElement);
+  constructor(ruleName, childNodes, opacity, precedence, domElement, tokens, identifier) {
+    super(ruleName, childNodes, opacity, precedence, tokens, domElement);
+
+    this.tokens = tokens;
 
     this.identifier = identifier;
+  }
+
+  getTokens(tokens = []) {
+    push(tokens, this.tokens);
+
+    return tokens;
   }
 
   getIdentifier() {
@@ -36,7 +44,14 @@ export default class ContentsLinkMarkdownNode extends MarkdownNode {
   clone() {
     debugger
 
-    return super.clone(this.identifier);
+    const tokens = this.tokens.map((token) => {
+            token = token.clone();  ///
+
+            return token;
+          }),
+          identifier = this.identifier;
+
+    return super.clone(tokens, identifier);
   }
 
   static fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context) {
@@ -46,19 +61,15 @@ export default class ContentsLinkMarkdownNode extends MarkdownNode {
           headingMarkdownNode = node;  ///
 
     if (headingMarkdownNode !== null) {
-      const { tokens, replacementTokens } = context,
-            node = headingMarkdownNode, ///
-            clonedNode = ClonedNode.fromNodeAndTokens(node, tokens),
-            clonedNodeTokens = clonedNode.getTokens();
-
-      push(replacementTokens, clonedNodeTokens);  ///
-
-      const childNodes = clonedNode.getChildNodes(),
+      const node = headingMarkdownNode, ///
+            clonedNode = ClonedNode.fromNode(node, context),
+            childNodes = clonedNode.getChildNodes(),
             ruleName = CONTENTS_LINK_RULE_NAME,
             opacity = null,
+            tokens = clonedNode.getTokens(),
             identifier = headingMarkdownNode.identifier(context);
 
-      contentsLinkMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(ContentsLinkMarkdownNode, ruleName, childNodes, opacity, identifier);
+      contentsLinkMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(ContentsLinkMarkdownNode, ruleName, childNodes, opacity, tokens, identifier);
     }
 
     return contentsLinkMarkdownNode;

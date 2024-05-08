@@ -6,6 +6,17 @@ import ContentsLinkMarkdownNode from "../../node/markdown/contentsLink";
 import { CONTENTS_ITEM_RULE_NAME } from "../../ruleNames";
 
 export default class ContentsItemMarkdownNode extends MarkdownNode {
+  getTokens(tokens = []) {
+    const childNodes = this.getChildNodes(),
+          contentsItemMarkdownNodes = childNodes;  ///
+
+    contentsItemMarkdownNodes.forEach((contentsItemMarkdownNode) => {
+      contentsItemMarkdownNode.getTokens(tokens);
+    });
+
+    return tokens;
+  }
+
   static fromContentsListMarkdownNodeAndNestedHeadingMarkdownNode(ContentsListMarkdownNode, nestedHeadingMarkdownNode, context) {
     const ruleName = CONTENTS_ITEM_RULE_NAME,
           childNodes = [],

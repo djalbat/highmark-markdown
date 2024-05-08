@@ -1,8 +1,14 @@
 "use strict";
 
-export function replaceTokens(replacedChildNode, replacementTokens, context) {
-  const { tokens } = context,
-        nonTerminalNode = replacedChildNode,  ///
+export function replaceNode(replacementNode, replacedNode, parentNode) {
+  const replacedChildNode = replacedNode,  ///
+        replacementChildNode = replacementNode; ///
+
+  parentNode.replaceChildNode(replacedChildNode, replacementChildNode);
+}
+
+export function replaceTokens(replacementTokens, replacedNode, tokens) {
+  const nonTerminalNode = replacedNode,  ///
         lastSignificantToken = nonTerminalNode.getLastSignificantToken(),
         firstSignificantToken = nonTerminalNode.getFirstSignificantToken(),
         lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken),
