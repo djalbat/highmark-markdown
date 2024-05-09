@@ -7,6 +7,16 @@ import { Element } from "easy";
 import { EMPTY_STRING } from "../constants";
 
 class XMP extends Element {
+  update(htmls) {
+    htmls = htmls.join(EMPTY_STRING);
+
+    const body = `<body>
+${htmls}</body>`,
+          html = body;
+
+    this.html(html);
+  }
+
   clear() {
     const html = EMPTY_STRING;
 
@@ -14,12 +24,12 @@ class XMP extends Element {
   }
 
   parentContext() {
-    const xmpHTML = this.html.bind(this),  ///
-          clearXMP = this.clear.bind(this); ///
+    const clearXMP = this.clear.bind(this), ///
+          updateXMP = this.update.bind(this);  ///
 
     return ({
-      xmpHTML,
-      clearXMP
+      clearXMP,
+      updateXMP
     });
   }
 

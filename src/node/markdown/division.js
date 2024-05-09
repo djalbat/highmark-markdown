@@ -8,7 +8,7 @@ import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
 import { renumberLinkMarkdownNodes } from "../../utilities/footnotes";
 import { replaceNode, replaceTokens } from "../../utilities/replace";
-import { headingMarkdownNodesFromNode, contentsMarkdownNodeFromNode, footnotesMarkdownNodesFromNode } from "../../utilities/query";
+import { ignoreMarkdownNodeFromNode, headingMarkdownNodesFromNode, contentsMarkdownNodeFromNode, footnotesMarkdownNodesFromNode } from "../../utilities/query";
 
 const { filter } = arrayUtilities;
 
@@ -31,6 +31,14 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     const className = this.divisionClassName; ///
 
     return className;
+  }
+
+  isIgnored() {
+    const node = this,
+          ignoreMarkdownNode = ignoreMarkdownNodeFromNode(node),
+          ignored = (ignoreMarkdownNode !== null);
+
+    return ignored;
   }
 
   findParentNode(childNode, node = this) {
@@ -62,44 +70,48 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 
   createContents(context) {
+    let contentsCreated = false;
+
     const node = this,  ///
           contentsMarkdownNode = contentsMarkdownNodeFromNode(node);
 
-    if (contentsMarkdownNode === null) {
-      return;
-    }
+    if (contentsMarkdownNode !== null) {
+      const headingMarkdownNodes = headingMarkdownNodesFromNode(node),
+            minimumPosition = contentsMarkdownNode.minimumPosition(context),
+            maximumLevel = contentsMarkdownNode.maximumLevel(context);
 
-    const headingMarkdownNodes = headingMarkdownNodesFromNode(node),
-          minimumPosition = contentsMarkdownNode.minimumPosition(context),
-          maximumLevel = contentsMarkdownNode.maximumLevel(context);
+      filter(headingMarkdownNodes, (headingMarkdownNode) => {
+        const level = headingMarkdownNode.getLevel(),
+              position = headingMarkdownNode.position(context);
 
-    filter(headingMarkdownNodes, (headingMarkdownNode) => {
-      const level = headingMarkdownNode.getLevel(),
-            position = headingMarkdownNode.position(context);
+        if ((level <= maximumLevel) && (position > minimumPosition)) {
+          return true;
+        }
+      });
 
-      if ((level <= maximumLevel) && (position > minimumPosition)) {
-        return true;
+      const headingMarkdownNodesLength = headingMarkdownNodes.length;
+
+      if (headingMarkdownNodesLength === 0) {
+        return;
       }
-    });
 
-    const headingMarkdownNodesLength = headingMarkdownNodes.length;
+      const {tokens} = context,
+            contentsListMarkdownNode = ContentsListMarkdownNode.fromHeadingMarkdownNodes(headingMarkdownNodes, context),
+            contentsListMarkdownNodeTokens = contentsListMarkdownNode.getTokens(),
+            childNode = contentsMarkdownNode,  ///
+            parentNode = this.findParentNode(childNode),
+            replacedNode = contentsMarkdownNode, ///
+            replacementNode = contentsListMarkdownNode,  ///
+            replacementTokens = contentsListMarkdownNodeTokens; ///
 
-    if (headingMarkdownNodesLength === 0) {
-      return;
+      replaceNode(replacementNode, replacedNode, parentNode);
+
+      replaceTokens(replacementTokens, replacedNode, tokens);
+
+      contentsCreated = true;
     }
 
-    const { tokens } = context,
-          contentsListMarkdownNode = ContentsListMarkdownNode.fromHeadingMarkdownNodes(headingMarkdownNodes, context),
-          contentsListMarkdownNodeTokens = contentsListMarkdownNode.getTokens(),
-          childNode = contentsMarkdownNode,  ///
-          parentNode = this.findParentNode(childNode),
-          replacedNode = contentsMarkdownNode, ///
-          replacementNode = contentsListMarkdownNode,  ///
-          replacementTokens = contentsListMarkdownNodeTokens; ///
-
-    replaceNode(replacementNode, replacedNode, parentNode);
-
-    replaceTokens(replacementTokens, replacedNode, tokens);
+    return contentsCreated;
   }
 
   createFootnotes(context) {

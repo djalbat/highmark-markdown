@@ -40,24 +40,44 @@ class View extends Element {
 
     if (node !== null) {
       const divisionMarkdownNode = node,  ///
-            parentNode = null,
+            divisionMarkdownNodes = [
+              divisionMarkdownNode
+            ],
             context = {
               tokens,
-              importer
+              importer,
+              divisionMarkdownNodes
             };
 
-      divisionMarkdownNode.resolveImports(parentNode, context);
+      divisionMarkdownNode.resolveImports(context);
 
-      divisionMarkdownNode.createContents(context);
+      divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+        divisionMarkdownNode.createFootnotes(context);
+      });
 
-      divisionMarkdownNode.createFootnotes(context);
+      divisionMarkdownNodes.some((divisionMarkdownNode) => {
+        const contentsCreated = divisionMarkdownNode.createContents(context);
 
-      const html = divisionMarkdownNode.asHTML(context),
-            domElement = divisionMarkdownNode.createDOMElement(context);
+        if (contentsCreated) {
+          return true;
+        }
+      });
 
-      this.xmpHTML(html);
+      const htmls = [],
+            domElements = [];
 
-      this.updatePreviewDiv(domElement);
+      divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+        const html = divisionMarkdownNode.asHTML(context),
+              domElement = divisionMarkdownNode.createDOMElement(context);
+
+        htmls.push(html);
+
+        domElements.push(domElement);
+      });
+
+      this.updateXMP(htmls);
+
+      this.updatePreviewDiv(domElements);
     } else {
       this.clearXMP();
 
@@ -120,27 +140,14 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdownStyle = `
-min-height: initial;
+  static initialMarkdownStyle = `min-height: initial;
 
-division {
-  colour: red;
-}
-
+colour: red;
 `;
 
   static initialMarkdown = `Occam [^occam]
   
-@contents 2
-    
-# Title
-
-## Subtitle
-
-[^occam]: Footnote
-
-@footnotes
-
+@import example.md
 `;
 
   static tagName = "div";
@@ -161,19 +168,20 @@ export default withStyle(View)`
 `;
 
 function importer(filePath, context) {
-  const content = `
-Occam.[^occam]
+  const content = `Occam.[^occam]
 
 [^another]: Occam footnote.
         
         `,
-        className = "introduction",
         tokens = markdownLexer.tokenise(content),
-        node = markdownParser.parse(tokens);
+        node = markdownParser.parse(tokens),
+        importedNode = node,  ///
+        importedTokens = tokens,
+        importedClassName = "introduction";
 
   Object.assign(context, {
-    node,
-    tokens,
-    className
+    importedNode,
+    importedTokens,
+    importedClassName
   });
 }

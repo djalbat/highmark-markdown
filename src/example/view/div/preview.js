@@ -23,12 +23,14 @@ class PreviewDiv extends Element {
     });
   }
 
-  update(domElement) {
-    this.clear();
-
+  update(domElements) {
     const parentDOMElement = this.getParentDOMElement();
 
-    parentDOMElement.appendChild(domElement);
+    this.clear();
+
+    domElements.forEach((domElement) => {
+      parentDOMElement.appendChild(domElement);
+    });
   }
 
   parentContext() {
