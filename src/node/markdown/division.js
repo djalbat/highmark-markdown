@@ -76,26 +76,15 @@ export default class DivisionMarkdownNode extends MarkdownNode {
           contentsMarkdownNode = contentsMarkdownNodeFromNode(node);
 
     if (contentsMarkdownNode !== null) {
-      const headingMarkdownNodes = headingMarkdownNodesFromNode(node),
-            minimumPosition = contentsMarkdownNode.minimumPosition(context),
-            maximumLevel = contentsMarkdownNode.maximumLevel(context);
-
-      filter(headingMarkdownNodes, (headingMarkdownNode) => {
-        const level = headingMarkdownNode.getLevel(),
-              position = headingMarkdownNode.position(context);
-
-        if ((level <= maximumLevel) && (position > minimumPosition)) {
-          return true;
-        }
-      });
-
-      const headingMarkdownNodesLength = headingMarkdownNodes.length;
+      const divisionMarkdownNode = this,  ///
+            headingMarkdownNodes = headingMarkdownNodesFromDivisionMarkdownNodeAndContentsMarkdownNode(divisionMarkdownNode, contentsMarkdownNode, context),
+            headingMarkdownNodesLength = headingMarkdownNodes.length;
 
       if (headingMarkdownNodesLength === 0) {
         return;
       }
 
-      const {tokens} = context,
+      const { tokens } = context,
             contentsListMarkdownNode = ContentsListMarkdownNode.fromHeadingMarkdownNodes(headingMarkdownNodes, context),
             contentsListMarkdownNodeTokens = contentsListMarkdownNode.getTokens(),
             childNode = contentsMarkdownNode,  ///
@@ -166,4 +155,44 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
     return divisionMarkdownNode;
   }
+}
+
+function headingMarkdownNodesFromDivisionMarkdownNodeAndContentsMarkdownNode(divisionMarkdownNode, contentsMarkdownNode, context) {
+  const headingMarkdownNodes = [],
+        minimumPosition = contentsMarkdownNode.minimumPosition(context),
+        maximumLevel = contentsMarkdownNode.maximumLevel(context),
+        node = divisionMarkdownNode;  ///
+
+  headingMarkdownNodesFromNode(node, headingMarkdownNodes);
+
+  filter(headingMarkdownNodes, (headingMarkdownNode) => {
+    const position = headingMarkdownNode.position(context);
+
+    if (position > minimumPosition) {
+      return true;
+    }
+  });
+
+  let { divisionMarkdownNodes } = context;
+
+  const index = divisionMarkdownNodes.indexOf(divisionMarkdownNode),
+        start = index + 1;
+
+  divisionMarkdownNodes = divisionMarkdownNodes.slice(start); ///
+
+  divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+    const node = divisionMarkdownNode;  ///
+
+    headingMarkdownNodesFromNode(node, headingMarkdownNodes);
+  });
+
+  filter(headingMarkdownNodes, (headingMarkdownNode) => {
+    const level = headingMarkdownNode.getLevel();
+
+    if (level <= maximumLevel) {
+      return true;
+    }
+  });
+
+  return headingMarkdownNodes;
 }

@@ -141,11 +141,13 @@ class View extends Element {
   }
 
   static initialMarkdownStyle = `min-height: initial;
-
-colour: red;
 `;
 
-  static initialMarkdown = `Occam [^occam]
+  static initialMarkdown = `# Primary heading
+
+@contents 3
+
+## Secondary heading
   
 @import example.md
 `;
@@ -168,10 +170,7 @@ export default withStyle(View)`
 `;
 
 function importer(filePath, context) {
-  const content = `Occam.[^occam]
-
-[^another]: Occam footnote.
-        
+  const content = `### Tertiary heading
         `,
         tokens = markdownLexer.tokenise(content),
         node = markdownParser.parse(tokens),
