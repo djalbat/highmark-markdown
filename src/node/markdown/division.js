@@ -127,7 +127,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       if (footnotesListMarkdownNode !== null) {
         childNode = footnotesListMarkdownNode;  ///
 
-        divisionMarkdownNode.addChildNode(childNode);
+        divisionMarkdownNode.appendChildNode(childNode);
 
         renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context)
       }
