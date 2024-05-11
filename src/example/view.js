@@ -49,7 +49,7 @@ class View extends Element {
               divisionMarkdownNodes
             };
 
-      divisionMarkdownNode.resolveImports(context);
+      divisionMarkdownNode.resolveIncludes(context);
 
       divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
         divisionMarkdownNode.createFootnotes(context);
@@ -143,13 +143,9 @@ class View extends Element {
   static initialMarkdownStyle = `min-height: initial;
 `;
 
-  static initialMarkdown = `# Primary heading
+  static initialMarkdown = `@contents
 
-@contents 3
-
-## Secondary heading
-  
-@import example.md
+# Heading
 `;
 
   static tagName = "div";

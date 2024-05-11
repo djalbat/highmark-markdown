@@ -94,7 +94,7 @@ class MarkdownNode extends NonTerminalNode {
     return attributeValue;
   }
 
-  resolveImports(context) {
+  resolveIncludes(context) {
     const childNodes = this.getChildNodes();
 
     childNodes.forEach((childNode) => {
@@ -104,7 +104,7 @@ class MarkdownNode extends NonTerminalNode {
         const nonTerminalNode = childNode,  ///
               markdownNode = nonTerminalNode; ///
 
-        markdownNode.resolveImports(context);
+        markdownNode.resolveIncludes(context);
       }
     });
   }

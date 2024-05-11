@@ -80,11 +80,17 @@ class EmailLinkMarkdownNode extends MarkdownNode {
   }
 
   createChildNodeDOMElements(context) {
-    const inlineText = this.inlineText(context),
-          content = (inlineText !== null) ?
-                      inlineText :
-                        this.content(context),
-          textNode = document.createTextNode(content),
+    const inlineText = this.inlineText(context);
+
+    let content;
+
+    if (inlineText !== null) {
+      content = inlineText; ///
+    } else {
+      content = this.content(context);
+    }
+
+    const textNode = document.createTextNode(content),
           domElement = textNode; ///
 
     this.addDOMElement(domElement);

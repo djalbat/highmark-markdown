@@ -9,8 +9,7 @@ import AnchorMarkdownNode from "./node/markdown/anchor";
 import MarkerMarkdownNode from "./node/markdown/marker";
 import BulletMarkdownNode from "./node/markdown/bullet";
 import IgnoreMarkdownNode from "./node/markdown/ignore";
-import ImportMarkdownNode from "./node/markdown/import";
-import ImportsMarkdownNode from "./node/markdown/imports";
+import IncludeMarkdownNode from "./node/markdown/include";
 import ContentsMarkdownNode from "./node/markdown/contents";
 import DivisionMarkdownNode from "./node/markdown/division";
 import FootnoteMarkdownNode from "./node/markdown/footnote";
@@ -27,6 +26,7 @@ import ClassNameMarkdownNode from "./node/markdown/className";
 import PlainTextMarkdownNode from "./node/markdown/plainText";
 import EmailLinkMarkdownNode from "./node/markdown/emailLink";
 import EndOfLineMarkdownNode from "./node/markdown/endOfLine";
+import DirectivesMarkdownNode from "./node/markdown/directives";
 import MarkedTextMarkdownNode from "./node/markdown/markedText";
 import InlineTextMarkdownNode from "./node/markdown/inlineText";
 import StrongTextMarkdownNode from "./node/markdown/strongText";
@@ -63,8 +63,7 @@ import { LINK_RULE_NAME,
          MARKER_RULE_NAME,
          BULLET_RULE_NAME,
          IGNORE_RULE_NAME,
-         IMPORT_RULE_NAME,
-         IMPORTS_RULE_NAME,
+         INCLUDE_RULE_NAME,
          CONTENTS_RULE_NAME,
          DIVISION_RULE_NAME,
          FOOTNOTE_RULE_NAME,
@@ -80,6 +79,7 @@ import { LINK_RULE_NAME,
          CLASS_NAME_RULE_NAME,
          PLAIN_TEXT_RULE_NAME,
          EMAIL_LINK_RULE_NAME,
+         DIRECTIVES_RULE_NAME,
          END_OF_LINE_RULE_NAME,
          MARKED_TEXT_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
@@ -118,8 +118,7 @@ const nodeMap = {
   [MARKER_RULE_NAME]: MarkerMarkdownNode,
   [BULLET_RULE_NAME]: BulletMarkdownNode,
   [IGNORE_RULE_NAME]: IgnoreMarkdownNode,
-  [IMPORT_RULE_NAME]: ImportMarkdownNode,
-  [IMPORTS_RULE_NAME]: ImportsMarkdownNode,
+  [INCLUDE_RULE_NAME]: IncludeMarkdownNode,
   [CONTENTS_RULE_NAME]: ContentsMarkdownNode,
   [DIVISION_RULE_NAME]: DivisionMarkdownNode,
   [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
@@ -135,6 +134,7 @@ const nodeMap = {
   [CLASS_NAME_RULE_NAME]: ClassNameMarkdownNode,
   [PLAIN_TEXT_RULE_NAME]: PlainTextMarkdownNode,
   [EMAIL_LINK_RULE_NAME]: EmailLinkMarkdownNode,
+  [DIRECTIVES_RULE_NAME]: DirectivesMarkdownNode,
   [END_OF_LINE_RULE_NAME]: EndOfLineMarkdownNode,
   [MARKED_TEXT_RULE_NAME]: MarkedTextMarkdownNode,
   [INLINE_TEXT_RULE_NAME]: InlineTextMarkdownNode,

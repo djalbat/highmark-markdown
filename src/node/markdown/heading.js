@@ -45,11 +45,11 @@ export default class HeadingMarkdownNode extends MarkdownNode {
 function identifierFromPlainText(plainText) {
   plainText = plainText.toLowerCase();  ///
 
-  plainText = removedLeadingWhitespace(plainText);
+  plainText = removedLeadingWhitespace(plainText);  ///
 
-  plainText = removeNonAlphabeticAndSpaceCharacters(plainText);
+  plainText = removeNonAlphabeticAndSpaceCharacters(plainText); ///
 
-  plainText = replaceSpacesWithHyphens(plainText);
+  plainText = replaceSpacesWithHyphens(plainText);  ///
 
   const identifier = plainText; ///
 

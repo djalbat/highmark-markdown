@@ -9,8 +9,7 @@ export const ANCHOR_RULE_NAME = "anchor";
 export const MARKER_RULE_NAME = "marker";
 export const BULLET_RULE_NAME = "bullet";
 export const IGNORE_RULE_NAME = "ignore";
-export const IMPORT_RULE_NAME = "import";
-export const IMPORTS_RULE_NAME = "imports";
+export const INCLUDE_RULE_NAME = "include";
 export const CONTENTS_RULE_NAME = "contents";
 export const DIVISION_RULE_NAME = "division";
 export const FOOTNOTE_RULE_NAME = "footnote";
@@ -26,6 +25,7 @@ export const BLOCK_TEXT_RULE_NAME = "blockText";
 export const CLASS_NAME_RULE_NAME = "className";
 export const PLAIN_TEXT_RULE_NAME = "plainText";
 export const EMAIL_LINK_RULE_NAME = "emailLink";
+export const DIRECTIVES_RULE_NAME = "directives";
 export const END_OF_LINE_RULE_NAME = "endOfLine";
 export const MARKED_TEXT_RULE_NAME = "markedText";
 export const INLINE_TEXT_RULE_NAME = "inlineText";
@@ -67,8 +67,7 @@ const ruleNames = {
   MARKER_RULE_NAME,
   BULLET_RULE_NAME,
   IGNORE_RULE_NAME,
-  IMPORT_RULE_NAME,
-  IMPORTS_RULE_NAME,
+  INCLUDE_RULE_NAME,
   CONTENTS_RULE_NAME,
   DIVISION_RULE_NAME,
   FOOTNOTE_RULE_NAME,
@@ -84,6 +83,7 @@ const ruleNames = {
   CLASS_NAME_RULE_NAME,
   PLAIN_TEXT_RULE_NAME,
   EMAIL_LINK_RULE_NAME,
+  DIRECTIVES_RULE_NAME,
   END_OF_LINE_RULE_NAME,
   MARKED_TEXT_RULE_NAME,
   INLINE_TEXT_RULE_NAME,

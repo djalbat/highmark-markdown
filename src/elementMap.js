@@ -9,8 +9,7 @@ import { LINK_RULE_NAME,
          MARKER_RULE_NAME,
          BULLET_RULE_NAME,
          IGNORE_RULE_NAME,
-         IMPORT_RULE_NAME,
-         IMPORTS_RULE_NAME,
+         INCLUDE_RULE_NAME,
          CONTENTS_RULE_NAME,
          DIVISION_RULE_NAME,
          FOOTNOTE_RULE_NAME,
@@ -26,6 +25,7 @@ import { LINK_RULE_NAME,
          CLASS_NAME_RULE_NAME,
          PLAIN_TEXT_RULE_NAME,
          EMAIL_LINK_RULE_NAME,
+         DIRECTIVES_RULE_NAME,
          END_OF_LINE_RULE_NAME,
          MARKED_TEXT_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
@@ -93,11 +93,7 @@ const elementMap = {
     tagName: null,
     className: null
   },
-  [IMPORT_RULE_NAME]: {
-    tagName: null,
-    className: null
-  },
-  [IMPORTS_RULE_NAME]: {
+  [INCLUDE_RULE_NAME]: {
     tagName: null,
     className: null
   },
@@ -160,6 +156,10 @@ const elementMap = {
   [EMAIL_LINK_RULE_NAME]: {
     tagName: "a",
     className: "email-link"
+  },
+  [DIRECTIVES_RULE_NAME]: {
+    tagName: null,
+    className: null
   },
   [END_OF_LINE_RULE_NAME]: {
     tagName: null,

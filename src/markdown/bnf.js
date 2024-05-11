@@ -5,11 +5,7 @@ const bnf = `
     division                ::=  ( subDivision | endOfLine | error )+ ;
     
     
-    subDivision..           ::=  ( endOfLine | <START_OF_CONTENT> ) ( ignore 
-    
-                                                                    | imports 
-    
-                                                                    | contents 
+    subDivision..           ::=  ( endOfLine | <START_OF_CONTENT> ) ( directives 
     
                                                                     | footnotes 
     
@@ -81,13 +77,13 @@ const bnf = `
     blockListing            ::=  blockListingStart blockText blockListingEnd ;
 
 
+    directives              ::=  ( embed | ignore | include | contents )+ ;
+
+
     ignore                  ::=  "@"<NO_WHITESPACE>"ignore" ;
 
 
-    imports                 ::=  import+ ;
-
-
-    import                  ::=  "@"<NO_WHITESPACE>"import" [path] endOfLine ;
+    include                 ::=  "@"<NO_WHITESPACE>"include" [path] endOfLine ;
 
 
     contents                ::=  "@"<NO_WHITESPACE>"contents" [number]? endOfLine ;

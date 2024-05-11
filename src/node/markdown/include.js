@@ -6,8 +6,8 @@ import MarkdownNode from "../../node/markdown";
 
 const { push, fourth } = arrayUtilities;
 
-export default class ImportMarkdownNode extends MarkdownNode {
-  resolveImports(context) {
+export default class IncludeMarkdownNode extends MarkdownNode {
+  resolveIncludes(context) {
     let html = null;
 
     const { importer = null } = context;
@@ -39,7 +39,7 @@ export default class ImportMarkdownNode extends MarkdownNode {
           divisionMarkdownNodes.push(divisionMarkdownNode);
         }
 
-        divisionMarkdownNode.resolveImports(context);
+        divisionMarkdownNode.resolveIncludes(context);
       }
     }
 
@@ -56,5 +56,5 @@ export default class ImportMarkdownNode extends MarkdownNode {
     return filePath;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ImportMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(IncludeMarkdownNode, ruleName, childNodes, opacity); }
 }
