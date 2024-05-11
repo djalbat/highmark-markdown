@@ -2,6 +2,7 @@
 
 import { LINK_RULE_NAME,
          LINE_RULE_NAME,
+         EMBED_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
@@ -64,6 +65,10 @@ const elementMap = {
   [LINE_RULE_NAME]: {
     tagName: "span",
     className: "line"
+  },
+  [EMBED_RULE_NAME]: {
+    tagName: null,
+    className: null
   },
   [IMAGE_RULE_NAME]: {
     tagName: "img",

@@ -52,6 +52,8 @@ class View extends Element {
       divisionMarkdownNode.resolveIncludes(context);
 
       divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+        divisionMarkdownNode.resolveEmbeddings(context);
+
         divisionMarkdownNode.createFootnotes(context);
       });
 
@@ -143,9 +145,11 @@ class View extends Element {
   static initialMarkdownStyle = `min-height: initial;
 `;
 
-  static initialMarkdown = `@contents
+  static initialMarkdown = `@contents 2
 
-# Heading
+# Primary heading[^heading]
+
+@embed introduction.md
 `;
 
   static tagName = "div";
@@ -166,7 +170,11 @@ export default withStyle(View)`
 `;
 
 function importer(filePath, context) {
-  const content = `### Tertiary heading
+  const content = `## Secondary heading
+
+[^heading]: A heading.
+
+@footnotes
         `,
         tokens = markdownLexer.tokenise(content),
         node = markdownParser.parse(tokens),

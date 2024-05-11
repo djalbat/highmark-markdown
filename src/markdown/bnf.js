@@ -7,8 +7,6 @@ const bnf = `
     
     subDivision..           ::=  ( endOfLine | <START_OF_CONTENT> ) ( directives 
     
-                                                                    | footnotes 
-    
                                                                     | primaryHeading 
                              
                                                                     | secondaryHeading 
@@ -77,7 +75,10 @@ const bnf = `
     blockListing            ::=  blockListingStart blockText blockListingEnd ;
 
 
-    directives              ::=  ( embed | ignore | include | contents )+ ;
+    directives              ::=  ( embed | ignore | include | contents | footnotes )+ ;
+
+
+    embed                   ::=  "@"<NO_WHITESPACE>"embed" [path] endOfLine ;
 
 
     ignore                  ::=  "@"<NO_WHITESPACE>"ignore" ;

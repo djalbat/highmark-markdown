@@ -2,6 +2,7 @@
 
 import LinkMarkdownNode from "./node/markdown/link";
 import LineMarkdownNode from "./node/markdown/line";
+import EmbedMarkdownNode from "./node/markdown/embee";
 import ImageMarkdownNode from "./node/markdown/image";
 import TableMarkdownNode from "./node/markdown/table";
 import ErrorMarkdownNode from "./node/markdown/error";
@@ -56,6 +57,7 @@ import StronglyEmphasisedTextMarkdownNode from "./node/markdown/stronglyEmphasis
 
 import { LINK_RULE_NAME,
          LINE_RULE_NAME,
+         EMBED_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
@@ -111,6 +113,7 @@ import { LINK_RULE_NAME,
 const nodeMap = {
   [LINK_RULE_NAME]: LinkMarkdownNode,
   [LINE_RULE_NAME]: LineMarkdownNode,
+  [EMBED_RULE_NAME]: EmbedMarkdownNode,
   [IMAGE_RULE_NAME]: ImageMarkdownNode,
   [TABLE_RULE_NAME]: TableMarkdownNode,
   [ERROR_RULE_NAME]: ErrorMarkdownNode,

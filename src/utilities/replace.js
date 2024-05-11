@@ -2,9 +2,19 @@
 
 export function replaceNode(replacementNode, replacedNode, parentNode) {
   const replacedChildNode = replacedNode,  ///
-        replacementChildNode = replacementNode; ///
+        replacementChildNode = replacementNode, ///
+        replacementChildNodes = [
+          replacementChildNode
+        ];
 
-  parentNode.replaceChildNode(replacedChildNode, replacementChildNode);
+  parentNode.replaceChildNodes(replacedChildNode, replacementChildNodes);
+}
+
+export function replaceNodes(replacementNodes, replacedNode, parentNode) {
+  const replacedChildNode = replacedNode,  ///
+        replacementChildNodes = replacementNodes; ///
+
+  parentNode.replaceChildNodes(replacedChildNode, replacementChildNodes);
 }
 
 export function replaceTokens(replacementTokens, replacedNode, tokens) {

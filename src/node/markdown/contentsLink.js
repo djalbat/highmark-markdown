@@ -2,8 +2,8 @@
 
 import { arrayUtilities } from "necessary";
 
-import ClonedNode from "../../clonedNode";
 import MarkdownNode from "../../node/markdown";
+import ReplacementNodeAndTokens from "../../replacementNodeAndTokens";
 
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 import { CONTENTS_LINK_RULE_NAME } from "../../ruleNames";
@@ -59,11 +59,11 @@ export default class ContentsLinkMarkdownNode extends MarkdownNode {
 
     if (headingMarkdownNode !== null) {
       const node = headingMarkdownNode, ///
-            clonedNode = ClonedNode.fromNode(node, context),
-            childNodes = clonedNode.getChildNodes(),
+            replacementNodeAndTokens = ReplacementNodeAndTokens.fromNode(node, context),
+            childNodes = replacementNodeAndTokens.getChildNodes(),
             ruleName = CONTENTS_LINK_RULE_NAME,
             opacity = null,
-            tokens = clonedNode.getTokens(),
+            tokens = replacementNodeAndTokens.getTokens(),
             identifier = headingMarkdownNode.identifier(context);
 
       contentsLinkMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(ContentsLinkMarkdownNode, ruleName, childNodes, opacity, tokens, identifier);

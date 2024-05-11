@@ -7,8 +7,12 @@ import ContentsListMarkdownNode from "../../node/markdown/contentsList";
 import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
 import { renumberLinkMarkdownNodes } from "../../utilities/footnotes";
-import { replaceNode, replaceTokens } from "../../utilities/replace";
-import { ignoreMarkdownNodeFromNode, headingMarkdownNodesFromNode, contentsMarkdownNodeFromNode, footnotesMarkdownNodesFromNode } from "../../utilities/query";
+import { replaceNode, replaceNodes, replaceTokens } from "../../utilities/replace";
+import { embedMarkdownNodesFromNode,
+         ignoreMarkdownNodeFromNode,
+         headingMarkdownNodesFromNode,
+         contentsMarkdownNodeFromNode,
+         footnotesMarkdownNodesFromNode } from "../../utilities/query";
 
 const { filter } = arrayUtilities;
 
@@ -105,31 +109,48 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
   createFootnotes(context) {
     const node = this,  ///
-          footnotesMarkdownNodes = footnotesMarkdownNodesFromNode(node);
+          footnotesMarkdownNodes = footnotesMarkdownNodesFromNode(node),
+          footnotesMarkdownNodesLength = footnotesMarkdownNodes.length;
 
-    footnotesMarkdownNodes.forEach((footnotesMarkdownNode) => {
-      let childNode,
-          parentNode;
-
-      childNode = footnotesMarkdownNode;  ///
-
-      parentNode = this.findParentNode(childNode);
-
-      const subDivisionMarkdownNode = parentNode;  ///
-
-      childNode = subDivisionMarkdownNode;  ///
-
-      parentNode = this.findParentNode(childNode);
-
-      const divisionMarkdownNode = parentNode,  ///
+    if (footnotesMarkdownNodesLength > 0) {
+      const divisionMarkdownNode = this,  ///
             footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
 
       if (footnotesListMarkdownNode !== null) {
-        childNode = footnotesListMarkdownNode;  ///
+        const childNode = footnotesListMarkdownNode;  ///
 
         divisionMarkdownNode.appendChildNode(childNode);
 
         renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context)
+      }
+    }
+  }
+
+  resolveEmbeddings(context) {
+    const node = this,  ///
+          embedMarkdownNodes = embedMarkdownNodesFromNode(node);
+
+    embedMarkdownNodes.map((embedMarkdownNode) => {
+      const replacementNodeAndTokens = embedMarkdownNode.replacementNodeAndTokens(context);
+
+      if (replacementNodeAndTokens !== null) {
+        let tokens;
+
+        tokens = replacementNodeAndTokens.getTokens();
+
+        const childNodes = replacementNodeAndTokens.getChildNodes(),
+              replacementNodes = childNodes, ///
+              replacementTokens = tokens; ///
+
+        ({ tokens } = context);
+
+        const childNode = embedMarkdownNode,  ///
+              parentNode = this.findParentNode(childNode),
+              replacedNode = embedMarkdownNode; ///
+
+        replaceNodes(replacementNodes, replacedNode, parentNode);
+
+        replaceTokens(replacementTokens, replacedNode, tokens);
       }
     });
   }

@@ -109,6 +109,21 @@ class MarkdownNode extends NonTerminalNode {
     });
   }
 
+  resolveEmbeddings(context) {
+    const childNodes = this.getChildNodes();
+
+    childNodes.forEach((childNode) => {
+      const childNodeNonTerminalNode = childNode.isNonTerminalNode();
+
+      if (childNodeNonTerminalNode) {
+        const nonTerminalNode = childNode,  ///
+              markdownNode = nonTerminalNode; ///
+
+        markdownNode.resolveEmbeddings(context);
+      }
+    });
+  }
+
   asHTML(indent, context) {
     if (context === undefined) {
       context = indent; ///

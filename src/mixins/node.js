@@ -21,13 +21,13 @@ function appendChildNode(childNode) {
   childNodes.push(childNode);
 }
 
-function replaceChildNode(replacedChildNode, replacementChildNode) {
+function replaceChildNodes(replacedChildNode, replacementChildNodes) {
   const childNodes = this.getChildNodes(),
         index = childNodes.indexOf(replacedChildNode),
         start = index,  ///
         deleteCount = 1;
 
-  childNodes.splice(start, deleteCount, replacementChildNode);
+  childNodes.splice(start, deleteCount, ...replacementChildNodes);
 }
 
 function getDescendantNodes(descendantNodes = []) {
@@ -54,7 +54,7 @@ const nodeMixins = {
   removeChildNode,
   appendChildNode,
   prependChildNode,
-  replaceChildNode,
+  replaceChildNodes,
   getDescendantNodes
 };
 

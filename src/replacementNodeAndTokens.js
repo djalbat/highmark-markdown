@@ -1,6 +1,6 @@
 "use strict";
 
-export default class ClonedNode {
+export default class ReplacementNodeAndTokens {
   constructor(node, tokens) {
     this.node = node;
     this.tokens = tokens;
@@ -28,9 +28,15 @@ export default class ClonedNode {
 
     tokens = replacementTokens; ///
 
-    const clonedNode = new ClonedNode(node, tokens);
+    const replacementNodeAndTokens = new ReplacementNodeAndTokens(node, tokens);
 
-    return clonedNode;
+    return replacementNodeAndTokens;
+  }
+
+  static fromNodeAndTokens(node, tokens) {
+    const replacementNodeAndTokens = new ReplacementNodeAndTokens(node, tokens);
+
+    return replacementNodeAndTokens;
   }
 }
 

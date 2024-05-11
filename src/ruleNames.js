@@ -2,6 +2,7 @@
 
 export const LINK_RULE_NAME = "link";
 export const LINE_RULE_NAME = "line";
+export const EMBED_RULE_NAME = "embed";
 export const IMAGE_RULE_NAME = "image";
 export const TABLE_RULE_NAME = "table";
 export const ERROR_RULE_NAME = "error";
@@ -60,6 +61,7 @@ export const STRONGLY_EMPHASISED_TEXT_RULE_NAME = "stronglyEmphasisedText";
 const ruleNames = {
   LINK_RULE_NAME,
   LINE_RULE_NAME,
+  EMBED_RULE_NAME,
   IMAGE_RULE_NAME,
   TABLE_RULE_NAME,
   ERROR_RULE_NAME,

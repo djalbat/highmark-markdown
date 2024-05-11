@@ -21,11 +21,11 @@ export default class IncludeMarkdownNode extends MarkdownNode {
               importedTokens = null,
               importedClassName = null } = context;
 
-      delete context.importedNode;
-      delete context.importedTokens;
-      delete context.importedClassName;
-
       if (importedNode !== null) {
+        delete context.importedNode;
+        delete context.importedTokens;
+        delete context.importedClassName;
+
         const { tokens, divisionMarkdownNodes } = context,
               divisionMarkdownNode = importedNode,  ///
               divisionClassName = importedClassName,  ///

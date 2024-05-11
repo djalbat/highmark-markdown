@@ -6,6 +6,7 @@ import { arrayUtilities } from "necessary";
 const { first, push } = arrayUtilities;
 
 const linkMarkdownNodesQuery = Query.fromExpression(`//link`),
+      embedMarkdownNodesQuery = Query.fromExpression(`//embed`),
       ignoreMarkdownNodeQuery = Query.fromExpression(`//ignore`),
       headingMarkdownNodesQuery = Query.fromExpression(`//primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading`),
       contentsMarkdownNodeQuery = Query.fromExpression(`//contents`),
@@ -48,6 +49,12 @@ export function linkMarkdownNodesFromNode(node, linkMarkdownNodes = []) {
   nodesFromNodeAndQuery(node, linkMarkdownNodesQuery, linkMarkdownNodes);
 
   return linkMarkdownNodes;
+}
+
+export function embedMarkdownNodesFromNode(node, embedMarkdownNodes = []) {
+  nodesFromNodeAndQuery(node, embedMarkdownNodesQuery, embedMarkdownNodes);
+
+  return embedMarkdownNodes;
 }
 
 export function ignoreMarkdownNodeFromNode(node) {
@@ -100,6 +107,7 @@ export function linkReferenceOrFootnotesMarkdownNodesFromNode(node, linkReferenc
 
 export default {
   linkMarkdownNodesFromNode,
+  embedMarkdownNodesFromNode,
   ignoreMarkdownNodeFromNode,
   contentsMarkdownNodeFromNode,
   footnotesMarkdownNodeFromNode,
