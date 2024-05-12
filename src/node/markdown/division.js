@@ -13,6 +13,7 @@ import { embedMarkdownNodesFromNode,
          headingMarkdownNodesFromNode,
          contentsMarkdownNodeFromNode,
          footnotesMarkdownNodesFromNode } from "../../utilities/query";
+import {EMPTY_STRING} from "../../constants";
 
 const { filter } = arrayUtilities;
 
@@ -166,6 +167,24 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     const childNode = footnotesListMarkdownNode;  ///
 
     this.removeChildNode(childNode);
+  }
+
+  asHTML(context) {
+    let html = null;
+
+    const indent = EMPTY_STRING,
+          childNodesHTML = this.childNodesAsHTML(indent, context);
+
+    if (childNodesHTML !== null) {
+      const startingTag = this.startingTag(context),
+            closingTag = this.closingTag(context);
+
+      html = `${indent}${startingTag}
+${childNodesHTML}${indent}${closingTag}
+`;
+    }
+
+    return html;
   }
 
   clone() { return super.clone(this.divisionClassName); }

@@ -125,12 +125,6 @@ class MarkdownNode extends NonTerminalNode {
   }
 
   asHTML(indent, context) {
-    if (context === undefined) {
-      context = indent; ///
-
-      indent = EMPTY_STRING;
-    }
-
     const tagName = this.tagName(context);
 
     let html = null;
