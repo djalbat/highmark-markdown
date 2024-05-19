@@ -89,7 +89,7 @@ inlineListing {
 }
 
 table {
-  border-collapsed: collapse;
+  border-collapse: collapse;
 }
 
 tableHead {
