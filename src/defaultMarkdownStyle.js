@@ -21,7 +21,7 @@ secondaryHeading {
 }
 
 tertiaryHeading {
-  font-size: 16pt;
+  font-size: 17pt;
   margin: 12pt 0 12pt 0;
 }
 
@@ -31,7 +31,7 @@ orderedList,
 unorderedList,
 blockListing,
 quaternaryHeading {
-  font-size: 12pt;
+  font-size: 13pt;
   line-height: 15pt;
   margin: 12pt 0 12pt 0;
 }
@@ -84,7 +84,7 @@ blockListing {
 inlineListing {
   display: inline-block;
   padding: 0 3pt 0 3pt;
-  font-size: 12pt;
+  font-size: 13pt;
   line-height: 15pt;
 }
 
@@ -120,14 +120,14 @@ footnotesList {
 }
 
 footnoteItem {
-  font-size: 9pt;
-  line-height: 12pt;
+  font-size: 11pt;
+  line-height: 13pt;
   margin-left: 12pt;
   
   paragraph {
     margin: 0;
-    font-size: 9pt;
-    line-height: 12pt;
+    font-size: 11pt;
+    line-height: 13pt;
   }
 }
 
