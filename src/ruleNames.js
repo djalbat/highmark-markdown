@@ -43,6 +43,7 @@ export const TABLE_BODY_ROW_RULE_NAME = "tableBodyRow";
 export const INLINE_LISTING_RULE_NAME = "inlineListing";
 export const UNORDERED_LIST_RULE_NAME = "unorderedList";
 export const FOOTNOTES_LIST_RULE_NAME = "footnotesList";
+export const VERTICAL_SPACE_RULE_NAME = "verticalSpace";
 export const TABLE_HEAD_CELL_RULE_NAME = "tableHeadCell";
 export const TABLE_BODY_CELL_RULE_NAME = "tableBodyCell";
 export const TABLE_SEPARATOR_RULE_NAME = "tableSeparator";
@@ -102,6 +103,7 @@ const ruleNames = {
   INLINE_LISTING_RULE_NAME,
   UNORDERED_LIST_RULE_NAME,
   FOOTNOTES_LIST_RULE_NAME,
+  VERTICAL_SPACE_RULE_NAME,
   TABLE_HEAD_CELL_RULE_NAME,
   TABLE_BODY_CELL_RULE_NAME,
   TABLE_SEPARATOR_RULE_NAME,

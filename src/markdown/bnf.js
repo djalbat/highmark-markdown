@@ -2,7 +2,7 @@
 
 const bnf = `
 
-    division                ::=  ( subDivision | endOfLine | error )+ ;
+    division                ::=  ( subDivision | verticalSpace | error )+ ;
     
     
     subDivision..           ::=  ( endOfLine | <START_OF_CONTENT> ) ( directives 
@@ -30,6 +30,9 @@ const bnf = `
                                                                     | paragraph ) ;
 
     
+    verticalSpace.          ::=  endOfLine+ ;
+
+
     endOfLine.              ::=  <END_OF_LINE> ;
 
 

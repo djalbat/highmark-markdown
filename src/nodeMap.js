@@ -40,6 +40,7 @@ import TableBodyRowMarkdownNode from "./node/markdown/tableBodyRow";
 import InlineListingMarkdownNode from "./node/markdown/inlineListing";
 import UnorderedListMarkdownNode from "./node/markdown/unorderedList";
 import FootnotesListMarkdownNode from "./node/markdown/footnotesList";
+import VerticalSpaceMarkdownNode from "./node/markdown/verticalSpace";
 import TableHeadCellMarkdownNode from "./node/markdown/tableHeadCell";
 import TableBodyCellMarkdownNode from "./node/markdown/tableBodyCell";
 import TableSeparatorMarkdownNode from "./node/markdown/tableSeparator";
@@ -95,6 +96,7 @@ import { LINK_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
          UNORDERED_LIST_RULE_NAME,
          FOOTNOTES_LIST_RULE_NAME,
+         VERTICAL_SPACE_RULE_NAME,
          TABLE_HEAD_CELL_RULE_NAME,
          TABLE_BODY_CELL_RULE_NAME,
          TABLE_SEPARATOR_RULE_NAME,
@@ -151,6 +153,7 @@ const nodeMap = {
   [INLINE_LISTING_RULE_NAME]: InlineListingMarkdownNode,
   [UNORDERED_LIST_RULE_NAME]: UnorderedListMarkdownNode,
   [FOOTNOTES_LIST_RULE_NAME]: FootnotesListMarkdownNode,
+  [VERTICAL_SPACE_RULE_NAME]: VerticalSpaceMarkdownNode,
   [TABLE_HEAD_CELL_RULE_NAME]: TableHeadCellMarkdownNode,
   [TABLE_BODY_CELL_RULE_NAME]: TableBodyCellMarkdownNode,
   [TABLE_SEPARATOR_RULE_NAME]: TableSeparatorMarkdownNode,
