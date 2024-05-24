@@ -145,11 +145,8 @@ class View extends Element {
   static initialMarkdownStyle = `min-height: initial;
 `;
 
-  static initialMarkdown = `@contents 2
-
-# Primary heading[^heading]
-
-@embed introduction.md
+  static initialMarkdown = `https://occam.science
+  
 `;
 
   static tagName = "div";
