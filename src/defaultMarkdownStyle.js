@@ -29,17 +29,28 @@ tertiaryHeading,
 quaternaryHeading {
   line-height: 1;
   font-weight: bold;
-  margin: 13pt 0 13pt 0;
+}
+
+paragraph,
+tableCell,
+blockListing,
+inlineListing,
+orderedListItem,
+unorderedListItem {
+  font-size: 13pt;
+  line-height: 20pt;
 }
 
 table,
 paragraph,
 orderedList,
 unorderedList,
+blockListing,
 inlineListing,
-blockListing {
-  font-size: 13pt;
-  line-height: 20pt;
+primaryHeading,
+secondaryHeading,
+tertiaryHeading,
+quaternaryHeading {
   margin: 13pt 0 13pt 0;
 }
 
@@ -53,13 +64,13 @@ table,
 paragraph,
 orderedList,
 unorderedList,
-orderedListItem,
-unorderedListItem,
 blockListing,
 primaryHeading,
 secondaryHeading,
 tertiaryHeading,
-quaternaryHeading {
+quaternaryHeading,
+orderedListItem,
+unorderedListItem {
   :first-child {
     margin-top: 0;
   }
@@ -126,7 +137,7 @@ footnoteItem {
   paragraph {
     margin: 0;
     font-size: 11pt;
-    line-height: 13pt;
+    line-height: 17pt;
   }
 }
 
