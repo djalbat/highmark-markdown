@@ -2,41 +2,51 @@
 
 const defaultMarkdownStyle = `
 colour: black;
-padding: 12pt;
+padding: 24pt;
 min-height: 100%;
 font-family: "Computer Modern Serif";
 background-colour: white;
 
 primaryHeading {
   font-size: 32pt;
-  margin: 12pt 0 12pt 0;
 }
 
 secondaryHeading {
   font-size: 24pt;
-  margin: 12pt 0 12pt 0;
 }
 
 tertiaryHeading {
   font-size: 17pt;
-  margin: 12pt 0 12pt 0;
+}
+
+quaternaryHeading {
+  font-size: 13pt;
+}
+
+primaryHeading,
+secondaryHeading,
+tertiaryHeading,
+quaternaryHeading {
+  line-height: 1;
+  font-weight: bold;
+  margin: 13pt 0 13pt 0;
 }
 
 table,
 paragraph,
 orderedList,
 unorderedList,
-blockListing,
-quaternaryHeading {
+inlineListing,
+blockListing {
   font-size: 13pt;
-  line-height: 15pt;
-  margin: 12pt 0 12pt 0;
+  line-height: 20pt;
+  margin: 13pt 0 13pt 0;
 }
 
 orderedListItem,
 unorderedListItem {
-  margin: 6pt 0 6pt 0;z
-  margin-left: 12pt;
+  margin: 6pt 0 6pt 0;
+  margin-left: 13pt;
 }
 
 table,
@@ -59,13 +69,6 @@ quaternaryHeading {
   }
 }
 
-primaryHeading,
-secondaryHeading,
-tertiaryHeading,
-quaternaryHeading {
-  font-weight: bold;
-}
-
 blockListing,
 inlineListing {
   colour: white;
@@ -74,6 +77,7 @@ inlineListing {
 }
 
 blockListing {
+  display: block;
   padding: 6pt;
   overflow-x: scroll;
 }
@@ -81,8 +85,6 @@ blockListing {
 inlineListing {
   display: inline-block;
   padding: 0 3pt 0 3pt;
-  font-size: 13pt;
-  line-height: 15pt;
 }
 
 table {
@@ -95,7 +97,7 @@ tableHead {
 
 tableBodyCell,
 tableHeadCell {
-  padding: 12pt;
+  padding: 13pt;
 }
 
 strongText {
@@ -113,13 +115,13 @@ stronglyEmphasisedText {
 
 footnotesList {
   border-top: 1pt solid black;
-  padding-top: 12pt;
+  padding-top: 13pt;
 }
 
 footnoteItem {
   font-size: 11pt;
-  line-height: 13pt;
-  margin-left: 12pt;
+  line-height: 17pt;
+  margin-left: 13pt;
   
   paragraph {
     margin: 0;
@@ -130,7 +132,7 @@ footnoteItem {
 
 link {
   font-size: 9pt;
-  line-height: 12pt;
+  line-height: 13pt;
   margin-left: 3pt;
   vertical-align: super;
 }
