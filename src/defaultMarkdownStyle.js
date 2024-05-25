@@ -32,9 +32,10 @@ quaternaryHeading {
 }
 
 paragraph,
-tableCell,
 blockListing,
 inlineListing,
+tableHeadCell,
+tableBodyCell,
 orderedListItem,
 unorderedListItem {
   font-size: 13pt;
