@@ -7,27 +7,27 @@ const bnf = `
     
     subDivision..           ::=  ( verticalSpace | <START_OF_CONTENT> ) ( directives 
     
-                                                                    | primaryHeading 
-                             
-                                                                    | secondaryHeading 
-                                                                       
-                                                                    | tertiaryHeading 
-                                                                       
-                                                                    | quaternaryHeading 
-                                                                       
-                                                                    | lineBreak 
-                                                                       
-                                                                    | footnote 
-                                                                       
-                                                                    | orderedList 
-                                                                       
-                                                                    | unorderedList 
-                                                                       
-                                                                    | blockListing 
-                                          
-                                                                    | table 
-                                                                       
-                                                                    | paragraph ) ;
+                                                                        | primaryHeading 
+                                 
+                                                                        | secondaryHeading 
+                                                                           
+                                                                        | tertiaryHeading 
+                                                                           
+                                                                        | quaternaryHeading 
+                                                                           
+                                                                        | lineBreak 
+                                                                           
+                                                                        | footnote 
+                                                                           
+                                                                        | orderedList 
+                                                                           
+                                                                        | unorderedList 
+                                                                           
+                                                                        | blockListing 
+                                              
+                                                                        | table 
+                                                                           
+                                                                        | paragraph ) ;
 
     
     verticalSpace.          ::=  endOfLine+ ;
