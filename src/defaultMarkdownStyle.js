@@ -47,7 +47,6 @@ paragraph,
 orderedList,
 unorderedList,
 blockListing,
-inlineListing,
 primaryHeading,
 secondaryHeading,
 tertiaryHeading,
@@ -61,10 +60,15 @@ unorderedListItem {
   margin-left: 13pt;
 }
 
+inlineListing {
+  margin: 0;
+}
+
 table,
 paragraph,
 orderedList,
 unorderedList,
+inlineListing,
 blockListing,
 primaryHeading,
 secondaryHeading,
