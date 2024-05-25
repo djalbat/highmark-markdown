@@ -1,12 +1,9 @@
 "use strict";
 
 const defaultMarkdownStyle = `
-@media preview {
-  padding: 12pt;
-  min-height: 100%;
-}
-  
 colour: black;
+padding: 12pt;
+min-height: 100%;
 font-family: "Computer Modern Serif";
 background-colour: white;
 
