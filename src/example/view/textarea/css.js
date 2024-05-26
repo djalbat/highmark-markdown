@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import Textarea from "../textarea";
 
-class CSSTreeTextarea extends Textarea {
+class CSSTextarea extends Textarea {
   setCSS(css) {
     const value = css;  ///
 
@@ -26,7 +26,7 @@ class CSSTreeTextarea extends Textarea {
   };
 }
 
-export default withStyle(CSSTreeTextarea)`
+export default withStyle(CSSTextarea)`
 
   height: 24rem;
   

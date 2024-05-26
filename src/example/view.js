@@ -3,22 +3,33 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { MarkdownLexer, MarkdownParser } from "../index";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
+import { MarkdownLexer, MarkdownParser, MarkdownStyleLexer, MarkdownStyleParser } from "../index";
 
 import XMP from "./view/xmp";
 import PreviewDiv from "./view/div/preview";
 import SubHeading from "./view/subHeading";
 import CSSTextarea from "./view/textarea/css";
+import TabButtonsDiv from "./view/div/tabButtons";
 import LeftSizeableDiv from "./view/div/sizeable/left";
-import MarkdownTextarea from "./view/textarea/markdown";
-import MarkdownStyleTextarea from "./view/textarea/markdownStyle";
+import MarkdownContainerDiv from "./view/div/container/markdown";
+import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
-      markdownParser = MarkdownParser.fromNothing();
+      markdownParser = MarkdownParser.fromNothing(),
+      markdownStyleLexer = MarkdownStyleLexer.fromNothing(),
+      markdownStyleParser = MarkdownStyleParser.fromNothing();
 
 class View extends Element {
-  keyUpHandler = (event, element) => {
+  markdownStyleCustomHandler = (event, element) => {
+    this.markdownStyle();
+  }
+
+  markdownCustomHandler = (event, element) => {
+    this.markdown();
+  }
+
+  keyUpCustomHandler = (event, element) => {
     this.update();
   }
 
@@ -28,13 +39,27 @@ class View extends Element {
           css = markdownStyleElement.update(markdownStyle);
 
     this.setCSS(css);
+
+    const lexer = markdownStyleLexer, ///
+          parser = markdownStyleParser, ///
+          content = markdownStyle,  ///
+          tokens = lexer.tokenise(content),
+          node = parser.parse(tokens);
+
+    if (node !== null) {
+      const parseTree = node.asParseTree(tokens);
+
+      this.updateMarkdownStyleParseTreeTextarea(parseTree);
+    } else {
+      this.clearMarkdownStyleParseTreeTextarea();
+    }
   }
 
   updateMarkdown() {
     const markdown = this.getMarkdown(),
+          lexer = markdownLexer,  ///
+          parser =  markdownParser, ///
           content = markdown, ///
-          lexer = markdownLexer,
-          parser =  markdownParser,
           tokens = lexer.tokenise(content),
           node = parser.parse(tokens);
 
@@ -80,11 +105,27 @@ class View extends Element {
       this.updateXMP(htmls);
 
       this.updatePreviewDiv(domElements);
+
+      const parseTree = node.asParseTree(tokens);
+
+      this.updateMarkdownParseTreeTextarea(parseTree);
     } else {
       this.clearXMP();
 
       this.clearPreviewDiv();
+
+      this.clearMarkdownParseTreeTextarea();
     }
+  }
+
+  markdownStyle() {
+    this.hideMarkdownContainerDiv();
+    this.showMarkdownStyleContainerDiv();
+  }
+
+  markdown() {
+    this.showMarkdownContainerDiv();
+    this.hideMarkdownStyleContainerDiv();
   }
 
   update() {
@@ -97,14 +138,9 @@ class View extends Element {
 
       <ColumnsDiv>
         <LeftSizeableDiv>
-          <SubHeading>
-            Markdown
-          </SubHeading>
-          <MarkdownTextarea onKeyUp={this.keyUpHandler} />
-          <SubHeading>
-            Markdown style
-          </SubHeading>
-          <MarkdownStyleTextarea onKeyUp={this.keyUpHandler} />
+          <TabButtonsDiv onCustomMarkdown={this.markdownCustomHandler} onCustomMarkdownStyle={this.markdownStyleCustomHandler} />
+          <MarkdownContainerDiv onCustomKeyUp={this.keyUpCustomHandler} />
+          <MarkdownStyleContainerDiv onCustomKeyUp={this.keyUpCustomHandler} />
         </LeftSizeableDiv>
         <VerticalSplitterDiv/>
         <ColumnDiv>
@@ -145,8 +181,9 @@ class View extends Element {
   static initialMarkdownStyle = `min-height: initial;
 `;
 
-  static initialMarkdown = `https://occam.science
-  
+  static initialMarkdown = `\`\`\`
+git clone git@github.com:djalbat/the-occam-user-manual.git
+\`\`\`
 `;
 
   static tagName = "div";

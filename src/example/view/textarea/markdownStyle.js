@@ -1,6 +1,6 @@
 "use strict";
 
-import withStyle from "easy-with-style";
+import withStyle from "easy-with-style";  ///
 
 import Textarea from "../textarea";
 
@@ -36,6 +36,7 @@ class MarkdownStyleTextarea extends Textarea {
 
 export default withStyle(MarkdownStyleTextarea)`
 
+  width: 100%;
   height: 24rem;
   
 `;

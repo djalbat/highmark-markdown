@@ -36,6 +36,7 @@ class MarkdownTextarea extends Textarea {
 
 export default withStyle(MarkdownTextarea)`
 
+  width: 100%;
   height: 24rem;
   
 `;
