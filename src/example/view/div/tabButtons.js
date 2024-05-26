@@ -7,7 +7,7 @@ import { Element } from "easy";
 import MarkdownTabButton from "../button/tab/markdown";
 import MarkdownStyleTabButton from "../button/tab/markdownStyle";
 
-import { MARKDOWN_CUSTOM_EVENT_TYPE, MARKDOWN_STYLE_CUSTOM_EVENT_TYPE } from "../../../customEventTypes";
+import { MARKDOWN_CUSTOM_EVENT_TYPE, MARKDOWN_STYLE_CUSTOM_EVENT_TYPE } from "../../customEventTypes";
 
 class TabButtonsDiv extends Element {
   markdownStyleTabButtonClickHandler = (event, element) => {

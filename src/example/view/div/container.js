@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import { KEY_UP_CUSTOM_EVENT_TYPE } from "../../../customEventTypes";
+import { KEY_UP_CUSTOM_EVENT_TYPE } from "../../customEventTypes";
 
 class ContainerDiv extends Element {
   keyUpHandler = (event, element) => {
