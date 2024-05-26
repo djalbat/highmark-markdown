@@ -182,7 +182,7 @@ class View extends Element {
 `;
 
   static initialMarkdown = `\`\`\`
-git clone git@github.com:djalbat/the-occam-user-manual.git
+git clone git\\@github.com:djalbat/the-occam-user-manual.git
 \`\`\`
 `;
 
