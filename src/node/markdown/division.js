@@ -9,9 +9,8 @@ import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 import { EMPTY_STRING } from "../../constants";
 import { renumberLinkMarkdownNodes } from "../../utilities/footnotes";
 import { replaceNode, replaceNodes, replaceTokens } from "../../utilities/replace";
-import { embedMarkdownNodesFromNode,
-         headingMarkdownNodesFromNode,
-         footnotesMarkdownNodesFromNode,
+import { headingMarkdownNodesFromNode,
+         embedDirectiveMarkdownNodesFromNode,
          ignoreDirectiveMarkdownNodeFromNode,
          contentsDirectiveMarkdownNodeFromNode,
          footnotesDirectiveMarkdownNodeFromNode } from "../../utilities/query";
@@ -129,10 +128,10 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
   resolveEmbeddings(context) {
     const node = this,  ///
-          embedMarkdownNodes = embedMarkdownNodesFromNode(node);
+          embedDirectiveMarkdownNodes = embedDirectiveMarkdownNodesFromNode(node);
 
-    embedMarkdownNodes.map((embedMarkdownNode) => {
-      const replacementNodeAndTokens = embedMarkdownNode.replacementNodeAndTokens(context);
+    embedDirectiveMarkdownNodes.map((embedDirectiveMarkdownNode) => {
+      const replacementNodeAndTokens = embedDirectiveMarkdownNode.replacementNodeAndTokens(context);
 
       if (replacementNodeAndTokens !== null) {
         let tokens;
@@ -145,9 +144,9 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
         ({ tokens } = context);
 
-        const childNode = embedMarkdownNode,  ///
+        const childNode = embedDirectiveMarkdownNode,  ///
               parentNode = this.findParentNode(childNode),
-              replacedNode = embedMarkdownNode; ///
+              replacedNode = embedDirectiveMarkdownNode; ///
 
         replaceNodes(replacementNodes, replacedNode, parentNode);
 

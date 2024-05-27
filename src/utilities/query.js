@@ -5,15 +5,15 @@ import { arrayUtilities } from "necessary";
 
 const { first, push } = arrayUtilities;
 
-const linkMarkdownNodesQuery = Query.fromExpression(`//link`),
-      embedMarkdownNodesQuery = Query.fromExpression(`//embed`),
-      headingMarkdownNodesQuery = Query.fromExpression(`//primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading`),
-      footnoteMarkdownNodesQuery = Query.fromExpression(`//footnote`),
-      footnotesMarkdownNodesQuery = Query.fromExpression(`//footnotes`),
-      ignoreDirectiveMarkdownNodeQuery = Query.fromExpression(`//ignoreDirective`),
-      contentsDirectiveMarkdownNodeQuery = Query.fromExpression(`//contentsDirective`),
-      footnotesDirectiveMarkdownNodeQuery = Query.fromExpression(`//footnotesDirective`),
-      linkFootnoteOrFootnotesMarkdownNodesQuery = Query.fromExpression(`//link|footnote|footnotes`);
+const linkMarkdownNodesQuery = Query.fromExpression("//link"),
+      headingMarkdownNodesQuery = Query.fromExpression("//primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),
+      footnoteMarkdownNodesQuery = Query.fromExpression("//footnote"),
+      footnotesMarkdownNodesQuery = Query.fromExpression("//footnotes"),
+      embedDirectiveMarkdownNodesQuery = Query.fromExpression("//embedDirective"),
+      ignoreDirectiveMarkdownNodeQuery = Query.fromExpression("//ignoreDirective"),
+      contentsDirectiveMarkdownNodeQuery = Query.fromExpression("//contentsDirective"),
+      footnotesDirectiveMarkdownNodeQuery = Query.fromExpression("//footnotesDirective"),
+      linkFootnoteOrFootnotesMarkdownNodesQuery = Query.fromExpression("//link|footnote|footnotes");
 
 export function nodeQuery(expression) {
   const query = Query.fromExpression(expression);
@@ -50,12 +50,6 @@ export function linkMarkdownNodesFromNode(node, linkMarkdownNodes = []) {
   return linkMarkdownNodes;
 }
 
-export function embedMarkdownNodesFromNode(node, embedMarkdownNodes = []) {
-  nodesFromNodeAndQuery(node, embedMarkdownNodesQuery, embedMarkdownNodes);
-
-  return embedMarkdownNodes;
-}
-
 export function headingMarkdownNodesFromNode(node, headingMarkdownNodes = []) {
   nodesFromNodeAndQuery(node, headingMarkdownNodesQuery, headingMarkdownNodes);
 
@@ -72,6 +66,12 @@ export function footnotesMarkdownNodesFromNode(node, footnotesMarkdownNodes = []
   nodesFromNodeAndQuery(node, footnotesMarkdownNodesQuery, footnotesMarkdownNodes);
 
   return footnotesMarkdownNodes;
+}
+
+export function embedDirectiveMarkdownNodesFromNode(node, embedDirectiveMarkdownNodes = []) {
+  nodesFromNodeAndQuery(node, embedDirectiveMarkdownNodesQuery, embedDirectiveMarkdownNodes);
+
+  return embedDirectiveMarkdownNodes;
 }
 
 export function ignoreDirectiveMarkdownNodeFromNode(node) {
@@ -100,10 +100,10 @@ export function linkFootnoteOrFootnotesMarkdownNodesFromNode(node, linkFootnoteO
 
 export default {
   linkMarkdownNodesFromNode,
-  embedMarkdownNodesFromNode,
   headingMarkdownNodesFromNode,
   footnoteMarkdownNodesFromNode,
   footnotesMarkdownNodesFromNode,
+  embedDirectiveMarkdownNodesFromNode,
   ignoreDirectiveMarkdownNodeFromNode,
   contentsDirectiveMarkdownNodeFromNode,
   footnotesDirectiveMarkdownNodeFromNode,
