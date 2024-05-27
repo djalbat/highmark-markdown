@@ -5,7 +5,7 @@ import MarkdownNode from "../../node/markdown";
 import { isIndexOdd } from "../../utilities/index";
 import { EMPTY_STRING } from "../../constants";
 
-export default class UnorderedListItemMarkdownNode extends MarkdownNode {
+export default class ListItemMarkdownNode extends MarkdownNode {
   childNodesAsHTML(indent, context) {
     let childNodesHTML = EMPTY_STRING;
 
@@ -40,5 +40,5 @@ export default class UnorderedListItemMarkdownNode extends MarkdownNode {
     });
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(UnorderedListItemMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity); }
 }
