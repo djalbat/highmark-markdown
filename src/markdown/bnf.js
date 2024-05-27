@@ -109,13 +109,13 @@ const bnf = `
     tableBody               ::=  tableBodyRow+ ;
 
     
-    tableSeparator          ::=  [many-dashes] endOfLine ;
+    tableSeparator          ::=  [dashes] endOfLine ;
 
     
     orderedListItem.        ::=  marker line ;
     
     
-    unorderedListItem       ::=  bullet line ;
+    unorderedListItem       ::=  [bullet] line ;
 
 
     blockListingStart       ::=  [backticks] className? endOfLine ;
@@ -208,11 +208,11 @@ const bnf = `
                               
                               |  [hashes]
                               
-                              |  [single-dash] 
+                              |  [bullet] 
                               
                               |  [vertical-bar] 
                               
-                              |  [many-dashes] 
+                              |  [dashes] 
                               
                               |  [number] 
                               
@@ -240,9 +240,6 @@ const bnf = `
     
 
     marker.                 ::=  [number]<NO_WHITESPACE>"." ;
-
-
-    bullet.                 ::=  [single-dash] | [single-asterisk] ;
 
 
     className               ::=  <NO_WHITESPACE>[identifier] ;

@@ -11,10 +11,10 @@ const entries = [
     "hashes": "^#{1,4}"
   },
   {
-    "many-dashes": "^-{3,}"
+    "dashes": "^-{3,}"
   },
   {
-    "single-dash": "^-"
+    "bullet": "^(?:-|\\*)"
   },
   {
     "vertical-bar": "^\\|"

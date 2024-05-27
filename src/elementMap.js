@@ -2,19 +2,13 @@
 
 import { LINK_RULE_NAME,
          LINE_RULE_NAME,
-         EMBED_DIRECTIVE_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
          MARKER_RULE_NAME,
-         BULLET_RULE_NAME,
-         IGNORE_DIRECTIVE_RULE_NAME,
-         INCLUDE_DIRECTIVE_RULE_NAME,
-         CONTENTS_DIRECTIVE_RULE_NAME,
          DIVISION_RULE_NAME,
          FOOTNOTE_RULE_NAME,
-         FOOTNOTES_DIRECTIVE_RULE_NAME,
          REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
@@ -47,13 +41,18 @@ import { LINK_RULE_NAME,
          TABLE_SEPARATOR_RULE_NAME,
          EMPHASISED_TEXT_RULE_NAME,
          PRIMARY_HEADING_RULE_NAME,
+         EMBED_DIRECTIVE_RULE_NAME,
          TERTIARY_HEADING_RULE_NAME,
+         IGNORE_DIRECTIVE_RULE_NAME,
          ORDERED_LIST_ITEM_RULE_NAME,
          BLOCK_LISTING_END_RULE_NAME,
          SECONDARY_HEADING_RULE_NAME,
+         INCLUDE_DIRECTIVE_RULE_NAME,
          QUATERNARY_HEADING_RULE_NAME,
+         CONTENTS_DIRECTIVE_RULE_NAME,
          BLOCK_LISTING_START_RULE_NAME,
          UNORDERED_LIST_ITEM_RULE_NAME,
+         FOOTNOTES_DIRECTIVE_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "./ruleNames";
 
 const elementMap = {
@@ -64,10 +63,6 @@ const elementMap = {
   [LINE_RULE_NAME]: {
     tagName: "span",
     className: "line"
-  },
-  [EMBED_DIRECTIVE_RULE_NAME]: {
-    tagName: null,
-    className: null
   },
   [IMAGE_RULE_NAME]: {
     tagName: "img",
@@ -89,31 +84,11 @@ const elementMap = {
     tagName: null,
     className: null
   },
-  [BULLET_RULE_NAME]: {
-    tagName: null,
-    className: null
-  },
-  [IGNORE_DIRECTIVE_RULE_NAME]: {
-    tagName: null,
-    className: null
-  },
-  [INCLUDE_DIRECTIVE_RULE_NAME]: {
-    tagName: null,
-    className: null
-  },
-  [CONTENTS_DIRECTIVE_RULE_NAME]: {
-    tagName: null,
-    className: null
-  },
   [DIVISION_RULE_NAME]: {
     tagName: "div",
     className: null
   },
   [FOOTNOTE_RULE_NAME]: {
-    tagName: null,
-    className: null
-  },
-  [FOOTNOTES_DIRECTIVE_RULE_NAME]: {
     tagName: null,
     className: null
   },
@@ -245,8 +220,16 @@ const elementMap = {
     tagName: "h1",
     className: null
   },
+  [EMBED_DIRECTIVE_RULE_NAME]: {
+    tagName: null,
+    className: null
+  },
   [TERTIARY_HEADING_RULE_NAME]: {
     tagName: "h3",
+    className: null
+  },
+  [IGNORE_DIRECTIVE_RULE_NAME]: {
+    tagName: null,
     className: null
   },
   [ORDERED_LIST_ITEM_RULE_NAME]: {
@@ -261,8 +244,16 @@ const elementMap = {
     tagName: "h2",
     className: null
   },
+  [INCLUDE_DIRECTIVE_RULE_NAME]: {
+    tagName: null,
+    className: null
+  },
   [QUATERNARY_HEADING_RULE_NAME]: {
     tagName: "h4",
+    className: null
+  },
+  [CONTENTS_DIRECTIVE_RULE_NAME]: {
+    tagName: null,
     className: null
   },
   [BLOCK_LISTING_START_RULE_NAME]: {
@@ -271,6 +262,10 @@ const elementMap = {
   },
   [UNORDERED_LIST_ITEM_RULE_NAME]: {
     tagName: "li",
+    className: null
+  },
+  [FOOTNOTES_DIRECTIVE_RULE_NAME]: {
+    tagName: null,
     className: null
   },
   [STRONGLY_EMPHASISED_TEXT_RULE_NAME]: {

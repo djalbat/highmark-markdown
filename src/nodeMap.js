@@ -7,7 +7,6 @@ import TableMarkdownNode from "./node/markdown/table";
 import ErrorMarkdownNode from "./node/markdown/error";
 import AnchorMarkdownNode from "./node/markdown/anchor";
 import MarkerMarkdownNode from "./node/markdown/marker";
-import BulletMarkdownNode from "./node/markdown/bullet";
 import DivisionMarkdownNode from "./node/markdown/division";
 import FootnoteMarkdownNode from "./node/markdown/footnote";
 import ReferenceMarkdownNode from "./node/markdown/reference";
@@ -62,7 +61,6 @@ import { LINK_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
          MARKER_RULE_NAME,
-         BULLET_RULE_NAME,
          DIVISION_RULE_NAME,
          FOOTNOTE_RULE_NAME,
          REFERENCE_RULE_NAME,
@@ -118,7 +116,6 @@ const nodeMap = {
   [ERROR_RULE_NAME]: ErrorMarkdownNode,
   [ANCHOR_RULE_NAME]: AnchorMarkdownNode,
   [MARKER_RULE_NAME]: MarkerMarkdownNode,
-  [BULLET_RULE_NAME]: BulletMarkdownNode,
   [DIVISION_RULE_NAME]: DivisionMarkdownNode,
   [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
   [REFERENCE_RULE_NAME]: ReferenceMarkdownNode,
