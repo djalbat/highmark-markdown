@@ -4,6 +4,8 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
+import { isIndexOdd } from "../../utilities/index";
+import { EMPTY_STRING } from "../../constants";
 import { VALUE_ATTRIBUTE_NAME } from "../../attributeNames";
 
 const { first, second } = arrayUtilities;
@@ -32,22 +34,37 @@ export default class OrderedListItemMarkdownNode extends MarkdownNode {
   }
 
   childNodesAsHTML(indent, context) {
-    const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          markedTextChildNode = secondChildNode, ///
-          markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context),
-          childNodesHTML = markedTextChildNodeChildNodesHTML; ///
+    let childNodesHTML = EMPTY_STRING;
+
+    const childNodes = this.getChildNodes();
+
+    childNodes.forEach((childNode, index) => {
+      const indexOdd = isIndexOdd(index);
+
+      if (indexOdd) {
+        const markedTextChildNode = childNode, ///
+              markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context);
+
+        childNodesHTML = `${childNodesHTML}${markedTextChildNodeChildNodesHTML}`;
+      }
+    });
 
     return childNodesHTML;
   }
 
   createChildNodeDOMElements(context) {
     const domElement = this.getDOMElement(),
-          childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          markedTextChildNode = secondChildNode; ///
+          childNodes = this.getChildNodes();
 
-    markedTextChildNode.createChildNodeDOMElements(domElement, context);
+    childNodes.forEach((childNode, index) => {
+      const indexOdd = isIndexOdd(index);
+
+      if (indexOdd) {
+        const markedTextChildNode = childNode; ///
+
+        markedTextChildNode.createChildNodeDOMElements(domElement, context);
+      }
+    });
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(OrderedListItemMarkdownNode, ruleName, childNodes, opacity); }

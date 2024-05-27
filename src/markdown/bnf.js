@@ -117,10 +117,10 @@ const bnf = `
     tableBody               ::=  tableBodyRow ;
 
     
-    orderedListItem         ::=  [marker] markedText ;
+    orderedListItem         ::=  [marker] markedText ( <END_OF_LINE> markedText )* ;
     
     
-    unorderedListItem       ::=  [bullet] markedText ;
+    unorderedListItem       ::=  [bullet] markedText ( <END_OF_LINE> markedText )* ;
 
 
     blockListingStart       ::=  [backticks] className? endOfLine ;

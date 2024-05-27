@@ -1,29 +1,43 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
 
-const { first } = arrayUtilities;
+import { isIndexEven } from "../../utilities/index";
+import { EMPTY_STRING } from "../../constants";
 
 export default class ParagraphMarkdownNode extends MarkdownNode {
   childNodesAsHTML(indent, context) {
-    const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          markedTextChildNode = firstChildNode, ///
-          markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context),
-          childNodesHTML = markedTextChildNodeChildNodesHTML; ///
+    let childNodesHTML = EMPTY_STRING;
+
+    const childNodes = this.getChildNodes();
+
+    childNodes.forEach((childNode, index) => {
+      const indexEven = isIndexEven(index);
+
+      if (indexEven) {
+        const markedTextChildNode = childNode, ///
+              markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context);
+
+        childNodesHTML = `${childNodesHTML}${markedTextChildNodeChildNodesHTML}`;
+      }
+    });
 
     return childNodesHTML;
   }
 
   createChildNodeDOMElements(context) {
     const domElement = this.getDOMElement(),
-          childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          markedTextChildNode = firstChildNode; ///
+          childNodes = this.getChildNodes();
 
-    markedTextChildNode.createChildNodeDOMElements(domElement, context);
+    childNodes.forEach((childNode, index) => {
+      const indexEven = isIndexEven(index);
+
+      if (indexEven) {
+        const markedTextChildNode = childNode; ///
+
+        markedTextChildNode.createChildNodeDOMElements(domElement, context);
+      }
+    });
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ParagraphMarkdownNode, ruleName, childNodes, opacity); }
