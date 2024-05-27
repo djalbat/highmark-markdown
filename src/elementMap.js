@@ -1,7 +1,6 @@
 "use strict";
 
 import { LINK_RULE_NAME,
-         LINE_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
@@ -36,7 +35,6 @@ import { LINK_RULE_NAME,
          FOOTNOTES_LIST_RULE_NAME,
          TABLE_HEAD_CELL_RULE_NAME,
          TABLE_BODY_CELL_RULE_NAME,
-         TABLE_SEPARATOR_RULE_NAME,
          EMPHASISED_TEXT_RULE_NAME,
          PRIMARY_HEADING_RULE_NAME,
          EMBED_DIRECTIVE_RULE_NAME,
@@ -57,10 +55,6 @@ const elementMap = {
   [LINK_RULE_NAME]: {
     tagName: "a",
     className: "link"
-  },
-  [LINE_RULE_NAME]: {
-    tagName: "span",
-    className: "line"
   },
   [IMAGE_RULE_NAME]: {
     tagName: "img",
@@ -196,10 +190,6 @@ const elementMap = {
   },
   [TABLE_BODY_CELL_RULE_NAME]: {
     tagName: "td",
-    className: null
-  },
-  [TABLE_SEPARATOR_RULE_NAME]: {
-    tagName: null,
     className: null
   },
   [EMPHASISED_TEXT_RULE_NAME]: {

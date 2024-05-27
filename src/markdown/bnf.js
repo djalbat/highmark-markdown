@@ -49,52 +49,60 @@ const bnf = `
     
                                  | contentsDirective 
     
-                                 | footnotesDirective )+ ;
+                                 | footnotesDirective ) ( endOfLine ( embedDirective 
+    
+                                                                    | ignoreDirective 
+                                        
+                                                                    | includeDirective 
+                                        
+                                                                    | contentsDirective 
+                                        
+                                                                    | footnotesDirective ) )* ;
 
 
-    primaryHeading          ::=  "#" line ;
+    primaryHeading          ::=  "#" markedText ;
 
 
-    secondaryHeading        ::=  "##" line ;
+    secondaryHeading        ::=  "##" markedText ;
 
 
-    tertiaryHeading         ::=  "###" line ;
+    tertiaryHeading         ::=  "###" markedText ;
     
     
-    quaternaryHeading       ::=  "####" line ;
+    quaternaryHeading       ::=  "####" markedText ;
 
 
-    table                   ::=  tableHead tableSeparator tableBody ;
+    table                   ::=  tableHead <END_OF_LINE> [dashes] <END_OF_LINE> tableBody ;
 
 
     footnote                ::=  [reference] paragraph ;
 
 
-    orderedList             ::=  orderedListItem+ ;
+    orderedList             ::=  orderedListItem ( <END_OF_LINE> orderedListItem )* ;
 
 
-    unorderedList           ::=  unorderedListItem+ ;
+    unorderedList           ::=  unorderedListItem ( <END_OF_LINE> unorderedListItem )* ;
 
 
     blockListing            ::=  blockListingStart blockText blockListingEnd ;
 
 
-    paragraph               ::=  line+ ;
+    paragraph               ::=  markedText ( <END_OF_LINE> markedText )* ;
     
 
-    embedDirective          ::=  "@"<NO_WHITESPACE>"embed" [path] endOfLine ;
+    embedDirective          ::=  "@"<NO_WHITESPACE>"embed" [path] ;
 
 
     ignoreDirective         ::=  "@"<NO_WHITESPACE>"ignore" ;
 
 
-    includeDirective        ::=  "@"<NO_WHITESPACE>"include" [path] endOfLine ;
+    includeDirective        ::=  "@"<NO_WHITESPACE>"include" [path] ;
 
 
-    contentsDirective       ::=  "@"<NO_WHITESPACE>"contents" [number]? endOfLine ;
+    contentsDirective       ::=  "@"<NO_WHITESPACE>"contents" [number]? ;
 
 
-    footnotesDirective      ::=  "@"<NO_WHITESPACE>"footnotes" endOfLine ;
+    footnotesDirective      ::=  "@"<NO_WHITESPACE>"footnotes" ;
 
 
     footnotesList           ::=  footnoteItem+ ;
@@ -106,16 +114,13 @@ const bnf = `
     tableHead               ::=  tableHeadRow ;
 
     
-    tableBody               ::=  tableBodyRow+ ;
+    tableBody               ::=  tableBodyRow ;
 
     
-    tableSeparator          ::=  [dashes] endOfLine ;
-
-    
-    orderedListItem.        ::=  [marker] line ;
+    orderedListItem         ::=  [marker] markedText ;
     
     
-    unorderedListItem       ::=  [bullet] line ;
+    unorderedListItem       ::=  [bullet] markedText ;
 
 
     blockListingStart       ::=  [backticks] className? endOfLine ;
@@ -124,10 +129,10 @@ const bnf = `
     blockListingEnd         ::=  [backticks] endOfLine ;
 
 
-    tableHeadRow            ::=  [vertical-bar] tableHeadCell+ endOfLine ;
+    tableHeadRow            ::=  [vertical-bar] tableHeadCell+ ;
 
     
-    tableBodyRow            ::=  [vertical-bar] tableBodyCell+ endOfLine ;
+    tableBodyRow            ::=  [vertical-bar] tableBodyCell+ ;
 
 
     blockText.              ::=  plainText ( endOfLine | plainText )+ ;
@@ -145,9 +150,6 @@ const bnf = `
     tableCell.              ::=  markedText... [vertical-bar] ;
     
     
-    line.                   ::=  markedText endOfLine ;
-
-
     markedText              ::=  ( link 
     
                                  | image 
@@ -204,23 +206,9 @@ const bnf = `
     
     plainText               ::=  [escaped] 
                               
-                              |  [asterisks] 
-                              
-                              |  [hashes]
-                              
-                              |  [bullet] 
-                              
-                              |  [vertical-bar] 
-                              
-                              |  [dashes] 
-                              
                               |  [number] 
                               
                               |  [path] 
-                              
-                              |  [domain] 
-                              
-                              |  [scheme] 
                               
                               |  [identifier] 
                               

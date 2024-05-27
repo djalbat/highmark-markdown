@@ -4,8 +4,7 @@ import MarkdownNode from "../../node/markdown";
 
 export default class DirectivesMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
-    const childNodesHTML = this.childNodesAsHTML(indent, context),
-          html = childNodesHTML;  ///
+    const html = null;
 
     return html;
   }

@@ -31,6 +31,25 @@ export default class OrderedListItemMarkdownNode extends MarkdownNode {
     return attributeValue;
   }
 
+  childNodesAsHTML(indent, context) {
+    const childNodes = this.getChildNodes(),
+          secondChildNode = second(childNodes),
+          markedTextChildNode = secondChildNode, ///
+          markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context),
+          childNodesHTML = markedTextChildNodeChildNodesHTML; ///
+
+    return childNodesHTML;
+  }
+
+  createChildNodeDOMElements(context) {
+    const domElement = this.getDOMElement(),
+          childNodes = this.getChildNodes(),
+          secondChildNode = second(childNodes),
+          markedTextChildNode = secondChildNode; ///
+
+    markedTextChildNode.createChildNodeDOMElements(domElement, context);
+  }
+
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(OrderedListItemMarkdownNode, ruleName, childNodes, opacity); }
 }
 

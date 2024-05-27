@@ -1,7 +1,6 @@
 "use strict";
 
 export const LINK_RULE_NAME = "link";
-export const LINE_RULE_NAME = "line";
 export const IMAGE_RULE_NAME = "image";
 export const TABLE_RULE_NAME = "table";
 export const ERROR_RULE_NAME = "error";
@@ -37,7 +36,6 @@ export const FOOTNOTES_LIST_RULE_NAME = "footnotesList";
 export const VERTICAL_SPACE_RULE_NAME = "verticalSpace";
 export const TABLE_HEAD_CELL_RULE_NAME = "tableHeadCell";
 export const TABLE_BODY_CELL_RULE_NAME = "tableBodyCell";
-export const TABLE_SEPARATOR_RULE_NAME = "tableSeparator";
 export const EMPHASISED_TEXT_RULE_NAME = "emphasisedText";
 export const PRIMARY_HEADING_RULE_NAME = "primaryHeading";
 export const EMBED_DIRECTIVE_RULE_NAME = "embedDirective";
@@ -57,7 +55,6 @@ export const STRONGLY_EMPHASISED_TEXT_RULE_NAME = "stronglyEmphasisedText";
 
 const ruleNames = {
   LINK_RULE_NAME,
-  LINE_RULE_NAME,
   IMAGE_RULE_NAME,
   TABLE_RULE_NAME,
   ERROR_RULE_NAME,
@@ -93,7 +90,6 @@ const ruleNames = {
   VERTICAL_SPACE_RULE_NAME,
   TABLE_HEAD_CELL_RULE_NAME,
   TABLE_BODY_CELL_RULE_NAME,
-  TABLE_SEPARATOR_RULE_NAME,
   EMPHASISED_TEXT_RULE_NAME,
   PRIMARY_HEADING_RULE_NAME,
   EMBED_DIRECTIVE_RULE_NAME,

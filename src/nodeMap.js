@@ -1,7 +1,6 @@
 "use strict";
 
 import LinkMarkdownNode from "./node/markdown/link";
-import LineMarkdownNode from "./node/markdown/line";
 import ImageMarkdownNode from "./node/markdown/image";
 import TableMarkdownNode from "./node/markdown/table";
 import ErrorMarkdownNode from "./node/markdown/error";
@@ -34,7 +33,6 @@ import FootnotesListMarkdownNode from "./node/markdown/footnotesList";
 import VerticalSpaceMarkdownNode from "./node/markdown/verticalSpace";
 import TableHeadCellMarkdownNode from "./node/markdown/tableHeadCell";
 import TableBodyCellMarkdownNode from "./node/markdown/tableBodyCell";
-import TableSeparatorMarkdownNode from "./node/markdown/tableSeparator";
 import EmphasisedTextMarkdownNode from "./node/markdown/emphasisedText";
 import PrimaryHeadingMarkdownNode from "./node/markdown/heading/primary";
 import EmptyTableCellMarkdownNode from "./node/markdown/emptyTableCell";
@@ -53,7 +51,6 @@ import FootnotesDirectiveMarkdownNode from "./node/markdown/directive/footnotes"
 import StronglyEmphasisedTextMarkdownNode from "./node/markdown/stronglyEmphasisedText";
 
 import { LINK_RULE_NAME,
-         LINE_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
@@ -86,7 +83,6 @@ import { LINK_RULE_NAME,
          VERTICAL_SPACE_RULE_NAME,
          TABLE_HEAD_CELL_RULE_NAME,
          TABLE_BODY_CELL_RULE_NAME,
-         TABLE_SEPARATOR_RULE_NAME,
          EMPHASISED_TEXT_RULE_NAME,
          PRIMARY_HEADING_RULE_NAME,
          EMBED_DIRECTIVE_RULE_NAME,
@@ -106,7 +102,6 @@ import { LINK_RULE_NAME,
 
 const nodeMap = {
   [LINK_RULE_NAME]: LinkMarkdownNode,
-  [LINE_RULE_NAME]: LineMarkdownNode,
   [IMAGE_RULE_NAME]: ImageMarkdownNode,
   [TABLE_RULE_NAME]: TableMarkdownNode,
   [ERROR_RULE_NAME]: ErrorMarkdownNode,
@@ -139,7 +134,6 @@ const nodeMap = {
   [VERTICAL_SPACE_RULE_NAME]: VerticalSpaceMarkdownNode,
   [TABLE_HEAD_CELL_RULE_NAME]: TableHeadCellMarkdownNode,
   [TABLE_BODY_CELL_RULE_NAME]: TableBodyCellMarkdownNode,
-  [TABLE_SEPARATOR_RULE_NAME]: TableSeparatorMarkdownNode,
   [EMPHASISED_TEXT_RULE_NAME]: EmphasisedTextMarkdownNode,
   [PRIMARY_HEADING_RULE_NAME]: PrimaryHeadingMarkdownNode,
   [EMBED_DIRECTIVE_RULE_NAME]: EmbedDirectiveMarkdownNode,

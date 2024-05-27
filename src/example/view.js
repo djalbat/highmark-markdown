@@ -181,13 +181,9 @@ class View extends Element {
   static initialMarkdownStyle = `min-height: initial;
 `;
 
-  static initialMarkdown = `1. Occam [^occam]
-
-
-[^occam]: Occam
-
-
-@footnotes
+  static initialMarkdown = `Paragraph.
+  
+  
 `;
 
   static tagName = "div";

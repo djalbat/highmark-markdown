@@ -12,7 +12,7 @@ export default class TableCellMarkdownNode extends MarkdownNode {
           firstChildNode = first(childNodes),
           markedTextChildNode = firstChildNode, ///
           markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context),
-          childNodesHTML = `${markedTextChildNodeChildNodesHTML}\n`;
+          childNodesHTML = markedTextChildNodeChildNodesHTML; ///
 
     return childNodesHTML;
   }
