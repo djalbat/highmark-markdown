@@ -2,23 +2,17 @@
 
 export const LINK_RULE_NAME = "link";
 export const LINE_RULE_NAME = "line";
-export const EMBED_RULE_NAME = "embed";
 export const IMAGE_RULE_NAME = "image";
 export const TABLE_RULE_NAME = "table";
 export const ERROR_RULE_NAME = "error";
 export const ANCHOR_RULE_NAME = "anchor";
 export const MARKER_RULE_NAME = "marker";
 export const BULLET_RULE_NAME = "bullet";
-export const IGNORE_RULE_NAME = "ignore";
-export const INCLUDE_RULE_NAME = "include";
-export const CONTENTS_RULE_NAME = "contents";
 export const DIVISION_RULE_NAME = "division";
 export const FOOTNOTE_RULE_NAME = "footnote";
-export const FOOTNOTES_RULE_NAME = "footnotes";
 export const REFERENCE_RULE_NAME = "reference";
 export const PARAGRAPH_RULE_NAME = "paragraph";
 export const HYPERLINK_RULE_NAME = "hyperlink";
-export const LINE_BREAK_RULE_NAME = "lineBreak";
 export const TABLE_CELL_RULE_NAME = "tableCell";
 export const TABLE_HEAD_RULE_NAME = "tableHead";
 export const TABLE_BODY_RULE_NAME = "tableBody";
@@ -49,36 +43,35 @@ export const TABLE_BODY_CELL_RULE_NAME = "tableBodyCell";
 export const TABLE_SEPARATOR_RULE_NAME = "tableSeparator";
 export const EMPHASISED_TEXT_RULE_NAME = "emphasisedText";
 export const PRIMARY_HEADING_RULE_NAME = "primaryHeading";
+export const EMBED_DIRECTIVE_RULE_NAME = "embedDirective";
 export const EMPTY_TABLE_CELL_RULE_NAME = "emptyTableCell";
 export const TERTIARY_HEADING_RULE_NAME = "tertiaryHeading";
+export const IGNORE_DIRECTIVE_RULE_NAME = "ignoreDirective";
 export const ORDERED_LIST_ITEM_RULE_NAME = "orderedListItem";
 export const BLOCK_LISTING_END_RULE_NAME = "blockListingEnd";
 export const SECONDARY_HEADING_RULE_NAME = "secondaryHeading";
+export const INCLUDE_DIRECTIVE_RULE_NAME = "includeDirective";
 export const QUATERNARY_HEADING_RULE_NAME = "quaternaryHeading";
+export const CONTENTS_DIRECTIVE_RULE_NAME = "contentsDirective";
 export const BLOCK_LISTING_START_RULE_NAME = "blockListingStart";
 export const UNORDERED_LIST_ITEM_RULE_NAME = "unorderedListItem";
+export const FOOTNOTES_DIRECTIVE_RULE_NAME = "footnotesDirective";
 export const STRONGLY_EMPHASISED_TEXT_RULE_NAME = "stronglyEmphasisedText";
 
 const ruleNames = {
   LINK_RULE_NAME,
   LINE_RULE_NAME,
-  EMBED_RULE_NAME,
   IMAGE_RULE_NAME,
   TABLE_RULE_NAME,
   ERROR_RULE_NAME,
   ANCHOR_RULE_NAME,
   MARKER_RULE_NAME,
   BULLET_RULE_NAME,
-  IGNORE_RULE_NAME,
-  INCLUDE_RULE_NAME,
-  CONTENTS_RULE_NAME,
   DIVISION_RULE_NAME,
   FOOTNOTE_RULE_NAME,
-  FOOTNOTES_RULE_NAME,
   REFERENCE_RULE_NAME,
   PARAGRAPH_RULE_NAME,
   HYPERLINK_RULE_NAME,
-  LINE_BREAK_RULE_NAME,
   TABLE_CELL_RULE_NAME,
   TABLE_HEAD_RULE_NAME,
   TABLE_BODY_RULE_NAME,
@@ -109,14 +102,19 @@ const ruleNames = {
   TABLE_SEPARATOR_RULE_NAME,
   EMPHASISED_TEXT_RULE_NAME,
   PRIMARY_HEADING_RULE_NAME,
+  EMBED_DIRECTIVE_RULE_NAME,
   EMPTY_TABLE_CELL_RULE_NAME,
   TERTIARY_HEADING_RULE_NAME,
+  IGNORE_DIRECTIVE_RULE_NAME,
   ORDERED_LIST_ITEM_RULE_NAME,
   BLOCK_LISTING_END_RULE_NAME,
   SECONDARY_HEADING_RULE_NAME,
+  INCLUDE_DIRECTIVE_RULE_NAME,
   QUATERNARY_HEADING_RULE_NAME,
+  CONTENTS_DIRECTIVE_RULE_NAME,
   BLOCK_LISTING_START_RULE_NAME,
   UNORDERED_LIST_ITEM_RULE_NAME,
+  FOOTNOTES_DIRECTIVE_RULE_NAME,
   STRONGLY_EMPHASISED_TEXT_RULE_NAME
 };
 

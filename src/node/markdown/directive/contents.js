@@ -2,11 +2,11 @@
 
 import { arrayUtilities } from "necessary";
 
-import MarkdownNode from "../../node/markdown";
+import MarkdownNode from "../../../node/markdown";
 
 const { fourth } = arrayUtilities;
 
-export default class ContentsMarkdownNode extends MarkdownNode {
+export default class ContentsDirectiveMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
     const html = null;
 
@@ -45,5 +45,5 @@ export default class ContentsMarkdownNode extends MarkdownNode {
     return minimumPosition;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ContentsMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ContentsDirectiveMarkdownNode, ruleName, childNodes, opacity); }
 }

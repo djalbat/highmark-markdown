@@ -2,23 +2,17 @@
 
 import LinkMarkdownNode from "./node/markdown/link";
 import LineMarkdownNode from "./node/markdown/line";
-import EmbedMarkdownNode from "./node/markdown/embee";
 import ImageMarkdownNode from "./node/markdown/image";
 import TableMarkdownNode from "./node/markdown/table";
 import ErrorMarkdownNode from "./node/markdown/error";
 import AnchorMarkdownNode from "./node/markdown/anchor";
 import MarkerMarkdownNode from "./node/markdown/marker";
 import BulletMarkdownNode from "./node/markdown/bullet";
-import IgnoreMarkdownNode from "./node/markdown/ignore";
-import IncludeMarkdownNode from "./node/markdown/include";
-import ContentsMarkdownNode from "./node/markdown/contents";
 import DivisionMarkdownNode from "./node/markdown/division";
 import FootnoteMarkdownNode from "./node/markdown/footnote";
-import FootnotesMarkdownNode from "./node/markdown/footnotes";
 import ReferenceMarkdownNode from "./node/markdown/reference";
 import ParagraphMarkdownNode from "./node/markdown/paragraph";
 import HyperlinkMarkdownNode from "./node/markdown/hyperlink";
-import LineBreakMarkdownNode from "./node/markdown/lineBreak";
 import TableCellMarkdownNode from "./node/markdown/tableCell";
 import TableHeadMarkdownNode from "./node/markdown/tableHead";
 import TableBodyMarkdownNode from "./node/markdown/tableBody";
@@ -47,34 +41,33 @@ import TableSeparatorMarkdownNode from "./node/markdown/tableSeparator";
 import EmphasisedTextMarkdownNode from "./node/markdown/emphasisedText";
 import PrimaryHeadingMarkdownNode from "./node/markdown/heading/primary";
 import EmptyTableCellMarkdownNode from "./node/markdown/emptyTableCell";
+import EmbedDirectiveMarkdownNode from "./node/markdown/directive/embee";
 import TertiaryHeadingMarkdownNode from "./node/markdown/heading/tertiary";
 import OrderedListItemMarkdownNode from "./node/markdown/orderedListItem";
 import BlockListingEndMarkdownNode from "./node/markdown/blockListingEnd";
+import IgnoreDirectiveMarkdownNode from "./node/markdown/directive/ignore";
 import SecondaryHeadingMarkdownNode from "./node/markdown/heading/secondary";
+import IncludeDirectiveMarkdownNode from "./node/markdown/directive/include";
 import QuaternaryHeadingMarkdownNode from "./node/markdown/heading/quaternary";
 import BlockListingStartMarkdownNode from "./node/markdown/blockListingStart";
 import UnorderedListItemMarkdownNode from "./node/markdown/unorderedListItem";
+import ContentsDirectiveMarkdownNode from "./node/markdown/directive/contents";
+import FootnotesDirectiveMarkdownNode from "./node/markdown/directive/footnotes";
 import StronglyEmphasisedTextMarkdownNode from "./node/markdown/stronglyEmphasisedText";
 
 import { LINK_RULE_NAME,
          LINE_RULE_NAME,
-         EMBED_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
          MARKER_RULE_NAME,
          BULLET_RULE_NAME,
-         IGNORE_RULE_NAME,
-         INCLUDE_RULE_NAME,
-         CONTENTS_RULE_NAME,
          DIVISION_RULE_NAME,
          FOOTNOTE_RULE_NAME,
-         FOOTNOTES_RULE_NAME,
          REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
-         LINE_BREAK_RULE_NAME,
          TABLE_CELL_RULE_NAME,
          TABLE_HEAD_RULE_NAME,
          TABLE_BODY_RULE_NAME,
@@ -102,36 +95,35 @@ import { LINK_RULE_NAME,
          TABLE_SEPARATOR_RULE_NAME,
          EMPHASISED_TEXT_RULE_NAME,
          PRIMARY_HEADING_RULE_NAME,
+         EMBED_DIRECTIVE_RULE_NAME,
          EMPTY_TABLE_CELL_RULE_NAME,
          TERTIARY_HEADING_RULE_NAME,
+         IGNORE_DIRECTIVE_RULE_NAME,
          ORDERED_LIST_ITEM_RULE_NAME,
          BLOCK_LISTING_END_RULE_NAME,
          SECONDARY_HEADING_RULE_NAME,
+         INCLUDE_DIRECTIVE_RULE_NAME,
          QUATERNARY_HEADING_RULE_NAME,
+         CONTENTS_DIRECTIVE_RULE_NAME,
          BLOCK_LISTING_START_RULE_NAME,
          UNORDERED_LIST_ITEM_RULE_NAME,
+         FOOTNOTES_DIRECTIVE_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "./ruleNames";
 
 const nodeMap = {
   [LINK_RULE_NAME]: LinkMarkdownNode,
   [LINE_RULE_NAME]: LineMarkdownNode,
-  [EMBED_RULE_NAME]: EmbedMarkdownNode,
   [IMAGE_RULE_NAME]: ImageMarkdownNode,
   [TABLE_RULE_NAME]: TableMarkdownNode,
   [ERROR_RULE_NAME]: ErrorMarkdownNode,
   [ANCHOR_RULE_NAME]: AnchorMarkdownNode,
   [MARKER_RULE_NAME]: MarkerMarkdownNode,
   [BULLET_RULE_NAME]: BulletMarkdownNode,
-  [IGNORE_RULE_NAME]: IgnoreMarkdownNode,
-  [INCLUDE_RULE_NAME]: IncludeMarkdownNode,
-  [CONTENTS_RULE_NAME]: ContentsMarkdownNode,
   [DIVISION_RULE_NAME]: DivisionMarkdownNode,
   [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
-  [FOOTNOTES_RULE_NAME]: FootnotesMarkdownNode,
   [REFERENCE_RULE_NAME]: ReferenceMarkdownNode,
   [PARAGRAPH_RULE_NAME]: ParagraphMarkdownNode,
   [HYPERLINK_RULE_NAME]: HyperlinkMarkdownNode,
-  [LINE_BREAK_RULE_NAME]: LineBreakMarkdownNode,
   [TABLE_CELL_RULE_NAME]: TableCellMarkdownNode,
   [TABLE_HEAD_RULE_NAME]: TableHeadMarkdownNode,
   [TABLE_BODY_RULE_NAME]: TableBodyMarkdownNode,
@@ -159,14 +151,19 @@ const nodeMap = {
   [TABLE_SEPARATOR_RULE_NAME]: TableSeparatorMarkdownNode,
   [EMPHASISED_TEXT_RULE_NAME]: EmphasisedTextMarkdownNode,
   [PRIMARY_HEADING_RULE_NAME]: PrimaryHeadingMarkdownNode,
+  [EMBED_DIRECTIVE_RULE_NAME]: EmbedDirectiveMarkdownNode,
   [EMPTY_TABLE_CELL_RULE_NAME]: EmptyTableCellMarkdownNode,
   [TERTIARY_HEADING_RULE_NAME]: TertiaryHeadingMarkdownNode,
+  [IGNORE_DIRECTIVE_RULE_NAME]: IgnoreDirectiveMarkdownNode,
   [ORDERED_LIST_ITEM_RULE_NAME]: OrderedListItemMarkdownNode,
   [BLOCK_LISTING_END_RULE_NAME]: BlockListingEndMarkdownNode,
   [SECONDARY_HEADING_RULE_NAME]: SecondaryHeadingMarkdownNode,
+  [INCLUDE_DIRECTIVE_RULE_NAME]: IncludeDirectiveMarkdownNode,
   [QUATERNARY_HEADING_RULE_NAME]: QuaternaryHeadingMarkdownNode,
+  [CONTENTS_DIRECTIVE_RULE_NAME]: ContentsDirectiveMarkdownNode,
   [BLOCK_LISTING_START_RULE_NAME]: BlockListingStartMarkdownNode,
   [UNORDERED_LIST_ITEM_RULE_NAME]: UnorderedListItemMarkdownNode,
+  [FOOTNOTES_DIRECTIVE_RULE_NAME]: FootnotesDirectiveMarkdownNode,
   [STRONGLY_EMPHASISED_TEXT_RULE_NAME]: StronglyEmphasisedTextMarkdownNode
 };
 

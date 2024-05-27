@@ -2,12 +2,12 @@
 
 import { arrayUtilities } from "necessary";
 
-import MarkdownNode from "../../node/markdown";
-import ReplacementNodeAndTokens from "../../replacementNodeAndTokens";
+import MarkdownNode from "../../../node/markdown";
+import ReplacementNodeAndTokens from "../../../replacementNodeAndTokens";
 
 const { fourth } = arrayUtilities;
 
-export default class EmbedMarkdownNode extends MarkdownNode {
+export default class EmbedDirectiveMarkdownNode extends MarkdownNode {
   replacementNodeAndTokens(context) {
     let replacementNodeAndTokens = null;
 
@@ -46,5 +46,5 @@ export default class EmbedMarkdownNode extends MarkdownNode {
     return filePath;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EmbedMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EmbedDirectiveMarkdownNode, ruleName, childNodes, opacity); }
 }

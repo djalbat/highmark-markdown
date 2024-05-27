@@ -34,6 +34,8 @@ class StronglyEmphasisedTextMarkdownNode extends MarkdownNode {
 
     parentDOMElement.appendChild(domElement);
 
+    domElement = parentDOMElement;  ///
+
     return domElement;
   }
 

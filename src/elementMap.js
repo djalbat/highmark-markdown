@@ -2,23 +2,22 @@
 
 import { LINK_RULE_NAME,
          LINE_RULE_NAME,
-         EMBED_RULE_NAME,
+         EMBED_DIRECTIVE_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
          MARKER_RULE_NAME,
          BULLET_RULE_NAME,
-         IGNORE_RULE_NAME,
-         INCLUDE_RULE_NAME,
-         CONTENTS_RULE_NAME,
+         IGNORE_DIRECTIVE_RULE_NAME,
+         INCLUDE_DIRECTIVE_RULE_NAME,
+         CONTENTS_DIRECTIVE_RULE_NAME,
          DIVISION_RULE_NAME,
          FOOTNOTE_RULE_NAME,
-         FOOTNOTES_RULE_NAME,
+         FOOTNOTES_DIRECTIVE_RULE_NAME,
          REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
-         LINE_BREAK_RULE_NAME,
          TABLE_CELL_RULE_NAME,
          TABLE_HEAD_RULE_NAME,
          TABLE_BODY_RULE_NAME,
@@ -66,7 +65,7 @@ const elementMap = {
     tagName: "span",
     className: "line"
   },
-  [EMBED_RULE_NAME]: {
+  [EMBED_DIRECTIVE_RULE_NAME]: {
     tagName: null,
     className: null
   },
@@ -94,15 +93,15 @@ const elementMap = {
     tagName: null,
     className: null
   },
-  [IGNORE_RULE_NAME]: {
+  [IGNORE_DIRECTIVE_RULE_NAME]: {
     tagName: null,
     className: null
   },
-  [INCLUDE_RULE_NAME]: {
+  [INCLUDE_DIRECTIVE_RULE_NAME]: {
     tagName: null,
     className: null
   },
-  [CONTENTS_RULE_NAME]: {
+  [CONTENTS_DIRECTIVE_RULE_NAME]: {
     tagName: null,
     className: null
   },
@@ -114,7 +113,7 @@ const elementMap = {
     tagName: null,
     className: null
   },
-  [FOOTNOTES_RULE_NAME]: {
+  [FOOTNOTES_DIRECTIVE_RULE_NAME]: {
     tagName: null,
     className: null
   },
@@ -129,10 +128,6 @@ const elementMap = {
   [HYPERLINK_RULE_NAME]: {
     tagName: "a",
     className: "hyperlink"
-  },
-  [LINE_BREAK_RULE_NAME]: {
-    tagName: "br",
-    className: null
   },
   [TABLE_CELL_RULE_NAME]: {
     tagName: null,

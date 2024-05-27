@@ -5,69 +5,70 @@ const bnf = `
     division                ::=  ( subDivision | endOfLine | error )+ ;
     
     
-    subDivision             ::=  ( verticalSpace | <START_OF_CONTENT> ) ( directives 
+    subDivision             ::=  verticalSpace ( directives 
     
-                                                                        | primaryHeading 
-                                 
-                                                                        | secondaryHeading 
-                                                                           
-                                                                        | tertiaryHeading 
-                                                                           
-                                                                        | quaternaryHeading 
-                                                                           
-                                                                        | lineBreak 
-                                                                           
-                                                                        | footnote 
-                                                                           
-                                                                        | orderedList 
-                                                                           
-                                                                        | unorderedList 
-                                                                           
-                                                                        | blockListing 
-                                              
-                                                                        | table 
-                                                                           
-                                                                        | paragraph ) ;
+                                               | primaryHeading 
+         
+                                               | secondaryHeading 
+                                                   
+                                               | tertiaryHeading 
+                                                   
+                                               | quaternaryHeading 
+                                                   
+                                               | table 
+                                                   
+                                               | footnote 
+                                                   
+                                               | orderedList 
+                                                   
+                                               | unorderedList 
+                                                   
+                                               | blockListing 
+                      
+                                               | paragraph ) ;
 
     
-    verticalSpace.          ::=  <END_OF_LINE>+ ;
-
-
     endOfLine.              ::=  <END_OF_LINE> ;
 
 
     error.                  ::=  . ;
 
 
-    primaryHeading          ::=  [single-hash] line ;
+    verticalSpace           ::=  <END_OF_LINE> <END_OF_LINE>+ 
+    
+                              |  <START_OF_CONTENT> <END_OF_LINE>*
+                              
+                              ;
 
 
-    secondaryHeading        ::=  [double-hash] line ;
+    directives              ::=  ( embedDirective 
+    
+                                 | ignoreDirective 
+    
+                                 | includeDirective 
+    
+                                 | contentsDirective 
+    
+                                 | footnotesDirective )+ ;
 
 
-    tertiaryHeading         ::=  [triple-hash] line ;
+    primaryHeading          ::=  "#" line ;
+
+
+    secondaryHeading        ::=  "##" line ;
+
+
+    tertiaryHeading         ::=  "###" line ;
     
     
-    quaternaryHeading       ::=  [quadruple-hash] line ;
-
-
-    lineBreak               ::=  [two-dashes] endOfLine ;
-
-
-    footnotesList           ::=  footnoteItem+ ;
-
-
-    footnoteItem            ::=  anchor paragraph ;
-
-
-    footnote                ::=  reference paragraph ;
+    quaternaryHeading       ::=  "####" line ;
 
 
     table                   ::=  tableHead tableSeparator tableBody ;
 
 
-    paragraph               ::=  line+ ;
-    
+    footnote                ::=  reference paragraph ;
+
 
     orderedList             ::=  orderedListItem+ ;
 
@@ -78,22 +79,28 @@ const bnf = `
     blockListing            ::=  blockListingStart blockText blockListingEnd ;
 
 
-    directives              ::=  ( embed | ignore | include | contents | footnotes )+ ;
+    paragraph               ::=  line+ ;
+    
+
+    embedDirective          ::=  "@"<NO_WHITESPACE>"embed" [path] endOfLine ;
 
 
-    embed                   ::=  "@"<NO_WHITESPACE>"embed" [path] endOfLine ;
+    ignoreDirective         ::=  "@"<NO_WHITESPACE>"ignore" ;
 
 
-    ignore                  ::=  "@"<NO_WHITESPACE>"ignore" ;
+    includeDirective        ::=  "@"<NO_WHITESPACE>"include" [path] endOfLine ;
 
 
-    include                 ::=  "@"<NO_WHITESPACE>"include" [path] endOfLine ;
+    contentsDirective       ::=  "@"<NO_WHITESPACE>"contents" [number]? endOfLine ;
 
 
-    contents                ::=  "@"<NO_WHITESPACE>"contents" [number]? endOfLine ;
+    footnotesDirective      ::=  "@"<NO_WHITESPACE>"footnotes" endOfLine ;
 
 
-    footnotes               ::=  "@"<NO_WHITESPACE>"footnotes" endOfLine ;
+    footnotesList           ::=  footnoteItem+ ;
+
+
+    footnoteItem            ::=  anchor paragraph ;
 
 
     tableHead               ::=  tableHeadRow ;
@@ -123,7 +130,7 @@ const bnf = `
     tableBodyRow            ::=  [vertical-bar] tableBodyCell+ endOfLine ;
 
 
-    blockText.              ::=  ( plainText | endOfLine )+ ;
+    blockText.              ::=  plainText ( endOfLine | plainText )+ ;
     
 
     tableHeadCell           ::=  emptyTableCell | tableCell ;
@@ -183,13 +190,13 @@ const bnf = `
     inlineListing           ::=  [backticked-literal] ;
     
 
-    stronglyEmphasisedText  ::=  [triple-asterisk] inlineText... [triple-asterisk] ;
+    stronglyEmphasisedText  ::=  "****" inlineText... "****" ;
     
 
-    emphasisedText          ::=  [single-asterisk] inlineText... [single-asterisk] ;
+    emphasisedText          ::=  "**" inlineText... "**" ;
 
 
-    strongText              ::=  [double-asterisk] inlineText... [double-asterisk] ;
+    strongText              ::=  "***" inlineText... "***" ;
 
 
     inlineText              ::=  plainText+ ;
@@ -197,27 +204,15 @@ const bnf = `
     
     plainText               ::=  [escaped] 
                               
-                              |  [triple-asterisk] 
+                              |  [asterisks] 
                               
-                              |  [double-asterisk] 
+                              |  [hashes]
                               
-                              |  [single-asterisk] 
-                              
-                              |  [quadruple-hash]
-                              
-                              |  [triple-hash]
-                              
-                              |  [double-hash]
-                              
-                              |  [single-hash]
-
                               |  [single-dash] 
                               
                               |  [vertical-bar] 
                               
                               |  [many-dashes] 
-                              
-                              |  [two-dashes] 
                               
                               |  [number] 
                               

@@ -5,31 +5,13 @@ const entries = [
     "escaped": "^\\\\[^\\s]"
   },
   {
-    "triple-asterisk": "^\\*\\*\\*"
+    "asterisks": "^\\*{2,4}"
   },
   {
-    "double-asterisk": "^\\*\\*"
-  },
-  {
-    "single-asterisk": "^\\*"
-  },
-  {
-    "quadruple-hash": "^####"
-  },
-  {
-    "triple-hash": "^###"
-  },
-  {
-    "double-hash": "^##"
-  },
-  {
-    "single-hash": "^#"
+    "hashes": "^#{1,4}"
   },
   {
     "many-dashes": "^-{3,}"
-  },
-  {
-    "two-dashes": "^--"
   },
   {
     "single-dash": "^-"

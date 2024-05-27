@@ -9,7 +9,6 @@ export const ESCAPED_TOKEN_TYPE = "escaped";
 export const BACKTICKS_TOKEN_TYPE = "backticks";
 export const IDENTIFIER_TOKEN_TYPE = "identifier";
 export const UNASSIGNED_TOKEN_TYPE = "unassigned";
-export const TWO_DASHES_TOKEN_TYPE = "two-dashes";
 export const MANY_DASHES_TOKEN_TYPE = "many-dashes";
 export const SINGLE_DASH_TOKEN_TYPE = "single-dash";
 export const SINGLE_HASH_TOKEN_TYPE = "single-hash";
@@ -33,7 +32,6 @@ const tokenTypes = {
   BACKTICKS_TOKEN_TYPE,
   IDENTIFIER_TOKEN_TYPE,
   UNASSIGNED_TOKEN_TYPE,
-  TWO_DASHES_TOKEN_TYPE,
   MANY_DASHES_TOKEN_TYPE,
   SINGLE_DASH_TOKEN_TYPE,
   SINGLE_HASH_TOKEN_TYPE,
