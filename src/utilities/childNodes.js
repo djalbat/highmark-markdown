@@ -58,6 +58,10 @@ export function htmlFromChildNodes(childNodes, context, leftTrimmed) {
 
   html = htmls.join(EMPTY_STRING);
 
+  html = html.replace(/\n$/, EMPTY_STRING);
+
+  html = `${html}\n`;
+
   return html;
 }
 
