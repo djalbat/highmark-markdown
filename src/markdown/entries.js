@@ -17,16 +17,19 @@ const entries = [
     "bullet": "^(?:-|\\*)"
   },
   {
-    "vertical-bar": "^\\|"
+    "marker": "^[1-9][0-9]*\\."
+  },
+  {
+    "number": "^[1-9][0-9]*"
   },
   {
     "backticks": "^```"
   },
   {
-    "backticked-literal": "^`(?:\\\\[^\\s]|[^`\\\\\\r\\n])*`"
+    "vertical-bar": "^\\|"
   },
   {
-    "number": "^[1-9][0-9]*"
+    "backticked-literal": "^`(?:\\\\[^\\s]|[^`\\\\\\r\\n])*`"
   },
   {
     "email-address": "^[a-z0-9\\-_]+(?:\\.[a-z0-9\\-_]+)*@[a-z0-9\\-_]+(?:\\.[a-z0-9\\-_]+)+"
@@ -36,6 +39,9 @@ const entries = [
   },
   {
     "path": "^[a-z0-9\\-_]+(?:\\/[a-z0-9\\-_]+)*\\.[a-z0-9\\-_]+"
+  },
+  {
+    "reference": "\\[\\^[a-z]+(?:-[a-z]+)*\\]:"
   },
   {
     "identifier": "[a-z]+(?:-[a-z]+)*"

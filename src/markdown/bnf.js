@@ -67,7 +67,7 @@ const bnf = `
     table                   ::=  tableHead tableSeparator tableBody ;
 
 
-    footnote                ::=  reference paragraph ;
+    footnote                ::=  [reference] paragraph ;
 
 
     orderedList             ::=  orderedListItem+ ;
@@ -112,7 +112,7 @@ const bnf = `
     tableSeparator          ::=  [dashes] endOfLine ;
 
     
-    orderedListItem.        ::=  marker line ;
+    orderedListItem.        ::=  [marker] line ;
     
     
     unorderedListItem       ::=  [bullet] line ;
@@ -233,14 +233,8 @@ const bnf = `
                               ;
     
 
-    reference.              ::=  "[^" [identifier] "]:" ;
-    
-
     anchor.                 ::=  [identifier] ;
     
-
-    marker.                 ::=  [number]<NO_WHITESPACE>"." ;
-
 
     className               ::=  <NO_WHITESPACE>[identifier] ;
       

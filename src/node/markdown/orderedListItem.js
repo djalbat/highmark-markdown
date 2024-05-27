@@ -6,14 +6,14 @@ import MarkdownNode from "../../node/markdown";
 
 import { VALUE_ATTRIBUTE_NAME } from "../../attributeNames";
 
-const { first } = arrayUtilities;
+const { first, second } = arrayUtilities;
 
 export default class OrderedListItemMarkdownNode extends MarkdownNode {
   value(context) {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
-          markerMarkdownNode = firstChildNode,  ///
-          value = markerMarkdownNode.value(context);
+          markerTerminalNode = firstChildNode,  ///
+          value = valueFromMarkerTerminalNode(markerTerminalNode);
 
     return value;
   }
@@ -32,4 +32,13 @@ export default class OrderedListItemMarkdownNode extends MarkdownNode {
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(OrderedListItemMarkdownNode, ruleName, childNodes, opacity); }
+}
+
+function valueFromMarkerTerminalNode(markerTerminalNode) {
+  const content = markerTerminalNode.getContent(),
+        matches = content.match(/(\d+)\./),
+        secondMatch = second(matches),
+        value = secondMatch;  ///
+
+  return value;
 }

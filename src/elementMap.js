@@ -6,10 +6,8 @@ import { LINK_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
-         MARKER_RULE_NAME,
          DIVISION_RULE_NAME,
          FOOTNOTE_RULE_NAME,
-         REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
          TABLE_CELL_RULE_NAME,
@@ -80,19 +78,11 @@ const elementMap = {
     tagName: "a",
     className: "anchor"
   },
-  [MARKER_RULE_NAME]: {
-    tagName: null,
-    className: null
-  },
   [DIVISION_RULE_NAME]: {
     tagName: "div",
     className: null
   },
   [FOOTNOTE_RULE_NAME]: {
-    tagName: null,
-    className: null
-  },
-  [REFERENCE_RULE_NAME]: {
     tagName: null,
     className: null
   },

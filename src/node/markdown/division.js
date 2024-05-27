@@ -6,14 +6,15 @@ import MarkdownNode from "../../node/markdown";
 import ContentsListMarkdownNode from "../../node/markdown/contentsList";
 import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
+import { EMPTY_STRING } from "../../constants";
 import { renumberLinkMarkdownNodes } from "../../utilities/footnotes";
 import { replaceNode, replaceNodes, replaceTokens } from "../../utilities/replace";
 import { embedMarkdownNodesFromNode,
-         ignoreMarkdownNodeFromNode,
          headingMarkdownNodesFromNode,
-         contentsMarkdownNodeFromNode,
-         footnotesMarkdownNodesFromNode } from "../../utilities/query";
-import {EMPTY_STRING} from "../../constants";
+         footnotesMarkdownNodesFromNode,
+         ignoreDirectiveMarkdownNodeFromNode,
+         contentsDirectiveMarkdownNodeFromNode,
+         footnotesDirectiveMarkdownNodeFromNode } from "../../utilities/query";
 
 const { filter } = arrayUtilities;
 
@@ -40,8 +41,8 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
   isIgnored() {
     const node = this,
-          ignoreMarkdownNode = ignoreMarkdownNodeFromNode(node),
-          ignored = (ignoreMarkdownNode !== null);
+          ignoreDirectiveMarkdownNode = ignoreDirectiveMarkdownNodeFromNode(node),
+          ignored = (ignoreDirectiveMarkdownNode !== null);
 
     return ignored;
   }
@@ -78,11 +79,11 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     let contentsCreated = false;
 
     const node = this,  ///
-          contentsMarkdownNode = contentsMarkdownNodeFromNode(node);
+          contentsDirectiveMarkdownNode = contentsDirectiveMarkdownNodeFromNode(node);
 
-    if (contentsMarkdownNode !== null) {
+    if (contentsDirectiveMarkdownNode !== null) {
       const divisionMarkdownNode = this,  ///
-            headingMarkdownNodes = headingMarkdownNodesFromDivisionMarkdownNodeAndContentsMarkdownNode(divisionMarkdownNode, contentsMarkdownNode, context),
+            headingMarkdownNodes = headingMarkdownNodesFromDivisionMarkdownNodeAndContentsDirectiveMarkdownNode(divisionMarkdownNode, contentsDirectiveMarkdownNode, context),
             headingMarkdownNodesLength = headingMarkdownNodes.length;
 
       if (headingMarkdownNodesLength === 0) {
@@ -92,9 +93,9 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       const { tokens } = context,
             contentsListMarkdownNode = ContentsListMarkdownNode.fromHeadingMarkdownNodes(headingMarkdownNodes, context),
             contentsListMarkdownNodeTokens = contentsListMarkdownNode.getTokens(),
-            childNode = contentsMarkdownNode,  ///
+            childNode = contentsDirectiveMarkdownNode,  ///
             parentNode = this.findParentNode(childNode),
-            replacedNode = contentsMarkdownNode, ///
+            replacedNode = contentsDirectiveMarkdownNode, ///
             replacementNode = contentsListMarkdownNode,  ///
             replacementTokens = contentsListMarkdownNodeTokens; ///
 
@@ -110,10 +111,9 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
   createFootnotes(context) {
     const node = this,  ///
-          footnotesMarkdownNodes = footnotesMarkdownNodesFromNode(node),
-          footnotesMarkdownNodesLength = footnotesMarkdownNodes.length;
+          footnotesDirectiveMarkdownNode = footnotesDirectiveMarkdownNodeFromNode(node);
 
-    if (footnotesMarkdownNodesLength > 0) {
+    if (footnotesDirectiveMarkdownNode !== null) {
       const divisionMarkdownNode = this,  ///
             footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
 
@@ -197,10 +197,10 @@ ${childNodesHTML}${indent}${closingTag}
   }
 }
 
-function headingMarkdownNodesFromDivisionMarkdownNodeAndContentsMarkdownNode(divisionMarkdownNode, contentsMarkdownNode, context) {
+function headingMarkdownNodesFromDivisionMarkdownNodeAndContentsDirectiveMarkdownNode(divisionMarkdownNode, contentsDirectiveMarkdownNode, context) {
   const headingMarkdownNodes = [],
-        minimumPosition = contentsMarkdownNode.minimumPosition(context),
-        maximumLevel = contentsMarkdownNode.maximumLevel(context),
+        minimumPosition = contentsDirectiveMarkdownNode.minimumPosition(context),
+        maximumLevel = contentsDirectiveMarkdownNode.maximumLevel(context),
         node = divisionMarkdownNode;  ///
 
   headingMarkdownNodesFromNode(node, headingMarkdownNodes);
