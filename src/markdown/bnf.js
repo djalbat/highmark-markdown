@@ -5,7 +5,7 @@ const bnf = `
     division                ::=  ( subDivision | endOfLine | error )+ ;
     
     
-    subDivision..           ::=  ( verticalSpace | <START_OF_CONTENT> ) ( directives 
+    subDivision             ::=  ( verticalSpace | <START_OF_CONTENT> ) ( directives 
     
                                                                         | primaryHeading 
                                  
@@ -30,7 +30,7 @@ const bnf = `
                                                                         | paragraph ) ;
 
     
-    verticalSpace.          ::=  endOfLine+ ;
+    verticalSpace.          ::=  <END_OF_LINE>+ ;
 
 
     endOfLine.              ::=  <END_OF_LINE> ;
@@ -255,4 +255,3 @@ const bnf = `
 `;
 
 export default bnf;
-
