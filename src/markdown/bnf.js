@@ -84,7 +84,7 @@ const bnf = `
     unorderedList           ::=  unorderedListItem ( <END_OF_LINE> unorderedListItem )* ;
 
 
-    blockListing            ::=  blockListingStart blockText blockListingEnd ;
+    blockListing            ::=  blockListingStart <END_OF_LINE> blockText <END_OF_LINE> blockListingEnd ;
 
 
     paragraph               ::=  markedText ( <END_OF_LINE> markedText )* ;
@@ -123,10 +123,10 @@ const bnf = `
     unorderedListItem       ::=  [bullet] markedText ( <END_OF_LINE> markedText )* ;
 
 
-    blockListingStart       ::=  [backticks] className? endOfLine ;
+    blockListingStart       ::=  [backticks] className? ;
 
 
-    blockListingEnd         ::=  [backticks] endOfLine ;
+    blockListingEnd         ::=  [backticks] ;
 
 
     tableHeadRow            ::=  [vertical-bar] tableHeadCell+ ;
@@ -134,9 +134,6 @@ const bnf = `
     
     tableBodyRow            ::=  [vertical-bar] tableBodyCell+ ;
 
-
-    blockText.              ::=  plainText ( endOfLine | plainText )+ ;
-    
 
     tableHeadCell           ::=  emptyTableCell | tableCell ;
 
@@ -152,11 +149,11 @@ const bnf = `
     
     markedText              ::=  ( link 
     
-                                 | image 
-                                 
                                  | emailLink 
                                  
                                  | hyperlink 
+                                 
+                                 | image 
                                  
                                  | inlineListing 
                                  
@@ -172,9 +169,6 @@ const bnf = `
     link.                   ::=  "[^" [identifier] "]" ;
     
 
-    image.                  ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" [path] ")" ;
-
-
     emailLink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [email-address] ")" 
     
                               |  [email-address] 
@@ -189,17 +183,39 @@ const bnf = `
                               ;
 
 
+    image.                  ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" [path] ")" ;
+
+
     inlineListing           ::=  [backticked-literal] ;
     
 
-    stronglyEmphasisedText  ::=  "****" inlineText... "****" ;
+    stronglyEmphasisedText  ::=  "****" inlineText "****" ;
     
 
-    emphasisedText          ::=  "**" inlineText... "**" ;
+    emphasisedText          ::=  "**" inlineText "**" ;
 
 
-    strongText              ::=  "***" inlineText... "***" ;
+    strongText              ::=  "***" inlineText "***" ;
 
+
+    blockText.              ::=  ( plainText 
+                                
+                                 | [url] 
+
+                                 | [dashes] 
+    
+                                 | [vertical-bar] 
+    
+                                 | [email-address] )+ ( <END_OF_LINE> ( plainText 
+                                                                    
+                                                                      | [url] 
+
+                                                                      | [dashes] 
+
+                                                                      | [vertical-bar] 
+
+                                                                      | [email-address] )+ )* ;
+    
 
     inlineText              ::=  plainText+ ;
     
