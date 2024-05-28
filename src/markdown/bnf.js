@@ -114,7 +114,7 @@ const bnf = `
     tableHead               ::=  tableHeadRow ;
 
     
-    tableBody               ::=  tableBodyRow ;
+    tableBody               ::=  tableBodyRow ( <END_OF_LINE> tableBodyRow )* ;
 
     
     orderedListItem         ::=  [marker] markedText ( <END_OF_LINE> markedText )* ;

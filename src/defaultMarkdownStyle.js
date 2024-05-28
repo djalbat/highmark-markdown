@@ -108,7 +108,7 @@ table {
 }
 
 tableHead {
-  border: 1pt solid black;
+  border-bottom: 2pt solid black;
 }
 
 tableBodyCell,

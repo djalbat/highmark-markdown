@@ -181,13 +181,9 @@ class View extends Element {
   static initialMarkdownStyle = `min-height: initial;
 `;
 
-  static initialMarkdown = `\`\`\`
-export default withStyle(simpleApplication)\`
-
-  color: #333;
-
-\`;
-\`\`\``;
+  static initialMarkdown = `
+# Primary heading
+`;
 
   static tagName = "div";
 
