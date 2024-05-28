@@ -8,7 +8,7 @@ import AnchorMarkdownNode from "../../node/markdown/anchor";
 import { plainTextFromChildNodes } from "../../utilities/childNodes";
 import { replaceSpacesWithHyphens, removedLeadingWhitespace, removeNonAlphabeticAndSpaceCharacters } from "../../utilities/string";
 
-const { second } = arrayUtilities;
+const { last } = arrayUtilities;
 
 export default class HeadingMarkdownNode extends MarkdownNode {
   getLevel() {
@@ -45,8 +45,8 @@ export default class HeadingMarkdownNode extends MarkdownNode {
 
   childNodesAsHTML(indent, context) {
     const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          markedTextChildNode = secondChildNode,  ///
+          lastChildNode = last(childNodes),
+          markedTextChildNode = lastChildNode,  ///
           markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context),
           childNodesHTML = markedTextChildNodeChildNodesHTML;
 
@@ -56,8 +56,8 @@ export default class HeadingMarkdownNode extends MarkdownNode {
   createChildNodeDOMElements(context) {
     const domElement = this.getDOMElement(),
           childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          markedTextChildNode = secondChildNode;  ///
+          lastChildNode = last(childNodes),
+          markedTextChildNode = lastChildNode;  ///
 
     markedTextChildNode.createChildNodeDOMElements(domElement, context);
   }
