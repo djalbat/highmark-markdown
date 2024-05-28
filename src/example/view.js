@@ -182,7 +182,11 @@ class View extends Element {
 `;
 
   static initialMarkdown = `\`\`\`
-afsd  
+export default withStyle(simpleApplication)\`
+
+  color: #333;
+
+\`;
 \`\`\``;
 
   static tagName = "div";

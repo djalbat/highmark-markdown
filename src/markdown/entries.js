@@ -14,7 +14,7 @@ const entries = [
     "dashes": "^-{3,}"
   },
   {
-    "bullet": "^(?:-|\\*)"
+    "bullet": "^\\*"
   },
   {
     "marker": "^[1-9][0-9]*\\."
