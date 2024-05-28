@@ -206,15 +206,15 @@ const bnf = `
     
                                  | [vertical-bar] 
     
-                                 | [email-address] )+ ( <END_OF_LINE> ( plainText 
+                                 | [email-address] )+ ( <END_OF_LINE>+ ( plainText 
                                                                     
-                                                                      | [url] 
-
-                                                                      | [dashes] 
-
-                                                                      | [vertical-bar] 
-
-                                                                      | [email-address] )+ )* ;
+                                                                       | [url] 
+  
+                                                                       | [dashes] 
+  
+                                                                       | [vertical-bar] 
+  
+                                                                       | [email-address] )+ )* ;
     
 
     inlineText              ::=  plainText+ ;
