@@ -182,7 +182,10 @@ class View extends Element {
 `;
 
   static initialMarkdown = `
+@contents 1
+
 # Primary heading
+
 `;
 
   static tagName = "div";

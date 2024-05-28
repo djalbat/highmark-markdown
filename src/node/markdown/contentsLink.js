@@ -8,7 +8,7 @@ import ReplacementNodeAndTokens from "../../replacementNodeAndTokens";
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 import { CONTENTS_LINK_RULE_NAME } from "../../ruleNames";
 
-const { push } = arrayUtilities;
+const { last, push } = arrayUtilities;
 
 export default class ContentsLinkMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, opacity, precedence, domElement, tokens, identifier) {
@@ -39,6 +39,25 @@ export default class ContentsLinkMarkdownNode extends MarkdownNode {
     const attributeValue = `#${this.identifier}`;
 
     return attributeValue;
+  }
+
+  childNodesAsHTML(indent, context) {
+    const childNodes = this.getChildNodes(),
+          lastChildNode = last(childNodes),
+          markedTextChildNode = lastChildNode,  ///
+          markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context),
+          childNodesHTML = markedTextChildNodeChildNodesHTML;
+
+    return childNodesHTML;
+  }
+
+  createChildNodeDOMElements(context) {
+    const domElement = this.getDOMElement(),
+          childNodes = this.getChildNodes(),
+          lastChildNode = last(childNodes),
+          markedTextChildNode = lastChildNode;  ///
+
+    markedTextChildNode.createChildNodeDOMElements(domElement, context);
   }
 
   clone() {
