@@ -4,7 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../../node/markdown";
 
-const { push, fourth } = arrayUtilities;
+const { push, last } = arrayUtilities;
 
 export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
   resolveIncludes(context) {
@@ -48,8 +48,8 @@ export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
 
   filePath(context) {
     const childNodes = this.getChildNodes(),
-          fourthChildNode = fourth(childNodes),
-          pathTerminalNode  = fourthChildNode, ///
+          lastChildNode = last(childNodes),
+          pathTerminalNode  = lastChildNode, ///
           pathTerminalNodeContent = pathTerminalNode.getContent(),
           filePath = pathTerminalNodeContent; ///
 

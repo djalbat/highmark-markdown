@@ -90,19 +90,19 @@ const bnf = `
     paragraph               ::=  markedText ( <END_OF_LINE> markedText )* ;
     
 
-    embedDirective          ::=  "@"<NO_WHITESPACE>"embed" [path] ;
+    embedDirective          ::=  "@embed" [path] ;
 
 
-    ignoreDirective         ::=  "@"<NO_WHITESPACE>"ignore" ;
+    ignoreDirective         ::=  "@ignore" ;
 
 
-    includeDirective        ::=  "@"<NO_WHITESPACE>"include" [path] ;
+    includeDirective        ::=  "@include" [path] ;
 
 
-    contentsDirective       ::=  "@"<NO_WHITESPACE>"contents" [number]? ;
+    contentsDirective       ::=  "@contents" [number]? ;
 
 
-    footnotesDirective      ::=  "@"<NO_WHITESPACE>"footnotes" ;
+    footnotesDirective      ::=  "@footnotes" ;
 
 
     footnotesList           ::=  footnoteItem+ ;
