@@ -182,7 +182,11 @@ class View extends Element {
 `;
 
   static initialMarkdown = `
-@embed something.md
+@contents 2
+
+# Primary heading
+
+## Secondary heading
 
 `;
 

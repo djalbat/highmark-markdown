@@ -4,7 +4,9 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../../node/markdown";
 
-const { fourth } = arrayUtilities;
+import { CONTENTS } from "../../../constants";
+
+const { last } = arrayUtilities;
 
 export default class ContentsDirectiveMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
@@ -23,14 +25,12 @@ export default class ContentsDirectiveMarkdownNode extends MarkdownNode {
     let maximumLevel = 1;
 
     const childNodes = this.getChildNodes(),
-          childNodesLength = childNodes.length;
+          lastChildNode = last(childNodes),
+          terminalNode = lastChildNode, ///
+          content = terminalNode.getContent();
 
-    if (childNodesLength === 5) {
-      const fourthChildNode = fourth(childNodes),
-            numberTerminalNode = fourthChildNode,  ///
-            numberTerminalNodeContent = numberTerminalNode.getContent();
-
-      maximumLevel = Number(numberTerminalNodeContent);
+    if (content !== CONTENTS) {
+      maximumLevel = Number(content); ///
     }
 
     return maximumLevel;
