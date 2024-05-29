@@ -23,6 +23,14 @@ class MarkdownNode extends NonTerminalNode {
     this.domElement = domElement;
   }
 
+  getDOMElements() {
+    const domElements = (this.domElement === null) ?
+                          [] :
+                            [this.domElement];
+
+    return domElements;
+  }
+
   tagName(context) {
     const { tagName } = elementMap[this.ruleName];
 
@@ -217,12 +225,15 @@ ${childNodesHTML}${indent}${closingTag}
 
       if (childNodeNonTerminalNode) {
         const nonTerminalNode = childNode,  ///
-              markdownNode = nonTerminalNode, ///
-              domElement = markdownNode.createDOMElement(context);
+              markdownNode = nonTerminalNode; ///
 
-        if (domElement !== null) {
+        markdownNode.createDOMElement(context);
+
+        const domElements = markdownNode.getDOMElements();
+
+        domElements.forEach((domElement) => {
           this.addDOMElement(domElement);
-        }
+        });
       }
     });
   }

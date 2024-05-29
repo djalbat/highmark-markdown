@@ -7,13 +7,14 @@ import MarkdownNode from "../../node/markdown";
 const { second } = arrayUtilities;
 
 export default class SubDivisionMarkdownNode extends MarkdownNode {
-  getDOMElement() {
-    const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          secondChildNodeDOMElement = secondChildNode.getDOMElement(),
-          domElement = secondChildNodeDOMElement;  ///
+  constructor(ruleName, childNodes, opacity, precedence, domElement, domElements) {
+    super(ruleName, childNodes, opacity, precedence, domElement);
 
-    return domElement;
+    this.domElements = domElements;
+  }
+
+  getDOMElements() {
+    return this.domElements;
   }
 
   asHTML(indent, context) {
@@ -26,13 +27,21 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
   }
 
   createDOMElement(context) {
-    const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          secondChildNodeDOMElement = secondChildNode.createDOMElement(context),
-          domElement = secondChildNodeDOMElement;  ///
+    const domElement = null,
+          childNodes = this.getChildNodes(),
+          secondChildNode = second(childNodes);
+
+    secondChildNode.createDOMElement(context);
+
+    this.domElements = secondChildNode.getDOMElements();
 
     return domElement;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(SubDivisionMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
+    const domElements = [],
+          subDivisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(SubDivisionMarkdownNode, ruleName, childNodes, opacity, domElements);
+
+    return subDivisionMarkdownNode;
+  }
 }

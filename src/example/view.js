@@ -182,9 +182,7 @@ class View extends Element {
 `;
 
   static initialMarkdown = `
-@contents 1
-
-# Primary heading
+@embed something.md
 
 `;
 
@@ -208,10 +206,8 @@ export default withStyle(View)`
 function importer(filePath, context) {
   const content = `## Secondary heading
 
-[^heading]: A heading.
-
-@footnotes
-        `,
+### Tertiary heading
+`,
         tokens = markdownLexer.tokenise(content),
         node = markdownParser.parse(tokens),
         importedNode = node,  ///

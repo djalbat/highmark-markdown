@@ -7,7 +7,7 @@ import PlainTextMarkdownNode from "../node/markdown/plainText";
 import { EMPTY_STRING } from "../constants";
 import { contentFromMarkdownNodes } from "./content";
 
-const { clear } = arrayUtilities;
+const { push, clear } = arrayUtilities;
 
 export function htmlFromChildNodes(childNodes, context, leftTrimmed) {
   let html;
@@ -141,11 +141,11 @@ export function domElementsFromChildNodes(childNodes, context, leftTrimmed) {
           domElements.push(domElement);
         }
 
-        const domElement = markdownNode.createDOMElement(context);
+        markdownNode.createDOMElement(context);
 
-        if (domElement !== null) {
-          domElements.push(domElement);
-        }
+        const markdownNodeDOMElements = markdownNode.getDOMElements();
+
+        push(domElements, markdownNodeDOMElements);
       }
     }
 
