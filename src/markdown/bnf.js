@@ -84,7 +84,7 @@ const bnf = `
     unorderedList           ::=  unorderedListItem ( <END_OF_LINE> unorderedListItem )* ;
 
 
-    blockListing            ::=  blockListingStart <END_OF_LINE> blockText <END_OF_LINE> blockListingEnd ;
+    blockListing            ::=  blockListingStart endOfLine blockText endOfLine blockListingEnd ;
 
 
     paragraph               ::=  markedText ( <END_OF_LINE> markedText )* ;
