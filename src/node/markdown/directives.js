@@ -4,13 +4,27 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
-const { push } = arrayUtilities;
+const { first, push } = arrayUtilities;
 
 export default class DirectivesMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, opacity, precedence, domElement, domElements) {
     super(ruleName, childNodes, opacity, precedence, domElement);
 
     this.domElements = domElements;
+  }
+
+  getDOMElement() {
+    let domElement = null;
+
+    const domElementsLength = this.domElements.length;
+
+    if (domElementsLength > 0) {
+      const firstDOMElement = first(this.domElements);
+
+      domElement = firstDOMElement; ///
+    }
+
+    return domElement;
   }
 
   getDOMElements() {

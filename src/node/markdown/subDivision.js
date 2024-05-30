@@ -7,6 +7,13 @@ import MarkdownNode from "../../node/markdown";
 const { second } = arrayUtilities;
 
 export default class SubDivisionMarkdownNode extends MarkdownNode {
+  getDOMElement() {
+    const markdownNode = this.getMarkdownNode(),
+          domElement = markdownNode.getDOMElement();
+
+    return domElement;
+  }
+
   getDOMElements() {
     const markdownNode = this.getMarkdownNode(),
           domElements = markdownNode.getDOMElements();
