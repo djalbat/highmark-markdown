@@ -29,6 +29,7 @@ tertiaryHeading,
 quaternaryHeading {
   line-height: 1;
   font-weight: bold;
+  font-family: "Computer Modern Sans";
 }
 
 paragraph,
