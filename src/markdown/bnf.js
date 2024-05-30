@@ -224,13 +224,15 @@ const bnf = `
                               
                               |  [number] 
                               
-                              |  [path] 
+                              |  [url] 
                               
-                              |  [identifier] 
+                              |  [path] 
                               
                               |  [word] 
                               
                               |  [special] 
+                              
+                              |  [identifier] 
                               
                               |  [unassigned] 
                               
