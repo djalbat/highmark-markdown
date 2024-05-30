@@ -60,16 +60,16 @@ const bnf = `
                                                                     | footnotesDirective ) )* ;
 
 
-    primaryHeading          ::=  "#" markedText ;
+    primaryHeading.         ::=  "#" markedText ;
 
 
-    secondaryHeading        ::=  "##" markedText ;
+    secondaryHeading.       ::=  "##" markedText ;
 
 
-    tertiaryHeading         ::=  "###" markedText ;
+    tertiaryHeading.        ::=  "###" markedText ;
     
     
-    quaternaryHeading       ::=  "####" markedText ;
+    quaternaryHeading.      ::=  "####" markedText ;
 
 
     table                   ::=  tableHead <END_OF_LINE> [dashes] <END_OF_LINE> tableBody ;
