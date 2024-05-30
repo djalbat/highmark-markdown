@@ -28,7 +28,7 @@ secondaryHeading,
 tertiaryHeading,
 quaternaryHeading {
   line-height: 1;
-  font-weight: bold;
+  font-weight: normal;
   font-family: "Computer Modern Sans";
 }
 
