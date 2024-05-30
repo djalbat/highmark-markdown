@@ -10,9 +10,7 @@ class XMP extends Element {
   update(htmls) {
     htmls = htmls.join(EMPTY_STRING);
 
-    const body = `<body>
-${htmls}</body>`,
-          html = body;
+    const html = `${htmls}`;
 
     this.html(html);
   }
@@ -42,7 +40,6 @@ export default withStyle(XMP)`
   left: 0;
   width: 100%;
   height: 100%;
-  overflow: scroll;
   position: absolute;
   font-size: 1.2rem;
   line-height: 1.5rem;
