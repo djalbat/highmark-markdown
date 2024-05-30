@@ -200,21 +200,13 @@ const bnf = `
 
     blockText.              ::=  ( plainText 
                                 
-                                 | [url] 
-
                                  | [dashes] 
     
-                                 | [vertical-bar] 
-    
-                                 | [email-address] )+ ( <END_OF_LINE>+ ( plainText 
+                                 | [vertical-bar] )+ ( <END_OF_LINE>+ ( plainText 
                                                                     
-                                                                       | [url] 
+                                                                      | [dashes] 
   
-                                                                       | [dashes] 
-  
-                                                                       | [vertical-bar] 
-  
-                                                                       | [email-address] )+ )* ;
+                                                                      | [vertical-bar] )+ )* ;
     
 
     inlineText              ::=  plainText+ ;
@@ -233,6 +225,8 @@ const bnf = `
                               |  [special] 
                               
                               |  [identifier] 
+                              
+                              |  [email-address]
                               
                               |  [unassigned] 
                               
