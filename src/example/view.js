@@ -3,15 +3,16 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 import { MarkdownLexer, MarkdownParser, MarkdownStyleLexer, MarkdownStyleParser } from "../index";
+import { RowDiv, RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv, HorizontalSplitterDiv } from "easy-layout";
 
-import XMP from "./view/xmp";
+import HTMLDiv from "./view/div/html";
 import PreviewDiv from "./view/div/preview";
 import SubHeading from "./view/subHeading";
 import CSSTextarea from "./view/textarea/css";
 import TabButtonsDiv from "./view/div/tabButtons";
 import LeftSizeableDiv from "./view/div/sizeable/left";
+import RightSizeableDiv from "./view/div/sizeable/right";
 import MarkdownContainerDiv from "./view/div/container/markdown";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
@@ -145,18 +146,25 @@ class View extends Element {
         <VerticalSplitterDiv/>
         <ColumnDiv>
           <RowsDiv>
-            <SubHeading>
-              HTML
-            </SubHeading>
-            <XMP/>
-            <SubHeading>
-              CSS
-            </SubHeading>
-            <CSSTextarea/>
-            <SubHeading>
-              Preview
-            </SubHeading>
-            <PreviewDiv/>
+            <RightSizeableDiv>
+              <SubHeading>
+                HTML
+              </SubHeading>
+              <HTMLDiv/>
+            </RightSizeableDiv>
+            <HorizontalSplitterDiv/>
+            <RowDiv>
+              <RowsDiv>
+                <SubHeading>
+                  CSS
+                </SubHeading>
+                <CSSTextarea/>
+                <SubHeading>
+                  Preview
+                </SubHeading>
+                <PreviewDiv/>
+              </RowsDiv>
+            </RowDiv>
           </RowsDiv>
         </ColumnDiv>
       </ColumnsDiv>
@@ -182,12 +190,7 @@ class View extends Element {
 `;
 
   static initialMarkdown = `
-@contents 2
-
-# Primary heading
-
-## Secondary heading
-
+[https://en.wikipedia.org/wiki/Backus-Naur_form](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form)
 `;
 
   static tagName = "div";

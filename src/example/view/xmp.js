@@ -38,9 +38,12 @@ ${htmls}</body>`,
 
 export default withStyle(XMP)`
 
-  border: 1px solid darkgrey;
-  padding: 0.25rem;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   overflow: scroll;
+  position: absolute;
   font-size: 1.2rem;
   line-height: 1.5rem;
   font-family: monospace;
