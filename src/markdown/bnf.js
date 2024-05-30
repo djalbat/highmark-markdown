@@ -72,22 +72,22 @@ const bnf = `
     quaternaryHeading.      ::=  "####" markedText ;
 
 
-    table                   ::=  tableHead <END_OF_LINE> [dashes] <END_OF_LINE> tableBody ;
+    table                   ::=  tableHead endOfLine [dashes] endOfLine tableBody ;
 
 
     footnote                ::=  [reference] paragraph ;
 
 
-    orderedList             ::=  orderedListItem ( <END_OF_LINE> orderedListItem )* ;
+    orderedList             ::=  orderedListItem ( endOfLine orderedListItem )* ;
 
 
-    unorderedList           ::=  unorderedListItem ( <END_OF_LINE> unorderedListItem )* ;
+    unorderedList           ::=  unorderedListItem ( endOfLine unorderedListItem )* ;
 
 
     blockListing            ::=  blockListingStart endOfLine blockText endOfLine blockListingEnd ;
 
 
-    paragraph               ::=  markedText ( <END_OF_LINE> markedText )* ;
+    paragraph               ::=  markedText ( endOfLine markedText )* ;
     
 
     embedDirective          ::=  "@embed" [path] ;
@@ -114,13 +114,13 @@ const bnf = `
     tableHead               ::=  tableHeadRow ;
 
     
-    tableBody               ::=  tableBodyRow ( <END_OF_LINE> tableBodyRow )* ;
+    tableBody               ::=  tableBodyRow ( endOfLine tableBodyRow )* ;
 
     
-    orderedListItem.        ::=  [marker] markedText ( <END_OF_LINE> markedText )* ;
+    orderedListItem.        ::=  [marker] markedText ( endOfLine markedText )* ;
     
     
-    unorderedListItem.      ::=  [bullet] markedText ( <END_OF_LINE> markedText )* ;
+    unorderedListItem.      ::=  [bullet] markedText ( endOfLine markedText )* ;
 
 
     blockListingStart       ::=  [backticks] className? ;
