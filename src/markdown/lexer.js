@@ -1,6 +1,5 @@
 "use strict";
 
-import { CommonLexer } from "occam-lexers";
 import { WhitespaceToken,
          EndOfLineSignificantToken,
          EndOfLineCommentSignificantToken,
@@ -9,6 +8,7 @@ import { WhitespaceToken,
          CStyleMiddleOfMultiLineCommentToken } from "occam-lexers";
 
 import entries from "./entries";
+import CommonLexer from "../common/lexer";
 
 export default class MarkdownLexer extends CommonLexer {
   static entries = entries;
