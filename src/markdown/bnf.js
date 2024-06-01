@@ -5,10 +5,7 @@ const bnf = `
     division                ::=  ( subDivision | endOfLine | error )+ ;
     
     
-    subDivision             ::=  verticalSpace paragraph ;
-
-    
-    subDivision_            ::=  verticalSpace ( directives 
+    subDivision             ::=  verticalSpace ( directives 
     
                                                | primaryHeading 
          
