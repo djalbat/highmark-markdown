@@ -45,7 +45,9 @@ class View extends Element {
           parser = markdownStyleParser, ///
           content = markdownStyle,  ///
           tokens = lexer.tokenise(content),
-          node = parser.parse(tokens);
+          startRule = parser.getStartRule(),
+          startOfContent = true,
+          node = parser.parse(tokens, startRule, startOfContent);
 
     if (node !== null) {
       const parseTree = node.asParseTree(tokens);
@@ -62,7 +64,9 @@ class View extends Element {
           parser =  markdownParser, ///
           content = markdown, ///
           tokens = lexer.tokenise(content),
-          node = parser.parse(tokens);
+          startRule = parser.getStartRule(),
+          startOfContent = true,
+          node = parser.parse(tokens, startRule, startOfContent);
 
     if (node !== null) {
       const divisionMarkdownNode = node,  ///
@@ -189,8 +193,7 @@ class View extends Element {
   static initialMarkdownStyle = `min-height: initial;
 `;
 
-  static initialMarkdown = `
-[https://en.wikipedia.org/wiki/Backus-Naur_form](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form)
+  static initialMarkdown = `Paragraph.
 `;
 
   static tagName = "div";

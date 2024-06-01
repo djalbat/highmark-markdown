@@ -1,14 +1,10 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
 import AnchorMarkdownNode from "../../node/markdown/anchor";
 
 import { plainTextFromChildNodes } from "../../utilities/childNodes";
 import { replaceSpacesWithHyphens, removedLeadingWhitespace, removeNonAlphabeticAndSpaceCharacters } from "../../utilities/string";
-
-const { last } = arrayUtilities;
 
 export default class HeadingMarkdownNode extends MarkdownNode {
   getLevel() {
@@ -41,25 +37,6 @@ export default class HeadingMarkdownNode extends MarkdownNode {
           position = firstSignificantTokenIndex; ///
 
     return position;
-  }
-
-  childNodesAsHTML(indent, context) {
-    const childNodes = this.getChildNodes(),
-          lastChildNode = last(childNodes),
-          markedTextChildNode = lastChildNode,  ///
-          markedTextChildNodeChildNodesHTML = markedTextChildNode.childNodesAsHTML(indent, context),
-          childNodesHTML = markedTextChildNodeChildNodesHTML;
-
-    return childNodesHTML;
-  }
-
-  createChildNodeDOMElements(context) {
-    const domElement = this.getDOMElement(),
-          childNodes = this.getChildNodes(),
-          lastChildNode = last(childNodes),
-          markedTextChildNode = lastChildNode;  ///
-
-    markedTextChildNode.createChildNodeDOMElements(domElement, context);
   }
 
   static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity); }

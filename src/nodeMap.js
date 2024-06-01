@@ -1,5 +1,6 @@
 "use strict";
 
+import LineMarkdownNode from "./node/markdown/line";
 import LinkMarkdownNode from "./node/markdown/link";
 import ImageMarkdownNode from "./node/markdown/image";
 import TableMarkdownNode from "./node/markdown/table";
@@ -7,6 +8,7 @@ import ErrorMarkdownNode from "./node/markdown/error";
 import AnchorMarkdownNode from "./node/markdown/anchor";
 import DivisionMarkdownNode from "./node/markdown/division";
 import FootnoteMarkdownNode from "./node/markdown/footnote";
+import ReferenceMarkdownNode from "./node/markdown/reference";
 import ParagraphMarkdownNode from "./node/markdown/paragraph";
 import HyperlinkMarkdownNode from "./node/markdown/hyperlink";
 import TableCellMarkdownNode from "./node/markdown/tableCell";
@@ -50,13 +52,15 @@ import ContentsDirectiveMarkdownNode from "./node/markdown/directive/contents";
 import FootnotesDirectiveMarkdownNode from "./node/markdown/directive/footnotes";
 import StronglyEmphasisedTextMarkdownNode from "./node/markdown/stronglyEmphasisedText";
 
-import { LINK_RULE_NAME,
+import { LINE_RULE_NAME,
+         LINK_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
          DIVISION_RULE_NAME,
          FOOTNOTE_RULE_NAME,
+         REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
          TABLE_CELL_RULE_NAME,
@@ -101,6 +105,7 @@ import { LINK_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "./ruleNames";
 
 const nodeMap = {
+  [LINE_RULE_NAME]: LineMarkdownNode,
   [LINK_RULE_NAME]: LinkMarkdownNode,
   [IMAGE_RULE_NAME]: ImageMarkdownNode,
   [TABLE_RULE_NAME]: TableMarkdownNode,
@@ -108,6 +113,7 @@ const nodeMap = {
   [ANCHOR_RULE_NAME]: AnchorMarkdownNode,
   [DIVISION_RULE_NAME]: DivisionMarkdownNode,
   [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
+  [REFERENCE_RULE_NAME]: ReferenceMarkdownNode,
   [PARAGRAPH_RULE_NAME]: ParagraphMarkdownNode,
   [HYPERLINK_RULE_NAME]: HyperlinkMarkdownNode,
   [TABLE_CELL_RULE_NAME]: TableCellMarkdownNode,

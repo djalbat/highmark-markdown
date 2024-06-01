@@ -1,5 +1,6 @@
 "use strict";
 
+export const LINE_RULE_NAME = "line";
 export const LINK_RULE_NAME = "link";
 export const IMAGE_RULE_NAME = "image";
 export const TABLE_RULE_NAME = "table";
@@ -7,6 +8,7 @@ export const ERROR_RULE_NAME = "error";
 export const ANCHOR_RULE_NAME = "anchor";
 export const DIVISION_RULE_NAME = "division";
 export const FOOTNOTE_RULE_NAME = "footnote";
+export const REFERENCE_RULE_NAME = "reference";
 export const PARAGRAPH_RULE_NAME = "paragraph";
 export const HYPERLINK_RULE_NAME = "hyperlink";
 export const TABLE_CELL_RULE_NAME = "tableCell";
@@ -54,6 +56,7 @@ export const FOOTNOTES_DIRECTIVE_RULE_NAME = "footnotesDirective";
 export const STRONGLY_EMPHASISED_TEXT_RULE_NAME = "stronglyEmphasisedText";
 
 const ruleNames = {
+  LINE_RULE_NAME,
   LINK_RULE_NAME,
   IMAGE_RULE_NAME,
   TABLE_RULE_NAME,
@@ -61,6 +64,7 @@ const ruleNames = {
   ANCHOR_RULE_NAME,
   DIVISION_RULE_NAME,
   FOOTNOTE_RULE_NAME,
+  REFERENCE_RULE_NAME,
   PARAGRAPH_RULE_NAME,
   HYPERLINK_RULE_NAME,
   TABLE_CELL_RULE_NAME,

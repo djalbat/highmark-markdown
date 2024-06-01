@@ -8,8 +8,8 @@ const { first, push } = arrayUtilities;
 const linkMarkdownNodesQuery = Query.fromExpression("//link"),
       headingMarkdownNodesQuery = Query.fromExpression("//primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),
       footnoteMarkdownNodesQuery = Query.fromExpression("//footnote"),
-      linkOrFootnoteMarkdownNodesQuery = Query.fromExpression("//link|footnote"),
       embedDirectiveMarkdownNodesQuery = Query.fromExpression("//directives/embedDirective"),
+      linkOrReferenceMarkdownNodesQuery = Query.fromExpression("//link|reference"),
       includeDirectiveMarkdownNodesQuery = Query.fromExpression("//directives/includeDirective"),
       ignoreDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/ignoreDirective"),
       contentsDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/contentsDirective"),
@@ -62,16 +62,16 @@ export function footnoteMarkdownNodesFromNode(node, footnoteMarkdownNodes = []) 
   return footnoteMarkdownNodes;
 }
 
-export function linkOrFootnoteMarkdownNodesFromNode(node, linkOrFootnoteMarkdownNodes = []) {
-  nodesFromNodeAndQuery(node, linkOrFootnoteMarkdownNodesQuery, linkOrFootnoteMarkdownNodes);
-
-  return linkOrFootnoteMarkdownNodes;
-}
-
 export function embedDirectiveMarkdownNodesFromNode(node, embedDirectiveMarkdownNodes = []) {
   nodesFromNodeAndQuery(node, embedDirectiveMarkdownNodesQuery, embedDirectiveMarkdownNodes);
 
   return embedDirectiveMarkdownNodes;
+}
+
+export function linkOrReferenceMarkdownNodesFromNode(node, linkOrReferenceMarkdownNodes = []) {
+  nodesFromNodeAndQuery(node, linkOrReferenceMarkdownNodesQuery, linkOrReferenceMarkdownNodes);
+
+  return linkOrReferenceMarkdownNodes;
 }
 
 export function includeDirectiveMarkdownNodesFromNode(node, includeDirectiveMarkdownNodes = []) {
@@ -102,8 +102,8 @@ export default {
   linkMarkdownNodesFromNode,
   headingMarkdownNodesFromNode,
   footnoteMarkdownNodesFromNode,
-  linkOrFootnoteMarkdownNodesFromNode,
   embedDirectiveMarkdownNodesFromNode,
+  linkOrReferenceMarkdownNodesFromNode,
   includeDirectiveMarkdownNodesFromNode,
   ignoreDirectiveMarkdownNodeFromNode,
   contentsDirectiveMarkdownNodeFromNode,

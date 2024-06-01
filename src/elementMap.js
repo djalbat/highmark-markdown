@@ -1,12 +1,14 @@
 "use strict";
 
-import { LINK_RULE_NAME,
+import { LINE_RULE_NAME,
+         LINK_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
          DIVISION_RULE_NAME,
          FOOTNOTE_RULE_NAME,
+         REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
          TABLE_CELL_RULE_NAME,
@@ -52,6 +54,10 @@ import { LINK_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "./ruleNames";
 
 const elementMap = {
+  [LINE_RULE_NAME]: {
+    tagName: "span",
+    className: "line"
+  },
   [LINK_RULE_NAME]: {
     tagName: "a",
     className: "link"
@@ -77,6 +83,10 @@ const elementMap = {
     className: null
   },
   [FOOTNOTE_RULE_NAME]: {
+    tagName: null,
+    className: null
+  },
+  [REFERENCE_RULE_NAME]: {
     tagName: null,
     className: null
   },

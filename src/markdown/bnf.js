@@ -5,7 +5,10 @@ const bnf = `
     division                ::=  ( subDivision | endOfLine | error )+ ;
     
     
-    subDivision             ::=  verticalSpace ( directives 
+    subDivision             ::=  verticalSpace paragraph ;
+
+    
+    subDivision_            ::=  verticalSpace ( directives 
     
                                                | primaryHeading 
          
@@ -60,22 +63,22 @@ const bnf = `
                                                                     | footnotesDirective ) )* ;
 
 
-    primaryHeading          ::=  "#" markedText ;
+    primaryHeading          ::=  "#" line ;
 
 
-    secondaryHeading        ::=  "##" markedText ;
+    secondaryHeading        ::=  "##" line ;
 
 
-    tertiaryHeading         ::=  "###" markedText ;
+    tertiaryHeading         ::=  "###" line ;
     
     
-    quaternaryHeading       ::=  "####" markedText ;
+    quaternaryHeading       ::=  "####" line ;
 
 
     table                   ::=  tableHead endOfLine [dashes] endOfLine tableBody ;
 
 
-    footnote.               ::=  [reference] paragraph ;
+    footnote                ::=  reference paragraph ;
 
 
     orderedList             ::=  orderedListItem ( endOfLine orderedListItem )* ;
@@ -87,7 +90,7 @@ const bnf = `
     blockListing            ::=  blockListingStart endOfLine blockText endOfLine blockListingEnd ;
 
 
-    paragraph               ::=  markedText ( endOfLine markedText )* ;
+    paragraph               ::=  line ( endOfLine line )* ;
     
 
     embedDirective          ::=  "@embed" [path] ;
@@ -117,10 +120,10 @@ const bnf = `
     tableBody               ::=  tableBodyRow ( endOfLine tableBodyRow )* ;
 
     
-    orderedListItem         ::=  [marker] markedText ( endOfLine markedText )* ;
+    orderedListItem         ::=  [marker] line ( endOfLine line )* ;
     
     
-    unorderedListItem       ::=  [bullet] markedText ( endOfLine markedText )* ;
+    unorderedListItem       ::=  [bullet] line ( endOfLine line )* ;
 
 
     blockListingStart       ::=  [backticks] className? ;
@@ -144,7 +147,10 @@ const bnf = `
     emptyTableCell          ::=  "." [vertical-bar];
     
 
-    tableCell               ::=  markedText... [vertical-bar] ;
+    tableCell               ::=  line [vertical-bar] ;
+    
+    
+    line                    ::=  markedText+ ;
     
     
     markedText              ::=  ( link 
@@ -234,6 +240,9 @@ const bnf = `
     
 
     anchor.                 ::=  [identifier] ;
+    
+
+    reference.              ::=  [reference] ;
     
 
     className               ::=  <NO_WHITESPACE>[identifier] ;
