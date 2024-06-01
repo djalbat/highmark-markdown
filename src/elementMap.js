@@ -20,7 +20,6 @@ import { LINE_RULE_NAME,
          EMAIL_LINK_RULE_NAME,
          DIRECTIVES_RULE_NAME,
          END_OF_LINE_RULE_NAME,
-         MARKED_TEXT_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
          SUB_DIVISION_RULE_NAME,
@@ -131,10 +130,6 @@ const elementMap = {
     className: null
   },
   [END_OF_LINE_RULE_NAME]: {
-    tagName: null,
-    className: null
-  },
-  [MARKED_TEXT_RULE_NAME]: {
     tagName: null,
     className: null
   },

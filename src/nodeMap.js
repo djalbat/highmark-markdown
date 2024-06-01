@@ -20,7 +20,6 @@ import PlainTextMarkdownNode from "./node/markdown/plainText";
 import EmailLinkMarkdownNode from "./node/markdown/emailLink";
 import EndOfLineMarkdownNode from "./node/markdown/endOfLine";
 import DirectivesMarkdownNode from "./node/markdown/directives";
-import MarkedTextMarkdownNode from "./node/markdown/markedText";
 import InlineTextMarkdownNode from "./node/markdown/inlineText";
 import StrongTextMarkdownNode from "./node/markdown/strongText";
 import SubDivisionMarkdownNode from "./node/markdown/subDivision";
@@ -72,7 +71,6 @@ import { LINE_RULE_NAME,
          EMAIL_LINK_RULE_NAME,
          DIRECTIVES_RULE_NAME,
          END_OF_LINE_RULE_NAME,
-         MARKED_TEXT_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
          SUB_DIVISION_RULE_NAME,
@@ -125,7 +123,6 @@ const nodeMap = {
   [EMAIL_LINK_RULE_NAME]: EmailLinkMarkdownNode,
   [DIRECTIVES_RULE_NAME]: DirectivesMarkdownNode,
   [END_OF_LINE_RULE_NAME]: EndOfLineMarkdownNode,
-  [MARKED_TEXT_RULE_NAME]: MarkedTextMarkdownNode,
   [INLINE_TEXT_RULE_NAME]: InlineTextMarkdownNode,
   [STRONG_TEXT_RULE_NAME]: StrongTextMarkdownNode,
   [SUB_DIVISION_RULE_NAME]: SubDivisionMarkdownNode,

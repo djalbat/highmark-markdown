@@ -150,10 +150,7 @@ const bnf = `
     tableCell               ::=  line [vertical-bar] ;
     
     
-    line                    ::=  markedText+ ;
-    
-    
-    markedText              ::=  ( link 
+    line.                   ::=  ( link 
     
                                  | emailLink 
                                  
@@ -170,8 +167,8 @@ const bnf = `
                                  | strongText 
                                  
                                  | plainText )+ ;
-
-
+    
+    
     link.                   ::=  "[^" [identifier] "]" ;
     
 
