@@ -60,16 +60,16 @@ const bnf = `
                                                                     | footnotesDirective ) )* ;
 
 
-    primaryHeading.         ::=  "#" markedText ;
+    primaryHeading          ::=  "#" markedText ;
 
 
-    secondaryHeading.       ::=  "##" markedText ;
+    secondaryHeading        ::=  "##" markedText ;
 
 
-    tertiaryHeading.        ::=  "###" markedText ;
+    tertiaryHeading         ::=  "###" markedText ;
     
     
-    quaternaryHeading.      ::=  "####" markedText ;
+    quaternaryHeading       ::=  "####" markedText ;
 
 
     table                   ::=  tableHead endOfLine [dashes] endOfLine tableBody ;
@@ -117,10 +117,10 @@ const bnf = `
     tableBody               ::=  tableBodyRow ( endOfLine tableBodyRow )* ;
 
     
-    orderedListItem.        ::=  [marker] markedText ( endOfLine markedText )* ;
+    orderedListItem         ::=  [marker] markedText ( endOfLine markedText )* ;
     
     
-    unorderedListItem.      ::=  [bullet] markedText ( endOfLine markedText )* ;
+    unorderedListItem       ::=  [bullet] markedText ( endOfLine markedText )* ;
 
 
     blockListingStart       ::=  [backticks] className? ;
@@ -144,7 +144,7 @@ const bnf = `
     emptyTableCell          ::=  "." [vertical-bar];
     
 
-    tableCell.              ::=  markedText... [vertical-bar] ;
+    tableCell               ::=  markedText... [vertical-bar] ;
     
     
     markedText              ::=  ( link 
