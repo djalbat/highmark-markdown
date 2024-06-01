@@ -6,3 +6,4 @@ export const COLOUR = "color";  ///
 export const HYPHEN = "-";
 export const CONTENTS = "contents";
 export const EMPTY_STRING = "";
+export const CARRIAGE_RETURN = "\n";

@@ -14,7 +14,7 @@ export const HYPERLINK_RULE_NAME = "hyperlink";
 export const TABLE_CELL_RULE_NAME = "tableCell";
 export const TABLE_HEAD_RULE_NAME = "tableHead";
 export const TABLE_BODY_RULE_NAME = "tableBody";
-export const BLOCK_TEXT_RULE_NAME = "blockText";
+export const BLOCK_LINE_RULE_NAME = "blockLine";
 export const CLASS_NAME_RULE_NAME = "className";
 export const PLAIN_TEXT_RULE_NAME = "plainText";
 export const EMAIL_LINK_RULE_NAME = "emailLink";
@@ -69,7 +69,7 @@ const ruleNames = {
   TABLE_CELL_RULE_NAME,
   TABLE_HEAD_RULE_NAME,
   TABLE_BODY_RULE_NAME,
-  BLOCK_TEXT_RULE_NAME,
+  BLOCK_LINE_RULE_NAME,
   CLASS_NAME_RULE_NAME,
   PLAIN_TEXT_RULE_NAME,
   EMAIL_LINK_RULE_NAME,

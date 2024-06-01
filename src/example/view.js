@@ -193,7 +193,11 @@ class View extends Element {
   static initialMarkdownStyle = `min-height: initial;
 `;
 
-  static initialMarkdown = `Paragraph.
+  static initialMarkdown = `\`\`\`
+Line 1
+
+Line 2  
+\`\`\`
 `;
 
   static tagName = "div";

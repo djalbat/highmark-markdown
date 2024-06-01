@@ -14,7 +14,7 @@ import { LINE_RULE_NAME,
          TABLE_CELL_RULE_NAME,
          TABLE_HEAD_RULE_NAME,
          TABLE_BODY_RULE_NAME,
-         BLOCK_TEXT_RULE_NAME,
+         BLOCK_LINE_RULE_NAME,
          CLASS_NAME_RULE_NAME,
          PLAIN_TEXT_RULE_NAME,
          EMAIL_LINK_RULE_NAME,
@@ -109,8 +109,8 @@ const elementMap = {
     tagName: "tbody",
     className: null
   },
-  [BLOCK_TEXT_RULE_NAME]: {
-    tagName: null,
+  [BLOCK_LINE_RULE_NAME]: {
+    tagName: "span",
     className: null
   },
   [CLASS_NAME_RULE_NAME]: {

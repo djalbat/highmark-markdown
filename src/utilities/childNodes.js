@@ -4,8 +4,8 @@ import { arrayUtilities } from "necessary";
 
 import PlainTextMarkdownNode from "../node/markdown/plainText";
 
-import { EMPTY_STRING } from "../constants";
 import { contentFromMarkdownNodes } from "./content";
+import { CARRIAGE_RETURN, EMPTY_STRING } from "../constants";
 
 const { push, clear } = arrayUtilities;
 
@@ -57,10 +57,6 @@ export function htmlFromChildNodes(childNodes, context, leftTrimmed) {
   }
 
   html = htmls.join(EMPTY_STRING);
-
-  html = html.replace(/\n$/, EMPTY_STRING);
-
-  html = `${html}\n`;
 
   return html;
 }
@@ -156,6 +152,16 @@ export function domElementsFromChildNodes(childNodes, context, leftTrimmed) {
 
   if (plainText !== null) {
     const content = plainText,  ///
+          textNode = document.createTextNode(content),
+          domElement = textNode;  ///
+
+    domElements.push(domElement);
+  }
+
+  const domElementsLength = domElements.length;
+
+  if (domElementsLength === 0) {
+    const content = CARRIAGE_RETURN,  ///
           textNode = document.createTextNode(content),
           domElement = textNode;  ///
 

@@ -84,7 +84,7 @@ const bnf = `
     unorderedList           ::=  unorderedListItem ( endOfLine unorderedListItem )* ;
 
 
-    blockListing            ::=  blockListingStart endOfLine blockText endOfLine blockListingEnd ;
+    blockListing            ::=  blockListingStart <END_OF_LINE> blockLine+ blockListingEnd ;
 
 
     paragraph               ::=  line ( endOfLine line )* ;
@@ -198,15 +198,11 @@ const bnf = `
     strongText              ::=  "***" inlineText "***" ;
 
 
-    blockText.              ::=  ( plainText 
+    blockLine.              ::=  ( plainText 
                                 
                                  | [dashes] 
     
-                                 | [vertical-bar] )+ ( <END_OF_LINE>+ ( plainText 
-                                                                    
-                                                                      | [dashes] 
-  
-                                                                      | [vertical-bar] )+ )* ;
+                                 | [vertical-bar] )* <END_OF_LINE> ;
     
 
     inlineText              ::=  plainText+ ;

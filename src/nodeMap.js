@@ -14,7 +14,7 @@ import HyperlinkMarkdownNode from "./node/markdown/hyperlink";
 import TableCellMarkdownNode from "./node/markdown/tableCell";
 import TableHeadMarkdownNode from "./node/markdown/tableHead";
 import TableBodyMarkdownNode from "./node/markdown/tableBody";
-import BlockTextMarkdownNode from "./node/markdown/blockText";
+import BlockLineMarkdownNode from "./node/markdown/blockLine";
 import ClassNameMarkdownNode from "./node/markdown/className";
 import PlainTextMarkdownNode from "./node/markdown/plainText";
 import EmailLinkMarkdownNode from "./node/markdown/emailLink";
@@ -65,7 +65,7 @@ import { LINE_RULE_NAME,
          TABLE_CELL_RULE_NAME,
          TABLE_HEAD_RULE_NAME,
          TABLE_BODY_RULE_NAME,
-         BLOCK_TEXT_RULE_NAME,
+         BLOCK_LINE_RULE_NAME,
          CLASS_NAME_RULE_NAME,
          PLAIN_TEXT_RULE_NAME,
          EMAIL_LINK_RULE_NAME,
@@ -117,7 +117,7 @@ const nodeMap = {
   [TABLE_CELL_RULE_NAME]: TableCellMarkdownNode,
   [TABLE_HEAD_RULE_NAME]: TableHeadMarkdownNode,
   [TABLE_BODY_RULE_NAME]: TableBodyMarkdownNode,
-  [BLOCK_TEXT_RULE_NAME]: BlockTextMarkdownNode,
+  [BLOCK_LINE_RULE_NAME]: BlockLineMarkdownNode,
   [CLASS_NAME_RULE_NAME]: ClassNameMarkdownNode,
   [PLAIN_TEXT_RULE_NAME]: PlainTextMarkdownNode,
   [EMAIL_LINK_RULE_NAME]: EmailLinkMarkdownNode,
