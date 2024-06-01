@@ -12,8 +12,9 @@ export default class LineMarkdownNode extends MarkdownNode {
     return html;
   }
 
-  createChildNodeDOMElements(domElement, context, leftTrimmed = false) {
-    const childNodes = this.getChildNodes(),
+  createChildNodeDOMElements(context, leftTrimmed = false) {
+    const domElement = this.getDOMElement(),
+          childNodes = this.getChildNodes(),
           domElements = domElementsFromChildNodes(childNodes, context, leftTrimmed),
           parentDOMElement = domElement,  ///
           childNodeDOMElements = domElements; ///
