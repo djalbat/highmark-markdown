@@ -1,13 +1,10 @@
 "use strict";
 
-import { contentFromMarkdownNodes } from "../utilities/content";
+import { contentFromNode } from "../utilities/content";
 
-function content(context, leftTrimmed = true, rightTrimmed = true) {
-  const markdownNode = this, ///
-        markdownNodes = [
-          markdownNode
-        ],
-        content = contentFromMarkdownNodes(markdownNodes, context, leftTrimmed, rightTrimmed);
+function content(context) {
+  const node = this, ///
+        content = contentFromNode(node, context);
 
   return content;
 }

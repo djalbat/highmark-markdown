@@ -18,8 +18,8 @@ class ErrorMarkdownNode extends MarkdownNode {
 
   createDOMElement(context) {
     const tagName = this.tagName(context),
-        className = this.className(context),
-        domElement = document.createElement(tagName);
+          className = this.className(context),
+          domElement = document.createElement(tagName);
 
     Object.assign(domElement, {
       className

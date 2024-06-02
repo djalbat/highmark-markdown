@@ -7,25 +7,46 @@ import { ESCAPED_TOKEN_TYPE } from "../tokenTypes";
 
 const { first, last } = arrayUtilities;
 
-export function contentFromMarkdownNodes(markdownNodes, context, leftTrimmed, rightTrimmed) {
+export function contentFromNode(node, context) {
   let content = EMPTY_STRING;
 
   let { tokens } = context;
 
-  const markdownNodesLength = markdownNodes.length,
-        firstMarkdownNode = first(markdownNodes),
-        lastMarkdownNode = (markdownNodesLength === 1) ?
-                               firstMarkdownNode : ///
-                                 last(markdownNodes),
-        firstSignificantToken = firstMarkdownNode.getFirstSignificantToken(),
-        lastSignificantToken = lastMarkdownNode.getLastSignificantToken(),
-        firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
-        lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken);
+  const lastSignificantToken = node.getLastSignificantToken(),
+        firstSignificantToken = node.getFirstSignificantToken(),
+        lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken),
+        firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken);
+
+  const start = firstSignificantTokenIndex,  ///
+        end = lastSignificantTokenIndex + 1;
+
+  tokens = tokens.slice(start, end);
+
+  tokens.forEach((token) => {
+    const tokenContent = tokenContentFromToken(token);
+
+    content += tokenContent;
+  });
+
+  return content;
+}
+
+export function contentFromNodes(nodes, augmentLeft, augmentRight, context) {
+  let content = EMPTY_STRING;
+
+  let { tokens } = context;
+
+  const lastNode = last(nodes),
+        firstNode = first(nodes),
+        lastSignificantToken = lastNode.getLastSignificantToken(),
+        firstSignificantToken = firstNode.getFirstSignificantToken(),
+        lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken),
+        firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken);
 
   let firstTokenIndex = firstSignificantTokenIndex,  ///
       lastTokenIndex = lastSignificantTokenIndex; ///
 
-  if (!leftTrimmed) {
+  if (augmentLeft) {
     const previousTokenIndex = firstTokenIndex - 1;
 
     if (previousTokenIndex > -1) {
@@ -38,7 +59,7 @@ export function contentFromMarkdownNodes(markdownNodes, context, leftTrimmed, ri
     }
   }
 
-  if (!rightTrimmed) {
+  if (augmentRight) {
     const tokensLength = tokens.length,
           nextTokenIndex = lastTokenIndex + 1;
 
@@ -68,14 +89,14 @@ export function contentFromMarkdownNodes(markdownNodes, context, leftTrimmed, ri
 }
 
 export function contentFromNodeAndTokens(node, tokens, offset = 0) {
+  let content = EMPTY_STRING;
+
   const firstSignificantToken = node.getFirstSignificantToken(),
         lastSignificantToken = node.getLastSignificantToken(),
         firstToken = firstSignificantToken, ///
         lastToken = lastSignificantToken, ///
         firstTokenIndex = tokens.indexOf(firstToken) + offset,  ///
         lastTokenIndex = tokens.indexOf(lastToken);
-
-  let content = EMPTY_STRING;
 
   for (let index = firstTokenIndex; index <= lastTokenIndex; index++) {
     const token = tokens[index],

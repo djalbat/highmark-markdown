@@ -1,10 +1,14 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import MarkdownNode from "../../node/markdown";
 import AnchorMarkdownNode from "../../node/markdown/anchor";
 
 import { plainTextFromChildNodes } from "../../utilities/childNodes";
 import { replaceSpacesWithHyphens, removedLeadingWhitespace, removeNonAlphabeticAndSpaceCharacters } from "../../utilities/string";
+
+const { second } = arrayUtilities;
 
 export default class HeadingMarkdownNode extends MarkdownNode {
   getLevel() {
@@ -23,8 +27,7 @@ export default class HeadingMarkdownNode extends MarkdownNode {
 
   identifier(context) {
     const childNodes = this.getChildNodes(),
-          leftTrimmed = true,
-          plainText = plainTextFromChildNodes(childNodes, context, leftTrimmed),
+          plainText = plainTextFromChildNodes(childNodes, context),
           identifier = identifierFromPlainText(plainText);
 
     return identifier;
@@ -37,6 +40,26 @@ export default class HeadingMarkdownNode extends MarkdownNode {
           position = firstSignificantTokenIndex; ///
 
     return position;
+  }
+
+  childNodesAsHTML(indent, context) {
+    const childNodes = this.getChildNodes(),
+          secondChildNode = second(childNodes),
+          lineMarkdownNode = secondChildNode,  ///
+          lineMarkdownNodeHTML = lineMarkdownNode.asHTML(indent, context),
+          childNodesHTML = lineMarkdownNodeHTML;  ///
+
+    return childNodesHTML;
+  }
+
+  createChildNodeDOMElements(context) {
+    const childNodes = this.getChildNodes(),
+          secondChildNode = second(childNodes),
+          lineMarkdownNodeHTML = secondChildNode, ///
+          lineMarkdownNodeHTMLDOMElement = lineMarkdownNodeHTML.createDOMElement(context),
+          domElement = lineMarkdownNodeHTMLDOMElement;  ///
+
+    this.addDOMElement(domElement);
   }
 
   static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity); }

@@ -193,7 +193,9 @@ class View extends Element {
   static initialMarkdownStyle = `min-height: initial;
 `;
 
-  static initialMarkdown = `\`\`\`
+  static initialMarkdown = `# Heading
+
+\`\`\`
 Line 1
 
 Line 2  

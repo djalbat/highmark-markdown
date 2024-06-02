@@ -4,14 +4,12 @@ import { arrayUtilities } from "necessary";
 
 import PlainTextMarkdownNode from "../node/markdown/plainText";
 
-import { contentFromMarkdownNodes } from "./content";
-import { CARRIAGE_RETURN, EMPTY_STRING } from "../constants";
+import { EMPTY_STRING } from "../constants";
+import { contentFromNodes } from "./content";
 
-const { push, clear } = arrayUtilities;
+const { first, last, push, clear } = arrayUtilities;
 
-export function htmlFromChildNodes(childNodes, context, leftTrimmed) {
-  let html;
-
+export function htmlFromChildNodes(childNodes, context) {
   const htmls = [],
         plainTextMarkdownNodes = [];
 
@@ -28,10 +26,10 @@ export function htmlFromChildNodes(childNodes, context, leftTrimmed) {
 
         plainTextMarkdownNodes.push(plainTextMarkdownNode);
       } else {
-        const plainText = plainTextFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, leftTrimmed);
+        const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, context);
 
-        if (plainText !== null) {
-          const html = plainText; ///
+        if (content !== null) {
+          const html = content; ///
 
           htmls.push(html);
         }
@@ -44,26 +42,22 @@ export function htmlFromChildNodes(childNodes, context, leftTrimmed) {
         }
       }
     }
-
-    leftTrimmed = false;
   });
 
-  const plainText = plainTextFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, leftTrimmed);
+  const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, context);
 
-  if (plainText !== null) {
-    const html = plainText; ///
+  if (content !== null) {
+    const html = content; ///
 
     htmls.push(html);
   }
 
-  html = htmls.join(EMPTY_STRING);
+  const html = htmls.join(EMPTY_STRING);
 
   return html;
 }
 
-export function plainTextFromChildNodes(childNodes, context, leftTrimmed) {
-  let plainText;
-
+export function plainTextFromChildNodes(childNodes, context) {
   const plainTexts = [],
         plainTextMarkdownNodes = [];
 
@@ -80,37 +74,38 @@ export function plainTextFromChildNodes(childNodes, context, leftTrimmed) {
 
         plainTextMarkdownNodes.push(plainTextMarkdownNode);
       } else {
-        plainText = plainTextFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, leftTrimmed);
+        const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, context);
 
-        if (plainText !== null) {
+        if (content !== null) {
+          const plainText = content;  ///
+
           plainTexts.push(plainText);
         }
 
-        const childNodes = markdownNode.getChildNodes();
-
-        plainText = plainTextFromChildNodes(childNodes, context, leftTrimmed);
+        const childNodes = markdownNode.getChildNodes(),
+              plainText = plainTextFromChildNodes(childNodes, context);
 
         if (plainText !== EMPTY_STRING) {
           plainTexts.push(plainText);
         }
       }
     }
-
-    leftTrimmed = false;
   });
 
-  plainText = plainTextFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, leftTrimmed);
+  const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, context);
 
-  if (plainText !== null) {
+  if (content !== null) {
+    const plainText = content;  ///
+
     plainTexts.push(plainText);
   }
 
-  plainText = plainTexts.join(EMPTY_STRING);
+  const plainText = plainTexts.join(EMPTY_STRING);
 
   return plainText;
 }
 
-export function domElementsFromChildNodes(childNodes, context, leftTrimmed) {
+export function domElementsFromChildNodes(childNodes, context) {
   const domElements = [],
         plainTextMarkdownNodes = [];
 
@@ -127,11 +122,10 @@ export function domElementsFromChildNodes(childNodes, context, leftTrimmed) {
 
         plainTextMarkdownNodes.push(plainTextMarkdownNode);
       } else {
-        const plainText = plainTextFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, leftTrimmed);
+        const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, context);
 
-        if (plainText !== null) {
-          const content = plainText,  ///
-                textNode = document.createTextNode(content),
+        if (content !== null) {
+          const textNode = document.createTextNode(content),
                 domElement = textNode;  ///
 
           domElements.push(domElement);
@@ -144,25 +138,12 @@ export function domElementsFromChildNodes(childNodes, context, leftTrimmed) {
         push(domElements, markdownNodeDOMElements);
       }
     }
-
-    leftTrimmed = false;
   });
 
-  const plainText = plainTextFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, leftTrimmed);
+  const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, context);
 
-  if (plainText !== null) {
-    const content = plainText,  ///
-          textNode = document.createTextNode(content),
-          domElement = textNode;  ///
-
-    domElements.push(domElement);
-  }
-
-  const domElementsLength = domElements.length;
-
-  if (domElementsLength === 0) {
-    const content = CARRIAGE_RETURN,  ///
-          textNode = document.createTextNode(content),
+  if (content !== null) {
+    const textNode = document.createTextNode(content),
           domElement = textNode;  ///
 
     domElements.push(domElement);
@@ -171,20 +152,27 @@ export function domElementsFromChildNodes(childNodes, context, leftTrimmed) {
   return domElements;
 }
 
-function plainTextFromPlainTextMarkdownNodes(plainTextMarkdownNodes, context, leftTrimmed) {
-  let plainText = null;
+function contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, context) {
+  let content = null;
 
   const plainTextMarkdownNodesLength = plainTextMarkdownNodes.length;
 
   if (plainTextMarkdownNodesLength > 0) {
-    const markdownNodes = plainTextMarkdownNodes,  ///
-          rightTrimmed = false,
-          content = contentFromMarkdownNodes(markdownNodes, context, leftTrimmed, rightTrimmed);
+    const nodes = plainTextMarkdownNodes, ///
+          lastNode = last(nodes),
+          firstNode = first(nodes),
+          lastNodeIndex = childNodes.indexOf(lastNode),
+          firstNodeIndex = childNodes.indexOf(firstNode),
+          childNodesLength = childNodes.length,
+          lastChildNodeIndex = childNodesLength - 1,
+          firstChildNodeIndex = 0,
+          augmentLeft = (firstNodeIndex !== firstChildNodeIndex),
+          augmentRight = (lastNodeIndex !== lastChildNodeIndex);  ///
 
-    plainText = content; ///
+    content = contentFromNodes(nodes, augmentLeft, augmentRight, context);
 
     clear(plainTextMarkdownNodes);
   }
 
-  return plainText;
+  return content;
 }
