@@ -2,17 +2,17 @@
 
 import MarkdownNode from "../../node/markdown";
 
-import { EMPTY_STRING } from "../../constants";
+import { CARRIAGE_RETURN } from "../../constants";
 
 export default class VerticalSpaceMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
-    const html = EMPTY_STRING;  ///
+    const html = CARRIAGE_RETURN;  ///
 
     return html;
   }
 
   createDOMElement(context) {
-    const content = EMPTY_STRING, ///
+    const content = CARRIAGE_RETURN, ///
           textNode = document.createTextNode(content),
           domElement = textNode;  ///
 

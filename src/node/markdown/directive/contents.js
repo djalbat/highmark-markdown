@@ -9,18 +9,6 @@ import { CONTENTS } from "../../../constants";
 const { last } = arrayUtilities;
 
 export default class ContentsDirectiveMarkdownNode extends MarkdownNode {
-  asHTML(indent, context) {
-    const html = null;
-
-    return html;
-  }
-
-  createDOMElement(context) {
-    const domElement = null;
-
-    return domElement;
-  }
-
   maximumLevel(context) {
     let maximumLevel = 1;
 

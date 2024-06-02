@@ -84,7 +84,7 @@ const bnf = `
     unorderedList           ::=  unorderedListItem ( endOfLine unorderedListItem )* ;
 
 
-    blockListing            ::=  blockListingStart <END_OF_LINE> blockLine+ blockListingEnd ;
+    blockListing            ::=  blockListingStart ( blockLine | endOfLine )+ blockListingEnd ;
 
 
     paragraph               ::=  line ( endOfLine line )* ;
@@ -123,7 +123,7 @@ const bnf = `
     unorderedListItem       ::=  [bullet] line ( endOfLine line )* ;
 
 
-    blockListingStart       ::=  [backticks] className? ;
+    blockListingStart       ::=  [backticks] className? <END_OF_LINE> ;
 
 
     blockListingEnd         ::=  [backticks] ;
@@ -202,7 +202,7 @@ const bnf = `
                                 
                                  | [dashes] 
     
-                                 | [vertical-bar] )* <END_OF_LINE> ;
+                                 | [vertical-bar] )* ;
     
 
     inlineText              ::=  plainText+ ;
