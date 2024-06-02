@@ -135,10 +135,18 @@ const bnf = `
     tableBodyRow            ::=  [vertical-bar] tableBodyCell+ ;
 
 
-    tableHeadCell.          ::=  emptyTableCell | tableCell ;
+    tableHeadCell.          ::=  emptyTableCell 
+    
+                              |  tableCell 
+                              
+                              ;
 
 
-    tableBodyCell.          ::=  emptyTableCell | tableCell ; 
+    tableBodyCell.          ::=  emptyTableCell 
+    
+                              |  tableCell 
+                              
+                              ; 
 
 
     emptyTableCell          ::=  "." [vertical-bar];
