@@ -12,6 +12,7 @@ export { default as MarkdownParser } from "./markdown/parser";
 export { default as queryUtilities } from "./utilities/query";
 export { default as MarkdownStyleLexer } from "./markdownStyle/lexer";
 export { default as MarkdownStyleParser } from "./markdownStyle/parser";
+export { default as childNodesUtilities } from "./utilities/childNodes";
 export { default as MarkdownStyleElement } from "./styleElement/markdown";
 export { default as defaultMarkdownStyle } from "./defaultMarkdownStyle";
 export { default as DefaultMarkdownStyleElement } from "./styleElement/markdown/default";
