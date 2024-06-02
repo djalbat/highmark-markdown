@@ -196,7 +196,7 @@ class View extends Element {
   static initialMarkdown = `# Heading
 
 \`\`\`
-Line 1
+   Line 1
 
 Line 2  
 \`\`\`

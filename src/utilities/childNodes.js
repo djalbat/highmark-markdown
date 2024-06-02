@@ -176,9 +176,3 @@ function contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, c
 
   return content;
 }
-
-export default {
-  htmlFromChildNodes,
-  plainTextFromChildNodes,
-  domElementsFromChildNodes
-};
