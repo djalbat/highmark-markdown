@@ -5,7 +5,7 @@ import { arrayUtilities } from "necessary";
 import PlainTextMarkdownNode from "../node/markdown/plainText";
 
 import { EMPTY_STRING } from "../constants";
-import { contentFromNodes } from "./content";
+import { contentFromNodes } from "../utilities/content";
 
 const { first, last, push, clear } = arrayUtilities;
 
@@ -176,9 +176,3 @@ function contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, c
 
   return content;
 }
-
-export default {
-  htmlFromChildNodes,
-  plainTextFromChildNodes,
-  domElementsFromChildNodes
-};

@@ -115,6 +115,13 @@ export function remainingContentFromNodeTokensAndOffset(node, tokens, offset) {
   return remainingContent;
 }
 
+export default {
+  contentFromNode,
+  contentFromNodes,
+  contentFromNodeAndTokens,
+  remainingContentFromNodeTokensAndOffset
+};
+
 function tokenContentFromToken(token) {
   let tokenContent = token.getContent();
 
