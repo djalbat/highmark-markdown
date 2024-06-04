@@ -1,11 +1,6 @@
 "use strict";
 
-import { WhitespaceToken,
-         EndOfLineSignificantToken,
-         EndOfLineCommentSignificantToken,
-         CStyleEndOfMultiLineCommentToken,
-         CStyleStartOfMultiLineCommentToken,
-         CStyleMiddleOfMultiLineCommentToken } from "occam-lexers";
+import { WhitespaceToken, EndOfLineSignificantToken } from "occam-lexers";
 
 import entries from "./entries";
 import CommonLexer from "../common/lexer";
@@ -17,17 +12,17 @@ export default class MarkdownLexer extends CommonLexer {
 
   static WhitespaceToken = WhitespaceToken;
 
-  static EndOfLineCommentToken = EndOfLineCommentSignificantToken;  ///
+  static EndOfLineCommentToken = null;
 
   static SingleLineCommentToken = null;
 
   static RegularExpressionToken = null;
 
-  static EndOfMultiLineCommentToken = CStyleEndOfMultiLineCommentToken; ///
+  static EndOfMultiLineCommentToken = null;
 
-  static StartOfMultiLineCommentToken = CStyleStartOfMultiLineCommentToken; ///
+  static StartOfMultiLineCommentToken = null;
 
-  static MiddleOfMultiLineCommentToken = CStyleMiddleOfMultiLineCommentToken; ///
+  static MiddleOfMultiLineCommentToken = null;
 
   static SinglyQuotedStringLiteralToken = null;
 
