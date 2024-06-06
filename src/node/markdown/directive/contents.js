@@ -24,14 +24,5 @@ export default class ContentsDirectiveMarkdownNode extends MarkdownNode {
     return maximumLevel;
   }
 
-  minimumPosition(context) {
-    const { tokens } = context,
-          firstSignificantToken = this.getFirstSignificantToken(),
-          firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
-          minimumPosition = firstSignificantTokenIndex; ///
-
-    return minimumPosition;
-  }
-
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ContentsDirectiveMarkdownNode, ruleName, childNodes, opacity); }
 }

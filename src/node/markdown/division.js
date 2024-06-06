@@ -198,19 +198,7 @@ ${childNodesHTML}${indent}${closingTag}
 
 function headingMarkdownNodesFromDivisionMarkdownNodeAndContentsDirectiveMarkdownNode(divisionMarkdownNode, contentsDirectiveMarkdownNode, context) {
   const headingMarkdownNodes = [],
-        minimumPosition = contentsDirectiveMarkdownNode.minimumPosition(context),
-        maximumLevel = contentsDirectiveMarkdownNode.maximumLevel(context),
-        node = divisionMarkdownNode;  ///
-
-  headingMarkdownNodesFromNode(node, headingMarkdownNodes);
-
-  filter(headingMarkdownNodes, (headingMarkdownNode) => {
-    const position = headingMarkdownNode.position(context);
-
-    if (position > minimumPosition) {
-      return true;
-    }
-  });
+        maximumLevel = contentsDirectiveMarkdownNode.maximumLevel(context);
 
   let { divisionMarkdownNodes } = context;
 

@@ -33,15 +33,6 @@ export default class HeadingMarkdownNode extends MarkdownNode {
     return identifier;
   }
 
-  position(context) {
-    const { tokens } = context,
-          firstSignificantToken = this.getFirstSignificantToken(),
-          firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
-          position = firstSignificantTokenIndex; ///
-
-    return position;
-  }
-
   childNodesAsHTML(indent, context) {
     const childNodes = this.getChildNodes(),
           lastChildNode = last(childNodes),
