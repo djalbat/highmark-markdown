@@ -33,23 +33,6 @@ export default class HeadingMarkdownNode extends MarkdownNode {
     return identifier;
   }
 
-  // childNodesAsHTML(indent, context) {
-  //   const lineMarkdownNode = this.getLineMarkdownNode(),
-  //         lineMarkdownNodeHTML = lineMarkdownNode.asHTML(indent, context),
-  //         childNodesHTML = lineMarkdownNodeHTML;  ///
-  //
-  //   return childNodesHTML;
-  // }
-  //
-  // createChildNodeDOMElements(context) {
-  //   const lastChildNode = this.getLineMarkdownNode(),
-  //         lineMarkdownNodeHTML = lastChildNode, ///
-  //         lineMarkdownNodeHTMLDOMElement = lineMarkdownNodeHTML.createDOMElement(context),
-  //         domElement = lineMarkdownNodeHTMLDOMElement;  ///
-  //
-  //   this.addDOMElement(domElement);
-  // }
-
   getLineMarkdownNode() {
     const childNodes = this.getChildNodes(),
           lastChildNode = last(childNodes),
