@@ -34,9 +34,7 @@ export default class HeadingMarkdownNode extends MarkdownNode {
   }
 
   childNodesAsHTML(indent, context) {
-    const childNodes = this.getChildNodes(),
-          lastChildNode = last(childNodes),
-          lineMarkdownNode = lastChildNode,  ///
+    const lineMarkdownNode = this.getLineMarkdownNode(),
           lineMarkdownNodeHTML = lineMarkdownNode.asHTML(indent, context),
           childNodesHTML = lineMarkdownNodeHTML;  ///
 
@@ -44,13 +42,20 @@ export default class HeadingMarkdownNode extends MarkdownNode {
   }
 
   createChildNodeDOMElements(context) {
-    const childNodes = this.getChildNodes(),
-          lastChildNode = last(childNodes),
+    const lastChildNode = this.getLineMarkdownNode(),
           lineMarkdownNodeHTML = lastChildNode, ///
           lineMarkdownNodeHTMLDOMElement = lineMarkdownNodeHTML.createDOMElement(context),
           domElement = lineMarkdownNodeHTMLDOMElement;  ///
 
     this.addDOMElement(domElement);
+  }
+
+  getLineMarkdownNode() {
+    const childNodes = this.getChildNodes(),
+          lastChildNode = last(childNodes),
+          lineMarkdownNode = lastChildNode;  ///
+
+    return lineMarkdownNode;
   }
 
   static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity); }

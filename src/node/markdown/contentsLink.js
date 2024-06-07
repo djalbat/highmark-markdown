@@ -58,10 +58,14 @@ export default class ContentsLinkMarkdownNode extends MarkdownNode {
           headingMarkdownNode = node;  ///
 
     if (headingMarkdownNode !== null) {
-      const node = headingMarkdownNode, ///
+      const lineMarkdownNode = headingMarkdownNode.getLineMarkdownNode(),
+            childNode = lineMarkdownNode, ///
+            node = childNode, ///
             replacementNodeAndTokens = ReplacementNodeAndTokens.fromNode(node, context),
-            childNodes = replacementNodeAndTokens.getChildNodes(),
             ruleName = CONTENTS_LINK_RULE_NAME,
+            childNodes = [
+              childNode
+            ],
             opacity = null,
             tokens = replacementNodeAndTokens.getTokens(),
             identifier = headingMarkdownNode.identifier(context);

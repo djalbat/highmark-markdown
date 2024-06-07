@@ -4,20 +4,20 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../../node/markdown";
 
-import { CONTENTS } from "../../../constants";
-
-const { last } = arrayUtilities;
+const { second } = arrayUtilities;
 
 export default class ContentsDirectiveMarkdownNode extends MarkdownNode {
   maximumLevel(context) {
     let maximumLevel = 1;
 
     const childNodes = this.getChildNodes(),
-          lastChildNode = last(childNodes),
-          terminalNode = lastChildNode, ///
-          content = terminalNode.getContent();
+          childNodesLength = childNodes.length;
 
-    if (content !== CONTENTS) {
+    if (childNodesLength> 1) {
+      const secondChildNode = second(childNodes),
+            terminalNode = secondChildNode, ///
+            content = terminalNode.getContent();
+
       maximumLevel = Number(content); ///
     }
 

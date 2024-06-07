@@ -194,15 +194,9 @@ class View extends Element {
 `;
 
   static initialMarkdown = `
-|asdfs|
--------
-|adsad|
-
-\`\`\`
-   Line 1
-
-Line 2  
-\`\`\`
+@contents 1  
+  
+@include blah.md  
 `;
 
   static tagName = "div";
@@ -223,12 +217,12 @@ export default withStyle(View)`
 `;
 
 function importer(filePath, context) {
-  const content = `## Secondary heading
-
-### Tertiary heading
+  const content = `# Primary heading
 `,
+        startOfContent = true,
+        startRule = markdownParser.getStartRule(),
         tokens = markdownLexer.tokenise(content),
-        node = markdownParser.parse(tokens),
+        node = markdownParser.parse(tokens, startRule, startOfContent),
         importedNode = node,  ///
         importedTokens = tokens,
         importedClassName = "introduction";
