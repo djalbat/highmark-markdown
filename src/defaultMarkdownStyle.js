@@ -155,7 +155,8 @@ link {
 }
 
 error {
-  text-decoration: underline red;
+  colour: red;
+  font-size: 13pt;
 }
 `;
 
