@@ -7,7 +7,7 @@ import MarkdownNode from "../../node/markdown";
 import { EMPTY_STRING } from "../../constants";
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 
-const { second } = arrayUtilities;
+const { first } = arrayUtilities;
 
 export default class LinkMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, opacity, precedence, domElement, number) {
@@ -34,10 +34,9 @@ export default class LinkMarkdownNode extends MarkdownNode {
 
   identifier(context) {
     const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          identifierTerminalNode = secondChildNode,  ///
-          identifierTerminalNodeContent = identifierTerminalNode.getContent(),
-          identifier = identifierTerminalNodeContent; ///
+          firstChildNode = first(childNodes),
+          linkTerminalNode = firstChildNode,  ///
+          identifier = identifierFromLinkTerminalNode(linkTerminalNode);
 
     return identifier;
   }
@@ -78,4 +77,13 @@ export default class LinkMarkdownNode extends MarkdownNode {
 
     return linkMarkdownNode;
   }
+}
+
+function identifierFromLinkTerminalNode(linkTerminalNode) {
+  const content = linkTerminalNode.getContent(),
+        matches = content.match(/\[([^\]]+)]:/),
+        secondMatch = second(matches),
+        identifier = secondMatch; ///
+
+  return identifier;
 }

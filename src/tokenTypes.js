@@ -3,6 +3,7 @@
 export const URL_TOKEN_TYPE = "url";
 export const WORD_TOKEN_TYPE = "word";
 export const PATH_TOKEN_TYPE = "path";
+export const LINK_TOKEN_TYPE = "link";
 export const MARKER_TOKEN_TYPE = "marker";
 export const DASHES_TOKEN_TYPE = "dashes";
 export const HASHES_TOKEN_TYPE = "hashes";
@@ -22,6 +23,7 @@ const tokenTypes = {
   URL_TOKEN_TYPE,
   WORD_TOKEN_TYPE,
   PATH_TOKEN_TYPE,
+  LINK_TOKEN_TYPE,
   MARKER_TOKEN_TYPE,
   DASHES_TOKEN_TYPE,
   HASHES_TOKEN_TYPE,

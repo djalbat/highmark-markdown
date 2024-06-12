@@ -181,7 +181,7 @@ const bnf = `
                                  | plainText )+ ;
     
     
-    link.                   ::=  "[^" [identifier] "]" ;
+    link.                   ::=  [link] ;
     
 
     emailLink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [email-address] ")" 
