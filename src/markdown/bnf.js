@@ -64,16 +64,16 @@ const bnf = `
                                                                     | footnotesDirective ) )* ;
 
 
-    primaryHeading          ::=  "#" line ;
+    primaryHeading.         ::=  "#" line ;
 
 
-    secondaryHeading        ::=  "##" line ;
+    secondaryHeading.       ::=  "##" line ;
 
 
-    tertiaryHeading         ::=  "###" line ;
+    tertiaryHeading.        ::=  "###" line ;
     
     
-    quaternaryHeading       ::=  "####" line ;
+    quaternaryHeading.      ::=  "####" line ;
 
 
     table                   ::=  tableHead endOfLine [dashes] endOfLine tableBody ;
