@@ -5,14 +5,14 @@ import { arrayUtilities } from "necessary";
 
 const { first, push } = arrayUtilities;
 
-const linkMarkdownNodesQuery = Query.fromExpression("//link"),
+const ignoreDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/ignoreDirective"),
+      contentsDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/contentsDirective"),
+      footnotesDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/footnotesDirective"),
+      linkMarkdownNodesQuery = Query.fromExpression("//link"),
       headingMarkdownNodesQuery = Query.fromExpression("//primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),
       footnoteMarkdownNodesQuery = Query.fromExpression("//footnote"),
       embedDirectiveMarkdownNodesQuery = Query.fromExpression("//directives/embedDirective"),
       includeDirectiveMarkdownNodesQuery = Query.fromExpression("//directives/includeDirective"),
-      ignoreDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/ignoreDirective"),
-      contentsDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/contentsDirective"),
-      footnotesDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/footnotesDirective"),
       linkReferenceOrFootnotesDirectiveMarkdownNodesQuery = Query.fromExpression("//link|reference|footnotesDirective");
 
 export function nodeQuery(expression) {
@@ -44,6 +44,24 @@ export function nodesQuery(expression) {
   }
 }
 
+export function ignoreDirectiveMarkdownNodeFromNode(node) {
+  const ignoreDirectiveMarkdownNode = nodeFromNodeAndQuery(node, ignoreDirectiveMarkdownNodeQuery);
+
+  return ignoreDirectiveMarkdownNode;
+}
+
+export function contentsDirectiveMarkdownNodeFromNode(node) {
+  const contentsDirectiveMarkdownNode = nodeFromNodeAndQuery(node, contentsDirectiveMarkdownNodeQuery);
+
+  return contentsDirectiveMarkdownNode;
+}
+
+export function footnotesDirectiveMarkdownNodeFromNode(node) {
+  const footnotesDirectiveMarkdownNode = nodeFromNodeAndQuery(node, footnotesDirectiveMarkdownNodeQuery);
+
+  return footnotesDirectiveMarkdownNode;
+}
+
 export function linkMarkdownNodesFromNode(node, linkMarkdownNodes = []) {
   nodesFromNodeAndQuery(node, linkMarkdownNodesQuery, linkMarkdownNodes);
 
@@ -68,46 +86,28 @@ export function embedDirectiveMarkdownNodesFromNode(node, embedDirectiveMarkdown
   return embedDirectiveMarkdownNodes;
 }
 
-export function linkReferenceOrFootnotesDirectiveMarkdownNodesFromNode(node, linkReferenceOrFootnotesDirectiveMarkdownNodes = []) {
-  nodesFromNodeAndQuery(node, linkReferenceOrFootnotesDirectiveMarkdownNodesQuery, linkReferenceOrFootnotesDirectiveMarkdownNodes);
-
-  return linkReferenceOrFootnotesDirectiveMarkdownNodes;
-}
-
 export function includeDirectiveMarkdownNodesFromNode(node, includeDirectiveMarkdownNodes = []) {
   nodesFromNodeAndQuery(node, includeDirectiveMarkdownNodesQuery, includeDirectiveMarkdownNodes);
 
   return includeDirectiveMarkdownNodes;
 }
 
-export function ignoreDirectiveMarkdownNodeFromNode(node) {
-  const ignoreDirectiveMarkdownNode = nodeFromNodeAndQuery(node, ignoreDirectiveMarkdownNodeQuery);
+export function linkReferenceOrFootnotesDirectiveMarkdownNodesFromNode(node, linkReferenceOrFootnotesDirectiveMarkdownNodes = []) {
+  nodesFromNodeAndQuery(node, linkReferenceOrFootnotesDirectiveMarkdownNodesQuery, linkReferenceOrFootnotesDirectiveMarkdownNodes);
 
-  return ignoreDirectiveMarkdownNode;
-}
-
-export function contentsDirectiveMarkdownNodeFromNode(node) {
-  const contentsDirectiveMarkdownNode = nodeFromNodeAndQuery(node, contentsDirectiveMarkdownNodeQuery);
-
-  return contentsDirectiveMarkdownNode;
-}
-
-export function footnotesDirectiveMarkdownNodeFromNode(node) {
-  const footnotesDirectiveMarkdownNode = nodeFromNodeAndQuery(node, footnotesDirectiveMarkdownNodeQuery);
-
-  return footnotesDirectiveMarkdownNode;
+  return linkReferenceOrFootnotesDirectiveMarkdownNodes;
 }
 
 export default {
+  ignoreDirectiveMarkdownNodeFromNode,
+  contentsDirectiveMarkdownNodeFromNode,
+  footnotesDirectiveMarkdownNodeFromNode,
   linkMarkdownNodesFromNode,
   headingMarkdownNodesFromNode,
   footnoteMarkdownNodesFromNode,
   embedDirectiveMarkdownNodesFromNode,
-  linkReferenceOrFootnotesDirectiveMarkdownNodesFromNode,
   includeDirectiveMarkdownNodesFromNode,
-  ignoreDirectiveMarkdownNodeFromNode,
-  contentsDirectiveMarkdownNodeFromNode,
-  footnotesDirectiveMarkdownNodeFromNode
+  linkReferenceOrFootnotesDirectiveMarkdownNodesFromNode
 };
 
 function nodeFromNodeAndQuery(node, query) {
