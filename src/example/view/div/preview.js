@@ -53,7 +53,5 @@ class PreviewDiv extends Element {
 export default withStyle(PreviewDiv)`
 
   border: 1px solid darkgrey;
-  padding: 1.6rem;
-  font-size: 1.6rem;
   
 `;

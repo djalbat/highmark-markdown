@@ -9,17 +9,17 @@ import { mediaTypeNames, MarkdownStyleElement, DefaultMarkdownStyleElement } fro
 
 import View from "./example/view";
 
-import { PREVIEW_DIV_SELECTORS_STRING } from "./example/constants";
+import { PREVIEW_DIV_DIVS_SELECTORS_STRING } from "./example/constants";
 
 const { renderStyles } = withStyle,
       { PREVIEW_MEDIA_TYPE_NAME } = mediaTypeNames;
 
 const mediaTypeName = PREVIEW_MEDIA_TYPE_NAME,
-      selectorSString = PREVIEW_DIV_SELECTORS_STRING;
+      selectorsString = PREVIEW_DIV_DIVS_SELECTORS_STRING;
 
-DefaultMarkdownStyleElement.fromMediaTypeNameAndSelectorsString(mediaTypeName, selectorSString);
+DefaultMarkdownStyleElement.fromMediaTypeNameAndSelectorsString(mediaTypeName, selectorsString);
 
-const markdownStyleElement = MarkdownStyleElement.fromMediaTypeNameAndSelectorsString(mediaTypeName, selectorSString);
+const markdownStyleElement = MarkdownStyleElement.fromMediaTypeNameAndSelectorsString(mediaTypeName, selectorsString);
 
 renderStyles();
 

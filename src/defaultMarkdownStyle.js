@@ -104,6 +104,13 @@ inlineListing {
   padding: 0 3pt 0 3pt;
 }
 
+link {
+  font-size: 9pt;
+  line-height: 13pt;
+  margin-left: 3pt;
+  vertical-align: super;
+}
+
 table {
   border-collapse: collapse;
 }
@@ -147,11 +154,11 @@ footnoteItem {
   }
 }
 
-link {
-  font-size: 9pt;
-  line-height: 13pt;
-  margin-left: 3pt;
-  vertical-align: super;
+pageNumber {
+  display: block;
+  font-size: 13pt;
+  margin-top: 36px;
+  text-align: center;
 }
 
 error {
