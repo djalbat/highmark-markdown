@@ -9,11 +9,11 @@ const linkMarkdownNodesQuery = Query.fromExpression("//link"),
       headingMarkdownNodesQuery = Query.fromExpression("//primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),
       footnoteMarkdownNodesQuery = Query.fromExpression("//footnote"),
       embedDirectiveMarkdownNodesQuery = Query.fromExpression("//directives/embedDirective"),
-      linkOrReferenceMarkdownNodesQuery = Query.fromExpression("//link|reference"),
       includeDirectiveMarkdownNodesQuery = Query.fromExpression("//directives/includeDirective"),
       ignoreDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/ignoreDirective"),
       contentsDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/contentsDirective"),
-      footnotesDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/footnotesDirective");
+      footnotesDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/footnotesDirective"),
+      linkReferenceOrFootnotesDirectiveMarkdownNodesQuery = Query.fromExpression("//link|reference|footnotesDirective");
 
 export function nodeQuery(expression) {
   const query = Query.fromExpression(expression);
@@ -68,10 +68,10 @@ export function embedDirectiveMarkdownNodesFromNode(node, embedDirectiveMarkdown
   return embedDirectiveMarkdownNodes;
 }
 
-export function linkOrReferenceMarkdownNodesFromNode(node, linkOrReferenceMarkdownNodes = []) {
-  nodesFromNodeAndQuery(node, linkOrReferenceMarkdownNodesQuery, linkOrReferenceMarkdownNodes);
+export function linkReferenceOrFootnotesDirectiveMarkdownNodesFromNode(node, linkReferenceOrFootnotesDirectiveMarkdownNodes = []) {
+  nodesFromNodeAndQuery(node, linkReferenceOrFootnotesDirectiveMarkdownNodesQuery, linkReferenceOrFootnotesDirectiveMarkdownNodes);
 
-  return linkOrReferenceMarkdownNodes;
+  return linkReferenceOrFootnotesDirectiveMarkdownNodes;
 }
 
 export function includeDirectiveMarkdownNodesFromNode(node, includeDirectiveMarkdownNodes = []) {
@@ -103,7 +103,7 @@ export default {
   headingMarkdownNodesFromNode,
   footnoteMarkdownNodesFromNode,
   embedDirectiveMarkdownNodesFromNode,
-  linkOrReferenceMarkdownNodesFromNode,
+  linkReferenceOrFootnotesDirectiveMarkdownNodesFromNode,
   includeDirectiveMarkdownNodesFromNode,
   ignoreDirectiveMarkdownNodeFromNode,
   contentsDirectiveMarkdownNodeFromNode,
