@@ -99,7 +99,7 @@ const bnf = `
     includeDirective        ::=  "@include" [path] ;
 
 
-    contentsDirective       ::=  "@contents" [number]? ;
+    contentsDirective       ::=  "@contents" ;
 
 
     footnotesDirective      ::=  "@footnotes" ;

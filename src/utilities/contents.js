@@ -8,16 +8,16 @@ export function nestNodes(nodes) {
   const nestedNodesStack = NestedNodeStack.fromNothing();
 
   nodes.forEach((node) => {
-    const level = node.getLevel();
+    const depth = node.getDepth();
 
-    let nestedNodesStackLevel = nestedNodesStack.getLevel()
+    let nestedNodesStackDepth = nestedNodesStack.getDepth()
 
-    while (nestedNodesStackLevel < level) {
-      nestedNodesStackLevel = nestedNodesStack.increment();
+    while (nestedNodesStackDepth < depth) {
+      nestedNodesStackDepth = nestedNodesStack.increment();
     }
 
-    while (nestedNodesStackLevel > level) {
-      nestedNodesStackLevel = nestedNodesStack.decrement();
+    while (nestedNodesStackDepth > depth) {
+      nestedNodesStackDepth = nestedNodesStack.decrement();
     }
 
     const nestedNode = NestedNode.fromNode(node);
@@ -88,11 +88,11 @@ class NestedNodeStack {
     return nestedNode;
   }
 
-  getLevel() {
+  getDepth() {
     const nestedNodesLength = this.nestedNodes.length,
-          level = nestedNodesLength;  ///
+          depth = nestedNodesLength;  ///
 
-    return level;
+    return depth;
   }
 
   increment() {
@@ -100,17 +100,17 @@ class NestedNodeStack {
 
     this.addNestedNode(nestedNode);
 
-    const level = this.getLevel();
+    const depth = this.getDepth();
 
-    return level;
+    return depth;
   }
 
   decrement() {
     this.removeNestedNode();
 
-    const level = this.getLevel();
+    const depth = this.getDepth();
 
-    return level;
+    return depth;
   }
 
   addNestedNode(nestedNode) {

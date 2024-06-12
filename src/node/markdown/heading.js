@@ -11,10 +11,10 @@ import { replaceSpacesWithHyphens, removedLeadingWhitespace, removeNonAlphabetic
 const { last } = arrayUtilities;
 
 export default class HeadingMarkdownNode extends MarkdownNode {
-  getLevel() {
-    const { level } = this.constructor;
+  getDepth() {
+    const { depth } = this.constructor;
 
-    return level;
+    return depth;
   }
 
   addAnchor(context) {

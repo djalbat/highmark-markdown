@@ -197,8 +197,8 @@ ${childNodesHTML}${indent}${closingTag}
 }
 
 function headingMarkdownNodesFromDivisionMarkdownNodeAndContentsDirectiveMarkdownNode(divisionMarkdownNode, contentsDirectiveMarkdownNode, context) {
-  const headingMarkdownNodes = [],
-        maximumLevel = contentsDirectiveMarkdownNode.maximumLevel(context);
+  const { contentsDepth } = context,
+        headingMarkdownNodes = [];
 
   let { divisionMarkdownNodes } = context;
 
@@ -214,9 +214,9 @@ function headingMarkdownNodesFromDivisionMarkdownNodeAndContentsDirectiveMarkdow
   });
 
   filter(headingMarkdownNodes, (headingMarkdownNode) => {
-    const level = headingMarkdownNode.getLevel();
+    const depth = headingMarkdownNode.getDepth();
 
-    if (level <= maximumLevel) {
+    if (depth <= contentsDepth) {
       return true;
     }
   });
