@@ -52,6 +52,7 @@ export const CONTENTS_DIRECTIVE_RULE_NAME = "contentsDirective";
 export const BLOCK_LISTING_START_RULE_NAME = "blockListingStart";
 export const UNORDERED_LIST_ITEM_RULE_NAME = "unorderedListItem";
 export const FOOTNOTES_DIRECTIVE_RULE_NAME = "footnotesDirective";
+export const PAGE_NUMBER_DIRECTIVE_RULE_NAME = "pageNumber";  ///
 export const STRONGLY_EMPHASISED_TEXT_RULE_NAME = "stronglyEmphasisedText";
 
 const ruleNames = {
@@ -107,6 +108,7 @@ const ruleNames = {
   BLOCK_LISTING_START_RULE_NAME,
   UNORDERED_LIST_ITEM_RULE_NAME,
   FOOTNOTES_DIRECTIVE_RULE_NAME,
+  PAGE_NUMBER_DIRECTIVE_RULE_NAME,
   STRONGLY_EMPHASISED_TEXT_RULE_NAME
 };
 

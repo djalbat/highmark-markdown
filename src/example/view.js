@@ -69,13 +69,15 @@ class View extends Element {
           node = parser.parse(tokens, startRule, startOfContent);
 
     if (node !== null) {
-      const divisionMarkdownNode = node,  ///
+      const pageNumber = 1,
+            divisionMarkdownNode = node,  ///
             divisionMarkdownNodes = [
               divisionMarkdownNode
             ],
             context = {
               tokens,
               importer,
+              pageNumber,
               divisionMarkdownNodes
             };
 
@@ -190,13 +192,16 @@ class View extends Element {
     this.update();
   }
 
-  static initialMarkdownStyle = `min-height: initial;
+  static initialMarkdownStyle = `pageNumber {
+  colour: red;
+}
 `;
 
   static initialMarkdown = `
-@contents 1  
+# Introduction
   
-@include blah.md  
+@pageNumber
+  
 `;
 
   static tagName = "div";

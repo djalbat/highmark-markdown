@@ -19,5 +19,3 @@ export function ruleNamesExpressionFromElementMap(elementMap) {
 
   return ruleNamesExpression
 }
-
-

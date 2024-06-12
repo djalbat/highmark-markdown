@@ -49,6 +49,7 @@ import BlockListingStartMarkdownNode from "./node/markdown/blockListingStart";
 import UnorderedListItemMarkdownNode from "./node/markdown/listItem/unordered";
 import ContentsDirectiveMarkdownNode from "./node/markdown/directive/contents";
 import FootnotesDirectiveMarkdownNode from "./node/markdown/directive/footnotes";
+import PageNumberDirectiveMarkdownNode from "./node/markdown/directive/pageNumber";
 import StronglyEmphasisedTextMarkdownNode from "./node/markdown/stronglyEmphasisedText";
 
 import { LINE_RULE_NAME,
@@ -100,6 +101,7 @@ import { LINE_RULE_NAME,
          BLOCK_LISTING_START_RULE_NAME,
          UNORDERED_LIST_ITEM_RULE_NAME,
          FOOTNOTES_DIRECTIVE_RULE_NAME,
+         PAGE_NUMBER_DIRECTIVE_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "./ruleNames";
 
 const nodeMap = {
@@ -152,6 +154,7 @@ const nodeMap = {
   [BLOCK_LISTING_START_RULE_NAME]: BlockListingStartMarkdownNode,
   [UNORDERED_LIST_ITEM_RULE_NAME]: UnorderedListItemMarkdownNode,
   [FOOTNOTES_DIRECTIVE_RULE_NAME]: FootnotesDirectiveMarkdownNode,
+  [PAGE_NUMBER_DIRECTIVE_RULE_NAME]: PageNumberDirectiveMarkdownNode,
   [STRONGLY_EMPHASISED_TEXT_RULE_NAME]: StronglyEmphasisedTextMarkdownNode
 };
 

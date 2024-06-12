@@ -41,7 +41,9 @@ const bnf = `
                               ;
 
 
-    directives              ::=  ( embedDirective 
+    directives              ::=  ( pageNumber 
+    
+                                 | embedDirective 
     
                                  | ignoreDirective 
     
@@ -49,7 +51,9 @@ const bnf = `
     
                                  | contentsDirective 
     
-                                 | footnotesDirective ) ( endOfLine ( embedDirective 
+                                 | footnotesDirective ) ( endOfLine ( pageNumber 
+    
+                                                                    | embedDirective 
     
                                                                     | ignoreDirective 
                                         
@@ -89,6 +93,9 @@ const bnf = `
 
     paragraph               ::=  line ( endOfLine line )* ;
     
+
+    pageNumber              ::=  "@pageNumber" ;
+
 
     embedDirective          ::=  "@embed" [path] ;
 

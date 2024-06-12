@@ -44,7 +44,7 @@ const entries = [
     "reference": "\\[\\^[a-z]+(?:-[a-z]+)*\\]:"
   },
   {
-    "directive": "@[a-z]+"
+    "directive": "@[a-z]+([A-Z][a-z]+)*"
   },
   {
     "identifier": "[a-z]+(?:-[a-z]+)*"
