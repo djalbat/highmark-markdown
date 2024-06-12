@@ -7,7 +7,7 @@ import MarkdownNode from "../../node/markdown";
 import { EMPTY_STRING } from "../../constants";
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 
-const { first } = arrayUtilities;
+const { first, second } = arrayUtilities;
 
 export default class LinkMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, opacity, precedence, domElement, number) {
@@ -81,7 +81,7 @@ export default class LinkMarkdownNode extends MarkdownNode {
 
 function identifierFromLinkTerminalNode(linkTerminalNode) {
   const content = linkTerminalNode.getContent(),
-        matches = content.match(/\[([^\]]+)]:/),
+        matches = content.match(/\[\^([^\]]+)]/),
         secondMatch = second(matches),
         identifier = secondMatch; ///
 

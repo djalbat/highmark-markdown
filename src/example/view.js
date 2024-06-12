@@ -197,11 +197,10 @@ class View extends Element {
 }
 `;
 
-  static initialMarkdown = `
-# Introduction
-  
-@pageNumber
-  
+  static initialMarkdown = `* Occam [^occam].
+
+[^occam]: Occam.
+
 `;
 
   static tagName = "div";
