@@ -3,8 +3,10 @@
 const defaultMarkdownStyle = `
 colour: black;
 padding: 24pt;
+position: relative;
 min-height: 100%;
 font-family: "Computer Modern Serif";
+padding-bottom: 48pt;
 background-colour: white;
 
 primaryHeading {
@@ -155,10 +157,14 @@ footnoteItem {
 }
 
 pageNumber {
+  left: 0;
+  width: 100%;
+  bottom: 0;
   display: block;
+  position: absolute;
   font-size: 13pt;
-  margin-top: 36px;
   text-align: center;
+  padding-bottom: 24pt;
 }
 
 error {
