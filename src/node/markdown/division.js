@@ -114,9 +114,17 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       }
     });
 
-    const pageDivisionMarkdownNode = this;  ///
+    const pageChildNodesLength = pageChildNodes.length;
 
-    pageDivisionMarkdownNodes.push(pageDivisionMarkdownNode);
+    if (pageChildNodesLength > 0) {
+      const childNodes = [  ///
+              ...pageChildNodes
+            ],
+            divisionMarkdownNode = DivisionMarkdownNode.fromChildNodesAndDivisionClassName(childNodes, this.divisionClassName),
+            pageDivisionMarkdownNode = divisionMarkdownNode;  ///
+
+      pageDivisionMarkdownNodes.push(pageDivisionMarkdownNode);
+    }
   }
 
   createContents(context) {

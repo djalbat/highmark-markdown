@@ -31,11 +31,11 @@ export default withStyle(PageButton)`
 
   color: black;
   border: 1px solid black;
-  padding: 1rem;
-  font-size: 2rem;
+  padding: 0.5rem;
+  font-size: 1.7rem;
   background: transparent;  
   font-family: serif;
-  margin-right: 1rem;
+  margin-left: 1rem;
   
   cursor: pointer;
   font-weight: normal;

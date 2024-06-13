@@ -11,14 +11,13 @@ import PreviewDiv from "./view/div/preview";
 import SubHeading from "./view/subHeading";
 import CSSTextarea from "./view/textarea/css";
 import TabButtonsDiv from "./view/div/tabButtons";
-import PageButtonsDiv from "./view/div/pageButtons";
 import LeftSizeableDiv from "./view/div/sizeable/left";
 import RightSizeableDiv from "./view/div/sizeable/right";
 import MarkdownContainerDiv from "./view/div/container/markdown";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
 import { postprocess } from "../utilities/markdown";
-import { LINES_PER_PAGE, CHARACTERS_PER_LINE } from "./constants";
+import { LINES_PER_PAGE, CHARACTERS_PER_LINE, INTRODUCTION_CLASS_NAME } from "./constants";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
@@ -81,6 +80,11 @@ class View extends Element {
     this.setTokens(tokens);
 
     if (node !== null) {
+      const divisionClassName = INTRODUCTION_CLASS_NAME,
+            divisionMarkdownNode = node;  ///
+
+      divisionMarkdownNode.setDivisionClassName(divisionClassName);
+
       const linesPerPage = LINES_PER_PAGE,
             charactersPerLine = CHARACTERS_PER_LINE,
             context = {
@@ -89,29 +93,37 @@ class View extends Element {
               linesPerPage,
               charactersPerLine
             },
-            divisionMarkdownNode = node,  ///
             divisionMarkdownNodes = postprocess(divisionMarkdownNode, context);
 
       this.setDivisionMarkdownNodes(divisionMarkdownNodes);
 
       const index = 0,
-            length = divisionMarkdownNodes.length;
+            length = divisionMarkdownNodes.length,
+            parseTree = divisionMarkdownNode.asParseTree(tokens)
 
       this.updatePage(index);
 
       this.updatePageButtonsDiv(length);
+
+      this.updateMarkdownParseTreeTextarea(parseTree);
     } else {
-      const divisionMarkdownNodes = null;
-
-      this.setDivisionMarkdownNodes(divisionMarkdownNodes);
-
       this.clearPage();
 
       this.clearPageButtonsDiv();
+
+      this.clearMarkdownParseTreeTextarea();
+
+      const divisionMarkdownNodes = null;
+
+      this.setDivisionMarkdownNodes(divisionMarkdownNodes);
     }
   }
 
   updatePage(index) {
+    const length = null;
+
+    this.updatePageButtonsDiv(length, index);
+
     const divisionMarkdownNodes = this.getDivisionMarkdownNodes(),
           divisionMarkdownNode = divisionMarkdownNodes[index],
           pageNumber = index + 1,
@@ -124,26 +136,18 @@ class View extends Element {
       pageNumber
     });
 
-    const length = null,
-          html = divisionMarkdownNode.asHTML(context),
-          parseTree = divisionMarkdownNode.asParseTree(tokens),
+    const html = divisionMarkdownNode.asHTML(context),
           domElement = divisionMarkdownNode.createDOMElement(context);
-
-    this.updatePageButtonsDiv(length, index);
 
     this.updateXMP(html);
 
     this.updatePreviewDiv(domElement);
-
-    this.updateMarkdownParseTreeTextarea(parseTree);
   }
 
   clearPage() {
     this.clearXMP();
 
     this.clearPreviewDiv();
-
-    this.clearMarkdownParseTreeTextarea();
   }
 
   markdownStyle() {
@@ -200,7 +204,6 @@ class View extends Element {
 
       <ColumnsDiv>
         <LeftSizeableDiv>
-          <PageButtonsDiv onCustomPageUpdate={this.pageUpdateCustomHandler} />
           <TabButtonsDiv onCustomMarkdown={this.markdownCustomHandler} onCustomMarkdownStyle={this.markdownStyleCustomHandler} />
           <MarkdownContainerDiv onCustomKeyUp={this.keyUpCustomHandler} />
           <MarkdownStyleContainerDiv onCustomKeyUp={this.keyUpCustomHandler} />
@@ -224,7 +227,7 @@ class View extends Element {
                 <SubHeading>
                   Preview
                 </SubHeading>
-                <PreviewDiv/>
+                <PreviewDiv onCustomPageUpdate={this.pageUpdateCustomHandler} />
               </RowsDiv>
             </RowDiv>
           </RowsDiv>
@@ -321,6 +324,7 @@ This book explains these divers parts and there is a companion book, called The 
 `;
 
   static initialMarkdownStyle = `position: absolute;
+padding-top: 5rem;  
 `;
 }
 
