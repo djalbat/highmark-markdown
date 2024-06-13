@@ -13,7 +13,8 @@ import { headingMarkdownNodesFromNode,
          embedDirectiveMarkdownNodesFromNode,
          ignoreDirectiveMarkdownNodeFromNode,
          contentsDirectiveMarkdownNodeFromNode,
-         footnotesDirectiveMarkdownNodeFromNode } from "../../utilities/query";
+         footnotesDirectiveMarkdownNodeFromNode,
+         pageNumberDirectiveMarkdownNodeFromNode } from "../../utilities/query";
 
 const { filter } = arrayUtilities;
 
@@ -46,6 +47,14 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return ignored;
   }
 
+  hasPageNumber() {
+    const node = this,
+          pageNumberDirectiveMarkdownNode = pageNumberDirectiveMarkdownNodeFromNode(node),
+          pageNumber = (pageNumberDirectiveMarkdownNode !== null);
+
+    return pageNumber;
+  }
+
   findParentNode(childNode, node = this) {
     let parentNode = null;
 
@@ -72,6 +81,23 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     }
 
     return parentNode;
+  }
+
+  paginate(context) {
+    const { linesPerPage = null } = context;
+
+    if (linesPerPage === null) {
+      return;
+    }
+
+    const pageNumber = this.hasPageNumber(),
+          childNodes = this.getChildNodes();
+
+    childNodes.forEach((childNode) => {
+      const lines = childNode.lines(context);
+
+      debugger
+    });
   }
 
   createContents(context) {

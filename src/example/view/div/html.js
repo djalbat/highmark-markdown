@@ -26,7 +26,6 @@ export default withStyle(HTMLDiv)`
 
   height: 100%;
   border: 1px solid darkgrey;
-  padding: 0.25rem;
   overflow: scroll;
   position: relative;
   

@@ -82,11 +82,13 @@ export function plainTextFromChildNodes(childNodes, context) {
           plainTexts.push(plainText);
         }
 
-        const childNodes = markdownNode.getChildNodes(),
-              plainText = plainTextFromChildNodes(childNodes, context);
+        {
+          const childNodes = markdownNode.getChildNodes(),
+                plainText = plainTextFromChildNodes(childNodes, context);
 
-        if (plainText !== EMPTY_STRING) {
-          plainTexts.push(plainText);
+          if (plainText !== EMPTY_STRING) {
+            plainTexts.push(plainText);
+          }
         }
       }
     }

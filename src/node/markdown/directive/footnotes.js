@@ -1,7 +1,7 @@
 "use strict";
 
-import MarkdownNode from "../../../node/markdown";
+import DirectiveMarkdownNode from "../../../node/markdown/directive";
 
-export default class FootnotesDirectiveMarkdownNode extends MarkdownNode {
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnotesDirectiveMarkdownNode, ruleName, childNodes, opacity); }
+export default class FootnotesDirectiveMarkdownNode extends DirectiveMarkdownNode {
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return DirectiveMarkdownNode.fromRuleNameChildNodesAndOpacity(FootnotesDirectiveMarkdownNode, ruleName, childNodes, opacity); }
 }

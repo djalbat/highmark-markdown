@@ -5,6 +5,12 @@ import MarkdownNode from "../../node/markdown";
 import { CARRIAGE_RETURN } from "../../constants";
 
 export default class EndOfLineMarkdownNode extends MarkdownNode {
+  lines(context) {
+    const lines = 0;
+
+    return lines;
+  }
+
   content(context) {
     const content = CARRIAGE_RETURN;
 

@@ -8,6 +8,7 @@ const { first, push } = arrayUtilities;
 const ignoreDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/ignoreDirective"),
       contentsDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/contentsDirective"),
       footnotesDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/footnotesDirective"),
+      pageNumberDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/pageNumber"),
       linkMarkdownNodesQuery = Query.fromExpression("//link"),
       headingMarkdownNodesQuery = Query.fromExpression("//primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),
       footnoteMarkdownNodesQuery = Query.fromExpression("//footnote"),
@@ -62,6 +63,12 @@ export function footnotesDirectiveMarkdownNodeFromNode(node) {
   return footnotesDirectiveMarkdownNode;
 }
 
+export function pageNumberDirectiveMarkdownNodeFromNode(node) {
+  const pageNumberDirectiveMarkdownNode = nodeFromNodeAndQuery(node, pageNumberDirectiveMarkdownNodeQuery);
+
+  return pageNumberDirectiveMarkdownNode;
+}
+
 export function linkMarkdownNodesFromNode(node, linkMarkdownNodes = []) {
   nodesFromNodeAndQuery(node, linkMarkdownNodesQuery, linkMarkdownNodes);
 
@@ -102,6 +109,7 @@ export default {
   ignoreDirectiveMarkdownNodeFromNode,
   contentsDirectiveMarkdownNodeFromNode,
   footnotesDirectiveMarkdownNodeFromNode,
+  pageNumberDirectiveMarkdownNodeFromNode,
   linkMarkdownNodesFromNode,
   headingMarkdownNodesFromNode,
   footnoteMarkdownNodesFromNode,

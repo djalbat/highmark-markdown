@@ -8,42 +8,48 @@ const { second } = arrayUtilities;
 
 export default class SubDivisionMarkdownNode extends MarkdownNode {
   getDOMElement() {
-    const markdownNode = this.getMarkdownNode(),
-          domElement = markdownNode.getDOMElement();
+    const secondMarkdownNode = this.getSecondMarkdownNode(),
+          domElement = secondMarkdownNode.getDOMElement();
 
     return domElement;
   }
 
   getDOMElements() {
-    const markdownNode = this.getMarkdownNode(),
-          domElements = markdownNode.getDOMElements();
+    const secondMarkdownNode = this.getSecondMarkdownNode(),
+          domElements = secondMarkdownNode.getDOMElements();
 
     return domElements;
   }
 
+  lines(context) {
+    const secondMarkdownNode = this.getSecondMarkdownNode(),
+          lines = secondMarkdownNode.lines(context);
+
+    return lines;
+  }
+
   asHTML(indent, context) {
-    const markdownNode = this.getMarkdownNode(),
-          markdownNodeHTML = markdownNode.asHTML(indent, context),
-          html = markdownNodeHTML;  ///
+    const secondMarkdownNode = this.getSecondMarkdownNode(),
+          html = secondMarkdownNode.asHTML(indent, context);
 
     return html;
   }
 
   createDOMElement(context) {
     const domElement = null,
-          markdownNode = this.getMarkdownNode();
+          secondMarkdownNode = this.getSecondMarkdownNode();
 
-    markdownNode.createDOMElement(context);
+    secondMarkdownNode.createDOMElement(context);
 
     return domElement;
   }
 
-  getMarkdownNode() {
+  getSecondMarkdownNode() {
     const childNodes = this.getChildNodes(),
           secondChildNode = second(childNodes),
-          markdownNode = secondChildNode; ///
+          secondMarkdownNode = secondChildNode; ///
 
-    return markdownNode;
+    return secondMarkdownNode;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {

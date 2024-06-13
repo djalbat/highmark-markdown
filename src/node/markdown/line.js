@@ -2,9 +2,20 @@
 
 import MarkdownNode from "../../node/markdown";
 
-import { htmlFromChildNodes, domElementsFromChildNodes } from "../../utilities/childNodes";
+import { htmlFromChildNodes, plainTextFromChildNodes, domElementsFromChildNodes } from "../../utilities/childNodes";
 
 export default class LineMarkdownNode extends MarkdownNode {
+  lines(context) {
+    const { charactersPerLine } = context,
+          childNodes = this.getChildNodes(),
+          plainText = plainTextFromChildNodes(childNodes, context),
+          plainTextLength = plainText.length,
+          characters = plainTextLength, ///
+          lines = (characters / charactersPerLine) + 1;
+
+    return lines;
+  }
+
   asHTML(indent, context) {
     indent = this.adjustIndent(indent);
 

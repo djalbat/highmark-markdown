@@ -1,7 +1,7 @@
 "use strict";
 
-import MarkdownNode from "../../../node/markdown";
+import DirectiveMarkdownNode from "../../../node/markdown/directive";
 
-export default class ContentsDirectiveMarkdownNode extends MarkdownNode {
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ContentsDirectiveMarkdownNode, ruleName, childNodes, opacity); }
+export default class ContentsDirectiveMarkdownNode extends DirectiveMarkdownNode {
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return DirectiveMarkdownNode.fromRuleNameChildNodesAndOpacity(ContentsDirectiveMarkdownNode, ruleName, childNodes, opacity); }
 }

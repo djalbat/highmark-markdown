@@ -6,7 +6,7 @@ padding: 24pt;
 position: relative;
 min-height: 100%;
 font-family: "Computer Modern Serif";
-padding-bottom: 48pt;
+padding-bottom: 64pt;
 background-colour: white;
 
 primaryHeading {
@@ -86,6 +86,10 @@ unorderedListItem {
   :last-child {
     margin-bottom: 0;
   }
+}
+
+paragraph {
+  text-align: justify;
 }
 
 blockListing,

@@ -1,8 +1,8 @@
 "use strict";
 
-import MarkdownNode from "../../../node/markdown";
+import DirectiveMarkdownNode from "../../../node/markdown/directive";
 
-export default class PageNumberDirectiveMarkdownNode extends MarkdownNode {
+export default class PageNumberDirectiveMarkdownNode extends DirectiveMarkdownNode {
   content(context) {
     const { pageNumber } = context,
           content = pageNumber;
@@ -25,5 +25,5 @@ export default class PageNumberDirectiveMarkdownNode extends MarkdownNode {
     this.addDOMElement(domElement);
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(PageNumberDirectiveMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return DirectiveMarkdownNode.fromRuleNameChildNodesAndOpacity(PageNumberDirectiveMarkdownNode, ruleName, childNodes, opacity); }
 }

@@ -2,11 +2,11 @@
 
 import { arrayUtilities } from "necessary";
 
-import MarkdownNode from "../../../node/markdown";
+import DirectiveMarkdownNode from "../../../node/markdown/directive";
 
 const { push, last } = arrayUtilities;
 
-export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
+export default class IncludeDirectiveMarkdownNode extends DirectiveMarkdownNode {
   resolveIncludes(context) {
     let html = null;
 
@@ -56,5 +56,5 @@ export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
     return filePath;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(IncludeDirectiveMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return DirectiveMarkdownNode.fromRuleNameChildNodesAndOpacity(IncludeDirectiveMarkdownNode, ruleName, childNodes, opacity); }
 }

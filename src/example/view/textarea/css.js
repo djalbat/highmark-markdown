@@ -28,6 +28,6 @@ class CSSTextarea extends Textarea {
 
 export default withStyle(CSSTextarea)`
 
-  height: 24rem;
+  height: 12rem;
   
 `;

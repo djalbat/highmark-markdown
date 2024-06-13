@@ -52,6 +52,9 @@ class PreviewDiv extends Element {
 
 export default withStyle(PreviewDiv)`
 
+  height: 48rem;
   border: 1px solid darkgrey;
+  overflow: scroll;
+  position: relative;
   
 `;

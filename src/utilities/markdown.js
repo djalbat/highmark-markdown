@@ -1,6 +1,6 @@
 "use strict";
 
-export function preprocess(divisionMarkdownNode, context) {
+export function postprocess(divisionMarkdownNode, context) {
   const pageNumber = 1,
         divisionMarkdownNodes = [
           divisionMarkdownNode
@@ -15,6 +15,10 @@ export function preprocess(divisionMarkdownNode, context) {
 
   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
     divisionMarkdownNode.resolveEmbeddings(context);
+  });
+
+  divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+    divisionMarkdownNode.paginate(context);
   });
 
   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
