@@ -16,6 +16,9 @@ import RightSizeableDiv from "./view/div/sizeable/right";
 import MarkdownContainerDiv from "./view/div/container/markdown";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
+import { preprocess } from "../utilities/markdown";
+import { DEFAULT_LINES_PER_PAGE, DEFAULT_CHARACTERS_PER_LINE } from "./constants";
+
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
       markdownStyleLexer = MarkdownStyleLexer.fromNothing(),
@@ -69,33 +72,16 @@ class View extends Element {
           node = parser.parse(tokens, startRule, startOfContent);
 
     if (node !== null) {
-      const pageNumber = 1,
-            divisionMarkdownNode = node,  ///
-            divisionMarkdownNodes = [
-              divisionMarkdownNode
-            ],
+      const linesPerPage = DEFAULT_LINES_PER_PAGE,
+            charactersPerLine = DEFAULT_CHARACTERS_PER_LINE,
             context = {
               tokens,
               importer,
-              pageNumber,
-              divisionMarkdownNodes
-            };
-
-      divisionMarkdownNode.resolveIncludes(context);
-
-      divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-        divisionMarkdownNode.resolveEmbeddings(context);
-
-        divisionMarkdownNode.createFootnotes(context);
-      });
-
-      divisionMarkdownNodes.some((divisionMarkdownNode) => {
-        const contentsCreated = divisionMarkdownNode.createContents(context);
-
-        if (contentsCreated) {
-          return true;
-        }
-      });
+              linesPerPage,
+              charactersPerLine
+            },
+            divisionMarkdownNode = node,  ///
+            divisionMarkdownNodes = preprocess(divisionMarkdownNode, context);
 
       const htmls = [],
             domElements = [];
@@ -105,7 +91,6 @@ class View extends Element {
               domElement = divisionMarkdownNode.createDOMElement(context);
 
         htmls.push(html);
-
         domElements.push(domElement);
       });
 
@@ -200,6 +185,8 @@ class View extends Element {
   static initialMarkdown = `* Occam [^occam].
 
 [^occam]: Occam.
+
+@footnotes
 
 `;
 
