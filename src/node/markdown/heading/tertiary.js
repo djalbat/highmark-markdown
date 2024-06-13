@@ -3,7 +3,7 @@
 import HeadingMarkdownNode from "../../../node/markdown/heading";
 
 export default class TertiaryHeadingMarkdownNode extends HeadingMarkdownNode {
-  static lines = 3;
+  static lines = 2.25;
 
   static depth = 3;
 

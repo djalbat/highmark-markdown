@@ -7,6 +7,7 @@ import ContentsListMarkdownNode from "../../node/markdown/contentsList";
 import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
 import { EMPTY_STRING } from "../../constants";
+import { DIVISION_RULE_NAME } from "../../ruleNames";
 import { renumberLinkMarkdownNodes } from "../../utilities/footnotes";
 import { replaceNode, replaceNodes, replaceTokens } from "../../utilities/replace";
 import { headingMarkdownNodesFromNode,
@@ -16,7 +17,7 @@ import { headingMarkdownNodesFromNode,
          footnotesDirectiveMarkdownNodeFromNode,
          pageNumberDirectiveMarkdownNodeFromNode } from "../../utilities/query";
 
-const { filter } = arrayUtilities;
+const { clear, filter } = arrayUtilities;
 
 export default class DivisionMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, precedence, opacity, domElement, divisionClassName) {
@@ -84,18 +85,38 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 
   paginate(context) {
-    const { linesPerPage = null } = context;
+    const { pageDivisionMarkdownNodes, linesPerPage } = context,
+          pageChildNodes = [],
+          childNodes = this.getChildNodes();
 
-    if (linesPerPage === null) {
-      return;
-    }
-
-    const childNodes = this.getChildNodes();
+    let pageLines = 0;
 
     childNodes.forEach((childNode) => {
-      const lines = childNode.lines(context);
+      const pageChildNode = childNode,  ///
+            lines = pageChildNode.lines(context);
 
+      pageLines += lines;
+
+      pageChildNodes.push(pageChildNode);
+
+      if (pageLines > linesPerPage) {
+        const childNodes = [  ///
+                ...pageChildNodes
+              ],
+              divisionMarkdownNode = DivisionMarkdownNode.fromChildNodesAndDivisionClassName(childNodes, this.divisionClassName),
+              pageDivisionMarkdownNode = divisionMarkdownNode;  ///
+
+        pageDivisionMarkdownNodes.push(pageDivisionMarkdownNode);
+
+        clear(pageChildNodes);
+
+        pageLines = 0;
+      }
     });
+
+    const pageDivisionMarkdownNode = this;  ///
+
+    pageDivisionMarkdownNodes.push(pageDivisionMarkdownNode);
   }
 
   createContents(context) {
@@ -211,6 +232,14 @@ ${childNodesHTML}${indent}${closingTag}
   }
 
   clone() { return super.clone(this.divisionClassName); }
+
+  static fromChildNodesAndDivisionClassName(childNodes, divisionClassName) {
+    const ruleName = DIVISION_RULE_NAME,
+          opacity = null,
+          divisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(DivisionMarkdownNode, ruleName, childNodes, opacity, divisionClassName);
+
+    return divisionMarkdownNode;
+  }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
     const divisionClassName = null,

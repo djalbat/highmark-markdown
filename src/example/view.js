@@ -11,6 +11,7 @@ import PreviewDiv from "./view/div/preview";
 import SubHeading from "./view/subHeading";
 import CSSTextarea from "./view/textarea/css";
 import TabButtonsDiv from "./view/div/tabButtons";
+import PageButtonsDiv from "./view/div/pageButtons";
 import LeftSizeableDiv from "./view/div/sizeable/left";
 import RightSizeableDiv from "./view/div/sizeable/right";
 import MarkdownContainerDiv from "./view/div/container/markdown";
@@ -27,6 +28,12 @@ const markdownLexer = MarkdownLexer.fromNothing(),
 class View extends Element {
   markdownStyleCustomHandler = (event, element) => {
     this.markdownStyle();
+  }
+
+  pageUpdateCustomHandler = (event, element, index) => {
+    this.clearPage();
+
+    this.updatePage(index);
   }
 
   markdownCustomHandler = (event, element) => {
@@ -71,6 +78,8 @@ class View extends Element {
           tokens = lexer.tokenise(content),
           node = parser.parse(tokens, startRule, startOfContent);
 
+    this.setTokens(tokens);
+
     if (node !== null) {
       const linesPerPage = LINES_PER_PAGE,
             charactersPerLine = CHARACTERS_PER_LINE,
@@ -83,38 +92,58 @@ class View extends Element {
             divisionMarkdownNode = node,  ///
             divisionMarkdownNodes = postprocess(divisionMarkdownNode, context);
 
-      const htmls = [],
-            domElements = [];
+      this.setDivisionMarkdownNodes(divisionMarkdownNodes);
 
-      divisionMarkdownNodes.forEach((divisionMarkdownNode, index) => {
-        const pageNumber = index + 1;
+      const index = 0,
+            length = divisionMarkdownNodes.length;
 
-        Object.assign(context, {
-          pageNumber
-        });
+      this.updatePage(index);
 
-        const html = divisionMarkdownNode.asHTML(context),
-              domElement = divisionMarkdownNode.createDOMElement(context);
-
-        htmls.push(html);
-
-        domElements.push(domElement);
-      });
-
-      this.updateXMP(htmls);
-
-      this.updatePreviewDiv(domElements);
-
-      const parseTree = node.asParseTree(tokens);
-
-      this.updateMarkdownParseTreeTextarea(parseTree);
+      this.updatePageButtonsDiv(length);
     } else {
-      this.clearXMP();
+      const divisionMarkdownNodes = null;
 
-      this.clearPreviewDiv();
+      this.setDivisionMarkdownNodes(divisionMarkdownNodes);
 
-      this.clearMarkdownParseTreeTextarea();
+      this.clearPage();
+
+      this.clearPageButtonsDiv();
     }
+  }
+
+  updatePage(index) {
+    const divisionMarkdownNodes = this.getDivisionMarkdownNodes(),
+          divisionMarkdownNode = divisionMarkdownNodes[index],
+          pageNumber = index + 1,
+          tokens = this.getTokens(),
+          context = {
+            tokens
+          };
+
+    Object.assign(context, {
+      pageNumber
+    });
+
+    const length = null,
+          html = divisionMarkdownNode.asHTML(context),
+          parseTree = divisionMarkdownNode.asParseTree(tokens),
+          domElement = divisionMarkdownNode.createDOMElement(context);
+
+    this.updatePageButtonsDiv(length, index);
+
+    this.updateXMP(html);
+
+    this.updatePreviewDiv(domElement);
+
+    this.updateMarkdownParseTreeTextarea(parseTree);
+  }
+
+  clearPage() {
+    this.clearXMP();
+
+    this.clearPreviewDiv();
+
+    this.clearMarkdownParseTreeTextarea();
   }
 
   markdownStyle() {
@@ -132,11 +161,46 @@ class View extends Element {
     this.updateMarkdownStyle();
   }
 
+  getTokens() {
+    const { tokens } = this.getState();
+
+    return tokens;
+  }
+
+  setTokens(tokens) {
+    this.updateState({
+      tokens
+    });
+  }
+
+  getDivisionMarkdownNodes() {
+    const { divisionMarkdownNodes } = this.getState();
+
+    return divisionMarkdownNodes;
+  }
+
+  setDivisionMarkdownNodes(divisionMarkdownNodes) {
+    this.updateState({
+      divisionMarkdownNodes
+    });
+  }
+
+  setInitialState() {
+    const tokens = null,
+          divisionMarkdownNodes = null;
+
+    this.setState({
+      tokens,
+      divisionMarkdownNodes
+    });
+  }
+
   childElements() {
     return (
 
       <ColumnsDiv>
         <LeftSizeableDiv>
+          <PageButtonsDiv onCustomPageUpdate={this.pageUpdateCustomHandler} />
           <TabButtonsDiv onCustomMarkdown={this.markdownCustomHandler} onCustomMarkdownStyle={this.markdownStyleCustomHandler} />
           <MarkdownContainerDiv onCustomKeyUp={this.keyUpCustomHandler} />
           <MarkdownStyleContainerDiv onCustomKeyUp={this.keyUpCustomHandler} />
@@ -172,6 +236,8 @@ class View extends Element {
 
   initialise() {
     this.assignContext();
+
+    this.setInitialState();
 
     const { initialMarkdown, initialMarkdownStyle } = this.constructor,
           markdownStyle = initialMarkdownStyle, ///

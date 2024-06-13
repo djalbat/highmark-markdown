@@ -41,28 +41,26 @@ const bnf = `
                               ;
 
 
-    directives              ::=  ( pageNumber 
+    directives              ::=  pageNumber 
     
-                                 | embedDirective 
-    
-                                 | ignoreDirective 
-    
-                                 | includeDirective 
-    
-                                 | contentsDirective 
-    
-                                 | footnotesDirective ) ( endOfLine ( pageNumber 
-    
-                                                                    | embedDirective 
-    
-                                                                    | ignoreDirective 
-                                        
-                                                                    | includeDirective 
-                                        
-                                                                    | contentsDirective 
-                                        
-                                                                    | footnotesDirective ) )* ;
-
+                               | ignoreDirective 
+  
+                               | contentsDirective 
+  
+                               | footnotesDirective
+                               
+                               | (
+                               
+                                   ( embedDirective 
+                                   
+                                   | includeDirective ) ( endOfLine ( embedDirective 
+                                   
+                                                                    | includeDirective ) )* 
+                               
+                                 )
+                               
+                               ; 
+  
 
     primaryHeading.         ::=  "#" line ;
 

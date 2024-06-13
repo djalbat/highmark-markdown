@@ -11,17 +11,29 @@ export function postprocess(divisionMarkdownNode, context) {
 
   divisionMarkdownNode.resolveIncludes(context);
 
+  delete context.divisionMarkdownNodes;
+
   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
     divisionMarkdownNode.resolveEmbeddings(context);
   });
 
-  divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-    divisionMarkdownNode.paginate(context);
-  });
+  const { linesPerPage = null } = context;
 
-  ({ divisionMarkdownNodes } = context);
+  if (linesPerPage !== null) {
+    const pageDivisionMarkdownNodes = [];
 
-  delete context.divisionMarkdownNodes;
+    Object.assign(context, {
+      pageDivisionMarkdownNodes
+    });
+
+    divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+      divisionMarkdownNode.paginate(context);
+    });
+
+    delete context.pageDivisionMarkdownNodes;
+
+    divisionMarkdownNodes = pageDivisionMarkdownNodes;  ///
+  }
 
   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
     divisionMarkdownNode.createFootnotes(context);

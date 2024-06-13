@@ -7,11 +7,7 @@ import { Element } from "easy";
 import { EMPTY_STRING } from "../constants";
 
 class XMP extends Element {
-  update(htmls) {
-    htmls = htmls.join(EMPTY_STRING);
-
-    const html = `${htmls}`;
-
+  update(html) {
     this.html(html);
   }
 
