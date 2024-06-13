@@ -1,13 +1,11 @@
 "use strict";
 
 export function postprocess(divisionMarkdownNode, context) {
-  const pageNumber = 1,
-        divisionMarkdownNodes = [
-          divisionMarkdownNode
-        ];
+  let divisionMarkdownNodes = [
+    divisionMarkdownNode
+  ];
 
   Object.assign(context, {
-    pageNumber,
     divisionMarkdownNodes
   });
 
@@ -20,6 +18,10 @@ export function postprocess(divisionMarkdownNode, context) {
   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
     divisionMarkdownNode.paginate(context);
   });
+
+  ({ divisionMarkdownNodes } = context);
+
+  delete context.divisionMarkdownNodes;
 
   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
     divisionMarkdownNode.createFootnotes(context);

@@ -66,9 +66,9 @@ class View extends Element {
           lexer = markdownLexer,  ///
           parser =  markdownParser, ///
           content = markdown, ///
-          tokens = lexer.tokenise(content),
-          startRule = parser.getStartRule(),
           startOfContent = true,
+          startRule = parser.getStartRule(),
+          tokens = lexer.tokenise(content),
           node = parser.parse(tokens, startRule, startOfContent);
 
     if (node !== null) {
@@ -86,7 +86,13 @@ class View extends Element {
       const htmls = [],
             domElements = [];
 
-      divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+      divisionMarkdownNodes.forEach((divisionMarkdownNode, index) => {
+        const pageNumber = index + 1;
+
+        Object.assign(context, {
+          pageNumber
+        });
+
         const html = divisionMarkdownNode.asHTML(context),
               domElement = divisionMarkdownNode.createDOMElement(context);
 

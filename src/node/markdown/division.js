@@ -90,13 +90,11 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       return;
     }
 
-    const pageNumber = this.hasPageNumber(),
-          childNodes = this.getChildNodes();
+    const childNodes = this.getChildNodes();
 
     childNodes.forEach((childNode) => {
       const lines = childNode.lines(context);
 
-      debugger
     });
   }
 
