@@ -1,15 +1,19 @@
 "use strict";
 
-export function postprocess(divisionMarkdownNode, context) {
-  let divisionMarkdownNodes;
+import { arrayUtilities } from "necessary";
 
-  divisionMarkdownNodes = resolveIncludes(divisionMarkdownNode, context);
+const { clear, first, push } = arrayUtilities;
+
+export function postprocess(divisionMarkdownNode, context) {
+  const divisionMarkdownNodes = [
+    divisionMarkdownNode
+  ];
+
+  resolveIncludes(divisionMarkdownNodes, context);
 
   resolveEmbeddings(divisionMarkdownNodes, context);
 
-  // divisionMarkdownNodes = paginate(divisionMarkdownNodes, context);
-
-  createFootnotes(divisionMarkdownNodes, context);
+  paginate(divisionMarkdownNodes, context);
 
   createContents(divisionMarkdownNodes, context);
 
@@ -19,17 +23,34 @@ export function postprocess(divisionMarkdownNode, context) {
 function paginate(divisionMarkdownNodes, context) {
   const { linesPerPage = null } = context;
 
-  if (linesPerPage !== null) {
-    const pageDivisionMarkdownNodes = [];
-
+  if (linesPerPage === null) {
     divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-      divisionMarkdownNode.paginate(pageDivisionMarkdownNodes, context);
+      const footnoteReplacements = divisionMarkdownNode.prepareFootnotes(context);
+
+      divisionMarkdownNode.createFootnotes(footnoteReplacements, context);
     });
 
-    divisionMarkdownNodes = pageDivisionMarkdownNodes;  ///
+    return;
   }
 
-  return divisionMarkdownNodes;
+  if (linesPerPage !== null) {
+    const paginatedDivisionMarkdownNodes = [];
+
+    divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+      const footnoteReplacements = divisionMarkdownNode.prepareFootnotes(context),
+            divisionMarkdownNodes = divisionMarkdownNode.paginate(context);
+
+      divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+        divisionMarkdownNode.createFootnotes(footnoteReplacements, context);
+      });
+
+      push(paginatedDivisionMarkdownNodes, divisionMarkdownNodes);
+    });
+
+    clear(divisionMarkdownNodes);
+
+    push(divisionMarkdownNodes, paginatedDivisionMarkdownNodes);
+  }
 }
 
 function createContents(divisionMarkdownNodes, context) {
@@ -42,16 +63,9 @@ function createContents(divisionMarkdownNodes, context) {
   });
 }
 
-function createFootnotes(divisionMarkdownNodes, context) {
-  divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-    divisionMarkdownNode.createFootnotes(context);
-  });
-}
-
-function resolveIncludes(divisionMarkdownNode, context) {
-  const divisionMarkdownNodes = [
-    divisionMarkdownNode
-  ];
+function resolveIncludes(divisionMarkdownNodes, context) {
+  const firstDivisionMarkdownNode = first(divisionMarkdownNodes),
+        divisionMarkdownNode = firstDivisionMarkdownNode; ///
 
   Object.assign(context, {
     divisionMarkdownNodes

@@ -263,20 +263,17 @@ class View extends Element {
     className: "view"
   };
 
-  static _initialMarkdown = `# Occam [^occam]
-  
-Another paragraph.
-  
-[^occam]: Footnote.
+  static initialMarkdown = `
 
-@footnotes
-
-@pageNumber
-`;
-
-  static initialMarkdown = `Occam [^occam].
+Occam [^occam].
    
-[^occam]: Footnote.
+A paragraph to trigger the pagination.
+
+Florence [^florence].
+
+[^occam]: Occam footnote.
+
+[^florence]: Florence footnote.
 
 @footnotes
 
@@ -297,12 +294,7 @@ export default withStyle(View)`
 `;
 
 function importer(filePath, context) {
-  const content = `
-
-I have tried to make Occam[^occam] as useable as possible but there are limits.
-At the end of the day it is an expert system and some of its parts, not least the verifier, need detailed explanation.
-It is the purpose of this book is to provide these explanations.
-  
+  const content = `#Introuction
 `,
         startOfContent = true,
         startRule = markdownParser.getStartRule(),

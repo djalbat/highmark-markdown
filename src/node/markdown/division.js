@@ -79,44 +79,41 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return parentNode;
   }
 
-  paginate(pageDivisionMarkdownNodes, context) {
+  paginate(context) {
     const { linesPerPage } = context,
           childNodes = this.getChildNodes(),
-          replacements = [],
-          pageChildNodes = [];
+          paginatedChildNodes = [],
+          divisionMarkdownNodes = [],
+          subDivisionReplacements = this.removeSubdivisionMarkdownNodes(pageNumberDirectiveMarkdownNodeFromNode, context);
 
-    this.removeSubdivisionMarkdownNodes(footnotesDirectiveMarkdownNodeFromNode, replacements, context);
-
-    this.removeSubdivisionMarkdownNodes(pageNumberDirectiveMarkdownNodeFromNode, replacements, context);
-
-    let pageLines = 0;
+    let totalLines = 0;
 
     childNodes.forEach((childNode) => {
       const lines = childNode.lines(context),
-            pageChildNode = childNode;  ///
+            paginatedChildNode = childNode;  ///
 
-      pageLines += lines;
+      totalLines += lines;
 
-      pageChildNodes.push(pageChildNode);
+      paginatedChildNodes.push(paginatedChildNode);
 
-      if (pageLines > linesPerPage) {
-        const divisionMarkdownNode = DivisionMarkdownNode.fromReplacementsPageChildNodesAndDivisionClassName(replacements, pageChildNodes, this.divisionClassName, context),
-              pageDivisionMarkdownNode = divisionMarkdownNode;  ///
+      if (totalLines > linesPerPage) {
+        const divisionMarkdownNode = DivisionMarkdownNode.fromSubdivisionReplacementsPagincatedChildNodesAndDivisionClassName(subDivisionReplacements, paginatedChildNodes, this.divisionClassName, context);
 
-        pageDivisionMarkdownNodes.push(pageDivisionMarkdownNode);
+        divisionMarkdownNodes.push(divisionMarkdownNode);
 
-        clear(pageChildNodes);
+        clear(paginatedChildNodes);
 
-        pageLines = 0;
+        totalLines = 0;
       }
     });
 
-    if (pageLines > 0) {
-      const divisionMarkdownNode = DivisionMarkdownNode.fromReplacementsPageChildNodesAndDivisionClassName(replacements, pageChildNodes, this.divisionClassName, context),
-            pageDivisionMarkdownNode = divisionMarkdownNode;  ///
+    if (totalLines > 0) {
+      const divisionMarkdownNode = DivisionMarkdownNode.fromSubdivisionReplacementsPagincatedChildNodesAndDivisionClassName(subDivisionReplacements, paginatedChildNodes, this.divisionClassName, context);
 
-      pageDivisionMarkdownNodes.push(pageDivisionMarkdownNode);
+      divisionMarkdownNodes.push(divisionMarkdownNode);
     }
+
+    return divisionMarkdownNodes;
   }
 
   createContents(context) {
@@ -153,29 +150,49 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return contentsCreated;
   }
 
-  createFootnotes(context) {
-    const node = this,  ///
-          footnotesDirectiveMarkdownNode = footnotesDirectiveMarkdownNodeFromNode(node);
-
-    if (footnotesDirectiveMarkdownNode === null) {
+  createFootnotes(footnoteReplacements, context) {
+    if (footnoteReplacements === null) {
       return;
     }
 
-    const replacements = [];
-
-    this.removeSubdivisionMarkdownNodes(footnoteMarkdownNodsFromNode, replacements, context);
-
     const divisionMarkdownNode = this,  ///
-          footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNodeAndReplacements(divisionMarkdownNode, replacements, context);
+          footnotesListMarkdownNode = FootnotesListMarkdownNode.fromFootnoteReplacementsAndDivisionMarkdownNode(footnoteReplacements, divisionMarkdownNode, context);
 
-    if (footnotesListMarkdownNode !== null) {
-      const node = footnotesListMarkdownNode, ///
-            replacement = Replacement.fromNode(node, context);
-
-      replacement.appendTo(divisionMarkdownNode, context);
-
-      renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context)
+    if (footnotesListMarkdownNode === null) {
+      return;
     }
+
+    const node = footnotesListMarkdownNode, ///
+          replacement = Replacement.fromNode(node, context);
+
+    replacement.appendTo(divisionMarkdownNode, context);
+
+    renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context)
+  }
+
+  prepareFootnotes(context) {
+    let subdivisionReplacements;
+
+    subdivisionReplacements = this.removeSubdivisionMarkdownNodes(footnoteMarkdownNodsFromNode, context);
+
+    let footnoteReplacements = subdivisionReplacements.map((subdivisionReplacement) => {
+      const node = subdivisionReplacement.getNode(),
+            footnoteMarkdownNode = footnoteMarkdownNodsFromNode(node),
+            descendentNode = footnoteMarkdownNode,  ///
+            footnoteReplacement = subdivisionReplacement.contract(descendentNode);
+
+      return footnoteReplacement;
+    });
+
+    subdivisionReplacements = this.removeSubdivisionMarkdownNodes(footnotesDirectiveMarkdownNodeFromNode, context);
+
+    const subdivisionReplacementsLength = subdivisionReplacements.length;
+
+    if (subdivisionReplacementsLength === 0) {
+      footnoteReplacements = null;
+    }
+
+    return footnoteReplacements;
   }
 
   resolveEmbeddings(context) {
@@ -207,29 +224,30 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     });
   }
 
-  removeSubdivisionMarkdownNodes(markdownNodeFromNode, replacements, context) {
+  removeSubdivisionMarkdownNodes(markdownNodeFromNode, context) {
     const { tokens } = context,
           node = this,  ///
           parentNode = this,  ///
-          subDivisionMarkdownNodes = subDivisionMarkdownNodesFromNode(node);
+          subDivisionMarkdownNodes = subDivisionMarkdownNodesFromNode(node),
+          subDivisionReplacements = subDivisionMarkdownNodes.reduce((subDivisionReplacements, subDivisionMarkdownNode) => {
+            const node = subDivisionMarkdownNode, ///
+                  markdownNode = markdownNodeFromNode(node);
 
-    subDivisionMarkdownNodes.some((subDivisionMarkdownNode) => {
-      const node = subDivisionMarkdownNode, ///
-            markdownNode = markdownNodeFromNode(node);
+            if (markdownNode !== null) {
+              const removedNode = subDivisionMarkdownNode,  ///
+                    subDivisionReplacement = Replacement.fromNode(subDivisionMarkdownNode, context);
 
-      if (markdownNode !== null) {
-        const replacement = Replacement.fromNode(node, context),
-              removedNode = subDivisionMarkdownNode;  ///
+              subDivisionReplacements.push(subDivisionReplacement);
 
-        replacements.push(replacement);
+              removeTokens(removedNode, tokens);
 
-        removeTokens(removedNode, tokens);
+              removeNode(removedNode, parentNode);
+            }
 
-        removeNode(removedNode, parentNode);
+            return subDivisionReplacements;
+          }, []);
 
-        return true;
-      }
-    });
+    return subDivisionReplacements;
   }
 
   createFootnotesListMarkdownNode(context) {
@@ -259,24 +277,26 @@ ${childNodesHTML}${indent}${closingTag}
 
   clone() { return super.clone(this.divisionClassName); }
 
-  static fromReplacementsPageChildNodesAndDivisionClassName(replacements, pageChildNodes, divisionClassName, context) {
-    const ruleName = DIVISION_RULE_NAME,
-          childNodes = [
-            ...pageChildNodes
-          ],
-          opacity = null,
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
+    const divisionClassName = null,
           divisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(DivisionMarkdownNode, ruleName, childNodes, opacity, divisionClassName);
-
-    replacements.forEach((replacement) => {
-      replacement.appendTo(divisionMarkdownNode, context);
-    });
 
     return divisionMarkdownNode;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
-    const divisionClassName = null,
+  static fromSubdivisionReplacementsPagincatedChildNodesAndDivisionClassName(subDivisionReplacements, paginatedChildNodes, divisionClassName, context) {
+    const ruleName = DIVISION_RULE_NAME,
+          childNodes = [
+            ...paginatedChildNodes
+          ],
+          opacity = null,
           divisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(DivisionMarkdownNode, ruleName, childNodes, opacity, divisionClassName);
+
+    subDivisionReplacements.some((subDivisionReplacement) => {
+      subDivisionReplacement.appendTo(divisionMarkdownNode, context);
+
+      return true;  ///
+    });
 
     return divisionMarkdownNode;
   }

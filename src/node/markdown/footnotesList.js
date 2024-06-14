@@ -1,10 +1,14 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import MarkdownNode from "../../node/markdown";
 import FootnoteItemMarkdownNode from "./footnoteItem";
 
 import { FOOTNOTES_LIST_RULE_NAME } from "../../ruleNames";
-import { linkMarkdownNodesFromNode, footnoteMarkdownNodsFromNode } from "../../utilities/query";
+import { linkMarkdownNodesFromNode } from "../../utilities/query";
+
+const { prune } = arrayUtilities;
 
 export default class FootnotesListMarkdownNode extends MarkdownNode {
   identifierToNumberMap(context) {
@@ -22,55 +26,39 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
     return identifierToNumberMap;
   }
 
-  static fromDivisionMarkdownNodeAndReplacements(divisionMarkdownNode, replacements, context) {
+  static fromFootnoteReplacementsAndDivisionMarkdownNode(footnoteReplacements, divisionMarkdownNode, context) {
     let footnotesListMarkdownNode = null;
-
-    replacements = replacements.map((replacement) => {  ///
-      const node = replacement.getNode(),
-            footnoteMarkdownNode = footnoteMarkdownNodsFromNode(node),
-            descendentNode = footnoteMarkdownNode;  ///
-
-      replacement = replacement.contract(descendentNode);
-
-      return replacement;
-    });
 
     const node = divisionMarkdownNode,  ///
           linkMarkdownNodes = linkMarkdownNodesFromNode(node),
-          identifierToReplacementMap = {};
-
-    replacements.forEach((replacement) => {
-      const node = replacement.getNode(),
-            footnoteMarkdownNode = node,  ///
-            identifier = footnoteMarkdownNode.identifier(context);
-
-      identifierToReplacementMap[identifier] = replacement;
-    });
-
-    replacements = [];
+          footnoteItemReplacements = [];
 
     linkMarkdownNodes.forEach((linkMarkdownNode) => {
-      const identifier = linkMarkdownNode.identifier(context);
+      const identifier = linkMarkdownNode.identifier(context),
+            footnoteReplacement = prune(footnoteReplacements, (footnoteReplacement) => {
+              const node = footnoteReplacement.getNode(),
+                    footnoteMarkdownNode = node,  ///
+                    footnoteMarkdownNodeIdentifier = footnoteMarkdownNode.identifier(context);
 
-      let replacement = identifierToReplacementMap[identifier] || null;
+              if (footnoteMarkdownNodeIdentifier === identifier) {
+                return true;
+              }
+            }) || null;
 
-      if (replacement !== null) {
-        const node = replacement.getNode(),
+      if (footnoteReplacement !== null) {
+        const node = footnoteReplacement.getNode(),
               footnoteMarkdownNode = node,  ///
               footnoteItemMarkdownNode = FootnoteItemMarkdownNode.fromFootnotesMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier),
-              ascendantNode = footnoteItemMarkdownNode; ///
+              ascendantNode = footnoteItemMarkdownNode, ///
+              footnoteItemReplacement = footnoteReplacement.expand(ascendantNode);
 
-        replacement = replacement.expand(ascendantNode);
-
-        delete identifierToReplacementMap[identifier];
-
-        replacements.push(replacement);
+        footnoteItemReplacements.push(footnoteItemReplacement);
       }
     });
 
-    const replacementsLength = replacements.length;
+    const footnoteItemReplacementsLength = footnoteItemReplacements.length;
 
-    if (replacementsLength > 0) {
+    if (footnoteItemReplacementsLength > 0) {
       const ruleName = FOOTNOTES_LIST_RULE_NAME,
             childNodes = [], ///
             opacity = null;
@@ -78,8 +66,8 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
       footnotesListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnotesListMarkdownNode, ruleName, childNodes, opacity);
     }
 
-    replacements.forEach((replacement) => {
-      replacement.appendTo(footnotesListMarkdownNode, context);
+    footnoteItemReplacements.forEach((footnotesItemReplacement) => {
+      footnotesItemReplacement.appendTo(footnotesListMarkdownNode, context);
     });
 
     return footnotesListMarkdownNode;
