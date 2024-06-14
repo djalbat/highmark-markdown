@@ -80,9 +80,9 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
   paginate(pageDivisionMarkdownNodes, context) {
     const { linesPerPage } = context,
-          pageChildNodes = [],
           childNodes = this.getChildNodes(),
-          replacements = this.removeDirectiveMarkdownNodes(context);
+          replacements = this.removeDirectiveMarkdownNodes(context),
+          pageChildNodes = [];
 
     let pageLines = 0;
 
@@ -241,12 +241,6 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     });
 
     return subdivisionReplacement;
-  }
-
-  removeFootnotesListMarkdownNode(footnotesListMarkdownNode) {
-    const childNode = footnotesListMarkdownNode;  ///
-
-    this.removeChildNode(childNode);
   }
 
   createFootnotesListMarkdownNode(context) {
