@@ -60,6 +60,13 @@ export default class DirectivesMarkdownNode extends MarkdownNode {
     return domElement;
   }
 
+  clone() {
+    const domElements = [],
+          directivesMarkdownNode = super.clone(domElements);
+
+    return directivesMarkdownNode;
+  }
+
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
     const domElements = [],
           directivesMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(DirectivesMarkdownNode, ruleName, childNodes, opacity, domElements);

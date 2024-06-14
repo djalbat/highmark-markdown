@@ -4,6 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import { EMPTY_STRING } from "../constants";
 import { ESCAPED_TOKEN_TYPE } from "../tokenTypes";
+import { leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "../utilities/replace";
 
 const { first, last } = arrayUtilities;
 
@@ -12,13 +13,10 @@ export function contentFromNode(node, context) {
 
   let { tokens } = context;
 
-  const lastSignificantToken = node.getLastSignificantToken(),
-        firstSignificantToken = node.getFirstSignificantToken(),
-        lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken),
-        firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken);
-
-  const start = firstSignificantTokenIndex,  ///
-        end = lastSignificantTokenIndex + 1;
+  const leadingIndex = leadingIndexFromNodeAndTokens(node, tokens),
+        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
+        start = leadingIndex,  ///
+        end = trailingIndex + 1;
 
   tokens = tokens.slice(start, end);
 
@@ -38,13 +36,11 @@ export function contentFromNodes(nodes, augmentLeft, augmentRight, context) {
 
   const lastNode = last(nodes),
         firstNode = first(nodes),
-        lastSignificantToken = lastNode.getLastSignificantToken(),
-        firstSignificantToken = firstNode.getFirstSignificantToken(),
-        lastSignificantTokenIndex = tokens.indexOf(lastSignificantToken),
-        firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken);
+        leadingIndex = leadingIndexFromNodeAndTokens(firstNode, tokens),
+        trailingIndex = trailingIndexFromNodeAndTokens(lastNode, tokens);
 
-  let firstTokenIndex = firstSignificantTokenIndex,  ///
-      lastTokenIndex = lastSignificantTokenIndex; ///
+  let firstTokenIndex = leadingIndex,  ///
+      lastTokenIndex = trailingIndex; ///
 
   if (augmentLeft) {
     const previousTokenIndex = firstTokenIndex - 1;
@@ -91,14 +87,10 @@ export function contentFromNodes(nodes, augmentLeft, augmentRight, context) {
 export function contentFromNodeAndTokens(node, tokens, offset = 0) {
   let content = EMPTY_STRING;
 
-  const firstSignificantToken = node.getFirstSignificantToken(),
-        lastSignificantToken = node.getLastSignificantToken(),
-        firstToken = firstSignificantToken, ///
-        lastToken = lastSignificantToken, ///
-        firstTokenIndex = tokens.indexOf(firstToken) + offset,  ///
-        lastTokenIndex = tokens.indexOf(lastToken);
+  const leadingIndex = leadingIndexFromNodeAndTokens(node, tokens) + offset,
+        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens);
 
-  for (let index = firstTokenIndex; index <= lastTokenIndex; index++) {
+  for (let index = leadingIndex; index <= trailingIndex; index++) {
     const token = tokens[index],
           tokenContent = token.getContent();
 

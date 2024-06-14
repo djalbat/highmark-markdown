@@ -22,15 +22,9 @@ export function postprocess(divisionMarkdownNode, context) {
   if (linesPerPage !== null) {
     const pageDivisionMarkdownNodes = [];
 
-    Object.assign(context, {
-      pageDivisionMarkdownNodes
-    });
-
     divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-      divisionMarkdownNode.paginate(context);
+      divisionMarkdownNode.paginate(pageDivisionMarkdownNodes, context);
     });
-
-    delete context.pageDivisionMarkdownNodes;
 
     divisionMarkdownNodes = pageDivisionMarkdownNodes;  ///
   }

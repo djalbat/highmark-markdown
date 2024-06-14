@@ -38,11 +38,11 @@ export default withStyle(PageButton)`
   margin-left: 1rem;
   
   cursor: pointer;
-  font-weight: normal;
+  font-weight: bold;
 
   [disabled] {
     cursor: auto;
-    font-weight: bold;
+    font-weight: normal;
   }
   
 `;

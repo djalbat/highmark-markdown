@@ -3,14 +3,16 @@
 import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
+import ReplacementNodeAndTokens from "../../replacementNodeAndTokens";
 import ContentsListMarkdownNode from "../../node/markdown/contentsList";
 import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
 import { EMPTY_STRING } from "../../constants";
 import { DIVISION_RULE_NAME } from "../../ruleNames";
 import { renumberLinkMarkdownNodes } from "../../utilities/footnotes";
-import { replaceNode, replaceNodes, replaceTokens } from "../../utilities/replace";
+import { removeNode, removeTokens, replaceNode, replaceNodes, replaceTokens } from "../../utilities/replace";
 import { headingMarkdownNodesFromNode,
+         subDivisionMarkdownNodesFromNode,
          embedDirectiveMarkdownNodesFromNode,
          ignoreDirectiveMarkdownNodeFromNode,
          contentsDirectiveMarkdownNodeFromNode,
@@ -48,14 +50,6 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return ignored;
   }
 
-  hasPageNumber() {
-    const node = this,
-          pageNumberDirectiveMarkdownNode = pageNumberDirectiveMarkdownNodeFromNode(node),
-          pageNumber = (pageNumberDirectiveMarkdownNode !== null);
-
-    return pageNumber;
-  }
-
   findParentNode(childNode, node = this) {
     let parentNode = null;
 
@@ -84,10 +78,12 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return parentNode;
   }
 
-  paginate(context) {
-    const { pageDivisionMarkdownNodes, linesPerPage } = context,
+  paginate(pageDivisionMarkdownNodes, context) {
+    const { linesPerPage } = context,
           pageChildNodes = [],
-          childNodes = this.getChildNodes();
+          childNodes = this.getChildNodes(),
+          footnotesDirectiveReplacementNodeAndTokens = this.removeFootnotesSubdivisionMarkdownNode(context),
+          pageNumberDirectiveReplacementNodeAndTokens = this.removePageNumberSubdivisionMarkdownNode(context);
 
     let pageLines = 0;
 
@@ -106,6 +102,14 @@ export default class DivisionMarkdownNode extends MarkdownNode {
               divisionMarkdownNode = DivisionMarkdownNode.fromChildNodesAndDivisionClassName(childNodes, this.divisionClassName),
               pageDivisionMarkdownNode = divisionMarkdownNode;  ///
 
+        if (footnotesDirectiveReplacementNodeAndTokens !== null) {
+          footnotesDirectiveReplacementNodeAndTokens.appendTo(pageDivisionMarkdownNode, context);
+        }
+
+        if (pageNumberDirectiveReplacementNodeAndTokens !== null) {
+          pageNumberDirectiveReplacementNodeAndTokens.appendTo(pageDivisionMarkdownNode, context);
+        }
+
         pageDivisionMarkdownNodes.push(pageDivisionMarkdownNode);
 
         clear(pageChildNodes);
@@ -114,14 +118,20 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       }
     });
 
-    const pageChildNodesLength = pageChildNodes.length;
-
-    if (pageChildNodesLength > 0) {
+    if (pageLines > 0) {
       const childNodes = [  ///
               ...pageChildNodes
             ],
             divisionMarkdownNode = DivisionMarkdownNode.fromChildNodesAndDivisionClassName(childNodes, this.divisionClassName),
             pageDivisionMarkdownNode = divisionMarkdownNode;  ///
+
+      if (footnotesDirectiveReplacementNodeAndTokens !== null) {
+        footnotesDirectiveReplacementNodeAndTokens.appendTo(pageDivisionMarkdownNode, context);
+      }
+
+      if (pageNumberDirectiveReplacementNodeAndTokens !== null) {
+        pageNumberDirectiveReplacementNodeAndTokens.appendTo(pageDivisionMarkdownNode, context);
+      }
 
       pageDivisionMarkdownNodes.push(pageDivisionMarkdownNode);
     }
@@ -215,10 +225,52 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return footnotesListMarkdownNode;
   }
 
+  removeSubdivisionMarkdownNode(markdownNodeFromNode, context) {
+    let subdivisionReplacementNodeAndTokens = null;
+
+    const { tokens } = context,
+          node = this,  ///
+          parentNode = this,  ///
+          subDivisionMarkdownNodes = subDivisionMarkdownNodesFromNode(node);
+
+    subDivisionMarkdownNodes.some((subDivisionMarkdownNode) => {
+      const node = subDivisionMarkdownNode, ///
+            markdownNode = markdownNodeFromNode(node);
+
+      if (markdownNode !== null) {
+        const replacementNodeAndTokens = ReplacementNodeAndTokens.fromNode(node, context);
+
+        subdivisionReplacementNodeAndTokens = replacementNodeAndTokens; ///
+
+        const removedNode = subDivisionMarkdownNode;  ///
+
+        removeTokens(removedNode, tokens);
+
+        removeNode(removedNode, parentNode);
+
+        return true;
+      }
+    });
+
+    return subdivisionReplacementNodeAndTokens;
+  }
+
   removeFootnotesListMarkdownNode(footnotesListMarkdownNode) {
     const childNode = footnotesListMarkdownNode;  ///
 
     this.removeChildNode(childNode);
+  }
+
+  removeFootnotesSubdivisionMarkdownNode(context) {
+    const footnotesDirectiveReplacementNodeAndTokens = this.removeSubdivisionMarkdownNode(footnotesDirectiveMarkdownNodeFromNode, context);
+
+    return footnotesDirectiveReplacementNodeAndTokens;
+  }
+
+  removePageNumberSubdivisionMarkdownNode(context) {
+    const pageNumberDirectiveReplacementNodeAndTokens = this.removeSubdivisionMarkdownNode(pageNumberDirectiveMarkdownNodeFromNode, context);
+
+    return pageNumberDirectiveReplacementNodeAndTokens;
   }
 
   asHTML(context) {

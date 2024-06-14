@@ -12,6 +12,7 @@ const ignoreDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/igno
       linkMarkdownNodesQuery = Query.fromExpression("//link"),
       headingMarkdownNodesQuery = Query.fromExpression("//primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),
       footnoteMarkdownNodesQuery = Query.fromExpression("//footnote"),
+      subDivisionMarkdownNodesQuery = Query.fromExpression("//subDivision"),
       embedDirectiveMarkdownNodesQuery = Query.fromExpression("//directives/embedDirective"),
       includeDirectiveMarkdownNodesQuery = Query.fromExpression("//directives/includeDirective"),
       linkReferenceOrFootnotesDirectiveMarkdownNodesQuery = Query.fromExpression("//link|reference|footnotesDirective");
@@ -87,6 +88,12 @@ export function footnoteMarkdownNodesFromNode(node, footnoteMarkdownNodes = []) 
   return footnoteMarkdownNodes;
 }
 
+export function subDivisionMarkdownNodesFromNode(node, subDivisionMarkdownNodes = []) {
+  nodesFromNodeAndQuery(node, subDivisionMarkdownNodesQuery, subDivisionMarkdownNodes);
+
+  return subDivisionMarkdownNodes;
+}
+
 export function embedDirectiveMarkdownNodesFromNode(node, embedDirectiveMarkdownNodes = []) {
   nodesFromNodeAndQuery(node, embedDirectiveMarkdownNodesQuery, embedDirectiveMarkdownNodes);
 
@@ -113,6 +120,7 @@ export default {
   linkMarkdownNodesFromNode,
   headingMarkdownNodesFromNode,
   footnoteMarkdownNodesFromNode,
+  subDivisionMarkdownNodesFromNode,
   embedDirectiveMarkdownNodesFromNode,
   includeDirectiveMarkdownNodesFromNode,
   linkReferenceOrFootnotesDirectiveMarkdownNodesFromNode

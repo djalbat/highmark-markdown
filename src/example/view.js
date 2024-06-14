@@ -99,7 +99,7 @@ class View extends Element {
 
       const index = 0,
             length = divisionMarkdownNodes.length,
-            parseTree = divisionMarkdownNode.asParseTree(tokens)
+            parseTree = divisionMarkdownNode.asParseTree(tokens);
 
       this.updatePage(index);
 
@@ -323,7 +323,9 @@ This book explains these divers parts and there is a companion book, called The 
 @pageNumber
 `;
 
-  static initialMarkdownStyle = `position: absolute;
+  static initialMarkdownStyle = `width: 100%;
+position: absolute;
+min-height: 100%;  
 padding-top: 5rem;  
 `;
 }

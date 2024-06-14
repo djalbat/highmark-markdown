@@ -1,8 +1,25 @@
 "use strict";
 
-function removeChildNode(childNode) {
+import { arrayUtilities } from "necessary";
+
+const { first, last } = arrayUtilities;
+
+function removeChildNodes(removedChildNodes) {
   const childNodes = this.getChildNodes(),
-        index = childNodes.indexOf(childNode),
+        firstRemovedChildNode = first(removedChildNodes),
+        lastRemovedChildNode = last(removedChildNodes),
+        firstIndex = childNodes.indexOf(firstRemovedChildNode), ///
+        lastIndex = childNodes.indexOf(lastRemovedChildNode), ///
+        start = firstIndex,  ///
+        end = lastIndex + 1,
+        deleteCount = end - start;
+
+  childNodes.splice(start, deleteCount);
+}
+
+function removeChildNode(removedChildNode) {
+  const childNodes = this.getChildNodes(),
+        index = childNodes.indexOf(removedChildNode),
         start = index,  ///
         deleteCount = 1;
 
@@ -51,6 +68,7 @@ function getDescendantNodes(descendantNodes = []) {
 }
 
 const nodeMixins = {
+  removeChildNodes,
   removeChildNode,
   appendChildNode,
   prependChildNode,
