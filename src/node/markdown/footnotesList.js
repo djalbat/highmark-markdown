@@ -4,7 +4,7 @@ import MarkdownNode from "../../node/markdown";
 import FootnoteItemMarkdownNode from "./footnoteItem";
 
 import { FOOTNOTES_LIST_RULE_NAME } from "../../ruleNames";
-import { linkMarkdownNodesFromNode, footnoteMarkdownNodesFromNode } from "../../utilities/query";
+import { linkMarkdownNodesFromNode, footnoteMarkdownNodsFromNode } from "../../utilities/query";
 
 export default class FootnotesListMarkdownNode extends MarkdownNode {
   identifierToNumberMap(context) {
@@ -22,43 +22,65 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
     return identifierToNumberMap;
   }
 
-  static fromDivisionMarkdownNode(divisionMarkdownNode, context) {
+  static fromDivisionMarkdownNodeAndReplacements(divisionMarkdownNode, replacements, context) {
     let footnotesListMarkdownNode = null;
+
+    replacements = replacements.map((replacement) => {  ///
+      const node = replacement.getNode(),
+            footnoteMarkdownNode = footnoteMarkdownNodsFromNode(node),
+            descendentNode = footnoteMarkdownNode;  ///
+
+      replacement = replacement.contract(descendentNode);
+
+      return replacement;
+    });
 
     const node = divisionMarkdownNode,  ///
           linkMarkdownNodes = linkMarkdownNodesFromNode(node),
-          footnoteMarkdownNodes = footnoteMarkdownNodesFromNode(node),
-          footnoteItemMarkdownNodes = [],
-          identifierToFootnoteMarkdownNodeMap = {};
+          identifierToReplacementMap = {};
 
-    footnoteMarkdownNodes.forEach((footnoteMarkdownNode) => {
-      const identifier = footnoteMarkdownNode.identifier(context);
+    replacements.forEach((replacement) => {
+      const node = replacement.getNode(),
+            footnoteMarkdownNode = node,  ///
+            identifier = footnoteMarkdownNode.identifier(context);
 
-      identifierToFootnoteMarkdownNodeMap[identifier] = footnoteMarkdownNode;
+      identifierToReplacementMap[identifier] = replacement;
     });
 
+    replacements = [];
+
     linkMarkdownNodes.forEach((linkMarkdownNode) => {
-      const identifier = linkMarkdownNode.identifier(context),
-            footnoteMarkdownNode = identifierToFootnoteMarkdownNodeMap[identifier] || null;
+      const identifier = linkMarkdownNode.identifier(context);
 
-      if (footnoteMarkdownNode !== null) {
-        const footnoteItemMarkdownNode = FootnoteItemMarkdownNode.fromFootnoteMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier);
+      let replacement = identifierToReplacementMap[identifier] || null;
 
-        footnoteItemMarkdownNodes.push(footnoteItemMarkdownNode);
+      if (replacement !== null) {
+        const node = replacement.getNode(),
+              footnoteMarkdownNode = node,  ///
+              footnoteItemMarkdownNode = FootnoteItemMarkdownNode.fromFootnotesMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier),
+              ascendantNode = footnoteItemMarkdownNode; ///
 
-        delete identifierToFootnoteMarkdownNodeMap[identifier];
+        replacement = replacement.expand(ascendantNode);
+
+        delete identifierToReplacementMap[identifier];
+
+        replacements.push(replacement);
       }
     });
 
-    const footnoteItemMarkdownNodesLength = footnoteItemMarkdownNodes.length;
+    const replacementsLength = replacements.length;
 
-    if (footnoteItemMarkdownNodesLength > 0) {
+    if (replacementsLength > 0) {
       const ruleName = FOOTNOTES_LIST_RULE_NAME,
-            childNodes = footnoteItemMarkdownNodes, ///
+            childNodes = [], ///
             opacity = null;
 
       footnotesListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnotesListMarkdownNode, ruleName, childNodes, opacity);
     }
+
+    replacements.forEach((replacement) => {
+      replacement.appendTo(footnotesListMarkdownNode, context);
+    });
 
     return footnotesListMarkdownNode;
   }

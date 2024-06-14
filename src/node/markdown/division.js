@@ -2,8 +2,8 @@
 
 import { arrayUtilities } from "necessary";
 
-import MarkdownNode from "../../node/markdown";
 import Replacement from "../../replacement";
+import MarkdownNode from "../../node/markdown";
 import ContentsListMarkdownNode from "../../node/markdown/contentsList";
 import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
@@ -11,7 +11,8 @@ import { EMPTY_STRING } from "../../constants";
 import { DIVISION_RULE_NAME } from "../../ruleNames";
 import { renumberLinkMarkdownNodes } from "../../utilities/footnotes";
 import { removeNode, removeTokens, replaceNode, replaceNodes, replaceTokens } from "../../utilities/node";
-import { headingMarkdownNodesFromNode,
+import { footnoteMarkdownNodsFromNode,
+         headingMarkdownNodesFromNode,
          subDivisionMarkdownNodesFromNode,
          embedDirectiveMarkdownNodesFromNode,
          ignoreDirectiveMarkdownNodeFromNode,
@@ -81,8 +82,12 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   paginate(pageDivisionMarkdownNodes, context) {
     const { linesPerPage } = context,
           childNodes = this.getChildNodes(),
-          replacements = this.removeDirectiveMarkdownNodes(context),
+          replacements = [],
           pageChildNodes = [];
+
+    this.removeSubdivisionMarkdownNodes(footnotesDirectiveMarkdownNodeFromNode, replacements, context);
+
+    this.removeSubdivisionMarkdownNodes(pageNumberDirectiveMarkdownNodeFromNode, replacements, context);
 
     let pageLines = 0;
 
@@ -152,17 +157,24 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     const node = this,  ///
           footnotesDirectiveMarkdownNode = footnotesDirectiveMarkdownNodeFromNode(node);
 
-    if (footnotesDirectiveMarkdownNode !== null) {
-      const divisionMarkdownNode = this,  ///
-            footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
+    if (footnotesDirectiveMarkdownNode === null) {
+      return;
+    }
 
-      if (footnotesListMarkdownNode !== null) {
-        const childNode = footnotesListMarkdownNode;  ///
+    const replacements = [];
 
-        divisionMarkdownNode.appendChildNode(childNode);
+    this.removeSubdivisionMarkdownNodes(footnoteMarkdownNodsFromNode, replacements, context);
 
-        renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context)
-      }
+    const divisionMarkdownNode = this,  ///
+          footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNodeAndReplacements(divisionMarkdownNode, replacements, context);
+
+    if (footnotesListMarkdownNode !== null) {
+      const node = footnotesListMarkdownNode, ///
+            replacement = Replacement.fromNode(node, context);
+
+      replacement.appendTo(divisionMarkdownNode, context);
+
+      renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context)
     }
   }
 
@@ -195,27 +207,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     });
   }
 
-  removeDirectiveMarkdownNodes(context) {
-    const markdownNodeFromNodes = [
-        footnotesDirectiveMarkdownNodeFromNode,
-        pageNumberDirectiveMarkdownNodeFromNode
-      ],
-      replacements = markdownNodeFromNodes.reduce((replacements, markdownNodeFromNode) => {
-        const replacement = this.removeSubdivisionMarkdownNode(markdownNodeFromNode, context);
-
-        if (replacement !== null) {
-          replacements.push(replacement);
-        }
-
-        return replacements;
-      }, []);
-
-    return replacements;
-  }
-
-  removeSubdivisionMarkdownNode(markdownNodeFromNode, context) {
-    let subdivisionReplacement = null;
-
+  removeSubdivisionMarkdownNodes(markdownNodeFromNode, replacements, context) {
     const { tokens } = context,
           node = this,  ///
           parentNode = this,  ///
@@ -226,11 +218,10 @@ export default class DivisionMarkdownNode extends MarkdownNode {
             markdownNode = markdownNodeFromNode(node);
 
       if (markdownNode !== null) {
-        const replacement = Replacement.fromNode(node, context);
+        const replacement = Replacement.fromNode(node, context),
+              removedNode = subDivisionMarkdownNode;  ///
 
-        subdivisionReplacement = replacement; ///
-
-        const removedNode = subDivisionMarkdownNode;  ///
+        replacements.push(replacement);
 
         removeTokens(removedNode, tokens);
 
@@ -239,8 +230,6 @@ export default class DivisionMarkdownNode extends MarkdownNode {
         return true;
       }
     });
-
-    return subdivisionReplacement;
   }
 
   createFootnotesListMarkdownNode(context) {

@@ -242,7 +242,7 @@ const bnf = `
                               ;
     
 
-    anchor.                 ::=  [identifier] ;
+    anchor.                 ::=  ε ;
     
 
     reference.              ::=  [reference] ;

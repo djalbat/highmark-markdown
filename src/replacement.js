@@ -18,6 +18,28 @@ export default class Replacement {
 
   getChildNodes() { return this.node.getChildNodes(); }
 
+  contract(descendentNode) {
+    const node = descendentNode,  ///
+          tokens = this.tokens, ///
+          context = { ///
+            tokens
+          },
+          replacement = Replacement.fromNode(node, context);  ///
+
+    return replacement;
+  }
+
+  expand(ascendantNode) {
+    const node = ascendantNode, ///
+          tokens = this.tokens, ///
+          context = {
+            tokens
+          },
+          replacement = Replacement.fromNode(node, context);  ///
+
+    return replacement;
+  }
+
   clone() {
     const node = this.node.clone(),
           replacementTokens = replacementTokensFromNodeAndTokens(node, this.tokens);

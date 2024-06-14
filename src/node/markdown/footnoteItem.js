@@ -19,7 +19,7 @@ export default class FootnoteItemMarkdownNode extends MarkdownNode {
     return identifier;
   }
 
-  static fromFootnoteMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier) {
+  static fromFootnotesMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier) {
     const anchorMarkdownNode = AnchorMarkdownNode.fromIdentifier(identifier),
           footnoteMarkdownNodeChildNodes = footnoteMarkdownNode.getChildNodes(),
           secondFootnoteMarkdownNodeChildNode = second(footnoteMarkdownNodeChildNodes),

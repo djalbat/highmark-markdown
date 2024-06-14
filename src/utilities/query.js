@@ -5,13 +5,13 @@ import { arrayUtilities } from "necessary";
 
 const { first, push } = arrayUtilities;
 
-const ignoreDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/ignoreDirective"),
+const footnoteMarkdownNodeQuery = Query.fromExpression("//footnote"),
+      ignoreDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/ignoreDirective"),
       contentsDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/contentsDirective"),
       footnotesDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/footnotesDirective"),
       pageNumberDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/pageNumber"),
       linkMarkdownNodesQuery = Query.fromExpression("//link"),
       headingMarkdownNodesQuery = Query.fromExpression("//primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),
-      footnoteMarkdownNodesQuery = Query.fromExpression("//footnote"),
       subDivisionMarkdownNodesQuery = Query.fromExpression("//subDivision"),
       embedDirectiveMarkdownNodesQuery = Query.fromExpression("//directives/embedDirective"),
       includeDirectiveMarkdownNodesQuery = Query.fromExpression("//directives/includeDirective"),
@@ -44,6 +44,12 @@ export function nodesQuery(expression) {
 
     return nodes;
   }
+}
+
+export function footnoteMarkdownNodsFromNode(node) {
+  const footnoteMarkdownNode = nodeFromNodeAndQuery(node, footnoteMarkdownNodeQuery);
+
+  return footnoteMarkdownNode;
 }
 
 export function ignoreDirectiveMarkdownNodeFromNode(node) {
@@ -82,12 +88,6 @@ export function headingMarkdownNodesFromNode(node, headingMarkdownNodes = []) {
   return headingMarkdownNodes;
 }
 
-export function footnoteMarkdownNodesFromNode(node, footnoteMarkdownNodes = []) {
-  nodesFromNodeAndQuery(node, footnoteMarkdownNodesQuery, footnoteMarkdownNodes);
-
-  return footnoteMarkdownNodes;
-}
-
 export function subDivisionMarkdownNodesFromNode(node, subDivisionMarkdownNodes = []) {
   nodesFromNodeAndQuery(node, subDivisionMarkdownNodesQuery, subDivisionMarkdownNodes);
 
@@ -113,13 +113,13 @@ export function linkReferenceOrFootnotesDirectiveMarkdownNodesFromNode(node, lin
 }
 
 export default {
+  footnoteMarkdownNodsFromNode,
   ignoreDirectiveMarkdownNodeFromNode,
   contentsDirectiveMarkdownNodeFromNode,
   footnotesDirectiveMarkdownNodeFromNode,
   pageNumberDirectiveMarkdownNodeFromNode,
   linkMarkdownNodesFromNode,
   headingMarkdownNodesFromNode,
-  footnoteMarkdownNodesFromNode,
   subDivisionMarkdownNodesFromNode,
   embedDirectiveMarkdownNodesFromNode,
   includeDirectiveMarkdownNodesFromNode,

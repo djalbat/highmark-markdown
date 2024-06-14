@@ -1,5 +1,7 @@
 "use strict";
 
+import { EpsilonNode } from "occam-parsers";
+
 import MarkdownNode from "../../node/markdown";
 
 import { EMPTY_STRING } from "../../constants";
@@ -47,8 +49,11 @@ export default class AnchorMarkdownNode extends MarkdownNode {
   clone() { return super.clone(this.identifier); }
 
   static fromIdentifier(identifier) {
-    const ruleName = ANCHOR_RULE_NAME,
-          childNodes = [],
+    const epsilonNode = EpsilonNode.fromNothing(),
+          ruleName = ANCHOR_RULE_NAME,
+          childNodes = [
+            epsilonNode
+          ],
           opacity = null,
           anchorMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(AnchorMarkdownNode, ruleName, childNodes, opacity, identifier);
 
