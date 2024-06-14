@@ -3,6 +3,7 @@
 import MarkdownNode from "../../node/markdown";
 
 import { contentFromNode } from "../../utilities/content";
+import { leadingIndexFromNodeAndTokens } from "../../utilities/replace";
 
 export default class BlockLineMarkdownNode extends MarkdownNode {
   content(context) {
@@ -13,9 +14,8 @@ export default class BlockLineMarkdownNode extends MarkdownNode {
 
     content = contentFromNode(node, context);
 
-    const firstSignificantToken = this.getFirstSignificantToken(),
-          firstSignificantTokenIndex = tokens.indexOf(firstSignificantToken),
-          previousTokenIndex = firstSignificantTokenIndex - 1,
+    const leadingIndex = leadingIndexFromNodeAndTokens(node, tokens),
+          previousTokenIndex = leadingIndex - 1,
           previousToken = tokens[previousTokenIndex],
           previousTokenWhitespaceToken = previousToken.isWhitespaceToken();
 
