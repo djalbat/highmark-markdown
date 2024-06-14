@@ -4,7 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import { EMPTY_STRING } from "../constants";
 import { ESCAPED_TOKEN_TYPE } from "../tokenTypes";
-import { leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "../utilities/replace";
+import { leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "../utilities/node";
 
 const { first, last } = arrayUtilities;
 

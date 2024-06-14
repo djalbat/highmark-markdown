@@ -10,7 +10,7 @@ import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 import { EMPTY_STRING } from "../../constants";
 import { DIVISION_RULE_NAME } from "../../ruleNames";
 import { renumberLinkMarkdownNodes } from "../../utilities/footnotes";
-import { removeNode, removeTokens, replaceNode, replaceNodes, replaceTokens } from "../../utilities/replace";
+import { removeNode, removeTokens, replaceNode, replaceNodes, replaceTokens } from "../../utilities/node";
 import { headingMarkdownNodesFromNode,
          subDivisionMarkdownNodesFromNode,
          embedDirectiveMarkdownNodesFromNode,

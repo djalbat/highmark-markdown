@@ -4,7 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
-const { first, push } = arrayUtilities;
+const { clear, first, push } = arrayUtilities;
 
 export default class DirectivesMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, opacity, precedence, domElement, domElements) {
@@ -41,6 +41,8 @@ export default class DirectivesMarkdownNode extends MarkdownNode {
   createDOMElement(context) {
     const domElement = null,
           childNodes = this.getChildNodes();
+
+    clear(this.domElements);
 
     childNodes.forEach((childNode) => {
       const childNodeNonTerminalNode = childNode.isNonTerminalNode();

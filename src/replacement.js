@@ -1,6 +1,6 @@
 "use strict";
 
-import { leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "./utilities/replace";
+import { leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "./utilities/node";
 
 export default class Replacement {
   constructor(node, tokens) {

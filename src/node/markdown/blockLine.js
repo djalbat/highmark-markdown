@@ -3,7 +3,7 @@
 import MarkdownNode from "../../node/markdown";
 
 import { contentFromNode } from "../../utilities/content";
-import { leadingIndexFromNodeAndTokens } from "../../utilities/replace";
+import { leadingIndexFromNodeAndTokens } from "../../utilities/node";
 
 export default class BlockLineMarkdownNode extends MarkdownNode {
   content(context) {
