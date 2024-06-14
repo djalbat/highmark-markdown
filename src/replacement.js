@@ -2,7 +2,7 @@
 
 import { leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "./utilities/replace";
 
-export default class ReplacementNodeAndTokens {
+export default class Replacement {
   constructor(node, tokens) {
     this.node = node;
     this.tokens = tokens;
@@ -25,22 +25,21 @@ export default class ReplacementNodeAndTokens {
     replaceNodeTokens(node, replacementTokens, this.tokens);
 
     const tokens = replacementTokens, ///
-          replacementNodeAndTokens = new ReplacementNodeAndTokens(node, tokens);
+          replacement = new Replacement(node, tokens);
 
-    return replacementNodeAndTokens
+    return replacement
   }
 
   appendTo(markdownNode, context) {
     const { tokens } = context,
           node = markdownNode, ///
           trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
-          replacementNodeAndTokens = this.clone(),  ///
-          replacementNodeAndTokensNode = replacementNodeAndTokens.getNode(),
-          replacementNodeAndTokensTokens = replacementNodeAndTokens.getTokens(),
-          childNode = replacementNodeAndTokensNode, ///
+          replacement = this.clone(),  ///
+          replacementNode = replacement.getNode(),
+          replacementTokens = replacement.getTokens(),
+          childNode = replacementNode, ///
           start = trailingIndex + 1,
-          deleteCount = 0,
-          replacementTokens = replacementNodeAndTokensTokens; ///
+          deleteCount = 0;
 
     markdownNode.appendChildNode(childNode);
 
@@ -60,15 +59,15 @@ export default class ReplacementNodeAndTokens {
 
     tokens = replacementTokens; ///
 
-    const replacementNodeAndTokens = new ReplacementNodeAndTokens(node, tokens);
+    const replacement = new Replacement(node, tokens);
 
-    return replacementNodeAndTokens;
+    return replacement;
   }
 
   static fromNodeAndTokens(node, tokens) {
-    const replacementNodeAndTokens = new ReplacementNodeAndTokens(node, tokens);
+    const replacement = new Replacement(node, tokens);
 
-    return replacementNodeAndTokens;
+    return replacement;
   }
 }
 
