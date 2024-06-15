@@ -269,7 +269,7 @@ Occam [^occam].
    
 A paragraph to trigger the pagination.
 
-Florence [^florence].
+Occam and Florence [^occam] [^florence].
 
 [^occam]: Occam footnote.
 

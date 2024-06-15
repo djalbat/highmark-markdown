@@ -5,3 +5,4 @@ export const SRC_ATTRIBUTE_NAME = "src";
 export const ALT_ATTRIBUTE_NAME = "alt";
 export const HREF_ATTRIBUTE_NAME = "href";
 export const VALUE_ATTRIBUTE_NAME = "value";
+export const START_ATTRIBUTE_NAME = "start";

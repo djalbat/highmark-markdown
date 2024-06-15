@@ -9,7 +9,6 @@ import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
 
 import { EMPTY_STRING } from "../../constants";
 import { DIVISION_RULE_NAME } from "../../ruleNames";
-import { renumberLinkMarkdownNodes } from "../../utilities/footnotes";
 import { removeNode, removeTokens, replaceNode, replaceNodes, replaceTokens } from "../../utilities/node";
 import { footnoteMarkdownNodsFromNode,
          headingMarkdownNodesFromNode,
@@ -166,8 +165,6 @@ export default class DivisionMarkdownNode extends MarkdownNode {
           replacement = Replacement.fromNode(node, context);
 
     replacement.appendTo(divisionMarkdownNode, context);
-
-    renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListMarkdownNode, context)
   }
 
   prepareFootnotes(context) {
@@ -175,14 +172,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
     subdivisionReplacements = this.removeSubdivisionMarkdownNodes(footnoteMarkdownNodsFromNode, context);
 
-    let footnoteReplacements = subdivisionReplacements.map((subdivisionReplacement) => {
-      const node = subdivisionReplacement.getNode(),
-            footnoteMarkdownNode = footnoteMarkdownNodsFromNode(node),
-            descendentNode = footnoteMarkdownNode,  ///
-            footnoteReplacement = subdivisionReplacement.contract(descendentNode);
-
-      return footnoteReplacement;
-    });
+    let footnoteReplacements = footnoteReplacementsFromSubdivisionReplacements(subdivisionReplacements);
 
     subdivisionReplacements = this.removeSubdivisionMarkdownNodes(footnotesDirectiveMarkdownNodeFromNode, context);
 
@@ -300,6 +290,19 @@ ${childNodesHTML}${indent}${closingTag}
 
     return divisionMarkdownNode;
   }
+}
+
+function footnoteReplacementsFromSubdivisionReplacements(subdivisionReplacements) {
+  const footnoteReplacements = subdivisionReplacements.map((subdivisionReplacement) => {
+    const node = subdivisionReplacement.getNode(),
+          footnoteMarkdownNode = footnoteMarkdownNodsFromNode(node),
+          descendentNode = footnoteMarkdownNode,  ///
+          footnoteReplacement = subdivisionReplacement.contract(descendentNode);
+
+    return footnoteReplacement;
+  });
+
+  return footnoteReplacements;
 }
 
 function headingMarkdownNodesFromDivisionMarkdownNodeAndContentsDirectiveMarkdownNode(divisionMarkdownNode, contentsDirectiveMarkdownNode, context) {
