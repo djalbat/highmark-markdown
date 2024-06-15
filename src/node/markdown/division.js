@@ -124,7 +124,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     }
   }
 
-  createContents(context) {
+  createContents(divisionMarkdownNodes, context) {
     let contentsCreated = false;
 
     const node = this,  ///
@@ -132,7 +132,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
     if (contentsDirectiveMarkdownNode !== null) {
       const divisionMarkdownNode = this,  ///
-            headingMarkdownNodes = headingMarkdownNodesFromDivisionMarkdownNodeAndContentsDirectiveMarkdownNode(divisionMarkdownNode, contentsDirectiveMarkdownNode, context),
+            headingMarkdownNodes = headingMarkdownNodesFromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context),
             headingMarkdownNodesLength = headingMarkdownNodes.length;
 
       if (headingMarkdownNodesLength === 0) {
@@ -314,13 +314,9 @@ function footnoteReplacementsFromSubdivisionReplacements(subdivisionReplacements
   return footnoteReplacements;
 }
 
-function headingMarkdownNodesFromDivisionMarkdownNodeAndContentsDirectiveMarkdownNode(divisionMarkdownNode, contentsDirectiveMarkdownNode, context) {
-  const { contentsDepth } = context,
-        headingMarkdownNodes = [];
-
-  let { divisionMarkdownNodes } = context;
-
-  const index = divisionMarkdownNodes.indexOf(divisionMarkdownNode),
+function headingMarkdownNodesFromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context) {
+  const headingMarkdownNodes = [],
+        index = divisionMarkdownNodes.indexOf(divisionMarkdownNode),
         start = index + 1;
 
   divisionMarkdownNodes = divisionMarkdownNodes.slice(start); ///
@@ -332,7 +328,8 @@ function headingMarkdownNodesFromDivisionMarkdownNodeAndContentsDirectiveMarkdow
   });
 
   filter(headingMarkdownNodes, (headingMarkdownNode) => {
-    const depth = headingMarkdownNode.getDepth();
+    const { contentsDepth } = context,
+          depth = headingMarkdownNode.getDepth();
 
     if (depth <= contentsDepth) {
       return true;

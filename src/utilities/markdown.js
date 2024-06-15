@@ -22,7 +22,7 @@ export function postprocess(divisionMarkdownNode, context) {
 
 function createContents(divisionMarkdownNodes, context) {
   divisionMarkdownNodes.some((divisionMarkdownNode) => {
-    const contentsCreated = divisionMarkdownNode.createContents(context);
+    const contentsCreated = divisionMarkdownNode.createContents(divisionMarkdownNodes, context);
 
     if (contentsCreated) {
       return true;
