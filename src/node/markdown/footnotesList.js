@@ -50,29 +50,30 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
     let count = 0;
 
     linkMarkdownNodes.forEach((linkMarkdownNode) => {
-      const identifier = linkMarkdownNode.identifier(context),
-            footnoteNumber = identifierToFootnoteNumberMap[identifier] || null;
+      const identifier = linkMarkdownNode.identifier(context);
+
+      let footnoteNumber = identifierToFootnoteNumberMap[identifier] || null;
+
+      if (footnoteNumber === null) {
+        const footnoteReplacement = footnoteReplacementFromFootnoteReplacementsAndIdentifier(footnoteReplacements, identifier, context);
+
+        if (footnoteReplacement !== null) {
+          const footnoteItemReplacement = footnoteItemReplacementFromFootnoteReplacementAndIdentifier(footnoteReplacement, identifier);
+
+          footnoteItemReplacements.push(footnoteItemReplacement);
+
+          count++;
+
+          footnoteNumber = footnoteNumbersLength + count;
+
+          identifierToFootnoteNumberMap[identifier] = footnoteNumber;
+        }
+      }
 
       if (footnoteNumber !== null) {
         const number = footnoteNumber;  ///
 
         linkMarkdownNode.setNumber(number);
-      } else {
-        const footnoteReplacement = footnoteReplacementFromFootnoteReplacementsAndIdentifier(footnoteReplacements, identifier, context);
-
-        if (footnoteReplacement !== null) {
-          const footnoteItemReplacement = footnoteItemReplacementFromFootnoteReplacementAndIdentifier(footnoteReplacement, identifier),
-                footnoteNumber = footnoteNumbersLength + count + 1,
-                number = footnoteNumber;  ///
-
-          identifierToFootnoteNumberMap[identifier] = footnoteNumber;
-
-          footnoteItemReplacements.push(footnoteItemReplacement);
-
-          linkMarkdownNode.setNumber(number);
-
-          count++;
-        }
       }
     });
 
