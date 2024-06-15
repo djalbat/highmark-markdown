@@ -1,15 +1,11 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
-import FootnoteItemMarkdownNode from "./footnoteItem";
+import FootnoteItemReplacement from "../../replacement/footnoteItem";
 
 import { START_ATTRIBUTE_NAME } from "../../attributeNames";
 import { FOOTNOTES_LIST_RULE_NAME } from "../../ruleNames";
 import { linkMarkdownNodesFromNode } from "../../utilities/query";
-
-const { extract } = arrayUtilities;
 
 export default class FootnotesListMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, opacity, precedence, domElement, start) {
@@ -55,11 +51,9 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
       let footnoteNumber = footnoteNumberMap[identifier] || null;
 
       if (footnoteNumber === null) {
-        const footnoteReplacement = footnoteReplacementFromFootnoteReplacementsAndIdentifier(footnoteReplacements, identifier, context);
+        const footnoteItemReplacement = FootnoteItemReplacement.fromFootnoteReplacementsAndIdentifier(footnoteReplacements, identifier, context);
 
-        if (footnoteReplacement !== null) {
-          const footnoteItemReplacement = footnoteItemReplacementFromFootnoteReplacementAndIdentifier(footnoteReplacement, identifier);
-
+        if (footnoteItemReplacement !== null) {
           footnoteItemReplacements.push(footnoteItemReplacement);
 
           count++;
@@ -88,36 +82,10 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
       footnotesListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnotesListMarkdownNode, ruleName, childNodes, opacity, start);
 
       footnoteItemReplacements.forEach((footnotesItemReplacement) => {
-        const parentNode = footnotesListMarkdownNode; ///
-
-        footnotesItemReplacement.appendTo(parentNode, context);
+        footnotesItemReplacement.appendTo(footnotesListMarkdownNode, context);
       });
     }
 
     return footnotesListMarkdownNode;
   }
-}
-
-function footnoteReplacementFromFootnoteReplacementsAndIdentifier(footnoteReplacements, identifier, context) {
-  const footnoteReplacement = extract(footnoteReplacements, (footnoteReplacement) => {
-          const node = footnoteReplacement.getNode(),
-                footnoteMarkdownNode = node,  ///
-                footnoteMarkdownNodeIdentifier = footnoteMarkdownNode.identifier(context);
-
-          if (footnoteMarkdownNodeIdentifier === identifier) {
-            return true;
-          }
-        }) || null;
-
-  return footnoteReplacement;
-}
-
-function footnoteItemReplacementFromFootnoteReplacementAndIdentifier(footnoteReplacement, identifier) {
-  const node = footnoteReplacement.getNode(),
-        footnoteMarkdownNode = node,  ///
-        footnoteItemMarkdownNode = FootnoteItemMarkdownNode.fromFootnotesMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier),
-        ascendantNode = footnoteItemMarkdownNode, ///
-        footnoteItemReplacement = footnoteReplacement.expand(ascendantNode);
-
-  return footnoteItemReplacement;
 }

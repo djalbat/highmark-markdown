@@ -3,6 +3,7 @@
 import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
+import FootnoteReplacement from "../../replacement/footnote";
 import FootnotesListReplacement from "../../replacement/footnotesList";
 import ContentsListMarkdownNode from "../../node/markdown/contentsList";
 import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
@@ -13,8 +14,7 @@ import PageNumberDirectiveSubDivisionReplacement from "../../replacement/subDivi
 import { EMPTY_STRING } from "../../constants";
 import { DIVISION_RULE_NAME } from "../../ruleNames";
 import { replaceNode, replaceTokens } from "../../utilities/node";
-import { footnoteMarkdownNodsFromNode,
-         headingMarkdownNodesFromNode,
+import { headingMarkdownNodesFromNode,
          subDivisionMarkdownNodesFromNode,
          embedDirectiveMarkdownNodesFromNode,
          ignoreDirectiveMarkdownNodeFromNode,
@@ -180,7 +180,11 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   prepareFootnotes(context) {
     const footnoteSubDivisionReplacements = this.removeFootnoteSubDivisionMarkdownNodes(context);
 
-    let footnoteReplacements = footnoteReplacementsFromFootnoteSubDivisionReplacements(footnoteSubDivisionReplacements);
+    let footnoteReplacements = footnoteSubDivisionReplacements.map((footnoteSubDivisionReplacement) => {
+      const footnoteReplacement = FootnoteReplacement.fromFootnoteSubDivisionReplacement(footnoteSubDivisionReplacement);
+
+      return footnoteReplacement;
+    });
 
     const footnotesDirectiveSubDivisionReplacement = this.removeFootnotesDirectiveSubDivisionMarkdownNode(context);
 
@@ -319,19 +323,6 @@ ${childNodesHTML}${indent}${closingTag}
 
     return divisionMarkdownNode;
   }
-}
-
-function footnoteReplacementsFromFootnoteSubDivisionReplacements(footnoteSubDivisionReplacements) {
-  const footnoteReplacements = footnoteSubDivisionReplacements.map((footnoteSubDivisionReplacement) => {
-    const node = footnoteSubDivisionReplacement.getNode(),
-          footnoteMarkdownNode = footnoteMarkdownNodsFromNode(node),
-          descendentNode = footnoteMarkdownNode,  ///
-          footnoteReplacement = footnoteSubDivisionReplacement.contract(descendentNode);
-
-    return footnoteReplacement;
-  });
-
-  return footnoteReplacements;
 }
 
 function headingMarkdownNodesFromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context) {

@@ -18,39 +18,38 @@ export default class Replacement {
 
   getChildNodes() { return this.node.getChildNodes(); }
 
-  contract(descendentNode) {
+  contract(Class, descendentNode) {
+    if (descendentNode === undefined) {
+      descendentNode = Class; ///
+
+      Class = Replacement;  ///
+    }
+
     const node = descendentNode,  ///
           tokens = this.tokens, ///
           context = { ///
             tokens
           },
-          replacement = Replacement.fromNode(node, context);  ///
+          replacement = Class.fromNode(node, context);  ///
 
     return replacement;
   }
 
-  expand(ascendantNode) {
+  expand(Class, ascendantNode) {
+    if (ascendantNode === undefined) {
+      ascendantNode = Class;
+
+      Class = Replacement;  ///
+    }
+
     const node = ascendantNode, ///
           tokens = this.tokens, ///
           context = {
             tokens
           },
-          replacement = Replacement.fromNode(node, context);  ///
+          replacement = Class.fromNode(node, context);  ///
 
     return replacement;
-  }
-
-  clone(...remainingArguments) {
-    const node = this.node.clone(),
-          clonedTokens = clonedTokensFromNodeAndTokens(node, this.tokens);
-
-    overwriteNodeTokens(node, clonedTokens, this.tokens);
-
-    const Class = this.constructor,
-          tokens = clonedTokens, ///
-          replacement = new Class(node, tokens, ...remainingArguments);
-
-    return replacement
   }
 
   replace(replacedNode, parentNode, context) {
@@ -80,6 +79,19 @@ export default class Replacement {
     removeTokens(removedNode, tokens);
 
     removeNode(removedNode, parentNode);
+  }
+
+  clone(...remainingArguments) {
+    const node = this.node.clone(),
+          clonedTokens = clonedTokensFromNodeAndTokens(node, this.tokens);
+
+    overwriteNodeTokens(node, clonedTokens, this.tokens);
+
+    const Class = this.constructor,
+          tokens = clonedTokens, ///
+          replacement = new Class(node, tokens, ...remainingArguments);
+
+    return replacement
   }
 
   static fromNode(Class, node, context, ...remainingArguments) {
