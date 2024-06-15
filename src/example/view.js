@@ -17,7 +17,7 @@ import MarkdownContainerDiv from "./view/div/container/markdown";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
 import { postprocess } from "../utilities/markdown";
-import { LINES_PER_PAGE, CHARACTERS_PER_LINE, INTRODUCTION_CLASS_NAME } from "./constants";
+import { LINES_PER_PAGE, CONTENTS_DEPTH, CHARACTERS_PER_LINE, INTRODUCTION_CLASS_NAME } from "./constants";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
@@ -86,11 +86,13 @@ class View extends Element {
       divisionMarkdownNode.setDivisionClassName(divisionClassName);
 
       const linesPerPage = LINES_PER_PAGE,
+            contentsDepth = CONTENTS_DEPTH,
             charactersPerLine = CHARACTERS_PER_LINE,
             context = {
               tokens,
               importer,
               linesPerPage,
+              contentsDepth,
               charactersPerLine
             },
             divisionMarkdownNodes = postprocess(divisionMarkdownNode, context);
@@ -257,12 +259,14 @@ class View extends Element {
   };
 
   static initialMarkdown = `
+  
+@contents  
 
-Occam [^occam].
+# Occam [^occam].
    
 A paragraph to trigger the pagination.
 
-Occam and Florence [^occam] [^florence].
+## Occam and Florence [^occam] [^florence].
 
 [^occam]: Occam footnote.
 
