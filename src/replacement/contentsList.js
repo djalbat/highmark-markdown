@@ -5,8 +5,8 @@ import { arrayUtilities } from "necessary";
 
 import Replacement from "../replacement";
 import ContentsListMarkdownNode from "../node/markdown/contentsList";
-import {replaceNode, replaceTokens} from "../utilities/node";
-import {headingMarkdownNodesFromNode} from "../utilities/query";
+
+import { headingMarkdownNodesFromNode } from "../utilities/query";
 
 const { filter } = arrayUtilities;
 
@@ -20,17 +20,28 @@ export default class ContentsListReplacement extends Replacement {
 
   static fromNodeAndTokens(node, tokens) { return Replacement.fromNodeAndTokens(ContentsListReplacement, node, tokens); }
 
-  static fromDivisionMarkdownNode(divisionMarkdownNode, context) {
+  static fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context) {
     let contentsListReplacement = null;
 
-    // const headingMarkdownNodes = headingMarkdownNodesFromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context),
-    //   headingMarkdownNodesLength = headingMarkdownNodes.length;
-    //
-    // if (headingMarkdownNodesLength > 0) {
-    //   const { tokens } = context,
-    //         contentsListMarkdownNode = ContentsListMarkdownNode.fromHeadingMarkdownNodes(headingMarkdownNodes, context);
-    //
-    // }
+    const headingMarkdownNodes = headingMarkdownNodesFromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context),
+          headingMarkdownNodesLength = headingMarkdownNodes.length;
+
+    if (headingMarkdownNodesLength > 0) {
+
+      debugger
+
+      const contentsListMarkdownNode = FootnotesListMarkdownNode.fromNothing(),
+            node = contentsListMarkdownNode, ///
+            tokens = [];
+
+      contentsItemReplacements.forEach((contentsItemReplacement) => {
+        contentsItemReplacement.getTokens(tokens);
+
+        contentsItemReplacement.appendToFootnotesListMarkdownNode(contentsListMarkdownNode, context);
+      });
+
+      contentsListReplacement = ContentsListReplacement.fromNodeAndTokens(node, tokens);
+    }
 
 
     return contentsListReplacement;
@@ -39,8 +50,8 @@ export default class ContentsListReplacement extends Replacement {
 
 function headingMarkdownNodesFromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context) {
   const headingMarkdownNodes = [],
-    index = divisionMarkdownNodes.indexOf(divisionMarkdownNode),
-    start = index + 1;
+        index = divisionMarkdownNodes.indexOf(divisionMarkdownNode),
+        start = index + 1;
 
   divisionMarkdownNodes = divisionMarkdownNodes.slice(start); ///
 

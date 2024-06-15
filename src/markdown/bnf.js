@@ -110,10 +110,10 @@ const bnf = `
     footnotesDirective      ::=  "@footnotes" ;
 
 
-    footnotesList           ::=  footnoteItem+ ;
+    footnotesList           ::=  footnotesItem+ ;
 
 
-    footnoteItem            ::=  anchor paragraph ;
+    footnotesItem           ::=  anchor paragraph ;
 
 
     tableHead               ::=  tableHeadRow ;

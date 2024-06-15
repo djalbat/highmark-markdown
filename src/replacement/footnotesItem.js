@@ -4,21 +4,21 @@ import { arrayUtilities } from "necessary";
 
 import Replacement from "../replacement";
 
-import FootnoteItemMarkdownNode from "../node/markdown/footnoteItem";
+import FootnotesItemMarkdownNode from "../node/markdown/footnotesItem";
 
 const { extract } = arrayUtilities;
 
-export default class FootnoteItemReplacement extends Replacement {
+export default class FootnotesItemReplacement extends Replacement {
   appendToFootnotesListMarkdownNode(footnotesListMarkdownNode, context) {
     const parentNode = footnotesListMarkdownNode; ///
 
     super.appendTo(parentNode, context);
   }
 
-  static fromNode(node, context) { return Replacement.fromNode(FootnoteItemReplacement, node, context); }
+  static fromNode(node, context) { return Replacement.fromNode(FootnotesItemReplacement, node, context); }
 
   static fromFootnoteReplacementsAndIdentifier(footnoteReplacements, identifier, context) {
-    let footnoteItemReplacement = null;
+    let footnotesItemReplacement = null;
 
     const footnoteReplacement = extract(footnoteReplacements, (footnoteReplacement) => {
       const node = footnoteReplacement.getNode(),
@@ -33,12 +33,12 @@ export default class FootnoteItemReplacement extends Replacement {
     if (footnoteReplacement !== null) {
       const node = footnoteReplacement.getNode(),
             footnoteMarkdownNode = node,  ///
-            footnoteItemMarkdownNode = FootnoteItemMarkdownNode.fromFootnotesMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier),
-            ascendantNode = footnoteItemMarkdownNode; ///
+            footnotesItemMarkdownNode = FootnotesItemMarkdownNode.fromFootnotesMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier),
+            ascendantNode = footnotesItemMarkdownNode; ///
 
-      footnoteItemReplacement = footnoteReplacement.expand(FootnoteItemReplacement, ascendantNode);
+      footnotesItemReplacement = footnoteReplacement.expand(FootnotesItemReplacement, ascendantNode);
     }
 
-    return footnoteItemReplacement;
+    return footnotesItemReplacement;
   }
 }

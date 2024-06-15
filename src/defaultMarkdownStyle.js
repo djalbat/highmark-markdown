@@ -148,7 +148,7 @@ footnotesList {
   padding-top: 13pt;
 }
 
-footnoteItem {
+footnotesItem {
   font-size: 11pt;
   line-height: 17pt;
   margin-left: 13pt;

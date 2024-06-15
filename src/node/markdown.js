@@ -132,6 +132,34 @@ class MarkdownNode extends NonTerminalNode {
     });
   }
 
+  findParentNode(childNode, node = this) {
+    let parentNode = null;
+
+    const nodeNonTerminalNode = node.isNonTerminalNode();
+
+    if (nodeNonTerminalNode) {
+      const nonTerminalNode = node, ///
+            childNodes = nonTerminalNode.getChildNodes(),
+            index = childNodes.indexOf(childNode);
+
+      if (index !== -1) {
+        parentNode = node;  ///
+      } else {
+        const nodes = childNodes; ///
+
+        nodes.some((node) => {
+          parentNode = this.findParentNode(childNode, node);
+
+          if (parentNode !== null) {
+            return true;
+          }
+        });
+      }
+    }
+
+    return parentNode;
+  }
+
   lines(context) {
     const childNodes = this.getChildNodes(),
           lines = childNodes.reduce((lines, childNode) => {

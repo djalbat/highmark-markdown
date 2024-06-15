@@ -1,7 +1,7 @@
 "use strict";
 
 import Replacement from "../replacement";
-import FootnoteItemReplacement from "../replacement/footnoteItem";
+import FootnotesItemReplacement from "../replacement/footnotesItem";
 import FootnotesListMarkdownNode from "../node/markdown/footnotesList";
 
 import { linkMarkdownNodesFromNode } from "../utilities/query";
@@ -24,7 +24,7 @@ export default class FootnotesListReplacement extends Replacement {
           footnoteNumbers = Object.values(footnoteNumberMap),
           linkMarkdownNodes = linkMarkdownNodesFromNode(node),
           footnoteNumbersLength = footnoteNumbers.length,
-          footnoteItemReplacements = [];
+          footnotesItemReplacements = [];
 
     let count = 0;
 
@@ -34,10 +34,10 @@ export default class FootnotesListReplacement extends Replacement {
       let footnoteNumber = footnoteNumberMap[identifier] || null;
 
       if (footnoteNumber === null) {
-        const footnoteItemReplacement = FootnoteItemReplacement.fromFootnoteReplacementsAndIdentifier(footnoteReplacements, identifier, context);
+        const footnotesItemReplacement = FootnotesItemReplacement.fromFootnoteReplacementsAndIdentifier(footnoteReplacements, identifier, context);
 
-        if (footnoteItemReplacement !== null) {
-          footnoteItemReplacements.push(footnoteItemReplacement);
+        if (footnotesItemReplacement !== null) {
+          footnotesItemReplacements.push(footnotesItemReplacement);
 
           count++;
 
@@ -54,15 +54,15 @@ export default class FootnotesListReplacement extends Replacement {
       }
     });
 
-    const footnoteItemReplacementsLength = footnoteItemReplacements.length;
+    const footnotesItemReplacementsLength = footnotesItemReplacements.length;
 
-    if (footnoteItemReplacementsLength > 0) {
+    if (footnotesItemReplacementsLength > 0) {
       const start = footnoteNumbersLength + 1,
             footnotesListMarkdownNode = FootnotesListMarkdownNode.fromStart(start),
             node = footnotesListMarkdownNode, ///
             tokens = [];
 
-      footnoteItemReplacements.forEach((footnotesItemReplacement) => {
+      footnotesItemReplacements.forEach((footnotesItemReplacement) => {
         footnotesItemReplacement.getTokens(tokens);
 
         footnotesItemReplacement.appendToFootnotesListMarkdownNode(footnotesListMarkdownNode, context);

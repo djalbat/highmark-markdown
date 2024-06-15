@@ -5,11 +5,11 @@ import { arrayUtilities } from "necessary";
 import MarkdownNode from "../../node/markdown";
 import AnchorMarkdownNode from "../../node/markdown/anchor";
 
-import { FOOTNOTE_ITEM_RULE_NAME } from "../../ruleNames";
+import { FOOTNOTES_ITEM_RULE_NAME } from "../../ruleNames";
 
 const { first, second } = arrayUtilities;
 
-export default class FootnoteItemMarkdownNode extends MarkdownNode {
+export default class FootnotesItemMarkdownNode extends MarkdownNode {
   identifier(context) {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
@@ -24,14 +24,14 @@ export default class FootnoteItemMarkdownNode extends MarkdownNode {
           footnoteMarkdownNodeChildNodes = footnoteMarkdownNode.getChildNodes(),
           secondFootnoteMarkdownNodeChildNode = second(footnoteMarkdownNodeChildNodes),
           paragraphMarkdownNode = secondFootnoteMarkdownNodeChildNode,  ///
-          ruleName = FOOTNOTE_ITEM_RULE_NAME,
+          ruleName = FOOTNOTES_ITEM_RULE_NAME,
           childNodes = [
             anchorMarkdownNode,
             paragraphMarkdownNode
           ],
           opacity = null,
-          footnoteItemMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnoteItemMarkdownNode, ruleName, childNodes, opacity);
+          footnotesItemMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnotesItemMarkdownNode, ruleName, childNodes, opacity);
 
-    return footnoteItemMarkdownNode;
+    return footnotesItemMarkdownNode;
   }
 }

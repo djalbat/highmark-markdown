@@ -28,7 +28,7 @@ import { LINE_RULE_NAME,
          CONTENTS_LINK_RULE_NAME,
          CONTENTS_ITEM_RULE_NAME,
          CONTENTS_LIST_RULE_NAME,
-         FOOTNOTE_ITEM_RULE_NAME,
+         FOOTNOTES_ITEM_RULE_NAME,
          TABLE_HEAD_ROW_RULE_NAME,
          TABLE_BODY_ROW_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
@@ -166,9 +166,9 @@ const elementMap = {
     tagName: "ul",
     className: "contents"
   },
-  [FOOTNOTE_ITEM_RULE_NAME]: {
+  [FOOTNOTES_ITEM_RULE_NAME]: {
     tagName: "li",
-    className: "footnote"
+    className: "footnotes"
   },
   [TABLE_HEAD_ROW_RULE_NAME]: {
     tagName: "tr",

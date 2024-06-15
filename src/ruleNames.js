@@ -28,7 +28,7 @@ export const BLOCK_LISTING_RULE_NAME = "blockListing";
 export const CONTENTS_LINK_RULE_NAME = "contentsLink";
 export const CONTENTS_ITEM_RULE_NAME = "contentsItem";
 export const CONTENTS_LIST_RULE_NAME = "contentsList";
-export const FOOTNOTE_ITEM_RULE_NAME = "footnoteItem";
+export const FOOTNOTES_ITEM_RULE_NAME = "footnotesItem";
 export const TABLE_HEAD_ROW_RULE_NAME = "tableHeadRow";
 export const TABLE_BODY_ROW_RULE_NAME = "tableBodyRow";
 export const INLINE_LISTING_RULE_NAME = "inlineListing";
@@ -84,7 +84,7 @@ const ruleNames = {
   CONTENTS_LINK_RULE_NAME,
   CONTENTS_ITEM_RULE_NAME,
   CONTENTS_LIST_RULE_NAME,
-  FOOTNOTE_ITEM_RULE_NAME,
+  FOOTNOTES_ITEM_RULE_NAME,
   TABLE_HEAD_ROW_RULE_NAME,
   TABLE_BODY_ROW_RULE_NAME,
   INLINE_LISTING_RULE_NAME,

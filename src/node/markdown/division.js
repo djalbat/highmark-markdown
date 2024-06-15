@@ -49,34 +49,6 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return ignored;
   }
 
-  findParentNode(childNode, node = this) {
-    let parentNode = null;
-
-    const nodeNonTerminalNode = node.isNonTerminalNode();
-
-    if (nodeNonTerminalNode) {
-      const nonTerminalNode = node, ///
-            childNodes = nonTerminalNode.getChildNodes(),
-            index = childNodes.indexOf(childNode);
-
-      if (index !== -1) {
-        parentNode = node;  ///
-      } else {
-        const nodes = childNodes; ///
-
-        nodes.some((node) => {
-          parentNode = this.findParentNode(childNode, node);
-
-          if (parentNode !== null) {
-            return true;
-          }
-        });
-      }
-    }
-
-    return parentNode;
-  }
-
   paginate(context) {
     const { linesPerPage } = context,
           childNodes = this.getChildNodes(),
@@ -131,7 +103,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
     if (contentsDirectiveMarkdownNode !== null) {
       const divisionMarkdownNode = this,  ///
-            contentsListReplacement = ContentsListReplacement.fromDivisionMarkdownNode(divisionMarkdownNode, context);
+            contentsListReplacement = ContentsListReplacement.fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context);
 
       if (contentsListReplacement !== null) {
         contentsListReplacement.replaceContentsDirectiveMarkdownNode(contentsDirectiveMarkdownNode, divisionMarkdownNode, context);

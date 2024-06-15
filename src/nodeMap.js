@@ -25,9 +25,9 @@ import StrongTextMarkdownNode from "./node/markdown/strongText";
 import SubDivisionMarkdownNode from "./node/markdown/subDivision";
 import OrderedListMarkdownNode from "./node/markdown/orderedList";
 import BlockListingMarkdownNode from "./node/markdown/blockListing";
-import FootnoteItemMarkdownNode from "./node/markdown/footnoteItem";
 import TableHeadRowMarkdownNode from "./node/markdown/tableHeadRow";
 import TableBodyRowMarkdownNode from "./node/markdown/tableBodyRow";
+import FootnotesItemMarkdownNode from "./node/markdown/footnotesItem";
 import InlineListingMarkdownNode from "./node/markdown/inlineListing";
 import UnorderedListMarkdownNode from "./node/markdown/unorderedList";
 import FootnotesListMarkdownNode from "./node/markdown/footnotesList";
@@ -77,7 +77,7 @@ import { LINE_RULE_NAME,
          SUB_DIVISION_RULE_NAME,
          ORDERED_LIST_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
-         FOOTNOTE_ITEM_RULE_NAME,
+         FOOTNOTES_ITEM_RULE_NAME,
          TABLE_HEAD_ROW_RULE_NAME,
          TABLE_BODY_ROW_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
@@ -130,9 +130,9 @@ const nodeMap = {
   [SUB_DIVISION_RULE_NAME]: SubDivisionMarkdownNode,
   [ORDERED_LIST_RULE_NAME]: OrderedListMarkdownNode,
   [BLOCK_LISTING_RULE_NAME]: BlockListingMarkdownNode,
-  [FOOTNOTE_ITEM_RULE_NAME]: FootnoteItemMarkdownNode,
   [TABLE_HEAD_ROW_RULE_NAME]: TableHeadRowMarkdownNode,
   [TABLE_BODY_ROW_RULE_NAME]: TableBodyRowMarkdownNode,
+  [FOOTNOTES_ITEM_RULE_NAME]: FootnotesItemMarkdownNode,
   [INLINE_LISTING_RULE_NAME]: InlineListingMarkdownNode,
   [UNORDERED_LIST_RULE_NAME]: UnorderedListMarkdownNode,
   [FOOTNOTES_LIST_RULE_NAME]: FootnotesListMarkdownNode,

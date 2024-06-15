@@ -258,7 +258,9 @@ class View extends Element {
     className: "view"
   };
 
-  static initialMarkdown = `@embed introduction.md  
+  static initialMarkdown = `@contents
+  
+@embed introduction.md  
   
 A paragraph to trigger the pagination.
 
