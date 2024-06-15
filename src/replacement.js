@@ -1,6 +1,10 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import { removeNode, appendNode, removeTokens, appendTokens, replaceNodes, replaceTokens, leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "./utilities/node";
+
+const { push } = arrayUtilities;
 
 export default class Replacement {
   constructor(node, tokens) {
@@ -12,7 +16,9 @@ export default class Replacement {
     return this.node;
   }
 
-  getTokens() {
+  getTokens(tokens) {
+    push(tokens, this.tokens);
+
     return this.tokens;
   }
 

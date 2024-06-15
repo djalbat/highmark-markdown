@@ -166,13 +166,11 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     }
 
     const divisionMarkdownNode = this,  ///
-          footnotesListMarkdownNode = FootnotesListMarkdownNode.fromFootnoteReplacementsAndDivisionMarkdownNode(footnoteReplacements, divisionMarkdownNode, context);
+          footnotesListReplacement = FootnotesListReplacement.fromFootnoteReplacementsAndDivisionMarkdownNode(footnoteReplacements, divisionMarkdownNode, context);
 
-    if (footnotesListMarkdownNode === null) {
+    if (footnotesListReplacement === null) {
       return;
     }
-
-    const footnotesListReplacement = FootnotesListReplacement.fromFootnotesListMarkdownNode(footnotesListMarkdownNode, context);
 
     footnotesListReplacement.appendToDivisionMarkdownNode(divisionMarkdownNode, context);
   }

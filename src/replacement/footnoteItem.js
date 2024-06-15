@@ -15,6 +15,8 @@ export default class FootnoteItemReplacement extends Replacement {
     super.appendTo(parentNode, context);
   }
 
+  static fromNode(node, context) { return Replacement.fromNode(FootnoteItemReplacement, node, context); }
+
   static fromFootnoteReplacementsAndIdentifier(footnoteReplacements, identifier, context) {
     let footnoteItemReplacement = null;
 
