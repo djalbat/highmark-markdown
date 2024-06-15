@@ -27,9 +27,12 @@ import OrderedListMarkdownNode from "./node/markdown/orderedList";
 import BlockListingMarkdownNode from "./node/markdown/blockListing";
 import TableHeadRowMarkdownNode from "./node/markdown/tableHeadRow";
 import TableBodyRowMarkdownNode from "./node/markdown/tableBodyRow";
-import FootnotesItemMarkdownNode from "./node/markdown/footnotesItem";
+import ContentsLinkMarkdownNode from "./node/markdown/contentsLink";
+import ContentsItemMarkdownNode from "./node/markdown/contentsItem";
+import ContentsListMarkdownNode from "./node/markdown/contentsList";
 import InlineListingMarkdownNode from "./node/markdown/inlineListing";
 import UnorderedListMarkdownNode from "./node/markdown/unorderedList";
+import FootnotesItemMarkdownNode from "./node/markdown/footnotesItem";
 import FootnotesListMarkdownNode from "./node/markdown/footnotesList";
 import VerticalSpaceMarkdownNode from "./node/markdown/verticalSpace";
 import TableHeadCellMarkdownNode from "./node/markdown/tableHeadCell";
@@ -77,11 +80,14 @@ import { LINE_RULE_NAME,
          SUB_DIVISION_RULE_NAME,
          ORDERED_LIST_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
-         FOOTNOTES_ITEM_RULE_NAME,
+         CONTENTS_LINK_RULE_NAME,
+         CONTENTS_ITEM_RULE_NAME,
+         CONTENTS_LIST_RULE_NAME,
          TABLE_HEAD_ROW_RULE_NAME,
          TABLE_BODY_ROW_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
          UNORDERED_LIST_RULE_NAME,
+         FOOTNOTES_ITEM_RULE_NAME,
          FOOTNOTES_LIST_RULE_NAME,
          VERTICAL_SPACE_RULE_NAME,
          TABLE_HEAD_CELL_RULE_NAME,
@@ -130,11 +136,14 @@ const nodeMap = {
   [SUB_DIVISION_RULE_NAME]: SubDivisionMarkdownNode,
   [ORDERED_LIST_RULE_NAME]: OrderedListMarkdownNode,
   [BLOCK_LISTING_RULE_NAME]: BlockListingMarkdownNode,
+  [CONTENTS_LINK_RULE_NAME]: ContentsLinkMarkdownNode,
+  [CONTENTS_ITEM_RULE_NAME]: ContentsItemMarkdownNode,
+  [CONTENTS_LIST_RULE_NAME]: ContentsListMarkdownNode,
   [TABLE_HEAD_ROW_RULE_NAME]: TableHeadRowMarkdownNode,
   [TABLE_BODY_ROW_RULE_NAME]: TableBodyRowMarkdownNode,
-  [FOOTNOTES_ITEM_RULE_NAME]: FootnotesItemMarkdownNode,
   [INLINE_LISTING_RULE_NAME]: InlineListingMarkdownNode,
   [UNORDERED_LIST_RULE_NAME]: UnorderedListMarkdownNode,
+  [FOOTNOTES_ITEM_RULE_NAME]: FootnotesItemMarkdownNode,
   [FOOTNOTES_LIST_RULE_NAME]: FootnotesListMarkdownNode,
   [VERTICAL_SPACE_RULE_NAME]: VerticalSpaceMarkdownNode,
   [TABLE_HEAD_CELL_RULE_NAME]: TableHeadCellMarkdownNode,

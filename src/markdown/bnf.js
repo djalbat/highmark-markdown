@@ -254,6 +254,10 @@ const bnf = `
                               
                               ;
 
+
+    contentsLink            ::=  line ;
+
+
     footnotesList           ::=  footnotesItem+ ;
 
 
