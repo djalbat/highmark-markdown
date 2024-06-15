@@ -16,7 +16,7 @@ export default class Replacement {
     return this.node;
   }
 
-  getTokens(tokens) {
+  getTokens(tokens = []) {
     push(tokens, this.tokens);
 
     return this.tokens;

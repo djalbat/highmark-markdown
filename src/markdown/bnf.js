@@ -110,12 +110,6 @@ const bnf = `
     footnotesDirective      ::=  "@footnotes" ;
 
 
-    footnotesList           ::=  footnotesItem+ ;
-
-
-    footnotesItem           ::=  anchor paragraph ;
-
-
     tableHead               ::=  tableHeadRow ;
 
     
@@ -242,14 +236,30 @@ const bnf = `
                               ;
     
 
-    anchor.                 ::=  ε ;
-    
-
     reference.              ::=  [reference] ;
     
 
     className               ::=  <NO_WHITESPACE>[identifier] ;
       
+
+    anchor.                 ::=  ε ;
+    
+
+    contentsList            ::=  contentsItem+ ;
+
+
+    contentsItem            ::=  contentsLink 
+    
+                              |  contentsLink? contentsList
+                              
+                              ;
+
+    footnotesList           ::=  footnotesItem+ ;
+
+
+    footnotesItem           ::=  anchor paragraph ;
+
+
 `;
 
 export default bnf;
