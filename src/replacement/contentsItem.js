@@ -2,6 +2,7 @@
 
 import Replacement from "../replacement";
 import ContentsLinkReplacement from "../replacement/contentsLink";
+import ContentsItemMarkdownNode from "../node/markdown/contentsItem";
 
 export default class ContentsItemReplacement extends Replacement {
   appendToContentsListMarkdownNode(contentsListMarkdownNode, context) {
@@ -10,7 +11,7 @@ export default class ContentsItemReplacement extends Replacement {
     super.appendTo(parentNode, context);
   }
 
-  static fromNode(node, context) { return Replacement.fromNode(ContentsItemReplacement, node, context); }
+  static fromNodeAndTokens(node, tokens) { return Replacement.fromNodeAndTokens(ContentsItemReplacement, node, tokens); }
 
   static fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context) {
     const replacements = [],
@@ -39,8 +40,16 @@ export default class ContentsItemReplacement extends Replacement {
       replacements.push(replacement);
     }
 
-    debugger
+    const contentsItemMarkdownNode = ContentsItemMarkdownNode.fromReplacements(replacements),
+          node = contentsItemMarkdownNode,  ///
+          tokens = [];
 
-    return contentsItemMarkdownNode;
+    replacements.forEach((replacement) => {
+      replacement.getTokens(tokens);
+    });
+
+    const contentsItemReplacement = ContentsItemReplacement.fromNodeAndTokens(node, tokens);
+
+    return contentsItemReplacement;
   }
 }

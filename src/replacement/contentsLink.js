@@ -5,7 +5,7 @@ import LineReplacement from "../replacement/line";
 import ContentsLinkMarkdownNode from "../node/markdown/contentsLink";
 
 export default class ContentsLinkReplacement extends Replacement {
-  static fromNodeAndTokens(node, tokens) { return super.fromNodeAndTokens(ContentsLinkMarkdownNode, node, tokens); }
+  static fromNodeAndTokens(node, tokens) { return super.fromNodeAndTokens(ContentsLinkReplacement, node, tokens); }
 
   static fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context) {
     let contentsLinkReplacement = null;
@@ -17,7 +17,7 @@ export default class ContentsLinkReplacement extends Replacement {
       const identifier = headingMarkdownNode.identifier(context),
             lineMarkdownNode = headingMarkdownNode.getLineMarkdownNode(),
             lineReplacement = LineReplacement.fromLineMarkdownNode(lineMarkdownNode, context),
-            contentsLinkMarkdownNode = ContentsLinkMarkdownNode.fromIdentifier(identifier),
+            contentsLinkMarkdownNode = ContentsLinkMarkdownNode.fromLineReplacementAndIdentifier(lineReplacement, identifier),
             node = contentsLinkMarkdownNode,  ///
             tokens = lineReplacement.getTokens();
 

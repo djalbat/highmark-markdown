@@ -289,7 +289,7 @@ export default withStyle(View)`
 `;
 
 function importer(filePath, context) {
-  const content = `# Occam[^occam]   
+  const content = `# Occam   
 `,
         startOfContent = true,
         startRule = markdownParser.getStartRule(),
