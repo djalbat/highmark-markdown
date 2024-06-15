@@ -54,17 +54,23 @@ function resolveEmbeddings(divisionMarkdownNodes, context) {
 function paginateAndFootnotes(divisionMarkdownNodes, context) {
   const { linesPerPage = null } = context;
 
-  const identifierToFootnoteNumberMap = {};
+  const footnoteNumberMap = {};
 
   Object.assign(context, {
-    identifierToFootnoteNumberMap
+    footnoteNumberMap
   });
+
+  let pageNumber = 1;
 
   if (linesPerPage === null) {
     divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
       const footnoteReplacements = divisionMarkdownNode.prepareFootnotes(context);
 
+      divisionMarkdownNode.setPageNumber(pageNumber);
+
       divisionMarkdownNode.createFootnotes(footnoteReplacements, context);
+
+      pageNumber++;
     });
   } else {
     const paginatedDivisionMarkdownNodes = [];
@@ -74,7 +80,11 @@ function paginateAndFootnotes(divisionMarkdownNodes, context) {
             divisionMarkdownNodes = divisionMarkdownNode.paginate(context);
 
       divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+        divisionMarkdownNode.setPageNumber(pageNumber);
+
         divisionMarkdownNode.createFootnotes(footnoteReplacements, context);
+
+        pageNumber++;
       });
 
       push(paginatedDivisionMarkdownNodes, divisionMarkdownNodes);
@@ -85,5 +95,9 @@ function paginateAndFootnotes(divisionMarkdownNodes, context) {
     push(divisionMarkdownNodes, paginatedDivisionMarkdownNodes);
   }
 
-  delete context.identifierToFootnoteNumberMap;
+  delete context.footnoteNumberMap;
 }
+
+export default {
+  postprocess
+};

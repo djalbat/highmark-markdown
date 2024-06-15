@@ -120,28 +120,21 @@ class View extends Element {
   }
 
   updatePage(index) {
-    const length = null;
-
-    this.updatePageButtonsDiv(length, index);
-
     const divisionMarkdownNodes = this.getDivisionMarkdownNodes(),
           divisionMarkdownNode = divisionMarkdownNodes[index],
-          pageNumber = index + 1,
           tokens = this.getTokens(),
           context = {
             tokens
-          };
-
-    Object.assign(context, {
-      pageNumber
-    });
-
-    const html = divisionMarkdownNode.asHTML(context),
+          },
+          length = null,
+          html = divisionMarkdownNode.asHTML(context),
           domElement = divisionMarkdownNode.createDOMElement(context);
 
     this.updateXMP(html);
 
     this.updatePreviewDiv(domElement);
+
+    this.updatePageButtonsDiv(length, index);
   }
 
   clearPage() {

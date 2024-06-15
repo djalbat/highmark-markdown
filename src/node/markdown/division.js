@@ -96,7 +96,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       paginatedChildNodes.push(paginatedChildNode);
 
       if (totalLines > linesPerPage) {
-        const divisionMarkdownNode = DivisionMarkdownNode.fromSubdivisionReplacementsPagincatedChildNodesAndDivisionClassName(subDivisionReplacements, paginatedChildNodes, this.divisionClassName, context);
+        const divisionMarkdownNode = DivisionMarkdownNode.fromSubdivisionReplacementsPaginatedChildNodesAndDivisionClassName(subDivisionReplacements, paginatedChildNodes, this.divisionClassName, context);
 
         divisionMarkdownNodes.push(divisionMarkdownNode);
 
@@ -107,12 +107,21 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     });
 
     if (totalLines > 0) {
-      const divisionMarkdownNode = DivisionMarkdownNode.fromSubdivisionReplacementsPagincatedChildNodesAndDivisionClassName(subDivisionReplacements, paginatedChildNodes, this.divisionClassName, context);
+      const divisionMarkdownNode = DivisionMarkdownNode.fromSubdivisionReplacementsPaginatedChildNodesAndDivisionClassName(subDivisionReplacements, paginatedChildNodes, this.divisionClassName, context);
 
       divisionMarkdownNodes.push(divisionMarkdownNode);
     }
 
     return divisionMarkdownNodes;
+  }
+
+  setPageNumber(pageNumber) {
+    const node = this,
+          pageNumberDirective = pageNumberDirectiveMarkdownNodeFromNode(node);
+
+    if (pageNumberDirective !== null) {
+      pageNumberDirective.setPageNumber(pageNumber);
+    }
   }
 
   createContents(context) {
@@ -274,7 +283,7 @@ ${childNodesHTML}${indent}${closingTag}
     return divisionMarkdownNode;
   }
 
-  static fromSubdivisionReplacementsPagincatedChildNodesAndDivisionClassName(subDivisionReplacements, paginatedChildNodes, divisionClassName, context) {
+  static fromSubdivisionReplacementsPaginatedChildNodesAndDivisionClassName(subDivisionReplacements, paginatedChildNodes, divisionClassName, context) {
     const ruleName = DIVISION_RULE_NAME,
           childNodes = [
             ...paginatedChildNodes

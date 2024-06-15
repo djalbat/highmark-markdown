@@ -3,9 +3,22 @@
 import DirectiveMarkdownNode from "../../../node/markdown/directive";
 
 export default class PageNumberDirectiveMarkdownNode extends DirectiveMarkdownNode {
+  constructor(ruleName, childNodes, precedence, opacity, domElement, pageNumber) {
+    super(ruleName, childNodes, precedence, opacity, domElement);
+
+    this.pageNumber = pageNumber;
+  }
+
+  getPageNumber() {
+    return this.pageNumber;
+  }
+
+  setPageNumber(pageNumber) {
+    this.pageNumber = pageNumber;
+  }
+
   content(context) {
-    const { pageNumber } = context,
-          content = pageNumber;
+    const content = this.pageNumber;
 
     return content;
   }
@@ -53,5 +66,12 @@ export default class PageNumberDirectiveMarkdownNode extends DirectiveMarkdownNo
     this.addDOMElement(domElement);
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return DirectiveMarkdownNode.fromRuleNameChildNodesAndOpacity(PageNumberDirectiveMarkdownNode, ruleName, childNodes, opacity); }
+  clone() { return super.clone(this.number); }
+
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
+    const pageNumber = null,
+          pageNumberDirectiveMarkdownNode = DirectiveMarkdownNode.fromRuleNameChildNodesAndOpacity(PageNumberDirectiveMarkdownNode, ruleName, childNodes, opacity, pageNumber);
+
+    return pageNumberDirectiveMarkdownNode;
+  }
 }

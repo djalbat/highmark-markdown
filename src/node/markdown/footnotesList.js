@@ -39,10 +39,10 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
   static fromFootnoteReplacementsAndDivisionMarkdownNode(footnoteReplacements, divisionMarkdownNode, context) {
     let footnotesListMarkdownNode = null;
 
-    const { identifierToFootnoteNumberMap } = context;
+    const { footnoteNumberMap } = context;
 
     const node = divisionMarkdownNode,  ///
-          footnoteNumbers = Object.values(identifierToFootnoteNumberMap),
+          footnoteNumbers = Object.values(footnoteNumberMap),
           linkMarkdownNodes = linkMarkdownNodesFromNode(node),
           footnoteNumbersLength = footnoteNumbers.length,
           footnoteItemReplacements = [];
@@ -52,7 +52,7 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
     linkMarkdownNodes.forEach((linkMarkdownNode) => {
       const identifier = linkMarkdownNode.identifier(context);
 
-      let footnoteNumber = identifierToFootnoteNumberMap[identifier] || null;
+      let footnoteNumber = footnoteNumberMap[identifier] || null;
 
       if (footnoteNumber === null) {
         const footnoteReplacement = footnoteReplacementFromFootnoteReplacementsAndIdentifier(footnoteReplacements, identifier, context);
@@ -66,7 +66,7 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
 
           footnoteNumber = footnoteNumbersLength + count;
 
-          identifierToFootnoteNumberMap[identifier] = footnoteNumber;
+          footnoteNumberMap[identifier] = footnoteNumber;
         }
       }
 
