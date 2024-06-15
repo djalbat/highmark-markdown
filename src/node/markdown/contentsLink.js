@@ -15,15 +15,14 @@ export default class ContentsLinkMarkdownNode extends MarkdownNode {
     super(ruleName, childNodes, opacity, precedence, tokens, domElement);
 
     this.tokens = tokens;
-
     this.identifier = identifier;
   }
 
-  getTokens(tokens = []) {
-    push(tokens, this.tokens);
-
-    return tokens;
-  }
+  // getTokens(tokens = []) {
+  //   push(tokens, this.tokens);
+  //
+  //   return tokens;
+  // }
 
   getIdentifier() {
     return this.identifier;

@@ -4,6 +4,21 @@ import { arrayUtilities } from "necessary";
 
 const { forwardsSome, backwardsSome } = arrayUtilities;
 
+export function appendNode(replacementNode, parentNode) {
+  const childNode = replacementNode;  ///
+
+  parentNode.appendChildNode(childNode);
+}
+
+export function appendTokens(replacementTokens, parentNode, tokens) {
+  const node = parentNode, ///
+        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
+        start = trailingIndex + 1,
+        deleteCount = 0;
+
+  tokens.splice(start, deleteCount, ...replacementTokens);
+}
+
 export function removeNode(removedNode, parentNode) {
   const removedChildNode = removedNode; ///
 
@@ -17,9 +32,9 @@ export function removeNodes(removedNodes, parentNode) {
 }
 
 export function removeTokens(removedNode, tokens) {
-  const nonTerminalNode = removedNode,  ///
-        leadingIndex = leadingIndexFromNonTerminalNodeAndTokens(nonTerminalNode, tokens),
-        trailingIndex = trailingIndexFromNonTerminalNodeAndTokens(nonTerminalNode, tokens),
+  const node = removedNode,  ///
+        leadingIndex = leadingIndexFromNodeAndTokens(node, tokens),
+        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
         start = leadingIndex, ///
         end = trailingIndex + 1,
         deleteCount = end - start;
@@ -42,9 +57,9 @@ export function replaceNodes(replacementNodes, replacedNode, parentNode) {
 }
 
 export function replaceTokens(replacementTokens, replacedNode, tokens) {
-  const nonTerminalNode = replacedNode,  ///
-        leadingIndex = leadingIndexFromNonTerminalNodeAndTokens(nonTerminalNode, tokens),
-        trailingIndex = trailingIndexFromNonTerminalNodeAndTokens(nonTerminalNode, tokens),
+  const node = replacedNode,  ///
+        leadingIndex = leadingIndexFromNodeAndTokens(node, tokens),
+        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
         start = leadingIndex, ///
         end = trailingIndex + 1,
         deleteCount = end - start;

@@ -2,14 +2,14 @@
 
 import { arrayUtilities } from "necessary";
 
-import Replacement from "../../../replacement";
+import ImportedReplacement from "../../../replacement/imported";
 import DirectiveMarkdownNode from "../../../node/markdown/directive";
 
 const { last } = arrayUtilities;
 
 export default class EmbedDirectiveMarkdownNode extends DirectiveMarkdownNode {
-  replacement(context) {
-    let replacement = null;
+  import(context) {
+    let importedReplacement = null;
 
     const { importer = null } = context;
 
@@ -22,18 +22,18 @@ export default class EmbedDirectiveMarkdownNode extends DirectiveMarkdownNode {
               importedTokens = null } = context;
 
       if (importedNode !== null) {
-        delete context.importedNode;
-        delete context.importedTokens;
-        delete context.importedClassName;
-
         const node = importedNode,  ///
               tokens = importedTokens;  ///
 
-        replacement = Replacement.fromNodeAndTokens(node, tokens);
+        importedReplacement = ImportedReplacement.fromNodeAndTokens(node, tokens);
+
+        delete context.importedNode;
+        delete context.importedTokens;
+        delete context.importedClassName;
       }
     }
 
-    return replacement;
+    return importedReplacement;
   }
 
   filePath(context) {

@@ -1,6 +1,6 @@
 "use strict";
 
-import { leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "./utilities/node";
+import { removeNode, appendNode, removeTokens, appendTokens, replaceNodes, replaceTokens, leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "./utilities/node";
 
 export default class Replacement {
   constructor(node, tokens) {
@@ -40,82 +40,112 @@ export default class Replacement {
     return replacement;
   }
 
-  clone() {
+  clone(...remainingArguments) {
     const node = this.node.clone(),
-          replacementTokens = replacementTokensFromNodeAndTokens(node, this.tokens);
+          clonedTokens = clonedTokensFromNodeAndTokens(node, this.tokens);
 
-    replaceNodeTokens(node, replacementTokens, this.tokens);
+    overwriteNodeTokens(node, clonedTokens, this.tokens);
 
-    const tokens = replacementTokens, ///
-          replacement = new Replacement(node, tokens);
+    const Class = this.constructor,
+          tokens = clonedTokens, ///
+          replacement = new Class(node, tokens, ...remainingArguments);
 
     return replacement
   }
 
-  appendTo(markdownNode, context) {
+  replace(replacedNode, parentNode, context) {
     const { tokens } = context,
-          node = markdownNode, ///
-          trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
-          replacement = this.clone(),  ///
-          replacementNode = replacement.getNode(),
-          replacementTokens = replacement.getTokens(),
-          childNode = replacementNode, ///
-          start = trailingIndex + 1,
-          deleteCount = 0;
+          replacementChildNodes = this.getChildNodes(), ///
+          replacementTokens = this.tokens,  ///
+          replacementNodes = replacementChildNodes; ///
 
-    markdownNode.appendChildNode(childNode);
+    replaceNodes(replacementNodes, replacedNode, parentNode);
 
-    tokens.splice(start, deleteCount, ...replacementTokens);
+    replaceTokens(replacementTokens, replacedNode, tokens);
   }
 
-  static fromNode(node, context) {
+  appendTo(parentNode, context) {
+    const { tokens } = context,
+          replacementNode = this.node,  ///
+          replacementTokens = this.tokens;  ///
+
+    appendNode(replacementNode, parentNode);
+
+    appendTokens(replacementTokens, parentNode, tokens);
+  }
+
+  removeFrom(removedNode, parentNode, context) {
+    const { tokens } = context;
+
+    removeTokens(removedNode, tokens);
+
+    removeNode(removedNode, parentNode);
+  }
+
+  static fromNode(Class, node, context, ...remainingArguments) {
+    if (context === undefined) {
+      context = node; ///
+
+      node = Class; ///
+
+      Class = Replacement;  ///
+    }
+
     let { tokens } = context;
 
-    const replacementTokens = replacementTokensFromNodeAndTokens(node, tokens),
+    const clonedTokens = clonedTokensFromNodeAndTokens(node, tokens),
           leadingIndex = leadingIndexFromNodeAndTokens(node, tokens),
           offset = leadingIndex;  ///
 
     node = node.clone();  ///
 
-    replaceNodeTokens(node, replacementTokens, tokens, offset);
+    overwriteNodeTokens(node, clonedTokens, tokens, offset);
 
-    tokens = replacementTokens; ///
+    tokens = clonedTokens; ///
 
-    const replacement = new Replacement(node, tokens);
+    const replacement = new Class(node, tokens, ...remainingArguments);
 
     return replacement;
   }
 
-  static fromNodeAndTokens(node, tokens) {
-    const replacement = new Replacement(node, tokens);
+  static fromNodeAndTokens(Class, node, tokens, ...remainingArguments) {
+    if (tokens === undefined) {
+      tokens = node;  ///
+
+      node = Class; ///
+
+      Class = Replacement;  ///
+    }
+
+    const replacement = new Class(node, tokens, ...remainingArguments);
 
     return replacement;
   }
 }
 
-function replaceNodeTokens(node, replacementTokens, tokens, offset = 0) {
+function overwriteNodeTokens(node, clonedTokens, tokens, offset = 0) {
   const nodeTerminalNode = node.isTerminalNode();
 
   if (nodeTerminalNode) {
     const terminalNode = node;  ///
 
-    replaceTerminalNodeTokens(terminalNode, replacementTokens, tokens, offset);
+    overwriteTerminalNodeTokens(terminalNode, clonedTokens, tokens, offset);
   } else {
     const nonTerminalNode = node;  ///
 
-    replaceNonTerminalNodeTokens(nonTerminalNode, replacementTokens, tokens, offset);
+    overwriteNonTerminalNodeTokens(nonTerminalNode, clonedTokens, tokens, offset);
   }
 }
 
-function replaceChildNodesTokens(childNodes, replacementTokens, tokens, offset) {
+function overwriteChildNodesTokens(childNodes, clonedTokens, tokens, offset) {
   childNodes.forEach((childNode) => {
     const node = childNode; ///
 
-    replaceNodeTokens(node, replacementTokens, tokens, offset);
+    overwriteNodeTokens(node, clonedTokens, tokens, offset);
   });
 }
 
-function replaceTerminalNodeTokens(terminalNode, replacementTokens, tokens, offset) {
+function overwriteTerminalNodeTokens(terminalNode, clonedTokens, tokens, offset) {
   let index,
       significantToken;
 
@@ -126,21 +156,21 @@ function replaceTerminalNodeTokens(terminalNode, replacementTokens, tokens, offs
 
     index -= offset;
 
-    const replacementToken = replacementTokens[index];
+    const clonedToken = clonedTokens[index];
 
-    significantToken = replacementToken;  ///
+    significantToken = clonedToken;  ///
 
     terminalNode.setSignificantToken(significantToken);
   }
 }
 
-function replaceNonTerminalNodeTokens(nonTerminalNode, replacementTokens, tokens, offset) {
+function overwriteNonTerminalNodeTokens(nonTerminalNode, clonedTokens, tokens, offset) {
   const childNodes = nonTerminalNode.getChildNodes();
 
-  replaceChildNodesTokens(childNodes, replacementTokens, tokens, offset);
+  overwriteChildNodesTokens(childNodes, clonedTokens, tokens, offset);
 }
 
-function replacementTokensFromNodeAndTokens(node, tokens) {
+function clonedTokensFromNodeAndTokens(node, tokens) {
   const leadingIndex = leadingIndexFromNodeAndTokens(node, tokens),
         trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
         start = leadingIndex,  ///
@@ -148,11 +178,11 @@ function replacementTokensFromNodeAndTokens(node, tokens) {
 
   tokens = tokens.slice(start, end);  ///
 
-  const replacementTokens = tokens.map((token) => {  ///
-    const replacementToken = token.clone();  ///;
+  const clonedTokens = tokens.map((token) => {  ///
+    const clonedToken = token.clone();
 
-    return replacementToken;
+    return clonedToken;
   });
 
-  return replacementTokens;
+  return clonedTokens;
 }

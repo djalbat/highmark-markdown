@@ -88,7 +88,9 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
       footnotesListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnotesListMarkdownNode, ruleName, childNodes, opacity, start);
 
       footnoteItemReplacements.forEach((footnotesItemReplacement) => {
-        footnotesItemReplacement.appendTo(footnotesListMarkdownNode, context);
+        const parentNode = footnotesListMarkdownNode; ///
+
+        footnotesItemReplacement.appendTo(parentNode, context);
       });
     }
 
@@ -99,8 +101,8 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
 function footnoteReplacementFromFootnoteReplacementsAndIdentifier(footnoteReplacements, identifier, context) {
   const footnoteReplacement = extract(footnoteReplacements, (footnoteReplacement) => {
           const node = footnoteReplacement.getNode(),
-            footnoteMarkdownNode = node,  ///
-            footnoteMarkdownNodeIdentifier = footnoteMarkdownNode.identifier(context);
+                footnoteMarkdownNode = node,  ///
+                footnoteMarkdownNodeIdentifier = footnoteMarkdownNode.identifier(context);
 
           if (footnoteMarkdownNodeIdentifier === identifier) {
             return true;
