@@ -17,7 +17,7 @@ const bnf = `
                                                    
                                                | table 
                                                    
-                                               | footnote.
+                                               | footnote
                                                    
                                                | orderedList 
                                                    
