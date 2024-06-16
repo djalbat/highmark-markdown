@@ -7,6 +7,7 @@ import FootnoteReplacement from "../../replacement/footnote";
 import ContentsListReplacement from "../../replacement/contentsList";
 import FootnotesListReplacement from "../../replacement/footnotesList";
 import FootnoteSubDivisionReplacement from "../../replacement/subDivision/footnote";
+import ContentsDirectiveSubDivisionReplacement from "../../replacement/subDivision/contentsDirective";
 import FootnotesDirectiveSubDivisionReplacement from "../../replacement/subDivision/footnotesDirective";
 import PageNumberDirectiveSubDivisionReplacement from "../../replacement/subDivision/pageNumberDirective";
 
@@ -15,7 +16,6 @@ import { DIVISION_RULE_NAME } from "../../ruleNames";
 import { subDivisionMarkdownNodesFromNode,
          embedDirectiveMarkdownNodesFromNode,
          ignoreDirectiveMarkdownNodeFromNode,
-         contentsDirectiveMarkdownNodeFromNode,
          pageNumberDirectiveMarkdownNodeFromNode } from "../../utilities/query";
 
 const { clear } = arrayUtilities;
@@ -98,15 +98,14 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   createContents(divisionMarkdownNodes, context) {
     let contentsCreated = false;
 
-    const node = this,  ///
-          contentsDirectiveMarkdownNode = contentsDirectiveMarkdownNodeFromNode(node);
+    const contentsDirectiveSubDivisionReplacement = this.findSubDivisionReplacement(ContentsDirectiveSubDivisionReplacement, context);
 
-    if (contentsDirectiveMarkdownNode !== null) {
+    if (contentsDirectiveSubDivisionReplacement !== null) {
       const divisionMarkdownNode = this,  ///
             contentsListReplacement = ContentsListReplacement.fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context);
 
       if (contentsListReplacement !== null) {
-        contentsListReplacement.replaceContentsDirectiveMarkdownNode(contentsDirectiveMarkdownNode, divisionMarkdownNode, context);
+        contentsListReplacement.replaceContentsDirectiveSubdivisionReplacement(contentsDirectiveSubDivisionReplacement, divisionMarkdownNode, context);
 
         contentsCreated = true;
       }
@@ -160,20 +159,15 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     });
   }
 
-  removeSubDivisionMarkdownNode(SubDivisionReplacement, context) {
+  findSubDivisionReplacement(SubDivisionReplacement, context) {
     let subDivisionReplacement = null;
 
-    const node = this,  ///
-          subDivisionMarkdownNodes = subDivisionMarkdownNodesFromNode(node);
+    const subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes();
 
     subDivisionMarkdownNodes.some((subDivisionMarkdownNode) => {
       subDivisionReplacement = SubDivisionReplacement.fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context);
 
       if (subDivisionReplacement !== null) {
-        const divisionMarkdownNode = this;  ///
-
-        subDivisionReplacement.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
-
         return true;
       }
     });
@@ -181,22 +175,46 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return subDivisionReplacement;
   }
 
-  removeSubDivisionMarkdownNodes(SubDivisionReplacement, context) {
-    const node = this,  ///
-          subDivisionMarkdownNodes = subDivisionMarkdownNodesFromNode(node),
+  findSubDivisionReplacements(SubDivisionReplacement, context) {
+    const subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes(),
           subDivisionReplacements = subDivisionMarkdownNodes.reduce((subDivisionReplacements, subDivisionMarkdownNode) => {
             const subDivisionReplacement = SubDivisionReplacement.fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context);
 
             if (subDivisionReplacement !== null) {
-              const divisionMarkdownNode = this;  ///
-
-              subDivisionReplacement.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
-
               subDivisionReplacements.push(subDivisionReplacement);
             }
 
             return subDivisionReplacements;
           }, []);
+
+    return subDivisionReplacements;
+  }
+
+  findSubDivisionMarkdownNodes() {
+    const node = this,  ///
+          subDivisionMarkdownNodes = subDivisionMarkdownNodesFromNode(node);
+
+    return subDivisionMarkdownNodes;
+  }
+
+  removeSubDivisionMarkdownNode(SubDivisionReplacement, context) {
+    const divisionMarkdownNode = this,  ///
+          subDivisionReplacement = this.findSubDivisionReplacement(SubDivisionReplacement, context);
+
+    if (subDivisionReplacement !== null) {
+      subDivisionReplacement.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
+    }
+
+    return subDivisionReplacement;
+  }
+
+  removeSubDivisionMarkdownNodes(SubDivisionReplacement, context) {
+    const divisionMarkdownNode = this,  ///
+          subDivisionReplacements = this.findSubDivisionReplacements(SubDivisionReplacement, context);
+
+    subDivisionReplacements.forEach((subDivisionReplacement) => {
+      subDivisionReplacement.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
+    });
 
     return subDivisionReplacements;
   }

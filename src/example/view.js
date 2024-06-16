@@ -263,8 +263,10 @@ class View extends Element {
 ## Contents
   
 @contents
+
+A paragraph.
   
-A paragraph [^occam].
+Another paragraph [^occam].
 
 [^occam]: Occam footnote.
 

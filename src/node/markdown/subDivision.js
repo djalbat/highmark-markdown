@@ -52,9 +52,5 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
     return secondMarkdownNode;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
-    const subDivisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(SubDivisionMarkdownNode, ruleName, childNodes, opacity);
-
-    return subDivisionMarkdownNode;
-  }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(SubDivisionMarkdownNode, ruleName, childNodes, opacity); }
 }

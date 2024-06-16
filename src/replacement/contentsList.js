@@ -12,11 +12,12 @@ import { headingMarkdownNodesFromNode } from "../utilities/query";
 const { filter } = arrayUtilities;
 
 export default class ContentsListReplacement extends Replacement {
-  replaceContentsDirectiveMarkdownNode(contentsDirectiveMarkdownNode, divisionMarkdownNode, context) {
-    const replacedNode = contentsDirectiveMarkdownNode, ///
-          parentNode = divisionMarkdownNode; ///
+  replaceContentsDirectiveSubdivisionReplacement(contentsDirectiveSubDivisionReplacement, divisionMarkdownNode, context) {
+    const contentsDirectiveSubDivisionReplacementRemovedNode = contentsDirectiveSubDivisionReplacement.getRemovedNode(),
+          replacedNode = contentsDirectiveSubDivisionReplacementRemovedNode, ///
+          parentNode = divisionMarkdownNode;  ///
 
-    super.replace(replacedNode, parentNode, context);
+    super.replace(replacedNode, parentNode, context)
   }
 
   static fromNodeAndTokens(node, tokens) { return Replacement.fromNodeAndTokens(ContentsListReplacement, node, tokens); }

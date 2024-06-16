@@ -25,6 +25,13 @@ export default class SubDivisionReplacement extends Replacement {
     super.removeFrom(this.removedNode, parentNode, context);
   }
 
+  static fromNodeAndTokens(Class, node, tokens) {
+    const removedNode = null,
+          subDivisionReplacement = Replacement.fromNodeAndTokens(Class, node, tokens, removedNode);
+
+    return subDivisionReplacement;
+  }
+
   static fromSubDivisionMarkdownNode(Class, subDivisionMarkdownNode, context) {
     const node = subDivisionMarkdownNode, ///
           removedNode = subDivisionMarkdownNode, ///
