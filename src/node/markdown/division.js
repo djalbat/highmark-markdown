@@ -218,6 +218,12 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   createFootnotesListMarkdownNode(context) {
     let footnotesListMarkdownNode= null;
 
+    const footnoteNumberMap = {};
+
+    Object.assign(context, {
+      footnoteNumberMap
+    });
+
     const footnoteSubDivisionReplacements = this.findSubDivisionReplacements(FootnoteSubDivisionReplacement, context),
           footnoteReplacements = footnoteReplacementsFromFootnoteSubDivisionReplacements(footnoteSubDivisionReplacements),
           divisionMarkdownNode = this,  ///
@@ -228,6 +234,8 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
       footnotesListMarkdownNode = footnotesListReplacementNode; ///
     }
+
+    delete context.footnoteNumberMap;
 
     return footnotesListMarkdownNode;
   }
