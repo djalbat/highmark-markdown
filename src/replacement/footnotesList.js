@@ -46,12 +46,6 @@ export default class FootnotesListReplacement extends Replacement {
           footnoteNumberMap[identifier] = footnoteNumber;
         }
       }
-
-      if (footnoteNumber !== null) {
-        const number = footnoteNumber;  ///
-
-        linkMarkdownNode.setNumber(number);
-      }
     });
 
     const start = footnoteNumbersLength + 1,
