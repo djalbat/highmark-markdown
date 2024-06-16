@@ -222,21 +222,13 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return subDivisionReplacements;
   }
 
-  createFootnotesListMarkdownNode(context) {
-    let footnotesListMarkdownNode= null;
-
+  createFootnotesListReplacement(context) {
     const footnoteSubDivisionReplacements = this.findSubDivisionReplacements(FootnoteSubDivisionReplacement, context),
           footnoteReplacements = footnoteReplacementsFromFootnoteSubDivisionReplacements(footnoteSubDivisionReplacements),
           divisionMarkdownNode = this,  ///
           footnotesListReplacement = FootnotesListReplacement.fromFootnoteReplacementsAndDivisionMarkdownNode(footnoteReplacements, divisionMarkdownNode, context);
 
-    if (footnotesListReplacement !== null) {
-      const footnotesListReplacementNode = footnotesListReplacement.getNode();
-
-      footnotesListMarkdownNode = footnotesListReplacementNode; ///
-    }
-
-    return footnotesListMarkdownNode;
+    return footnotesListReplacement;
   }
 
   asHTML(context) {
