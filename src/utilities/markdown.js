@@ -2,14 +2,10 @@
 
 import { arrayUtilities } from "necessary";
 
-const { clear, first, push } = arrayUtilities;
+const { clear, push } = arrayUtilities;
 
 export function postprocess(divisionMarkdownNode, context) {
-  const divisionMarkdownNodes = [
-    divisionMarkdownNode
-  ];
-
-  resolveIncludes(divisionMarkdownNodes, context);
+  const divisionMarkdownNodes = resolveIncludes(divisionMarkdownNode, context);
 
   resolveEmbeddings(divisionMarkdownNodes, context);
 
@@ -30,9 +26,10 @@ function createContents(divisionMarkdownNodes, context) {
   });
 }
 
-function resolveIncludes(divisionMarkdownNodes, context) {
-  const firstDivisionMarkdownNode = first(divisionMarkdownNodes),
-        divisionMarkdownNode = firstDivisionMarkdownNode; ///
+function resolveIncludes(divisionMarkdownNode, context) {
+  const divisionMarkdownNodes = [
+    divisionMarkdownNode
+  ];
 
   Object.assign(context, {
     divisionMarkdownNodes
