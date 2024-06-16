@@ -30,6 +30,12 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
 
   clone() { return super.clone(this.start); }
 
+  static fromDivisionMarkdownNode(divisionMarkdownNode, context) {
+    let footnotesListMarkdownNode = null;
+
+    return footnotesListMarkdownNode;
+  }
+
   static fromFootnotesItemReplacementsAndStart(footnotesItemReplacements, start) {
     let footnotesListMarkdownNode = null;
 

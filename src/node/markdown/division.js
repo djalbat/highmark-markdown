@@ -128,11 +128,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   prepareFootnotes(context) {
     const footnoteSubDivisionReplacements = this.removeSubDivisionMarkdownNodes(FootnoteSubDivisionReplacement, context);
 
-    let footnoteReplacements = footnoteSubDivisionReplacements.map((footnoteSubDivisionReplacement) => {
-      const footnoteReplacement = FootnoteReplacement.fromFootnoteSubDivisionReplacement(footnoteSubDivisionReplacement);
-
-      return footnoteReplacement;
-    });
+    let footnoteReplacements = footnoteReplacementsFromFootnoteSubDivisionReplacements(footnoteSubDivisionReplacements);
 
     const footnotesDirectiveSubDivisionReplacement = this.removeSubDivisionMarkdownNode(FootnotesDirectiveSubDivisionReplacement, context);
 
@@ -220,10 +216,20 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 
   createFootnotesListMarkdownNode(context) {
-    // const divisionMarkdownNode = this,  ///
-    //       footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDivisionMarkdownNode(divisionMarkdownNode, context);
-    //
-    // return footnotesListMarkdownNode;
+    let footnotesListMarkdownNode= null;
+
+    const footnoteSubDivisionReplacements = this.findSubDivisionMarkdownNodes(FootnoteSubDivisionReplacement, context),
+          footnoteReplacements = footnoteReplacementsFromFootnoteSubDivisionReplacements(footnoteSubDivisionReplacements),
+          divisionMarkdownNode = this,  ///
+          footnotesListReplacement = FootnotesListReplacement.fromFootnoteReplacementsAndDivisionMarkdownNode(footnoteReplacements, divisionMarkdownNode, context);
+
+    if (footnotesListReplacement !== null) {
+      const footnotesListReplacementNode = footnotesListReplacement.getNode();
+
+      footnotesListMarkdownNode = footnotesListReplacementNode; ///
+    }
+
+    return footnotesListMarkdownNode;
   }
 
   asHTML(context) {
@@ -269,4 +275,14 @@ ${childNodesHTML}${indent}${closingTag}
 
     return divisionMarkdownNode;
   }
+}
+
+function footnoteReplacementsFromFootnoteSubDivisionReplacements(footnoteSubDivisionReplacements) {
+  const footnoteReplacements = footnoteSubDivisionReplacements.map((footnoteSubDivisionReplacement) => {
+    const footnoteReplacement = FootnoteReplacement.fromFootnoteSubDivisionReplacement(footnoteSubDivisionReplacement);
+
+    return footnoteReplacement;
+  });
+
+  return footnoteReplacements;
 }
