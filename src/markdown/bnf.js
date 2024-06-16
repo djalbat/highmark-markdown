@@ -17,7 +17,7 @@ const bnf = `
                                                    
                                                | table 
                                                    
-                                               | footnote 
+                                               | footnote.
                                                    
                                                | orderedList 
                                                    
@@ -77,7 +77,7 @@ const bnf = `
     table                   ::=  tableHead endOfLine [dashes] endOfLine tableBody ;
 
 
-    footnote                ::=  reference paragraph ;
+    footnote.               ::=  reference paragraph ;
 
 
     orderedList             ::=  orderedListItem ( endOfLine orderedListItem )* ;
