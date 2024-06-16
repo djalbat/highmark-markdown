@@ -6,6 +6,7 @@ export { default as MarkdownStyleLexer } from "./markdownStyle/lexer";
 export { default as MarkdownStyleParser } from "./markdownStyle/parser";
 
 export { default as cssUtilities } from "./utilities/css";
+export { default as nodeUtilities } from "./utilities/node";
 export { default as queryUtilities } from "./utilities/query";
 export { default as markdownUtilities } from "./utilities/markdown";
 export { default as footnotesUtilities } from "./utilities/footnotes";

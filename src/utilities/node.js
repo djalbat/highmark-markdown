@@ -40,6 +40,11 @@ export function trailingIndexFromNodeAndTokens(node, tokens) {
   return trailingIndex;
 }
 
+export default {
+  leadingIndexFromNodeAndTokens,
+  trailingIndexFromNodeAndTokens
+};
+
 function leadingIndexFromTerminalNodeAndTokens(terminalNode, tokens) {
   let leadingIndex;
 
@@ -107,4 +112,3 @@ function trailingIndexFromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
 
   return trailingIndex;
 }
-
