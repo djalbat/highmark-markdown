@@ -8,15 +8,6 @@ export function appendNode(replacementNode, parentNode) {
   parentNode.appendChildNode(childNode);
 }
 
-export function appendTokens(replacementTokens, parentNode, tokens) {
-  const node = parentNode, ///
-        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
-        start = trailingIndex + 1,
-        deleteCount = 0;
-
-  tokens.splice(start, deleteCount, ...replacementTokens);
-}
-
 export function removeNode(removedNode, parentNode) {
   const removedChildNode = removedNode; ///
 
@@ -27,17 +18,6 @@ export function removeNodes(removedNodes, parentNode) {
   const removedChildNodes = removedNodes; ///
 
   parentNode.removeChildNodes(removedChildNodes);
-}
-
-export function removeTokens(removedNode, tokens) {
-  const node = removedNode,  ///
-        leadingIndex = leadingIndexFromNodeAndTokens(node, tokens),
-        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
-        start = leadingIndex, ///
-        end = trailingIndex + 1,
-        deleteCount = end - start;
-
-  tokens.splice(start, deleteCount);
 }
 
 export function replaceNode(replacementNode, replacedNode, parentNode) {
@@ -52,6 +32,26 @@ export function replaceNodes(replacementNodes, replacedNode, parentNode) {
         replacementChildNodes = replacementNodes; ///
 
   parentNode.replaceChildNodes(replacedChildNode, replacementChildNodes);
+}
+
+export function appendTokens(replacementTokens, parentNode, tokens) {
+  const node = parentNode, ///
+        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
+        start = trailingIndex + 1,
+        deleteCount = 0;
+
+  tokens.splice(start, deleteCount, ...replacementTokens);
+}
+
+export function removeTokens(removedNode, tokens) {
+  const node = removedNode,  ///
+        leadingIndex = leadingIndexFromNodeAndTokens(node, tokens),
+        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
+        start = leadingIndex, ///
+        end = trailingIndex + 1,
+        deleteCount = end - start;
+
+  tokens.splice(start, deleteCount);
 }
 
 export function replaceTokens(replacementTokens, replacedNode, tokens) {

@@ -166,14 +166,6 @@ function overwriteNodeTokens(node, clonedTokens, tokens, offset = 0) {
   }
 }
 
-function overwriteChildNodesTokens(childNodes, clonedTokens, tokens, offset) {
-  childNodes.forEach((childNode) => {
-    const node = childNode; ///
-
-    overwriteNodeTokens(node, clonedTokens, tokens, offset);
-  });
-}
-
 function overwriteTerminalNodeTokens(terminalNode, clonedTokens, tokens, offset) {
   let index,
       significantToken;
@@ -196,7 +188,11 @@ function overwriteTerminalNodeTokens(terminalNode, clonedTokens, tokens, offset)
 function overwriteNonTerminalNodeTokens(nonTerminalNode, clonedTokens, tokens, offset) {
   const childNodes = nonTerminalNode.getChildNodes();
 
-  overwriteChildNodesTokens(childNodes, clonedTokens, tokens, offset);
+  childNodes.forEach((childNode) => {
+    const node = childNode; ///
+
+    overwriteNodeTokens(node, clonedTokens, tokens, offset);
+  });
 }
 
 function clonedTokensFromNodeAndTokens(node, tokens) {
