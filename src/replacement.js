@@ -2,7 +2,8 @@
 
 import { arrayUtilities } from "necessary";
 
-import { removeNode, appendNode, removeTokens, appendTokens, replaceNodes, replaceTokens, leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "./utilities/node";
+import { leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "./utilities/node";
+import { removeNode, appendNode, removeTokens, appendTokens, replaceNode, replaceNodes, replaceTokens } from "./utilities/replacement";
 
 const { push } = arrayUtilities;
 
@@ -58,17 +59,6 @@ export default class Replacement {
     return replacement;
   }
 
-  replace(replacedNode, parentNode, context) {
-    const { tokens } = context,
-          replacementChildNodes = this.getChildNodes(), ///
-          replacementTokens = this.tokens,  ///
-          replacementNodes = replacementChildNodes; ///
-
-    replaceNodes(replacementNodes, replacedNode, parentNode);
-
-    replaceTokens(replacementTokens, replacedNode, tokens);
-  }
-
   appendTo(parentNode, context) {
     const { tokens } = context,
           replacementNode = this.node,  ///
@@ -77,6 +67,27 @@ export default class Replacement {
     appendNode(replacementNode, parentNode);
 
     appendTokens(replacementTokens, parentNode, tokens);
+  }
+
+  replace(replacedNode, parentNode, context) {
+    const { tokens } = context,
+          replacementNode = this.node, ///
+          replacementTokens = this.tokens; ///
+
+    replaceNode(replacementNode, replacedNode, parentNode);
+
+    replaceTokens(replacementTokens, replacedNode, tokens);
+  }
+
+  replaceEx(replacedNode, parentNode, context) {
+    const { tokens } = context,
+          replacementChildNodes = this.getChildNodes(), ///
+          replacementTokens = this.tokens,  ///
+          replacementNodes = replacementChildNodes; ///
+
+    replaceNodes(replacementNodes, replacedNode, parentNode);
+
+    replaceTokens(replacementTokens, replacedNode, tokens);
   }
 
   removeFrom(removedNode, parentNode, context) {

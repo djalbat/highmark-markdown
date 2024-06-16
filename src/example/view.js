@@ -258,18 +258,12 @@ class View extends Element {
     className: "view"
   };
 
-  static initialMarkdown = `@contents
+  static initialMarkdown = `## Contents
   
-@embed introduction.md  
+@contents
   
-A paragraph to trigger the pagination.
-
-## Occam and Florence[^occam] [^florence]
-
-[^occam]: Occam footnote.
-
-[^florence]: Florence footnote.
-
+@include introduction.md  
+  
 @footnotes
 
 @pageNumber
@@ -289,7 +283,18 @@ export default withStyle(View)`
 `;
 
 function importer(filePath, context) {
-  const content = `# Occam   
+  const content = `# Occam and Florence
+
+## Occam   
+
+A paragraph to trigger the pagination [^occam] [^florence].
+
+Another paragraph.
+
+[^occam]: Occam footnote.
+
+[^florence]: Florence footnote.
+
 `,
         startOfContent = true,
         startRule = markdownParser.getStartRule(),

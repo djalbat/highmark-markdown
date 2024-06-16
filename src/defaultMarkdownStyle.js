@@ -143,6 +143,25 @@ stronglyEmphasisedText {
   font-weight: bold;
 }
 
+contentsList {
+  list-style-type: none;
+
+  contentsList {
+    margin-top: 7pt;
+    margin-left: 13pt;
+  }
+}
+
+contentsItem {
+  margin: 13pt;
+  margin-left: 0;
+}
+
+contentsLink {
+  font-size: 16pt;
+  text-decoration: none;
+}
+
 footnotesList {
   border-top: 1pt solid black;
   padding-top: 13pt;
