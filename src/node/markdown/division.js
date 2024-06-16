@@ -121,10 +121,14 @@ export default class DivisionMarkdownNode extends MarkdownNode {
             footnotesListReplacement = FootnotesListReplacement.fromFootnoteReplacementsAndDivisionMarkdownNode(footnoteReplacements, divisionMarkdownNode, context);
 
       if (footnotesListReplacement !== null) {
-        renumberLinkMarkdownNodes(divisionMarkdownNode, context);
+        renumberLinkMarkdownNodes(divisionMarkdownNode, callback, context);
 
         footnotesListReplacement.appendToDivisionMarkdownNode(divisionMarkdownNode, context);
       }
+    }
+
+    function callback() {
+      ///
     }
   }
 
@@ -221,12 +225,6 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   createFootnotesListMarkdownNode(context) {
     let footnotesListMarkdownNode= null;
 
-    const footnoteNumberMap = {};
-
-    Object.assign(context, {
-      footnoteNumberMap
-    });
-
     const footnoteSubDivisionReplacements = this.findSubDivisionReplacements(FootnoteSubDivisionReplacement, context),
           footnoteReplacements = footnoteReplacementsFromFootnoteSubDivisionReplacements(footnoteSubDivisionReplacements),
           divisionMarkdownNode = this,  ///
@@ -237,8 +235,6 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
       footnotesListMarkdownNode = footnotesListReplacementNode; ///
     }
-
-    delete context.footnoteNumberMap;
 
     return footnotesListMarkdownNode;
   }

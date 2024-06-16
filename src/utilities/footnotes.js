@@ -2,7 +2,7 @@
 
 import { linkMarkdownNodesFromNode } from "../utilities/query";
 
-export function renumberLinkMarkdownNodes(divisionMarkdownNode, context) {
+export function renumberLinkMarkdownNodes(divisionMarkdownNode, callback, context) {
   const { footnoteNumberMap } = context,
         node = divisionMarkdownNode,  ///
         linkMarkdownNodes = linkMarkdownNodesFromNode(node);
@@ -13,6 +13,8 @@ export function renumberLinkMarkdownNodes(divisionMarkdownNode, context) {
           number = footnoteNumber;  ///
 
     linkMarkdownNode.setNumber(number);
+
+    callback(linkMarkdownNode);
   });
 }
 
