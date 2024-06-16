@@ -9,12 +9,6 @@ import FootnotesItemMarkdownNode from "../node/markdown/footnotesItem";
 const { extract } = arrayUtilities;
 
 export default class FootnotesItemReplacement extends Replacement {
-  appendToFootnotesListMarkdownNode(footnotesListMarkdownNode, context) {
-    const parentNode = footnotesListMarkdownNode; ///
-
-    super.appendTo(parentNode, context);
-  }
-
   static fromNode(node, context) { return Replacement.fromNode(FootnotesItemReplacement, node, context); }
 
   static fromFootnoteReplacementsAndIdentifier(footnoteReplacements, identifier, context) {

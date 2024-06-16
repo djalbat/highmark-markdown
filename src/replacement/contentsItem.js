@@ -5,12 +5,6 @@ import ContentsLinkReplacement from "../replacement/contentsLink";
 import ContentsItemMarkdownNode from "../node/markdown/contentsItem";
 
 export default class ContentsItemReplacement extends Replacement {
-  appendToContentsListMarkdownNode(contentsListMarkdownNode, context) {
-    const parentNode = contentsListMarkdownNode; ///
-
-    super.appendTo(parentNode, context);
-  }
-
   static fromNodeAndTokens(node, tokens) { return Replacement.fromNodeAndTokens(ContentsItemReplacement, node, tokens); }
 
   static fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context) {

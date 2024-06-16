@@ -23,14 +23,12 @@ export default class ContentsListReplacement extends Replacement {
 
   static fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context) {
     const contentsItemReplacements = contentsItemReplacementsFromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
-          contentsListMarkdownNode = ContentsListMarkdownNode.fromNothing(),
+          contentsListMarkdownNode = ContentsListMarkdownNode.fromContentsItemReplacements(contentsItemReplacements),
           node = contentsListMarkdownNode, ///
           tokens = [];
 
     contentsItemReplacements.forEach((contentsItemReplacement) => {
       contentsItemReplacement.getTokens(tokens);
-
-      contentsItemReplacement.appendToContentsListMarkdownNode(contentsListMarkdownNode, context);
     });
 
     const contentsListReplacement = ContentsListReplacement.fromNodeAndTokens(node, tokens);
@@ -47,14 +45,12 @@ export default class ContentsListReplacement extends Replacement {
     if (headingMarkdownNodesLength > 0) {
       const nestedHeadingMarkdownNodes = nestedHeadingMarkdownNodesFromHeadingMarkdownNodes(headingMarkdownNodes),
             contentsItemReplacements = contentsItemReplacementsFromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
-            contentsListMarkdownNode = ContentsListMarkdownNode.fromNothing(),
+            contentsListMarkdownNode = ContentsListMarkdownNode.fromContentsItemReplacements(contentsItemReplacements),
             node = contentsListMarkdownNode, ///
             tokens = [];
 
       contentsItemReplacements.forEach((contentsItemReplacement) => {
         contentsItemReplacement.getTokens(tokens);
-
-        contentsItemReplacement.appendToContentsListMarkdownNode(contentsListMarkdownNode, context);
       });
 
       contentsListReplacement = ContentsListReplacement.fromNodeAndTokens(node, tokens);

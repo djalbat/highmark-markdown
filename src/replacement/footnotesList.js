@@ -54,18 +54,15 @@ export default class FootnotesListReplacement extends Replacement {
       }
     });
 
-    const footnotesItemReplacementsLength = footnotesItemReplacements.length;
+    const start = footnoteNumbersLength + 1,
+          footnotesListMarkdownNode = FootnotesListMarkdownNode.fromFootnotesItemReplacementsAndStart(footnotesItemReplacements, start);
 
-    if (footnotesItemReplacementsLength > 0) {
-      const start = footnoteNumbersLength + 1,
-            footnotesListMarkdownNode = FootnotesListMarkdownNode.fromStart(start),
-            node = footnotesListMarkdownNode, ///
+    if (footnotesListMarkdownNode !== null) {
+      const node = footnotesListMarkdownNode, ///
             tokens = [];
 
       footnotesItemReplacements.forEach((footnotesItemReplacement) => {
         footnotesItemReplacement.getTokens(tokens);
-
-        footnotesItemReplacement.appendToFootnotesListMarkdownNode(footnotesListMarkdownNode, context);
       });
 
       footnotesListReplacement = FootnotesListReplacement.fromNodeAndTokens(node, tokens);
