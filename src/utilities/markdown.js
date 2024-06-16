@@ -27,9 +27,12 @@ function createContents(divisionMarkdownNodes, context) {
 }
 
 function resolveIncludes(divisionMarkdownNode, context) {
-  const divisionMarkdownNodes = [
-    divisionMarkdownNode
-  ];
+  const divisionMarkdownNodes = [],
+        divisionMarkdownNodeIgnored = divisionMarkdownNode.isIgnored();
+
+  if (!divisionMarkdownNodeIgnored) {
+    divisionMarkdownNodes.push(divisionMarkdownNode);
+  }
 
   Object.assign(context, {
     divisionMarkdownNodes
