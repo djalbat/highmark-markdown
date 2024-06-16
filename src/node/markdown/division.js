@@ -218,7 +218,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   createFootnotesListMarkdownNode(context) {
     let footnotesListMarkdownNode= null;
 
-    const footnoteSubDivisionReplacements = this.findSubDivisionMarkdownNodes(FootnoteSubDivisionReplacement, context),
+    const footnoteSubDivisionReplacements = this.findSubDivisionReplacements(FootnoteSubDivisionReplacement, context),
           footnoteReplacements = footnoteReplacementsFromFootnoteSubDivisionReplacements(footnoteSubDivisionReplacements),
           divisionMarkdownNode = this,  ///
           footnotesListReplacement = FootnotesListReplacement.fromFootnoteReplacementsAndDivisionMarkdownNode(footnoteReplacements, divisionMarkdownNode, context);
