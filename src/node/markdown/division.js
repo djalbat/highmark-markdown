@@ -158,8 +158,6 @@ export default class DivisionMarkdownNode extends MarkdownNode {
               parentNode = this.findParentNode(childNode);
 
         importedReplacement.replaceEmbedDirectiveMarkdownNode(embedDirectiveMarkdownNode, parentNode, context);
-
-        console.log(parentNode);
       }
     });
   }
