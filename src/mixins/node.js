@@ -56,6 +56,24 @@ function replaceChildNodes(replacedChildNode, replacementChildNodes) {
   childNodes.splice(start, deleteCount, ...replacementChildNodes);
 }
 
+function addChildNodeAfter(existingChildNode, addedChildNode) {
+  const childNodes = this.getChildNodes(),
+        index = childNodes.indexOf(existingChildNode),
+        start = index + 1,
+        deleteCount = 0;
+
+  childNodes.splice(start, deleteCount, addedChildNode);
+}
+
+function addChildNodesAfter(existingChildNode, addedChildNodes) {
+  const childNodes = this.getChildNodes(),
+        index = childNodes.indexOf(existingChildNode),
+        start = index + 1,
+        deleteCount = 0;
+
+  childNodes.splice(start, deleteCount, ...addedChildNodes);
+}
+
 function getDescendantNodes(descendantNodes = []) {
   const descendantNode = this; ///
 
@@ -111,6 +129,8 @@ const nodeMixins = {
   prependChildNode,
   replaceChildNode,
   replaceChildNodes,
+  addChildNodeAfter,
+  addChildNodesAfter,
   getDescendantNodes,
   retrieveParentNode
 };

@@ -12,10 +12,7 @@ import PageNumberDirectiveSubDivisionReplacement from "../../replacement/subDivi
 import { EMPTY_STRING } from "../../constants";
 import { DIVISION_RULE_NAME } from "../../ruleNames";
 import { renumberLinkMarkdownNodes } from "../../utilities/footnotes";
-import { subDivisionMarkdownNodesFromNode,
-         embedDirectiveMarkdownNodesFromNode,
-         ignoreDirectiveMarkdownNodeFromNode,
-         pageNumberDirectiveMarkdownNodeFromNode } from "../../utilities/query";
+import { subDivisionMarkdownNodesFromNode, ignoreDirectiveMarkdownNodeFromNode, pageNumberDirectiveMarkdownNodeFromNode } from "../../utilities/query";
 
 export default class DivisionMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, precedence, opacity, domElement, divisionClassName) {
@@ -134,18 +131,11 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 
   resolveEmbeddings(context) {
-    const node = this,  ///
-          embedDirectiveMarkdownNodes = embedDirectiveMarkdownNodesFromNode(node);
+    const divisionMarkdownNode = this,  ///
+          subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes();
 
-    embedDirectiveMarkdownNodes.map((embedDirectiveMarkdownNode) => {
-      const importedReplacement = embedDirectiveMarkdownNode.import(context);
-
-      if (importedReplacement !== null) {
-        const childNode = embedDirectiveMarkdownNode,  ///
-              parentNode = this.retrieveParentNode(childNode);
-
-        importedReplacement.replaceEmbedDirectiveMarkdownNode(embedDirectiveMarkdownNode, parentNode, context);
-      }
+    subDivisionMarkdownNodes.forEach((subDivisionMarkdownNode) => {
+      subDivisionMarkdownNode.resolveEmbeddings(divisionMarkdownNode, context);
     });
   }
 
@@ -192,7 +182,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
           subDivisionReplacement = this.findSubDivisionReplacement(SubDivisionReplacement, context);
 
     if (subDivisionReplacement !== null) {
-      subDivisionReplacement.removeFromMarkdownNode(divisionMarkdownNode, context);
+      subDivisionReplacement.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
     }
 
     return subDivisionReplacement;
@@ -203,7 +193,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
           subDivisionReplacements = this.findSubDivisionReplacements(SubDivisionReplacement, context);
 
     subDivisionReplacements.forEach((subDivisionReplacement) => {
-      subDivisionReplacement.removeFromMarkdownNode(divisionMarkdownNode, context);
+      subDivisionReplacement.removeDivisionFromMarkdownNode(divisionMarkdownNode, context);
     });
 
     return subDivisionReplacements;

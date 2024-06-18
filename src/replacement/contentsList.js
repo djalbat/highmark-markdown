@@ -13,8 +13,8 @@ const { filter } = arrayUtilities;
 
 export default class ContentsListReplacement extends Replacement {
   replaceContentsDirectiveSubdivisionReplacement(contentsDirectiveSubDivisionReplacement, divisionMarkdownNode, context) {
-    const contentsDirectiveSubDivisionReplacementRemovedNode = contentsDirectiveSubDivisionReplacement.getRemovedNode(),
-          replacedNode = contentsDirectiveSubDivisionReplacementRemovedNode, ///
+    const subDivisionMarkdownNode = contentsDirectiveSubDivisionReplacement.getSubDivisionMarkdownNode(),
+          replacedNode = subDivisionMarkdownNode, ///
           parentNode = divisionMarkdownNode;  ///
 
     super.replace(replacedNode, parentNode, context)

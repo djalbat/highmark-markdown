@@ -258,9 +258,9 @@ class View extends Element {
     className: "view"
   };
 
-  static initialMarkdown = `@include introduction.md
-
-`;
+  static initialMarkdown = `@embed introduction.md
+  
+@embed contents.md`;
 
   static initialMarkdownStyle = `width: 100%;
 position: absolute;
@@ -276,12 +276,7 @@ export default withStyle(View)`
 `;
 
 function importer(filePath, context) {
-  const content = `# Introduction
-  
-Florence [^florence].
-
-[^florence]: Florence footnote.  
-`,
+  const content = `# ${filePath}`,
         startOfContent = true,
         startRule = markdownParser.getStartRule(),
         tokens = markdownLexer.tokenise(content),

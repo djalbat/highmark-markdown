@@ -3,10 +3,24 @@
 import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
+import EmbedDirectivesSubDivisionReplacement from "../../replacement/subDivision/embedDirectives";
 
 const { second } = arrayUtilities;
 
 export default class SubDivisionMarkdownNode extends MarkdownNode {
+  resolveEmbeddings(divisionMarkdownNode, context) {
+    const subDivisionMarkdownNode = this, ///
+          embedDirectivesSubDivisionReplacement = EmbedDirectivesSubDivisionReplacement.fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context);
+
+    if (embedDirectivesSubDivisionReplacement !== null) {
+      const subDivisionMarkdownNodes = embedDirectivesSubDivisionReplacement.replaceSubDivisionMarkdownNode(divisionMarkdownNode, context);
+
+      subDivisionMarkdownNodes.forEach((subDivisionMarkdownNode) => {
+        subDivisionMarkdownNode.resolveEmbeddings(divisionMarkdownNode, context);
+      });
+    }
+  }
+
   getDOMElement() {
     const secondMarkdownNode = this.getSecondMarkdownNode(),
           domElement = secondMarkdownNode.getDOMElement();

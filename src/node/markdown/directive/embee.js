@@ -2,38 +2,35 @@
 
 import { arrayUtilities } from "necessary";
 
-import ImportedReplacement from "../../../replacement/imported";
 import DirectiveMarkdownNode from "../../../node/markdown/directive";
+import EmbedDirectiveReplacement from "../../../replacement/embedDirective";
 
 const { last } = arrayUtilities;
 
 export default class EmbedDirectiveMarkdownNode extends DirectiveMarkdownNode {
-  import(context) {
-    let importedReplacement = null;
+  resolve(context) {
+    let embedDirectiveReplacement = null;
 
     const { importer = null } = context;
 
-    if (importer !== null) {
-      const filePath = this.filePath(context);
+    const filePath = this.filePath(context);
 
-      importer(filePath, context);
+    importer(filePath, context);
 
-      const { importedNode = null,
-              importedTokens = null } = context;
+    const { importedNode = null,
+            importedTokens = null } = context;
 
-      if (importedNode !== null) {
-        const node = importedNode,  ///
-              tokens = importedTokens;  ///
+    if (importedNode !== null) {
+      delete context.importedNode;
+      delete context.importedTokens;
 
-        importedReplacement = ImportedReplacement.fromNodeAndTokens(node, tokens);
+      const node = importedNode,  ///
+            tokens = importedTokens;  ///
 
-        delete context.importedNode;
-        delete context.importedTokens;
-        delete context.importedClassName;
-      }
+      embedDirectiveReplacement = EmbedDirectiveReplacement.fromNodeAndTokens(node, tokens);
     }
 
-    return importedReplacement;
+    return embedDirectiveReplacement;
   }
 
   filePath(context) {

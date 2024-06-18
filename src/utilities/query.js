@@ -5,16 +5,16 @@ import { arrayUtilities } from "necessary";
 
 const { first, push } = arrayUtilities;
 
-const footnoteMarkdownNodeQuery = Query.fromExpression("/*/footnote"),
-      ignoreDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/ignoreDirective"),
-      contentsDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/contentsDirective"),
-      footnotesDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/footnotesDirective"),
-      pageNumberDirectiveMarkdownNodeQuery = Query.fromExpression("//directives/pageNumber"),
+const footnoteMarkdownNodeQuery = Query.fromExpression("/division/subDivision/footnote"),
+      ignoreDirectiveMarkdownNodeQuery = Query.fromExpression("/division/subDivision/directives/ignoreDirective"),
+      contentsDirectiveMarkdownNodeQuery = Query.fromExpression("/division/subDivision/directives/contentsDirective"),
+      footnotesDirectiveMarkdownNodeQuery = Query.fromExpression("/division/subDivision/directives/footnotesDirective"),
+      pageNumberDirectiveMarkdownNodeQuery = Query.fromExpression("/division/subDivision/directives/pageNumber"),  ///
       linkMarkdownNodesQuery = Query.fromExpression("//link"),
-      headingMarkdownNodesQuery = Query.fromExpression("//primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),
-      subDivisionMarkdownNodesQuery = Query.fromExpression("//subDivision"),
-      embedDirectiveMarkdownNodesQuery = Query.fromExpression("//directives/embedDirective"),
-      includeDirectiveMarkdownNodesQuery = Query.fromExpression("//directives/includeDirective"),
+      headingMarkdownNodesQuery = Query.fromExpression("/division/subDivision/primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),
+      subDivisionMarkdownNodesQuery = Query.fromExpression("/division/subDivision"),
+      embedDirectiveMarkdownNodesQuery = Query.fromExpression("/subDivision/directives/embedDirective"),
+      includeDirectiveMarkdownNodesQuery = Query.fromExpression("/division/subDivision/directives/includeDirective"),
       linkFootnoteOrFootnotesDirectiveMarkdownNodesQuery = Query.fromExpression("//link|footnote|footnotesDirective");
 
 export function nodeQuery(expression) {

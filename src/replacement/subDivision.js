@@ -3,34 +3,33 @@
 import Replacement from "../replacement";
 
 export default class SubDivisionReplacement extends Replacement {
-  constructor(node, tokens, removedNode) {
+  constructor(node, tokens, subDivisionMarkdownNode) {
     super(node, tokens);
 
-    this.removedNode = removedNode;
+    this.subDivisionMarkdownNode = subDivisionMarkdownNode;
   }
 
-  getRemovedNode() {
-    return this.removedNode;
+  getSubDivisionMarkdownNode() {
+    return this.subDivisionMarkdownNode;
   }
 
-  removeFromMarkdownNode(divisionMarkdownNode, context) {
-    const childNode = this.removedNode, ///
-          parentNode = divisionMarkdownNode.retrieveParentNode(childNode);
+  removeFromDivisionMarkdownNode(divisionMarkdownNode, context) {
+    const removedNode = this.subDivisionMarkdownNode, ///
+          parentNode = divisionMarkdownNode;
 
-    super.removeFrom(this.removedNode, parentNode, context);
+    super.removeFrom(removedNode, parentNode, context);
   }
 
-  static fromNodeAndTokens(Class, node, tokens) {
-    const removedNode = null,
-          subDivisionReplacement = Replacement.fromNodeAndTokens(Class, node, tokens, removedNode);
+  static fromNodeAndTokens(Class, node, tokens, ...remainingArguments) {
+    const subDivisionMarkdownNode = null,
+          subDivisionReplacement = Replacement.fromNodeAndTokens(Class, node, tokens, subDivisionMarkdownNode, ...remainingArguments);
 
     return subDivisionReplacement;
   }
 
-  static fromSubDivisionMarkdownNode(Class, subDivisionMarkdownNode, context) {
+  static fromSubDivisionMarkdownNode(Class, subDivisionMarkdownNode, context, ...remainingArguments) {
     const node = subDivisionMarkdownNode, ///
-          removedNode = subDivisionMarkdownNode, ///
-          subDivisionReplacement = Replacement.fromNode(Class, node, context, removedNode);
+          subDivisionReplacement = Replacement.fromNode(Class, node, context, subDivisionMarkdownNode, ...remainingArguments);
 
     return subDivisionReplacement;
   }

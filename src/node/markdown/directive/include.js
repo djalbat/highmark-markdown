@@ -7,7 +7,7 @@ import DirectiveMarkdownNode from "../../../node/markdown/directive";
 const { push, last } = arrayUtilities;
 
 export default class IncludeDirectiveMarkdownNode extends DirectiveMarkdownNode {
-  resolveIncludes(context) {
+  resolve(context) {
     let html = null;
 
     const { importer = null } = context;

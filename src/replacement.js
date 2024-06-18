@@ -3,7 +3,7 @@
 import { arrayUtilities } from "necessary";
 
 import { leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "./utilities/node";
-import { removeNode, appendNode, removeTokens, appendTokens, replaceNode, replaceNodes, replaceTokens } from "./utilities/replacement";
+import { removeNode, appendNode, removeTokens, appendTokens, replaceNode, replaceNodes, replaceTokens, addNodesAfter, addTokensAfter } from "./utilities/replacement";
 
 const { push } = arrayUtilities;
 
@@ -67,6 +67,16 @@ export default class Replacement {
     appendNode(replacementNode, parentNode);
 
     appendTokens(replacementTokens, parentNode, tokens);
+  }
+
+  addAfter(existingNode, parentNode, context) {
+    const { tokens } = context,
+          addedNodes = this.getChildNodes(), ///
+          addedTokens = this.tokens;  ///
+
+    addNodesAfter(existingNode, addedNodes, parentNode);
+
+    addTokensAfter(existingNode, addedTokens, tokens);
   }
 
   replace(replacedNode, parentNode, context) {
