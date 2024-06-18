@@ -85,14 +85,10 @@ class View extends Element {
 
       divisionMarkdownNode.setDivisionClassName(divisionClassName);
 
-      const linesPerPage = LINES_PER_PAGE,
-            contentsDepth = CONTENTS_DEPTH,
-            charactersPerLine = CHARACTERS_PER_LINE,
+      const charactersPerLine = CHARACTERS_PER_LINE,
             context = {
               tokens,
               importer,
-              linesPerPage,
-              contentsDepth,
               charactersPerLine
             },
             divisionMarkdownNodes = postprocess(divisionMarkdownNode, context);
@@ -258,20 +254,13 @@ class View extends Element {
     className: "view"
   };
 
-  static initialMarkdown = `@include introduction.md
-  
-## Contents
-  
-@contents
-
-A paragraph.
-  
-Another paragraph [^occam].
+  static initialMarkdown = `Occam [^occam].
 
 [^occam]: Occam footnote.
 
-@footnotes
+@embed introduction.md
   
+@footnotes
 `;
 
   static initialMarkdownStyle = `width: 100%;
@@ -288,7 +277,9 @@ export default withStyle(View)`
 `;
 
 function importer(filePath, context) {
-  const content = `# Introduction
+  const content = `Florence [^florence].
+
+[^florence]: Florence footnote.  
 `,
         startOfContent = true,
         startRule = markdownParser.getStartRule(),
