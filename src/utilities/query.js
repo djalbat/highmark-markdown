@@ -46,7 +46,7 @@ export function nodesQuery(expression) {
   }
 }
 
-export function footnoteMarkdownNodsFromNode(node) {
+export function footnoteMarkdownNodeFromNode(node) {
   const footnoteMarkdownNode = nodeFromNodeAndQuery(node, footnoteMarkdownNodeQuery);
 
   return footnoteMarkdownNode;
@@ -113,7 +113,7 @@ export function linkFootnoteOrFootnotesDirectiveMarkdownNodesFromNode(node, link
 }
 
 export default {
-  footnoteMarkdownNodsFromNode,
+  footnoteMarkdownNodeFromNode,
   ignoreDirectiveMarkdownNodeFromNode,
   contentsDirectiveMarkdownNodeFromNode,
   footnotesDirectiveMarkdownNodeFromNode,
