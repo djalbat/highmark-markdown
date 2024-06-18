@@ -17,7 +17,7 @@ import MarkdownContainerDiv from "./view/div/container/markdown";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
 import { postprocess } from "../utilities/markdown";
-import { LINES_PER_PAGE, CONTENTS_DEPTH, CHARACTERS_PER_LINE, INTRODUCTION_CLASS_NAME } from "./constants";
+import { CONTENTS_DEPTH, CHARACTERS_PER_LINE, INTRODUCTION_CLASS_NAME } from "./constants";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
@@ -86,9 +86,11 @@ class View extends Element {
       divisionMarkdownNode.setDivisionClassName(divisionClassName);
 
       const charactersPerLine = CHARACTERS_PER_LINE,
+            contentsDepth = CONTENTS_DEPTH,
             context = {
               tokens,
               importer,
+              contentsDepth,
               charactersPerLine
             },
             divisionMarkdownNodes = postprocess(divisionMarkdownNode, context);
@@ -254,9 +256,11 @@ class View extends Element {
     className: "view"
   };
 
-  static initialMarkdown = `Occam.
+  static initialMarkdown = `## Contents
 
-@embed introduction.md
+@contents
+
+@include introduction.md
 
 @footnotes
 
@@ -277,7 +281,9 @@ export default withStyle(View)`
 `;
 
 function importer(filePath, context) {
-  const content = `Florence [^florence].
+  const content = `# Introduction
+  
+Florence [^florence].
 
 [^florence]: Florence footnote.  
 `,
