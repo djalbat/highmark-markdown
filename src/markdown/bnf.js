@@ -49,8 +49,10 @@ const bnf = `
   
                                | footnotesDirective
                                
-                               | ( embedDirective | includeDirective ) ( endOfLine ( embedDirective | includeDirective ) )* 
+                               | embedDirective ( endOfLine embedDirective )* 
                                
+                               | includeDirective ( endOfLine includeDirective )* 
+
                                ; 
   
 

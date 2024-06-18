@@ -17,7 +17,7 @@ import MarkdownContainerDiv from "./view/div/container/markdown";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
 import { postprocess } from "../utilities/markdown";
-import { CONTENTS_DEPTH, CHARACTERS_PER_LINE, INTRODUCTION_CLASS_NAME } from "./constants";
+import { LINES_PER_PAGE, CONTENTS_DEPTH, CHARACTERS_PER_LINE, INTRODUCTION_CLASS_NAME } from "./constants";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
@@ -87,9 +87,11 @@ class View extends Element {
 
       const charactersPerLine = CHARACTERS_PER_LINE,
             contentsDepth = CONTENTS_DEPTH,
+            linePerPage = LINES_PER_PAGE,
             context = {
               tokens,
               importer,
+              linePerPage,
               contentsDepth,
               charactersPerLine
             },
@@ -256,15 +258,8 @@ class View extends Element {
     className: "view"
   };
 
-  static initialMarkdown = `## Contents
+  static initialMarkdown = `@include introduction.md
 
-@contents
-
-@include introduction.md
-
-@footnotes
-
-@pageNumber
 `;
 
   static initialMarkdownStyle = `width: 100%;

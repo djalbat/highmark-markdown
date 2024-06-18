@@ -24,12 +24,11 @@ export default class TableCellMarkdownNode extends MarkdownNode {
 
     lineMarkdownNode.createDOMElement(context);
 
-    const domElements = lineMarkdownNode.getDOMElements(),
-          parentDOMElement = domElement;  ///
+    const parentDOMElement = domElement;  ///
 
-    domElements.forEach((domElement) => {
-      parentDOMElement.appendChild(domElement)
-    });
+    domElement = lineMarkdownNode.getDOMElement();
+
+    parentDOMElement.appendChild(domElement)
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(TableCellMarkdownNode, ruleName, childNodes, opacity); }

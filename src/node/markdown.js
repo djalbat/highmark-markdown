@@ -106,11 +106,10 @@ class MarkdownNode extends NonTerminalNode {
     const childNodes = this.getChildNodes();
 
     childNodes.forEach((childNode) => {
-      const childNodeNonTerminalNode = childNode.isNonTerminalNode();
+      const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
 
-      if (childNodeNonTerminalNode) {
-        const nonTerminalNode = childNode,  ///
-              markdownNode = nonTerminalNode; ///
+      if (childNodeMarkdownNode) {
+        const markdownNode = childNode; ///
 
         markdownNode.resolveIncludes(context);
       }
@@ -121,53 +120,29 @@ class MarkdownNode extends NonTerminalNode {
     const childNodes = this.getChildNodes();
 
     childNodes.forEach((childNode) => {
-      const childNodeNonTerminalNode = childNode.isNonTerminalNode();
+      const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
 
-      if (childNodeNonTerminalNode) {
-        const nonTerminalNode = childNode,  ///
-              markdownNode = nonTerminalNode; ///
+      if (childNodeMarkdownNode) {
+        const markdownNode = childNode; ///
 
         markdownNode.resolveEmbeddings(context);
       }
     });
   }
 
-  retrieveParentNode(childNode, node = this) {
-    let parentNode = null;
+  isPlainTextMarkdownNode() {
+    const plainTextMarkdownNode = false;
 
-    const nodeNonTerminalNode = node.isNonTerminalNode();
-
-    if (nodeNonTerminalNode) {
-      const nonTerminalNode = node, ///
-            childNodes = nonTerminalNode.getChildNodes(),
-            index = childNodes.indexOf(childNode);
-
-      if (index !== -1) {
-        parentNode = node;  ///
-      } else {
-        const nodes = childNodes; ///
-
-        nodes.some((node) => {
-          parentNode = this.retrieveParentNode(childNode, node);
-
-          if (parentNode !== null) {
-            return true;
-          }
-        });
-      }
-    }
-
-    return parentNode;
+    return plainTextMarkdownNode;
   }
 
   lines(context) {
     const childNodes = this.getChildNodes(),
           lines = childNodes.reduce((lines, childNode) => {
-            const childNodeNonTerminalNode = childNode.isNonTerminalNode();
+            const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
 
-            if (childNodeNonTerminalNode) {
-              const nonTerminalNode = childNode,  ///
-                    markdownNode = nonTerminalNode, ///
+            if (childNodeMarkdownNode) {
+              const markdownNode = childNode, ///
                     markdownNodeLines = markdownNode.lines(context);
 
               lines += markdownNodeLines;
@@ -214,11 +189,10 @@ ${childNodesHTML}${indent}${closingTag}
   childNodesAsHTML(indent, context) {
     const childNodes = this.getChildNodes(),
           childNodesHTML = childNodes.reduce((childNodesHTML, childNode) => {
-            const childNodeNonTerminalNode = childNode.isNonTerminalNode();
+            const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
 
-            if (childNodeNonTerminalNode) {
-              const nonTerminalNode = childNode,  ///
-                    markdownNode = nonTerminalNode, ///
+            if (childNodeMarkdownNode) {
+              const markdownNode = childNode, ///
                     markdownNodeHTML = markdownNode.asHTML(indent, context);
 
               if (markdownNodeHTML !== null) {
@@ -268,19 +242,18 @@ ${childNodesHTML}${indent}${closingTag}
     const childNodes = this.getChildNodes();
 
     childNodes.forEach((childNode) => {
-      const childNodeNonTerminalNode = childNode.isNonTerminalNode();
+      const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
 
-      if (childNodeNonTerminalNode) {
-        const nonTerminalNode = childNode,  ///
-              markdownNode = nonTerminalNode; ///
+      if (childNodeMarkdownNode) {
+        const markdownNode = childNode; ///
 
         markdownNode.createDOMElement(context);
 
-        const domElements = markdownNode.getDOMElements();
+        const domElement = markdownNode.getDOMElement();
 
-        domElements.forEach((domElement) => {
+        if (domElement !== null) {
           this.addDOMElement(domElement);
-        });
+        }
       }
     });
   }

@@ -14,13 +14,6 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
     return domElement;
   }
 
-  getDOMElements() {
-    const secondMarkdownNode = this.getSecondMarkdownNode(),
-          domElements = secondMarkdownNode.getDOMElements();
-
-    return domElements;
-  }
-
   lines(context) {
     const secondMarkdownNode = this.getSecondMarkdownNode(),
           lines = secondMarkdownNode.lines(context);

@@ -76,6 +76,34 @@ function getDescendantNodes(descendantNodes = []) {
   return descendantNodes;
 }
 
+function retrieveParentNode(childNode, node = this) {
+  let parentNode = null;
+
+  const nodeNonTerminalNode = node.isNonTerminalNode();
+
+  if (nodeNonTerminalNode) {
+    const nonTerminalNode = node, ///
+          childNodes = nonTerminalNode.getChildNodes(),
+          index = childNodes.indexOf(childNode);
+
+    if (index !== -1) {
+      parentNode = node;  ///
+    } else {
+      const nodes = childNodes; ///
+
+      nodes.some((node) => {
+        parentNode = this.retrieveParentNode(childNode, node);
+
+        if (parentNode !== null) {
+          return true;
+        }
+      });
+    }
+  }
+
+  return parentNode;
+}
+
 const nodeMixins = {
   removeChildNodes,
   removeChildNode,
@@ -83,7 +111,8 @@ const nodeMixins = {
   prependChildNode,
   replaceChildNode,
   replaceChildNodes,
-  getDescendantNodes
+  getDescendantNodes,
+  retrieveParentNode
 };
 
 export default nodeMixins;

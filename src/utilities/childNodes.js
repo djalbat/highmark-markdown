@@ -2,8 +2,6 @@
 
 import { arrayUtilities } from "necessary";
 
-import PlainTextMarkdownNode from "../node/markdown/plainText";
-
 import { EMPTY_STRING } from "../constants";
 import { contentFromNodes } from "../utilities/content";
 
@@ -19,7 +17,7 @@ export function htmlFromChildNodes(childNodes, context) {
     if (childNodeNonTerminalNode) {
       const nonTerminalNode = childNode,  ///
             markdownNode = nonTerminalNode, ///
-            markdownNodePlainTextMarkdownNode = (markdownNode instanceof PlainTextMarkdownNode);
+            markdownNodePlainTextMarkdownNode = markdownNode.isPlainTextMarkdownNode();
 
       if (markdownNodePlainTextMarkdownNode) {
         const plainTextMarkdownNode = markdownNode; ///
@@ -67,7 +65,7 @@ export function plainTextFromChildNodes(childNodes, context) {
     if (childNodeNonTerminalNode) {
       const nonTerminalNode = childNode,  ///
             markdownNode = nonTerminalNode, ///
-            markdownNodePlainTextMarkdownNode = (markdownNode instanceof PlainTextMarkdownNode);
+            markdownNodePlainTextMarkdownNode = markdownNode.isPlainTextMarkdownNode();
 
       if (markdownNodePlainTextMarkdownNode) {
         const plainTextMarkdownNode = markdownNode; ///
@@ -117,7 +115,7 @@ export function domElementsFromChildNodes(childNodes, context) {
     if (childNodeNonTerminalNode) {
       const nonTerminalNode = childNode,  ///
             markdownNode = nonTerminalNode, ///
-            markdownNodePlainTextMarkdownNode = (markdownNode instanceof PlainTextMarkdownNode);
+            markdownNodePlainTextMarkdownNode = markdownNode.isPlainTextMarkdownNode();
 
       if (markdownNodePlainTextMarkdownNode) {
         const plainTextMarkdownNode = markdownNode; ///
