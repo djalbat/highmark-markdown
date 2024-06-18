@@ -132,7 +132,7 @@ class MarkdownNode extends NonTerminalNode {
     });
   }
 
-  findParentNode(childNode, node = this) {
+  retrieveParentNode(childNode, node = this) {
     let parentNode = null;
 
     const nodeNonTerminalNode = node.isNonTerminalNode();
@@ -148,7 +148,7 @@ class MarkdownNode extends NonTerminalNode {
         const nodes = childNodes; ///
 
         nodes.some((node) => {
-          parentNode = this.findParentNode(childNode, node);
+          parentNode = this.retrieveParentNode(childNode, node);
 
           if (parentNode !== null) {
             return true;

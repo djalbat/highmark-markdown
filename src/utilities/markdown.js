@@ -11,7 +11,7 @@ export function postprocess(divisionMarkdownNode, context) {
 
   paginateAndFootnotes(divisionMarkdownNodes, context);
 
-  createContents(divisionMarkdownNodes, context);
+  // createContents(divisionMarkdownNodes, context);
 
   return divisionMarkdownNodes;
 }

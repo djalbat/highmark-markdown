@@ -155,7 +155,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
       if (importedReplacement !== null) {
         const childNode = embedDirectiveMarkdownNode,  ///
-              parentNode = this.findParentNode(childNode);
+              parentNode = this.retrieveParentNode(childNode);
 
         importedReplacement.replaceEmbedDirectiveMarkdownNode(embedDirectiveMarkdownNode, parentNode, context);
       }
@@ -201,22 +201,22 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 
   removeSubDivisionMarkdownNode(SubDivisionReplacement, context) {
-    const divisionMarkdownNode = this,  ///
+    const divisionMarkdownNode = this,  //
           subDivisionReplacement = this.findSubDivisionReplacement(SubDivisionReplacement, context);
 
     if (subDivisionReplacement !== null) {
-      subDivisionReplacement.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
+      subDivisionReplacement.removeFromMarkdownNode(divisionMarkdownNode, context);
     }
 
     return subDivisionReplacement;
   }
 
   removeSubDivisionMarkdownNodes(SubDivisionReplacement, context) {
-    const divisionMarkdownNode = this,  ///
+    const divisionMarkdownNode = this,  //
           subDivisionReplacements = this.findSubDivisionReplacements(SubDivisionReplacement, context);
 
     subDivisionReplacements.forEach((subDivisionReplacement) => {
-      subDivisionReplacement.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
+      subDivisionReplacement.removeFromMarkdownNode(divisionMarkdownNode, context);
     });
 
     return subDivisionReplacements;

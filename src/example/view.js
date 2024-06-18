@@ -254,13 +254,13 @@ class View extends Element {
     className: "view"
   };
 
-  static initialMarkdown = `Occam [^occam].
-
-[^occam]: Occam footnote.
+  static initialMarkdown = `Occam.
 
 @embed introduction.md
-  
+
 @footnotes
+
+@pageNumber
 `;
 
   static initialMarkdownStyle = `width: 100%;
