@@ -5,7 +5,7 @@ import { arrayUtilities } from "necessary";
 
 const { first, push } = arrayUtilities;
 
-const footnoteMarkdownNodeQuery = Query.fromExpression("/division/subDivision/footnote"),
+const footnoteMarkdownNodeQuery = Query.fromExpression("/subDivision/footnote"),
       ignoreDirectiveMarkdownNodeQuery = Query.fromExpression("/division/subDivision/directives/ignoreDirective"),
       contentsDirectiveMarkdownNodeQuery = Query.fromExpression("/division/subDivision/directives/contentsDirective"),
       footnotesDirectiveMarkdownNodeQuery = Query.fromExpression("/division/subDivision/directives/footnotesDirective"),

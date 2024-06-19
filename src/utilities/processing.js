@@ -7,62 +7,56 @@ export function postprocess(divisionMarkdownNode, context) {
 
   resolveEmbeddings(divisionMarkdownNodes, context);
 
+  const footnoteMap = prepareFootnotes(divisionMarkdownNodes, context);
+
   // divisionMarkdownNodes = paginate(divisionMarkdownNodes, context);
 
-  // createFootnotes(divisionMarkdownNodes, context);
+  // createFootnotes(divisionMarkdownNodes, footnotesMap, context);
 
   // createContents(divisionMarkdownNodes, context);
 
   return divisionMarkdownNodes;
 }
 
-function paginate(divisionMarkdownNodes, context) {
-  const paginatedDivisionMarkdownNodes = [];
+// function paginate(divisionMarkdownNodes, context) {
+//   const paginatedDivisionMarkdownNodes = [];
+//
+//   Object.assign(context, {
+//     paginatedDivisionMarkdownNodes
+//   });
+//
+//   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+//     divisionMarkdownNode.paginate(context);
+//   });
+//
+//   paginatedDivisionMarkdownNodes.forEach((paginatedDivisionMarkdownNode, index) => {
+//     const pageNumber = index + 1;
+//
+//     paginatedDivisionMarkdownNode.setPageNumber(pageNumber);
+//   })
+//
+//   divisionMarkdownNodes = paginatedDivisionMarkdownNodes; ///
+//
+//   delete context.paginatedDivisionMarkdownNodes;
+//
+//   return divisionMarkdownNodes;
+// }
 
-  Object.assign(context, {
-    paginatedDivisionMarkdownNodes
-  });
+// function createContents(divisionMarkdownNodes, context) {
+//   divisionMarkdownNodes.some((divisionMarkdownNode) => {
+//     const contentsCreated = divisionMarkdownNode.createContents(divisionMarkdownNodes, context);
+//
+//     if (contentsCreated) {
+//       return true;
+//     }
+//   });
+// }
 
-  divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-    divisionMarkdownNode.paginate(context);
-  });
-
-  paginatedDivisionMarkdownNodes.forEach((paginatedDivisionMarkdownNode, index) => {
-    const pageNumber = index + 1;
-
-    paginatedDivisionMarkdownNode.setPageNumber(pageNumber);
-  })
-
-  divisionMarkdownNodes = paginatedDivisionMarkdownNodes; ///
-
-  delete context.paginatedDivisionMarkdownNodes;
-
-  return divisionMarkdownNodes;
-}
-
-function createContents(divisionMarkdownNodes, context) {
-  divisionMarkdownNodes.some((divisionMarkdownNode) => {
-    const contentsCreated = divisionMarkdownNode.createContents(divisionMarkdownNodes, context);
-
-    if (contentsCreated) {
-      return true;
-    }
-  });
-}
-
-function createFootnotes(divisionMarkdownNodes, context) {
-  const footnoteNumberMap = {};
-
-  Object.assign(context, {
-    footnoteNumberMap
-  });
-
-  divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-    divisionMarkdownNode.createFootnotes(context);
-  });
-
-  delete context.footnoteNumberMap;
-}
+// function createFootnotes(divisionMarkdownNodes, context) {
+//   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+//     divisionMarkdownNode.createFootnotes(context);
+//   });
+// }
 
 function resolveIncludes(divisionMarkdownNode, context) {
   const divisionMarkdownNodes = [];
@@ -82,6 +76,16 @@ function resolveIncludes(divisionMarkdownNode, context) {
   delete context.divisionMarkdownNodes;
 
   return divisionMarkdownNodes;
+}
+
+function prepareFootnotes(divisionMarkdownNodes, context) {
+  const footnoteMap = {};
+
+  divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+    divisionMarkdownNode.prepareFootnotes(footnoteMap, context);
+  });
+
+  return footnoteMap;
 }
 
 function resolveEmbeddings(divisionMarkdownNodes, context) {

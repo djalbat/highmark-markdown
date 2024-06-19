@@ -42,10 +42,13 @@ const CONTENT_PATH = "content.md",
       INSTALLING_THE_CLI_PATH = "installing-the-cli.md",
       GETTING_TO_GRIPS_WITH_THE_IDE_PATH = "getting-to-grips-with-the-ide.md";
 
-export const defaultContent = `@ignore
+export const _defaultContent = `@ignore
 
 @include ${FRONT_MATTER_PATH}
 @include ${CONTENT_PATH}`;
+
+export const defaultContent = `[^occam]: Occam footnote.
+`;
 
 const contentContent = `@ignore
 
@@ -72,7 +75,8 @@ A short paragraph.`,
 Another short paragraph.
       
 @embed ${INSTALLING_THE_CLI_PATH}
-@embed ${GETTING_TO_GRIPS_WITH_THE_IDE_PATH}`,
+@embed ${GETTING_TO_GRIPS_WITH_THE_IDE_PATH}
+`,
 
       installingTheCLIContent = `## Installing the CLI`,
 

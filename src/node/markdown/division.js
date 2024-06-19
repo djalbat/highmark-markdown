@@ -110,24 +110,33 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 
   createFootnotes(footnoteReplacements, context) {
-    const footnoteSubDivisionReplacements = this.removeSubDivisionMarkdownNodes(FootnoteSubDivisionReplacement, context),
-          footnotesDirectiveSubDivisionReplacement = this.removeSubDivisionMarkdownNode(FootnotesDirectiveSubDivisionReplacement, context);
+    // const footnotesDirectiveSubDivisionReplacement = this.removeSubDivisionMarkdownNode(FootnotesDirectiveSubDivisionReplacement, context);
+    //
+    // if (footnotesDirectiveSubDivisionReplacement !== null) {
+    //   const divisionMarkdownNode = this,  ///
+    //         footnoteReplacements = footnoteReplacementsFromFootnoteSubDivisionReplacements(footnoteSubDivisionReplacements),
+    //         footnotesListReplacement = FootnotesListReplacement.fromFootnoteReplacementsAndDivisionMarkdownNode(footnoteReplacements, divisionMarkdownNode, context);
+    //
+    //   if (footnotesListReplacement !== null) {
+    //     renumberLinkMarkdownNodes(divisionMarkdownNode, callback, context);
+    //
+    //     footnotesListReplacement.appendToDivisionMarkdownNode(divisionMarkdownNode, context);
+    //   }
+    // }
+    //
+    // function callback() {
+    //   ///
+    // }
+  }
 
-    if (footnotesDirectiveSubDivisionReplacement !== null) {
-      const divisionMarkdownNode = this,  ///
-            footnoteReplacements = footnoteReplacementsFromFootnoteSubDivisionReplacements(footnoteSubDivisionReplacements),
-            footnotesListReplacement = FootnotesListReplacement.fromFootnoteReplacementsAndDivisionMarkdownNode(footnoteReplacements, divisionMarkdownNode, context);
+  prepareFootnotes(footnoteMap, context) {
+    const footnoteSubDivisionReplacements = this.removeSubDivisionMarkdownNodes(FootnoteSubDivisionReplacement, context);
 
-      if (footnotesListReplacement !== null) {
-        renumberLinkMarkdownNodes(divisionMarkdownNode, callback, context);
+    footnoteSubDivisionReplacements.forEach((footnoteSubDivisionReplacement) => {
+      const identifier = footnoteSubDivisionReplacement.identifier(context);
 
-        footnotesListReplacement.appendToDivisionMarkdownNode(divisionMarkdownNode, context);
-      }
-    }
-
-    function callback() {
-      ///
-    }
+      footnoteMap[identifier] = footnoteSubDivisionReplacement;
+    })
   }
 
   resolveIncludes(context) {
@@ -202,7 +211,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
           subDivisionReplacements = this.findSubDivisionReplacements(SubDivisionReplacement, context);
 
     subDivisionReplacements.forEach((subDivisionReplacement) => {
-      subDivisionReplacement.removeDivisionFromMarkdownNode(divisionMarkdownNode, context);
+      subDivisionReplacement.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
     });
 
     return subDivisionReplacements;

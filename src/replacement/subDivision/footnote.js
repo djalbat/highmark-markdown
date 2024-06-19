@@ -5,6 +5,15 @@ import SubDivisionReplacement from "../../replacement/subDivision";
 import { footnoteMarkdownNodeFromNode } from "../../utilities/query";
 
 export default class FootnoteSubDivisionReplacement extends SubDivisionReplacement {
+  identifier(context) {
+    const subDivisionMarkdownNode = this.getSubDivisionMarkdownNode(),
+          node = subDivisionMarkdownNode, ///
+          footnoteMarkdownNode = footnoteMarkdownNodeFromNode(node),
+          identifier = footnoteMarkdownNode.identifier(context);
+
+    return identifier;
+  }
+
   static fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context) {
     let footnoteSubDivisionReplacement = null;
 
