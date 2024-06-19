@@ -1,5 +1,7 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import MarkdownNode from "../../node/markdown";
 import FootnoteReplacement from "../../replacement/footnote";
 import ContentsListReplacement from "../../replacement/contentsList";
@@ -13,6 +15,8 @@ import { EMPTY_STRING } from "../../constants";
 import { DIVISION_RULE_NAME } from "../../ruleNames";
 import { renumberLinkMarkdownNodes } from "../../utilities/footnotes";
 import { subDivisionMarkdownNodesFromNode, ignoreDirectiveMarkdownNodeFromNode, pageNumberDirectiveMarkdownNodeFromNode } from "../../utilities/query";
+
+const { clear, filter } = arrayUtilities;
 
 export default class DivisionMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, precedence, opacity, domElement, divisionClassName) {
@@ -43,42 +47,52 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return ignored;
   }
 
-  paginate(context) {
-    // const { linesPerPage } = context,
-    //       pageNumberDirectiveSubDivisionReplacement = this.removeSubDivisionMarkdownNode(PageNumberDirectiveSubDivisionReplacement, context),
-    //       subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes(),
-    //       divisionMarkdownNodes = [],
-    //       paginatedChildNodes = [];
-    //
-    //
-    //   let totalLines = 0;
-    //
-    // childNodes.forEach((childNode) => {
-    //   const lines = childNode.lines(context),
-    //         paginatedChildNode = childNode;  ///
-    //
-    //   totalLines += lines;
-    //
-    //   paginatedChildNodes.push(paginatedChildNode);
-    //
-    //   if (totalLines > linesPerPage) {
-    //     const divisionMarkdownNode = DivisionMarkdownNode.fromPageNumberDirectiveSubDivisionReplacementPaginatedChildNodesAndDivisionClassName(pageNumberDirectiveSubDivisionReplacement, paginatedChildNodes, this.divisionClassName, context);
-    //
-    //     divisionMarkdownNodes.push(divisionMarkdownNode);
-    //
-    //     clear(paginatedChildNodes);
-    //
-    //     totalLines = 0;
-    //   }
-    // });
-    //
-    // if (totalLines > 0) {
-    //   const divisionMarkdownNode = DivisionMarkdownNode.fromPageNumberDirectiveSubDivisionReplacementPaginatedChildNodesAndDivisionClassName(pageNumberDirectiveSubDivisionReplacement, paginatedChildNodes, this.divisionClassName, context);
-    //
-    //   divisionMarkdownNodes.push(divisionMarkdownNode);
-    // }
-    //
-    // return divisionMarkdownNodes;
+  paginate(paginatedDivisionMarkdownNodes, context) {
+    const pageNumberDirectiveSubDivisionReplacement = this.removeSubDivisionMarkdownNode(PageNumberDirectiveSubDivisionReplacement, context),
+          footnotesDirectiveSubDivisionReplacement = this.removeSubDivisionMarkdownNode(FootnotesDirectiveSubDivisionReplacement, context),
+          subDivisionReplacements = [
+            pageNumberDirectiveSubDivisionReplacement,
+            footnotesDirectiveSubDivisionReplacement
+          ];
+
+    filter(subDivisionReplacements, (subDivisionReplacement) => {
+      if (subDivisionReplacement !== null) {
+        return true;
+      }
+    });
+
+    const { linesPerPage } = context,
+          paginatedChildNodes = [],
+          childNodes = this.getChildNodes();
+
+    let totalLines = 0;
+
+    childNodes.forEach((childNode) => {
+      const lines = childNode.lines(context),
+            paginatedChildNode = childNode;  ///
+
+      totalLines += lines;
+
+      paginatedChildNodes.push(paginatedChildNode);
+
+      if (totalLines > linesPerPage) {
+        const divisionMarkdownNode = DivisionMarkdownNode.fromPaginatedChildNodesSubDivisionReplacementsAndDivisionClassName(paginatedChildNodes, subDivisionReplacements, this.divisionClassName, context),
+              paginatedDivisionMarkdownNode = divisionMarkdownNode; ///
+
+        paginatedDivisionMarkdownNodes.push(paginatedDivisionMarkdownNode);
+
+        clear(paginatedChildNodes);
+
+        totalLines = 0;
+      }
+    });
+
+    if (totalLines > 0) {
+      const divisionMarkdownNode = DivisionMarkdownNode.fromPaginatedChildNodesSubDivisionReplacementsAndDivisionClassName(paginatedChildNodes, subDivisionReplacements, this.divisionClassName, context),
+            paginatedDivisionMarkdownNode = divisionMarkdownNode; ///
+
+      paginatedDivisionMarkdownNodes.push(paginatedDivisionMarkdownNode);
+    }
   }
 
   setPageNumber(pageNumber) {
@@ -253,7 +267,7 @@ ${childNodesHTML}${indent}${closingTag}
     return divisionMarkdownNode;
   }
 
-  static fromPageNumberDirectiveSubDivisionReplacementPaginatedChildNodesAndDivisionClassName(pageNumberDirectiveSubDivisionReplacement, paginatedChildNodes, divisionClassName, context) {
+  static fromPaginatedChildNodesSubDivisionReplacementsAndDivisionClassName(paginatedChildNodes, subDivisionReplacements, divisionClassName, context) {
     const ruleName = DIVISION_RULE_NAME,
           childNodes = [
             ...paginatedChildNodes
@@ -261,11 +275,11 @@ ${childNodesHTML}${indent}${closingTag}
           opacity = null,
           divisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(DivisionMarkdownNode, ruleName, childNodes, opacity, divisionClassName);
 
-    if (pageNumberDirectiveSubDivisionReplacement !== null) {
-      pageNumberDirectiveSubDivisionReplacement = pageNumberDirectiveSubDivisionReplacement.clone();  ///
+    subDivisionReplacements.forEach((subDivisionReplacement) => {
+      subDivisionReplacement = subDivisionReplacement.clone();  ///
 
-      pageNumberDirectiveSubDivisionReplacement.appendToDivisionMarkdownNode(divisionMarkdownNode, context);
-    }
+      subDivisionReplacement.appendToDivisionMarkdownNode(divisionMarkdownNode, context);
+    });
 
     return divisionMarkdownNode;
   }

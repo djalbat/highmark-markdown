@@ -9,7 +9,7 @@ export function postprocess(divisionMarkdownNode, context) {
 
   const footnoteMap = prepareFootnotes(divisionMarkdownNodes, context);
 
-  // divisionMarkdownNodes = paginate(divisionMarkdownNodes, context);
+  divisionMarkdownNodes = paginate(divisionMarkdownNodes, context);
 
   // createFootnotes(divisionMarkdownNodes, footnotesMap, context);
 
@@ -18,45 +18,39 @@ export function postprocess(divisionMarkdownNode, context) {
   return divisionMarkdownNodes;
 }
 
-// function paginate(divisionMarkdownNodes, context) {
-//   const paginatedDivisionMarkdownNodes = [];
-//
-//   Object.assign(context, {
-//     paginatedDivisionMarkdownNodes
-//   });
-//
-//   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-//     divisionMarkdownNode.paginate(context);
-//   });
-//
-//   paginatedDivisionMarkdownNodes.forEach((paginatedDivisionMarkdownNode, index) => {
-//     const pageNumber = index + 1;
-//
-//     paginatedDivisionMarkdownNode.setPageNumber(pageNumber);
-//   })
-//
-//   divisionMarkdownNodes = paginatedDivisionMarkdownNodes; ///
-//
-//   delete context.paginatedDivisionMarkdownNodes;
-//
-//   return divisionMarkdownNodes;
-// }
+function paginate(divisionMarkdownNodes, context) {
+  const paginatedDivisionMarkdownNodes = [];
 
-// function createContents(divisionMarkdownNodes, context) {
-//   divisionMarkdownNodes.some((divisionMarkdownNode) => {
-//     const contentsCreated = divisionMarkdownNode.createContents(divisionMarkdownNodes, context);
-//
-//     if (contentsCreated) {
-//       return true;
-//     }
-//   });
-// }
+  divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+    divisionMarkdownNode.paginate(paginatedDivisionMarkdownNodes, context);
+  });
 
-// function createFootnotes(divisionMarkdownNodes, context) {
-//   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-//     divisionMarkdownNode.createFootnotes(context);
-//   });
-// }
+  // paginatedDivisionMarkdownNodes.forEach((paginatedDivisionMarkdownNode, index) => {
+  //   const pageNumber = index + 1;
+  //
+  //   paginatedDivisionMarkdownNode.setPageNumber(pageNumber);
+  // });
+
+  divisionMarkdownNodes = paginatedDivisionMarkdownNodes; ///
+
+  return divisionMarkdownNodes;
+}
+
+function createContents(divisionMarkdownNodes, context) {
+  divisionMarkdownNodes.some((divisionMarkdownNode) => {
+    const contentsCreated = divisionMarkdownNode.createContents(divisionMarkdownNodes, context);
+
+    if (contentsCreated) {
+      return true;
+    }
+  });
+}
+
+function createFootnotes(divisionMarkdownNodes, footnotesMap, context) {
+  divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+    divisionMarkdownNode.createFootnotes(footnotesMap, context);
+  });
+}
 
 function resolveIncludes(divisionMarkdownNode, context) {
   const divisionMarkdownNodes = [];

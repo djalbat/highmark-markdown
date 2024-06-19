@@ -85,11 +85,11 @@ class View extends Element {
       const divisionMarkdownNode = node,  ///
             charactersPerLine = CHARACTERS_PER_LINE,
             contentsDepth = CONTENTS_DEPTH,
-            linePerPage = LINES_PER_PAGE,
+            linesPerPage = LINES_PER_PAGE,
             context = {
               tokens,
               importer,
-              linePerPage,
+              linesPerPage,
               contentsDepth,
               charactersPerLine
             },
