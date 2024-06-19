@@ -20,8 +20,6 @@ export default class ContentsListReplacement extends Replacement {
     super.replace(replacedNode, parentNode, context)
   }
 
-  static fromNodeAndTokens(node, tokens) { return Replacement.fromNodeAndTokens(ContentsListReplacement, node, tokens); }
-
   static fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context) {
     const contentsItemReplacements = contentsItemReplacementsFromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
           contentsListMarkdownNode = ContentsListMarkdownNode.fromContentsItemReplacements(contentsItemReplacements),
@@ -32,7 +30,7 @@ export default class ContentsListReplacement extends Replacement {
       contentsItemReplacement.getTokens(tokens);
     });
 
-    const contentsListReplacement = ContentsListReplacement.fromNodeAndTokens(node, tokens);
+    const contentsListReplacement = Replacement.fromNodeAndTokens(ContentsListReplacement, node, tokens);
 
     return contentsListReplacement;
   }
@@ -54,7 +52,7 @@ export default class ContentsListReplacement extends Replacement {
         contentsItemReplacement.getTokens(tokens);
       });
 
-      contentsListReplacement = ContentsListReplacement.fromNodeAndTokens(node, tokens);
+      contentsListReplacement = Replacement.fromNodeAndTokens(ContentsListReplacement, node, tokens);
     }
 
     return contentsListReplacement;

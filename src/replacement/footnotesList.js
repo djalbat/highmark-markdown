@@ -7,49 +7,52 @@ import FootnotesListMarkdownNode from "../node/markdown/footnotesList";
 import { linkMarkdownNodesFromNode } from "../utilities/query";
 
 export default class FootnotesListReplacement extends Replacement {
+  constructor(node, tokens, start, identifiers) {
+    super(node, tokens, start, identifiers);
+
+    this.start = start;
+    this.identifiers = identifiers;
+  }
+
+  getStart() {
+    return this.start;
+  }
+
+  getIdentifiers() {
+    return this.identifiers;
+  }
+
   appendToDivisionMarkdownNode(divisionMarkdownNode, context) {
     const parentNode = divisionMarkdownNode; ///
 
     super.appendTo(parentNode, context);
   }
 
-  static fromNodeAndTokens(node, tokens) { return Replacement.fromNodeAndTokens(FootnotesListReplacement, node, tokens); }
-
-  static fromFootnoteReplacementsAndDivisionMarkdownNode(footnoteReplacements, divisionMarkdownNode, context) {
+  static fromDivisionMarkdownNodeAndFootnoteMap(divisionMarkdownNode, footnoteMap, context) {
     let footnotesListReplacement = null;
 
-    const { footnoteNumberMap } = context;
-
     const node = divisionMarkdownNode,  ///
-          footnoteNumbers = Object.values(footnoteNumberMap),
+          start = startFromFootnoteMap(footnoteMap),
+          identifiers = [],
           linkMarkdownNodes = linkMarkdownNodesFromNode(node),
-          footnoteNumbersLength = footnoteNumbers.length,
           footnotesItemReplacements = [];
 
-    let count = 0;
-
     linkMarkdownNodes.forEach((linkMarkdownNode) => {
-      const identifier = linkMarkdownNode.identifier(context);
+      const identifier = linkMarkdownNode.identifier(context),
+            footnoteReplacement = footnoteMap[identifier] || null;
 
-      let footnoteNumber = footnoteNumberMap[identifier] || null;
+      if (footnoteReplacement !== null) {
+        const footnotesItemReplacement = FootnotesItemReplacement.fromFootnoteReplacementAndIdentifier(footnoteReplacement, identifier, context);
 
-      if (footnoteNumber === null) {
-        const footnotesItemReplacement = FootnotesItemReplacement.fromFootnoteReplacementsAndIdentifier(footnoteReplacements, identifier, context);
+        footnotesItemReplacements.push(footnotesItemReplacement);
 
-        if (footnotesItemReplacement !== null) {
-          footnotesItemReplacements.push(footnotesItemReplacement);
+        identifiers.push(identifier);
 
-          count++;
-
-          footnoteNumber = footnoteNumbersLength + count;
-
-          footnoteNumberMap[identifier] = footnoteNumber;
-        }
+        footnoteMap[identifier] = null;
       }
     });
 
-    const start = footnoteNumbersLength + 1,
-          footnotesListMarkdownNode = FootnotesListMarkdownNode.fromFootnotesItemReplacementsAndStart(footnotesItemReplacements, start);
+    const footnotesListMarkdownNode = FootnotesListMarkdownNode.fromFootnotesItemReplacementsAndStart(footnotesItemReplacements, start);
 
     if (footnotesListMarkdownNode !== null) {
       const node = footnotesListMarkdownNode, ///
@@ -59,9 +62,22 @@ export default class FootnotesListReplacement extends Replacement {
         footnotesItemReplacement.getTokens(tokens);
       });
 
-      footnotesListReplacement = FootnotesListReplacement.fromNodeAndTokens(node, tokens);
+      footnotesListReplacement = Replacement.fromNodeAndTokens(FootnotesListReplacement, node, tokens, start, identifiers);
     }
 
     return footnotesListReplacement;
   }
+}
+
+function startFromFootnoteMap(footnoteMap) {
+  const footnoteReplacements = Object.values(footnoteMap),
+        start = footnoteReplacements.reduce((start, footnoteReplacement) => {
+          if (footnoteReplacement === null) {
+            start++;
+          }
+
+          return start;
+        }, 1);
+
+  return start;
 }

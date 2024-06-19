@@ -11,7 +11,7 @@ export function postprocess(divisionMarkdownNode, context) {
 
   divisionMarkdownNodes = paginate(divisionMarkdownNodes, context);
 
-  // createFootnotes(divisionMarkdownNodes, footnotesMap, context);
+  createFootnotes(divisionMarkdownNodes, footnoteMap, context);
 
   // createContents(divisionMarkdownNodes, context);
 
@@ -46,9 +46,9 @@ function createContents(divisionMarkdownNodes, context) {
   });
 }
 
-function createFootnotes(divisionMarkdownNodes, footnotesMap, context) {
+function createFootnotes(divisionMarkdownNodes, footnoteMap, context) {
   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-    divisionMarkdownNode.createFootnotes(footnotesMap, context);
+    divisionMarkdownNode.createFootnotes(footnoteMap, context);
   });
 }
 

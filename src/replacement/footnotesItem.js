@@ -1,37 +1,17 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import Replacement from "../replacement";
 
 import FootnotesItemMarkdownNode from "../node/markdown/footnotesItem";
 
-const { extract } = arrayUtilities;
-
 export default class FootnotesItemReplacement extends Replacement {
   static fromNode(node, context) { return Replacement.fromNode(FootnotesItemReplacement, node, context); }
 
-  static fromFootnoteReplacementsAndIdentifier(footnoteReplacements, identifier, context) {
-    let footnotesItemReplacement = null;
-
-    const footnoteReplacement = extract(footnoteReplacements, (footnoteReplacement) => {
-      const node = footnoteReplacement.getNode(),
-            footnoteMarkdownNode = node,  ///
-            footnoteMarkdownNodeIdentifier = footnoteMarkdownNode.identifier(context);
-
-      if (footnoteMarkdownNodeIdentifier === identifier) {
-        return true;
-      }
-    }) || null;
-
-    if (footnoteReplacement !== null) {
-      const node = footnoteReplacement.getNode(),
-            footnoteMarkdownNode = node,  ///
+  static fromFootnoteReplacementAndIdentifier(footnoteReplacement, identifier) {
+      const footnoteMarkdownNode = footnoteReplacement.getFootnoteMarkdownNode(),
             footnotesItemMarkdownNode = FootnotesItemMarkdownNode.fromFootnotesMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier),
-            ascendantNode = footnotesItemMarkdownNode; ///
-
-      footnotesItemReplacement = footnoteReplacement.expand(FootnotesItemReplacement, ascendantNode);
-    }
+            ascendantNode = footnotesItemMarkdownNode, ///
+            footnotesItemReplacement = footnoteReplacement.expand(FootnotesItemReplacement, ascendantNode);
 
     return footnotesItemReplacement;
   }

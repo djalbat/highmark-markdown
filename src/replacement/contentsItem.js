@@ -5,8 +5,6 @@ import ContentsLinkReplacement from "../replacement/contentsLink";
 import ContentsItemMarkdownNode from "../node/markdown/contentsItem";
 
 export default class ContentsItemReplacement extends Replacement {
-  static fromNodeAndTokens(node, tokens) { return Replacement.fromNodeAndTokens(ContentsItemReplacement, node, tokens); }
-
   static fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context) {
     const replacements = [],
           contentsLinkReplacement = ContentsLinkReplacement.fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context);
@@ -42,7 +40,7 @@ export default class ContentsItemReplacement extends Replacement {
       replacement.getTokens(tokens);
     });
 
-    const contentsItemReplacement = ContentsItemReplacement.fromNodeAndTokens(node, tokens);
+    const contentsItemReplacement = Replacement.fromNodeAndTokens(ContentsItemReplacement, node, tokens);
 
     return contentsItemReplacement;
   }

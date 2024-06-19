@@ -2,15 +2,16 @@
 
 import { linkMarkdownNodesFromNode } from "../utilities/query";
 
-export function renumberLinkMarkdownNodes(divisionMarkdownNode, callback, context) {
-  const { footnoteNumberMap } = context,
-        node = divisionMarkdownNode,  ///
+export function renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListReplacement, callback, context) {
+  const node = divisionMarkdownNode,  ///
+        start = footnotesListReplacement.getStart(),
+        identifiers = footnotesListReplacement.getIdentifiers(),
         linkMarkdownNodes = linkMarkdownNodesFromNode(node);
 
   linkMarkdownNodes.forEach((linkMarkdownNode) => {
     const identifier = linkMarkdownNode.identifier(context),
-          footnoteNumber = footnoteNumberMap[identifier] || null,
-          number = footnoteNumber;  ///
+          index = identifiers.indexOf(identifier),
+          number = start + index;
 
     linkMarkdownNode.setNumber(number);
 
