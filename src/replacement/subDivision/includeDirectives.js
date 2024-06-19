@@ -15,16 +15,25 @@ export default class IncludeDirectivesSubDivisionReplacement extends SubDivision
     return this.includeDirectiveMarkdownNodes;
   }
 
+  removeFromDivisionMarkdownNode(divisionMarkdownNode, context) {
+    const ignored = divisionMarkdownNode.isIgnored();
+
+    if (ignored) {
+      return;
+    }
+
+    super.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
+  }
+
   removeSubDivisionMarkdownNode(divisionMarkdownNode, context) {
     this.includeDirectiveMarkdownNodes.forEach((includeDirectiveMarkdownNode) => {
       const includeDirectiveReplacement = includeDirectiveMarkdownNode.resolve(context);
 
       if (includeDirectiveReplacement !== null) {
-        const subDivisionMarkdownNodes = includeDirectiveReplacement.addDivisionMarkdownNode(context);
+        const divisionMarkdownNode = includeDirectiveReplacement.getDivisionMarkdownNode(),
+              subDivisionMarkdownNodes = includeDirectiveReplacement.addDivisionMarkdownNode(context);
 
         subDivisionMarkdownNodes.forEach((subDivisionMarkdownNode) => {
-          const divisionMarkdownNode = includeDirectiveReplacement.getDivisionMarkdownNode();
-
           subDivisionMarkdownNode.resolveIncludes(divisionMarkdownNode, context);
         });
       }

@@ -42,9 +42,14 @@ const CONTENT_PATH = "content.md",
       INSTALLING_THE_CLI_PATH = "installing-the-cli.md",
       GETTING_TO_GRIPS_WITH_THE_IDE_PATH = "getting-to-grips-with-the-ide.md";
 
-export const defaultContent = `@include ${FRONT_MATTER_PATH}`;
+export const defaultContent = `@ignore
 
-const contentContent = `@include ${INTRODUCTION_PATH}
+@include ${FRONT_MATTER_PATH}
+@include ${CONTENT_PATH}`;
+
+const contentContent = `@ignore
+
+@include ${INTRODUCTION_PATH}
 @include ${GETTING_STARTED_PATH}`,
 
       contentsContent = `## Contents
@@ -53,7 +58,10 @@ const contentContent = `@include ${INTRODUCTION_PATH}
 
       halfTitleContent = `# Occam`,
 
-      frontMatterContent = `Front matter`,
+      frontMatterContent = `@ignore
+
+@include ${HALF_TITLE_PATH}
+@include ${CONTENTS_PATH}`,
 
       introductionContent = `# Introduction
       
