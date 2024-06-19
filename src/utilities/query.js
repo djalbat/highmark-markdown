@@ -7,7 +7,7 @@ const { first, push } = arrayUtilities;
 
 const footnoteMarkdownNodeQuery = Query.fromExpression("/subDivision/footnote"),
       ignoreDirectiveMarkdownNodeQuery = Query.fromExpression("/division/subDivision/directives/ignoreDirective"),
-      contentsDirectiveMarkdownNodeQuery = Query.fromExpression("/division/subDivision/directives/contentsDirective"),
+      contentsDirectiveMarkdownNodeQuery = Query.fromExpression("/subDivision/directives/contentsDirective"),
       footnotesDirectiveMarkdownNodeQuery = Query.fromExpression("/subDivision/directives/footnotesDirective"),
       pageNumberDirectiveMarkdownNodeQuery = Query.fromExpression("/subDivision/directives/pageNumber"),  ///
       linkMarkdownNodesQuery = Query.fromExpression("//link"),

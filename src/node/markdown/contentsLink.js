@@ -31,8 +31,7 @@ export default class ContentsLinkMarkdownNode extends MarkdownNode {
   clone() { return super.clone(this.identifier); }
 
   static fromLineReplacementAndIdentifier(lineReplacement, identifier) {
-      const lineReplacementNode = lineReplacement.getNode(),
-            lineMarkdownNode = lineReplacementNode, ///
+      const lineMarkdownNode = lineReplacement.getLineMarkdownNode(),
             ruleName = CONTENTS_LINK_RULE_NAME,
             childNodes = [
               lineMarkdownNode

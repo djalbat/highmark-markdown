@@ -5,6 +5,13 @@ import ContentsLinkReplacement from "../replacement/contentsLink";
 import ContentsItemMarkdownNode from "../node/markdown/contentsItem";
 
 export default class ContentsItemReplacement extends Replacement {
+  getContentsItemMarkdownNode() {
+    const node = this.getNode(),
+          contentsItemMarkdownNode = node;  ///
+
+    return contentsItemMarkdownNode;
+  }
+
   static fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context) {
     const replacements = [],
           contentsLinkReplacement = ContentsLinkReplacement.fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context);

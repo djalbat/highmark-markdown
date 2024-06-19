@@ -8,7 +8,7 @@ export default class ContentsListMarkdownNode extends MarkdownNode {
   static fromContentsItemReplacements(contentsItemReplacements) {
     const ruleName = CONTENTS_LIST_RULE_NAME,
           childNodes = contentsItemReplacements.map((contentsItemReplacement) => {
-            const contentsItemReplacementNode = contentsItemReplacement.getNode(),
+            const contentsItemReplacementNode = contentsItemReplacement.getContentsItemMarkdownNode(),
                   childNode = contentsItemReplacementNode;  ///
 
             return childNode;

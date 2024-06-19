@@ -38,8 +38,8 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
     if (footnotesItemReplacementsLength > 0) {
       const ruleName = FOOTNOTES_LIST_RULE_NAME,
             childNodes = footnotesItemReplacements.map((footnotesItemReplacement) => {
-              const footnotesItemReplacementMode = footnotesItemReplacement.getNode(),
-                childNode = footnotesItemReplacementMode; ///
+              const footnotesItemReplacementMode = footnotesItemReplacement.getFootnotesItemMarkdownNode(),
+                    childNode = footnotesItemReplacementMode; ///
 
               return childNode;
             }),

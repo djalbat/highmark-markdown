@@ -5,7 +5,14 @@ import Replacement from "../replacement";
 import FootnotesItemMarkdownNode from "../node/markdown/footnotesItem";
 
 export default class FootnotesItemReplacement extends Replacement {
-  static fromNode(node, context, ...remainingArguments) { return Replacement.fromNode(FootnotesItemReplacement, node, context, ...remainingArguments); }
+  getFootnotesItemMarkdownNode() {
+    const node = this.getNode(),
+          footnotesItemMarkdownNode = node; ///
+
+    return footnotesItemMarkdownNode;
+  }
+
+  static fromNode(node, context) { return Replacement.fromNode(FootnotesItemReplacement, node, context); }
 
   static fromFootnoteReplacementAndIdentifier(footnoteReplacement, identifier) {
       const footnoteMarkdownNode = footnoteReplacement.getFootnoteMarkdownNode(),

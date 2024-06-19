@@ -13,7 +13,7 @@ export function postprocess(divisionMarkdownNode, context) {
 
   createFootnotes(divisionMarkdownNodes, footnoteMap, context);
 
-  // createContents(divisionMarkdownNodes, context);
+  createContents(divisionMarkdownNodes, context);
 
   return divisionMarkdownNodes;
 }

@@ -147,7 +147,6 @@ contentsList {
   list-style-type: none;
 
   contentsList {
-    margin-top: 7pt;
     margin-left: 13pt;
   }
 }
