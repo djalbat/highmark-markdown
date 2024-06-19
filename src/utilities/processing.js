@@ -25,11 +25,11 @@ function paginate(divisionMarkdownNodes, context) {
     divisionMarkdownNode.paginate(paginatedDivisionMarkdownNodes, context);
   });
 
-  // paginatedDivisionMarkdownNodes.forEach((paginatedDivisionMarkdownNode, index) => {
-  //   const pageNumber = index + 1;
-  //
-  //   paginatedDivisionMarkdownNode.setPageNumber(pageNumber);
-  // });
+  paginatedDivisionMarkdownNodes.forEach((paginatedDivisionMarkdownNode, index) => {
+    const pageNumber = index + 1;
+
+    paginatedDivisionMarkdownNode.setPageNumber(pageNumber);
+  });
 
   divisionMarkdownNodes = paginatedDivisionMarkdownNodes; ///
 

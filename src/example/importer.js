@@ -73,6 +73,8 @@ This book also goes into considerable detail on the subject of Occam's approach 
 Occam has its own language, called Florence,[^florence] but it will also support controlled natural languages in the near future.
 Indeed, the verifier cannot distinguish between these languages at all.
 This book explains how this is possible.
+
+@pageNumber
 `,
 
       gettingStartedContent = `# Getting started
@@ -81,6 +83,8 @@ Another short paragraph.
       
 @embed ${INSTALLING_THE_CLI_PATH}
 @embed ${GETTING_TO_GRIPS_WITH_THE_IDE_PATH}
+
+@pageNumber
 `,
 
       installingTheCLIContent = `## Installing the CLI`,

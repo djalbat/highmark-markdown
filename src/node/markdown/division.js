@@ -40,7 +40,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 
   isIgnored() {
-    const node = this,
+    const node = this,  ///
           ignoreDirectiveMarkdownNode = ignoreDirectiveMarkdownNodeFromNode(node),
           ignored = (ignoreDirectiveMarkdownNode !== null);
 
@@ -96,12 +96,18 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 
   setPageNumber(pageNumber) {
-    const node = this,
-          pageNumberDirective = pageNumberDirectiveMarkdownNodeFromNode(node);
+    const subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes();
 
-    if (pageNumberDirective !== null) {
-      pageNumberDirective.setPageNumber(pageNumber);
-    }
+    subDivisionMarkdownNodes.some((subDivisionMarkdownNode) => {
+      const node = subDivisionMarkdownNode, ///
+            pageNumberDirective = pageNumberDirectiveMarkdownNodeFromNode(node);
+
+      if (pageNumberDirective !== null) {
+        pageNumberDirective.setPageNumber(pageNumber);
+
+        return true;
+      }
+    });
   }
 
   createContents(divisionMarkdownNodes, context) {
