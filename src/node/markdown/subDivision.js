@@ -4,6 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 import EmbedDirectivesSubDivisionReplacement from "../../replacement/subDivision/embedDirectives";
+import IncludeDirectivesSubDivisionReplacement from "../../replacement/subDivision/includeDirectives";
 
 const { second } = arrayUtilities;
 
@@ -18,6 +19,15 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
       subDivisionMarkdownNodes.forEach((subDivisionMarkdownNode) => {
         subDivisionMarkdownNode.resolveEmbeddings(divisionMarkdownNode, context);
       });
+    }
+  }
+
+  resolveIncludes(divisionMarkdownNode, context) {
+    const subDivisionMarkdownNode = this, ///
+          includeDirectivesSubDivisionReplacement = IncludeDirectivesSubDivisionReplacement.fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context);
+
+    if (includeDirectivesSubDivisionReplacement !== null) {
+      includeDirectivesSubDivisionReplacement.removeSubDivisionMarkdownNode(divisionMarkdownNode, context);
     }
   }
 

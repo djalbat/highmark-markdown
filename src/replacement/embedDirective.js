@@ -11,10 +11,24 @@ export default class EmbedDirectiveReplacement extends Replacement {
 
     super.addAfter(existingNode, parentNode, context);
 
-    const node = this.getNode();
+    divisionMarkdownNode = this.getDivisionMarkdownNode();  ///
+
+    const node = divisionMarkdownNode;  ///
 
     subDivisionMarkdownNodesFromNode(node, subDivisionMarkdownNodes);
   }
 
-  static fromNodeAndTokens(node, tokens) { return Replacement.fromNodeAndTokens(EmbedDirectiveReplacement, node, tokens); }
+  getDivisionMarkdownNode() {
+    const node = this.getNode(),
+          divisionMarkdownNode = node;  ///
+
+    return divisionMarkdownNode;
+  }
+
+  static fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens) {
+    const node = divisionMarkdownNode,  ///
+          embedDirectiveReplacement = Replacement.fromNodeAndTokens(EmbedDirectiveReplacement, node, tokens);
+
+    return embedDirectiveReplacement;
+  }
 }

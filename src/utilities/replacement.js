@@ -2,10 +2,10 @@
 
 import { leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "../utilities/node";
 
-export function appendNode(replacementNode, parentNode) {
-  const childNode = replacementNode;  ///
+export function appendNode(appendedNode, parentNode) {
+  const appendedChildNode = appendedNode;  ///
 
-  parentNode.appendChildNode(childNode);
+  parentNode.appendChildNode(appendedChildNode);
 }
 
 export function removeNode(removedNode, parentNode) {
@@ -41,13 +41,13 @@ export function addNodesAfter(existingNode, addedNodes, parentNode) {
   parentNode.addChildNodesAfter(existingChildNode, addedChildNodes);
 }
 
-export function appendTokens(replacementTokens, parentNode, tokens) {
+export function appendTokens(appendedTokens, parentNode, tokens) {
   const node = parentNode, ///
         trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
         start = trailingIndex + 1,
         deleteCount = 0;
 
-  tokens.splice(start, deleteCount, ...replacementTokens);
+  tokens.splice(start, deleteCount, ...appendedTokens);
 }
 
 export function removeTokens(removedNode, tokens) {

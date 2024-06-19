@@ -7,8 +7,6 @@ import { EMPTY_STRING } from "./constants";
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing();
 
-export const DEFAULT_PATH = "default.md";
-
 export default function importer(filePath, context) {
   const content = contentMap[filePath] || null;
 
@@ -44,11 +42,10 @@ const CONTENT_PATH = "content.md",
       INSTALLING_THE_CLI_PATH = "installing-the-cli.md",
       GETTING_TO_GRIPS_WITH_THE_IDE_PATH = "getting-to-grips-with-the-ide.md";
 
-const defaultContent = `@embed ${FRONT_MATTER_PATH}
-@embed ${CONTENT_PATH}`,
+export const defaultContent = `@include ${FRONT_MATTER_PATH}`;
 
-      contentContent = `@embed ${INTRODUCTION_PATH}
-@embed ${GETTING_STARTED_PATH}`,
+const contentContent = `@include ${INTRODUCTION_PATH}
+@include ${GETTING_STARTED_PATH}`,
 
       contentsContent = `## Contents
 
@@ -56,8 +53,7 @@ const defaultContent = `@embed ${FRONT_MATTER_PATH}
 
       halfTitleContent = `# Occam`,
 
-      frontMatterContent = `@embed ${HALF_TITLE_PATH}
-@embed ${CONTENTS_PATH}`,
+      frontMatterContent = `Front matter`,
 
       introductionContent = `# Introduction
       
@@ -76,7 +72,6 @@ Another short paragraph.
 
 const contentMap = {
 
-  [DEFAULT_PATH]: defaultContent,
   [CONTENT_PATH]: contentContent,
   [CONTENTS_PATH]: contentsContent,
   [HALF_TITLE_PATH]: halfTitleContent,

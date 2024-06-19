@@ -26,9 +26,9 @@ export default class HeadingMarkdownNode extends MarkdownNode {
   addAnchor(context) {
     const identifier = this.identifier(context),
           anchorMarkdownNode = AnchorMarkdownNode.fromIdentifier(identifier),
-          childNode = anchorMarkdownNode; ///
+          prependedChildNode = anchorMarkdownNode; ///
 
-    this.prependChildNode(childNode);
+    this.prependChildNode(prependedChildNode);
   }
 
   identifier(context) {

@@ -130,6 +130,15 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     }
   }
 
+  resolveIncludes(context) {
+    const divisionMarkdownNode = this,  ///
+          subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes();
+
+    subDivisionMarkdownNodes.forEach((subDivisionMarkdownNode) => {
+      subDivisionMarkdownNode.resolveIncludes(divisionMarkdownNode, context);
+    });
+  }
+
   resolveEmbeddings(context) {
     const divisionMarkdownNode = this,  ///
           subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes();

@@ -3,45 +3,39 @@
 import { arrayUtilities } from "necessary";
 
 import DirectiveMarkdownNode from "../../../node/markdown/directive";
+import IncludeDirectiveReplacement from "../../../replacement/includeDirective";
 
-const { push, last } = arrayUtilities;
+const { last } = arrayUtilities;
 
 export default class IncludeDirectiveMarkdownNode extends DirectiveMarkdownNode {
   resolve(context) {
-    let html = null;
+    let includeDirectiveReplacement = null;
 
-    const { importer = null } = context;
+    const { importer } = context;
 
     const filePath = this.filePath(context);
 
     importer(filePath, context);
 
     const { importedNode = null,
-            importedTokens = null,
-            importedClassName = null } = context;
+          importedTokens = null,
+          importedClassName = null } = context;
 
     if (importedNode !== null) {
       delete context.importedNode;
       delete context.importedTokens;
       delete context.importedClassName;
 
-      const { tokens, divisionMarkdownNodes } = context,
-            divisionMarkdownNode = importedNode,  ///
+      const divisionMarkdownNode = importedNode,  ///
             divisionClassName = importedClassName,  ///
-            ignored = divisionMarkdownNode.isIgnored();
+            tokens = importedTokens;  ///
 
       divisionMarkdownNode.setDivisionClassName(divisionClassName);
 
-      if (!ignored) {
-        push(tokens, importedTokens);
-
-        divisionMarkdownNodes.push(divisionMarkdownNode);
-      }
-
-      divisionMarkdownNode.resolveIncludes(context);
+      includeDirectiveReplacement = IncludeDirectiveReplacement.fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens);
     }
 
-    return html;
+    return includeDirectiveReplacement;
   }
 
   filePath(context) {

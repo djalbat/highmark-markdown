@@ -17,9 +17,9 @@ import RightSizeableDiv from "./view/div/sizeable/right";
 import MarkdownContainerDiv from "./view/div/container/markdown";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
-import { postprocess } from "../utilities/markdown";
-import { DEFAULT_PATH } from "./importer";
-import { LINES_PER_PAGE, CONTENTS_DEPTH, CHARACTERS_PER_LINE, INTRODUCTION_CLASS_NAME } from "./constants";
+import { postprocess } from "../utilities/processing";
+import { defaultContent } from "./importer";
+import { LINES_PER_PAGE, CONTENTS_DEPTH, CHARACTERS_PER_LINE } from "./constants";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
@@ -82,12 +82,8 @@ class View extends Element {
     this.setTokens(tokens);
 
     if (node !== null) {
-      const divisionClassName = INTRODUCTION_CLASS_NAME,
-            divisionMarkdownNode = node;  ///
-
-      divisionMarkdownNode.setDivisionClassName(divisionClassName);
-
-      const charactersPerLine = CHARACTERS_PER_LINE,
+      const divisionMarkdownNode = node,  ///
+            charactersPerLine = CHARACTERS_PER_LINE,
             contentsDepth = CONTENTS_DEPTH,
             linePerPage = LINES_PER_PAGE,
             context = {
@@ -260,7 +256,7 @@ class View extends Element {
     className: "view"
   };
 
-  static initialMarkdown = `@embed ${DEFAULT_PATH}`;
+  static initialMarkdown = defaultContent;  ///
 
   static initialMarkdownStyle = `width: 100%;
 position: absolute;

@@ -26,16 +26,16 @@ function removeChildNode(removedChildNode) {
   childNodes.splice(start, deleteCount);
 }
 
-function prependChildNode(childNode) {
+function prependChildNode(prependedChildNode) {
   const childNodes = this.getChildNodes();
 
-  childNodes.unshift(childNode);
+  childNodes.unshift(prependedChildNode);
 }
 
-function appendChildNode(childNode) {
+function appendChildNode(appendedChildNode) {
   const childNodes = this.getChildNodes();
 
-  childNodes.push(childNode);
+  childNodes.push(appendedChildNode);
 }
 
 function replaceChildNode(replacedChildNode, replacementChildNode) {

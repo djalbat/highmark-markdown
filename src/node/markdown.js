@@ -102,20 +102,6 @@ class MarkdownNode extends NonTerminalNode {
     return attributeValue;
   }
 
-  resolveIncludes(context) {
-    const childNodes = this.getChildNodes();
-
-    childNodes.forEach((childNode) => {
-      const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
-
-      if (childNodeMarkdownNode) {
-        const markdownNode = childNode; ///
-
-        markdownNode.resolveIncludes(context);
-      }
-    });
-  }
-
   isPlainTextMarkdownNode() {
     const plainTextMarkdownNode = false;
 

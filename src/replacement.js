@@ -61,12 +61,12 @@ export default class Replacement {
 
   appendTo(parentNode, context) {
     const { tokens } = context,
-          replacementNode = this.node,  ///
-          replacementTokens = this.tokens;  ///
+          appendedNode = this.node,  ///
+          appendedTokens = this.tokens;  ///
 
-    appendNode(replacementNode, parentNode);
+    appendNode(appendedNode, parentNode);
 
-    appendTokens(replacementTokens, parentNode, tokens);
+    appendTokens(appendedTokens, parentNode, tokens);
   }
 
   addAfter(existingNode, parentNode, context) {

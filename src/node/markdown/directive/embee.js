@@ -11,7 +11,7 @@ export default class EmbedDirectiveMarkdownNode extends DirectiveMarkdownNode {
   resolve(context) {
     let embedDirectiveReplacement = null;
 
-    const { importer = null } = context;
+    const { importer } = context;
 
     const filePath = this.filePath(context);
 
@@ -24,10 +24,10 @@ export default class EmbedDirectiveMarkdownNode extends DirectiveMarkdownNode {
       delete context.importedNode;
       delete context.importedTokens;
 
-      const node = importedNode,  ///
+      const divisionMarkdownNode = importedNode,  ///
             tokens = importedTokens;  ///
 
-      embedDirectiveReplacement = EmbedDirectiveReplacement.fromNodeAndTokens(node, tokens);
+      embedDirectiveReplacement = EmbedDirectiveReplacement.fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens);
     }
 
     return embedDirectiveReplacement;
