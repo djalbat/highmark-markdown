@@ -7,21 +7,6 @@ import FootnotesListMarkdownNode from "../node/markdown/footnotesList";
 import { linkMarkdownNodesFromNode } from "../utilities/query";
 
 export default class FootnotesListReplacement extends Replacement {
-  constructor(node, tokens, start, identifiers) {
-    super(node, tokens, start, identifiers);
-
-    this.start = start;
-    this.identifiers = identifiers;
-  }
-
-  getStart() {
-    return this.start;
-  }
-
-  getIdentifiers() {
-    return this.identifiers;
-  }
-
   appendToDivisionMarkdownNode(divisionMarkdownNode, context) {
     const parentNode = divisionMarkdownNode; ///
 
@@ -33,22 +18,27 @@ export default class FootnotesListReplacement extends Replacement {
 
     const node = divisionMarkdownNode,  ///
           start = startFromFootnoteMap(footnoteMap),
-          identifiers = [],
           linkMarkdownNodes = linkMarkdownNodesFromNode(node),
           footnotesItemReplacements = [];
+
+    let number = start;
 
     linkMarkdownNodes.forEach((linkMarkdownNode) => {
       const identifier = linkMarkdownNode.identifier(context),
             footnoteReplacement = footnoteMap[identifier] || null;
 
       if (footnoteReplacement !== null) {
-        const footnotesItemReplacement = FootnotesItemReplacement.fromFootnoteReplacementAndIdentifier(footnoteReplacement, identifier, context);
+        const footnoteReplacementUnnumbered = footnoteReplacement.isUnnumbered();
 
-        footnotesItemReplacements.push(footnotesItemReplacement);
+        if (footnoteReplacementUnnumbered) {
+          const footnotesItemReplacement = FootnotesItemReplacement.fromFootnoteReplacementAndIdentifier(footnoteReplacement, identifier, context);
 
-        identifiers.push(identifier);
+          footnotesItemReplacements.push(footnotesItemReplacement);
 
-        footnoteMap[identifier] = null;
+          footnoteReplacement.setNumber(number);
+
+          number++;
+        }
       }
     });
 
@@ -62,7 +52,7 @@ export default class FootnotesListReplacement extends Replacement {
         footnotesItemReplacement.getTokens(tokens);
       });
 
-      footnotesListReplacement = Replacement.fromNodeAndTokens(FootnotesListReplacement, node, tokens, start, identifiers);
+      footnotesListReplacement = Replacement.fromNodeAndTokens(FootnotesListReplacement, node, tokens);
     }
 
     return footnotesListReplacement;
@@ -70,14 +60,16 @@ export default class FootnotesListReplacement extends Replacement {
 }
 
 function startFromFootnoteMap(footnoteMap) {
-  const footnoteReplacements = Object.values(footnoteMap),
-        start = footnoteReplacements.reduce((start, footnoteReplacement) => {
-          if (footnoteReplacement === null) {
-            start++;
-          }
+  const footnoteReplacements = Object.values(footnoteMap),  ///
+        numberedFootnoteReplacements = footnoteReplacements.filter((footnoteReplacement) => {
+          const footnoteReplacementNumbered = footnoteReplacement.isNumbered();
 
-          return start;
-        }, 1);
+          if (footnoteReplacementNumbered) {
+            return true;
+          }
+        }),
+        numberedFootnoteReplacementsLength = numberedFootnoteReplacements.length,
+        start = numberedFootnoteReplacementsLength + 1;
 
   return start;
 }

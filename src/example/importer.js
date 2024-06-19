@@ -74,6 +74,15 @@ Occam has its own language, called Florence,[^florence] but it will also support
 Indeed, the verifier cannot distinguish between these languages at all.
 This book explains how this is possible.
 
+@footnotes
+
+@pageNumber
+`,
+
+      gettingStartedContent = `# Getting started
+      
+Another short paragraph with a reference to a footnote [^occam].
+      
 [^occam]: The word Occam is used somewhat nebulously here.
 It is most often associated with Occam's IDE but in fact it encompasses a range of software and services.
 This book explains these divers parts and there is a companion book, called The Foundations of Symbolic Reasoning, that covers the underlying theory.
@@ -82,13 +91,6 @@ This book explains these divers parts and there is a companion book, called The 
 
 @footnotes
 
-@pageNumber
-`,
-
-      gettingStartedContent = `# Getting started
-      
-Another short paragraph.
-      
 @embed ${INSTALLING_THE_CLI_PATH}
 @embed ${GETTING_TO_GRIPS_WITH_THE_IDE_PATH}
 

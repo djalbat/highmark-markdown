@@ -137,10 +137,10 @@ export default class DivisionMarkdownNode extends MarkdownNode {
             footnotesListReplacement = FootnotesListReplacement.fromDivisionMarkdownNodeAndFootnoteMap(divisionMarkdownNode, footnoteMap, context);
 
       if (footnotesListReplacement !== null) {
-        renumberLinkMarkdownNodes(divisionMarkdownNode, footnotesListReplacement, callback, context);
-
         footnotesListReplacement.appendToDivisionMarkdownNode(divisionMarkdownNode, context);
       }
+
+      renumberLinkMarkdownNodes(divisionMarkdownNode, footnoteMap, callback, context);
     }
 
     function callback() {
@@ -290,13 +290,3 @@ ${childNodesHTML}${indent}${closingTag}
     return divisionMarkdownNode;
   }
 }
-
-// function footnoteReplacementsFromFootnoteSubDivisionReplacements(footnoteSubDivisionReplacements) {
-//   const footnoteReplacements = footnoteSubDivisionReplacements.map((footnoteSubDivisionReplacement) => {
-//     const footnoteReplacement = FootnoteReplacement.fromFootnoteSubDivisionReplacement(footnoteSubDivisionReplacement);
-//
-//     return footnoteReplacement;
-//   });
-//
-//   return footnoteReplacements;
-// }

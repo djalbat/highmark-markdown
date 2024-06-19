@@ -25,7 +25,7 @@ export default class Replacement {
 
   getChildNodes() { return this.node.getChildNodes(); }
 
-  contract(Class, descendentNode) {
+  contract(Class, descendentNode, ...remainingArguments) {
     if (descendentNode === undefined) {
       descendentNode = Class; ///
 
@@ -37,12 +37,12 @@ export default class Replacement {
           context = { ///
             tokens
           },
-          replacement = Class.fromNode(node, context);  ///
+          replacement = Class.fromNode(node, context, ...remainingArguments);
 
     return replacement;
   }
 
-  expand(Class, ascendantNode) {
+  expand(Class, ascendantNode, ...remainingArguments) {
     if (ascendantNode === undefined) {
       ascendantNode = Class;
 
@@ -54,7 +54,7 @@ export default class Replacement {
           context = {
             tokens
           },
-          replacement = Class.fromNode(node, context);  ///
+          replacement = Class.fromNode(node, context, ...remainingArguments);
 
     return replacement;
   }
