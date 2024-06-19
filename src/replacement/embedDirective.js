@@ -1,22 +1,19 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import Replacement from "../replacement";
 
-const { push } = arrayUtilities;
+import { subDivisionMarkdownNodesFromNode } from "../utilities/query";
 
 export default class EmbedDirectiveReplacement extends Replacement {
   addAfterSubDivisionMarkdownNode(subDivisionMarkdownNode, divisionMarkdownNode, subDivisionMarkdownNodes, context) {
     const existingNode = subDivisionMarkdownNode, ///
-          parentNode = divisionMarkdownNode,  ///
-          childNodes = this.getChildNodes();
+          parentNode = divisionMarkdownNode;  ///
 
     super.addAfter(existingNode, parentNode, context);
 
-    const embeddedDubDivisionMarkdownNodes = childNodes;  ///
+    const node = this.getNode();
 
-    push(subDivisionMarkdownNodes, embeddedDubDivisionMarkdownNodes);
+    subDivisionMarkdownNodesFromNode(node, subDivisionMarkdownNodes);
   }
 
   static fromNodeAndTokens(node, tokens) { return Replacement.fromNodeAndTokens(EmbedDirectiveReplacement, node, tokens); }

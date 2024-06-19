@@ -7,6 +7,7 @@ import { MarkdownLexer, MarkdownParser, MarkdownStyleLexer, MarkdownStyleParser 
 import { RowDiv, RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv, HorizontalSplitterDiv } from "easy-layout";
 
 import HTMLDiv from "./view/div/html";
+import importer from "./importer";
 import PreviewDiv from "./view/div/preview";
 import SubHeading from "./view/subHeading";
 import CSSTextarea from "./view/textarea/css";
@@ -17,6 +18,7 @@ import MarkdownContainerDiv from "./view/div/container/markdown";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
 import { postprocess } from "../utilities/markdown";
+import { DEFAULT_PATH } from "./importer";
 import { LINES_PER_PAGE, CONTENTS_DEPTH, CHARACTERS_PER_LINE, INTRODUCTION_CLASS_NAME } from "./constants";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
@@ -258,9 +260,7 @@ class View extends Element {
     className: "view"
   };
 
-  static initialMarkdown = `@embed introduction.md
-  
-@embed contents.md`;
+  static initialMarkdown = `@embed ${DEFAULT_PATH}`;
 
   static initialMarkdownStyle = `width: 100%;
 position: absolute;
@@ -274,20 +274,3 @@ export default withStyle(View)`
   padding: 1rem;
   
 `;
-
-function importer(filePath, context) {
-  const content = `# ${filePath}`,
-        startOfContent = true,
-        startRule = markdownParser.getStartRule(),
-        tokens = markdownLexer.tokenise(content),
-        node = markdownParser.parse(tokens, startRule, startOfContent),
-        importedNode = node,  ///
-        importedTokens = tokens,
-        importedClassName = "introduction";
-
-  Object.assign(context, {
-    importedNode,
-    importedTokens,
-    importedClassName
-  });
-}
