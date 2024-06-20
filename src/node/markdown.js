@@ -23,14 +23,6 @@ class MarkdownNode extends NonTerminalNode {
     this.domElement = domElement;
   }
 
-  getDOMElements() {
-    const domElements = (this.domElement === null) ?
-                          [] :
-                            [this.domElement];
-
-    return domElements;
-  }
-
   tagName(context) {
     const { tagName } = elementMap[this.ruleName];
 

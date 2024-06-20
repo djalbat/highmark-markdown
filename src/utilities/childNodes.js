@@ -5,7 +5,7 @@ import { arrayUtilities } from "necessary";
 import { EMPTY_STRING } from "../constants";
 import { contentFromNodes } from "../utilities/content";
 
-const { first, last, push, clear } = arrayUtilities;
+const { first, last, clear } = arrayUtilities;
 
 export function htmlFromChildNodes(childNodes, context) {
   const htmls = [],
@@ -133,9 +133,9 @@ export function domElementsFromChildNodes(childNodes, context) {
 
         markdownNode.createDOMElement(context);
 
-        const markdownNodeDOMElements = markdownNode.getDOMElements();
+        const domElement = markdownNode.getDOMElement();
 
-        push(domElements, markdownNodeDOMElements);
+        domElements.push(domElement);
       }
     }
   });

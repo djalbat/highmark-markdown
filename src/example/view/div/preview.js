@@ -29,7 +29,9 @@ class PreviewDiv extends Element {
   getDOMElements() {
     const parentDOMElement = this.getParentDOMElement(),
           { childNodes } = parentDOMElement,
-          domElements = [ ...childNodes ];  ///
+          domElements = [ ///
+            ...childNodes
+          ];
 
     return domElements;
   }
