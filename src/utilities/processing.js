@@ -7,11 +7,11 @@ export function postprocess(divisionMarkdownNode, context) {
 
   resolveEmbeddings(divisionMarkdownNodes, context);
 
-  const footnoteMap = prepareFootnotes(divisionMarkdownNodes, context);
+  const footnoteReplacementMap = prepareFootnotes(divisionMarkdownNodes, context);
 
   divisionMarkdownNodes = paginate(divisionMarkdownNodes, context);
 
-  createFootnotes(divisionMarkdownNodes, footnoteMap, context);
+  createFootnotes(divisionMarkdownNodes, footnoteReplacementMap, context);
 
   createContents(divisionMarkdownNodes, context);
 
@@ -46,9 +46,9 @@ function createContents(divisionMarkdownNodes, context) {
   });
 }
 
-function createFootnotes(divisionMarkdownNodes, footnoteMap, context) {
+function createFootnotes(divisionMarkdownNodes, footnoteReplacementMap, context) {
   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-    divisionMarkdownNode.createFootnotes(footnoteMap, context);
+    divisionMarkdownNode.createFootnotes(footnoteReplacementMap, context);
   });
 }
 
@@ -73,13 +73,13 @@ function resolveIncludes(divisionMarkdownNode, context) {
 }
 
 function prepareFootnotes(divisionMarkdownNodes, context) {
-  const footnoteMap = {};
+  const footnoteReplacementMap = {};
 
   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-    divisionMarkdownNode.prepareFootnotes(footnoteMap, context);
+    divisionMarkdownNode.prepareFootnotes(footnoteReplacementMap, context);
   });
 
-  return footnoteMap;
+  return footnoteReplacementMap;
 }
 
 function resolveEmbeddings(divisionMarkdownNodes, context) {

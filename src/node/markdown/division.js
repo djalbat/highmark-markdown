@@ -129,34 +129,34 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return contentsCreated;
   }
 
-  createFootnotes(footnoteMap, context) {
+  createFootnotes(footnoteReplacementMap, context) {
     const footnotesDirectiveSubDivisionReplacement = this.removeSubDivisionMarkdownNode(FootnotesDirectiveSubDivisionReplacement, context);
 
     if (footnotesDirectiveSubDivisionReplacement !== null) {
       const divisionMarkdownNode = this,  ///
-            footnotesListReplacement = FootnotesListReplacement.fromDivisionMarkdownNodeAndFootnoteMap(divisionMarkdownNode, footnoteMap, context);
+            footnotesListReplacement = FootnotesListReplacement.fromDivisionMarkdownNodeAndFootnoteReplacementMap(divisionMarkdownNode, footnoteReplacementMap, context);
 
       if (footnotesListReplacement !== null) {
         footnotesListReplacement.appendToDivisionMarkdownNode(divisionMarkdownNode, context);
       }
 
-      renumberLinkMarkdownNodes(divisionMarkdownNode, footnoteMap, callback, context);
+      renumberLinkMarkdownNodes(divisionMarkdownNode, footnoteReplacementMap, callback, context);
     }
 
-    function callback() {
+    function callback(linkMarkdownNode) {
       ///
     }
   }
 
-  prepareFootnotes(footnoteMap, context) {
+  prepareFootnotes(footnoteReplacementMap, context) {
     const footnoteSubDivisionReplacements = this.removeSubDivisionMarkdownNodes(FootnoteSubDivisionReplacement, context);
 
     footnoteSubDivisionReplacements.forEach((footnoteSubDivisionReplacement) => {
       const footnoteReplacement = FootnoteReplacement.fromFootnoteSubDivisionReplacement(footnoteSubDivisionReplacement),
             identifier = footnoteSubDivisionReplacement.identifier(context);
 
-      footnoteMap[identifier] = footnoteReplacement;
-    })
+      footnoteReplacementMap[identifier] = footnoteReplacement;
+    });
   }
 
   resolveIncludes(context) {
@@ -237,14 +237,21 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return subDivisionReplacements;
   }
 
-  // createFootnotesListReplacement(context) {
-  //   const footnoteSubDivisionReplacements = this.findSubDivisionReplacements(FootnoteSubDivisionReplacement, context),
-  //         footnoteReplacements = footnoteReplacementsFromFootnoteSubDivisionReplacements(footnoteSubDivisionReplacements),
-  //         divisionMarkdownNode = this,  ///
-  //         footnotesListReplacement = FootnotesListReplacement.fromFootnoteReplacementsAndDivisionMarkdownNode(footnoteReplacements, divisionMarkdownNode, context);
-  //
-  //   return footnotesListReplacement;
-  // }
+  createFootnotesListReplacement(footnoteReplacementMap, context) {
+    const footnoteSubDivisionReplacements = this.findSubDivisionReplacements(FootnoteSubDivisionReplacement, context);
+
+    footnoteSubDivisionReplacements.forEach((footnoteSubDivisionReplacement) => {
+      const footnoteReplacement = FootnoteReplacement.fromFootnoteSubDivisionReplacement(footnoteSubDivisionReplacement),
+            identifier = footnoteSubDivisionReplacement.identifier(context);
+
+      footnoteReplacementMap[identifier] = footnoteReplacement;
+    });
+
+    const divisionMarkdownNode = this,  ///
+          footnotesListReplacement = FootnotesListReplacement.fromDivisionMarkdownNodeAndFootnoteReplacementMap(divisionMarkdownNode, footnoteReplacementMap, context);
+
+    return footnotesListReplacement;
+  }
 
   asHTML(context) {
     let html = null;

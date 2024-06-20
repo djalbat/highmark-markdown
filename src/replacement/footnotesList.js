@@ -13,11 +13,11 @@ export default class FootnotesListReplacement extends Replacement {
     super.appendTo(parentNode, context);
   }
 
-  static fromDivisionMarkdownNodeAndFootnoteMap(divisionMarkdownNode, footnoteMap, context) {
+  static fromDivisionMarkdownNodeAndFootnoteReplacementMap(divisionMarkdownNode, footnoteReplacementMap, context) {
     let footnotesListReplacement = null;
 
     const node = divisionMarkdownNode,  ///
-          start = startFromFootnoteMap(footnoteMap),
+          start = startFromFootnoteReplacementMap(footnoteReplacementMap),
           linkMarkdownNodes = linkMarkdownNodesFromNode(node),
           footnotesItemReplacements = [];
 
@@ -25,7 +25,7 @@ export default class FootnotesListReplacement extends Replacement {
 
     linkMarkdownNodes.forEach((linkMarkdownNode) => {
       const identifier = linkMarkdownNode.identifier(context),
-            footnoteReplacement = footnoteMap[identifier] || null;
+            footnoteReplacement = footnoteReplacementMap[identifier] || null;
 
       if (footnoteReplacement !== null) {
         const footnoteReplacementUnnumbered = footnoteReplacement.isUnnumbered();
@@ -59,8 +59,8 @@ export default class FootnotesListReplacement extends Replacement {
   }
 }
 
-function startFromFootnoteMap(footnoteMap) {
-  const footnoteReplacements = Object.values(footnoteMap),  ///
+function startFromFootnoteReplacementMap(footnoteReplacementMap) {
+  const footnoteReplacements = Object.values(footnoteReplacementMap),  ///
         numberedFootnoteReplacements = footnoteReplacements.filter((footnoteReplacement) => {
           const footnoteReplacementNumbered = footnoteReplacement.isNumbered();
 
