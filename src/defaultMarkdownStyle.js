@@ -101,7 +101,7 @@ inlineListing {
 
 blockListing {
   display: block;
-  padding: 6pt;
+  padding: 6pt 12pt;
   overflow-x: scroll;
 }
 

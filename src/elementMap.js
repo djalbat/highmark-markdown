@@ -112,7 +112,7 @@ const elementMap = {
   },
   [BLOCK_LINE_RULE_NAME]: {
     tagName: "span",
-    className: null
+    className: "block-line"
   },
   [CLASS_NAME_RULE_NAME]: {
     tagName: null,

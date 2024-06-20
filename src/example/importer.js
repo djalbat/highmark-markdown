@@ -44,7 +44,8 @@ const CONTENT_PATH = "content.md",
 
 export const defaultContent = `
 \`\`\`
-node --version
+git clone
+  npm install
 \`\`\`
 `;
 
