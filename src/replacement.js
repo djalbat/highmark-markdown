@@ -37,7 +37,7 @@ export default class Replacement {
           context = { ///
             tokens
           },
-          replacement = Class.fromNode(node, context, ...remainingArguments);
+          replacement = Class.fromNode(node, ...remainingArguments, context);
 
     return replacement;
   }
@@ -54,7 +54,7 @@ export default class Replacement {
           context = {
             tokens
           },
-          replacement = Class.fromNode(node, context, ...remainingArguments);
+          replacement = Class.fromNode(node, ...remainingArguments, context);
 
     return replacement;
   }
@@ -114,14 +114,16 @@ export default class Replacement {
 
     overwriteNodeTokens(node, clonedTokens, this.tokens);
 
-    const Class = this.constructor,
+    const Class = this.constructor, ///
           tokens = clonedTokens, ///
           replacement = new Class(node, tokens, ...remainingArguments);
 
     return replacement
   }
 
-  static fromNode(Class, node, context, ...remainingArguments) {
+  static fromNode(Class, node, ...remainingArguments) {
+    let context = remainingArguments.pop();
+
     if (context === undefined) {
       context = node; ///
 

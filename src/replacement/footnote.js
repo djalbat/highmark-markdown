@@ -39,7 +39,7 @@ export default class FootnoteReplacement extends Replacement {
     return footnoteMarkdownNode;
   }
 
-  static fromNode(node, context, ...remainingArguments) { return Replacement.fromNode(FootnoteReplacement, node, context, ...remainingArguments); }
+  static fromNode(node, ...remainingArguments) { return Replacement.fromNode(FootnoteReplacement, node, ...remainingArguments); }
 
   static fromFootnoteSubDivisionReplacement(footnoteSubDivisionReplacement) {
     const node = footnoteSubDivisionReplacement.getNode(),

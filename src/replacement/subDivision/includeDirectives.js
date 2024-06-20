@@ -50,7 +50,7 @@ export default class IncludeDirectivesSubDivisionReplacement extends SubDivision
           includeDirectiveMarkdownNodesLength = includeDirectiveMarkdownNodes.length;
 
     if (includeDirectiveMarkdownNodesLength > 0) {
-      includeDirectivesSubDivisionReplacement = SubDivisionReplacement.fromSubDivisionMarkdownNode(IncludeDirectivesSubDivisionReplacement, subDivisionMarkdownNode, context, includeDirectiveMarkdownNodes);
+      includeDirectivesSubDivisionReplacement = SubDivisionReplacement.fromSubDivisionMarkdownNode(IncludeDirectivesSubDivisionReplacement, subDivisionMarkdownNode, includeDirectiveMarkdownNodes, context);
     }
 
     return includeDirectivesSubDivisionReplacement;

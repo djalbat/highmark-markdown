@@ -44,7 +44,7 @@ export default class EmbedDirectivesSubDivisionReplacement extends SubDivisionRe
           embedDirectiveMarkdownNodesLength = embedDirectiveMarkdownNodes.length;
 
     if (embedDirectiveMarkdownNodesLength > 0) {
-      embedDirectivesSubDivisionReplacement = SubDivisionReplacement.fromSubDivisionMarkdownNode(EmbedDirectivesSubDivisionReplacement, subDivisionMarkdownNode, context, embedDirectiveMarkdownNodes);
+      embedDirectivesSubDivisionReplacement = SubDivisionReplacement.fromSubDivisionMarkdownNode(EmbedDirectivesSubDivisionReplacement, subDivisionMarkdownNode, embedDirectiveMarkdownNodes, context);
     }
 
     return embedDirectivesSubDivisionReplacement;
