@@ -5,12 +5,6 @@ import MarkdownNode from "../../node/markdown";
 import { CARRIAGE_RETURN } from "../../constants";
 
 export default class EndOfLineMarkdownNode extends MarkdownNode {
-  lines(context) {
-    const lines = 0;
-
-    return lines;
-  }
-
   content(context) {
     const content = CARRIAGE_RETURN;
 
@@ -33,6 +27,8 @@ export default class EndOfLineMarkdownNode extends MarkdownNode {
 
     return domElement;
   }
+
+  static lines = 1;
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EndOfLineMarkdownNode, ruleName, childNodes, opacity); }
 }

@@ -79,5 +79,7 @@ export default class BlockLineMarkdownNode extends MarkdownNode {
     parentDOMElement.appendChild(domElement);
   }
 
+  static lines = 1;
+
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(BlockLineMarkdownNode, ruleName, childNodes, opacity); }
 }

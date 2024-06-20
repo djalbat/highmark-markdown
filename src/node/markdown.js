@@ -109,19 +109,26 @@ class MarkdownNode extends NonTerminalNode {
   }
 
   lines(context) {
-    const childNodes = this.getChildNodes(),
-          lines = childNodes.reduce((lines, childNode) => {
-            const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
+    let lines;
 
-            if (childNodeMarkdownNode) {
-              const markdownNode = childNode, ///
-                    markdownNodeLines = markdownNode.lines(context);
+    ({ lines = null } = this.constructor);
 
-              lines += markdownNodeLines;
-            }
+    if (lines === null) {
+      const childNodes = this.getChildNodes();
 
-            return lines;
-          }, 0);
+      lines = childNodes.reduce((lines, childNode) => {
+        const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
+
+        if (childNodeMarkdownNode) {
+          const markdownNode = childNode, ///
+                markdownNodeLines = markdownNode.lines(context);
+
+          lines += markdownNodeLines;
+        }
+
+        return lines;
+      }, 0);
+    }
 
     return lines;
   }

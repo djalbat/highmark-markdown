@@ -10,12 +10,6 @@ import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 const { first, second, secondLast } = arrayUtilities;
 
 class EmailLinkMarkdownNode extends MarkdownNode {
-  lines(context) {
-    const lines = 0;
-
-    return lines;
-  }
-
   inlineText(context) {
     let inlineText = null;
 

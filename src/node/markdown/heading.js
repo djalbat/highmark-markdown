@@ -11,12 +11,6 @@ import { replaceSpacesWithHyphens, removedLeadingWhitespace, removeNonAlphabetic
 const { last } = arrayUtilities;
 
 export default class HeadingMarkdownNode extends MarkdownNode {
-  lines(context) {
-    const { lines } = this.constructor;
-
-    return lines;
-  }
-
   getDepth() {
     const { depth } = this.constructor;
 
