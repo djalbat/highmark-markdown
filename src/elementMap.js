@@ -175,7 +175,7 @@ const elementMap = {
     className: null
   },
   [INLINE_LISTING_RULE_NAME]: {
-    tagName: "pre",
+    tagName: "code",
     className: "inline"
   },
   [UNORDERED_LIST_RULE_NAME]: {
