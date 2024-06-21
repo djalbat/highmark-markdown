@@ -1,6 +1,22 @@
 "use strict";
 
 const defaultMarkdownStyle = `
+secondaryHeading,
+tertiaryHeading,
+quaternaryHeading,
+orderedListItem,
+unorderedListItem {
+  :first-child {
+    margin-top: 0;
+  }
+  
+  :last-child {
+    margin-bottom: 0;
+  }
+}
+`;
+
+const _defaultMarkdownStyle = `
 colour: black;
 padding: 24pt;
 position: relative;
