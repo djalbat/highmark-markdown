@@ -2,7 +2,6 @@
 
 import { arrayUtilities } from "necessary";
 
-import { leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "./utilities/node";
 import { removeNode, appendNode, removeTokens, appendTokens, replaceNode, replaceNodes, replaceTokens, addNodesAfter, addTokensAfter } from "./utilities/replacement";
 
 const { push } = arrayUtilities;
@@ -135,8 +134,8 @@ export default class Replacement {
     let { tokens } = context;
 
     const clonedTokens = clonedTokensFromNodeAndTokens(node, tokens),
-          leadingIndex = leadingIndexFromNodeAndTokens(node, tokens),
-          offset = leadingIndex;  ///
+          firstSignificantTokenIndex = node.getFirstSignificantTokenIndex(tokens),
+          offset = firstSignificantTokenIndex;  ///
 
     node = node.clone();  ///
 
@@ -208,10 +207,10 @@ function overwriteNonTerminalNodeTokens(nonTerminalNode, clonedTokens, tokens, o
 }
 
 function clonedTokensFromNodeAndTokens(node, tokens) {
-  const leadingIndex = leadingIndexFromNodeAndTokens(node, tokens),
-        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
-        start = leadingIndex,  ///
-        end = trailingIndex + 1;
+  const firstSignificantTokenIndex = node.getFirstSignificantTokenIndex(tokens),
+        lastSignificantTokenIndex = node.getLastSignificantTokenIndex(tokens),
+        start = firstSignificantTokenIndex,  ///
+        end = lastSignificantTokenIndex + 1;
 
   tokens = tokens.slice(start, end);  ///
 

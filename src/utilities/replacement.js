@@ -1,7 +1,5 @@
 "use strict";
 
-import { leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "../utilities/node";
-
 export function appendNode(appendedNode, parentNode) {
   const appendedChildNode = appendedNode;  ///
 
@@ -43,8 +41,8 @@ export function addNodesAfter(existingNode, addedNodes, parentNode) {
 
 export function appendTokens(appendedTokens, parentNode, tokens) {
   const node = parentNode, ///
-        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
-        start = trailingIndex + 1,
+        lastSignificantTokenIndex = node.getLastSignificantTokenIndex(tokens),
+        start = lastSignificantTokenIndex + 1,
         deleteCount = 0;
 
   tokens.splice(start, deleteCount, ...appendedTokens);
@@ -52,10 +50,10 @@ export function appendTokens(appendedTokens, parentNode, tokens) {
 
 export function removeTokens(removedNode, tokens) {
   const node = removedNode,  ///
-        leadingIndex = leadingIndexFromNodeAndTokens(node, tokens),
-        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
-        start = leadingIndex, ///
-        end = trailingIndex + 1,
+        firstSignificantTokenIndex = node.getFirstSignificantTokenIndex(tokens),
+        lastSignificantTokenIndex = node.getLastSignificantTokenIndex(tokens),
+        start = firstSignificantTokenIndex, ///
+        end = lastSignificantTokenIndex + 1,
         deleteCount = end - start;
 
   tokens.splice(start, deleteCount);
@@ -63,10 +61,10 @@ export function removeTokens(removedNode, tokens) {
 
 export function replaceTokens(replacementTokens, replacedNode, tokens) {
   const node = replacedNode,  ///
-        leadingIndex = leadingIndexFromNodeAndTokens(node, tokens),
-        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
-        start = leadingIndex, ///
-        end = trailingIndex + 1,
+        firstSignificantTokenIndex = node.getFirstSignificantTokenIndex(tokens),
+        lastSignificantTokenIndex = node.getLastSignificantTokenIndex(tokens),
+        start = firstSignificantTokenIndex, ///
+        end = lastSignificantTokenIndex + 1,
         deleteCount = end - start;
 
   tokens.splice(start, deleteCount, ...replacementTokens);
@@ -81,8 +79,8 @@ export function addNodeAfter(existingNode, addedNode, parentNode) {
 
 export function addTokensAfter(existingNode, addedTokens, tokens) {
   const node = existingNode,  ///
-        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
-        start = trailingIndex + 1,
+        lastSignificantTokenIndex = node.getLastSignificantTokenIndex(tokens),
+        start = lastSignificantTokenIndex + 1,
         deleteCount = 0;
 
   tokens.splice(start, deleteCount, ...addedTokens);

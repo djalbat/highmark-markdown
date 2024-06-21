@@ -4,7 +4,6 @@ import { arrayUtilities } from "necessary";
 
 import { EMPTY_STRING } from "../constants";
 import { ESCAPED_TOKEN_TYPE } from "../tokenTypes";
-import { leadingIndexFromNodeAndTokens, trailingIndexFromNodeAndTokens } from "../utilities/node";
 
 const { first, last } = arrayUtilities;
 
@@ -13,10 +12,10 @@ export function contentFromNode(node, context) {
 
   let { tokens } = context;
 
-  const leadingIndex = leadingIndexFromNodeAndTokens(node, tokens),
-        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens),
-        start = leadingIndex,  ///
-        end = trailingIndex + 1;
+  const firstSignificantTokenIndex = node.getFirstSignificantTokenIndex(tokens),
+        lastSignificantTokenIndex = node.getLastSignificantTokenIndex(tokens),
+        start = firstSignificantTokenIndex,  ///
+        end = lastSignificantTokenIndex + 1;
 
   tokens = tokens.slice(start, end);
 
@@ -36,11 +35,11 @@ export function contentFromNodes(nodes, augmentLeft, augmentRight, context) {
 
   const lastNode = last(nodes),
         firstNode = first(nodes),
-        leadingIndex = leadingIndexFromNodeAndTokens(firstNode, tokens),
-        trailingIndex = trailingIndexFromNodeAndTokens(lastNode, tokens);
+        firstSignificantTokenIndex = firstNode.getFirstSignificantTokenIndex(tokens),
+        lastSignificantTokenIndex = lastNode.getLastSignificantTokenIndex(tokens);
 
-  let firstTokenIndex = leadingIndex,  ///
-      lastTokenIndex = trailingIndex; ///
+  let firstTokenIndex = firstSignificantTokenIndex,  ///
+      lastTokenIndex = lastSignificantTokenIndex; ///
 
   if (augmentLeft) {
     const previousTokenIndex = firstTokenIndex - 1;
@@ -87,10 +86,13 @@ export function contentFromNodes(nodes, augmentLeft, augmentRight, context) {
 export function contentFromNodeAndTokens(node, tokens, offset = 0) {
   let content = EMPTY_STRING;
 
-  const leadingIndex = leadingIndexFromNodeAndTokens(node, tokens) + offset,
-        trailingIndex = trailingIndexFromNodeAndTokens(node, tokens);
+  let firstSignificantTokenIndex = node.getFirstSignificantTokenIndex(tokens);
 
-  for (let index = leadingIndex; index <= trailingIndex; index++) {
+  const lastSignificantTokenIndex = node.getLastSignificantTokenIndex(tokens);
+
+  firstSignificantTokenIndex += offset;
+
+  for (let index = firstSignificantTokenIndex; index <= lastSignificantTokenIndex; index++) {
     const token = tokens[index],
           tokenContent = token.getContent();
 
