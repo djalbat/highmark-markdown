@@ -19,7 +19,7 @@ const mediaTypeName = PREVIEW_MEDIA_TYPE_NAME,
 
 DefaultMarkdownStyleElement.fromMediaTypeNameAndSelectorsString(mediaTypeName, selectorsString);
 
-const markdownStyleElement = null;  ///MarkdownStyleElement.fromMediaTypeNameAndSelectorsString(mediaTypeName, selectorsString);
+const markdownStyleElement = MarkdownStyleElement.fromMediaTypeNameAndSelectorsString(mediaTypeName, selectorsString);
 
 renderStyles();
 

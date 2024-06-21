@@ -46,27 +46,27 @@ class View extends Element {
   }
 
   updateMarkdownStyle() {
-    // const { markdownStyleElement } = this.properties,
-    //       markdownStyle = this.getMarkdownStyle(),
-    //       css = markdownStyleElement.update(markdownStyle);
-    //
-    // this.setCSS(css);
-    //
-    // const lexer = markdownStyleLexer, ///
-    //       parser = markdownStyleParser, ///
-    //       content = markdownStyle,  ///
-    //       tokens = lexer.tokenise(content),
-    //       startRule = parser.getStartRule(),
-    //       startOfContent = true,
-    //       node = parser.parse(tokens, startRule, startOfContent);
-    //
-    // if (node !== null) {
-    //   const parseTree = node.asParseTree(tokens);
-    //
-    //   this.updateMarkdownStyleParseTreeTextarea(parseTree);
-    // } else {
-    //   this.clearMarkdownStyleParseTreeTextarea();
-    // }
+    const { markdownStyleElement } = this.properties,
+          markdownStyle = this.getMarkdownStyle(),
+          css = markdownStyleElement.update(markdownStyle);
+
+    this.setCSS(css);
+
+    const lexer = markdownStyleLexer, ///
+          parser = markdownStyleParser, ///
+          content = markdownStyle,  ///
+          tokens = lexer.tokenise(content),
+          startRule = parser.getStartRule(),
+          startOfContent = true,
+          node = parser.parse(tokens, startRule, startOfContent);
+
+    if (node !== null) {
+      const parseTree = node.asParseTree(tokens);
+
+      this.updateMarkdownStyleParseTreeTextarea(parseTree);
+    } else {
+      this.clearMarkdownStyleParseTreeTextarea();
+    }
   }
 
   updateMarkdown() {
