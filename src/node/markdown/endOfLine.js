@@ -28,7 +28,7 @@ export default class EndOfLineMarkdownNode extends MarkdownNode {
     return domElement;
   }
 
-  static lines = 1;
+  static lines = 0;
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EndOfLineMarkdownNode, ruleName, childNodes, opacity); }
 }
