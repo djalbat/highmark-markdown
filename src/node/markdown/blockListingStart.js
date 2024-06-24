@@ -24,7 +24,7 @@ export default class BlockListingStartMarkdownNode extends MarkdownNode {
     return className;
   }
 
-  static lines = 1;
+  static lines = 2;
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(BlockListingStartMarkdownNode, ruleName, childNodes, opacity); }
 }
