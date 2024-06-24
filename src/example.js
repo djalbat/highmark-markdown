@@ -15,9 +15,9 @@ const { renderStyles } = withStyle;
 
 const selectorsString = PREVIEWED_DIV_SELECTORS_STRING;
 
-DefaultMarkdownStyleElement.fromAndSelectorsString(selectorsString);
+DefaultMarkdownStyleElement.fromSelectorsString(selectorsString);
 
-const markdownStyleElement = MarkdownStyleElement.fromAndSelectorsString(selectorsString);
+const markdownStyleElement = MarkdownStyleElement.fromSelectorsString(selectorsString);
 
 renderStyles();
 

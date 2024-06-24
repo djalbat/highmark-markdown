@@ -14,14 +14,14 @@ export default class DefaultMarkdownStyleElement extends MarkdownStyleElement {
     this.update(defaultMarkdownStyle)
   }
 
-  static fromAndSelectorsString(Class, selectorsString) {
+  static fromSelectorsString(Class, selectorsString) {
     if (selectorsString === undefined) {
       selectorsString = Class; ///
 
       Class = DefaultMarkdownStyleElement;  ///
     }
 
-    const defaultMarkdownStyleElement = MarkdownStyleElement.fromAndSelectorsString(Class, selectorsString);
+    const defaultMarkdownStyleElement = MarkdownStyleElement.fromSelectorsString(Class, selectorsString);
 
     defaultMarkdownStyleElement.reset();
   }

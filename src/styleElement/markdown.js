@@ -32,7 +32,7 @@ export default class MarkdownStyleElement extends StyleElement {
     this.update(markdownStyle)
   }
 
-  static fromAndSelectorsString(Class, selectorString) {
+  static fromSelectorsString(Class, selectorString) {
     if (selectorString === undefined) {
       selectorString = Class; ///
 
