@@ -1,7 +1,6 @@
 "use strict";
 
 import Division from "../style/division";
-import MediaType from "../style/mediaType";
 import SelectorsList from "../style/selectorsList";
 import MarkdownStyleLexer from "../markdownStyle/lexer";
 import MarkdownStyleParser from "../markdownStyle/parser";
@@ -11,7 +10,7 @@ import { EMPTY_STRING } from "../constants";
 const markdownStyleLexer = MarkdownStyleLexer.fromNothing(),
       markdownStyleParser = MarkdownStyleParser.fromNothing();
 
-export function cssFromMarkdownStyleMediaTypeAndSelectorsList(markdownStyle, mediaType, selectorsList) {
+export function cssFromMarkdownStyleAndSelectorsList(markdownStyle, selectorsList) {
   let css = EMPTY_STRING;
 
   const lexer = markdownStyleLexer, ///
@@ -21,7 +20,7 @@ export function cssFromMarkdownStyleMediaTypeAndSelectorsList(markdownStyle, med
         node = parser.parse(tokens);
 
   if (node !== null) {
-    const division = Division.fromNodeTokensMediaTypeAndSelectorsList(node, tokens, mediaType, selectorsList);
+    const division = Division.fromNodeTokensAndSelectorsList(node, tokens, selectorsList);
 
     css = division.asCSS();
   }
@@ -29,15 +28,14 @@ export function cssFromMarkdownStyleMediaTypeAndSelectorsList(markdownStyle, med
   return css;
 }
 
-export function cssFromMarkdownStyleMediaTypeNameAndSelectorString(markdownStyle, mediaTypeName, selectorString) {
+export function cssFromMarkdownStyleAndSelectorString(markdownStyle, selectorString) {
   const selectorsList = SelectorsList.fromSelectorsString(selectorString),
-        mediaType = MediaType.fromMediaTypeName(mediaTypeName),
-        css = cssFromMarkdownStyleMediaTypeAndSelectorsList(markdownStyle, mediaType, selectorsList);
+        css = cssFromMarkdownStyleAndSelectorsList(markdownStyle, selectorsList);
 
   return css;
 }
 
 export default {
-  cssFromMarkdownStyleMediaTypeAndSelectorsList,
-  cssFromMarkdownStyleMediaTypeNameAndSelectorString
+  cssFromMarkdownStyleAndSelectorsList,
+  cssFromMarkdownStyleAndSelectorString
 };

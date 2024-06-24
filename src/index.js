@@ -15,7 +15,6 @@ export { default as ruleNames } from "./ruleNames";
 export { default as tokenTypes } from "./tokenTypes";
 export { default as elementMap } from "./elementMap";
 export { default as MarkdownNode } from "./node/markdown";
-export { default as mediaTypeNames } from "./mediaTypeNames";
 export { default as MarkdownStyleElement } from "./styleElement/markdown";
 export { default as defaultMarkdownStyle } from "./defaultMarkdownStyle";
 export { default as DefaultMarkdownStyleElement } from "./styleElement/markdown/default";

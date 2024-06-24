@@ -3,21 +3,12 @@
 import { HEAD, STYLE } from "./constants";
 
 export default class StyleElement {
-  constructor(mediaType, domElement) {
-    this.mediaType = mediaType;
+  constructor(domElement) {
     this.domElement = domElement;
-  }
-
-  getMediaType() {
-    return this.mediaType;
   }
 
   getDOMElement() {
     return this.domElement;
-  }
-
-  setMediaType(mediaType) {
-    this.mediaType = mediaType;
   }
 
   setDOMElement(domElement) {

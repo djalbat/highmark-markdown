@@ -2,12 +2,9 @@
 
 const bnf = `
 
-    style          ::=  ( media | ruleSet | declaration | nonsense | error )+ ;
+    style          ::=  ( ruleSet | declaration | nonsense | error )+ ;
 
     
-    media          ::= "@"<NO_WHITESPACE>"media" mediaTypes "{" ( ruleSet | declaration | nonsense )* "}" ;
-    
-
     ruleSet..      ::=  selectorsList "{" ( ruleSet | declaration | nonsense )* "}" ;
     
     
@@ -20,12 +17,6 @@ const bnf = `
     error.         ::=  . ;
 
 
-    mediaTypes     ::=  mediaType ( "and" mediaType )* ;
-                                                              
-                                                              
-    mediaType      ::=  [name] ;
-                                                              
-                                                              
     selectorsList  ::=  selectors ( "," selectors )* ;
 
 
