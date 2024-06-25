@@ -1,25 +1,25 @@
 "use strict";
 
-import { linkMarkdownNodesFromNode } from "../utilities/query";
+import { footnoteLinkMarkdownNodesFromNode } from "../utilities/query";
 
-export function renumberLinkMarkdownNodes(divisionMarkdownNode, footnoteReplacementMap, callback, context) {
+export function renumberFootnoteLinkMarkdownNodes(divisionMarkdownNode, footnoteReplacementMap, callback, context) {
   const node = divisionMarkdownNode,  ///
-        linkMarkdownNodes = linkMarkdownNodesFromNode(node);
+        footnoteLinkMarkdownNodes = footnoteLinkMarkdownNodesFromNode(node);
 
-  linkMarkdownNodes.forEach((linkMarkdownNode) => {
-    const identifier = linkMarkdownNode.identifier(context),
+  footnoteLinkMarkdownNodes.forEach((footnoteLinkMarkdownNode) => {
+    const identifier = footnoteLinkMarkdownNode.identifier(context),
           footnoteReplacement = footnoteReplacementMap[identifier] || null;
 
     if (footnoteReplacement !== null) {
       const number = footnoteReplacement.getNumber();
 
-      linkMarkdownNode.setNumber(number);
+      footnoteLinkMarkdownNode.setNumber(number);
 
-      callback(linkMarkdownNode);
+      callback(footnoteLinkMarkdownNode);
     }
   });
 }
 
 export default {
-  renumberLinkMarkdownNodes
+  renumberFootnoteLinkMarkdownNodes
 };

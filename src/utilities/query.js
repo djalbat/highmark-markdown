@@ -10,12 +10,12 @@ const footnoteMarkdownNodeQuery = Query.fromExpression("/subDivision/footnote"),
       contentsDirectiveMarkdownNodeQuery = Query.fromExpression("/subDivision/directives/contentsDirective"),
       footnotesDirectiveMarkdownNodeQuery = Query.fromExpression("/subDivision/directives/footnotesDirective"),
       pageNumberDirectiveMarkdownNodeQuery = Query.fromExpression("/subDivision/directives/pageNumber"),  ///
-      linkMarkdownNodesQuery = Query.fromExpression("//link"),
       headingMarkdownNodesQuery = Query.fromExpression("/division/subDivision/primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),
       subDivisionMarkdownNodesQuery = Query.fromExpression("/division/subDivision"),
+      footnoteLinkMarkdownNodesQuery = Query.fromExpression("//footnoteLink"),
       embedDirectiveMarkdownNodesQuery = Query.fromExpression("/subDivision/directives/embedDirective"),
       includeDirectiveMarkdownNodesQuery = Query.fromExpression("/subDivision/directives/includeDirective"),
-      linkFootnoteOrFootnotesDirectiveMarkdownNodesQuery = Query.fromExpression("//link|footnote|footnotesDirective");
+      footnoteFootnoteLinkOrFootnotesDirectiveMarkdownNodesQuery = Query.fromExpression("//footnote|footnoteLink|footnotesDirective");
 
 export function nodeQuery(expression) {
   const query = Query.fromExpression(expression);
@@ -76,12 +76,6 @@ export function pageNumberDirectiveMarkdownNodeFromNode(node) {
   return pageNumberDirectiveMarkdownNode;
 }
 
-export function linkMarkdownNodesFromNode(node, linkMarkdownNodes = []) {
-  nodesFromNodeAndQuery(node, linkMarkdownNodesQuery, linkMarkdownNodes);
-
-  return linkMarkdownNodes;
-}
-
 export function headingMarkdownNodesFromNode(node, headingMarkdownNodes = []) {
   nodesFromNodeAndQuery(node, headingMarkdownNodesQuery, headingMarkdownNodes);
 
@@ -92,6 +86,12 @@ export function subDivisionMarkdownNodesFromNode(node, subDivisionMarkdownNodes 
   nodesFromNodeAndQuery(node, subDivisionMarkdownNodesQuery, subDivisionMarkdownNodes);
 
   return subDivisionMarkdownNodes;
+}
+
+export function footnoteLinkMarkdownNodesFromNode(node, linkMarkdownNodes = []) {
+  nodesFromNodeAndQuery(node, footnoteLinkMarkdownNodesQuery, linkMarkdownNodes);
+
+  return linkMarkdownNodes;
 }
 
 export function embedDirectiveMarkdownNodesFromNode(node, embedDirectiveMarkdownNodes = []) {
@@ -106,10 +106,10 @@ export function includeDirectiveMarkdownNodesFromNode(node, includeDirectiveMark
   return includeDirectiveMarkdownNodes;
 }
 
-export function linkFootnoteOrFootnotesDirectiveMarkdownNodesFromNode(node, linkFootnoteOrFootnotesDirectiveMarkdownNodes = []) {
-  nodesFromNodeAndQuery(node, linkFootnoteOrFootnotesDirectiveMarkdownNodesQuery, linkFootnoteOrFootnotesDirectiveMarkdownNodes);
+export function footnoteFootnoteLinkOrFootnotesDirectiveMarkdownNodesFromNode(node, footnoteFootnoteLinkOrFootnotesDirectiveMarkdownNodes = []) {
+  nodesFromNodeAndQuery(node, footnoteFootnoteLinkOrFootnotesDirectiveMarkdownNodesQuery, footnoteFootnoteLinkOrFootnotesDirectiveMarkdownNodes);
 
-  return linkFootnoteOrFootnotesDirectiveMarkdownNodes;
+  return footnoteFootnoteLinkOrFootnotesDirectiveMarkdownNodes;
 }
 
 export default {
@@ -118,12 +118,12 @@ export default {
   contentsDirectiveMarkdownNodeFromNode,
   footnotesDirectiveMarkdownNodeFromNode,
   pageNumberDirectiveMarkdownNodeFromNode,
-  linkMarkdownNodesFromNode,
   headingMarkdownNodesFromNode,
   subDivisionMarkdownNodesFromNode,
+  footnoteLinkMarkdownNodesFromNode,
   embedDirectiveMarkdownNodesFromNode,
   includeDirectiveMarkdownNodesFromNode,
-  linkFootnoteOrFootnotesDirectiveMarkdownNodesFromNode
+  footnoteFootnoteLinkOrFootnotesDirectiveMarkdownNodesFromNode
 };
 
 function nodeFromNodeAndQuery(node, query) {

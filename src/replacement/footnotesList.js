@@ -4,7 +4,7 @@ import Replacement from "../replacement";
 import FootnotesItemReplacement from "../replacement/footnotesItem";
 import FootnotesListMarkdownNode from "../node/markdown/footnotesList";
 
-import { linkMarkdownNodesFromNode } from "../utilities/query";
+import { footnoteLinkMarkdownNodesFromNode } from "../utilities/query";
 
 export default class FootnotesListReplacement extends Replacement {
   appendToDivisionMarkdownNode(divisionMarkdownNode, context) {
@@ -18,13 +18,13 @@ export default class FootnotesListReplacement extends Replacement {
 
     const node = divisionMarkdownNode,  ///
           start = startFromFootnoteReplacementMap(footnoteReplacementMap),
-          linkMarkdownNodes = linkMarkdownNodesFromNode(node),
+          footnoteLinkMarkdownNodes = footnoteLinkMarkdownNodesFromNode(node),
           footnotesItemReplacements = [];
 
     let number = start;
 
-    linkMarkdownNodes.forEach((linkMarkdownNode) => {
-      const identifier = linkMarkdownNode.identifier(context),
+    footnoteLinkMarkdownNodes.forEach((footnoteLinkMarkdownNode) => {
+      const identifier = footnoteLinkMarkdownNode.identifier(context),
             footnoteReplacement = footnoteReplacementMap[identifier] || null;
 
       if (footnoteReplacement !== null) {

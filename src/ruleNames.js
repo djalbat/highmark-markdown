@@ -1,7 +1,6 @@
 "use strict";
 
 export const LINE_RULE_NAME = "line";
-export const LINK_RULE_NAME = "link";
 export const IMAGE_RULE_NAME = "image";
 export const TABLE_RULE_NAME = "table";
 export const ERROR_RULE_NAME = "error";
@@ -28,6 +27,7 @@ export const BLOCK_LISTING_RULE_NAME = "blockListing";
 export const CONTENTS_LINK_RULE_NAME = "contentsLink";
 export const CONTENTS_ITEM_RULE_NAME = "contentsItem";
 export const CONTENTS_LIST_RULE_NAME = "contentsList";
+export const FOOTNOTE_LINK_RULE_NAME = "footnoteLink";
 export const FOOTNOTES_ITEM_RULE_NAME = "footnotesItem";
 export const TABLE_HEAD_ROW_RULE_NAME = "tableHeadRow";
 export const TABLE_BODY_ROW_RULE_NAME = "tableBodyRow";
@@ -57,7 +57,6 @@ export const STRONGLY_EMPHASISED_TEXT_RULE_NAME = "stronglyEmphasisedText";
 
 const ruleNames = {
   LINE_RULE_NAME,
-  LINK_RULE_NAME,
   IMAGE_RULE_NAME,
   TABLE_RULE_NAME,
   ERROR_RULE_NAME,
@@ -84,6 +83,7 @@ const ruleNames = {
   CONTENTS_LINK_RULE_NAME,
   CONTENTS_ITEM_RULE_NAME,
   CONTENTS_LIST_RULE_NAME,
+  FOOTNOTE_LINK_RULE_NAME,
   FOOTNOTES_ITEM_RULE_NAME,
   TABLE_HEAD_ROW_RULE_NAME,
   TABLE_BODY_ROW_RULE_NAME,

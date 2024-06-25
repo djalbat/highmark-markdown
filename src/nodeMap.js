@@ -1,7 +1,6 @@
 "use strict";
 
 import LineMarkdownNode from "./node/markdown/line";
-import LinkMarkdownNode from "./node/markdown/link";
 import ImageMarkdownNode from "./node/markdown/image";
 import TableMarkdownNode from "./node/markdown/table";
 import ErrorMarkdownNode from "./node/markdown/error";
@@ -30,6 +29,7 @@ import TableBodyRowMarkdownNode from "./node/markdown/tableBodyRow";
 import ContentsLinkMarkdownNode from "./node/markdown/contentsLink";
 import ContentsItemMarkdownNode from "./node/markdown/contentsItem";
 import ContentsListMarkdownNode from "./node/markdown/contentsList";
+import FootnoteLinkMarkdownNode from "./node/markdown/footnoteLink";
 import InlineListingMarkdownNode from "./node/markdown/inlineListing";
 import UnorderedListMarkdownNode from "./node/markdown/unorderedList";
 import FootnotesItemMarkdownNode from "./node/markdown/footnotesItem";
@@ -56,7 +56,6 @@ import PageNumberDirectiveMarkdownNode from "./node/markdown/directive/pageNumbe
 import StronglyEmphasisedTextMarkdownNode from "./node/markdown/stronglyEmphasisedText";
 
 import { LINE_RULE_NAME,
-         LINK_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
@@ -79,6 +78,7 @@ import { LINE_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
          SUB_DIVISION_RULE_NAME,
          ORDERED_LIST_RULE_NAME,
+         FOOTNOTE_LINK_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
          CONTENTS_LINK_RULE_NAME,
          CONTENTS_ITEM_RULE_NAME,
@@ -112,7 +112,6 @@ import { LINE_RULE_NAME,
 
 const nodeMap = {
   [LINE_RULE_NAME]: LineMarkdownNode,
-  [LINK_RULE_NAME]: LinkMarkdownNode,
   [IMAGE_RULE_NAME]: ImageMarkdownNode,
   [TABLE_RULE_NAME]: TableMarkdownNode,
   [ERROR_RULE_NAME]: ErrorMarkdownNode,
@@ -139,6 +138,7 @@ const nodeMap = {
   [CONTENTS_LINK_RULE_NAME]: ContentsLinkMarkdownNode,
   [CONTENTS_ITEM_RULE_NAME]: ContentsItemMarkdownNode,
   [CONTENTS_LIST_RULE_NAME]: ContentsListMarkdownNode,
+  [FOOTNOTE_LINK_RULE_NAME]: FootnoteLinkMarkdownNode,
   [TABLE_HEAD_ROW_RULE_NAME]: TableHeadRowMarkdownNode,
   [TABLE_BODY_ROW_RULE_NAME]: TableBodyRowMarkdownNode,
   [INLINE_LISTING_RULE_NAME]: InlineListingMarkdownNode,

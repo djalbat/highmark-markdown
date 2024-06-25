@@ -9,7 +9,7 @@ import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 
 const { first, second } = arrayUtilities;
 
-export default class LinkMarkdownNode extends MarkdownNode {
+export default class FootnoteLinkMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, opacity, precedence, domElement, number) {
     super(ruleName, childNodes, opacity, precedence, domElement);
 
@@ -73,9 +73,9 @@ export default class LinkMarkdownNode extends MarkdownNode {
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
     const number = null,
-          linkMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(LinkMarkdownNode, ruleName, childNodes, opacity, number);
+          footnoteLinkMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnoteLinkMarkdownNode, ruleName, childNodes, opacity, number);
 
-    return linkMarkdownNode;
+    return footnoteLinkMarkdownNode;
   }
 }
 

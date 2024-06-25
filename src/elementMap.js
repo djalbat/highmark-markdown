@@ -1,7 +1,6 @@
 "use strict";
 
 import { LINE_RULE_NAME,
-         LINK_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
@@ -28,6 +27,7 @@ import { LINE_RULE_NAME,
          CONTENTS_LINK_RULE_NAME,
          CONTENTS_ITEM_RULE_NAME,
          CONTENTS_LIST_RULE_NAME,
+         FOOTNOTE_LINK_RULE_NAME,
          TABLE_HEAD_ROW_RULE_NAME,
          TABLE_BODY_ROW_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
@@ -57,10 +57,6 @@ const elementMap = {
   [LINE_RULE_NAME]: {
     tagName: "span",
     className: "line"
-  },
-  [LINK_RULE_NAME]: {
-    tagName: "a",
-    className: "link"
   },
   [IMAGE_RULE_NAME]: {
     tagName: "img",
@@ -165,6 +161,10 @@ const elementMap = {
   [CONTENTS_LIST_RULE_NAME]: {
     tagName: "ul",
     className: "contents"
+  },
+  [FOOTNOTE_LINK_RULE_NAME]: {
+    tagName: "a",
+    className: "footnote-link"
   },
   [TABLE_HEAD_ROW_RULE_NAME]: {
     tagName: "tr",

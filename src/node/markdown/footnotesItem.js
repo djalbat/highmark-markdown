@@ -5,22 +5,15 @@ import { arrayUtilities } from "necessary";
 import MarkdownNode from "../../node/markdown";
 import AnchorMarkdownNode from "../../node/markdown/anchor";
 
+import { FOOTNOTE_PREPEND } from "../../prepends";
 import { FOOTNOTES_ITEM_RULE_NAME } from "../../ruleNames";
 
-const { first, second } = arrayUtilities;
+const { second } = arrayUtilities;
 
 export default class FootnotesItemMarkdownNode extends MarkdownNode {
-  identifier(context) {
-    const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          anchorMarkdownNode = firstChildNode,  ///
-          identifier = anchorMarkdownNode.getIdentifier();
-
-    return identifier;
-  }
-
   static fromFootnotesMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier) {
-    const anchorMarkdownNode = AnchorMarkdownNode.fromIdentifier(identifier),
+    const prepend = FOOTNOTE_PREPEND,
+          anchorMarkdownNode = AnchorMarkdownNode.fromPrependAndIdentifier(prepend, identifier),
           footnoteMarkdownNodeChildNodes = footnoteMarkdownNode.getChildNodes(),
           secondFootnoteMarkdownNodeChildNode = second(footnoteMarkdownNodeChildNodes),
           paragraphMarkdownNode = secondFootnoteMarkdownNodeChildNode,  ///

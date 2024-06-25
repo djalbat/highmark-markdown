@@ -12,7 +12,7 @@ class RightSizeableDiv extends SizeableDiv {
 
 export default withStyle(RightSizeableDiv)`
 
-  height: 20rem;
+  height: 32rem;
   min-width: 1rem;
   flex-direction: column;
   

@@ -148,7 +148,7 @@ const bnf = `
     tableCell               ::=  line [vertical-bar] ;
     
     
-    line.                   ::=  ( link 
+    line.                   ::=  ( footnoteLink 
     
                                  | emailLink 
                                  
@@ -167,7 +167,7 @@ const bnf = `
                                  | plainText )+ ;
     
     
-    link.                   ::=  [link] ;
+    footnoteLink.           ::=  [link] ;
     
 
     emailLink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [email-address] ")" 
