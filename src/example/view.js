@@ -86,6 +86,9 @@ class View extends Element {
             charactersPerLine = CHARACTERS_PER_LINE,
             contentsDepth = CONTENTS_DEPTH,
             linesPerPage = LINES_PER_PAGE,
+            indexEntries = [
+              "occam"
+            ],
             context = {
               tokens,
               importer,
@@ -93,7 +96,7 @@ class View extends Element {
               contentsDepth,
               charactersPerLine
             },
-            divisionMarkdownNodes = postprocess(divisionMarkdownNode, context);
+            divisionMarkdownNodes = postprocess(divisionMarkdownNode, indexEntries, context);
 
       this.setDivisionMarkdownNodes(divisionMarkdownNodes);
 

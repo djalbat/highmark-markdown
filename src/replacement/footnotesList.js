@@ -7,10 +7,12 @@ import FootnotesListMarkdownNode from "../node/markdown/footnotesList";
 import { footnoteLinkMarkdownNodesFromNode } from "../utilities/query";
 
 export default class FootnotesListReplacement extends Replacement {
-  appendToDivisionMarkdownNode(divisionMarkdownNode, context) {
-    const parentNode = divisionMarkdownNode; ///
+  replaceFootnotesDirectiveSubDivisionReplacement(footnotesDirectiveSubDivisionReplacement, divisionMarkdownNode, context) {
+    const subDivisionMarkdownNode = footnotesDirectiveSubDivisionReplacement.getSubDivisionMarkdownNode(),
+          replacedNode = subDivisionMarkdownNode, ///
+          parentNode = divisionMarkdownNode;  ///
 
-    super.appendTo(parentNode, context);
+    super.replace(replacedNode, parentNode, context)
   }
 
   static fromDivisionMarkdownNodeAndFootnoteReplacementMap(divisionMarkdownNode, footnoteReplacementMap, context) {

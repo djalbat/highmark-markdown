@@ -5,6 +5,12 @@ import MarkdownNode from "../../node/markdown";
 import { CONTENTS_LIST_RULE_NAME } from "../../ruleNames";
 
 export default class ContentsListMarkdownNode extends MarkdownNode {
+  asPlainText(context) {
+    const plainText = null;
+
+    return plainText;
+  }
+
   static fromContentsItemReplacements(contentsItemReplacements) {
     const ruleName = CONTENTS_LIST_RULE_NAME,
           childNodes = contentsItemReplacements.map((contentsItemReplacement) => {

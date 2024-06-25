@@ -1,6 +1,6 @@
 "use strict";
 
-export function postprocess(divisionMarkdownNode, context) {
+export function postprocess(divisionMarkdownNode, indexEntries, context) {
   let divisionMarkdownNodes;
 
   divisionMarkdownNodes = resolveIncludes(divisionMarkdownNode, context);
@@ -15,7 +15,7 @@ export function postprocess(divisionMarkdownNode, context) {
 
   createContents(divisionMarkdownNodes, context);
 
-  createIndex(divisionMarkdownNodes, context);
+  createIndex(divisionMarkdownNodes, indexEntries, context);
 
   return divisionMarkdownNodes;
 }
@@ -38,9 +38,9 @@ function paginate(divisionMarkdownNodes, context) {
   return divisionMarkdownNodes;
 }
 
-function createIndex(divisionMarkdownNodes, context) {
+function createIndex(divisionMarkdownNodes, indexEntries, context) {
   divisionMarkdownNodes.some((divisionMarkdownNode) => {
-    const indexCreated = divisionMarkdownNode.createIndex(divisionMarkdownNodes, context);
+    const indexCreated = divisionMarkdownNode.createIndex(divisionMarkdownNodes, indexEntries, context);
 
     if (indexCreated) {
       return true;

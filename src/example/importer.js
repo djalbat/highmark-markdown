@@ -45,17 +45,16 @@ const INDEX_PATH = "index.md",
 
 export const defaultContent = `@ignore
 
-@include ${INDEX_PATH}
-@include ${CONTENT_PATH}
 @include ${FRONT_MATTER_PATH}
-
+@include ${CONTENT_PATH}
+@include ${INDEX_PATH}
 `;
 
 const indexContent = `## Index
 
-@index
+@index`,
 
-`,    contentContent = `@ignore
+      contentContent = `@ignore
 
 @include ${INTRODUCTION_PATH}
 @include ${GETTING_STARTED_PATH}`,

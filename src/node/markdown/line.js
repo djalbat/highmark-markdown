@@ -7,8 +7,7 @@ import { htmlFromChildNodes, plainTextFromChildNodes, domElementsFromChildNodes 
 export default class LineMarkdownNode extends MarkdownNode {
   lines(context) {
     const { charactersPerLine } = context,
-          childNodes = this.getChildNodes(),
-          plainText = plainTextFromChildNodes(childNodes, context),
+          plainText = this.asPlainText(context),
           plainTextLength = plainText.length,
           characters = plainTextLength, ///
           lines = (characters / charactersPerLine) + 1;
@@ -26,6 +25,13 @@ export default class LineMarkdownNode extends MarkdownNode {
 `;
 
     return html;
+  }
+
+  asPlainText(context) {
+    const childNodesPlainText = this.childNodesAsPlainText(context),
+          plainText = childNodesPlainText; ///
+
+    return plainText;
   }
 
   createDOMElement(context) {
@@ -49,6 +55,13 @@ export default class LineMarkdownNode extends MarkdownNode {
           html = htmlFromChildNodes(childNodes, context);
 
     return html;
+  }
+
+  childNodesAsPlainText(context) {
+    const childNodes = this.getChildNodes(),
+          plainText = plainTextFromChildNodes(childNodes, context);
+
+    return plainText;
   }
 
   createChildNodeDOMElements(context) {

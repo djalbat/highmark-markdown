@@ -43,6 +43,13 @@ export default class HeadingMarkdownNode extends MarkdownNode {
     return lineMarkdownNode;
   }
 
+  asPlainText(context) {
+    const childNodes = this.getChildNodes(),
+          plainText = plainTextFromChildNodes(childNodes, context);
+
+    return plainText;
+  }
+
   static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity); }
 }
 

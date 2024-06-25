@@ -126,9 +126,9 @@ class MarkdownNode extends NonTerminalNode {
   }
 
   asHTML(indent, context) {
-    const tagName = this.tagName(context);
-
     let html = null;
+
+    const tagName = this.tagName(context);
 
     if (tagName !== null) {
       indent = this.adjustIndent(indent);
@@ -155,6 +155,25 @@ ${childNodesHTML}${indent}${closingTag}
     }
 
     return html;
+  }
+
+  asPlainText(context) {
+    let plainText = null;
+
+    const tagName = this.tagName(context);
+
+    if (tagName !== null) {
+      const childNodesPlainText = this.childNodesAsPlainText(context);
+
+      if (childNodesPlainText !== null) {
+        plainText = (plainText === null) ?
+                      childNodesPlainText :
+                       `${plainText}
+${childNodesPlainText};`;
+      }
+    }
+
+    return plainText;
   }
 
   childNodesAsHTML(indent, context) {
@@ -207,6 +226,29 @@ ${childNodesHTML}${indent}${closingTag}
     }
 
     return domElement;
+  }
+
+  childNodesAsPlainText(context) {
+    const childNodes = this.getChildNodes(),
+          childNodesPlainText = childNodes.reduce((childNodesPlainText, childNode) => {
+        const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
+
+        if (childNodeMarkdownNode) {
+          const markdownNode = childNode, ///
+                markdownNodePlainText = markdownNode.asPlainText(context);
+
+          if (markdownNodePlainText !== null) {
+            childNodesPlainText = (childNodesPlainText === null) ?
+                                    markdownNodePlainText :  ///
+                                     `${childNodesPlainText}
+${markdownNodePlainText}`;
+          }
+        }
+
+        return childNodesPlainText;
+      }, null);
+
+    return childNodesPlainText;
   }
 
   createChildNodeDOMElements(context) {

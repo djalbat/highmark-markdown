@@ -52,6 +52,13 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
     return html;
   }
 
+  asPlainText(context) {
+    const secondMarkdownNode = this.getSecondMarkdownNode(),
+          plainText = secondMarkdownNode.asPlainText(context);
+
+    return plainText;
+  }
+
   createDOMElement(context) {
     const domElement = null,
           secondMarkdownNode = this.getSecondMarkdownNode();
