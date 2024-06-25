@@ -110,7 +110,7 @@ inlineListing {
   padding: 0 3pt 0 3pt;
 }
 
-link {
+footnoteLink {
   font-size: 9pt;
   line-height: 13pt;
   margin-left: 3pt;

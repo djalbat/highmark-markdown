@@ -33,7 +33,8 @@ function classNameFromFilePath(filePath) {
   return className;
 }
 
-const CONTENT_PATH = "content.md",
+const OCCAM_PATH = "occam.md",
+      CONTENT_PATH = "content.md",
       CONTENTS_PATH = "contents.md",
       HALF_TITLE_PATH = "half-title.md",
       FRONT_MATTER_PATH = "front-matter.md",
@@ -43,12 +44,21 @@ const CONTENT_PATH = "content.md",
       GETTING_TO_GRIPS_WITH_THE_IDE_PATH = "getting-to-grips-with-the-ide.md";
 
 export const defaultContent = `
+## Contents
+
+@contents
+
+@include ${OCCAM_PATH}
+`;
+
+const occamContent = `
+# Occam 
+
 Occam[^occam].
 
 [^occam]: Footnote.
 
 @footnotes
-
 `;
 
 export const _defaultContent = `@ignore
@@ -112,6 +122,7 @@ This book explains these divers parts and there is a companion book, called The 
 
 const contentMap = {
 
+  [OCCAM_PATH]: occamContent,
   [CONTENT_PATH]: contentContent,
   [CONTENTS_PATH]: contentsContent,
   [HALF_TITLE_PATH]: halfTitleContent,

@@ -5,6 +5,7 @@ import { arrayUtilities } from "necessary";
 import MarkdownNode from "../../node/markdown";
 
 import { EMPTY_STRING } from "../../constants";
+import { FOOTNOTE_PREPEND } from "../../prepends";
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 
 const { first, second } = arrayUtilities;
@@ -48,8 +49,9 @@ export default class FootnoteLinkMarkdownNode extends MarkdownNode {
   }
 
   attributeValue(context) {
-    const identifier = this.identifier(context),
-          attributeValue = `#${identifier}`; ///
+    const prepend = FOOTNOTE_PREPEND,
+          identifier = this.identifier(context),
+          attributeValue = `#${prepend}-${identifier}`; ///
 
     return attributeValue;
   }

@@ -5,7 +5,7 @@ import { arrayUtilities } from "necessary";
 import MarkdownNode from "../../node/markdown";
 import AnchorMarkdownNode from "../../node/markdown/anchor";
 
-import { HEADING_PREPEND } from "../../prepends";
+import { CONTENTS_PREPEND } from "../../prepends";
 import { plainTextFromChildNodes } from "../../utilities/childNodes";
 import { replaceSpacesWithHyphens, removedLeadingWhitespace, removeNonAlphabeticAndSpaceCharacters } from "../../utilities/string";
 
@@ -19,7 +19,7 @@ export default class HeadingMarkdownNode extends MarkdownNode {
   }
 
   addAnchor(context) {
-    const prepend = HEADING_PREPEND,
+    const prepend = CONTENTS_PREPEND,
           identifier = this.identifier(context),
           anchorMarkdownNode = AnchorMarkdownNode.fromPrependAndIdentifier(prepend, identifier),
           prependedChildNode = anchorMarkdownNode; ///

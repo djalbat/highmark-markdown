@@ -152,7 +152,7 @@ const elementMap = {
   },
   [CONTENTS_LINK_RULE_NAME]: {
     tagName: "a",
-    className: "contents"
+    className: "contents-link"
   },
   [CONTENTS_ITEM_RULE_NAME]: {
     tagName: "li",

@@ -1,5 +1,5 @@
 "use strict";
 
 export const INDEX_PREPEND = "index";
-export const HEADING_PREPEND = "heading";
+export const CONTENTS_PREPEND = "contents";
 export const FOOTNOTE_PREPEND = "footnote";
