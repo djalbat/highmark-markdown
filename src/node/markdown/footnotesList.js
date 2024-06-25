@@ -28,12 +28,6 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
     return attributeValue;
   }
 
-  asPlainText(context) {
-    const plainText = null;
-
-    return plainText;
-  }
-
   clone() { return super.clone(this.start); }
 
   static fromFootnotesItemReplacementsAndStart(footnotesItemReplacements, start) {

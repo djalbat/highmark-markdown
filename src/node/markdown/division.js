@@ -112,14 +112,14 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     });
   }
 
-  createIndex(divisionMarkdownNodes, indexEntries, context) {
+  createIndex(divisionMarkdownNodes, context) {
     let indexCreated = false;
 
     const indexDirectiveSubDivisionReplacement = this.findSubDivisionReplacement(IndexDirectiveSubDivisionReplacement, context);
 
     if (indexDirectiveSubDivisionReplacement !== null) {
       const divisionMarkdownNode = this,  ///
-            indexListReplacement = IndexListReplacement.fromDivisionMarkdownNodesDivisionMarkdownNodeAndIndexEntries(divisionMarkdownNodes, divisionMarkdownNode, indexEntries, context);
+            indexListReplacement = IndexListReplacement.fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context);
 
       if (indexListReplacement !== null) {
         indexListReplacement.replaceIndexDirectiveSubdivisionReplacement(indexDirectiveSubDivisionReplacement, divisionMarkdownNode, context);

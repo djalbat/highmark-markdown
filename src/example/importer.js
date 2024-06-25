@@ -106,7 +106,15 @@ This book explains these divers parts and there is a companion book, called The 
 
       installingTheCLIContent = `## Installing the CLI`,
 
-      gettingToGripsWithTheIDEIContent = `## Getting to grips with the IDE`;
+      gettingToGripsWithTheIDEIContent = `## Getting to grips with the IDE
+      
+* An unordered list to test...
+* ...the indexing.
+      
+1. As well as an...
+2. ...ordered list.
+      
+`;
 
 const contentMap = {
 

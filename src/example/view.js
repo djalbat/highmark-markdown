@@ -11,6 +11,7 @@ import importer from "./importer";
 import PreviewDiv from "./view/div/preview";
 import SubHeading from "./view/subHeading";
 import CSSTextarea from "./view/textarea/css";
+import indexOptions from "./indexOptions";
 import TabButtonsDiv from "./view/div/tabButtons";
 import LeftSizeableDiv from "./view/div/sizeable/left";
 import RightSizeableDiv from "./view/div/sizeable/right";
@@ -86,17 +87,15 @@ class View extends Element {
             charactersPerLine = CHARACTERS_PER_LINE,
             contentsDepth = CONTENTS_DEPTH,
             linesPerPage = LINES_PER_PAGE,
-            indexEntries = [
-              "occam"
-            ],
             context = {
               tokens,
               importer,
+              indexOptions,
               linesPerPage,
               contentsDepth,
               charactersPerLine
             },
-            divisionMarkdownNodes = postprocess(divisionMarkdownNode, indexEntries, context);
+            divisionMarkdownNodes = postprocess(divisionMarkdownNode, context);
 
       this.setDivisionMarkdownNodes(divisionMarkdownNodes);
 
