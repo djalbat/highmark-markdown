@@ -15,6 +15,8 @@ export function postprocess(divisionMarkdownNode, context) {
 
   createContents(divisionMarkdownNodes, context);
 
+  createIndex(divisionMarkdownNodes, context);
+
   return divisionMarkdownNodes;
 }
 
@@ -34,6 +36,16 @@ function paginate(divisionMarkdownNodes, context) {
   divisionMarkdownNodes = paginatedDivisionMarkdownNodes; ///
 
   return divisionMarkdownNodes;
+}
+
+function createIndex(divisionMarkdownNodes, context) {
+  divisionMarkdownNodes.some((divisionMarkdownNode) => {
+    const indexCreated = divisionMarkdownNode.createIndex(divisionMarkdownNodes, context);
+
+    if (indexCreated) {
+      return true;
+    }
+  });
 }
 
 function createContents(divisionMarkdownNodes, context) {

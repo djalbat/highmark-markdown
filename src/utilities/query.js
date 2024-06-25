@@ -6,6 +6,7 @@ import { arrayUtilities } from "necessary";
 const { first, push } = arrayUtilities;
 
 const footnoteMarkdownNodeQuery = Query.fromExpression("/subDivision/footnote"),
+      indexDirectiveMarkdownNodeQuery = Query.fromExpression("/division/subDivision/directives/indexDirective"),
       ignoreDirectiveMarkdownNodeQuery = Query.fromExpression("/division/subDivision/directives/ignoreDirective"),
       contentsDirectiveMarkdownNodeQuery = Query.fromExpression("/subDivision/directives/contentsDirective"),
       footnotesDirectiveMarkdownNodeQuery = Query.fromExpression("/subDivision/directives/footnotesDirective"),
@@ -50,6 +51,12 @@ export function footnoteMarkdownNodeFromNode(node) {
   const footnoteMarkdownNode = nodeFromNodeAndQuery(node, footnoteMarkdownNodeQuery);
 
   return footnoteMarkdownNode;
+}
+
+export function indexDirectiveMarkdownNodeFromNode(node) {
+  const indexDirectiveMarkdownNode = nodeFromNodeAndQuery(node, indexDirectiveMarkdownNodeQuery);
+
+  return indexDirectiveMarkdownNode;
 }
 
 export function ignoreDirectiveMarkdownNodeFromNode(node) {
@@ -114,6 +121,7 @@ export function footnoteFootnoteLinkOrFootnotesDirectiveMarkdownNodesFromNode(no
 
 export default {
   footnoteMarkdownNodeFromNode,
+  indexDirectiveMarkdownNodeFromNode,
   ignoreDirectiveMarkdownNodeFromNode,
   contentsDirectiveMarkdownNodeFromNode,
   footnotesDirectiveMarkdownNodeFromNode,

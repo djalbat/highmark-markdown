@@ -39,6 +39,7 @@ export const TABLE_HEAD_CELL_RULE_NAME = "tableHeadCell";
 export const TABLE_BODY_CELL_RULE_NAME = "tableBodyCell";
 export const EMPHASISED_TEXT_RULE_NAME = "emphasisedText";
 export const PRIMARY_HEADING_RULE_NAME = "primaryHeading";
+export const INDEX_DIRECTIVE_RULE_NAME = "indexDirective";
 export const EMBED_DIRECTIVE_RULE_NAME = "embedDirective";
 export const EMPTY_TABLE_CELL_RULE_NAME = "emptyTableCell";
 export const TERTIARY_HEADING_RULE_NAME = "tertiaryHeading";
@@ -95,6 +96,7 @@ const ruleNames = {
   TABLE_BODY_CELL_RULE_NAME,
   EMPHASISED_TEXT_RULE_NAME,
   PRIMARY_HEADING_RULE_NAME,
+  INDEX_DIRECTIVE_RULE_NAME,
   EMBED_DIRECTIVE_RULE_NAME,
   EMPTY_TABLE_CELL_RULE_NAME,
   TERTIARY_HEADING_RULE_NAME,

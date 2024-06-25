@@ -11,7 +11,7 @@ import { headingMarkdownNodesFromNode } from "../utilities/query";
 
 const { filter } = arrayUtilities;
 
-export default class ContentsListReplacement extends Replacement {
+class ContentsListReplacement extends Replacement {
   replaceContentsDirectiveSubdivisionReplacement(contentsDirectiveSubDivisionReplacement, divisionMarkdownNode, context) {
     const subDivisionMarkdownNode = contentsDirectiveSubDivisionReplacement.getSubDivisionMarkdownNode(),
           replacedNode = subDivisionMarkdownNode, ///
@@ -62,6 +62,8 @@ export default class ContentsListReplacement extends Replacement {
 Object.assign(ContentsItemReplacement, {  ///
   ContentsListReplacement
 });
+
+export default ContentsListReplacement;
 
 function nestedHeadingMarkdownNodesFromHeadingMarkdownNodes(headingMarkdownNodes) {
   const nodes = headingMarkdownNodes, ///

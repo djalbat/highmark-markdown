@@ -40,6 +40,7 @@ import TableBodyCellMarkdownNode from "./node/markdown/tableBodyCell";
 import EmphasisedTextMarkdownNode from "./node/markdown/emphasisedText";
 import PrimaryHeadingMarkdownNode from "./node/markdown/heading/primary";
 import EmptyTableCellMarkdownNode from "./node/markdown/emptyTableCell";
+import IndexDirectiveMarkdownNode from "./node/markdown/directive/index";
 import EmbedDirectiveMarkdownNode from "./node/markdown/directive/embee";
 import TertiaryHeadingMarkdownNode from "./node/markdown/heading/tertiary";
 import OrderedListItemMarkdownNode from "./node/markdown/listItem/ordered";
@@ -94,6 +95,7 @@ import { LINE_RULE_NAME,
          TABLE_BODY_CELL_RULE_NAME,
          EMPHASISED_TEXT_RULE_NAME,
          PRIMARY_HEADING_RULE_NAME,
+         INDEX_DIRECTIVE_RULE_NAME,
          EMBED_DIRECTIVE_RULE_NAME,
          EMPTY_TABLE_CELL_RULE_NAME,
          TERTIARY_HEADING_RULE_NAME,
@@ -150,6 +152,7 @@ const nodeMap = {
   [TABLE_BODY_CELL_RULE_NAME]: TableBodyCellMarkdownNode,
   [EMPHASISED_TEXT_RULE_NAME]: EmphasisedTextMarkdownNode,
   [PRIMARY_HEADING_RULE_NAME]: PrimaryHeadingMarkdownNode,
+  [INDEX_DIRECTIVE_RULE_NAME]: IndexDirectiveMarkdownNode,
   [EMBED_DIRECTIVE_RULE_NAME]: EmbedDirectiveMarkdownNode,
   [EMPTY_TABLE_CELL_RULE_NAME]: EmptyTableCellMarkdownNode,
   [TERTIARY_HEADING_RULE_NAME]: TertiaryHeadingMarkdownNode,

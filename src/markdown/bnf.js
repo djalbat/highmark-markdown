@@ -43,6 +43,8 @@ const bnf = `
 
     directives              ::=  pageNumber 
     
+                               | indexDirective 
+  
                                | ignoreDirective 
   
                                | contentsDirective 
@@ -90,6 +92,9 @@ const bnf = `
 
 
     embedDirective          ::=  "@embed" [path] ;
+
+
+    indexDirective          ::=  "@index" ;
 
 
     ignoreDirective         ::=  "@ignore" ;

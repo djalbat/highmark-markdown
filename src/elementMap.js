@@ -38,6 +38,7 @@ import { LINE_RULE_NAME,
          TABLE_BODY_CELL_RULE_NAME,
          EMPHASISED_TEXT_RULE_NAME,
          PRIMARY_HEADING_RULE_NAME,
+         INDEX_DIRECTIVE_RULE_NAME,
          EMBED_DIRECTIVE_RULE_NAME,
          TERTIARY_HEADING_RULE_NAME,
          IGNORE_DIRECTIVE_RULE_NAME,
@@ -204,6 +205,10 @@ const elementMap = {
   },
   [PRIMARY_HEADING_RULE_NAME]: {
     tagName: "h1",
+    className: null
+  },
+  [INDEX_DIRECTIVE_RULE_NAME]: {
+    tagName: null,
     className: null
   },
   [EMBED_DIRECTIVE_RULE_NAME]: {

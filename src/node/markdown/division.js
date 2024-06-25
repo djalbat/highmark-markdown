@@ -4,9 +4,11 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 import FootnoteReplacement from "../../replacement/footnote";
+import IndexListReplacement from "../../replacement/indexList";
 import ContentsListReplacement from "../../replacement/contentsList";
 import FootnotesListReplacement from "../../replacement/footnotesList";
 import FootnoteSubDivisionReplacement from "../../replacement/subDivision/footnote";
+import IndexDirectiveSubDivisionReplacement from "../../replacement/subDivision/indexDirective";
 import ContentsDirectiveSubDivisionReplacement from "../../replacement/subDivision/contentsDirective";
 import FootnotesDirectiveSubDivisionReplacement from "../../replacement/subDivision/footnotesDirective";
 import PageNumberDirectiveSubDivisionReplacement from "../../replacement/subDivision/pageNumberDirective";
@@ -108,6 +110,25 @@ export default class DivisionMarkdownNode extends MarkdownNode {
         return true;
       }
     });
+  }
+
+  createIndex(divisionMarkdownNodes, context) {
+    let indexCreated = false;
+
+    const indexDirectiveSubDivisionReplacement = this.findSubDivisionReplacement(IndexDirectiveSubDivisionReplacement, context);
+
+    if (indexDirectiveSubDivisionReplacement !== null) {
+      const divisionMarkdownNode = this,  ///
+            indexListReplacement = IndexListReplacement.fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context);
+
+      if (indexListReplacement !== null) {
+        indexListReplacement.replaceIndexDirectiveSubdivisionReplacement(indexDirectiveSubDivisionReplacement, divisionMarkdownNode, context);
+
+        indexCreated = true;
+      }
+    }
+
+    return indexCreated;
   }
 
   createContents(divisionMarkdownNodes, context) {
