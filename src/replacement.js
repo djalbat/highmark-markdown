@@ -2,7 +2,19 @@
 
 import { arrayUtilities } from "necessary";
 
-import { removeNode, appendNode, removeTokens, appendTokens, replaceNode, replaceNodes, replaceTokens, addNodesAfter, addTokensAfter } from "./utilities/replacement";
+import { appendNode,
+         prependNode,
+         removeNode,
+         replaceNode,
+         replaceNodes,
+         addNodesAfter,
+         appendTokens,
+         prependTokens,
+         removeTokens,
+         replaceTokens,
+         addTokensAfter,
+         overwriteClonedNodeTokens,
+         clonedTokensFromNodeAndTokens, } from "./utilities/replacement";
 
 const { push } = arrayUtilities;
 
@@ -68,6 +80,16 @@ export default class Replacement {
     appendTokens(appendedTokens, parentNode, tokens);
   }
 
+  prependTo(parentNode, context) {
+    const { tokens } = context,
+          prependedNode = this.node,  ///
+          prependedTokens = this.tokens;  ///
+
+    prependNode(prependedNode, parentNode);
+
+    prependTokens(prependedTokens, parentNode, tokens);
+  }
+
   addAfter(existingNode, parentNode, context) {
     const { tokens } = context,
           addedNodes = this.getChildNodes(), ///
@@ -108,12 +130,13 @@ export default class Replacement {
   }
 
   clone(...remainingArguments) {
-    const node = this.node.clone(),
-          clonedTokens = clonedTokensFromNodeAndTokens(node, this.tokens);
+    const clonedNode = this.node.clone(),
+          clonedTokens = clonedTokensFromNodeAndTokens(this.node, this.tokens);
 
-    overwriteNodeTokens(node, clonedTokens, this.tokens);
+    overwriteClonedNodeTokens(clonedNode, clonedTokens, this.tokens);
 
     const Class = this.constructor, ///
+          node = clonedNode,  ///
           tokens = clonedTokens, ///
           replacement = new Class(node, tokens, ...remainingArguments);
 
@@ -133,13 +156,22 @@ export default class Replacement {
 
     let { tokens } = context;
 
-    const clonedTokens = clonedTokensFromNodeAndTokens(node, tokens),
-          firstSignificantTokenIndex = node.getFirstSignificantTokenIndex(tokens),
-          offset = firstSignificantTokenIndex;  ///
+    const firstSignificantTokenIndex = node.getFirstSignificantTokenIndex(tokens),
+          clonedNode = node.clone();
 
-    node = node.clone();  ///
+    let clonedTokens;
 
-    overwriteNodeTokens(node, clonedTokens, tokens, offset);
+    if (firstSignificantTokenIndex === null) {
+      clonedTokens = [];
+    } else {
+      const offset = firstSignificantTokenIndex;  ///
+
+      clonedTokens = clonedTokensFromNodeAndTokens(node, tokens);
+
+      overwriteClonedNodeTokens(clonedNode, clonedTokens, tokens, offset);
+    }
+
+    node = clonedNode;  ///
 
     tokens = clonedTokens; ///
 
@@ -163,62 +195,3 @@ export default class Replacement {
   }
 }
 
-function overwriteNodeTokens(node, clonedTokens, tokens, offset = 0) {
-  const nodeTerminalNode = node.isTerminalNode();
-
-  if (nodeTerminalNode) {
-    const terminalNode = node;  ///
-
-    overwriteTerminalNodeTokens(terminalNode, clonedTokens, tokens, offset);
-  } else {
-    const nonTerminalNode = node;  ///
-
-    overwriteNonTerminalNodeTokens(nonTerminalNode, clonedTokens, tokens, offset);
-  }
-}
-
-function overwriteTerminalNodeTokens(terminalNode, clonedTokens, tokens, offset) {
-  let index,
-      significantToken;
-
-  significantToken = terminalNode.getSignificantToken();
-
-  if (significantToken !== null) {
-    index = tokens.indexOf(significantToken);
-
-    index -= offset;
-
-    const clonedToken = clonedTokens[index];
-
-    significantToken = clonedToken;  ///
-
-    terminalNode.setSignificantToken(significantToken);
-  }
-}
-
-function overwriteNonTerminalNodeTokens(nonTerminalNode, clonedTokens, tokens, offset) {
-  const childNodes = nonTerminalNode.getChildNodes();
-
-  childNodes.forEach((childNode) => {
-    const node = childNode; ///
-
-    overwriteNodeTokens(node, clonedTokens, tokens, offset);
-  });
-}
-
-function clonedTokensFromNodeAndTokens(node, tokens) {
-  const firstSignificantTokenIndex = node.getFirstSignificantTokenIndex(tokens),
-        lastSignificantTokenIndex = node.getLastSignificantTokenIndex(tokens),
-        start = firstSignificantTokenIndex,  ///
-        end = lastSignificantTokenIndex + 1;
-
-  tokens = tokens.slice(start, end);  ///
-
-  const clonedTokens = tokens.map((token) => {  ///
-    const clonedToken = token.clone();
-
-    return clonedToken;
-  });
-
-  return clonedTokens;
-}

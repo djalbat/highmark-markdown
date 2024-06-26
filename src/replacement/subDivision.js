@@ -13,6 +13,18 @@ export default class SubDivisionReplacement extends Replacement {
     return this.subDivisionMarkdownNode;
   }
 
+  appendToDivisionMarkdownNode(divisionMarkdownNode, context) {
+    const parentNode = divisionMarkdownNode;  ///
+
+    super.appendTo(parentNode, context);
+  }
+
+  prependToDivisionMarkdownNode(divisionMarkdownNode, context) {
+    const parentNode = divisionMarkdownNode;  ///
+
+    super.prependTo(parentNode, context);
+  }
+
   removeFromDivisionMarkdownNode(divisionMarkdownNode, context) {
     const removedNode = this.subDivisionMarkdownNode, ///
           parentNode = divisionMarkdownNode;

@@ -5,12 +5,6 @@ import SubDivisionReplacement from "../../replacement/subDivision";
 import { pageNumberDirectiveMarkdownNodeFromNode } from "../../utilities/query";
 
 export default class PageNumberDirectiveSubDivisionReplacement extends SubDivisionReplacement {
-  appendToDivisionMarkdownNode(divisionMarkdownNode, context) {
-    const parentNode = divisionMarkdownNode;  ///
-
-    super.appendTo(parentNode, context);
-  }
-
   static fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context) {
     let pageNumberDirectiveSubDivisionReplacement = null;
 

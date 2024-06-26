@@ -3,8 +3,11 @@
 import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
+import VerticalSpaceMarkdownNode from "../../node/markdown/verticalSpace";
 import EmbedDirectivesSubDivisionReplacement from "../../replacement/subDivision/embedDirectives";
 import IncludeDirectivesSubDivisionReplacement from "../../replacement/subDivision/includeDirectives";
+
+import { SUB_DIVISION_RULE_NAME } from "../../ruleNames";
 
 const { second } = arrayUtilities;
 
@@ -60,8 +63,8 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
   }
 
   createDOMElement(context) {
-    const domElement = null,
-          secondMarkdownNode = this.getSecondMarkdownNode();
+    const secondMarkdownNode = this.getSecondMarkdownNode(),
+          domElement = null;
 
     secondMarkdownNode.createDOMElement(context);
 
@@ -74,6 +77,19 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
           secondMarkdownNode = secondChildNode; ///
 
     return secondMarkdownNode;
+  }
+
+  static fromAnchorMarkdownNode(anchorMarkdownNode) {
+    const ruleName = SUB_DIVISION_RULE_NAME,
+          verticalSpaceMarkdownNode = VerticalSpaceMarkdownNode.fromNothing(),
+          childNodes = [
+            verticalSpaceMarkdownNode,
+            anchorMarkdownNode
+          ],
+          opacity = null,
+          subDivisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(SubDivisionMarkdownNode, ruleName, childNodes, opacity);
+
+    return subDivisionMarkdownNode;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(SubDivisionMarkdownNode, ruleName, childNodes, opacity); }

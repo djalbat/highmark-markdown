@@ -239,9 +239,6 @@ const bnf = `
     
 
     className               ::=  <NO_WHITESPACE>[identifier] ;
-      
-
-    anchor.                 ::=  ε ;
     
 
     contentsList            ::=  contentsItem+ ;
@@ -272,7 +269,10 @@ const bnf = `
     indexLink               ::=  [number] ;    
 
 
-    comma                   ::=  "," ;    
+    comma.                  ::=  "," ;    
+      
+
+    anchor.                 ::=  ε ;
     
 `;
 

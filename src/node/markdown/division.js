@@ -8,6 +8,7 @@ import IndexListReplacement from "../../replacement/indexList";
 import ContentsListReplacement from "../../replacement/contentsList";
 import FootnotesListReplacement from "../../replacement/footnotesList";
 import FootnoteSubDivisionReplacement from "../../replacement/subDivision/footnote";
+import IndexAnchorSubDivisionReplacement from "../../replacement/subDivision/indexAnchor";
 import IndexDirectiveSubDivisionReplacement from "../../replacement/subDivision/indexDirective";
 import ContentsDirectiveSubDivisionReplacement from "../../replacement/subDivision/contentsDirective";
 import FootnotesDirectiveSubDivisionReplacement from "../../replacement/subDivision/footnotesDirective";
@@ -163,6 +164,16 @@ export default class DivisionMarkdownNode extends MarkdownNode {
         contentsListReplacement.replaceContentsDirectiveSubdivisionReplacement(contentsDirectiveSubDivisionReplacement, divisionMarkdownNode, context);
 
         contentsCreated = true;
+
+        divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+          const pageNumber = divisionMarkdownNode.getPageNumber();
+
+          if (pageNumber !== null) {
+            const indexAnchorSubDivisionReplacement = IndexAnchorSubDivisionReplacement.fromPageNumber(pageNumber, context);
+
+            indexAnchorSubDivisionReplacement.prependToDivisionMarkdownNode(divisionMarkdownNode, context);
+          }
+        });
       }
     }
 

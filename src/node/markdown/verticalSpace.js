@@ -1,8 +1,11 @@
 "use strict";
 
+import { StartOfContentNode } from "occam-parsers";
+
 import MarkdownNode from "../../node/markdown";
 
 import { CARRIAGE_RETURN } from "../../constants";
+import { VERTICAL_SPACE_RULE_NAME } from "../../ruleNames";
 
 export default class VerticalSpaceMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
@@ -19,6 +22,18 @@ export default class VerticalSpaceMarkdownNode extends MarkdownNode {
     this.setDOMElement(domElement);
 
     return domElement;
+  }
+
+  static fromNothing() {
+    const startOfContentNode = StartOfContentNode.fromNothing(),
+          ruleName = VERTICAL_SPACE_RULE_NAME,
+          childNodes = [
+            startOfContentNode
+          ],
+          opacity = null,
+          verticalSpaceMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(VerticalSpaceMarkdownNode, ruleName, childNodes, opacity);
+
+    return verticalSpaceMarkdownNode;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(VerticalSpaceMarkdownNode, ruleName, childNodes, opacity); }
