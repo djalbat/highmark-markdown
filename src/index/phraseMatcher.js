@@ -1,6 +1,6 @@
 "use strict";
 
-import { UNDERSCORE, GLOBAL_FLAG } from "../constants";
+import { UNDERSCORE, GLOBAL_FLAG, SINGLE_SPACE } from "../constants";
 
 export default class PhraseMatcher {
   constructor(regularExpression, replacement) {
@@ -20,6 +20,12 @@ export default class PhraseMatcher {
     plainText = plainText.replace(this.regularExpression, this.replacement);  ///
 
     return plainText;
+  }
+
+  static revert(entry) {
+    entry = entry.replace(/_/g, SINGLE_SPACE);
+
+    return entry;
   }
 
   static fromPhrase(phrase) {

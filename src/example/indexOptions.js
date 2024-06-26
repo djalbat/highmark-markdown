@@ -5,11 +5,14 @@ const indexOptions = {
     "symbolic reasoning"
   ],
   "plurals": [
-    "grammars",
-    "languages"
+    "grammar",
+    "language(s)"
+  ],
+  "acronyms": [
+    "CLI",
   ],
   "properNouns": [
-
+    "Occam"
   ],
   "ignoredWords": [
     "a",
@@ -125,9 +128,6 @@ const indexOptions = {
     "will",
     "with",
     "word"
-  ],
-  "capitalisedWords": [
-
   ]
 };
 
