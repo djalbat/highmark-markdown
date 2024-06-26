@@ -10,6 +10,9 @@ import { LINE_RULE_NAME,
          REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
+         INDEX_LIST_RULE_NAME,
+         INDEX_ITEM_RULE_NAME,
+         INDEX_LINK_RULE_NAME,
          TABLE_CELL_RULE_NAME,
          TABLE_HEAD_RULE_NAME,
          TABLE_BODY_RULE_NAME,
@@ -94,6 +97,18 @@ const elementMap = {
   [HYPERLINK_RULE_NAME]: {
     tagName: "a",
     className: "hyperlink"
+  },
+  [INDEX_LIST_RULE_NAME] : {
+    tagName: "ul",
+    className: "index"
+  },
+  [INDEX_ITEM_RULE_NAME] : {
+    tagName: "li",
+    className: "index"
+  },
+  [INDEX_LINK_RULE_NAME] : {
+    tagName: "a",
+    className: "index"
   },
   [TABLE_CELL_RULE_NAME]: {
     tagName: null,

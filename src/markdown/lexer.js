@@ -28,16 +28,6 @@ export default class MarkdownLexer extends CommonLexer {
 
   static DoublyQuotedStringLiteralToken = null;
 
-  static fromNothing(Class) {
-    if (Class === undefined) {
-      Class = MarkdownLexer;  ///
-    }
-
-    const markdownLexer = CommonLexer.fromNothing(Class);
-
-    return markdownLexer;
-  }
-
   static fromRules(Class, rules) {
     if (rules === undefined) {
       rules = Class;  ///
@@ -58,6 +48,16 @@ export default class MarkdownLexer extends CommonLexer {
     }
 
     const markdownLexer = CommonLexer.fromEntries(Class, entries);
+
+    return markdownLexer;
+  }
+
+  static fromNothing(Class) {
+    if (Class === undefined) {
+      Class = MarkdownLexer;  ///
+    }
+
+    const markdownLexer = CommonLexer.fromNothing(Class);
 
     return markdownLexer;
   }

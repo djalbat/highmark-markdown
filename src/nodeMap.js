@@ -10,6 +10,9 @@ import FootnoteMarkdownNode from "./node/markdown/footnote";
 import ReferenceMarkdownNode from "./node/markdown/reference";
 import ParagraphMarkdownNode from "./node/markdown/paragraph";
 import HyperlinkMarkdownNode from "./node/markdown/hyperlink";
+import IndexListMarkdownNode from "./node/markdown/indexList";
+import IndexItemMarkdownNode from "./node/markdown/indexItem";
+import IndexLinkMarkdownNode from "./node/markdown/indexLink";
 import TableCellMarkdownNode from "./node/markdown/tableCell";
 import TableHeadMarkdownNode from "./node/markdown/tableHead";
 import TableBodyMarkdownNode from "./node/markdown/tableBody";
@@ -66,6 +69,9 @@ import { LINE_RULE_NAME,
          REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
+         INDEX_LIST_RULE_NAME,
+         INDEX_ITEM_RULE_NAME,
+         INDEX_LINK_RULE_NAME,
          TABLE_CELL_RULE_NAME,
          TABLE_HEAD_RULE_NAME,
          TABLE_BODY_RULE_NAME,
@@ -123,6 +129,9 @@ const nodeMap = {
   [REFERENCE_RULE_NAME]: ReferenceMarkdownNode,
   [PARAGRAPH_RULE_NAME]: ParagraphMarkdownNode,
   [HYPERLINK_RULE_NAME]: HyperlinkMarkdownNode,
+  [INDEX_LIST_RULE_NAME]: IndexListMarkdownNode,
+  [INDEX_ITEM_RULE_NAME]: IndexItemMarkdownNode,
+  [INDEX_LINK_RULE_NAME]: IndexLinkMarkdownNode,
   [TABLE_CELL_RULE_NAME]: TableCellMarkdownNode,
   [TABLE_HEAD_RULE_NAME]: TableHeadMarkdownNode,
   [TABLE_BODY_RULE_NAME]: TableBodyMarkdownNode,

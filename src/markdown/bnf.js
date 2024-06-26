@@ -263,6 +263,14 @@ const bnf = `
     footnotesItem           ::=  anchor paragraph ;
 
 
+    indexList               ::=  indexItem+ ;
+
+
+    indexItem               ::=  line... indexLink ( "," indexLink )* ;
+
+
+    indexLink               ::=  [number] ;
+
 `;
 
 export default bnf;

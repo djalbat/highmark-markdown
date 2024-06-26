@@ -21,6 +21,8 @@ import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 import { postprocess } from "../utilities/processing";
 import { defaultContent } from "./importer";
 import { LINES_PER_PAGE, CONTENTS_DEPTH, CHARACTERS_PER_LINE } from "./constants";
+import {SPACE_COMMA} from "../constants";
+import {INDEX_ITEM_RULE_NAME} from "../ruleNames";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
@@ -93,7 +95,9 @@ class View extends Element {
               indexOptions,
               linesPerPage,
               contentsDepth,
-              charactersPerLine
+              charactersPerLine,
+              tokensFromContent,
+              nodeFromTokensAndStartRuleName
             },
             divisionMarkdownNodes = postprocess(divisionMarkdownNode, context);
 
@@ -272,3 +276,17 @@ export default withStyle(View)`
   padding: 1rem;
   
 `;
+
+function tokensFromContent(content) {
+  const tokens = markdownLexer.tokenise(content);
+
+  return tokens;
+}
+function nodeFromTokensAndStartRuleName(tokens, startRuleName) {
+  const ruleMap = markdownParser.getRuleMap(),
+        startRule = ruleMap[startRuleName],
+        startOfContent = true,
+        node = markdownParser.parse(tokens, startRule, startOfContent);
+
+  return node;
+}

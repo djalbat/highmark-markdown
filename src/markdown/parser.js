@@ -11,19 +11,6 @@ export default class MarkdownParser extends CommonParser {
 
   static nodeMap = nodeMap;
 
-  static fromNothing(Class) {
-    if (Class === undefined) {
-      Class = MarkdownParser; ///
-    }
-
-    const { nodeMap } = Class,
-          markdownParser = CommonParser.fromNothing(Class);
-
-    setNonTerminalNodes(markdownParser, nodeMap);
-
-    return markdownParser;
-  }
-
   static fromBNF(Class, bnf) {
     if (bnf === undefined) {
       bnf = Class;  ///
@@ -48,6 +35,19 @@ export default class MarkdownParser extends CommonParser {
 
     const { nodeMap } = Class,
           markdownParser = CommonParser.fromRules(Class, rules);
+
+    setNonTerminalNodes(markdownParser, nodeMap);
+
+    return markdownParser;
+  }
+
+  static fromNothing(Class) {
+    if (Class === undefined) {
+      Class = MarkdownParser; ///
+    }
+
+    const { nodeMap } = Class,
+          markdownParser = CommonParser.fromNothing(Class);
 
     setNonTerminalNodes(markdownParser, nodeMap);
 

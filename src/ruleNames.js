@@ -10,6 +10,9 @@ export const FOOTNOTE_RULE_NAME = "footnote";
 export const REFERENCE_RULE_NAME = "reference";
 export const PARAGRAPH_RULE_NAME = "paragraph";
 export const HYPERLINK_RULE_NAME = "hyperlink";
+export const INDEX_LIST_RULE_NAME = "indexList";
+export const INDEX_ITEM_RULE_NAME = "indexItem";
+export const INDEX_LINK_RULE_NAME = "indexLink";
 export const TABLE_CELL_RULE_NAME = "tableCell";
 export const TABLE_HEAD_RULE_NAME = "tableHead";
 export const TABLE_BODY_RULE_NAME = "tableBody";
@@ -67,6 +70,9 @@ const ruleNames = {
   REFERENCE_RULE_NAME,
   PARAGRAPH_RULE_NAME,
   HYPERLINK_RULE_NAME,
+  INDEX_LIST_RULE_NAME,
+  INDEX_ITEM_RULE_NAME,
+  INDEX_LINK_RULE_NAME,
   TABLE_CELL_RULE_NAME,
   TABLE_HEAD_RULE_NAME,
   TABLE_BODY_RULE_NAME,
