@@ -1,22 +1,15 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import MarkdownNode from "../../node/markdown";
 
 import { INDEX_PREPEND } from "../../prepends";
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
-import { INDEX_LINK_RULE_NAME } from "../../ruleNames";
+
+const { first } = arrayUtilities;
 
 export default class IndexLinkMarkdownNode extends MarkdownNode {
-  constructor(ruleName, childNodes, opacity, precedence, domElement, identifier) {
-    super(ruleName, childNodes, opacity, precedence, domElement);
-
-    this.identifier = identifier;
-  }
-
-  getIdentifier() {
-    return this.identifier;
-  }
-
   attributeName(context) {
     const attributeName = HREF_ATTRIBUTE_NAME;
 
@@ -24,23 +17,47 @@ export default class IndexLinkMarkdownNode extends MarkdownNode {
   }
 
   attributeValue(context) {
-    const prepend = INDEX_PREPEND,
-          attributeValue = `#${prepend}-${this.identifier}`;
+    const content = this.content(context),
+          attributeValue = `${INDEX_PREPEND}-${content}`;
 
     return attributeValue;
   }
 
-  clone() { return super.clone(this.identifier); }
+  asHTML(indent, context) {
+    indent = this.adjustIndent(indent);
 
-  static fromLineReplacementAndIdentifier(lineReplacement, identifier) {
-      const lineMarkdownNode = lineReplacement.getLineMarkdownNode(),
-            ruleName = INDEX_LINK_RULE_NAME,
-            childNodes = [
-              lineMarkdownNode
-            ],
-            opacity = null,
-            indexLinkMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(IndexLinkMarkdownNode, ruleName, childNodes, opacity, identifier);
+    const childNodesHTML = this.childNodesAsHTML(indent, context),
+          startingTag = this.startingTag(context),
+          closingTag = this.closingTag(context),
+          html = `${indent}${startingTag}${childNodesHTML}${closingTag}
+`;
 
-    return indexLinkMarkdownNode;
+    return html;
   }
+
+  childNodesAsHTML(indent, context) {
+    const content = this.content(context),
+          childNodesHTML = content; ///
+
+    return childNodesHTML;
+  }
+
+  createChildNodeDOMElements(context) {
+    const content = this.content(context),
+          textNode  = document.createTextNode(content),
+          domElement = textNode; ///
+
+    this.addDOMElement(domElement);
+  }
+
+  content(context) {
+    const childNodes = this.getChildNodes(),
+          firstChildNode = first(childNodes),
+          terminalNode = firstChildNode,  ///
+          content = terminalNode.getContent();
+
+    return content;
+  }
+
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(IndexLinkMarkdownNode, ruleName, childNodes, opacity); }
 }

@@ -21,8 +21,6 @@ import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 import { postprocess } from "../utilities/processing";
 import { defaultContent } from "./importer";
 import { LINES_PER_PAGE, CONTENTS_DEPTH, CHARACTERS_PER_LINE } from "./constants";
-import {SPACE_COMMA} from "../constants";
-import {INDEX_ITEM_RULE_NAME} from "../ruleNames";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
@@ -282,6 +280,7 @@ function tokensFromContent(content) {
 
   return tokens;
 }
+
 function nodeFromTokensAndStartRuleName(tokens, startRuleName) {
   const ruleMap = markdownParser.getRuleMap(),
         startRule = ruleMap[startRuleName],

@@ -1,6 +1,7 @@
 "use strict";
 
 import { LINE_RULE_NAME,
+         COMMA_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
@@ -61,6 +62,10 @@ const elementMap = {
   [LINE_RULE_NAME]: {
     tagName: "span",
     className: "line"
+  },
+  [COMMA_RULE_NAME]: {
+    tagName: null,
+    className: null
   },
   [IMAGE_RULE_NAME]: {
     tagName: "img",

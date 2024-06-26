@@ -89,6 +89,8 @@ This book explains how this is possible.
       gettingStartedContent = `# Getting started
       
 Another short paragraph with a reference to a footnote[^occam].
+
+Verifier...
       
 [^occam]: The word Occam is used somewhat nebulously here.
 It is most often associated with Occam's IDE but in fact it encompasses a range of software and services.

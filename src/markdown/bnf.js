@@ -266,11 +266,14 @@ const bnf = `
     indexList               ::=  indexItem+ ;
 
 
-    indexItem               ::=  line... indexLink ( "," indexLink )* ;
+    indexItem               ::=  line... indexLink ( comma indexLink )* ;
 
 
-    indexLink               ::=  [number] ;
+    indexLink               ::=  [number] ;    
 
+
+    comma                   ::=  "," ;    
+    
 `;
 
 export default bnf;

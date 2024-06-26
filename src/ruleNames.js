@@ -1,6 +1,7 @@
 "use strict";
 
 export const LINE_RULE_NAME = "line";
+export const COMMA_RULE_NAME = "comma";
 export const IMAGE_RULE_NAME = "image";
 export const TABLE_RULE_NAME = "table";
 export const ERROR_RULE_NAME = "error";
@@ -61,6 +62,7 @@ export const STRONGLY_EMPHASISED_TEXT_RULE_NAME = "stronglyEmphasisedText";
 
 const ruleNames = {
   LINE_RULE_NAME,
+  COMMA_RULE_NAME,
   IMAGE_RULE_NAME,
   TABLE_RULE_NAME,
   ERROR_RULE_NAME,

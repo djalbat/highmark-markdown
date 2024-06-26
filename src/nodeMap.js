@@ -1,6 +1,7 @@
 "use strict";
 
 import LineMarkdownNode from "./node/markdown/line";
+import CommaMarkdownNode from "./node/markdown/comma";
 import ImageMarkdownNode from "./node/markdown/image";
 import TableMarkdownNode from "./node/markdown/table";
 import ErrorMarkdownNode from "./node/markdown/error";
@@ -60,6 +61,7 @@ import PageNumberDirectiveMarkdownNode from "./node/markdown/directive/pageNumbe
 import StronglyEmphasisedTextMarkdownNode from "./node/markdown/stronglyEmphasisedText";
 
 import { LINE_RULE_NAME,
+         COMMA_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
          ERROR_RULE_NAME,
@@ -120,6 +122,7 @@ import { LINE_RULE_NAME,
 
 const nodeMap = {
   [LINE_RULE_NAME]: LineMarkdownNode,
+  [COMMA_RULE_NAME]: CommaMarkdownNode,
   [IMAGE_RULE_NAME]: ImageMarkdownNode,
   [TABLE_RULE_NAME]: TableMarkdownNode,
   [ERROR_RULE_NAME]: ErrorMarkdownNode,

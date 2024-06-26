@@ -2,7 +2,7 @@
 
 import Replacement from "../replacement";
 
-import { SPACE_COMMA } from "../constants";
+import { COMMA } from "../constants";
 import { INDEX_ITEM_RULE_NAME } from "../ruleNames";
 
 export default class IndexItemReplacement extends Replacement {
@@ -16,7 +16,7 @@ export default class IndexItemReplacement extends Replacement {
   static fromEntryAndPageNumbers(entry, pageNumbers, context) {
     const { tokensFromContent, nodeFromTokensAndStartRuleName } = context,
           entryContent = entry, ///
-          pageNumbersContent = pageNumbers.join(SPACE_COMMA),
+          pageNumbersContent = pageNumbers.join(COMMA),
           content = `${entryContent} ${pageNumbersContent}`,
           startRuleName = INDEX_ITEM_RULE_NAME,
           tokens = tokensFromContent(content),

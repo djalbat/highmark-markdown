@@ -178,6 +178,18 @@ footnotesItem {
   }
 }
 
+indexList {
+  list-style-type: none;
+}
+
+indexItem {
+  margin-left: 0;
+}
+
+indexLink {
+  margin-left: 3pt;
+}
+
 pageNumber {
   left: 0;
   width: 100%;
