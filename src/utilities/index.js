@@ -1,13 +1,15 @@
 "use strict";
 
-import { UNDERSCORE, GLOBAL_FLAG, EMPTY_STRING, SINGLE_SPACE } from "../constants";
+import PhraseMatcher from "../index/phraseMatcher";
+
+import { EMPTY_STRING, SINGLE_SPACE } from "../constants";
 
 export function indexMapFromDivisionMarkdownNodes(divisionMarkdownNodes, context) {
   const indexMap = {};
 
   const { indexOptions } = context,
         { phrases, ignoredWords } = indexOptions,
-        phraseMatchers = phraseMatchersFromPhrase(phrases);
+        phraseMatchers = phraseMatchersFromPhrases(phrases);
 
   divisionMarkdownNodes.forEach((divisionMarkdownNode, index) => {
     const pageNumber = divisionMarkdownNode.getPageNumber();
@@ -45,9 +47,7 @@ function entriesFromPlainTextAndPhraseMatchers(plainText, phraseMatchers) {
   plainText = preparePlainText(plainText);  ///
 
   phraseMatchers.forEach((phraseMatcher) => {
-    const { regularExpression, replacement } = phraseMatcher;
-
-    plainText = plainText.replace(regularExpression, replacement);
+    plainText = phraseMatcher.replace(plainText);
   });
 
   const entries = plainText.split(SINGLE_SPACE);
@@ -55,14 +55,9 @@ function entriesFromPlainTextAndPhraseMatchers(plainText, phraseMatchers) {
   return entries;
 }
 
-function phraseMatchersFromPhrase(phrases) {
+function phraseMatchersFromPhrases(phrases) {
   const phraseMatchers = phrases.map((phrase) => {
-    const regularExpression = new RegExp(phrase, GLOBAL_FLAG),
-          replacement = phrase.replace(/\s/g, UNDERSCORE),
-          phraseMatcher = {
-            regularExpression,
-            replacement
-          };
+    const phraseMatcher = PhraseMatcher.fromPhrase(phrase);
 
     return phraseMatcher;
   });
