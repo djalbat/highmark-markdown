@@ -4,6 +4,10 @@ const indexOptions = {
   "phrases": [
     "symbolic reasoning"
   ],
+  "plurals": [
+    "grammars",
+    "languages"
+  ],
   "properNouns": [
 
   ],

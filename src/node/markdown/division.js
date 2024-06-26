@@ -97,6 +97,25 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     }
   }
 
+  getPageNumber() {
+    let pageNumber = null;
+
+    const subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes();
+
+    subDivisionMarkdownNodes.some((subDivisionMarkdownNode) => {
+      const node = subDivisionMarkdownNode, ///
+            pageNumberDirective = pageNumberDirectiveMarkdownNodeFromNode(node);
+
+      if (pageNumberDirective !== null) {
+        pageNumber = pageNumberDirective.getPageNumber();
+
+        return true;
+      }
+    });
+
+    return pageNumber;
+  }
+
   setPageNumber(pageNumber) {
     const subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes();
 

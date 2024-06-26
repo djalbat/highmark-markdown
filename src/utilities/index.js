@@ -10,25 +10,28 @@ export function indexMapFromDivisionMarkdownNodes(divisionMarkdownNodes, context
         phraseMatchers = phraseMatchersFromPhrase(phrases);
 
   divisionMarkdownNodes.forEach((divisionMarkdownNode, index) => {
-    const pageNumber = index + 1,
-          plainText = divisionMarkdownNode.asPlainText(context),
-          entries = entriesFromPlainTextAndPhraseMatchers(plainText, phraseMatchers);
+    const pageNumber = divisionMarkdownNode.getPageNumber();
 
-    entries.forEach((entry) => {
-      let pageNumbers = indexMap[entry] || null;
+    if (pageNumber !== null) {
+      const plainText = divisionMarkdownNode.asPlainText(context),
+            entries = entriesFromPlainTextAndPhraseMatchers(plainText, phraseMatchers);
 
-      if (pageNumbers === null) {
-        pageNumbers = [];
+      entries.forEach((entry) => {
+        let pageNumbers = indexMap[entry] || null;
 
-        indexMap[entry] = pageNumbers;
-      }
+        if (pageNumbers === null) {
+          pageNumbers = [];
 
-      const pageNumbersIncludesPageNumber = pageNumbers.includes(pageNumber);
+          indexMap[entry] = pageNumbers;
+        }
 
-      if (!pageNumbersIncludesPageNumber) {
-        pageNumbers.push(pageNumber);
-      }
-    });
+        const pageNumbersIncludesPageNumber = pageNumbers.includes(pageNumber);
+
+        if (!pageNumbersIncludesPageNumber) {
+          pageNumbers.push(pageNumber);
+        }
+      });
+    }
   });
 
   ignoredWords.forEach((ignoredWord) => {
