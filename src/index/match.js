@@ -2,7 +2,7 @@
 
 import { UNDERSCORE, GLOBAL_FLAG, SINGLE_SPACE } from "../constants";
 
-export default class PhraseMatcher {
+export default class IndexMatch {
   constructor(regularExpression, replacement) {
     this.regularExpression = regularExpression;
     this.replacement = replacement;
@@ -31,8 +31,8 @@ export default class PhraseMatcher {
   static fromPhrase(phrase) {
     const regularExpression = new RegExp(phrase, GLOBAL_FLAG),
           replacement = phrase.replace(/\s/g, UNDERSCORE),
-          phraseMatcher = new PhraseMatcher(regularExpression, replacement);
+          indexMatch = new IndexMatch(regularExpression, replacement);
 
-    return phraseMatcher;
+    return indexMatch;
   }
 }

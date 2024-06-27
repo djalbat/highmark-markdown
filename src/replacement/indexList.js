@@ -1,15 +1,11 @@
 "use strict";
 
-import { stringUtilities } from "necessary";
-
 import Replacement from "../replacement";
 
 import IndexItemReplacement from "../replacement/indexItem";
 import IndexListMarkdownNode from "../node/markdown/indexList";
 
-import { indexMapFromDivisionMarkdownNodes } from "../utilities/index";
-
-const { strcmp } = stringUtilities;
+import IndexList from "../index/list";
 
 export default class IndexListReplacement extends Replacement {
   replaceIndexDirectiveSubdivisionReplacement(indexDirectiveSubDivisionReplacement, divisionMarkdownNode, context) {
@@ -23,20 +19,9 @@ export default class IndexListReplacement extends Replacement {
   static fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context) {
     let indexListReplacement = null;
 
-    const indexMap = indexMapFromDivisionMarkdownNodes(divisionMarkdownNodes, context),
-          entries = Object.keys(indexMap); ///
-
-    entries.sort((entryA, entryB) => {
-      const lowerCaseEntryA = entryA.toLowerCase(),
-            lowerCaseEntryB = entryB.toLowerCase(),
-            difference = strcmp(lowerCaseEntryB, lowerCaseEntryA);
-
-      return difference;
-    });
-
-    const indexItemReplacements = entries.map((entry) => {
-            const pageNumbers = indexMap[entry],
-                  indexItemReplacement = IndexItemReplacement.fromEntryAndPageNumbers(entry, pageNumbers, context);
+    const indexList = IndexList.fromDivisionMarkdownNodes(divisionMarkdownNodes, context),
+          indexItemReplacements = indexList.mapEntries((entry, pageNumbers) => {
+            const indexItemReplacement = IndexItemReplacement.fromEntryAndPageNumbers(entry, pageNumbers, context);
 
             return indexItemReplacement;
           }),

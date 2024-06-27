@@ -2,7 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
-import PhraseMatcher from "../index/phraseMatcher";
+import IndexMatch from "../index/match";
 
 import { EMPTY_STRING, SINGLE_SPACE } from "../constants";
 import { forEach, mapKeys, mapValues } from "../utilities/object";
@@ -34,10 +34,10 @@ function createIndexMap(divisionMarkdownNodes, context) {
 
   const { indexOptions } = context,
         { phrases } = indexOptions,
-        phraseMatchers = phrases.map((phrase) => {
-          const phraseMatcher = PhraseMatcher.fromPhrase(phrase);
+        indexMatches = phrases.map((phrase) => {
+          const indexMatch = IndexMatch.fromPhrase(phrase);
 
-          return phraseMatcher;
+          return indexMatch;
         });
 
   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
@@ -45,7 +45,7 @@ function createIndexMap(divisionMarkdownNodes, context) {
 
     if (pageNumber !== null) {
       const plainText = divisionMarkdownNode.asPlainText(context),
-            entries = entriesFromPlainTextAndPhraseMatchers(plainText, phraseMatchers);
+            entries = entriesFromPlainTextAndIndexMatches(plainText, indexMatches);
 
       entries.forEach((entry) => {
         let pageNumbers = indexMap[entry] || null;
@@ -64,19 +64,19 @@ function createIndexMap(divisionMarkdownNodes, context) {
   return indexMap;
 }
 
-function entriesFromPlainTextAndPhraseMatchers(plainText, phraseMatchers) {
+function entriesFromPlainTextAndIndexMatches(plainText, indexMatches) {
   let entries;
 
   plainText = preparePlainText(plainText);  ///
 
-  phraseMatchers.forEach((phraseMatcher) => {
-    plainText = phraseMatcher.replace(plainText);
+  indexMatches.forEach((indexMatch) => {
+    plainText = indexMatch.replace(plainText);
   });
 
   entries = plainText.split(SINGLE_SPACE);
 
   entries = entries.map((entry) => {
-    entry = PhraseMatcher.revert(entry);  ///
+    entry = IndexMatch.revert(entry);  ///
 
     return entry;
   });
@@ -314,22 +314,22 @@ function mixedPluralsFromPlurals(plurals) {
 }
 
 function isSingular(text) {
-  const matches = /[^s)]$/.test(text),
-        pluralSingular = matches; ///
+  const indexMatches = /[^s)]$/.test(text),
+        pluralSingular = indexMatches; ///
 
   return pluralSingular;
 }
 
 function isPlural(text) {
-  const matches = /s$/.test(text),
-        plural = matches; ///
+  const indexMatches = /s$/.test(text),
+        plural = indexMatches; ///
 
   return plural;
 }
 
 function isMixed(text) {
-  const matches = /\(s\)$/.test(text),
-        plural = matches; ///
+  const indexMatches = /\(s\)$/.test(text),
+        plural = indexMatches; ///
 
   return plural;
 }
