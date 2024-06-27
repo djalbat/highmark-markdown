@@ -20,8 +20,8 @@ export default class IndexListReplacement extends Replacement {
     let indexListReplacement = null;
 
     const indexList = IndexList.fromDivisionMarkdownNodes(divisionMarkdownNodes, context),
-          indexItemReplacements = indexList.mapEntries((entry, pageNumbers) => {
-            const indexItemReplacement = IndexItemReplacement.fromEntryAndPageNumbers(entry, pageNumbers, context);
+          indexItemReplacements = indexList.mapIndexItem((indexItem) => {
+            const indexItemReplacement = IndexItemReplacement.fromIndexItem(indexItem, context);
 
             return indexItemReplacement;
           }),

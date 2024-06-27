@@ -45,15 +45,15 @@ function createIndexMap(divisionMarkdownNodes, context) {
 
     if (pageNumber !== null) {
       const plainText = divisionMarkdownNode.asPlainText(context),
-            entries = entriesFromPlainTextAndIndexMatches(plainText, indexMatches);
+            wordsOrPhrases = wordsOrPhrasesFromPlainTextAndIndexMatches(plainText, indexMatches);
 
-      entries.forEach((entry) => {
-        let pageNumbers = indexMap[entry] || null;
+      wordsOrPhrases.forEach((wordOrPhrase) => {
+        let pageNumbers = indexMap[wordOrPhrase] || null;
 
         if (pageNumbers === null) {
           pageNumbers = [];
 
-          indexMap[entry] = pageNumbers;
+          indexMap[wordOrPhrase] = pageNumbers;
         }
 
         pageNumbers.push(pageNumber);
@@ -64,8 +64,8 @@ function createIndexMap(divisionMarkdownNodes, context) {
   return indexMap;
 }
 
-function entriesFromPlainTextAndIndexMatches(plainText, indexMatches) {
-  let entries;
+function wordsOrPhrasesFromPlainTextAndIndexMatches(plainText, indexMatches) {
+  let wordsOrPhrases;
 
   plainText = preparePlainText(plainText);  ///
 
@@ -73,19 +73,19 @@ function entriesFromPlainTextAndIndexMatches(plainText, indexMatches) {
     plainText = indexMatch.replace(plainText);
   });
 
-  entries = plainText.split(SINGLE_SPACE);
+  wordsOrPhrases = plainText.split(SINGLE_SPACE);
 
-  entries = entries.map((entry) => {
-    entry = IndexMatch.revert(entry);  ///
+  wordsOrPhrases = wordsOrPhrases.map((wordOrPhrase) => {
+    wordOrPhrase = IndexMatch.revert(wordOrPhrase);  ///
 
-    return entry;
+    return wordOrPhrase;
   });
 
-  return entries;
+  return wordsOrPhrases;
 }
 
 function compressPageNumbers(indexMap) {
-  mapValues(indexMap, (entry, pageNumbers) => {
+  mapValues(indexMap, (wordOrPhrase, pageNumbers) => {
     compress(pageNumbers, (pageNumberA, pageNumberB) => {
       if (pageNumberA === pageNumberB) {
         return true;
@@ -117,9 +117,9 @@ function adjustProperNouns(indexMap, context) {
     return lowerCaseProperNoun;
   });
 
-  mapKeys(indexMap, (entry) => {
+  mapKeys(indexMap, (wordOrPhrase) => {
     const index = lowerCaseProperNouns.findIndex((lowerCaseProperNmae) => {
-      if (lowerCaseProperNmae === entry) {
+      if (lowerCaseProperNmae === wordOrPhrase) {
         return true;
       }
     });
@@ -127,10 +127,10 @@ function adjustProperNouns(indexMap, context) {
     if (index > -1) {
       const properNoun = properNouns[index];
 
-      entry = properNoun;  ///
+      wordOrPhrase = properNoun;  ///
     }
 
-    return entry;
+    return wordOrPhrase;
   });
 }
 
@@ -156,9 +156,9 @@ function adjustAcronyms(indexMap, context) {
     return lowerCaseAcronym;
   });
 
-  mapKeys(indexMap, (entry) => {
+  mapKeys(indexMap, (wordOrPhrase) => {
     const index = lowerCaseAcronyms.findIndex((lowerCaseProperNmae) => {
-      if (lowerCaseProperNmae === entry) {
+      if (lowerCaseProperNmae === wordOrPhrase) {
         return true;
       }
     });
@@ -166,10 +166,10 @@ function adjustAcronyms(indexMap, context) {
     if (index > -1) {
       const acronym = acronyms[index];
 
-      entry = acronym;  ///
+      wordOrPhrase = acronym;  ///
     }
 
-    return entry;
+    return wordOrPhrase;
   });
 }
 
@@ -178,11 +178,11 @@ function adjustMixedPlurals(indexMap, context) {
         { plurals } = indexOptions,
         mixedPlurals = mixedPluralsFromPlurals(plurals);
 
-  forEach(indexMap, (entry, pageNumbers) => {
-    const entryPlural = isPlural(entry);
+  forEach(indexMap, (wordOrPhrase, pageNumbers) => {
+    const entryPlural = isPlural(wordOrPhrase);
 
     if (entryPlural) {
-      const singularEntry = entry.replace(/s$/, EMPTY_STRING),
+      const singularEntry = wordOrPhrase.replace(/s$/, EMPTY_STRING),
             mixedEntry = `${singularEntry}(s)`,
             mixedPluralsIncludesMixedEntry = mixedPlurals.includes(mixedEntry),
             entryMixedPlural = mixedPluralsIncludesMixedEntry; ///
@@ -196,7 +196,7 @@ function adjustMixedPlurals(indexMap, context) {
           ...singularPageNumbers
         ];
 
-        delete indexMap[entry];
+        delete indexMap[wordOrPhrase];
         delete indexMap[singularEntry];
 
         indexMap[mixedEntry] = pageNumbers;
@@ -210,12 +210,12 @@ function adjustPluralPlurals(indexMap, context) {
         { plurals } = indexOptions,
         pluralPlurals = pluralPluralsFromPlurals(plurals);
 
-  forEach(indexMap, (entry, pageNumbers) => {
-    const entryPlural = isPlural(entry);
+  forEach(indexMap, (wordOrPhrase, pageNumbers) => {
+    const entryPlural = isPlural(wordOrPhrase);
 
     if (entryPlural) {
-      const singularEntry = entry.replace(/s$/, EMPTY_STRING),
-            pluralPluralsIncludesEntry = pluralPlurals.includes(entry),
+      const singularEntry = wordOrPhrase.replace(/s$/, EMPTY_STRING),
+            pluralPluralsIncludesEntry = pluralPlurals.includes(wordOrPhrase),
             entryPluralPlural = pluralPluralsIncludesEntry; ///
 
       if (entryPluralPlural) {
@@ -229,7 +229,7 @@ function adjustPluralPlurals(indexMap, context) {
 
         delete indexMap[singularEntry];
 
-        indexMap[entry] = pageNumbers;
+        indexMap[wordOrPhrase] = pageNumbers;
       }
     }
   });
@@ -240,11 +240,11 @@ function adjustSingularPlurals(indexMap, context) {
         { plurals } = indexOptions,
         singularPlurals = singularPluralsFromPlurals(plurals);
 
-  forEach(indexMap, (entry, pageNumbers) => {
-    const entryPlural = isPlural(entry);
+  forEach(indexMap, (wordOrPhrase, pageNumbers) => {
+    const entryPlural = isPlural(wordOrPhrase);
 
     if (entryPlural) {
-      const singularEntry = entry.replace(/s$/, EMPTY_STRING),
+      const singularEntry = wordOrPhrase.replace(/s$/, EMPTY_STRING),
             singularPluralsIncludesSingularEntry = singularPlurals.includes(singularEntry),
             entrySingularPlural = singularPluralsIncludesSingularEntry; ///
 
@@ -257,7 +257,7 @@ function adjustSingularPlurals(indexMap, context) {
           ...singularPageNumbers
         ];
 
-        delete indexMap[entry];
+        delete indexMap[wordOrPhrase];
 
         indexMap[singularEntry] = pageNumbers;
       }

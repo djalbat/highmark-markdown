@@ -13,11 +13,12 @@ export default class IndexItemReplacement extends Replacement {
     return indexItemMarkdownNode;
   }
 
-  static fromEntryAndPageNumbers(entry, pageNumbers, context) {
+  static fromIndexItem(indexItem, context) {
     const { nodeFromTokens, tokensFromContent } = context,
-          entryContent = entry, ///
+          wordOrPhrase = indexItem.getWordOrPhrase(),
+          pageNumbers = indexItem.getPageNumbers(),
           pageNumbersContent = pageNumbers.join(COMMA),
-          content = `${entryContent} ${pageNumbersContent}`,
+          content = `${wordOrPhrase} ${pageNumbersContent}`,
           startRuleName = INDEX_ITEM_RULE_NAME,
           tokens = tokensFromContent(content),
           node = nodeFromTokens(tokens, startRuleName),

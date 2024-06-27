@@ -22,10 +22,10 @@ export default class IndexMatch {
     return plainText;
   }
 
-  static revert(entry) {
-    entry = entry.replace(/_/g, SINGLE_SPACE);
+  static revert(wordOrPhrase) {
+    wordOrPhrase = wordOrPhrase.replace(/_/g, SINGLE_SPACE);
 
-    return entry;
+    return wordOrPhrase;
   }
 
   static fromPhrase(phrase) {

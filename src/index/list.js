@@ -2,66 +2,49 @@
 
 import { stringUtilities } from "necessary";
 
+import IndexItem from "../index/item";
+
 import { indexMapFromDivisionMarkdownNodes } from "../utilities/index";
 
 const { strcmp } = stringUtilities;
 
 export default class IndexList {
-  constructor(entryArray, pageNumbersArray) {
-    this.entryArray = entryArray;
-    this.pageNumbersArray = pageNumbersArray;
+  constructor(indexItems) {
+    this.indexItems = indexItems;
   }
 
-  getEntryArray() {
-    return this.entryArray;
+  getIndexItems() {
+    return this.indexItems;
   }
 
-  getPageNumbersArray() {
-    return this.pageNumbersArray;
-  }
-
-  mapEntries(callback) {
-
-    const result = this.entryArray.map((entry, index) => {
-            const pageNumbers = this.pageNumbersArray[index],
-                  result = callback(entry, pageNumbers);
-
-            return result;
-          });
-
-    return result;
-  }
+  mapIndexItem(callback) { return this.indexItems.map(callback); }
 
   static fromDivisionMarkdownNodes(divisionMarkdownNodes, context) {
     const indexMap = indexMapFromDivisionMarkdownNodes(divisionMarkdownNodes, context),
-          entryArray = entryArrayFromIndexMap(indexMap),
-          pageNumbersArray = pageNumbersArrayFromIndexMapAndEntryArray(indexMap, entryArray),
-          indexList = new IndexList(entryArray, pageNumbersArray);
+          indexItems = indexItemsFromIndexMap(indexMap),
+          indexList = new IndexList(indexItems);
 
     return indexList;
   }
 }
 
-function entryArrayFromIndexMap(indexMap) {
-  const entryArray = Object.keys(indexMap); ///
+function indexItemsFromIndexMap(indexMap) {
+  const wordsOrPhrases = Object.keys(indexMap); ///
 
-  entryArray.sort((entryA, entryB) => {
-    const lowerCaseEntryA = entryA.toLowerCase(),
-          lowerCaseEntryB = entryB.toLowerCase(),
-          difference = strcmp(lowerCaseEntryB, lowerCaseEntryA);
+  wordsOrPhrases.sort((wordOrPhraseA, wordOrPhraseB) => {
+    const lowerCaseWordOrPhraseA = wordOrPhraseA.toLowerCase(),
+          lowerCaseWordOrPhraseB = wordOrPhraseB.toLowerCase(),
+          difference = strcmp(lowerCaseWordOrPhraseB, lowerCaseWordOrPhraseA);
 
     return difference;
   });
 
-  return entryArray;
-}
+  const indexItems = wordsOrPhrases.map((wordOrPhrase, index) => {
+    const pageNumbers = indexMap[wordOrPhrase],
+          indexItem = IndexItem.fromWordOrPhraseAndPageNumbers(wordOrPhrase, pageNumbers);
 
-function pageNumbersArrayFromIndexMapAndEntryArray(indexMap, entryArray) {
-  const pageNumbersArray = entryArray.map((entry) => {
-    const pageNumbers = indexMap[entry];
+    return indexItem;
+  })
 
-    return pageNumbers;
-  });
-
-  return pageNumbersArray;
+  return indexItems;
 }
