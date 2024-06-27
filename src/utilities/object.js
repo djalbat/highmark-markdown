@@ -24,14 +24,24 @@ export function filter(object, callback) {
 }
 
 export function mapKeys(object, callback) {
-  const keys = Object.keys(object);
+  let keys = Object.keys(object);
 
-  keys.forEach((key) => {
+  const values = [];
+
+  keys = keys.map((key) => {
     const value = object[key];
 
     delete object[key];
 
     key = callback(key, value); ///
+
+    values.push(value);
+
+    return key;
+  });
+
+  keys.forEach((key, index) => {
+    const value = values[index];
 
     object[key] = value;
   });
