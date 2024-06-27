@@ -1,34 +1,23 @@
 "use strict";
 
 import Replacement from "../replacement";
-
 import IndexItemReplacement from "../replacement/indexItem";
 import IndexListMarkdownNode from "../node/markdown/indexList";
 
-import IndexList from "../index/list";
-
 export default class IndexListReplacement extends Replacement {
-  replaceIndexDirectiveSubdivisionReplacement(indexDirectiveSubDivisionReplacement, divisionMarkdownNode, context) {
-    const subDivisionMarkdownNode = indexDirectiveSubDivisionReplacement.getSubDivisionMarkdownNode(),
-          replacedNode = subDivisionMarkdownNode, ///
-          parentNode = divisionMarkdownNode;  ///
-
-    super.replace(replacedNode, parentNode, context)
-  }
-
-  static fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context) {
+  static fromIndexListAndLetter(indexList, letter, context) {
     let indexListReplacement = null;
 
-    const indexList = IndexList.fromDivisionMarkdownNodes(divisionMarkdownNodes, context),
-          indexItemReplacements = indexList.mapIndexItem((indexItem) => {
+    const indexItemReplacements = indexList.reduceIndexItemByLetter(letter, (indexItem) => {
             const indexItemReplacement = IndexItemReplacement.fromIndexItem(indexItem, context);
 
             return indexItemReplacement;
           }),
-          indexListMarkdownNode = IndexListMarkdownNode.fromIndexItemReplacements(indexItemReplacements);
+          indexItemReplacementsLength = indexItemReplacements.length;
 
-    if (indexListMarkdownNode !== null) {
-      const node = indexListMarkdownNode, ///
+    if (indexItemReplacementsLength > 0) {
+      const indexListMarkdownNode = IndexListMarkdownNode.fromIndexItemReplacements(indexItemReplacements),
+            node = indexListMarkdownNode, ///
             tokens = [];
 
       indexItemReplacements.forEach((indexItemReplacement) => {

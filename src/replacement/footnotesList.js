@@ -44,10 +44,11 @@ export default class FootnotesListReplacement extends Replacement {
       }
     });
 
-    const footnotesListMarkdownNode = FootnotesListMarkdownNode.fromFootnotesItemReplacementsAndStart(footnotesItemReplacements, start);
+    const footnotesItemReplacementsLength = footnotesItemReplacements.length;
 
-    if (footnotesListMarkdownNode !== null) {
-      const node = footnotesListMarkdownNode, ///
+    if (footnotesItemReplacementsLength > 0) {
+      const footnotesListMarkdownNode = FootnotesListMarkdownNode.fromFootnotesItemReplacementsAndStart(footnotesItemReplacements, start),
+            node = footnotesListMarkdownNode, ///
             tokens = [];
 
       footnotesItemReplacements.forEach((footnotesItemReplacement) => {

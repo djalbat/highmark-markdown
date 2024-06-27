@@ -6,7 +6,6 @@ import { appendNode,
          prependNode,
          removeNode,
          replaceNode,
-         replaceNodes,
          addNodesAfter,
          appendTokens,
          prependTokens,
@@ -106,17 +105,6 @@ export default class Replacement {
           replacementTokens = this.tokens; ///
 
     replaceNode(replacementNode, replacedNode, parentNode);
-
-    replaceTokens(replacementTokens, replacedNode, tokens);
-  }
-
-  replaceEx(replacedNode, parentNode, context) {
-    const { tokens } = context,
-          replacementChildNodes = this.getChildNodes(), ///
-          replacementTokens = this.tokens,  ///
-          replacementNodes = replacementChildNodes; ///
-
-    replaceNodes(replacementNodes, replacedNode, parentNode);
 
     replaceTokens(replacementTokens, replacedNode, tokens);
   }

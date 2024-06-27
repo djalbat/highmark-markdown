@@ -17,7 +17,19 @@ export default class IndexList {
     return this.indexItems;
   }
 
-  mapIndexItem(callback) { return this.indexItems.map(callback); }
+  reduceIndexItemByLetter(letter, callback) {
+    const indexItems = this.indexItems.filter((indexItem) => {
+      const indexItemMatchesLetter = indexItem.matchLetter(letter);
+
+      if (indexItemMatchesLetter) {
+        return true;
+      }
+    });
+
+    const result = indexItems.map(callback);
+
+    return result;
+  }
 
   static fromDivisionMarkdownNodes(divisionMarkdownNodes, context) {
     const indexMap = indexMapFromDivisionMarkdownNodes(divisionMarkdownNodes, context),

@@ -31,22 +31,15 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
   clone() { return super.clone(this.start); }
 
   static fromFootnotesItemReplacementsAndStart(footnotesItemReplacements, start) {
-    let footnotesListMarkdownNode = null;
+    const ruleName = FOOTNOTES_LIST_RULE_NAME,
+          childNodes = footnotesItemReplacements.map((footnotesItemReplacement) => {
+            const footnotesItemReplacementMode = footnotesItemReplacement.getFootnotesItemMarkdownNode(),
+                  childNode = footnotesItemReplacementMode; ///
 
-    const footnotesItemReplacementsLength = footnotesItemReplacements.length;
-
-    if (footnotesItemReplacementsLength > 0) {
-      const ruleName = FOOTNOTES_LIST_RULE_NAME,
-            childNodes = footnotesItemReplacements.map((footnotesItemReplacement) => {
-              const footnotesItemReplacementMode = footnotesItemReplacement.getFootnotesItemMarkdownNode(),
-                    childNode = footnotesItemReplacementMode; ///
-
-              return childNode;
-            }),
-            opacity = null;
-
-      footnotesListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnotesListMarkdownNode, ruleName, childNodes, opacity, start);
-    }
+            return childNode;
+          }),
+          opacity = null,
+          footnotesListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnotesListMarkdownNode, ruleName, childNodes, opacity, start);
 
     return footnotesListMarkdownNode;
   }

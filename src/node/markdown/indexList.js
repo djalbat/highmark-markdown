@@ -12,22 +12,15 @@ export default class IndexListMarkdownNode extends MarkdownNode {
   }
 
   static fromIndexItemReplacements(indexItemReplacements) {
-    let indexListMarkdownNode = null;
+    const ruleName = INDEX_LIST_RULE_NAME,
+          childNodes = indexItemReplacements.map((indexItemReplacement) => {
+            const indexItemReplacementNode = indexItemReplacement.getIndexItemMarkdownNode(),
+                  childNode = indexItemReplacementNode;  ///
 
-    const indexItemReplacementsLength = indexItemReplacements.length;
-
-    if (indexItemReplacementsLength > 0) {
-      const ruleName = INDEX_LIST_RULE_NAME,
-            childNodes = indexItemReplacements.map((indexItemReplacement) => {
-              const indexItemReplacementNode = indexItemReplacement.getIndexItemMarkdownNode(),
-                    childNode = indexItemReplacementNode;  ///
-
-              return childNode;
-            }),
-            opacity = null;
-
-      indexListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(IndexListMarkdownNode, ruleName, childNodes, opacity);
-    }
+            return childNode;
+          }),
+          opacity = null,
+          indexListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(IndexListMarkdownNode, ruleName, childNodes, opacity);
 
     return indexListMarkdownNode;
   }

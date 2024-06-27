@@ -3,8 +3,8 @@
 import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
+import IndexReplacement from "../../replacement/index";
 import FootnoteReplacement from "../../replacement/footnote";
-import IndexListReplacement from "../../replacement/indexList";
 import ContentsListReplacement from "../../replacement/contentsList";
 import FootnotesListReplacement from "../../replacement/footnotesList";
 import FootnoteSubDivisionReplacement from "../../replacement/subDivision/footnote";
@@ -139,10 +139,10 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
     if (indexDirectiveSubDivisionReplacement !== null) {
       const divisionMarkdownNode = this,  ///
-            indexListReplacement = IndexListReplacement.fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context);
+            indexReplacement = IndexReplacement.fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context);
 
-      if (indexListReplacement !== null) {
-        indexListReplacement.replaceIndexDirectiveSubdivisionReplacement(indexDirectiveSubDivisionReplacement, divisionMarkdownNode, context);
+      if (indexReplacement !== null) {
+        indexReplacement.replaceIndexDirectiveSubdivisionReplacement(indexDirectiveSubDivisionReplacement, divisionMarkdownNode, context);
 
         indexCreated = true;
       }
