@@ -18,7 +18,7 @@ export default class IndexItemReplacement extends Replacement {
           wordOrPhrase = indexItem.getWordOrPhrase(),
           pageNumbers = indexItem.getPageNumbers(),
           pageNumbersContent = pageNumbers.join(COMMA),
-          content = `${wordOrPhrase} ${pageNumbersContent}`,
+          content = `${wordOrPhrase},${pageNumbersContent}`,
           startRuleName = INDEX_ITEM_RULE_NAME,
           tokens = tokensFromContent(content),
           node = nodeFromTokens(tokens, startRuleName),

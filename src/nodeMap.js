@@ -27,6 +27,7 @@ import InlineTextMarkdownNode from "./node/markdown/inlineText";
 import StrongTextMarkdownNode from "./node/markdown/strongText";
 import SubDivisionMarkdownNode from "./node/markdown/subDivision";
 import OrderedListMarkdownNode from "./node/markdown/orderedList";
+import IndexHeadingMarkdownNode from "./node/markdown/indexHeading";
 import BlockListingMarkdownNode from "./node/markdown/blockListing";
 import TableHeadRowMarkdownNode from "./node/markdown/tableHeadRow";
 import TableBodyRowMarkdownNode from "./node/markdown/tableBodyRow";
@@ -87,11 +88,12 @@ import { LINE_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
          SUB_DIVISION_RULE_NAME,
          ORDERED_LIST_RULE_NAME,
-         FOOTNOTE_LINK_RULE_NAME,
+         INDEX_HEADING_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
          CONTENTS_LINK_RULE_NAME,
          CONTENTS_ITEM_RULE_NAME,
          CONTENTS_LIST_RULE_NAME,
+         FOOTNOTE_LINK_RULE_NAME,
          TABLE_HEAD_ROW_RULE_NAME,
          TABLE_BODY_ROW_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
@@ -148,6 +150,7 @@ const nodeMap = {
   [STRONG_TEXT_RULE_NAME]: StrongTextMarkdownNode,
   [SUB_DIVISION_RULE_NAME]: SubDivisionMarkdownNode,
   [ORDERED_LIST_RULE_NAME]: OrderedListMarkdownNode,
+  [INDEX_HEADING_RULE_NAME]: IndexHeadingMarkdownNode,
   [BLOCK_LISTING_RULE_NAME]: BlockListingMarkdownNode,
   [CONTENTS_LINK_RULE_NAME]: ContentsLinkMarkdownNode,
   [CONTENTS_ITEM_RULE_NAME]: ContentsItemMarkdownNode,

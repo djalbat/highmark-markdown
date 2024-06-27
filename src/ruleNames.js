@@ -27,6 +27,7 @@ export const INLINE_TEXT_RULE_NAME = "inlineText";
 export const STRONG_TEXT_RULE_NAME = "strongText";
 export const SUB_DIVISION_RULE_NAME = "subDivision";
 export const ORDERED_LIST_RULE_NAME = "orderedList";
+export const INDEX_HEADING_RULE_NAME = "indexHeading";
 export const BLOCK_LISTING_RULE_NAME = "blockListing";
 export const CONTENTS_LINK_RULE_NAME = "contentsLink";
 export const CONTENTS_ITEM_RULE_NAME = "contentsItem";
@@ -88,6 +89,7 @@ const ruleNames = {
   STRONG_TEXT_RULE_NAME,
   SUB_DIVISION_RULE_NAME,
   ORDERED_LIST_RULE_NAME,
+  INDEX_HEADING_RULE_NAME,
   BLOCK_LISTING_RULE_NAME,
   CONTENTS_LINK_RULE_NAME,
   CONTENTS_ITEM_RULE_NAME,

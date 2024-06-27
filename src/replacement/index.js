@@ -2,15 +2,12 @@
 
 import Replacement from "../replacement";
 
+import letters from "../letters";
 import IndexList from "../index/list";
 import IndexListReplacement from "../replacement/indexList";
+import IndexHeadingReplacement from "./indexHeading";
 
 import { replaceNodes, replaceTokens } from "../utilities/replacement";
-
-const letters = [
-  "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-  "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
-];
 
 export default class IndexReplacement extends Replacement {
   constructor(node, tokens, nodes) {
@@ -58,27 +55,37 @@ export default class IndexReplacement extends Replacement {
     let indexReplacement = null;
 
     const indexList = IndexList.fromDivisionMarkdownNodes(divisionMarkdownNodes, context),
-          indexListReplacements = [];
+          indexReplacements = [];
 
     letters.forEach((letter) => {
       const indexListReplacement = IndexListReplacement.fromIndexListAndLetter(indexList, letter, context);
 
       if (indexListReplacement !== null) {
-        indexListReplacements.push(indexListReplacement);
+        let indexReplacement;
+
+        const indexHeadingReplacement = IndexHeadingReplacement.fromLetter(letter, context);
+
+        indexReplacement = indexHeadingReplacement; ///
+
+        indexReplacements.push(indexReplacement);
+
+        indexReplacement = indexListReplacement;  ///
+
+        indexReplacements.push(indexReplacement);
       }
     });
 
-    const indexListReplacementsLength = indexListReplacements.length;
+    const indexListReplacementsLength = indexReplacements.length;
 
     if (indexListReplacementsLength > 0) {
       const node = null,
             nodes = [],
             tokens = [];
 
-      indexListReplacements.forEach((indexListReplacement) => {
-        const node = indexListReplacement.getNode();
+      indexReplacements.forEach((indexReplacement) => {
+        const node = indexReplacement.getNode();
 
-        indexListReplacement.getTokens(tokens);
+        indexReplacement.getTokens(tokens);
 
         nodes.push(node);
       });

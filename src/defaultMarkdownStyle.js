@@ -179,11 +179,28 @@ footnotesItem {
 }
 
 indexList {
+  margin: 0;
   list-style-type: none;
 }
 
+indexHeading {
+  font-size: 17pt;
+  line-height: 1;
+  font-weight: normal;
+  font-family: "Computer Modern Sans";
+  text-transform: uppercase;
+}
+
+indexHeading {
+  margin: 13pt 0 0 0;
+
+  :first-child {
+    margin-top: 0;
+  }
+}
+
 indexItem {
-  margin-left: 0;
+  margin: 0;
 }
 
 indexLink {

@@ -27,6 +27,7 @@ import { LINE_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
          SUB_DIVISION_RULE_NAME,
          ORDERED_LIST_RULE_NAME,
+         INDEX_HEADING_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
          CONTENTS_LINK_RULE_NAME,
          CONTENTS_ITEM_RULE_NAME,
@@ -166,6 +167,10 @@ const elementMap = {
   [ORDERED_LIST_RULE_NAME]: {
     tagName: "ol",
     className: null
+  },
+  [INDEX_HEADING_RULE_NAME]: {
+    tagName: "h3",
+    className: "index"
   },
   [BLOCK_LISTING_RULE_NAME]: {
     tagName: "pre",

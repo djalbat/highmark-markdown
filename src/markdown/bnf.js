@@ -260,10 +260,13 @@ const bnf = `
     footnotesItem           ::=  anchor paragraph ;
 
 
+    indexHeading            ::=  line ;
+    
+    
     indexList               ::=  indexItem+ ;
 
 
-    indexItem               ::=  line... indexLink ( comma indexLink )* ;
+    indexItem               ::=  line... comma indexLink ( comma indexLink )* ;
 
 
     indexLink               ::=  [number] ;    
