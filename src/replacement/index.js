@@ -20,23 +20,15 @@ export default class IndexReplacement extends Replacement {
     return this.nodes;
   }
 
-  getReplacementNodes() {
-    const replacementNodes = this.nodes;  ///
+  replace(replacedNode, parentNode, context) {
+    let tokens;
 
-    return replacementNodes;
-  }
+    tokens = this.getTokens();
 
-  getReplacementTokens() {
-    const tokens = this.getTokens(),
+    const replacementNodes = this.nodes,  ///
           replacementTokens = tokens; ///
 
-    return replacementTokens;
-  }
-
-  replace(replacedNode, parentNode, context) {
-    const { tokens } = context,
-          replacementNodes = this.getReplacementNodes(),
-          replacementTokens = this.getReplacementTokens();
+    ({ tokens } = context);
 
     replaceNodes(replacementNodes, replacedNode, parentNode);
 
