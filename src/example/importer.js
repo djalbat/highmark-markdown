@@ -72,6 +72,8 @@ const indexContent = `## Index
 
       introductionContent = `# Introduction
       
+CLI      
+      
 I have tried to make Occam[^occam] as useable as possible but there are limits.
 At the end of the day it is an expert system and some of its parts, not least the verifier, need detailed explanation.
 It is the purpose of this book is to provide these explanations.
@@ -87,6 +89,8 @@ This book explains how this is possible.
 `,
 
       gettingStartedContent = `# Getting started
+      
+CLI      
       
 Another short paragraph with a reference to a footnote[^occam].
 
@@ -104,10 +108,11 @@ This book explains these divers parts and there is a companion book, called The 
 @pageNumber
 `,
 
-      installingTheCLIContent = `## Installing the CLI`,
+      installingTheCLIContent = `## Installing the CLI
+`,
 
       gettingToGripsWithTheIDEIContent = `## Getting to grips with the IDE
-      
+            
 * An unordered list to test...
 * ...the indexing.
       

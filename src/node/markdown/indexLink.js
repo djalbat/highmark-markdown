@@ -24,13 +24,10 @@ export default class IndexLinkMarkdownNode extends MarkdownNode {
   }
 
   asHTML(indent, context) {
-    indent = this.adjustIndent(indent);
-
     const childNodesHTML = this.childNodesAsHTML(indent, context),
           startingTag = this.startingTag(context),
           closingTag = this.closingTag(context),
-          html = `${indent}${startingTag}${childNodesHTML}${closingTag}
-`;
+          html = `${startingTag}${childNodesHTML}${closingTag}`;
 
     return html;
   }

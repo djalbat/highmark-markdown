@@ -21,8 +21,9 @@ export default class LineMarkdownNode extends MarkdownNode {
     const childNodesHTML = this.childNodesAsHTML(indent, context),
           startingTag = this.startingTag(context),
           closingTag = this.closingTag(context),
-          html = `${indent}${startingTag}${childNodesHTML}${closingTag}
-`;
+          html = (indent !== null) ?
+                  `${indent}${startingTag}${childNodesHTML}${closingTag}
+`:                  `${startingTag}${childNodesHTML}${closingTag}`;
 
     return html;
   }
