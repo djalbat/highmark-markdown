@@ -7,38 +7,23 @@ import { indexMapFromDivisionMarkdownNodes } from "../utilities/index";
 const { strcmp } = stringUtilities;
 
 export default class IndexList {
-  constructor(map) {
-    this.map = map;
+  constructor(entryArray, pageNumbersArray) {
+    this.entryArray = entryArray;
+    this.pageNumbersArray = pageNumbersArray;
   }
 
-  getMap() {
-    return this.map;
+  getEntryArray() {
+    return this.entryArray;
   }
 
-  getEntries() {
-    const entries = Object.keys(this.map); ///
-
-    entries.sort((entryA, entryB) => {
-      const lowerCaseEntryA = entryA.toLowerCase(),
-            lowerCaseEntryB = entryB.toLowerCase(),
-            difference = strcmp(lowerCaseEntryB, lowerCaseEntryA);
-
-      return difference;
-    });
-
-    return entries;
-  }
-
-  getPageNumbers(entry) {
-    const pageNumbers = this.map[entry] || null;
-
-    return pageNumbers;
+  getPageNumbersArray() {
+    return this.pageNumbersArray;
   }
 
   mapEntries(callback) {
-    const entries = this.getEntries(),
-          result = entries.map((entry) => {
-            const pageNumbers = this.getPageNumbers(entry),
+
+    const result = this.entryArray.map((entry, index) => {
+            const pageNumbers = this.pageNumbersArray[index],
                   result = callback(entry, pageNumbers);
 
             return result;
@@ -49,9 +34,34 @@ export default class IndexList {
 
   static fromDivisionMarkdownNodes(divisionMarkdownNodes, context) {
     const indexMap = indexMapFromDivisionMarkdownNodes(divisionMarkdownNodes, context),
-          map = indexMap, ///
-          indexList = new IndexList(map);
+          entryArray = entryArrayFromIndexMap(indexMap),
+          pageNumbersArray = pageNumbersArrayFromIndexMapAndEntryArray(indexMap, entryArray),
+          indexList = new IndexList(entryArray, pageNumbersArray);
 
     return indexList;
   }
+}
+
+function entryArrayFromIndexMap(indexMap) {
+  const entryArray = Object.keys(indexMap); ///
+
+  entryArray.sort((entryA, entryB) => {
+    const lowerCaseEntryA = entryA.toLowerCase(),
+          lowerCaseEntryB = entryB.toLowerCase(),
+          difference = strcmp(lowerCaseEntryB, lowerCaseEntryA);
+
+    return difference;
+  });
+
+  return entryArray;
+}
+
+function pageNumbersArrayFromIndexMapAndEntryArray(indexMap, entryArray) {
+  const pageNumbersArray = entryArray.map((entry) => {
+    const pageNumbers = indexMap[entry];
+
+    return pageNumbers;
+  });
+
+  return pageNumbersArray;
 }
