@@ -5,7 +5,7 @@ import { arrayUtilities } from "necessary";
 import PhraseMatcher from "../index/phraseMatcher";
 
 import { EMPTY_STRING, SINGLE_SPACE } from "../constants";
-import { forEach, mapValues, mapKeys } from "../utilities/object";
+import { forEach, mapKeys, mapValues } from "../utilities/object";
 
 const { compress } = arrayUtilities;
 
