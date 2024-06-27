@@ -93,9 +93,9 @@ class View extends Element {
               indexOptions,
               linesPerPage,
               contentsDepth,
-              charactersPerLine,
+              nodeFromTokens,
               tokensFromContent,
-              nodeFromTokensAndStartRuleName
+              charactersPerLine
             },
             divisionMarkdownNodes = postprocess(divisionMarkdownNode, context);
 
@@ -281,9 +281,11 @@ function tokensFromContent(content) {
   return tokens;
 }
 
-function nodeFromTokensAndStartRuleName(tokens, startRuleName) {
+function nodeFromTokens(tokens, startRuleName = null) {
   const ruleMap = markdownParser.getRuleMap(),
-        startRule = ruleMap[startRuleName],
+        startRule = (startRuleName !== null) ?
+                      ruleMap[startRuleName] :
+                        null,
         startOfContent = true,
         node = markdownParser.parse(tokens, startRule, startOfContent);
 

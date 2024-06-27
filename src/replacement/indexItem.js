@@ -14,13 +14,13 @@ export default class IndexItemReplacement extends Replacement {
   }
 
   static fromEntryAndPageNumbers(entry, pageNumbers, context) {
-    const { tokensFromContent, nodeFromTokensAndStartRuleName } = context,
+    const { nodeFromTokens, tokensFromContent } = context,
           entryContent = entry, ///
           pageNumbersContent = pageNumbers.join(COMMA),
           content = `${entryContent} ${pageNumbersContent}`,
           startRuleName = INDEX_ITEM_RULE_NAME,
           tokens = tokensFromContent(content),
-          node = nodeFromTokensAndStartRuleName(tokens, startRuleName),
+          node = nodeFromTokens(tokens, startRuleName),
           indexItemReplacement = Replacement.fromNodeAndTokens(IndexItemReplacement, node, tokens);
 
     return indexItemReplacement;
