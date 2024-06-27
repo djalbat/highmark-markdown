@@ -285,7 +285,7 @@ function nodeFromTokens(tokens, startRuleName = null) {
   const ruleMap = markdownParser.getRuleMap(),
         startRule = (startRuleName !== null) ?
                       ruleMap[startRuleName] :
-                        null,
+                        markdownParser.getStartRule(),
         startOfContent = true,
         node = markdownParser.parse(tokens, startRule, startOfContent);
 
