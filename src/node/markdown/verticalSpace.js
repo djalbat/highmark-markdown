@@ -1,6 +1,6 @@
 "use strict";
 
-import { StartOfContentNode } from "occam-parsers";
+import { EpsilonNode } from "occam-parsers";
 
 import MarkdownNode from "../../node/markdown";
 
@@ -25,10 +25,10 @@ export default class VerticalSpaceMarkdownNode extends MarkdownNode {
   }
 
   static fromNothing() {
-    const startOfContentNode = StartOfContentNode.fromNothing(),
+    const epsilonNode = EpsilonNode.fromNothing(),
           ruleName = VERTICAL_SPACE_RULE_NAME,
           childNodes = [
-            startOfContentNode
+            epsilonNode
           ],
           opacity = null,
           verticalSpaceMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(VerticalSpaceMarkdownNode, ruleName, childNodes, opacity);
