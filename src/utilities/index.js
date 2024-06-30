@@ -92,7 +92,15 @@ function compressPageNumbers(indexMap) {
       }
     });
 
-    pageNumbers.sort();
+    pageNumbers.sort((pageNumberB, pageNumberA) => {
+      pageNumberA = Number(pageNumberA);  ///
+
+      pageNumberB = Number(pageNumberB);  ///
+
+      const difference = pageNumberB - pageNumberA;
+
+      return difference;
+    });
 
     return pageNumbers;
   });
