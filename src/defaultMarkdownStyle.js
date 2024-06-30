@@ -111,6 +111,7 @@ inlineListing {
 }
 
 footnoteLink {
+  cursor: pointer;
   font-size: 9pt;
   line-height: 13pt;
   margin-left: 3pt;
@@ -157,6 +158,7 @@ contentsItem {
 }
 
 contentsLink {
+  cursor: pointer;
   font-size: 16pt;
   text-decoration: none;
 }
@@ -204,6 +206,7 @@ indexItem {
 }
 
 indexLink {
+  cursor: pointer;
   margin-left: 3pt;
 }
 
