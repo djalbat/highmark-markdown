@@ -18,7 +18,7 @@ export default class IndexLinkMarkdownNode extends MarkdownNode {
 
   attributeValue(context) {
     const content = this.content(context),
-          attributeValue = `${INDEX_PREPEND}-${content}`;
+          attributeValue = `#${INDEX_PREPEND}-${content}`;
 
     return attributeValue;
   }
