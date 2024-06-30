@@ -90,8 +90,6 @@ This book explains how this is possible.
 
       gettingStartedContent = `# Getting started
       
-CLI      
-      
 Another short paragraph with a reference to a footnote[^occam].
 
 [^occam]: The word Occam is used somewhat nebulously here.

@@ -7,8 +7,6 @@ import VerticalSpaceMarkdownNode from "../../node/markdown/verticalSpace";
 import EmbedDirectivesSubDivisionReplacement from "../../replacement/subDivision/embedDirectives";
 import IncludeDirectivesSubDivisionReplacement from "../../replacement/subDivision/includeDirectives";
 
-import { SUB_DIVISION_RULE_NAME } from "../../ruleNames";
-
 const { second } = arrayUtilities;
 
 export default class SubDivisionMarkdownNode extends MarkdownNode {
@@ -77,19 +75,6 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
           secondMarkdownNode = secondChildNode; ///
 
     return secondMarkdownNode;
-  }
-
-  static fromAnchorMarkdownNode(anchorMarkdownNode) {
-    const ruleName = SUB_DIVISION_RULE_NAME,
-          verticalSpaceMarkdownNode = VerticalSpaceMarkdownNode.fromNothing(),
-          childNodes = [
-            verticalSpaceMarkdownNode,
-            anchorMarkdownNode
-          ],
-          opacity = null,
-          subDivisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(SubDivisionMarkdownNode, ruleName, childNodes, opacity);
-
-    return subDivisionMarkdownNode;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(SubDivisionMarkdownNode, ruleName, childNodes, opacity); }

@@ -7,9 +7,10 @@ export function postprocess(divisionMarkdownNode, context) {
 
   resolveEmbeddings(divisionMarkdownNodes, context);
 
-  const footnoteReplacementMap = prepareFootnotes(divisionMarkdownNodes, context);
+  const footnoteReplacementMap = prepareFootnotes(divisionMarkdownNodes, context),
+        markdownNodes = paginate(divisionMarkdownNodes, context);
 
-  divisionMarkdownNodes = paginate(divisionMarkdownNodes, context);
+  divisionMarkdownNodes = divisionMarkdownNodesFromMarkdownNodes(markdownNodes);  ///
 
   createFootnotes(divisionMarkdownNodes, footnoteReplacementMap, context);
 
@@ -17,25 +18,17 @@ export function postprocess(divisionMarkdownNode, context) {
 
   createIndex(divisionMarkdownNodes, context);
 
-  return divisionMarkdownNodes;
+  return markdownNodes;
 }
 
 function paginate(divisionMarkdownNodes, context) {
-  const paginatedDivisionMarkdownNodes = [];
+  const markdownNOdes = [];
 
   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-    divisionMarkdownNode.paginate(paginatedDivisionMarkdownNodes, context);
+    divisionMarkdownNode.paginate(markdownNOdes, context);
   });
 
-  paginatedDivisionMarkdownNodes.forEach((paginatedDivisionMarkdownNode, index) => {
-    const pageNumber = index + 1;
-
-    paginatedDivisionMarkdownNode.setPageNumber(pageNumber);
-  });
-
-  divisionMarkdownNodes = paginatedDivisionMarkdownNodes; ///
-
-  return divisionMarkdownNodes;
+  return markdownNOdes;
 }
 
 function createIndex(divisionMarkdownNodes, context) {
@@ -100,6 +93,23 @@ function resolveEmbeddings(divisionMarkdownNodes, context) {
   });
 }
 
+export function divisionMarkdownNodesFromMarkdownNodes(markdownNodes) {
+  const divisionMarkdownNodes = markdownNodes.reduce((divisionMarkdownNodes, markdownNode) => {
+    const markdownNodeDivisionMarkdownNode = markdownNode.isDivisionMarkdownNode();
+
+    if (markdownNodeDivisionMarkdownNode) {
+      const divisionMarkdownNode = markdownNode;  ///
+
+      divisionMarkdownNodes.push(divisionMarkdownNode);
+    }
+
+    return divisionMarkdownNodes;
+  }, []);
+
+  return divisionMarkdownNodes;
+}
+
 export default {
-  postprocess
-};
+  postprocess,
+  divisionMarkdownNodesFromMarkdownNodes
+}

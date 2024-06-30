@@ -18,9 +18,9 @@ import RightSizeableDiv from "./view/div/sizeable/right";
 import MarkdownContainerDiv from "./view/div/container/markdown";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
-import { postprocess } from "../utilities/processing";
 import { defaultContent } from "./importer";
 import { LINES_PER_PAGE, CONTENTS_DEPTH, CHARACTERS_PER_LINE } from "./constants";
+import { postprocess, divisionMarkdownNodesFromMarkdownNodes } from "../utilities/processing";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
@@ -97,7 +97,8 @@ class View extends Element {
               tokensFromContent,
               charactersPerLine
             },
-            divisionMarkdownNodes = postprocess(divisionMarkdownNode, context);
+            markdownNodes = postprocess(divisionMarkdownNode, context),
+            divisionMarkdownNodes = divisionMarkdownNodesFromMarkdownNodes(markdownNodes);
 
       this.setDivisionMarkdownNodes(divisionMarkdownNodes);
 

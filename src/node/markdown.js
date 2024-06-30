@@ -94,6 +94,12 @@ class MarkdownNode extends NonTerminalNode {
     return attributeValue;
   }
 
+  isDivisionMarkdownNode() {
+    const divisionMarkdownNode = false;
+
+    return divisionMarkdownNode;
+  }
+
   isPlainTextMarkdownNode() {
     const plainTextMarkdownNode = false;
 
