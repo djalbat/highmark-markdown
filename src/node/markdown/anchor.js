@@ -36,6 +36,27 @@ export default class AnchorMarkdownNode extends MarkdownNode {
     return attributeValue;
   }
 
+  asHTML(indent, context) {
+    if (context === undefined) {
+      context = indent; ///
+
+      indent = null;
+    }
+
+    indent = this.adjustIndent(indent);
+
+    const childNodesHTML = this.childNodesAsHTML(indent, context),
+          startingTag = this.startingTag(context),
+          closingTag = this.closingTag(context),
+          html = (indent === null) ?
+                  `${startingTag}${childNodesHTML}${closingTag}` :
+                    `${indent}${startingTag}
+${childNodesHTML}${indent}${closingTag}
+`;
+
+    return html;
+  }
+
   childNodesAsHTML(indent, context) {
     const content = EMPTY_STRING,
           childNodesHTML = content; ///
