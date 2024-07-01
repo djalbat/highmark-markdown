@@ -86,7 +86,8 @@ export default class DivisionMarkdownNode extends MarkdownNode {
           paginatedChildNodes = [],
           childNodes = this.getChildNodes();
 
-    let totalLines = 0;
+    let { pageNumber } = context,
+        totalLines = 0;
 
     childNodes.forEach((childNode) => {
       const lines = childNode.lines(context),
@@ -97,17 +98,25 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       totalLines += lines;
 
       if (totalLines > linesPerPage) {
-        paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionReplacements, this.divisionClassName, markdownNodes, context)
+        paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionReplacements, this.divisionClassName, markdownNodes, pageNumber, context);
 
-        clear(paginatedChildNodes);
+        pageNumber++;
 
         totalLines = 0;
+
+        clear(paginatedChildNodes);
       }
     });
 
     if (totalLines > 0) {
-      paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionReplacements, this.divisionClassName, markdownNodes, context);
+      paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionReplacements, this.divisionClassName, markdownNodes, pageNumber, context);
+
+      pageNumber++;
     }
+
+    Object.assign(context, {
+      pageNumber
+    });
   }
 
   createIndex(divisionMarkdownNodes, context) {
@@ -337,29 +346,21 @@ ${childNodesHTML}${indent}${closingTag}
   }
 }
 
-function paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionReplacements, divisionClassName, markdownNodes, context) {
+function paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionReplacements, divisionClassName, markdownNodes, pageNumber, context) {
   let markdownNode;
 
   const divisionMarkdownNode = DivisionMarkdownNode.fromPaginatedChildNodesSubDivisionReplacementsAndDivisionClassName(paginatedChildNodes, subDivisionReplacements, divisionClassName, context),
         pageNumberDirectiveMarkdownNode = divisionMarkdownNode.findPageNumberDirectiveMarkdownNode();
 
   if (pageNumberDirectiveMarkdownNode !== null) {
-    let { pageNumber } = context;
-
-    pageNumberDirectiveMarkdownNode.setPageNumber(pageNumber);
-
     const indexAnchorReplacement = IndexAnchorReplacement.fromPageNumber(pageNumber, context),
           anchorMarkdownNode = indexAnchorReplacement.getAnchorMarkdownNode();
+
+    pageNumberDirectiveMarkdownNode.setPageNumber(pageNumber);
 
     markdownNode = anchorMarkdownNode;  ///
 
     markdownNodes.push(markdownNode);
-
-    pageNumber++;
-
-    Object.assign(context, {
-      pageNumber
-    });
   }
 
   markdownNode = divisionMarkdownNode; ///
