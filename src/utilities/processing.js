@@ -22,11 +22,18 @@ export function postprocess(divisionMarkdownNode, context) {
 }
 
 function paginate(divisionMarkdownNodes, context) {
-  const markdownNOdes = [];
+  const pageNumber = 1,
+        markdownNOdes = [];
+
+  Object.assign(context, {
+    pageNumber
+  });
 
   divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
     divisionMarkdownNode.paginate(markdownNOdes, context);
   });
+
+  delete context.pageNumber;
 
   return markdownNOdes;
 }
