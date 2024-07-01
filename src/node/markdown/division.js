@@ -68,6 +68,14 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return pageNumber;
   }
 
+  setPageNumber(pageNumber) {
+    const pageNumberDirectiveMarkdownNode = this.findPageNumberDirectiveMarkdownNode();
+
+    if (pageNumberDirectiveMarkdownNode !== null) {
+      pageNumberDirectiveMarkdownNode.setPageNumber(pageNumber);
+    }
+  }
+
   paginate(markdownNodes, context) {
     const footnotesDirectiveSubDivisionReplacement = this.removeSubDivisionMarkdownNode(FootnotesDirectiveSubDivisionReplacement, context),
           pageNumberDirectiveSubDivisionReplacement = this.removeSubDivisionMarkdownNode(PageNumberDirectiveSubDivisionReplacement, context),
@@ -349,19 +357,15 @@ ${childNodesHTML}${indent}${closingTag}
 function paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionReplacements, divisionClassName, markdownNodes, pageNumber, context) {
   let markdownNode;
 
-  const divisionMarkdownNode = DivisionMarkdownNode.fromPaginatedChildNodesSubDivisionReplacementsAndDivisionClassName(paginatedChildNodes, subDivisionReplacements, divisionClassName, context),
-        pageNumberDirectiveMarkdownNode = divisionMarkdownNode.findPageNumberDirectiveMarkdownNode();
+  const indexAnchorReplacement = IndexAnchorReplacement.fromPageNumber(pageNumber, context),
+        divisionMarkdownNode = DivisionMarkdownNode.fromPaginatedChildNodesSubDivisionReplacementsAndDivisionClassName(paginatedChildNodes, subDivisionReplacements, divisionClassName, context),
+        anchorMarkdownNode = indexAnchorReplacement.getAnchorMarkdownNode();
 
-  if (pageNumberDirectiveMarkdownNode !== null) {
-    const indexAnchorReplacement = IndexAnchorReplacement.fromPageNumber(pageNumber, context),
-          anchorMarkdownNode = indexAnchorReplacement.getAnchorMarkdownNode();
+  divisionMarkdownNode.setPageNumber(pageNumber);
 
-    pageNumberDirectiveMarkdownNode.setPageNumber(pageNumber);
+  markdownNode = anchorMarkdownNode;  ///
 
-    markdownNode = anchorMarkdownNode;  ///
-
-    markdownNodes.push(markdownNode);
-  }
+  markdownNodes.push(markdownNode);
 
   markdownNode = divisionMarkdownNode; ///
 
