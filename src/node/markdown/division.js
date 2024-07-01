@@ -36,6 +36,12 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     this.divisionClassName = divisionClassName;
   }
 
+  isDivisionMarkdownNode() {
+    const divisionMarkdownNode = true;
+
+    return divisionMarkdownNode;
+  }
+
   className(context) {
     const className = this.divisionClassName; ///
 
@@ -50,44 +56,16 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return ignored;
   }
 
-  isDivisionMarkdownNode() {
-    const divisionMarkdownNode = true;
-
-    return divisionMarkdownNode;
-  }
-
   getPageNumber() {
     let pageNumber = null;
 
-    const subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes();
+    const pageNumberDirectiveMarkdownNode = this.findPageNumberDirectiveMarkdownNode();
 
-    subDivisionMarkdownNodes.some((subDivisionMarkdownNode) => {
-      const node = subDivisionMarkdownNode, ///
-            pageNumberDirective = pageNumberDirectiveMarkdownNodeFromNode(node);
-
-      if (pageNumberDirective !== null) {
-        pageNumber = pageNumberDirective.getPageNumber();
-
-        return true;
-      }
-    });
+    if (pageNumberDirectiveMarkdownNode !== null) {
+      pageNumber = pageNumberDirectiveMarkdownNode.getPageNumber();
+    }
 
     return pageNumber;
-  }
-
-  setPageNumber(pageNumber) {
-    const subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes();
-
-    subDivisionMarkdownNodes.some((subDivisionMarkdownNode) => {
-      const node = subDivisionMarkdownNode, ///
-            pageNumberDirective = pageNumberDirectiveMarkdownNodeFromNode(node);
-
-      if (pageNumberDirective !== null) {
-        pageNumberDirective.setPageNumber(pageNumber);
-
-        return true;
-      }
-    });
   }
 
   paginate(markdownNodes, context) {
@@ -108,8 +86,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
           paginatedChildNodes = [],
           childNodes = this.getChildNodes();
 
-    let { pageNumber } = context,
-        totalLines = 0;
+    let totalLines = 0;
 
     childNodes.forEach((childNode) => {
       const lines = childNode.lines(context),
@@ -120,25 +97,17 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       totalLines += lines;
 
       if (totalLines > linesPerPage) {
-        paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionReplacements, this.divisionClassName, markdownNodes, pageNumber, context)
-
-        pageNumber++;
-
-        totalLines = 0;
+        paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionReplacements, this.divisionClassName, markdownNodes, context)
 
         clear(paginatedChildNodes);
+
+        totalLines = 0;
       }
     });
 
     if (totalLines > 0) {
-      paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionReplacements, this.divisionClassName, markdownNodes, pageNumber, context);
-
-      pageNumber++;
+      paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionReplacements, this.divisionClassName, markdownNodes, context);
     }
-
-    Object.assign(context, {
-      pageNumber
-    });
   }
 
   createIndex(divisionMarkdownNodes, context) {
@@ -265,6 +234,24 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return subDivisionMarkdownNodes;
   }
 
+  findPageNumberDirectiveMarkdownNode() {
+    let pageNumberDirectiveMarkdownNode = null;
+
+    const subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes();
+
+    subDivisionMarkdownNodes.some((subDivisionMarkdownNode) => {
+      const node = subDivisionMarkdownNode; ///
+
+      pageNumberDirectiveMarkdownNode = pageNumberDirectiveMarkdownNodeFromNode(node);
+
+      if (pageNumberDirectiveMarkdownNode !== null) {
+        return true;
+      }
+    });
+
+    return pageNumberDirectiveMarkdownNode;
+  }
+
   removeSubDivisionMarkdownNode(SubDivisionReplacement, context) {
     const divisionMarkdownNode = this,  //
           subDivisionReplacement = this.findSubDivisionReplacement(SubDivisionReplacement, context);
@@ -330,13 +317,15 @@ ${childNodesHTML}${indent}${closingTag}
     return divisionMarkdownNode;
   }
 
-  static fromPaginatedChildNodesAndSubDivisionReplacements(paginatedChildNodes, subDivisionReplacements, context) {
+  static fromPaginatedChildNodesSubDivisionReplacementsAndDivisionClassName(paginatedChildNodes, subDivisionReplacements, divisionClassName, context) {
     const ruleName = DIVISION_RULE_NAME,
           childNodes = [
             ...paginatedChildNodes
           ],
           opacity = null,
           divisionMarkdownNode = DivisionMarkdownNode.fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity);
+
+    divisionMarkdownNode.setDivisionClassName(divisionClassName);
 
     subDivisionReplacements.forEach((subDivisionReplacement) => {
       subDivisionReplacement = subDivisionReplacement.clone();  ///
@@ -348,21 +337,30 @@ ${childNodesHTML}${indent}${closingTag}
   }
 }
 
-function paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionReplacements, divisionClassName, markdownNodes, pageNumber, context) {
+function paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionReplacements, divisionClassName, markdownNodes, context) {
   let markdownNode;
 
-  const indexAnchorReplacement = IndexAnchorReplacement.fromPageNumber(pageNumber, context),
-        anchorMarkdownNode = indexAnchorReplacement.getAnchorMarkdownNode();
+  const divisionMarkdownNode = DivisionMarkdownNode.fromPaginatedChildNodesSubDivisionReplacementsAndDivisionClassName(paginatedChildNodes, subDivisionReplacements, divisionClassName, context),
+        pageNumberDirectiveMarkdownNode = divisionMarkdownNode.findPageNumberDirectiveMarkdownNode();
 
-  markdownNode = anchorMarkdownNode;  ///
+  if (pageNumberDirectiveMarkdownNode !== null) {
+    let { pageNumber } = context;
 
-  markdownNodes.push(markdownNode);
+    pageNumberDirectiveMarkdownNode.setPageNumber(pageNumber);
 
-  const divisionMarkdownNode = DivisionMarkdownNode.fromPaginatedChildNodesAndSubDivisionReplacements(paginatedChildNodes, subDivisionReplacements, context);
+    const indexAnchorReplacement = IndexAnchorReplacement.fromPageNumber(pageNumber, context),
+          anchorMarkdownNode = indexAnchorReplacement.getAnchorMarkdownNode();
 
-  divisionMarkdownNode.setDivisionClassName(divisionClassName);
+    markdownNode = anchorMarkdownNode;  ///
 
-  divisionMarkdownNode.setPageNumber(pageNumber);
+    markdownNodes.push(markdownNode);
+
+    pageNumber++;
+
+    Object.assign(context, {
+      pageNumber
+    });
+  }
 
   markdownNode = divisionMarkdownNode; ///
 
