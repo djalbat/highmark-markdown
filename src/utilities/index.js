@@ -145,7 +145,7 @@ function adjustProperNouns(indexMap, context) {
 function preparePlainText(plainText) {
   plainText = plainText.toLowerCase();  ///
 
-  plainText = plainText.replace(/[^a-z0-9 ]/g, SINGLE_SPACE);
+  plainText = plainText.replace(/[^a-z0-9\- ]/g, SINGLE_SPACE);
 
   plainText = plainText.replace(/\s+/g, SINGLE_SPACE);
 
