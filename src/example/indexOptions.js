@@ -9,7 +9,7 @@ const indexOptions = {
     "language(s)"
   ],
   "acronyms": [
-    "CLI",
+    "ES6",
   ],
   "properNouns": [
     "Occam"

@@ -43,7 +43,15 @@ const INDEX_PATH = "index.md",
       INSTALLING_THE_CLI_PATH = "installing-the-cli.md",
       GETTING_TO_GRIPS_WITH_THE_IDE_PATH = "getting-to-grips-with-the-ide.md";
 
-export const defaultContent = `@ignore
+export const defaultContent = `ES6.
+
+@include ${INDEX_PATH}
+
+@pageNumber
+
+`;
+
+export const _defaultContent = `@ignore
 
 @include ${FRONT_MATTER_PATH}
 @include ${CONTENT_PATH}
@@ -72,8 +80,6 @@ const indexContent = `## Index
 
       introductionContent = `# Introduction
       
-CLI.
-
 I have tried to make Occam[^occam] as useable as possible but there are limits.
 At the end of the day it is an expert system and some of its parts, not least the verifier, need detailed explanation.
 It is the purpose of this book is to provide these explanations.
