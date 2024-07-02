@@ -72,8 +72,8 @@ const indexContent = `## Index
 
       introductionContent = `# Introduction
       
-CLI      
-      
+CLI.
+
 I have tried to make Occam[^occam] as useable as possible but there are limits.
 At the end of the day it is an expert system and some of its parts, not least the verifier, need detailed explanation.
 It is the purpose of this book is to provide these explanations.

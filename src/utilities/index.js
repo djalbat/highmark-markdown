@@ -4,8 +4,8 @@ import { arrayUtilities } from "necessary";
 
 import IndexMatch from "../index/match";
 
-import { EMPTY_STRING, SINGLE_SPACE } from "../constants";
 import { forEach, mapKeys, mapValues } from "../utilities/object";
+import { Y_STRING, S_STRING, IES_STRING, EMPTY_STRING, SINGLE_SPACE, PARENTHESISED_S_STRING } from "../constants";
 
 const { compress } = arrayUtilities;
 
@@ -14,15 +14,15 @@ export function indexMapFromDivisionMarkdownNodes(divisionMarkdownNodes, context
 
   removeIgnoredWords(indexMap, context);
 
-  adjustProperNouns(indexMap, context);
-
-  adjustAcronyms(indexMap, context);
-
   adjustMixedPlurals(indexMap, context);
 
   adjustPluralPlurals(indexMap, context);
 
   adjustSingularPlurals(indexMap, context);
+
+  adjustProperNouns(indexMap, context);
+
+  adjustAcronyms(indexMap, context);
 
   compressPageNumbers(indexMap);
 
@@ -184,31 +184,45 @@ function adjustAcronyms(indexMap, context) {
 function adjustMixedPlurals(indexMap, context) {
   const { indexOptions } = context,
         { plurals } = indexOptions,
-        mixedPlurals = mixedPluralsFromPlurals(plurals);
+        mixedPlurals = reducePlurals(plurals, isMixed),
+        pluralPlurals = mapPlurals(mixedPlurals, mixedToPlural),
+        singularPlurals = mapPlurals(mixedPlurals, mixedToSingular);
 
   forEach(indexMap, (wordOrPhrase, pageNumbers) => {
-    const entryPlural = isPlural(wordOrPhrase);
+    const singularPluralsIncludesWordOrPhrase = singularPlurals.includes(wordOrPhrase);
 
-    if (entryPlural) {
-      const singularEntry = wordOrPhrase.replace(/s$/, EMPTY_STRING),
-            mixedEntry = `${singularEntry}(s)`,
-            mixedPluralsIncludesMixedEntry = mixedPlurals.includes(mixedEntry),
-            entryMixedPlural = mixedPluralsIncludesMixedEntry; ///
+    if (singularPluralsIncludesWordOrPhrase) {
+      const singularWordOrPhrase = wordOrPhrase,  ///
+            singularPageNumbers = pageNumbers,  ///
+            mixedWordOrPhrase = singularToMixed(singularWordOrPhrase),
+            mixedPageNumbers = indexMap[mixedWordOrPhrase] || [];
 
-      if (entryMixedPlural) {
-        const pluralPageNumbers = pageNumbers,  ///
-              singularPageNumbers = indexMap[singularEntry] || [];
+      pageNumbers = [
+        ...singularPageNumbers,
+        ...mixedPageNumbers
+      ];
 
-        pageNumbers = [ ///
-          ...pluralPageNumbers,
-          ...singularPageNumbers
-        ];
+      delete indexMap[singularWordOrPhrase];
 
-        delete indexMap[wordOrPhrase];
-        delete indexMap[singularEntry];
+      indexMap[mixedWordOrPhrase] = pageNumbers;
+    }
 
-        indexMap[mixedEntry] = pageNumbers;
-      }
+    const pluralPluralsIncludesWordOrPhrase = pluralPlurals.includes(wordOrPhrase);
+
+    if (pluralPluralsIncludesWordOrPhrase) {
+      const pluralWordOrPhrase = wordOrPhrase,  ///
+            pluralPageNumbers = pageNumbers,  ///
+            mixedWordOrPhrase = pluralToMixed(pluralWordOrPhrase),
+            mixedPageNumbers = indexMap[mixedWordOrPhrase] || [];
+
+      pageNumbers = [
+        ...pluralPageNumbers,
+        ...mixedPageNumbers
+      ];
+
+      delete indexMap[pluralWordOrPhrase];
+
+      indexMap[mixedWordOrPhrase] = pageNumbers;
     }
   });
 }
@@ -216,29 +230,26 @@ function adjustMixedPlurals(indexMap, context) {
 function adjustPluralPlurals(indexMap, context) {
   const { indexOptions } = context,
         { plurals } = indexOptions,
-        pluralPlurals = pluralPluralsFromPlurals(plurals);
+        pluralPlurals = reducePlurals(plurals, isPlural),
+        singularPlurals = mapPlurals(pluralPlurals, pluralToSingular);
 
   forEach(indexMap, (wordOrPhrase, pageNumbers) => {
-    const entryPlural = isPlural(wordOrPhrase);
+    const singularPluralsIncludesWordOrPhrase = singularPlurals.includes(wordOrPhrase);
 
-    if (entryPlural) {
-      const singularEntry = wordOrPhrase.replace(/s$/, EMPTY_STRING),
-            pluralPluralsIncludesEntry = pluralPlurals.includes(wordOrPhrase),
-            entryPluralPlural = pluralPluralsIncludesEntry; ///
+    if (singularPluralsIncludesWordOrPhrase) {
+      const singularWordOrPhrase = wordOrPhrase,  ///
+            singularPageNumbers = pageNumbers,  ///
+            pluralWordOrPhrase = singularToPlural(wordOrPhrase),
+            pluralPageNumbers = indexMap[pluralWordOrPhrase] || [];
 
-      if (entryPluralPlural) {
-        const pluralPageNumbers = pageNumbers,  ///
-              singularPageNumbers = indexMap[singularEntry] || [];
+      pageNumbers = [
+        ...singularPageNumbers,
+        ...pluralPageNumbers
+      ];
 
-        pageNumbers = [ ///
-          ...pluralPageNumbers,
-          ...singularPageNumbers
-        ];
+      delete indexMap[singularWordOrPhrase];
 
-        delete indexMap[singularEntry];
-
-        indexMap[wordOrPhrase] = pageNumbers;
-      }
+      indexMap[pluralWordOrPhrase] = pageNumbers;
     }
   });
 }
@@ -246,90 +257,63 @@ function adjustPluralPlurals(indexMap, context) {
 function adjustSingularPlurals(indexMap, context) {
   const { indexOptions } = context,
         { plurals } = indexOptions,
-        singularPlurals = singularPluralsFromPlurals(plurals);
+        singularPlurals = reducePlurals(plurals, isSingular),
+        pluralPlurals = mapPlurals(singularPlurals, singularToPlural);
 
   forEach(indexMap, (wordOrPhrase, pageNumbers) => {
-    const entryPlural = isPlural(wordOrPhrase);
+      const pluralPluralsIncludesWordOrPhrase = pluralPlurals.includes(wordOrPhrase);
 
-    if (entryPlural) {
-      const singularEntry = wordOrPhrase.replace(/s$/, EMPTY_STRING),
-            singularPluralsIncludesSingularEntry = singularPlurals.includes(singularEntry),
-            entrySingularPlural = singularPluralsIncludesSingularEntry; ///
+      if (pluralPluralsIncludesWordOrPhrase) {
+        const singularWordOrPhrase = pluralToSingular(wordOrPhrase),
+              singularPageNumbers = indexMap[singularWordOrPhrase] || [],
+              pluralWordOrPhrase = wordOrPhrase,  ///
+              pluralPageNumbers = pageNumbers;  ///
 
-      if (entrySingularPlural) {
-        const pluralPageNumbers = pageNumbers,  ///
-              singularPageNumbers = indexMap[singularEntry] || [];
-
-        pageNumbers = [ ///
-          ...pluralPageNumbers,
-          ...singularPageNumbers
+        pageNumbers = [
+          ...singularPageNumbers,
+          ...pluralPageNumbers
         ];
 
-        delete indexMap[wordOrPhrase];
+        delete indexMap[pluralWordOrPhrase];
 
-        indexMap[singularEntry] = pageNumbers;
+        indexMap[singularWordOrPhrase] = pageNumbers;
       }
-    }
   });
 }
 
-function singularPluralsFromPlurals(plurals) {
-  const singularPlurals = plurals.reduce((singularPlurals, plural) => {
-    const pluralSingular = isSingular(plural);
+function reducePlurals(plurals, callback) {
+  plurals = plurals.reduce((plurals, plural) => { ///
+    const result = callback(plural);
 
-    if (pluralSingular) {
-      const singularPlural = plural;  ///
-
-      singularPlurals.push(singularPlural);
+    if (result) {
+      plurals.push(plural);
     }
 
-    return singularPlurals;
+    return plurals;
   }, []);
 
-  return singularPlurals;
+  return plurals;
 }
 
-function pluralPluralsFromPlurals(plurals) {
-  const pluralPlurals = plurals.reduce((pluralPlurals, plural) => {
-    const pluralPlural = isPlural(plural);
+function mapPlurals(plurals, callback) {
+  plurals = plurals.map((plural) => { ///
+    plural = callback(plural);
 
-    if (pluralPlural) {
-      const pluralPlural = plural;  ///
+    return plural;
+  });
 
-      pluralPlurals.push(pluralPlural);
-    }
-
-    return pluralPlurals;
-  }, []);
-
-  return pluralPlurals;
-}
-
-function mixedPluralsFromPlurals(plurals) {
-  const mixedPlurals = plurals.reduce((mixedPlurals, plural) => {
-    const pluralMixed = isMixed(plural);
-
-    if (pluralMixed) {
-      const mixedPlural = plural;  ///
-
-      mixedPlurals.push(mixedPlural);
-    }
-
-    return mixedPlurals;
-  }, []);
-
-  return mixedPlurals;
+  return plurals;
 }
 
 function isSingular(text) {
   const indexMatches = /[^s)]$/.test(text),
-        pluralSingular = indexMatches; ///
+        singular = indexMatches; ///
 
-  return pluralSingular;
+  return singular;
 }
 
 function isPlural(text) {
-  const indexMatches = /s$/.test(text),
+  const indexMatches = /(ies|s)$/.test(text),
         plural = indexMatches; ///
 
   return plural;
@@ -337,7 +321,49 @@ function isPlural(text) {
 
 function isMixed(text) {
   const indexMatches = /\(s\)$/.test(text),
-        plural = indexMatches; ///
+        mixed = indexMatches; ///
 
-  return plural;
+  return mixed;
+}
+
+function mixedToPlural(text) {
+  text = text ///
+           .replace(/\(s\)$/, S_STRING);
+
+  return text;
+}
+
+function pluralToMixed(text) {
+  text = text ///
+           .replace(/s$/, PARENTHESISED_S_STRING)
+
+  return text;
+}
+
+function mixedToSingular(text) {
+  text = text ///
+          .replace(/\(s\)$/, EMPTY_STRING);
+
+  return text;
+}
+
+function singularToMixed(text) {
+  text = `${text}(s)`;
+
+  return text;
+}
+
+function singularToPlural(text) {
+  text = `${text}s` ///
+           .replace(/ys$/, IES_STRING);
+
+  return text;
+}
+
+function pluralToSingular(text) {
+  text = text ///
+           .replace(/ies$/, Y_STRING)
+           .replace(/s$/, EMPTY_STRING);
+
+  return text;
 }
