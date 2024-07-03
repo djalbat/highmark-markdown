@@ -6,7 +6,6 @@ import MarkdownNode from "../../node/markdown";
 import AnchorMarkdownNode from "../../node/markdown/anchor";
 
 import { CONTENTS_PREPEND } from "../../prepends";
-import { plainTextFromChildNodes } from "../../utilities/childNodes";
 import { replaceSpacesWithHyphens, removedLeadingWhitespace, removeNonAlphabeticAndSpaceCharacters } from "../../utilities/string";
 
 const { last } = arrayUtilities;
@@ -28,8 +27,7 @@ export default class HeadingMarkdownNode extends MarkdownNode {
   }
 
   identifier(context) {
-    const childNodes = this.getChildNodes(),
-          plainText = plainTextFromChildNodes(childNodes, context),
+    const plainText = this.asPlainText(context),
           identifier = identifierFromPlainText(plainText);
 
     return identifier;
@@ -41,13 +39,6 @@ export default class HeadingMarkdownNode extends MarkdownNode {
           lineMarkdownNode = lastChildNode;  ///
 
     return lineMarkdownNode;
-  }
-
-  asPlainText(context) {
-    const childNodes = this.getChildNodes(),
-          plainText = plainTextFromChildNodes(childNodes, context);
-
-    return plainText;
   }
 
   static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity); }
