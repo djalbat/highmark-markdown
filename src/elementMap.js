@@ -8,6 +8,7 @@ import { LINE_RULE_NAME,
          ANCHOR_RULE_NAME,
          DIVISION_RULE_NAME,
          FOOTNOTE_RULE_NAME,
+         NONSENSE_RULE_NAME,
          REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
@@ -89,6 +90,10 @@ const elementMap = {
     className: null
   },
   [FOOTNOTE_RULE_NAME]: {
+    tagName: null,
+    className: null
+  },
+  [NONSENSE_RULE_NAME]: {
     tagName: null,
     className: null
   },

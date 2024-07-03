@@ -11,39 +11,49 @@ export default class IncludeDirectiveMarkdownNode extends DirectiveMarkdownNode 
   resolve(context) {
     let includeDirectiveReplacement = null;
 
-    const { importer } = context;
-
     const filePath = this.filePath(context);
 
-    importer(filePath, context);
+    if (filePath !== null) {
+      const { importer } = context;
 
-    const { importedNode = null,
-          importedTokens = null,
-          importedClassName = null } = context;
+      importer(filePath, context);
 
-    if (importedNode !== null) {
-      delete context.importedNode;
-      delete context.importedTokens;
-      delete context.importedClassName;
+      const { importedNode = null,
+              importedTokens = null,
+              importedClassName = null } = context;
 
-      const divisionMarkdownNode = importedNode,  ///
-            divisionClassName = importedClassName,  ///
-            tokens = importedTokens;  ///
+      if (importedNode !== null) {
+        delete context.importedNode;
+        delete context.importedTokens;
+        delete context.importedClassName;
 
-      divisionMarkdownNode.setDivisionClassName(divisionClassName);
+        const divisionMarkdownNode = importedNode,  ///
+              divisionClassName = importedClassName,  ///
+              tokens = importedTokens;  ///
 
-      includeDirectiveReplacement = IncludeDirectiveReplacement.fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens);
+        divisionMarkdownNode.setDivisionClassName(divisionClassName);
+
+        includeDirectiveReplacement = IncludeDirectiveReplacement.fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens);
+      }
     }
 
     return includeDirectiveReplacement;
   }
 
   filePath(context) {
+    let filePath = null;
+
     const childNodes = this.getChildNodes(),
           lastChildNode = last(childNodes),
-          pathTerminalNode  = lastChildNode, ///
-          pathTerminalNodeContent = pathTerminalNode.getContent(),
-          filePath = pathTerminalNodeContent; ///
+          lastChildNodeTerminalNode = lastChildNode.isTerminalNode();
+
+    if (lastChildNodeTerminalNode) {
+      const terminalNode = lastChildNode, ///
+            pathTerminalNode  = terminalNode, ///
+            pathTerminalNodeContent = pathTerminalNode.getContent();
+
+      filePath = pathTerminalNodeContent; ///
+    }
 
     return filePath;
   }

@@ -97,10 +97,10 @@ const bnf = `
     ignoreDirective         ::=  "@ignore" ;
 
 
-    embedDirective.         ::=  "@embed" [path] ;
+    embedDirective.         ::=  "@embed" ( [path] | nonsense ) ;
 
 
-    includeDirective.       ::=  "@include" [path] ;
+    includeDirective.       ::=  "@include" ( [path] | nonsense ) ;
 
 
     contentsDirective       ::=  "@contents" ;
@@ -109,8 +109,11 @@ const bnf = `
     footnotesDirective      ::=  "@footnotes" ;
 
 
-    tableHead               ::=  tableHeadRow ;
+    nonsense                ::=  ( [escaped] | [number] | [identifier] | [word] | [special] | [unassigned] )+ ;
 
+
+    tableHead               ::=  tableHeadRow ;
+    
     
     tableBody               ::=  tableBodyRow ( endOfLine tableBodyRow )* ;
 

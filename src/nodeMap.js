@@ -8,6 +8,7 @@ import ErrorMarkdownNode from "./node/markdown/error";
 import AnchorMarkdownNode from "./node/markdown/anchor";
 import DivisionMarkdownNode from "./node/markdown/division";
 import FootnoteMarkdownNode from "./node/markdown/footnote";
+import NonsenseMarkdownNode from "./node/markdown/nonsense";
 import ReferenceMarkdownNode from "./node/markdown/reference";
 import ParagraphMarkdownNode from "./node/markdown/paragraph";
 import HyperlinkMarkdownNode from "./node/markdown/hyperlink";
@@ -69,6 +70,7 @@ import { LINE_RULE_NAME,
          ANCHOR_RULE_NAME,
          DIVISION_RULE_NAME,
          FOOTNOTE_RULE_NAME,
+         NONSENSE_RULE_NAME,
          REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
@@ -131,6 +133,7 @@ const nodeMap = {
   [ANCHOR_RULE_NAME]: AnchorMarkdownNode,
   [DIVISION_RULE_NAME]: DivisionMarkdownNode,
   [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
+  [NONSENSE_RULE_NAME]: NonsenseMarkdownNode,
   [REFERENCE_RULE_NAME]: ReferenceMarkdownNode,
   [PARAGRAPH_RULE_NAME]: ParagraphMarkdownNode,
   [HYPERLINK_RULE_NAME]: HyperlinkMarkdownNode,

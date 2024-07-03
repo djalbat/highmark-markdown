@@ -97,7 +97,11 @@ class View extends Element {
               tokensFromContent,
               charactersPerLine
             },
-            markdownNodes = postprocess(divisionMarkdownNode, context),
+            // markdownNodes = postprocess(divisionMarkdownNode, context),
+            markdownNOde = divisionMarkdownNode,  ///
+            markdownNodes = [
+              markdownNOde
+            ],
             divisionMarkdownNodes = divisionMarkdownNodesFromMarkdownNodes(markdownNodes);
 
       this.setDivisionMarkdownNodes(divisionMarkdownNodes);

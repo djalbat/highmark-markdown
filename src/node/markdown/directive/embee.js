@@ -11,34 +11,44 @@ export default class EmbedDirectiveMarkdownNode extends DirectiveMarkdownNode {
   resolve(context) {
     let embedDirectiveReplacement = null;
 
-    const { importer } = context;
-
     const filePath = this.filePath(context);
 
-    importer(filePath, context);
+    if (filePath !== null) {
+      const { importer } = context;
 
-    const { importedNode = null,
-            importedTokens = null } = context;
+      importer(filePath, context);
 
-    if (importedNode !== null) {
-      delete context.importedNode;
-      delete context.importedTokens;
+      const { importedNode = null,
+              importedTokens = null } = context;
 
-      const divisionMarkdownNode = importedNode,  ///
-            tokens = importedTokens;  ///
+      if (importedNode !== null) {
+        delete context.importedNode;
+        delete context.importedTokens;
 
-      embedDirectiveReplacement = EmbedDirectiveReplacement.fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens);
+        const divisionMarkdownNode = importedNode,  ///
+              tokens = importedTokens;  ///
+
+        embedDirectiveReplacement = EmbedDirectiveReplacement.fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens);
+      }
     }
 
     return embedDirectiveReplacement;
   }
 
   filePath(context) {
+    let filePath = null;
+
     const childNodes = this.getChildNodes(),
           lastChildNode = last(childNodes),
-          pathTerminalNode  = lastChildNode, ///
-          pathTerminalNodeContent = pathTerminalNode.getContent(),
-          filePath = pathTerminalNodeContent; ///
+          lastChildNodeTerminalNode = lastChildNode.isTerminalNode();
+
+    if (lastChildNodeTerminalNode) {
+      const terminalNode = lastChildNode, ///
+            pathTerminalNode  = terminalNode, ///
+            pathTerminalNodeContent = pathTerminalNode.getContent();
+
+      filePath = pathTerminalNodeContent; ///
+    }
 
     return filePath;
   }
