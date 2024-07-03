@@ -98,14 +98,9 @@ export default class DivisionMarkdownNode extends MarkdownNode {
         totalLines = 0;
 
     childNodes.forEach((childNode) => {
-      const lines = childNode.lines(context),
-            paginatedChildNode = childNode;  ///
+      const lines = childNode.lines(context);
 
-      paginatedChildNodes.push(paginatedChildNode);
-
-      totalLines += lines;
-
-      if (totalLines > linesPerPage) {
+      if ((totalLines + lines) > linesPerPage) {
         paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionReplacements, this.divisionClassName, markdownNodes, pageNumber, context);
 
         pageNumber++;
@@ -114,6 +109,12 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
         clear(paginatedChildNodes);
       }
+
+      const paginatedChildNode = childNode;  ///
+
+      paginatedChildNodes.push(paginatedChildNode);
+
+      totalLines += lines;
     });
 
     if (totalLines > 0) {

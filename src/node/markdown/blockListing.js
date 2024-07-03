@@ -7,12 +7,6 @@ import MarkdownNode from "../../node/markdown";
 const { first } = arrayUtilities;
 
 export default class BlockListingMarkdownNode extends MarkdownNode {
-  lines(context) {
-    const lines = super.lines(context);
-
-    return lines;
-  }
-
   asHTML(indent, context) {
       const childNodesHTML = this.childNodesAsHTML(indent, context),
             startingTag = this.startingTag(context),
