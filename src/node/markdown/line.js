@@ -28,13 +28,6 @@ export default class LineMarkdownNode extends MarkdownNode {
     return html;
   }
 
-  asPlainText(context) {
-    const childNodesPlainText = this.childNodesAsPlainText(context),
-          plainText = childNodesPlainText; ///
-
-    return plainText;
-  }
-
   createDOMElement(context) {
     const tagName = this.tagName(context),
           className = this.className(context),

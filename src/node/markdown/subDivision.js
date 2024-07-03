@@ -3,7 +3,6 @@
 import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
-import VerticalSpaceMarkdownNode from "../../node/markdown/verticalSpace";
 import EmbedDirectivesSubDivisionReplacement from "../../replacement/subDivision/embedDirectives";
 import IncludeDirectivesSubDivisionReplacement from "../../replacement/subDivision/includeDirectives";
 

@@ -3,6 +3,7 @@
 import MarkdownNode from "../../node/markdown";
 
 import { contentFromNode } from "../../utilities/content";
+import { plainTextFromChildNodes } from "../../utilities/childNodes";
 
 export default class BlockLineMarkdownNode extends MarkdownNode {
   content(context) {
@@ -39,13 +40,6 @@ export default class BlockLineMarkdownNode extends MarkdownNode {
     return html;
   }
 
-  asPlainText(context) {
-    const childNodesPlainText = this.childNodesAsPlainText(context),
-          plainText = childNodesPlainText; ///
-
-    return plainText;
-  }
-
   createDOMElement(context) {
     const tagName = this.tagName(context),
           className = this.className(context),
@@ -67,6 +61,13 @@ export default class BlockLineMarkdownNode extends MarkdownNode {
           childNodesHTML = content; ///
 
     return childNodesHTML;
+  }
+
+  childNodesAsPlainText(context) {
+    const childNodes = this.getChildNodes(),
+          plainText = plainTextFromChildNodes(childNodes, context);
+
+    return plainText;
   }
 
   createChildNodeDOMElements(context) {
