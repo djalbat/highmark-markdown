@@ -91,16 +91,16 @@ const bnf = `
     pageNumber              ::=  "@pageNumber" ;
 
 
-    embedDirective          ::=  "@embed" [path] ;
-
-
     indexDirective          ::=  "@index" ;
 
 
     ignoreDirective         ::=  "@ignore" ;
 
 
-    includeDirective        ::=  "@include" [path] ;
+    embedDirective.         ::=  "@embed" [path] ;
+
+
+    includeDirective.       ::=  "@include" [path] ;
 
 
     contentsDirective       ::=  "@contents" ;
