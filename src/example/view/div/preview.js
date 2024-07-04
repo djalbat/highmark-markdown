@@ -3,22 +3,10 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { arrayUtilities } from "necessary";
 
 import PageButtonsDiv from "../div/pageButtons";
 
-const { first } = arrayUtilities;
-
 class PreviewDiv extends Element {
-  getPageButtonsDivDOMElement() {
-    const childElements = this.getChildElements(),
-          firstChildElement = first(childElements),
-          pageButtonsDiv = firstChildElement, ///
-          pageButtonsDivDOMElement = pageButtonsDiv.getDOMElement();
-
-    return pageButtonsDivDOMElement;
-  }
-
   getParentDOMElement() {
     const domElement = this.getDOMElement(),
           parentDOMElement = domElement;  ///
@@ -26,33 +14,51 @@ class PreviewDiv extends Element {
     return parentDOMElement;
   }
 
-  getDOMElements() {
-    const parentDOMElement = this.getParentDOMElement(),
-          { childNodes } = parentDOMElement,
-          domElements = [ ///
-            ...childNodes
-          ];
+  clear() {
+    let markdownNode;
 
-    return domElements;
+    markdownNode = this.getMarkdownNode();
+
+    if (markdownNode !== null) {
+      const parentDOMElement = this.getParentDOMElement();
+
+      markdownNode.unmount(parentDOMElement);
+
+      markdownNode = null;
+
+      this.setMarkdownNode(markdownNode);
+    }
   }
 
-  clear() {
-    const domElements = this.getDOMElements(),
-          pageButtonsDivDOMElement = this.getPageButtonsDivDOMElement();
+  update(markdownNode, context) {
+    this.clear();
 
-    domElements.forEach((domElement) => {
-      if (domElement !== pageButtonsDivDOMElement) {
-        domElement.remove();
-      }
+    const parentDOMElement = this.getParentDOMElement(),
+          siblingDOMElement = null;
+
+    markdownNode.mount(parentDOMElement, siblingDOMElement, context);
+
+    this.setMarkdownNode(markdownNode);
+  }
+
+  getMarkdownNode() {
+    const { markdownNode } = this.getState();
+
+    return markdownNode;
+  }
+
+  setMarkdownNode(markdownNode) {
+    this.updateState({
+      markdownNode
     });
   }
 
-  update(domElement) {
-    this.clear();
+  setInitialState() {
+    const markdownNode = null;
 
-    const parentDOMElement = this.getParentDOMElement();
-
-    parentDOMElement.appendChild(domElement);
+    this.setState({
+      markdownNode
+    });
   }
 
   childElements() {
@@ -76,6 +82,10 @@ class PreviewDiv extends Element {
       clearPreviewDiv,
       updatePreviewDiv
     });
+  }
+
+  initialise() {
+    this.setInitialState();
   }
 
   static tagName = "div";

@@ -31,6 +31,39 @@ export default class BlockLineMarkdownNode extends MarkdownNode {
     return childNodesHTML;
   }
 
+  mount(parentDOMElement, siblingDOMElement, context) {
+    this.domElement = this.createDOMElement(context);
+
+    if (siblingDOMElement !== null) {
+      siblingDOMElement = siblingDOMElement.nextSibling;  ///
+    }
+
+    parentDOMElement.insertBefore(this.domElement, siblingDOMElement);
+
+    siblingDOMElement = this.domElement;  ///
+
+    return siblingDOMElement;
+  }
+
+  createDOMElement(context) {
+    let domElement;
+
+    const content = this.content(context),
+          textNode = document.createTextNode(content);
+
+    domElement = super.createDOMElement(context)
+
+    const parentDOMElement = domElement;  ///
+
+    domElement = textNode; ///
+
+    parentDOMElement.appendChild(domElement);
+
+    domElement = parentDOMElement;  ///
+
+    return domElement;
+  }
+
   asHTML(indent, context) {
     const childNodesHTML = this.childNodesAsHTML(indent, context),
           startingTag = this.startingTag(context),
@@ -38,22 +71,6 @@ export default class BlockLineMarkdownNode extends MarkdownNode {
           html = `${startingTag}${childNodesHTML}${closingTag}`;
 
     return html;
-  }
-
-  createDOMElement(context) {
-    const tagName = this.tagName(context),
-          className = this.className(context),
-          domElement = document.createElement(tagName);
-
-    Object.assign(domElement, {
-      className
-    });
-
-    this.setDOMElement(domElement);
-
-    this.createChildNodeDOMElements(context);
-
-    return domElement;
   }
 
   childNodesAsHTML(indent, context) {
@@ -68,20 +85,6 @@ export default class BlockLineMarkdownNode extends MarkdownNode {
           plainText = plainTextFromChildNodes(childNodes, context);
 
     return plainText;
-  }
-
-  createChildNodeDOMElements(context) {
-    let domElement;
-
-    domElement = this.getDOMElement();
-
-    const content = this.content(context),
-          textNode = document.createTextNode(content),
-          parentDOMElement = domElement;  ///
-
-    domElement = textNode; ///
-
-    parentDOMElement.appendChild(domElement);
   }
 
   static lines = 2;

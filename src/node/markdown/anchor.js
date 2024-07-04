@@ -36,6 +36,25 @@ export default class AnchorMarkdownNode extends MarkdownNode {
     return attributeValue;
   }
 
+  createDOMElement(context) {
+    let domElement;
+
+    const content = this.content(context),
+          textNode = document.createTextNode(content);
+
+    domElement = super.createDOMElement(context)
+
+    const parentDOMElement = domElement;  ///
+
+    domElement = textNode; ///
+
+    parentDOMElement.appendChild(domElement);
+
+    domElement = parentDOMElement;  ///
+
+    return domElement;
+  }
+
   asHTML(indent, context) {
     if (context === undefined) {
       context = indent; ///
@@ -58,18 +77,16 @@ ${childNodesHTML}${indent}${closingTag}
   }
 
   childNodesAsHTML(indent, context) {
-    const content = EMPTY_STRING,
+    const content = this.content(context),
           childNodesHTML = content; ///
 
     return childNodesHTML;
   }
 
-  createChildNodeDOMElements(context) {
-    const content = EMPTY_STRING,
-          textNode = document.createTextNode(content),
-          domElement = textNode; ///
+  content(context) {
+    const content = EMPTY_STRING;
 
-    this.addDOMElement(domElement);
+    return content;
   }
 
   clone() { return super.clone(this.prepend, this.identifier); }

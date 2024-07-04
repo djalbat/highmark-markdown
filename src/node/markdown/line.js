@@ -28,18 +28,32 @@ export default class LineMarkdownNode extends MarkdownNode {
     return html;
   }
 
+  mount(parentDOMElement, siblingDOMElement, context) {
+    this.domElement = this.createDOMElement(context);
+
+    if (siblingDOMElement !== null) {
+      siblingDOMElement = siblingDOMElement.nextSibling;  ///
+    }
+
+    parentDOMElement.insertBefore(this.domElement, siblingDOMElement);
+
+    siblingDOMElement = this.domElement;  ///
+
+    return siblingDOMElement;
+  }
+
   createDOMElement(context) {
-    const tagName = this.tagName(context),
-          className = this.className(context),
-          domElement = document.createElement(tagName);
+    const domElement = super.createDOMElement(context),
+          childNodes = this.getChildNodes(),
+          domElements = domElementsFromChildNodes(childNodes, context),
+          parentDOMElement = domElement,  ///
+          childNodeDOMElements = domElements; ///
 
-    Object.assign(domElement, {
-      className
+    childNodeDOMElements.forEach((childNodeDOMElement) => {
+      const domElement = childNodeDOMElement; ///
+
+      parentDOMElement.appendChild(domElement);
     });
-
-    this.setDOMElement(domElement);
-
-    this.createChildNodeDOMElements(context);
 
     return domElement;
   }
@@ -56,20 +70,6 @@ export default class LineMarkdownNode extends MarkdownNode {
           plainText = plainTextFromChildNodes(childNodes, context);
 
     return plainText;
-  }
-
-  createChildNodeDOMElements(context) {
-    const domElement = this.getDOMElement(),
-          childNodes = this.getChildNodes(),
-          domElements = domElementsFromChildNodes(childNodes, context),
-          parentDOMElement = domElement,  ///
-          childNodeDOMElements = domElements; ///
-
-    childNodeDOMElements.forEach((childNodeDOMElement) => {
-      const domElement = childNodeDOMElement; ///
-
-      parentDOMElement.appendChild(domElement);
-    });
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(LineMarkdownNode, ruleName, childNodes, opacity); }

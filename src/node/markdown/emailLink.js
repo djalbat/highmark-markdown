@@ -63,26 +63,24 @@ class EmailLinkMarkdownNode extends MarkdownNode {
     return attributeValue;
   }
 
-  childNodesAsHTML(indent, context) {
-    let childNodesHTML;
+  mount(parentDOMElement, siblingDOMElement, context) {
+    this.domElement = this.createDOMElement(context);
 
-    const inlineText = this.inlineText(context);
-
-    if (inlineText !== null) {
-      childNodesHTML = inlineText;  ///
-    } else {
-      const content = this.content(context);
-
-      childNodesHTML = content; ///
+    if (siblingDOMElement !== null) {
+      siblingDOMElement = siblingDOMElement.nextSibling;  ///
     }
 
-    return childNodesHTML;
+    parentDOMElement.insertBefore(this.domElement, siblingDOMElement);
+
+    siblingDOMElement = this.domElement;  ///
+
+    return siblingDOMElement;
   }
 
-  createChildNodeDOMElements(context) {
-    const inlineText = this.inlineText(context);
-
+  createDOMElement(context) {
     let content;
+
+    const inlineText = this.inlineText(context);
 
     if (inlineText !== null) {
       content = inlineText; ///
@@ -90,10 +88,37 @@ class EmailLinkMarkdownNode extends MarkdownNode {
       content = this.content(context);
     }
 
-    const textNode = document.createTextNode(content),
-          domElement = textNode; ///
+    let domElement;
 
-    this.addDOMElement(domElement);
+    const textNode = document.createTextNode(content);
+
+    domElement = super.createDOMElement(context);
+
+    const parentDOMElement = domElement;  ///
+
+    domElement = textNode; ///
+
+    parentDOMElement.appendChild(domElement);
+
+    domElement = parentDOMElement;  ///
+
+    return domElement;
+  }
+
+  childNodesAsHTML(indent, context) {
+    let content;
+
+    const inlineText = this.inlineText(context);
+
+    if (inlineText !== null) {
+      content = inlineText;  ///
+    } else {
+      content = this.content(context);
+    }
+
+    const childNodesHTML = content;
+
+    return childNodesHTML;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EmailLinkMarkdownNode, ruleName, childNodes, opacity); }

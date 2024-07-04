@@ -23,8 +23,6 @@ export default class EndOfLineMarkdownNode extends MarkdownNode {
           textNode = document.createTextNode(content),
           domElement = textNode;  ///
 
-    this.setDOMElement(domElement);
-
     return domElement;
   }
 

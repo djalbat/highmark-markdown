@@ -63,31 +63,62 @@ class HyperlinkLinkMarkdownNode extends MarkdownNode {
     return attributeValue;
   }
 
-  childNodesAsHTML(indent, context) {
-    let childNodesHTML;
+  mount(parentDOMElement, siblingDOMElement, context) {
+    this.domElement = this.createDOMElement(context);
+
+    if (siblingDOMElement !== null) {
+      siblingDOMElement = siblingDOMElement.nextSibling;  ///
+    }
+
+    parentDOMElement.insertBefore(this.domElement, siblingDOMElement);
+
+    siblingDOMElement = this.domElement;  ///
+
+    return siblingDOMElement;
+  }
+
+  createDOMElement(context) {
+    let content;
 
     const inlineText = this.inlineText(context);
 
     if (inlineText !== null) {
-      childNodesHTML = inlineText;  ///
+      content = inlineText; ///
     } else {
-      const content = this.content(context);
-
-      childNodesHTML = content; ///
+      content = this.content(context);
     }
 
-    return childNodesHTML;
+    let domElement;
+
+    const textNode = document.createTextNode(content);
+
+    domElement = super.createDOMElement(context);
+
+    const parentDOMElement = domElement;  ///
+
+    domElement = textNode; ///
+
+    parentDOMElement.appendChild(domElement);
+
+    domElement = parentDOMElement;  ///
+
+    return domElement;
   }
 
-  createChildNodeDOMElements(context) {
-    const inlineText = this.inlineText(context),
-          content = (inlineText !== null) ?
-                      inlineText :
-                        this.content(context),
-          textNode = document.createTextNode(content),
-          domElement = textNode;  ///
+  childNodesAsHTML(indent, context) {
+    let content;
 
-    this.addDOMElement(domElement);
+    const inlineText = this.inlineText(context);
+
+    if (inlineText !== null) {
+      content = inlineText;  ///
+    } else {
+      content = this.content(context);
+    }
+
+    const childNodesHTML = content; ///
+
+    return childNodesHTML;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(HyperlinkLinkMarkdownNode, ruleName, childNodes, opacity); }

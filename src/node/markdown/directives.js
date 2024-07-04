@@ -7,34 +7,20 @@ import MarkdownNode from "../../node/markdown";
 const { first } = arrayUtilities;
 
 export default class DirectivesMarkdownNode extends MarkdownNode {
-  getDOMElement() {
-    const directiveMarkdownNode = this.getDirectiveMarkdownNode(),
-          directiveMarkdownNodeDOMElement = directiveMarkdownNode.getDOMElement(),
-          domElement = directiveMarkdownNodeDOMElement; ///
-
-    return domElement;
-  }
-
   asHTML(indent, context) {
-    const directiveMarkdownNode = this.getDirectiveMarkdownNode(),
-          directiveMarkdownNodeHTML = directiveMarkdownNode.asHTML(indent, context),
-          html = directiveMarkdownNodeHTML;  ///
+    const firstDirectiveMarkdownNode = this.getFirstDirectiveMarkdownNode(),
+          firstDirectiveMarkdownNodeHTML = firstDirectiveMarkdownNode.asHTML(indent, context),
+          html = firstDirectiveMarkdownNodeHTML;  ///
 
     return html;
   }
 
-  createDOMElement(context) {
-    const directiveMarkdownNode = this.getDirectiveMarkdownNode();
-
-    directiveMarkdownNode.createDOMElement(context);
-  }
-
-  getDirectiveMarkdownNode() {
+  getFirstDirectiveMarkdownNode() {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
-          directiveMarkdownNode = firstChildNode; ///
+          firstDirectiveMarkdownNode = firstChildNode; ///
 
-    return directiveMarkdownNode;
+    return firstDirectiveMarkdownNode;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(DirectivesMarkdownNode, ruleName, childNodes, opacity); }

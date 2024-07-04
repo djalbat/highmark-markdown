@@ -31,13 +31,6 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
     }
   }
 
-  getDOMElement() {
-    const secondMarkdownNode = this.getSecondMarkdownNode(),
-          domElement = secondMarkdownNode.getDOMElement();
-
-    return domElement;
-  }
-
   lines(context) {
     const secondMarkdownNode = this.getSecondMarkdownNode(),
           lines = secondMarkdownNode.lines(context);
@@ -57,15 +50,6 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
           plainText = secondMarkdownNode.asPlainText(context);
 
     return plainText;
-  }
-
-  createDOMElement(context) {
-    const secondMarkdownNode = this.getSecondMarkdownNode(),
-          domElement = null;
-
-    secondMarkdownNode.createDOMElement(context);
-
-    return domElement;
   }
 
   getSecondMarkdownNode() {

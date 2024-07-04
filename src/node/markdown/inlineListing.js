@@ -6,6 +6,27 @@ import contentMixins from "../../mixins/content";
 import { removeBackticks } from "../../utilities/string";
 
 class InlineListingMarkdownNode extends MarkdownNode {
+  createDOMElement(context) {
+    let domElement,
+        content = this.content(context);
+
+    content = removeBackticks(content); ///
+
+    const textNode = document.createTextNode(content);
+
+    domElement = super.createDOMElement(context);
+
+    const parentDOMElement = domElement;  ///
+
+    domElement = textNode; ///
+
+    parentDOMElement.appendChild(domElement);
+
+    domElement = parentDOMElement;  ///
+
+    return domElement;
+  }
+
   childNodesAsHTML(indent, context) {
     let content = this.content(context);
 
@@ -14,17 +35,6 @@ class InlineListingMarkdownNode extends MarkdownNode {
     const childNodesHTML = content; ///
 
     return childNodesHTML;
-  }
-
-  createChildNodeDOMElements(context) {
-    let content = this.content(context);
-
-    content = removeBackticks(content); ///
-
-    const textNode = document.createTextNode(content),
-          domElement = textNode; ///
-
-    this.addDOMElement(domElement);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(InlineListingMarkdownNode, ruleName, childNodes, opacity); }

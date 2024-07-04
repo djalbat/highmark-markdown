@@ -131,6 +131,80 @@ class MarkdownNode extends NonTerminalNode {
     return lines;
   }
 
+  mount(parentDOMElement, siblingDOMElement, context) {
+    this.domElement = this.createDOMElement(context);
+
+    if (this.domElement !== null) {
+      if (siblingDOMElement !== null) {
+        siblingDOMElement = siblingDOMElement.nextSibling;  ///
+      }
+
+      parentDOMElement.insertBefore(this.domElement, siblingDOMElement);
+
+      parentDOMElement = this.domElement; ///
+    }
+
+    siblingDOMElement = null;
+
+    this.childNodes.forEach((childNode) => {
+      const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
+
+      if (childNodeMarkdownNode) {
+        const markdownNode = childNode; ///
+
+        siblingDOMElement = markdownNode.mount(parentDOMElement, siblingDOMElement, context);
+      }
+    });
+
+    if (this.domElement !== null) {
+      siblingDOMElement = this.domElement;
+    }
+
+    return siblingDOMElement;
+  }
+
+  unmount(parentDOMElement, context) {
+    if (this.domElement !== null) {
+      parentDOMElement.removeChild(this.domElement);
+
+      parentDOMElement = this.domElement; ///
+
+      this.domElement = null;
+
+      return;
+    }
+
+    this.childNodes.forEach((childNode) => {
+      childNode.unmount(parentDOMElement, context);
+    });
+  }
+
+  createDOMElement(context) {
+    let domElement = null;
+
+    const tagName = this.tagName(context);
+
+    if (tagName !== null) {
+      domElement = document.createElement(tagName);
+
+      const className = this.className(context),
+            attributeName = this.attributeName(context),
+            attributeValue = this.attributeValue(context);
+
+      if (className !== null) {
+        Object.assign(domElement, {
+          className
+        });
+      }
+
+      if ((attributeName !== null) && (attributeValue !== null)) {
+        domElement.setAttribute(attributeName, attributeValue);
+      }
+    }
+
+    return domElement;
+  }
+
   asHTML(indent, context) {
     let html = null;
 
@@ -199,36 +273,6 @@ ${childNodesHTML}${indent}${closingTag}
     return childNodesHTML;
   }
 
-  createDOMElement(context) {
-    let domElement = null;
-
-    const tagName = this.tagName(context);
-
-    if (tagName !== null) {
-      domElement = document.createElement(tagName);
-
-      const className = this.className(context),
-            attributeName = this.attributeName(context),
-            attributeValue = this.attributeValue(context);
-
-      if (className !== null) {
-        Object.assign(domElement, {
-          className
-        });
-      }
-
-      if ((attributeName !== null) && (attributeValue !== null)) {
-        domElement.setAttribute(attributeName, attributeValue);
-      }
-
-      this.setDOMElement(domElement);
-
-      this.createChildNodeDOMElements(context);
-    }
-
-    return domElement;
-  }
-
   childNodesAsPlainText(context) {
     const childNodes = this.getChildNodes(),
           childNodesPlainText = childNodes.reduce((childNodesPlainText, childNode) => {
@@ -250,26 +294,6 @@ ${markdownNodePlainText}`;
           }, null);
 
     return childNodesPlainText;
-  }
-
-  createChildNodeDOMElements(context) {
-    const childNodes = this.getChildNodes();
-
-    childNodes.forEach((childNode) => {
-      const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
-
-      if (childNodeMarkdownNode) {
-        const markdownNode = childNode; ///
-
-        markdownNode.createDOMElement(context);
-
-        const domElement = markdownNode.getDOMElement();
-
-        if (domElement !== null) {
-          this.addDOMElement(domElement);
-        }
-      }
-    });
   }
 
   clone(...remainingArguments) { return super.clone(this.domElement, ...remainingArguments); }

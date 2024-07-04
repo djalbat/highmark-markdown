@@ -17,17 +17,20 @@ class ErrorMarkdownNode extends MarkdownNode {
   }
 
   createDOMElement(context) {
-    const tagName = this.tagName(context),
-          className = this.className(context),
-          domElement = document.createElement(tagName);
+    let domElement;
 
-    Object.assign(domElement, {
-      className
-    });
+    const content = this.content(context),
+          textNode  = document.createTextNode(content);
 
-    this.setDOMElement(domElement);
+    domElement = super.createDOMElement(context);
 
-    this.createChildNodeDOMElements(context);
+    const parentDOMElement = domElement;
+
+    domElement = textNode; ///
+
+    parentDOMElement.appendChild(domElement);
+
+    domElement = parentDOMElement;  ///
 
     return domElement;
   }
@@ -37,14 +40,6 @@ class ErrorMarkdownNode extends MarkdownNode {
           childNodesHTML = content;
 
     return childNodesHTML;
-  }
-
-  createChildNodeDOMElements(context) {
-    const content = this.content(context),
-          textNode  = document.createTextNode(content),
-          domElement = textNode; ///
-
-    this.addDOMElement(domElement);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ErrorMarkdownNode, ruleName, childNodes, opacity); }

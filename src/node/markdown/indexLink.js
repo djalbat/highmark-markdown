@@ -23,6 +23,25 @@ export default class IndexLinkMarkdownNode extends MarkdownNode {
     return attributeValue;
   }
 
+  createDOMElement(context) {
+    let domElement;
+
+    const content = this.content(context),
+          textNode = document.createTextNode(content);
+
+    domElement = super.createDOMElement(context);
+
+    const parentDOMElement = domElement;  ///
+
+    domElement = textNode; ///
+
+    parentDOMElement.appendChild(domElement);
+
+    domElement = parentDOMElement;  ///
+
+    return domElement;
+  }
+
   asHTML(indent, context) {
     const childNodesHTML = this.childNodesAsHTML(indent, context),
           startingTag = this.startingTag(context),

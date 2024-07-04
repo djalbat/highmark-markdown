@@ -57,8 +57,6 @@ export default class ImageMarkdownNode extends MarkdownNode {
       domElement.setAttribute(attributeName, attributeValue);
     });
 
-    this.setDOMElement(domElement);
-
     return domElement;
   }
 

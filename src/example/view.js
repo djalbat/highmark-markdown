@@ -97,20 +97,26 @@ class View extends Element {
               tokensFromContent,
               charactersPerLine
             },
-            markdownNodes = postprocess(divisionMarkdownNode, context),
-            divisionMarkdownNodes = divisionMarkdownNodesFromMarkdownNodes(markdownNodes);
+            // markdownNodes = postprocess(divisionMarkdownNode, context),
+            // divisionMarkdownNodes = divisionMarkdownNodesFromMarkdownNodes(markdownNodes);
+            divisionMarkdownNodes = [
+              divisionMarkdownNode
+            ];
 
       this.setDivisionMarkdownNodes(divisionMarkdownNodes);
 
-      const index = 0,
-            length = divisionMarkdownNodes.length,
-            parseTree = divisionMarkdownNode.asParseTree(tokens);
-
-      this.updatePage(index);
-
-      this.updatePageButtonsDiv(length);
+      const parseTree = divisionMarkdownNode.asParseTree(tokens);
 
       this.updateMarkdownParseTreeTextarea(parseTree);
+
+      const index = 0,
+            length = divisionMarkdownNodes.length;
+
+      if (length > 0) {
+        this.updatePage(index);
+
+        this.updatePageButtonsDiv(length);
+      }
     } else {
       this.clearPage();
 
@@ -132,12 +138,11 @@ class View extends Element {
             tokens
           },
           length = null,
-          html = divisionMarkdownNode.asHTML(context),
-          domElement = divisionMarkdownNode.createDOMElement(context);
+          html = divisionMarkdownNode.asHTML(context);
 
     this.updateXMP(html);
 
-    this.updatePreviewDiv(domElement);
+    this.updatePreviewDiv(divisionMarkdownNode, context);
 
     this.updatePageButtonsDiv(length, index);
   }
