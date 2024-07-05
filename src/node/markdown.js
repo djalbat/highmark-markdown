@@ -138,9 +138,9 @@ class MarkdownNode extends NonTerminalNode {
       insertBefore(this.domElement, parentDOMElement, siblingDOMElement);
 
       parentDOMElement = this.domElement; ///
-    }
 
-    siblingDOMElement = null;
+      siblingDOMElement = null;
+    }
 
     this.childNodes.forEach((childNode) => {
       const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
@@ -148,15 +148,9 @@ class MarkdownNode extends NonTerminalNode {
       if (childNodeMarkdownNode) {
         const markdownNode = childNode; ///
 
-        siblingDOMElement = markdownNode.mount(parentDOMElement, siblingDOMElement, context);
+        markdownNode.mount(parentDOMElement, siblingDOMElement, context);
       }
     });
-
-    if (this.domElement !== null) {
-      siblingDOMElement = this.domElement;
-    }
-
-    return siblingDOMElement;
   }
 
   unmount(parentDOMElement, context) {
