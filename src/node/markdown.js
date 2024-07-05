@@ -135,7 +135,7 @@ class MarkdownNode extends NonTerminalNode {
     this.domElement = this.createDOMElement(context);
 
     if (this.domElement !== null) {
-      insertBefore(this.domElement, parentDOMElement, siblingDOMElement);
+      parentDOMElement.insertBefore(this.domElement, siblingDOMElement)
 
       parentDOMElement = this.domElement; ///
 
@@ -300,11 +300,3 @@ Object.assign(MarkdownNode.prototype, nodeMixins);
 Object.assign(MarkdownNode.prototype, elementMixins);
 
 export default MarkdownNode;
-
-function insertBefore(domElement, parentDOMElement, siblingDOMElement) {
-  if (siblingDOMElement !== null) {
-    siblingDOMElement = siblingDOMElement.nextSibling;  ///
-  }
-
-  parentDOMElement.insertBefore(domElement, siblingDOMElement)
-}
