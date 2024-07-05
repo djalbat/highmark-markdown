@@ -11,12 +11,12 @@ const footnoteMarkdownNodeQuery = Query.fromExpression("/subDivision/footnote"),
       contentsDirectiveMarkdownNodeQuery = Query.fromExpression("/subDivision/directives/contentsDirective"),
       footnotesDirectiveMarkdownNodeQuery = Query.fromExpression("/subDivision/directives/footnotesDirective"),
       pageNumberDirectiveMarkdownNodeQuery = Query.fromExpression("/subDivision/directives/pageNumber"),  ///
-      headingMarkdownNodesQuery = Query.fromExpression("/division/subDivision/primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),
+      headingMarkdownNodesQuery = Query.fromExpression("/division/subDivision/primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),  ///
+      footnotesMarkdownNodesQuery = Query.fromExpression("//footnote|footnoteLink|footnotesDirective"), ///
       subDivisionMarkdownNodesQuery = Query.fromExpression("/division/subDivision"),
       footnoteLinkMarkdownNodesQuery = Query.fromExpression("//footnoteLink"),
       embedDirectiveMarkdownNodesQuery = Query.fromExpression("/subDivision/directives/embedDirective"),
-      includeDirectiveMarkdownNodesQuery = Query.fromExpression("/subDivision/directives/includeDirective"),
-      footnoteFootnoteLinkOrFootnotesDirectiveMarkdownNodesQuery = Query.fromExpression("//footnote|footnoteLink|footnotesDirective");
+      includeDirectiveMarkdownNodesQuery = Query.fromExpression("/subDivision/directives/includeDirective");
 
 export function nodeQuery(expression) {
   const query = Query.fromExpression(expression);
@@ -89,6 +89,12 @@ export function headingMarkdownNodesFromNode(node, headingMarkdownNodes = []) {
   return headingMarkdownNodes;
 }
 
+export function footnotesMarkdownNodesFromNode(node, footnotesMarkdownNodes = []) {
+  nodesFromNodeAndQuery(node, footnotesMarkdownNodesQuery, footnotesMarkdownNodes);
+
+  return footnotesMarkdownNodes;
+}
+
 export function subDivisionMarkdownNodesFromNode(node, subDivisionMarkdownNodes = []) {
   nodesFromNodeAndQuery(node, subDivisionMarkdownNodesQuery, subDivisionMarkdownNodes);
 
@@ -113,12 +119,6 @@ export function includeDirectiveMarkdownNodesFromNode(node, includeDirectiveMark
   return includeDirectiveMarkdownNodes;
 }
 
-export function footnoteFootnoteLinkOrFootnotesDirectiveMarkdownNodesFromNode(node, footnoteFootnoteLinkOrFootnotesDirectiveMarkdownNodes = []) {
-  nodesFromNodeAndQuery(node, footnoteFootnoteLinkOrFootnotesDirectiveMarkdownNodesQuery, footnoteFootnoteLinkOrFootnotesDirectiveMarkdownNodes);
-
-  return footnoteFootnoteLinkOrFootnotesDirectiveMarkdownNodes;
-}
-
 export default {
   footnoteMarkdownNodeFromNode,
   indexDirectiveMarkdownNodeFromNode,
@@ -127,11 +127,11 @@ export default {
   footnotesDirectiveMarkdownNodeFromNode,
   pageNumberDirectiveMarkdownNodeFromNode,
   headingMarkdownNodesFromNode,
+  footnotesMarkdownNodesFromNode,
   subDivisionMarkdownNodesFromNode,
   footnoteLinkMarkdownNodesFromNode,
   embedDirectiveMarkdownNodesFromNode,
-  includeDirectiveMarkdownNodesFromNode,
-  footnoteFootnoteLinkOrFootnotesDirectiveMarkdownNodesFromNode
+  includeDirectiveMarkdownNodesFromNode
 };
 
 function nodeFromNodeAndQuery(node, query) {
