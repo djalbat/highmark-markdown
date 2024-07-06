@@ -66,15 +66,7 @@ class HyperlinkLinkMarkdownNode extends MarkdownNode {
   mount(parentDOMElement, siblingDOMElement, context) {
     this.domElement = this.createDOMElement(context);
 
-    if (siblingDOMElement !== null) {
-      siblingDOMElement = siblingDOMElement.nextSibling;  ///
-    }
-
     parentDOMElement.insertBefore(this.domElement, siblingDOMElement);
-
-    siblingDOMElement = this.domElement;  ///
-
-    return siblingDOMElement;
   }
 
   createDOMElement(context) {
