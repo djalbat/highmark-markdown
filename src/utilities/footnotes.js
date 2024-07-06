@@ -15,7 +15,7 @@ export function renumberFootnoteLinkMarkdownNodes(divisionMarkdownNode, footnote
                      footnoteReplacement.getNumber() :
                         null;
 
-    footnoteLinkMarkdownNode.setNumber(number);
+    footnoteLinkMarkdownNode.renumber(number);
   });
 }
 
