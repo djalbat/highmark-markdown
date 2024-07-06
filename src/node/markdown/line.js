@@ -15,19 +15,6 @@ export default class LineMarkdownNode extends MarkdownNode {
     return lines;
   }
 
-  asHTML(indent, context) {
-    indent = this.adjustIndent(indent);
-
-    const childNodesHTML = this.childNodesAsHTML(indent, context),
-          startingTag = this.startingTag(context),
-          closingTag = this.closingTag(context),
-          html = (indent !== null) ?
-                  `${indent}${startingTag}${childNodesHTML}${closingTag}
-`:                  `${startingTag}${childNodesHTML}${closingTag}`;
-
-    return html;
-  }
-
   mount(parentDOMElement, siblingDOMElement, context) {
     this.domElement = this.createDOMElement(context);
 
@@ -58,18 +45,33 @@ export default class LineMarkdownNode extends MarkdownNode {
     return domElement;
   }
 
-  childNodesAsHTML(indent, context) {
-    const childNodes = this.getChildNodes(),
-          html = htmlFromChildNodes(childNodes, context);
+  asHTML(indent, context) {
+    indent = this.adjustIndent(indent);
+
+    const childNodesHTML = this.childNodesAsHTML(indent, context),
+          startingTag = this.startingTag(context),
+          closingTag = this.closingTag(context),
+          html = (indent !== null) ?
+                   `${indent}${startingTag}${childNodesHTML}${closingTag}
+`:                   `${startingTag}${childNodesHTML}${closingTag}`;
 
     return html;
   }
 
+  childNodesAsHTML(indent, context) {
+    const childNodes = this.getChildNodes(),
+          html = htmlFromChildNodes(childNodes, context),
+          childNodesHTML = html;  ///
+
+    return childNodesHTML;
+  }
+
   childNodesAsPlainText(context) {
     const childNodes = this.getChildNodes(),
-          plainText = plainTextFromChildNodes(childNodes, context);
+          plainText = plainTextFromChildNodes(childNodes, context),
+          childNodesPlainText = plainText;  ///
 
-    return plainText;
+    return childNodesPlainText;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(LineMarkdownNode, ruleName, childNodes, opacity); }

@@ -63,20 +63,6 @@ class HyperlinkLinkMarkdownNode extends MarkdownNode {
     return attributeValue;
   }
 
-  mount(parentDOMElement, siblingDOMElement, context) {
-    this.domElement = this.createDOMElement(context);
-
-    parentDOMElement.insertBefore(this.domElement, siblingDOMElement);
-  }
-
-  unmount(parentDOMElement, context) {
-    if (this.domElement !== null) {
-      parentDOMElement.removeChild(this.domElement);
-
-      this.domElement = null;
-    }
-  }
-
   createDOMElement(context) {
     let content;
 

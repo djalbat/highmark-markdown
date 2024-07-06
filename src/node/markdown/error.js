@@ -37,7 +37,7 @@ class ErrorMarkdownNode extends MarkdownNode {
 
   childNodesAsHTML(indent, context) {
     const content = this.content(context),
-          childNodesHTML = content;
+          childNodesHTML = content; ///
 
     return childNodesHTML;
   }

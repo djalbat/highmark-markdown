@@ -3,7 +3,6 @@
 import MarkdownNode from "../../node/markdown";
 
 import { contentFromNode } from "../../utilities/content";
-import { plainTextFromChildNodes } from "../../utilities/childNodes";
 
 export default class BlockLineMarkdownNode extends MarkdownNode {
   lines(context) {
@@ -91,10 +90,10 @@ export default class BlockLineMarkdownNode extends MarkdownNode {
   }
 
   childNodesAsPlainText(context) {
-    const childNodes = this.getChildNodes(),
-          plainText = plainTextFromChildNodes(childNodes, context);
+    const content = this.content(context),
+          childNodesPlainText = content;  ///
 
-    return plainText;
+    return childNodesPlainText;
   }
 
   static lines = 2;
