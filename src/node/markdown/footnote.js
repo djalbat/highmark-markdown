@@ -7,6 +7,14 @@ import MarkdownNode from "../../node/markdown";
 const { first } = arrayUtilities;
 
 export default class FootnoteMarkdownNode extends MarkdownNode {
+  mount(parentDOMElement, siblingDOMElement, context) {
+    ///
+  }
+
+  unmount(parentDOMElement, context) {
+    ///
+  }
+
   identifier(context) {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
