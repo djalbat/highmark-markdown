@@ -34,6 +34,14 @@ export default class LineMarkdownNode extends MarkdownNode {
     parentDOMElement.insertBefore(this.domElement, siblingDOMElement);
   }
 
+  unmount(parentDOMElement, context) {
+    if (this.domElement !== null) {
+      parentDOMElement.removeChild(this.domElement);
+
+      this.domElement = null;
+    }
+  }
+
   createDOMElement(context) {
     const domElement = super.createDOMElement(context),
           childNodes = this.getChildNodes(),

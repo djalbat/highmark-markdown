@@ -133,6 +133,8 @@ export function domElementsFromChildNodes(childNodes, context) {
 
         const domElement = markdownNode.createDOMElement(context);
 
+        markdownNode.setDOMElement(domElement);
+
         domElements.push(domElement);
       }
     }

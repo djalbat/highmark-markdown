@@ -6,6 +6,16 @@ import { contentFromNode } from "../../utilities/content";
 import { plainTextFromChildNodes } from "../../utilities/childNodes";
 
 export default class BlockLineMarkdownNode extends MarkdownNode {
+  lines(context) {
+    const { charactersPerLine } = context,
+          plainText = this.asPlainText(context),
+          plainTextLength = plainText.length,
+          characters = plainTextLength, ///
+          lines = (characters / charactersPerLine) + 1;
+
+    return lines;
+  }
+
   content(context) {
     let content;
 
@@ -35,6 +45,14 @@ export default class BlockLineMarkdownNode extends MarkdownNode {
     this.domElement = this.createDOMElement(context);
 
     parentDOMElement.insertBefore(this.domElement, siblingDOMElement);
+  }
+
+  unmount(parentDOMElement, context) {
+    if (this.domElement !== null) {
+      parentDOMElement.removeChild(this.domElement);
+
+      this.domElement = null;
+    }
   }
 
   createDOMElement(context) {
