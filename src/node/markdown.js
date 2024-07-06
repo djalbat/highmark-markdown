@@ -165,7 +165,11 @@ class MarkdownNode extends NonTerminalNode {
     }
 
     this.childNodes.forEach((childNode) => {
-      childNode.unmount(parentDOMElement, context);
+      const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
+
+      if (childNodeMarkdownNode) {
+        childNode.unmount(parentDOMElement, context);
+      }
     });
   }
 
