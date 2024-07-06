@@ -57,12 +57,33 @@ export default class FootnoteLinkMarkdownNode extends MarkdownNode {
   }
 
   clear() {
+    if (this.domElement === null) {
+      return;
+    }
+
     const { lastChild = null } = this.domElement;
 
     if (lastChild !== null) {
-      const domElement = lastChild;  ///
+      const domElement = lastChild,  ///
+            parentDOMElement = this.domElement;
 
-      this.domElement.removeChild(domElement);
+      parentDOMElement.removeChild(domElement);
+    }
+  }
+
+  update(context) {
+    if (this.domElement === null) {
+      return;
+    }
+
+    const content = this.content(context);
+
+    if (content !== EMPTY_STRING) {
+      const textNode  = document.createTextNode(content),
+            domElement = textNode,  ///
+            parentDOMElement = this.domElement; ///
+
+      parentDOMElement.appendChild(domElement);
     }
   }
 
@@ -71,15 +92,7 @@ export default class FootnoteLinkMarkdownNode extends MarkdownNode {
 
     this.clear();
 
-    const content = this.content(context);
-
-    if (content !== EMPTY_STRING) {
-      const textNode  = document.createTextNode(content),
-            domElement = textNode,  ///
-            parentDOMElement = this.domElement;
-
-      parentDOMElement.appendChild(domElement);
-    }
+    this.update(context);
   }
 
   childNodesAsHTML(indent, context) {
