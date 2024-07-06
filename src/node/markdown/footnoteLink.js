@@ -56,6 +56,14 @@ export default class FootnoteLinkMarkdownNode extends MarkdownNode {
     return attributeValue;
   }
 
+  mount(parentDOMElement, siblingDOMElement, context) {
+    super.mount(parentDOMElement, siblingDOMElement, context);
+  }
+
+  unmount(parentDOMElement, context) {
+    super.unmount(parentDOMElement, context);
+  }
+
   clear() {
     const { lastChild = null } = this.domElement;
 
