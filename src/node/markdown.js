@@ -169,6 +169,12 @@ class MarkdownNode extends NonTerminalNode {
     });
   }
 
+  isMounted() {
+    const mounted = (this.domElement !== null);
+
+    return mounted;
+  }
+
   createDOMElement(context) {
     let domElement = null;
 
