@@ -15,9 +15,9 @@ import FootnotesDirectiveSubDivisionReplacement from "../../replacement/subDivis
 import PageNumberDirectiveSubDivisionReplacement from "../../replacement/subDivision/pageNumberDirective";
 
 import { EMPTY_STRING } from "../../constants";
+import { DIVISION_RULE_NAME } from "../../ruleNames";
 import { renumberFootnoteLinkMarkdownNodes } from "../../utilities/footnotes";
 import { subDivisionMarkdownNodesFromNode, ignoreDirectiveMarkdownNodeFromNode, pageNumberDirectiveMarkdownNodeFromNode } from "../../utilities/query";
-import {DIVISION_RULE_NAME} from "../../ruleNames";
 
 const { clear, filter } = arrayUtilities;
 
@@ -177,11 +177,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
         footnotesListSubDivisionReplacement.replaceFootnotesDirectiveSubDivisionReplacement(footnotesDirectiveSubDivisionReplacement, divisionMarkdownNode, context);
       }
 
-      renumberFootnoteLinkMarkdownNodes(divisionMarkdownNode, footnoteReplacementMap, callback, context);
-    }
-
-    function callback(footnoteLinkMarkdownNode) {
-      ///
+      renumberFootnoteLinkMarkdownNodes(divisionMarkdownNode, footnoteReplacementMap, context);
     }
   }
 

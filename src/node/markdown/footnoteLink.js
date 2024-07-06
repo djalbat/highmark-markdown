@@ -56,23 +56,30 @@ export default class FootnoteLinkMarkdownNode extends MarkdownNode {
     return attributeValue;
   }
 
-  createDOMElement(context) {
-    let domElement;
+  clear() {
+    const { lastChild = null } = this.domElement;
 
-    const content = this.content(context),
-          textNode  = document.createTextNode(content);
+    if (lastChild !== null) {
+      const domElement = lastChild;  ///
 
-    domElement = super.createDOMElement(context);
+      this.domElement.removeChild(domElement);
+    }
+  }
 
-    const parentDOMElement = domElement;
+  renumber(number, context) {
+    this.setNumber(number);
 
-    domElement = textNode; ///
+    this.clear();
 
-    parentDOMElement.appendChild(domElement);
+    const content = this.content(context);
 
-    domElement = parentDOMElement;  ///
+    if (content !== EMPTY_STRING) {
+      const textNode  = document.createTextNode(content),
+            domElement = textNode,  ///
+            parentDOMElement = this.domElement;
 
-    return domElement;
+      parentDOMElement.appendChild(domElement);
+    }
   }
 
   childNodesAsHTML(indent, context) {

@@ -4,21 +4,18 @@ import FootnotesListMarkdownNode from "../node/markdown/footnotesList";
 
 import { footnoteLinkMarkdownNodesFromNode } from "../utilities/query";
 
-export function renumberFootnoteLinkMarkdownNodes(divisionMarkdownNode, footnoteReplacementMap, callback, context) {
+export function renumberFootnoteLinkMarkdownNodes(divisionMarkdownNode, footnoteReplacementMap, context) {
   const node = divisionMarkdownNode,  ///
         footnoteLinkMarkdownNodes = footnoteLinkMarkdownNodesFromNode(node);
 
   footnoteLinkMarkdownNodes.forEach((footnoteLinkMarkdownNode) => {
     const identifier = footnoteLinkMarkdownNode.identifier(context),
-          footnoteReplacement = footnoteReplacementMap[identifier] || null;
+          footnoteReplacement = footnoteReplacementMap[identifier] || null,
+          number = (footnoteReplacement !== null) ?
+                     footnoteReplacement.getNumber() :
+                        null;
 
-    if (footnoteReplacement !== null) {
-      const number = footnoteReplacement.getNumber();
-
-      footnoteLinkMarkdownNode.setNumber(number);
-
-      callback(footnoteLinkMarkdownNode);
-    }
+    footnoteLinkMarkdownNode.setNumber(number);
   });
 }
 
