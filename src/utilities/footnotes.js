@@ -1,5 +1,7 @@
 "use strict";
 
+import FootnotesListMarkdownNode from "../node/markdown/footnotesList";
+
 import { footnoteLinkMarkdownNodesFromNode } from "../utilities/query";
 
 export function renumberFootnoteLinkMarkdownNodes(divisionMarkdownNode, footnoteReplacementMap, callback, context) {
@@ -20,6 +22,14 @@ export function renumberFootnoteLinkMarkdownNodes(divisionMarkdownNode, footnote
   });
 }
 
+export function footnotesListMarkdownNodeFromFootnotesListDOMElement(footnotesListDOMElement) {
+  const domElement = footnotesListDOMElement, ///
+        footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDOMElement(domElement);
+
+  return footnotesListMarkdownNode;
+}
+
 export default {
-  renumberFootnoteLinkMarkdownNodes
+  renumberFootnoteLinkMarkdownNodes,
+  footnotesListMarkdownNodeFromFootnotesListDOMElement
 };

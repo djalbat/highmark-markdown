@@ -30,6 +30,18 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
 
   clone() { return super.clone(this.start); }
 
+  static fromDOMElement(domElement) {
+    const ruleName = FOOTNOTES_LIST_RULE_NAME,
+          childNodes = [],
+          opacity = null,
+          start = null,
+          footnotesListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(FootnotesListMarkdownNode, ruleName, childNodes, opacity, start);
+
+    footnotesListMarkdownNode.setDOMElement(domElement);
+
+    return footnotesListMarkdownNode;
+  }
+
   static fromFootnotesItemReplacementsAndStart(footnotesItemReplacements, start) {
     const ruleName = FOOTNOTES_LIST_RULE_NAME,
           childNodes = footnotesItemReplacements.map((footnotesItemReplacement) => {
