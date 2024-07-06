@@ -11,6 +11,14 @@ export default class EndOfLineMarkdownNode extends MarkdownNode {
     return content;
   }
 
+  createDOMElement(context) {
+    const content = this.content(context),
+          textNode = document.createTextNode(content),
+          domElement = textNode;  ///
+
+    return domElement;
+  }
+
   asHTML(indent, context) {
     const content = this.content(context),
           html = content;  ///
@@ -18,12 +26,11 @@ export default class EndOfLineMarkdownNode extends MarkdownNode {
     return html;
   }
 
-  createDOMElement(context) {
+  asPlainText(context) {
     const content = this.content(context),
-          textNode = document.createTextNode(content),
-          domElement = textNode;  ///
+          plainText = content;  ///
 
-    return domElement;
+    return plainText;
   }
 
   static lines = 0;

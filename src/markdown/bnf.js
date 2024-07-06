@@ -34,7 +34,7 @@ const bnf = `
     error.                  ::=  . ;
 
 
-    verticalSpace           ::=  <START_OF_CONTENT> <END_OF_LINE>*
+    verticalSpace.          ::=  <START_OF_CONTENT> <END_OF_LINE>*
     
                               |  <END_OF_LINE> <END_OF_LINE>+ 
     
