@@ -109,7 +109,7 @@ const bnf = `
     footnotesDirective      ::=  "@footnotes" ;
 
 
-    nonsense                ::=  ( [escaped] | [number] | [identifier] | [special] | [unassigned] )+ ;
+    nonsense                ::=  ( [escaped] | [number] | [identifier] | [word] | [special] | [unassigned] )+ ;
 
 
     tableHead               ::=  tableHeadRow ;
@@ -228,6 +228,8 @@ const bnf = `
                               |  [url] 
                               
                               |  [path] 
+                              
+                              |  [word] 
                               
                               |  [special] 
                               

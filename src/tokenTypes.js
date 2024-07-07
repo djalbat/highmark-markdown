@@ -1,6 +1,7 @@
 "use strict";
 
 export const URL_TOKEN_TYPE = "url";
+export const WORD_TOKEN_TYPE = "word";
 export const PATH_TOKEN_TYPE = "path";
 export const LINK_TOKEN_TYPE = "link";
 export const MARKER_TOKEN_TYPE = "marker";
@@ -20,6 +21,7 @@ export const BACKTICKED_LITERAL_TOKEN_TYPE = "backticked-literal";
 
 const tokenTypes = {
   URL_TOKEN_TYPE,
+  WORD_TOKEN_TYPE,
   PATH_TOKEN_TYPE,
   LINK_TOKEN_TYPE,
   MARKER_TOKEN_TYPE,
