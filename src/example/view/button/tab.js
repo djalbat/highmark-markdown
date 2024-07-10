@@ -14,20 +14,19 @@ export default withStyle(TabButton)`
 
   color: black;
   cursor: pointer;
-  border: 1px solid black;
   padding: 1rem;
   font-size: 2rem;
   background: transparent;  
   font-family: serif;
 
+  border: 1px solid black;
   font-weight: bold;
-  border-top-width: 1px;
-  border-bottom-width: 0;
+  border-bottom: 0;
   
   :enabled {
+    border: 0;
     font-weight: normal;
-    border-top-width: 0;
-    border-bottom-width: 1px;
+    border-bottom: 1px solid black;
   }
   
 `;

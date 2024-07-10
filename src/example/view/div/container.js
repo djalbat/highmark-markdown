@@ -23,10 +23,7 @@ class ContainerDiv extends Element {
 export default withStyle(ContainerDiv)`
 
   border: 1px solid black;
-  display: flex;
   padding: 1rem;
   border-top: 0;
-  align-items: stretch;
-  flex-direction: column;
   
 `;

@@ -3,20 +3,19 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
+import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 import { MarkdownLexer, MarkdownParser, MarkdownStyleLexer, MarkdownStyleParser } from "../index";
-import { RowDiv, RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv, HorizontalSplitterDiv } from "easy-layout";
 
-import HTMLDiv from "./view/div/html";
 import importer from "./importer";
-import PreviewDiv from "./view/div/preview";
-import SubHeading from "./view/subHeading";
-import CSSTextarea from "./view/textarea/css";
 import indexOptions from "./indexOptions";
-import TabButtonsDiv from "./view/div/tabButtons";
 import LeftSizeableDiv from "./view/div/sizeable/left";
-import RightSizeableDiv from "./view/div/sizeable/right";
-import PlainTextTextarea from "./view/textarea/plainText";
+import CSSContainerDiv from "./view/div/container/css";
+import HTMLContainerDiv from "./view/div/container/html";
+import LeftTabButtonsDiv from "./view/div/tabButtons/left";
+import RightTabButtonsDiv from "./view/div/tabButtons/right";
+import PreviewContainerDiv from "./view/div/container/preview";
 import MarkdownContainerDiv from "./view/div/container/markdown";
+import PlainTextContainerDiv from "./view/div/container/plainText";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
 import { defaultContent } from "./importer";
@@ -39,36 +38,58 @@ class View extends Element {
     this.updatePage(index);
   }
 
+  plainTextCustomHandler = (event, element) => {
+    this.plainText();
+  }
+
   markdownCustomHandler = (event, element) => {
     this.markdown();
+  }
+
+  previewCustomHandler = (event, element) => {
+    this.preview();
   }
 
   keyUpCustomHandler = (event, element) => {
     this.update();
   }
 
-  updateMarkdownStyle() {
-    const { markdownStyleElement } = this.properties,
-          markdownStyle = this.getMarkdownStyle(),
-          css = markdownStyleElement.update(markdownStyle);
+  htmlCustomHandler = (event, element) => {
+    this.html();
+  }
 
-    this.setCSS(css);
+  cssCustomHandler = (event, element) => {
+    this.css();
+  }
 
-    const lexer = markdownStyleLexer, ///
-          parser = markdownStyleParser, ///
-          content = markdownStyle,  ///
-          tokens = lexer.tokenise(content),
-          startRule = parser.getStartRule(),
-          startOfContent = true,
-          node = parser.parse(tokens, startRule, startOfContent);
+  update() {
+    this.updateMarkdown();
+    this.updateMarkdownStyle();
+  }
 
-    if (node !== null) {
-      const parseTree = node.asParseTree(tokens);
+  clearPage() {
+    this.clearXMP();
+    this.clearPreviewDiv();
+  }
 
-      this.updateMarkdownStyleParseTreeTextarea(parseTree);
-    } else {
-      this.clearMarkdownStyleParseTreeTextarea();
-    }
+  updatePage(index) {
+    const divisionMarkdownNodes = this.getDivisionMarkdownNodes(),
+          divisionMarkdownNode = divisionMarkdownNodes[index],
+          tokens = this.getTokens(),
+          context = {
+            tokens
+          },
+          length = null,
+          html = divisionMarkdownNode.asHTML(context),
+          plainText = divisionMarkdownNode.asPlainText(context);
+
+    this.updateXMP(html);
+
+    this.updatePreviewDiv(divisionMarkdownNode, context);
+
+    this.updatePageButtonsDiv(length, index);
+
+    this.updatePlainTextTextarea(plainText);
   }
 
   updateMarkdown() {
@@ -130,30 +151,28 @@ class View extends Element {
     }
   }
 
-  updatePage(index) {
-    const divisionMarkdownNodes = this.getDivisionMarkdownNodes(),
-          divisionMarkdownNode = divisionMarkdownNodes[index],
-          tokens = this.getTokens(),
-          context = {
-            tokens
-          },
-          length = null,
-          html = divisionMarkdownNode.asHTML(context),
-          plainText = divisionMarkdownNode.asPlainText(context);
+  updateMarkdownStyle() {
+    const { markdownStyleElement } = this.properties,
+          markdownStyle = this.getMarkdownStyle(),
+          css = markdownStyleElement.update(markdownStyle);
 
-    this.updateXMP(html);
+    this.setCSS(css);
 
-    this.updatePreviewDiv(divisionMarkdownNode, context);
+    const lexer = markdownStyleLexer, ///
+          parser = markdownStyleParser, ///
+          content = markdownStyle,  ///
+          tokens = lexer.tokenise(content),
+          startRule = parser.getStartRule(),
+          startOfContent = true,
+          node = parser.parse(tokens, startRule, startOfContent);
 
-    this.updatePageButtonsDiv(length, index);
+    if (node !== null) {
+      const parseTree = node.asParseTree(tokens);
 
-    this.updatePlainTextTextarea(plainText);
-  }
-
-  clearPage() {
-    this.clearXMP();
-
-    this.clearPreviewDiv();
+      this.updateMarkdownStyleParseTreeTextarea(parseTree);
+    } else {
+      this.clearMarkdownStyleParseTreeTextarea();
+    }
   }
 
   markdownStyle() {
@@ -161,14 +180,37 @@ class View extends Element {
     this.showMarkdownStyleContainerDiv();
   }
 
+  plainText() {
+    this.hideCSSContainerDiv();
+    this.hideHTMLContainerDiv();
+    this.hidePreviewContainerDiv();
+    this.showPlainTextContainerDiv();
+  }
+
   markdown() {
     this.showMarkdownContainerDiv();
     this.hideMarkdownStyleContainerDiv();
   }
 
-  update() {
-    this.updateMarkdown();
-    this.updateMarkdownStyle();
+  preview() {
+    this.hideCSSContainerDiv();
+    this.hideHTMLContainerDiv();
+    this.showPreviewContainerDiv();
+    this.hidePlainTextContainerDiv();
+  }
+
+  html() {
+    this.hideCSSContainerDiv();
+    this.showHTMLContainerDiv();
+    this.hidePreviewContainerDiv();
+    this.hidePlainTextContainerDiv();
+  }
+
+  css() {
+    this.showCSSContainerDiv();
+    this.hideHTMLContainerDiv();
+    this.hidePreviewContainerDiv();
+    this.hidePlainTextContainerDiv();
   }
 
   getTokens() {
@@ -210,36 +252,22 @@ class View extends Element {
 
       <ColumnsDiv>
         <LeftSizeableDiv>
-          <TabButtonsDiv onCustomMarkdown={this.markdownCustomHandler} onCustomMarkdownStyle={this.markdownStyleCustomHandler} />
+          <LeftTabButtonsDiv onCustomMarkdown={this.markdownCustomHandler} onCustomMarkdownStyle={this.markdownStyleCustomHandler} />
           <MarkdownContainerDiv onCustomKeyUp={this.keyUpCustomHandler} />
           <MarkdownStyleContainerDiv onCustomKeyUp={this.keyUpCustomHandler} />
         </LeftSizeableDiv>
         <VerticalSplitterDiv/>
         <ColumnDiv>
           <RowsDiv>
-            <RightSizeableDiv>
-              <SubHeading>
-                HTML
-              </SubHeading>
-              <HTMLDiv/>
-            </RightSizeableDiv>
-            <HorizontalSplitterDiv/>
-            <RowDiv>
-              <RowsDiv>
-                <SubHeading>
-                  Plain text
-                </SubHeading>
-                <PlainTextTextarea/>
-                <SubHeading>
-                  CSS
-                </SubHeading>
-                <CSSTextarea/>
-                <SubHeading>
-                  Preview
-                </SubHeading>
-                <PreviewDiv onCustomPageUpdate={this.pageUpdateCustomHandler} />
-              </RowsDiv>
-            </RowDiv>
+            <RightTabButtonsDiv onCustomCSS={this.cssCustomHandler}
+                                onCustomHTML={this.htmlCustomHandler}
+                                onCustomPreview={this.previewCustomHandler}
+                                onCustomPlainText={this.plainTextCustomHandler}
+            />
+            <CSSContainerDiv/>
+            <HTMLContainerDiv/>
+            <PreviewContainerDiv onCustomPageUpdate={this.pageUpdateCustomHandler} />
+            <PlainTextContainerDiv/>
           </RowsDiv>
         </ColumnDiv>
       </ColumnsDiv>
@@ -261,6 +289,8 @@ class View extends Element {
     this.setMarkdownStyle(markdownStyle);
 
     this.update();
+
+    this.css();
   }
 
   static tagName = "div";
@@ -275,10 +305,14 @@ class View extends Element {
 
   static initialMarkdown = defaultContent;  ///
 
-  static initialMarkdownStyle = `width: 100%;
+  static initialMarkdownStyle = `
+
+width: 100%;
+height: 199%;  
 position: absolute;
 min-height: 100%;  
 padding-top: 5rem;  
+
 `;
 }
 
