@@ -76,10 +76,10 @@ const bnf = `
     footnote.               ::=  reference paragraph ;
 
 
-    orderedList             ::=  orderedListItem ( endOfLine orderedListItem )* ;
+    orderedList             ::=  orderedItem ( endOfLine orderedItem )* ;
 
 
-    unorderedList           ::=  unorderedListItem ( endOfLine unorderedListItem )* ;
+    unorderedList           ::=  unorderedItem ( endOfLine unorderedItem )* ;
 
 
     blockListing            ::=  blockListingStart ( blockLine | endOfLine )+ blockListingEnd ;
@@ -118,10 +118,10 @@ const bnf = `
     tableBody               ::=  tableBodyRow ( endOfLine tableBodyRow )* ;
 
     
-    orderedListItem         ::=  [marker] line ( endOfLine line )* ;
+    orderedItem             ::=  [marker] line ( endOfLine line )* ;
     
     
-    unorderedListItem       ::=  [bullet] line ( endOfLine line )* ;
+    unorderedItem           ::=  [bullet] line ( endOfLine line )* ;
 
 
     blockListingStart       ::=  [backticks] className? <END_OF_LINE> ;

@@ -11,8 +11,8 @@ import { remainingContentFromNodeTokensAndOffset } from "../utilities/content";
 const { STRONG_TEXT_RULE_NAME,
         ORDERED_LIST_RULE_NAME,
         UNORDERED_LIST_RULE_NAME,
-        ORDERED_LIST_ITEM_RULE_NAME,
-        UNORDERED_LIST_ITEM_RULE_NAME,
+        ORDERED_ITEM_RULE_NAME,
+        UNORDERED_ITEM_RULE_NAME,
         STRONGLY_EMPHASISED_TEXT_RULE_NAME } = ruleNames,
       { tagName: strongTextTagName } = elementMap[STRONG_TEXT_RULE_NAME],
       { tagName: orderedListTagName } = elementMap[ORDERED_LIST_RULE_NAME],
@@ -81,13 +81,13 @@ function contentFromNodeAndTokens(node, tokens) {
         }
 
         switch (ruleName) {
-          case ORDERED_LIST_ITEM_RULE_NAME: {
+          case ORDERED_ITEM_RULE_NAME: {
             content = `${orderedListTagName} > ${content}`;
 
             break;
           }
 
-          case UNORDERED_LIST_ITEM_RULE_NAME: {
+          case UNORDERED_ITEM_RULE_NAME: {
             content = `${unorderedListTagName} > ${content}`;
 
             break;

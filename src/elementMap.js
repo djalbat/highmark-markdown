@@ -28,6 +28,7 @@ import { LINE_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
          SUB_DIVISION_RULE_NAME,
          ORDERED_LIST_RULE_NAME,
+         ORDERED_ITEM_RULE_NAME,
          INDEX_HEADING_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
          CONTENTS_LINK_RULE_NAME,
@@ -38,6 +39,7 @@ import { LINE_RULE_NAME,
          TABLE_BODY_ROW_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
          UNORDERED_LIST_RULE_NAME,
+         UNORDERED_ITEM_RULE_NAME,
          FOOTNOTES_ITEM_RULE_NAME,
          FOOTNOTES_LIST_RULE_NAME,
          TABLE_HEAD_CELL_RULE_NAME,
@@ -49,14 +51,12 @@ import { LINE_RULE_NAME,
          EMPTY_TABLE_CELL_RULE_NAME,
          TERTIARY_HEADING_RULE_NAME,
          IGNORE_DIRECTIVE_RULE_NAME,
-         ORDERED_LIST_ITEM_RULE_NAME,
          BLOCK_LISTING_END_RULE_NAME,
          SECONDARY_HEADING_RULE_NAME,
          INCLUDE_DIRECTIVE_RULE_NAME,
          QUATERNARY_HEADING_RULE_NAME,
          CONTENTS_DIRECTIVE_RULE_NAME,
          BLOCK_LISTING_START_RULE_NAME,
-         UNORDERED_LIST_ITEM_RULE_NAME,
          FOOTNOTES_DIRECTIVE_RULE_NAME,
          PAGE_NUMBER_DIRECTIVE_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "./ruleNames";
@@ -174,6 +174,10 @@ const elementMap = {
     tagName: "ol",
     className: null
   },
+  [ORDERED_ITEM_RULE_NAME]: {
+    tagName: "li",
+    className: null
+  },
   [INDEX_HEADING_RULE_NAME]: {
     tagName: "h3",
     className: "index"
@@ -212,6 +216,10 @@ const elementMap = {
   },
   [UNORDERED_LIST_RULE_NAME]: {
     tagName: "ul",
+    className: null
+  },
+  [UNORDERED_ITEM_RULE_NAME]: {
+    tagName: "li",
     className: null
   },
   [FOOTNOTES_ITEM_RULE_NAME]: {
@@ -258,10 +266,6 @@ const elementMap = {
     tagName: null,
     className: null
   },
-  [ORDERED_LIST_ITEM_RULE_NAME]: {
-    tagName: "li",
-    className: null
-  },
   [BLOCK_LISTING_END_RULE_NAME]: {
     tagName: null,
     className: null
@@ -284,10 +288,6 @@ const elementMap = {
   },
   [BLOCK_LISTING_START_RULE_NAME]: {
     tagName: null,
-    className: null
-  },
-  [UNORDERED_LIST_ITEM_RULE_NAME]: {
-    tagName: "li",
     className: null
   },
   [FOOTNOTES_DIRECTIVE_RULE_NAME]: {

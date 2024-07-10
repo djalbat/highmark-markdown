@@ -28,6 +28,7 @@ import InlineTextMarkdownNode from "./node/markdown/inlineText";
 import StrongTextMarkdownNode from "./node/markdown/strongText";
 import SubDivisionMarkdownNode from "./node/markdown/subDivision";
 import OrderedListMarkdownNode from "./node/markdown/orderedList";
+import OrderedItemMarkdownNode from "./node/markdown/item/ordered";
 import IndexHeadingMarkdownNode from "./node/markdown/indexHeading";
 import BlockListingMarkdownNode from "./node/markdown/blockListing";
 import TableHeadRowMarkdownNode from "./node/markdown/tableHeadRow";
@@ -38,6 +39,7 @@ import ContentsListMarkdownNode from "./node/markdown/contentsList";
 import FootnoteLinkMarkdownNode from "./node/markdown/footnoteLink";
 import InlineListingMarkdownNode from "./node/markdown/inlineListing";
 import UnorderedListMarkdownNode from "./node/markdown/unorderedList";
+import UnorderedItemMarkdownNode from "./node/markdown/item/unordered";
 import FootnotesItemMarkdownNode from "./node/markdown/footnotesItem";
 import FootnotesListMarkdownNode from "./node/markdown/footnotesList";
 import VerticalSpaceMarkdownNode from "./node/markdown/verticalSpace";
@@ -49,14 +51,12 @@ import EmptyTableCellMarkdownNode from "./node/markdown/emptyTableCell";
 import IndexDirectiveMarkdownNode from "./node/markdown/directive/index";
 import EmbedDirectiveMarkdownNode from "./node/markdown/directive/embee";
 import TertiaryHeadingMarkdownNode from "./node/markdown/heading/tertiary";
-import OrderedListItemMarkdownNode from "./node/markdown/listItem/ordered";
 import BlockListingEndMarkdownNode from "./node/markdown/blockListingEnd";
 import IgnoreDirectiveMarkdownNode from "./node/markdown/directive/ignore";
 import SecondaryHeadingMarkdownNode from "./node/markdown/heading/secondary";
 import IncludeDirectiveMarkdownNode from "./node/markdown/directive/include";
 import QuaternaryHeadingMarkdownNode from "./node/markdown/heading/quaternary";
 import BlockListingStartMarkdownNode from "./node/markdown/blockListingStart";
-import UnorderedListItemMarkdownNode from "./node/markdown/listItem/unordered";
 import ContentsDirectiveMarkdownNode from "./node/markdown/directive/contents";
 import FootnotesDirectiveMarkdownNode from "./node/markdown/directive/footnotes";
 import PageNumberDirectiveMarkdownNode from "./node/markdown/directive/pageNumber";
@@ -90,6 +90,7 @@ import { LINE_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
          SUB_DIVISION_RULE_NAME,
          ORDERED_LIST_RULE_NAME,
+         ORDERED_ITEM_RULE_NAME,
          INDEX_HEADING_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
          CONTENTS_LINK_RULE_NAME,
@@ -100,6 +101,7 @@ import { LINE_RULE_NAME,
          TABLE_BODY_ROW_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
          UNORDERED_LIST_RULE_NAME,
+         UNORDERED_ITEM_RULE_NAME,
          FOOTNOTES_ITEM_RULE_NAME,
          FOOTNOTES_LIST_RULE_NAME,
          VERTICAL_SPACE_RULE_NAME,
@@ -112,14 +114,12 @@ import { LINE_RULE_NAME,
          EMPTY_TABLE_CELL_RULE_NAME,
          TERTIARY_HEADING_RULE_NAME,
          IGNORE_DIRECTIVE_RULE_NAME,
-         ORDERED_LIST_ITEM_RULE_NAME,
          BLOCK_LISTING_END_RULE_NAME,
          SECONDARY_HEADING_RULE_NAME,
          INCLUDE_DIRECTIVE_RULE_NAME,
          QUATERNARY_HEADING_RULE_NAME,
          CONTENTS_DIRECTIVE_RULE_NAME,
          BLOCK_LISTING_START_RULE_NAME,
-         UNORDERED_LIST_ITEM_RULE_NAME,
          FOOTNOTES_DIRECTIVE_RULE_NAME,
          PAGE_NUMBER_DIRECTIVE_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "./ruleNames";
@@ -153,6 +153,7 @@ const nodeMap = {
   [STRONG_TEXT_RULE_NAME]: StrongTextMarkdownNode,
   [SUB_DIVISION_RULE_NAME]: SubDivisionMarkdownNode,
   [ORDERED_LIST_RULE_NAME]: OrderedListMarkdownNode,
+  [ORDERED_ITEM_RULE_NAME]: OrderedItemMarkdownNode,
   [INDEX_HEADING_RULE_NAME]: IndexHeadingMarkdownNode,
   [BLOCK_LISTING_RULE_NAME]: BlockListingMarkdownNode,
   [CONTENTS_LINK_RULE_NAME]: ContentsLinkMarkdownNode,
@@ -163,6 +164,7 @@ const nodeMap = {
   [TABLE_BODY_ROW_RULE_NAME]: TableBodyRowMarkdownNode,
   [INLINE_LISTING_RULE_NAME]: InlineListingMarkdownNode,
   [UNORDERED_LIST_RULE_NAME]: UnorderedListMarkdownNode,
+  [UNORDERED_ITEM_RULE_NAME]: UnorderedItemMarkdownNode,
   [FOOTNOTES_ITEM_RULE_NAME]: FootnotesItemMarkdownNode,
   [FOOTNOTES_LIST_RULE_NAME]: FootnotesListMarkdownNode,
   [VERTICAL_SPACE_RULE_NAME]: VerticalSpaceMarkdownNode,
@@ -175,14 +177,12 @@ const nodeMap = {
   [EMPTY_TABLE_CELL_RULE_NAME]: EmptyTableCellMarkdownNode,
   [TERTIARY_HEADING_RULE_NAME]: TertiaryHeadingMarkdownNode,
   [IGNORE_DIRECTIVE_RULE_NAME]: IgnoreDirectiveMarkdownNode,
-  [ORDERED_LIST_ITEM_RULE_NAME]: OrderedListItemMarkdownNode,
   [BLOCK_LISTING_END_RULE_NAME]: BlockListingEndMarkdownNode,
   [SECONDARY_HEADING_RULE_NAME]: SecondaryHeadingMarkdownNode,
   [INCLUDE_DIRECTIVE_RULE_NAME]: IncludeDirectiveMarkdownNode,
   [QUATERNARY_HEADING_RULE_NAME]: QuaternaryHeadingMarkdownNode,
   [CONTENTS_DIRECTIVE_RULE_NAME]: ContentsDirectiveMarkdownNode,
   [BLOCK_LISTING_START_RULE_NAME]: BlockListingStartMarkdownNode,
-  [UNORDERED_LIST_ITEM_RULE_NAME]: UnorderedListItemMarkdownNode,
   [FOOTNOTES_DIRECTIVE_RULE_NAME]: FootnotesDirectiveMarkdownNode,
   [PAGE_NUMBER_DIRECTIVE_RULE_NAME]: PageNumberDirectiveMarkdownNode,
   [STRONGLY_EMPHASISED_TEXT_RULE_NAME]: StronglyEmphasisedTextMarkdownNode

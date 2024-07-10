@@ -39,8 +39,8 @@ blockListing,
 inlineListing,
 tableHeadCell,
 tableBodyCell,
-orderedListItem,
-unorderedListItem {
+orderedItem,
+unorderedItem {
   font-size: 13pt;
   line-height: 20pt;
 }
@@ -57,8 +57,8 @@ quaternaryHeading {
   margin: 13pt 0 13pt 0;
 }
 
-orderedListItem,
-unorderedListItem {
+orderedItem,
+unorderedItem {
   margin: 6pt 0 6pt 0;
   margin-left: 13pt;
 }
@@ -69,6 +69,8 @@ inlineListing {
 
 table,
 paragraph,
+orderedItem,
+unorderedItem,
 orderedList,
 unorderedList,
 inlineListing,
@@ -76,9 +78,7 @@ blockListing,
 primaryHeading,
 secondaryHeading,
 tertiaryHeading,
-quaternaryHeading,
-orderedListItem,
-unorderedListItem {
+quaternaryHeading {
   :first-child {
     margin-top: 0;
   }

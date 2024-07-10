@@ -28,6 +28,7 @@ export const INLINE_TEXT_RULE_NAME = "inlineText";
 export const STRONG_TEXT_RULE_NAME = "strongText";
 export const SUB_DIVISION_RULE_NAME = "subDivision";
 export const ORDERED_LIST_RULE_NAME = "orderedList";
+export const ORDERED_ITEM_RULE_NAME = "orderedItem";
 export const INDEX_HEADING_RULE_NAME = "indexHeading";
 export const BLOCK_LISTING_RULE_NAME = "blockListing";
 export const CONTENTS_LINK_RULE_NAME = "contentsLink";
@@ -39,6 +40,7 @@ export const TABLE_HEAD_ROW_RULE_NAME = "tableHeadRow";
 export const TABLE_BODY_ROW_RULE_NAME = "tableBodyRow";
 export const INLINE_LISTING_RULE_NAME = "inlineListing";
 export const UNORDERED_LIST_RULE_NAME = "unorderedList";
+export const UNORDERED_ITEM_RULE_NAME = "unorderedItem";
 export const FOOTNOTES_LIST_RULE_NAME = "footnotesList";
 export const VERTICAL_SPACE_RULE_NAME = "verticalSpace";
 export const TABLE_HEAD_CELL_RULE_NAME = "tableHeadCell";
@@ -50,14 +52,12 @@ export const EMBED_DIRECTIVE_RULE_NAME = "embedDirective";
 export const EMPTY_TABLE_CELL_RULE_NAME = "emptyTableCell";
 export const TERTIARY_HEADING_RULE_NAME = "tertiaryHeading";
 export const IGNORE_DIRECTIVE_RULE_NAME = "ignoreDirective";
-export const ORDERED_LIST_ITEM_RULE_NAME = "orderedListItem";
 export const BLOCK_LISTING_END_RULE_NAME = "blockListingEnd";
 export const SECONDARY_HEADING_RULE_NAME = "secondaryHeading";
 export const INCLUDE_DIRECTIVE_RULE_NAME = "includeDirective";
 export const QUATERNARY_HEADING_RULE_NAME = "quaternaryHeading";
 export const CONTENTS_DIRECTIVE_RULE_NAME = "contentsDirective";
 export const BLOCK_LISTING_START_RULE_NAME = "blockListingStart";
-export const UNORDERED_LIST_ITEM_RULE_NAME = "unorderedListItem";
 export const FOOTNOTES_DIRECTIVE_RULE_NAME = "footnotesDirective";
 export const PAGE_NUMBER_DIRECTIVE_RULE_NAME = "pageNumber";  ///
 export const STRONGLY_EMPHASISED_TEXT_RULE_NAME = "stronglyEmphasisedText";
@@ -91,6 +91,7 @@ const ruleNames = {
   STRONG_TEXT_RULE_NAME,
   SUB_DIVISION_RULE_NAME,
   ORDERED_LIST_RULE_NAME,
+  ORDERED_ITEM_RULE_NAME,
   INDEX_HEADING_RULE_NAME,
   BLOCK_LISTING_RULE_NAME,
   CONTENTS_LINK_RULE_NAME,
@@ -102,6 +103,7 @@ const ruleNames = {
   TABLE_BODY_ROW_RULE_NAME,
   INLINE_LISTING_RULE_NAME,
   UNORDERED_LIST_RULE_NAME,
+  UNORDERED_ITEM_RULE_NAME,
   FOOTNOTES_LIST_RULE_NAME,
   VERTICAL_SPACE_RULE_NAME,
   TABLE_HEAD_CELL_RULE_NAME,
@@ -113,14 +115,12 @@ const ruleNames = {
   EMPTY_TABLE_CELL_RULE_NAME,
   TERTIARY_HEADING_RULE_NAME,
   IGNORE_DIRECTIVE_RULE_NAME,
-  ORDERED_LIST_ITEM_RULE_NAME,
   BLOCK_LISTING_END_RULE_NAME,
   SECONDARY_HEADING_RULE_NAME,
   INCLUDE_DIRECTIVE_RULE_NAME,
   QUATERNARY_HEADING_RULE_NAME,
   CONTENTS_DIRECTIVE_RULE_NAME,
   BLOCK_LISTING_START_RULE_NAME,
-  UNORDERED_LIST_ITEM_RULE_NAME,
   FOOTNOTES_DIRECTIVE_RULE_NAME,
   PAGE_NUMBER_DIRECTIVE_RULE_NAME,
   STRONGLY_EMPHASISED_TEXT_RULE_NAME

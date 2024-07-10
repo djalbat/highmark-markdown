@@ -2,13 +2,13 @@
 
 import { arrayUtilities } from "necessary";
 
-import ListItemNode from "../../../node/markdown/listItem";
+import ItemNode from "../../../node/markdown/item";
 
 import { VALUE_ATTRIBUTE_NAME } from "../../../attributeNames";
 
 const { first, second } = arrayUtilities;
 
-export default class OrderedListItemMarkdownNode extends ListItemNode {
+export default class OrderedItemMarkdownNode extends ItemNode {
   value(context) {
     const childNodes = this.getChildNodes(),
           firstChildNode = first(childNodes),
@@ -31,7 +31,7 @@ export default class OrderedListItemMarkdownNode extends ListItemNode {
     return attributeValue;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return ListItemNode.fromRuleNameChildNodesAndOpacity(OrderedListItemMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return ItemNode.fromRuleNameChildNodesAndOpacity(OrderedItemMarkdownNode, ruleName, childNodes, opacity); }
 }
 
 function valueFromMarkerTerminalNode(markerTerminalNode) {
