@@ -46,6 +46,7 @@ import { LINE_RULE_NAME,
          PRIMARY_HEADING_RULE_NAME,
          INDEX_DIRECTIVE_RULE_NAME,
          EMBED_DIRECTIVE_RULE_NAME,
+         EMPTY_TABLE_CELL_RULE_NAME,
          TERTIARY_HEADING_RULE_NAME,
          IGNORE_DIRECTIVE_RULE_NAME,
          ORDERED_LIST_ITEM_RULE_NAME,
@@ -242,6 +243,10 @@ const elementMap = {
     className: null
   },
   [EMBED_DIRECTIVE_RULE_NAME]: {
+    tagName: null,
+    className: null
+  },
+  [EMPTY_TABLE_CELL_RULE_NAME]: {
     tagName: null,
     className: null
   },
