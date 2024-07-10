@@ -24,13 +24,17 @@ class MarkdownNode extends NonTerminalNode {
   }
 
   tagName(context) {
-    const { tagName } = elementMap[this.ruleName];
+    const element = elementMap[this.ruleName];
+
+    const { tagName } = element;
 
     return tagName;
   }
 
   className(context) {
-    const { className } = elementMap[this.ruleName];
+    const element = elementMap[this.ruleName];
+
+    const { className } = element;
 
     return className;
   }
