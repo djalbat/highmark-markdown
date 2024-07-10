@@ -16,5 +16,14 @@ export default class TableHeadCellMarkdownNode extends MarkdownNode {
     return childNodesHTML;
   }
 
+  childNodesAsPlainText(indent, context) {
+    const childNodes = this.getChildNodes(),
+          firstChildNode = first(childNodes),
+          tableCellMarkdownNode = firstChildNode, ///
+          childNodesPlainText = tableCellMarkdownNode.childNodesAsPlainText(indent, context);
+
+    return childNodesPlainText;
+  }
+
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(TableHeadCellMarkdownNode, ruleName, childNodes, opacity); }
 }

@@ -16,5 +16,14 @@ export default class TableBodyCellMarkdownNode extends MarkdownNode {
     return childNodesHTML;
   }
 
+  childNodesAsPlainText(indent, context) {
+    const childNodes = this.getChildNodes(),
+          firstChildNode = first(childNodes),
+          tableCellMarkdownNode = firstChildNode, ///
+          childNodesPlainText = tableCellMarkdownNode.childNodesAsPlainText(indent, context);
+
+    return childNodesPlainText;
+  }
+
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(TableBodyCellMarkdownNode, ruleName, childNodes, opacity); }
 }

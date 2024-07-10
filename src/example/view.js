@@ -15,6 +15,7 @@ import indexOptions from "./indexOptions";
 import TabButtonsDiv from "./view/div/tabButtons";
 import LeftSizeableDiv from "./view/div/sizeable/left";
 import RightSizeableDiv from "./view/div/sizeable/right";
+import PlainTextTextarea from "./view/textarea/plainText";
 import MarkdownContainerDiv from "./view/div/container/markdown";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
@@ -97,11 +98,8 @@ class View extends Element {
               tokensFromContent,
               charactersPerLine
             },
-            // markdownNodes = postprocess(divisionMarkdownNode, context),
-            // divisionMarkdownNodes = divisionMarkdownNodesFromMarkdownNodes(markdownNodes);
-            divisionMarkdownNodes = [
-              divisionMarkdownNode
-            ];
+            markdownNodes = postprocess(divisionMarkdownNode, context),
+            divisionMarkdownNodes = divisionMarkdownNodesFromMarkdownNodes(markdownNodes);
 
       this.setDivisionMarkdownNodes(divisionMarkdownNodes);
 
@@ -122,6 +120,8 @@ class View extends Element {
 
       this.clearPageButtonsDiv();
 
+      this.clearPlainTextTextarea();
+
       this.clearMarkdownParseTreeTextarea();
 
       const divisionMarkdownNodes = null;
@@ -138,13 +138,16 @@ class View extends Element {
             tokens
           },
           length = null,
-          html = divisionMarkdownNode.asHTML(context);
+          html = divisionMarkdownNode.asHTML(context),
+          plainText = divisionMarkdownNode.asPlainText(context);
 
     this.updateXMP(html);
 
     this.updatePreviewDiv(divisionMarkdownNode, context);
 
     this.updatePageButtonsDiv(length, index);
+
+    this.updatePlainTextTextarea(plainText);
   }
 
   clearPage() {
@@ -223,6 +226,10 @@ class View extends Element {
             <HorizontalSplitterDiv/>
             <RowDiv>
               <RowsDiv>
+                <SubHeading>
+                  Plain text
+                </SubHeading>
+                <PlainTextTextarea/>
                 <SubHeading>
                   CSS
                 </SubHeading>
