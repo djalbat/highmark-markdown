@@ -219,16 +219,16 @@ class View extends Element {
     return tokens;
   }
 
-  setTokens(tokens) {
-    this.updateState({
-      tokens
-    });
-  }
-
   getDivisionMarkdownNodes() {
     const { divisionMarkdownNodes } = this.getState();
 
     return divisionMarkdownNodes;
+  }
+
+  setTokens(tokens) {
+    this.updateState({
+      tokens
+    });
   }
 
   setDivisionMarkdownNodes(divisionMarkdownNodes) {
