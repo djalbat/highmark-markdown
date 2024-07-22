@@ -48,13 +48,11 @@ function createIndexMap(divisionMarkdownNodes, context) {
             wordsOrPhrases = wordsOrPhrasesFromPlainTextAndIndexMatches(plainText, indexMatches);
 
       wordsOrPhrases.forEach((wordOrPhrase) => {
-        let pageNumbers = indexMap[wordOrPhrase] || null;
+        const pageNumbers = indexMap.hasOwnProperty(wordOrPhrase) ?
+                              indexMap[wordOrPhrase] :
+                                [];
 
-        if (pageNumbers === null) {
-          pageNumbers = [];
-
-          indexMap[wordOrPhrase] = pageNumbers;
-        }
+        indexMap[wordOrPhrase] = pageNumbers;
 
         pageNumbers.push(pageNumber);
       });

@@ -72,14 +72,7 @@ const indexContent = `## Index
 
       introductionContent = `# Introduction
       
-I have tried to make Occam[^occam] as useable as possible but there are limits.
-At the end of the day it is an expert system and some of its parts, not least the verifier, need detailed explanation.
-It is the purpose of this book is to provide these explanations.
-
-This book also goes into considerable detail on the subject of Occam's approach to language, which largely boils down to its use of grammars.
-Occam has its own language, called Florence,[^florence] but it will also support controlled natural languages in the near future.
-Indeed, the verifier cannot distinguish between these languages at all.
-This book explains how this is possible.
+Constructor.
 
 @footnotes
 
