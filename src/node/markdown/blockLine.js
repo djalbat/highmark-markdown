@@ -2,6 +2,7 @@
 
 import MarkdownNode from "../../node/markdown";
 
+import { replaceEntities } from "../../utilities/html";
 import { contentFromNode } from "../../utilities/content";
 
 export default class BlockLineMarkdownNode extends MarkdownNode {
@@ -57,8 +58,11 @@ export default class BlockLineMarkdownNode extends MarkdownNode {
   createDOMElement(context) {
     let domElement;
 
-    const content = this.content(context),
-          textNode = document.createTextNode(content);
+    let content = this.content(context);
+
+    content = replaceEntities(content); ///
+
+    const textNode = document.createTextNode(content);
 
     domElement = super.createDOMElement(context)
 
