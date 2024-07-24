@@ -3,6 +3,7 @@
 import MarkdownNode from "../../node/markdown";
 import contentMixins from "../../mixins/content";
 
+import { replaceEntities } from "../../utilities/html";
 import { removeBackticks } from "../../utilities/string";
 
 class InlineListingMarkdownNode extends MarkdownNode {
@@ -11,6 +12,8 @@ class InlineListingMarkdownNode extends MarkdownNode {
         content = this.content(context);
 
     content = removeBackticks(content); ///
+
+    content = replaceEntities(content); ///
 
     const textNode = document.createTextNode(content);
 
