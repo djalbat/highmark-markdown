@@ -1,6 +1,7 @@
 "use strict";
 
 import LineMarkdownNode from "./node/markdown/line";
+import PathMarkdownNode from "./node/markdown/path";
 import CommaMarkdownNode from "./node/markdown/comma";
 import ImageMarkdownNode from "./node/markdown/image";
 import TableMarkdownNode from "./node/markdown/table";
@@ -37,6 +38,7 @@ import ContentsLinkMarkdownNode from "./node/markdown/contentsLink";
 import ContentsItemMarkdownNode from "./node/markdown/contentsItem";
 import ContentsListMarkdownNode from "./node/markdown/contentsList";
 import FootnoteLinkMarkdownNode from "./node/markdown/footnoteLink";
+import TableDividerMarkdownNode from "./node/markdown/tableDivider";
 import InlineListingMarkdownNode from "./node/markdown/inlineListing";
 import UnorderedListMarkdownNode from "./node/markdown/unorderedList";
 import UnorderedItemMarkdownNode from "./node/markdown/item/unordered";
@@ -55,6 +57,7 @@ import BlockListingEndMarkdownNode from "./node/markdown/blockListingEnd";
 import IgnoreDirectiveMarkdownNode from "./node/markdown/directive/ignore";
 import SecondaryHeadingMarkdownNode from "./node/markdown/heading/secondary";
 import IncludeDirectiveMarkdownNode from "./node/markdown/directive/include";
+import TableCellDividerMarkdownNode from "./node/markdown/tableCellDivider";
 import QuaternaryHeadingMarkdownNode from "./node/markdown/heading/quaternary";
 import BlockListingStartMarkdownNode from "./node/markdown/blockListingStart";
 import ContentsDirectiveMarkdownNode from "./node/markdown/directive/contents";
@@ -63,6 +66,7 @@ import PageNumberDirectiveMarkdownNode from "./node/markdown/directive/pageNumbe
 import StronglyEmphasisedTextMarkdownNode from "./node/markdown/stronglyEmphasisedText";
 
 import { LINE_RULE_NAME,
+         PATH_RULE_NAME,
          COMMA_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
@@ -97,6 +101,7 @@ import { LINE_RULE_NAME,
          CONTENTS_ITEM_RULE_NAME,
          CONTENTS_LIST_RULE_NAME,
          FOOTNOTE_LINK_RULE_NAME,
+         TABLE_DIVIDER_RULE_NAME,
          TABLE_HEAD_ROW_RULE_NAME,
          TABLE_BODY_ROW_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
@@ -118,6 +123,7 @@ import { LINE_RULE_NAME,
          SECONDARY_HEADING_RULE_NAME,
          INCLUDE_DIRECTIVE_RULE_NAME,
          QUATERNARY_HEADING_RULE_NAME,
+         TABLE_CELL_DIVIDER_RULE_NAME,
          CONTENTS_DIRECTIVE_RULE_NAME,
          BLOCK_LISTING_START_RULE_NAME,
          FOOTNOTES_DIRECTIVE_RULE_NAME,
@@ -126,6 +132,7 @@ import { LINE_RULE_NAME,
 
 const nodeMap = {
   [LINE_RULE_NAME]: LineMarkdownNode,
+  [PATH_RULE_NAME]: PathMarkdownNode,
   [COMMA_RULE_NAME]: CommaMarkdownNode,
   [IMAGE_RULE_NAME]: ImageMarkdownNode,
   [TABLE_RULE_NAME]: TableMarkdownNode,
@@ -160,6 +167,7 @@ const nodeMap = {
   [CONTENTS_ITEM_RULE_NAME]: ContentsItemMarkdownNode,
   [CONTENTS_LIST_RULE_NAME]: ContentsListMarkdownNode,
   [FOOTNOTE_LINK_RULE_NAME]: FootnoteLinkMarkdownNode,
+  [TABLE_DIVIDER_RULE_NAME]: TableDividerMarkdownNode,
   [TABLE_HEAD_ROW_RULE_NAME]: TableHeadRowMarkdownNode,
   [TABLE_BODY_ROW_RULE_NAME]: TableBodyRowMarkdownNode,
   [INLINE_LISTING_RULE_NAME]: InlineListingMarkdownNode,
@@ -180,6 +188,7 @@ const nodeMap = {
   [BLOCK_LISTING_END_RULE_NAME]: BlockListingEndMarkdownNode,
   [SECONDARY_HEADING_RULE_NAME]: SecondaryHeadingMarkdownNode,
   [INCLUDE_DIRECTIVE_RULE_NAME]: IncludeDirectiveMarkdownNode,
+  [TABLE_CELL_DIVIDER_RULE_NAME]: TableCellDividerMarkdownNode,
   [QUATERNARY_HEADING_RULE_NAME]: QuaternaryHeadingMarkdownNode,
   [CONTENTS_DIRECTIVE_RULE_NAME]: ContentsDirectiveMarkdownNode,
   [BLOCK_LISTING_START_RULE_NAME]: BlockListingStartMarkdownNode,

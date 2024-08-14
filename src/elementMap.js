@@ -1,6 +1,7 @@
 "use strict";
 
 import { LINE_RULE_NAME,
+         PATH_RULE_NAME,
          COMMA_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
@@ -35,6 +36,7 @@ import { LINE_RULE_NAME,
          CONTENTS_ITEM_RULE_NAME,
          CONTENTS_LIST_RULE_NAME,
          FOOTNOTE_LINK_RULE_NAME,
+         TABLE_DIVIDER_RULE_NAME,
          TABLE_HEAD_ROW_RULE_NAME,
          TABLE_BODY_ROW_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
@@ -54,6 +56,7 @@ import { LINE_RULE_NAME,
          BLOCK_LISTING_END_RULE_NAME,
          SECONDARY_HEADING_RULE_NAME,
          INCLUDE_DIRECTIVE_RULE_NAME,
+         TABLE_CELL_DIVIDER_RULE_NAME,
          QUATERNARY_HEADING_RULE_NAME,
          CONTENTS_DIRECTIVE_RULE_NAME,
          BLOCK_LISTING_START_RULE_NAME,
@@ -65,6 +68,10 @@ const elementMap = {
   [LINE_RULE_NAME]: {
     tagName: "span",
     className: "line"
+  },
+  [PATH_RULE_NAME]: {
+    tagName: null,
+    className: null
   },
   [COMMA_RULE_NAME]: {
     tagName: null,
@@ -202,6 +209,10 @@ const elementMap = {
     tagName: "a",
     className: "footnote-link"
   },
+  [TABLE_DIVIDER_RULE_NAME]: {
+    tagName: null,
+    className: null
+  },
   [TABLE_HEAD_ROW_RULE_NAME]: {
     tagName: "tr",
     className: null
@@ -275,6 +286,10 @@ const elementMap = {
     className: null
   },
   [INCLUDE_DIRECTIVE_RULE_NAME]: {
+    tagName: null,
+    className: null
+  },
+  [TABLE_CELL_DIVIDER_RULE_NAME]: {
     tagName: null,
     className: null
   },

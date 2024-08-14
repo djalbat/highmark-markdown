@@ -70,7 +70,7 @@ const bnf = `
     quaternaryHeading.      ::=  "####" line ;
 
 
-    table                   ::=  tableHead endOfLine [dashes] endOfLine tableBody ;
+    table                   ::=  tableHead endOfLine tableDivider endOfLine tableBody ;
 
 
     footnote.               ::=  reference paragraph ;
@@ -97,10 +97,10 @@ const bnf = `
     ignoreDirective         ::=  "@ignore" ;
 
 
-    embedDirective.         ::=  "@embed" ( [path] | nonsense ) ;
+    embedDirective.         ::=  "@embed" ( path | nonsense ) ;
 
 
-    includeDirective.       ::=  "@include" ( [path] | nonsense ) ;
+    includeDirective.       ::=  "@include" ( path | nonsense ) ;
 
 
     contentsDirective       ::=  "@contents" ;
@@ -130,10 +130,10 @@ const bnf = `
     blockListingEnd         ::=  [backticks] ;
 
 
-    tableHeadRow            ::=  [vertical-bar] tableHeadCell+ ;
+    tableHeadRow            ::=  tableCellDivider tableHeadCell+ ;
 
     
-    tableBodyRow            ::=  [vertical-bar] tableBodyCell+ ;
+    tableBodyRow            ::=  tableCellDivider tableBodyCell+ ;
 
 
     tableHeadCell.          ::=  emptyTableCell 
@@ -150,10 +150,16 @@ const bnf = `
                               ; 
 
 
-    emptyTableCell          ::=  "." [vertical-bar];
+    emptyTableCell          ::=  "." tableCellDivider ;
     
 
-    tableCell               ::=  line [vertical-bar] ;
+    tableCell               ::=  line tableCellDivider ;
+    
+    
+    tableDivider            ::=  [dashes] ;
+    
+    
+    tableCellDivider        ::=  [vertical-bar] ;
     
     
     line.                   ::=  ( footnoteLink 
@@ -192,7 +198,10 @@ const bnf = `
                               ;
 
 
-    image.                  ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" [path] ")" ;
+    image.                  ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" path ")" ;
+
+
+    path                    ::=  [path] ;
 
 
     inlineListing           ::=  [backticked-literal] ;

@@ -1,6 +1,7 @@
 "use strict";
 
 export const LINE_RULE_NAME = "line";
+export const PATH_RULE_NAME = "path";
 export const COMMA_RULE_NAME = "comma";
 export const IMAGE_RULE_NAME = "image";
 export const TABLE_RULE_NAME = "table";
@@ -35,6 +36,7 @@ export const CONTENTS_LINK_RULE_NAME = "contentsLink";
 export const CONTENTS_ITEM_RULE_NAME = "contentsItem";
 export const CONTENTS_LIST_RULE_NAME = "contentsList";
 export const FOOTNOTE_LINK_RULE_NAME = "footnoteLink";
+export const TABLE_DIVIDER_RULE_NAME = "tableDivider";
 export const FOOTNOTES_ITEM_RULE_NAME = "footnotesItem";
 export const TABLE_HEAD_ROW_RULE_NAME = "tableHeadRow";
 export const TABLE_BODY_ROW_RULE_NAME = "tableBodyRow";
@@ -55,6 +57,7 @@ export const IGNORE_DIRECTIVE_RULE_NAME = "ignoreDirective";
 export const BLOCK_LISTING_END_RULE_NAME = "blockListingEnd";
 export const SECONDARY_HEADING_RULE_NAME = "secondaryHeading";
 export const INCLUDE_DIRECTIVE_RULE_NAME = "includeDirective";
+export const TABLE_CELL_DIVIDER_RULE_NAME = "tableCellDivider";
 export const QUATERNARY_HEADING_RULE_NAME = "quaternaryHeading";
 export const CONTENTS_DIRECTIVE_RULE_NAME = "contentsDirective";
 export const BLOCK_LISTING_START_RULE_NAME = "blockListingStart";
@@ -64,6 +67,7 @@ export const STRONGLY_EMPHASISED_TEXT_RULE_NAME = "stronglyEmphasisedText";
 
 const ruleNames = {
   LINE_RULE_NAME,
+  PATH_RULE_NAME,
   COMMA_RULE_NAME,
   IMAGE_RULE_NAME,
   TABLE_RULE_NAME,
@@ -98,6 +102,7 @@ const ruleNames = {
   CONTENTS_ITEM_RULE_NAME,
   CONTENTS_LIST_RULE_NAME,
   FOOTNOTE_LINK_RULE_NAME,
+  TABLE_DIVIDER_RULE_NAME,
   FOOTNOTES_ITEM_RULE_NAME,
   TABLE_HEAD_ROW_RULE_NAME,
   TABLE_BODY_ROW_RULE_NAME,
@@ -118,6 +123,7 @@ const ruleNames = {
   BLOCK_LISTING_END_RULE_NAME,
   SECONDARY_HEADING_RULE_NAME,
   INCLUDE_DIRECTIVE_RULE_NAME,
+  TABLE_CELL_DIVIDER_RULE_NAME,
   QUATERNARY_HEADING_RULE_NAME,
   CONTENTS_DIRECTIVE_RULE_NAME,
   BLOCK_LISTING_START_RULE_NAME,

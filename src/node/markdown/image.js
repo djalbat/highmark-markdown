@@ -23,9 +23,9 @@ export default class ImageMarkdownNode extends MarkdownNode {
     const { pathToURL = null } = context,
           childNodes = this.getChildNodes(),
           secondLastChildNode = secondLast(childNodes),
-          pathTerminalNode = secondLastChildNode,  ///
-          pathTerminalNodeContent = pathTerminalNode.getContent(),
-          path = pathTerminalNodeContent, ///
+          pathMarkdownNode = secondLastChildNode,  ///
+          pathMarkdownNodeContent = pathMarkdownNode.getContent(),
+          path = pathMarkdownNodeContent, ///
           src = (pathToURL === null) ?
                   path : ///
                     pathToURL(path); ///
