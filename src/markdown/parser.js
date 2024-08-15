@@ -1,8 +1,9 @@
 "use strict";
 
+import { CommonParser } from "occam-parsers";
+
 import bnf from "./bnf";
 import nodeMap from "../nodeMap";
-import CommonParser from "../common/parser";
 
 import { setNonTerminalNodes } from "../utilities/parser";
 

@@ -97,10 +97,9 @@ class View extends Element {
           lexer = markdownLexer,  ///
           parser =  markdownParser, ///
           content = markdown, ///
-          startOfContent = true,
           startRule = parser.getStartRule(),
           tokens = lexer.tokenise(content),
-          node = parser.parse(tokens, startRule, startOfContent);
+          node = parser.parse(tokens, startRule);
 
     this.setTokens(tokens);
 
@@ -163,8 +162,7 @@ class View extends Element {
           content = markdownStyle,  ///
           tokens = lexer.tokenise(content),
           startRule = parser.getStartRule(),
-          startOfContent = true,
-          node = parser.parse(tokens, startRule, startOfContent);
+          node = parser.parse(tokens, startRule);
 
     if (node !== null) {
       const parseTree = node.asParseTree(tokens);
@@ -333,8 +331,7 @@ function nodeFromTokens(tokens, startRuleName = null) {
         startRule = (startRuleName !== null) ?
                       ruleMap[startRuleName] :
                         markdownParser.getStartRule(),
-        startOfContent = true,
-        node = markdownParser.parse(tokens, startRule, startOfContent);
+        node = markdownParser.parse(tokens, startRule);
 
   return node;
 }

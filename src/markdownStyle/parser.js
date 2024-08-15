@@ -1,7 +1,8 @@
 "use strict";
 
+import { CommonParser } from "occam-parsers";
+
 import bnf from "./bnf";
-import CommonParser from "../common/parser";
 
 export default class MarkdownStyleParser extends CommonParser {
   static bnf = bnf;

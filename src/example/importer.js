@@ -11,10 +11,9 @@ export default function importer(filePath, context) {
   const content = contentMap[filePath] || null;
 
   if (content !== null) {
-    const startOfContent = true,
-          startRule = markdownParser.getStartRule(),
+    const startRule = markdownParser.getStartRule(),
           tokens = markdownLexer.tokenise(content),
-          node = markdownParser.parse(tokens, startRule, startOfContent),
+          node = markdownParser.parse(tokens, startRule),
           importedNode = node,  ///
           importedTokens = tokens,
           importedClassName = classNameFromFilePath(filePath);
