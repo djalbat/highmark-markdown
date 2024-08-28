@@ -3,7 +3,7 @@
 import { Query } from "occam-query";
 import { arrayUtilities } from "necessary";
 
-const { first, push } = arrayUtilities;
+const { push } = arrayUtilities;
 
 const footnoteMarkdownNodeQuery = Query.fromExpression("/subDivision/footnote"),
       indexDirectiveMarkdownNodeQuery = Query.fromExpression("/subDivision/directives/indexDirective"),
@@ -22,16 +22,9 @@ export function nodeQuery(expression) {
   const query = Query.fromExpression(expression);
 
   return function(node) {
-    const nodes = query.execute(node),
-          nodesLength = nodes.length;
+    const nodes = query.execute(node);
 
-    if (nodesLength > 0) {
-      const firstNode = first(nodes);
-
-      node = firstNode; ///
-    } else {
-      node = null;
-    }
+    node = nodes.shift() || null; ///
 
     return node;
   }
@@ -136,15 +129,9 @@ export default {
 
 function nodeFromNodeAndQuery(node, query) {
   const queryNodes = query.execute(node),
-        queryNodesLength = queryNodes.length;
+        queryNode = queryNodes.shift() || null;
 
-  if (queryNodesLength === 0) {
-    node = null;
-  } else {
-    const firstQueryNode = first(queryNodes);
-
-    node = firstQueryNode;  ///
-  }
+  node = queryNode;  ///
 
   return node;
 }
