@@ -51,7 +51,6 @@ const indexOptions = {
     "explanation",
     "explanations",
     "fact",
-    "florence",
     "footnote",
     "former",
     "foundations",
