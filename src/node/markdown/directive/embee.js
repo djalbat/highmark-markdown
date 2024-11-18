@@ -2,6 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
+import PathMarkdownNode from "../path";
 import DirectiveMarkdownNode from "../../../node/markdown/directive";
 import EmbedDirectiveReplacement from "../../../replacement/embedDirective";
 
@@ -40,14 +41,13 @@ export default class EmbedDirectiveMarkdownNode extends DirectiveMarkdownNode {
 
     const childNodes = this.getChildNodes(),
           lastChildNode = last(childNodes),
-          lastChildNodeTerminalNode = lastChildNode.isTerminalNode();
+          lastChildNodePathMarkdownNode = (lastChildNode instanceof PathMarkdownNode);
 
-    if (lastChildNodeTerminalNode) {
-      const terminalNode = lastChildNode, ///
-            pathTerminalNode  = terminalNode, ///
-            pathTerminalNodeContent = pathTerminalNode.getContent();
+    if (lastChildNodePathMarkdownNode) {
+      const pathMarkdownNode = lastChildNode, ///
+        pathMarkdownNodeContent = pathMarkdownNode.getContent();
 
-      filePath = pathTerminalNodeContent; ///
+      filePath = pathMarkdownNodeContent; ///
     }
 
     return filePath;
