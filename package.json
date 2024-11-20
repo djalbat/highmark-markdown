@@ -1,7 +1,7 @@
 {
   "name": "highmark-markdown",
   "author": "James Smith",
-  "version": "1.0.90",
+  "version": "1.0.91",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/highmark-markdown",
   "description": "Highmark's Markdown and Markdown Style languages.",
@@ -18,8 +18,8 @@
   "devDependencies": {
     "@swc/core": "^1.5.6",
     "easy": "^21.0.5",
-    "easy-layout": "^6.0.195",
-    "easy-with-style": "^3.0.410",
+    "easy-layout": "^6.0.196",
+    "easy-with-style": "^3.0.412",
     "esbuild": "^0.9.2",
     "express": "^4.17.1",
     "juxtapose": "^4.0.108",
