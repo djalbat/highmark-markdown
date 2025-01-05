@@ -17,10 +17,6 @@ export default class StyleElement {
     return this.domElement;
   }
 
-  setDOMElement(domElement) {
-    this.domElement = domElement;
-  }
-
   getInnerHTML() {  return this.domElement.innerHTML; }
 
   setInnerHTML(innerHTML) { this.domElement.innerHTML = innerHTML; }
