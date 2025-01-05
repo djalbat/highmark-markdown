@@ -1,10 +1,16 @@
 "use strict";
 
+import { elementUtilities } from "easy";
+
 import { HEAD, STYLE } from "./constants";
+
+const { constructElement, destroyElement } = elementUtilities;
 
 export default class StyleElement {
   constructor(domElement) {
-    this.domElement = domElement;
+    const element = this; ///
+
+    constructElement(element, domElement);
   }
 
   getDOMElement() {
@@ -27,7 +33,15 @@ ${css}
     this.setInnerHTML(innerHTML);
   }
 
-  remove() { this.domElement.remove(); }
+  remove() {
+    this.domElement.remove();
+  }
+
+  destroy() {
+    const element = this; ///
+
+    destroyElement(element);
+  }
 }
 
 export function createDOMElement() {
