@@ -1,10 +1,7 @@
 "use strict";
 
-import { elementUtilities } from "easy";
-
 import { HEAD, STYLE } from "./constants";
-
-const { constructElement, destroyElement } = elementUtilities;
+import { constructElement, destroyElement } from "./utilities/element";
 
 export default class StyleElement {
   constructor(domElement) {
