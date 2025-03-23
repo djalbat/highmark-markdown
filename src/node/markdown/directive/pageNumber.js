@@ -61,7 +61,7 @@ export default class PageNumberDirectiveMarkdownNode extends DirectiveMarkdownNo
     return childNodesHTML;
   }
 
-  clone() { return super.clone(this.number); }
+  clone() { return super.clone(this.pageNumber); }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
     const pageNumber = null,
