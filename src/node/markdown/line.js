@@ -2,7 +2,7 @@
 
 import MarkdownNode from "../../node/markdown";
 
-import { htmlFromChildNodes, plainTextFromChildNodes, domElementsFromChildNodes } from "../../utilities/childNodes";
+import { htmlFromMarkdownNode, plainTextFromMarkdownNode, domElementsFromMarkdownNode } from "../../utilities/childNodes";
 
 export default class LineMarkdownNode extends MarkdownNode {
   lines(context) {
@@ -30,9 +30,9 @@ export default class LineMarkdownNode extends MarkdownNode {
   }
 
   createDOMElement(context) {
-    const domElement = super.createDOMElement(context),
-          childNodes = this.getChildNodes(),
-          domElements = domElementsFromChildNodes(childNodes, context),
+    const markdownNode = this,
+          domElement = super.createDOMElement(context),
+          domElements = domElementsFromMarkdownNode(markdownNode, context),
           parentDOMElement = domElement,  ///
           childNodeDOMElements = domElements; ///
 
@@ -59,16 +59,16 @@ export default class LineMarkdownNode extends MarkdownNode {
   }
 
   childNodesAsHTML(indent, context) {
-    const childNodes = this.getChildNodes(),
-          html = htmlFromChildNodes(childNodes, context),
+    const markdownNode = this,
+          html = htmlFromMarkdownNode(markdownNode, context),
           childNodesHTML = html;  ///
 
     return childNodesHTML;
   }
 
   childNodesAsPlainText(context) {
-    const childNodes = this.getChildNodes(),
-          plainText = plainTextFromChildNodes(childNodes, context),
+    const markdownNode = this, ///
+          plainText = plainTextFromMarkdownNode(markdownNode, context),
           childNodesPlainText = plainText;  ///
 
     return childNodesPlainText;

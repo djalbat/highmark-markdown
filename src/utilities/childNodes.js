@@ -7,11 +7,11 @@ import { contentFromNodes } from "../utilities/content";
 
 const { first, last, clear } = arrayUtilities;
 
-export function htmlFromChildNodes(childNodes, context) {
+export function htmlFromMarkdownNode(markdownNode, context) {
   const htmls = [],
         plainTextMarkdownNodes = [];
 
-  childNodes.forEach((childNode) => {
+  markdownNode.forEachChildNode((childNode) => {
     const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
     if (childNodeNonTerminalNode) {
@@ -24,7 +24,7 @@ export function htmlFromChildNodes(childNodes, context) {
 
         plainTextMarkdownNodes.push(plainTextMarkdownNode);
       } else {
-        const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, context);
+        const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, markdownNode, context);
 
         if (content !== null) {
           const html = content; ///
@@ -42,7 +42,7 @@ export function htmlFromChildNodes(childNodes, context) {
     }
   });
 
-  const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, context);
+  const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, markdownNode, context);
 
   if (content !== null) {
     const html = content; ///
@@ -55,11 +55,11 @@ export function htmlFromChildNodes(childNodes, context) {
   return html;
 }
 
-export function plainTextFromChildNodes(childNodes, context) {
+export function plainTextFromMarkdownNode(markdownNode, context) {
   const plainTexts = [],
         plainTextMarkdownNodes = [];
 
-  childNodes.forEach((childNode) => {
+  markdownNode.forEachChildNode((childNode) => {
     const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
     if (childNodeNonTerminalNode) {
@@ -72,7 +72,7 @@ export function plainTextFromChildNodes(childNodes, context) {
 
         plainTextMarkdownNodes.push(plainTextMarkdownNode);
       } else {
-        const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, context);
+        const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, markdownNode, context);
 
         if (content !== null) {
           const plainText = content;  ///
@@ -81,8 +81,7 @@ export function plainTextFromChildNodes(childNodes, context) {
         }
 
         {
-          const childNodes = markdownNode.getChildNodes(),
-                plainText = plainTextFromChildNodes(childNodes, context);
+          const plainText = plainTextFromMarkdownNode(markdownNode, context);
 
           if (plainText !== EMPTY_STRING) {
             plainTexts.push(plainText);
@@ -92,7 +91,7 @@ export function plainTextFromChildNodes(childNodes, context) {
     }
   });
 
-  const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, context);
+  const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, markdownNode, context);
 
   if (content !== null) {
     const plainText = content;  ///
@@ -105,11 +104,11 @@ export function plainTextFromChildNodes(childNodes, context) {
   return plainText;
 }
 
-export function domElementsFromChildNodes(childNodes, context) {
+export function domElementsFromMarkdownNode(markdownNode, context) {
   const domElements = [],
         plainTextMarkdownNodes = [];
 
-  childNodes.forEach((childNode) => {
+  markdownNode.forEachChildNode((childNode) => {
     const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
     if (childNodeNonTerminalNode) {
@@ -122,7 +121,7 @@ export function domElementsFromChildNodes(childNodes, context) {
 
         plainTextMarkdownNodes.push(plainTextMarkdownNode);
       } else {
-        const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, context);
+        const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, markdownNode, context);
 
         if (content !== null) {
           const textNode = document.createTextNode(content),
@@ -140,7 +139,7 @@ export function domElementsFromChildNodes(childNodes, context) {
     }
   });
 
-  const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, context);
+  const content = contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, markdownNode, context);
 
   if (content !== null) {
     const textNode = document.createTextNode(content),
@@ -152,22 +151,23 @@ export function domElementsFromChildNodes(childNodes, context) {
   return domElements;
 }
 
-function contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, childNodes, context) {
+function contentFromPlainTextMarkdownNodes(plainTextMarkdownNodes, markdownNode, context) {
   let content = null;
 
   const plainTextMarkdownNodesLength = plainTextMarkdownNodes.length;
 
   if (plainTextMarkdownNodesLength > 0) {
-    const nodes = plainTextMarkdownNodes, ///
-          lastNode = last(nodes),
-          firstNode = first(nodes),
-          lastNodeIndex = childNodes.indexOf(lastNode),
-          firstNodeIndex = childNodes.indexOf(firstNode),
-          childNodesLength = childNodes.length,
-          lastChildNodeIndex = childNodesLength - 1,
+    const childNodes = plainTextMarkdownNodes, ///
+          startChildNode = first(childNodes),
+          endChildNode = last(childNodes),
+          startChildNodeIndex = markdownNode.indexOfChildNode(startChildNode),
+          endChildNodeIndex = markdownNode.indexOfChildNode(endChildNode),
+          multiplicity = markdownNode.getMultiplicity(),
+          lastChildNodeIndex = multiplicity - 1,
           firstChildNodeIndex = 0,
-          augmentLeft = (firstNodeIndex !== firstChildNodeIndex),
-          augmentRight = (lastNodeIndex !== lastChildNodeIndex);  ///
+          augmentLeft = (endChildNodeIndex !== firstChildNodeIndex),
+          augmentRight = (startChildNodeIndex !== lastChildNodeIndex),  ///
+          nodes = childNodes; ///
 
     content = contentFromNodes(nodes, augmentLeft, augmentRight, context);
 
