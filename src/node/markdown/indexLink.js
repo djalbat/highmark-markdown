@@ -1,13 +1,9 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
 
 import { INDEX_PREPEND } from "../../prepends";
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
-
-const { first } = arrayUtilities;
 
 export default class IndexLinkMarkdownNode extends MarkdownNode {
   attributeName(context) {
@@ -67,10 +63,12 @@ export default class IndexLinkMarkdownNode extends MarkdownNode {
   }
 
   content(context) {
-    const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          terminalNode = firstChildNode,  ///
-          content = terminalNode.getContent();
+    const content = this.fromFirstChildNode((firstChildNode) => {
+      const terminalNode = firstChildNode,  ///
+            content = terminalNode.getContent();
+
+      return content;
+    });
 
     return content;
   }

@@ -6,14 +6,16 @@ import ItemNode from "../../../node/markdown/item";
 
 import { VALUE_ATTRIBUTE_NAME } from "../../../attributeNames";
 
-const { first, second } = arrayUtilities;
+const { second } = arrayUtilities;
 
 export default class OrderedItemMarkdownNode extends ItemNode {
   value(context) {
-    const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          markerTerminalNode = firstChildNode,  ///
-          value = valueFromMarkerTerminalNode(markerTerminalNode);
+    const value = this.fromFirstChildNode((firstChildNode) => {
+      const markerTerminalNode = firstChildNode,  ///
+            value = valueFromMarkerTerminalNode(markerTerminalNode);
+
+      return value;
+    });
 
     return value;
   }

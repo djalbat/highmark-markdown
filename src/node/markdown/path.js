@@ -1,18 +1,16 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
-
-const { first } = arrayUtilities;
 
 export default class PathMarkdownNode extends MarkdownNode {
   getContent() {
-    const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          pathTerminalNode = firstChildNode,  ///
-          pathTerminalNodeContent = pathTerminalNode.getContent(),
-          content = pathTerminalNodeContent;  ///
+    const content = this.fromFirstChildNode((firstChildNode) => {
+      const pathTerminalNode = firstChildNode,  ///
+            pathTerminalNodeContent = pathTerminalNode.getContent(),
+            content = pathTerminalNodeContent;  ///
+
+      return content;
+    });
 
     return content;
   }

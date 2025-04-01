@@ -1,12 +1,8 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import PathMarkdownNode from "../path";
 import DirectiveMarkdownNode from "../../../node/markdown/directive";
 import EmbedDirectiveReplacement from "../../../replacement/embedDirective";
-
-const { last } = arrayUtilities;
 
 export default class EmbedDirectiveMarkdownNode extends DirectiveMarkdownNode {
   resolve(context) {
@@ -37,18 +33,20 @@ export default class EmbedDirectiveMarkdownNode extends DirectiveMarkdownNode {
   }
 
   filePath(context) {
-    let filePath = null;
+    const filePath = this.fromFirstLastChildNode((firstLastChildNode) => {
+      let filePath = null;
 
-    const childNodes = this.getChildNodes(),
-          lastChildNode = last(childNodes),
-          lastChildNodePathMarkdownNode = (lastChildNode instanceof PathMarkdownNode);
+      const firstLastChildNodePathMarkdownNode = (firstLastChildNode instanceof PathMarkdownNode);
 
-    if (lastChildNodePathMarkdownNode) {
-      const pathMarkdownNode = lastChildNode, ///
-        pathMarkdownNodeContent = pathMarkdownNode.getContent();
+      if (firstLastChildNodePathMarkdownNode) {
+        const pathMarkdownNode = firstLastChildNode, ///
+              pathMarkdownNodeContent = pathMarkdownNode.getContent();
 
-      filePath = pathMarkdownNodeContent; ///
-    }
+        filePath = pathMarkdownNodeContent; ///
+      }
+
+      return filePath;
+    });
 
     return filePath;
   }

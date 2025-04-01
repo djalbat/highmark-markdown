@@ -4,14 +4,16 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
-const { first, second } = arrayUtilities;
+const { second } = arrayUtilities;
 
 export default class ReferenceMarkdownNode extends MarkdownNode {
   identifier(context) {
-    const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          referenceTerminalNode = firstChildNode,  ///
-          identifier = identifierFromReferenceTerminalNode(referenceTerminalNode);
+    const identifier = this.fromFirstChildNode((firstChildNode) => {
+      const referenceTerminalNode = firstChildNode,  ///
+            identifier = identifierFromReferenceTerminalNode(referenceTerminalNode);
+
+      return identifier;
+    });
 
     return identifier;
   }

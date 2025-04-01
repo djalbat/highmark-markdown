@@ -1,24 +1,23 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import elementMap from "../../elementMap";
 import MarkdownNode from "../../node/markdown";
 import contentMixins from "../../mixins/content";
 
 import { STRONG_TEXT_RULE_NAME } from "../../ruleNames";
 
-const { second } = arrayUtilities,
-      { tagName } = elementMap[STRONG_TEXT_RULE_NAME];
+const { tagName } = elementMap[STRONG_TEXT_RULE_NAME];
 
 class StronglyEmphasisedTextMarkdownNode extends MarkdownNode {
   inlineText(context) {
-    const indent = null,
-          childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          inlineTextMarkdownNode = secondChildNode, ///
-          inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context),
-          inlineText = inlineTextMarkdownNodeHTML;  ///
+    const inlineText = this.fromSecondChildNode((secondChildNode) => {
+      const indent = null,
+            inlineTextMarkdownNode = secondChildNode, ///
+            inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context),
+            inlineText = inlineTextMarkdownNodeHTML;  ///
+
+      return inlineText;
+    });
 
     return inlineText;
   }

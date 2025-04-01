@@ -158,9 +158,7 @@ function overwriteTerminalNodeTokens(terminalNode, clonedTokens, tokens, offset)
 }
 
 function overwriteNonTerminalNodeTokens(nonTerminalNode, clonedTokens, tokens, offset) {
-  const childNodes = nonTerminalNode.getChildNodes();
-
-  childNodes.forEach((childNode) => {
+  nonTerminalNode.forEachChildNode((childNode) => {
     const clonedNode = childNode; ///
 
     overwriteNodeTokens(clonedNode, clonedTokens, tokens, offset);

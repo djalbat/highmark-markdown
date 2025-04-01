@@ -1,12 +1,8 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
 
 import { ALT_ATTRIBUTE_NAME, SRC_ATTRIBUTE_NAME} from "../../attributeNames";
-
-const { secondLast } = arrayUtilities;
 
 export default class ImageMarkdownNode extends MarkdownNode {
   alt(context) {
@@ -23,14 +19,16 @@ export default class ImageMarkdownNode extends MarkdownNode {
 
   src(context) {
     const { pathToURL = null } = context,
-          childNodes = this.getChildNodes(),
-          secondLastChildNode = secondLast(childNodes),
-          pathMarkdownNode = secondLastChildNode,  ///
-          pathMarkdownNodeContent = pathMarkdownNode.getContent(),
-          path = pathMarkdownNodeContent, ///
-          src = (pathToURL === null) ?
-                  path : ///
-                    pathToURL(path); ///
+          src = this.fromSecondLastChildNode((secondLastChildNode) => {
+            const pathMarkdownNode = secondLastChildNode,  ///
+                  pathMarkdownNodeContent = pathMarkdownNode.getContent(),
+                  path = pathMarkdownNodeContent, ///
+                  src = (pathToURL === null) ?
+                           path :  ///
+                             pathToURL(path);
+
+            return src;
+          });
 
     return src;
   }
