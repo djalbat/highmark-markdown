@@ -1,10 +1,6 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
-
-const { first } = arrayUtilities;
 
 export default class DirectivesMarkdownNode extends MarkdownNode {
   asHTML(indent, context) {
@@ -16,9 +12,11 @@ export default class DirectivesMarkdownNode extends MarkdownNode {
   }
 
   getFirstDirectiveMarkdownNode() {
-    const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          firstDirectiveMarkdownNode = firstChildNode; ///
+    const firstDirectiveMarkdownNode = this.fromFirstChildNode((firstChildNode) => {
+      const firstDirectiveMarkdownNode = firstChildNode;  ///
+
+      return firstDirectiveMarkdownNode;
+    });
 
     return firstDirectiveMarkdownNode;
   }

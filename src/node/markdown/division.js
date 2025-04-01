@@ -91,13 +91,12 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     });
 
     const { linesPerPage } = context,
-          paginatedChildNodes = [],
-          childNodes = this.getChildNodes();
+          paginatedChildNodes = [];
 
     let { pageNumber } = context,
         totalLines = 0;
 
-    childNodes.forEach((childNode) => {
+    this.forEachChildNode((childNode) => {
       const lines = childNode.lines(context);
 
       if ((totalLines + lines) > linesPerPage) {

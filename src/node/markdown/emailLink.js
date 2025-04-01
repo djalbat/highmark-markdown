@@ -1,47 +1,46 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
 import contentMixins from "../../mixins/content";
 
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 
-const { first, second, secondLast } = arrayUtilities;
-
 class EmailLinkMarkdownNode extends MarkdownNode {
   inlineText(context) {
     let inlineText = null;
 
-    const childNodes = this.getChildNodes(),
-          childNodesLength = childNodes.length;
+    const multiplicity = this.getMultiplicity();
 
-    if (childNodesLength !== 1) {
-      const indent = null,
-            secondChildNode = second(childNodes),
-            inlineTextMarkdownNode = secondChildNode, ///
-            inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context);
+    if (multiplicity > 1) {
+      inlineText = this.fromSecondChildNode((secondChildNode) => {
+        const indent = null,
+              inlineTextMarkdownNode = secondChildNode, ///
+              inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context);
 
-      inlineText = inlineTextMarkdownNodeHTML;  ///
+        inlineText = inlineTextMarkdownNodeHTML;  ///
+      });
     }
 
     return inlineText;
   }
 
   emailAddress(context) {
-    const childNodes = this.getChildNodes(),
-          childNodesLength = childNodes.length;
+    const multiplicity = this.getMultiplicity();
 
     let emailAddressTerminalNode;
 
-    if (childNodesLength === 1) {
-      const firstChildNode = first(childNodes);
+    if (multiplicity === 1) {
+      emailAddressTerminalNode = this.fromFirstChildNode((firstChildNode) => {
+        const emailAddressTerminalNode = firstChildNode;  ///
 
-      emailAddressTerminalNode = firstChildNode;  ///
+        return emailAddressTerminalNode;
+      });
     } else {
-      const secondLastChildNode = secondLast(childNodes);
+      emailAddressTerminalNode = this.fromSecondLastChildNode((secondLastChildNode) => {
+        const emailAddressTerminalNode = secondLastChildNode;  ///
 
-      emailAddressTerminalNode = secondLastChildNode;  ///
+        return emailAddressTerminalNode;
+      });
     }
 
     const emailAddressTerminalNodeContent = emailAddressTerminalNode.getContent(),

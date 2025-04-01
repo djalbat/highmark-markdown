@@ -34,9 +34,11 @@ export default class HeadingMarkdownNode extends MarkdownNode {
   }
 
   getLineMarkdownNode() {
-    const childNodes = this.getChildNodes(),
-          lastChildNode = last(childNodes),
-          lineMarkdownNode = lastChildNode;  ///
+    const lineMarkdownNode = this.fromFirstLastChildNode((firstLastChildNode) => {
+      const lineMarkdownNode = firstLastChildNode;  ///
+
+      return lineMarkdownNode;
+    });
 
     return lineMarkdownNode;
   }

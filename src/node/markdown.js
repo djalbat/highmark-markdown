@@ -116,9 +116,7 @@ class MarkdownNode extends NonTerminalNode {
     ({ lines = null } = this.constructor);
 
     if (lines === null) {
-      const childNodes = this.getChildNodes();
-
-      lines = childNodes.reduce((lines, childNode) => {
+      lines = this.reduceChildNode((lines, childNode) => {
         const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
 
         if (childNodeMarkdownNode) {
@@ -256,8 +254,7 @@ ${childNodesHTML}${indent}${closingTag}
   }
 
   childNodesAsHTML(indent, context) {
-    const childNodes = this.getChildNodes(),
-          childNodesHTML = childNodes.reduce((childNodesHTML, childNode) => {
+    const childNodesHTML = this.reduceChildNode((childNodesHTML, childNode) => {
             const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
 
             if (childNodeMarkdownNode) {
@@ -278,8 +275,7 @@ ${childNodesHTML}${indent}${closingTag}
   }
 
   childNodesAsPlainText(context) {
-    const childNodes = this.getChildNodes(),
-          childNodesPlainText = childNodes.reduce((childNodesPlainText, childNode) => {
+    const childNodesPlainText = this.reduceChildNode((childNodesPlainText, childNode) => {
             const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
 
             if (childNodeMarkdownNode) {

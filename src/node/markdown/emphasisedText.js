@@ -1,20 +1,18 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
 import contentMixins from "../../mixins/content";
 
-const { second } = arrayUtilities;
-
 class EmphasisedTextMarkdownNode extends MarkdownNode {
   inlineText(context) {
-    const indent = null,
-          childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          inlineTextMarkdownNode = secondChildNode, ///
-          inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context),
-          inlineText = inlineTextMarkdownNodeHTML;  ///
+    const inlineText = this.fromSecondChildNode((secondChildNode) => {
+      const indent = null,
+            inlineTextMarkdownNode = secondChildNode, ///
+            inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context),
+            inlineText = inlineTextMarkdownNodeHTML;  ///
+
+      return inlineText;
+    });
 
     return inlineText;
   }

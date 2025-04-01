@@ -6,15 +6,17 @@ import MarkdownNode from "../../node/markdown";
 
 import { ALT_ATTRIBUTE_NAME, SRC_ATTRIBUTE_NAME} from "../../attributeNames";
 
-const { second, secondLast } = arrayUtilities;
+const { secondLast } = arrayUtilities;
 
 export default class ImageMarkdownNode extends MarkdownNode {
   alt(context) {
-    const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          inlineTextMarkdownNode = secondChildNode,  ///
-          inlineTextMarkdownNodeContent = inlineTextMarkdownNode.content(context),
-          alt = inlineTextMarkdownNodeContent; ///
+    const alt = this.fromSecondChildNode((secondChildNode) => {
+      const inlineTextMarkdownNode = secondChildNode,  ///
+            inlineTextMarkdownNodeContent = inlineTextMarkdownNode.content(context),
+            alt = inlineTextMarkdownNodeContent; ///
+
+      return alt;
+    });
 
     return alt;
   }

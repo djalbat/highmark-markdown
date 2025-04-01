@@ -7,23 +7,26 @@ import contentMixins from "../../mixins/content";
 
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 
-const { first, second, secondLast } = arrayUtilities;
+const { second } = arrayUtilities;
 
 class HyperlinkLinkMarkdownNode extends MarkdownNode {
   url(context) {
-    const childNodes = this.getChildNodes(),
-          childNodesLength = childNodes.length;
+    const multiplicity = this.getMultiplicity();
 
     let urlTerminalNode;
 
-    if (childNodesLength === 1) {
-      const firstChildNode = first(childNodes);
+    if (multiplicity === 1) {
+      urlTerminalNode = this.fromFirstChildNode((firstChildNode) => {
+        const urlTerminalNode = firstChildNode; ///
 
-      urlTerminalNode = firstChildNode;  ///
+        return urlTerminalNode;
+      });
     } else {
-      const secondLastChildNode = secondLast(childNodes);
+      urlTerminalNode = this.fromSecondLastChildNode((secondLastChildNode) => {
+        const urlTerminalNode = secondLastChildNode; ///
 
-      urlTerminalNode = secondLastChildNode;  ///
+        return urlTerminalNode;
+      });
     }
 
     const urlTerminalNodeContent = urlTerminalNode.getContent(),
@@ -35,16 +38,16 @@ class HyperlinkLinkMarkdownNode extends MarkdownNode {
   inlineText(context) {
     let inlineText = null;
 
-    const childNodes = this.getChildNodes(),
-          childNodesLength = childNodes.length;
+    const multiplicity = this.getMultiplicity();
 
-    if (childNodesLength !== 1) {
-      const indent = null,
-            secondChildNode = second(childNodes),
-            inlineTextMarkdownNode = secondChildNode, ///
-            inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context);
+    if (multiplicity > 1) {
+      inlineText = this.fromSecondChildNode((secondChildNode) => {
+        const indent = null,
+              inlineTextMarkdownNode = secondChildNode, ///
+              inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context);
 
-      inlineText = inlineTextMarkdownNodeHTML;  ///
+        inlineText = inlineTextMarkdownNodeHTML;  ///
+      });
     }
 
     return inlineText;

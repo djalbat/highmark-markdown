@@ -9,9 +9,7 @@ function getDescendantElements(descendantElements = []) {
     descendantElements.push(descendantElement);
   }
 
-  const childNodes = this.getChildNodes();
-
-  childNodes.forEach((childNode) => {
+  this.forEachChildNode((childNode) => {
     const childNodeNonTerminalNode = childNode.isNonTerminalNode();
 
     if (childNodeNonTerminalNode) {

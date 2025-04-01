@@ -1,25 +1,23 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
 import ClassNameMarkdownNode from "./className";
 
-const { second } = arrayUtilities;
-
 export default class BlockListingStartMarkdownNode extends MarkdownNode {
   className(context) {
-    let className = null;
+    const className = this.fromSecondChildNode((secondChildNode) => {
+      let className = null;
 
-    const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          secondChildNodeClassNameMarkdownNode = (secondChildNode instanceof ClassNameMarkdownNode)
+      const secondChildNodeClassNameMarkdownNode = (secondChildNode instanceof ClassNameMarkdownNode)
 
-    if (secondChildNodeClassNameMarkdownNode) {
-      const classNameMarkdownNode = secondChildNode; ///
+      if (secondChildNodeClassNameMarkdownNode) {
+        const classNameMarkdownNode = secondChildNode; ///
 
-      className = classNameMarkdownNode.className(context);
-    }
+        className = classNameMarkdownNode.className(context);
+      }
+
+      return className;
+    });
 
     return className;
   }

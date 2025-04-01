@@ -16,10 +16,12 @@ export default class FootnoteMarkdownNode extends MarkdownNode {
   }
 
   identifier(context) {
-    const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          referenceMarkdownNode = firstChildNode,  ///
-          identifier = referenceMarkdownNode.identifier(context);
+    const identifier = this.fromFirstChildNode((firstChildNode) => {
+      const referenceMarkdownNode = firstChildNode,  ///
+            identifier = referenceMarkdownNode.identifier(context);
+
+      return identifier;
+    });
 
     return identifier;
   }

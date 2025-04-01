@@ -34,10 +34,12 @@ export default class FootnoteLinkMarkdownNode extends MarkdownNode {
   }
 
   identifier(context) {
-    const childNodes = this.getChildNodes(),
-          firstChildNode = first(childNodes),
-          linkTerminalNode = firstChildNode,  ///
-          identifier = identifierFromLinkTerminalNode(linkTerminalNode);
+    const identifier = this.fromFirstChildNode((firstChildNode) => {
+      const linkTerminalNode = firstChildNode,  ///
+            identifier = identifierFromLinkTerminalNode(linkTerminalNode);
+
+      return identifier;
+    });
 
     return identifier;
   }
