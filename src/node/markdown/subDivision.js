@@ -1,12 +1,8 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
 import EmbedDirectivesSubDivisionReplacement from "../../replacement/subDivision/embedDirectives";
 import IncludeDirectivesSubDivisionReplacement from "../../replacement/subDivision/includeDirectives";
-
-const { second } = arrayUtilities;
 
 export default class SubDivisionMarkdownNode extends MarkdownNode {
   resolveEmbeddings(divisionMarkdownNode, context) {
@@ -32,32 +28,36 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
   }
 
   lines(context) {
-    const secondMarkdownNode = this.getSecondMarkdownNode(),
-          lines = secondMarkdownNode.lines(context);
+    const lines = this.fromSecondChildNode((secondChildNode) => {
+      const secondMarkdownNode = secondChildNode, ///
+            lines = secondMarkdownNode.lines(context);
+
+      return lines;
+    });
 
     return lines;
   }
 
   asHTML(indent, context) {
-    const secondMarkdownNode = this.getSecondMarkdownNode(),
-          html = secondMarkdownNode.asHTML(indent, context);
+    const html = this.fromSecondChildNode((secondChildNode) => {
+      const secondMarkdownNode = secondChildNode, ///
+            html = secondMarkdownNode.asHTML(indent, context);
+
+      return html;
+    });
 
     return html;
   }
 
   asPlainText(context) {
-    const secondMarkdownNode = this.getSecondMarkdownNode(),
-          plainText = secondMarkdownNode.asPlainText(context);
+    const plainText = this.fromSecondChildNode((secondChildNode) => {
+      const secondMarkdownNode = secondChildNode, ///
+            plainText = secondMarkdownNode.asPlainText(context);
+
+      return plainText;
+    });
 
     return plainText;
-  }
-
-  getSecondMarkdownNode() {
-    const childNodes = this.getChildNodes(),
-          secondChildNode = second(childNodes),
-          secondMarkdownNode = secondChildNode; ///
-
-    return secondMarkdownNode;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(SubDivisionMarkdownNode, ruleName, childNodes, opacity); }

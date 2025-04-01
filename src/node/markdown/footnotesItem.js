@@ -8,14 +8,13 @@ import AnchorMarkdownNode from "../../node/markdown/anchor";
 import { FOOTNOTE_PREPEND } from "../../prepends";
 import { FOOTNOTES_ITEM_RULE_NAME } from "../../ruleNames";
 
-const { second } = arrayUtilities;
+const { first } = arrayUtilities;
 
 export default class FootnotesItemMarkdownNode extends MarkdownNode {
   static fromFootnotesMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier) {
     const prepend = FOOTNOTE_PREPEND,
           anchorMarkdownNode = AnchorMarkdownNode.fromPrependAndIdentifier(prepend, identifier),
-          footnoteMarkdownNodeChildNodes = footnoteMarkdownNode.getChildNodes(),
-          secondFootnoteMarkdownNodeChildNode = second(footnoteMarkdownNodeChildNodes),
+          secondFootnoteMarkdownNodeChildNode = removeSecondChildNode(footnoteMarkdownNode),
           paragraphMarkdownNode = secondFootnoteMarkdownNodeChildNode,  ///
           ruleName = FOOTNOTES_ITEM_RULE_NAME,
           childNodes = [
@@ -27,4 +26,14 @@ export default class FootnotesItemMarkdownNode extends MarkdownNode {
 
     return footnotesItemMarkdownNode;
   }
+}
+
+function removeSecondChildNode(markdownNode) {
+  const startIndex = 1,
+        deleteCount = 1,
+        removedChildNodes = markdownNode.spliceChildNodes(startIndex, deleteCount),
+        firstRemovedChildNode = first(removedChildNodes),
+        secondChildNode = firstRemovedChildNode; ///
+
+  return secondChildNode;
 }
