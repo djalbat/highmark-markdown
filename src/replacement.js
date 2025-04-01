@@ -33,8 +33,6 @@ export default class Replacement {
     return this.tokens;
   }
 
-  getChildNodes() { return this.node.getChildNodes(); }
-
   contract(Class, descendentNode, ...remainingArguments) {
     if (descendentNode === undefined) {
       descendentNode = Class; ///
@@ -91,7 +89,7 @@ export default class Replacement {
 
   addAfter(existingNode, parentNode, context) {
     const { tokens } = context,
-          addedNodes = this.getChildNodes(), ///
+          addedNodes = this.node.getChildNodes(), ///
           addedTokens = this.tokens;  ///
 
     addNodesAfter(existingNode, addedNodes, parentNode);

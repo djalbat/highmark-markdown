@@ -74,54 +74,6 @@ function addChildNodesAfter(existingChildNode, addedChildNodes) {
   childNodes.splice(start, deleteCount, ...addedChildNodes);
 }
 
-function getDescendantNodes(descendantNodes = []) {
-  const descendantNode = this; ///
-
-  descendantNodes.push(descendantNode);
-
-  const childNodes = this.getChildNodes();
-
-  childNodes.forEach((childNode) => {
-    const childNodeNonTerminalNode = childNode.isNonTerminalNode();
-
-    if (childNodeNonTerminalNode) {
-      const nonTerminalNode = childNode;  ///
-
-      nonTerminalNode.getDescendantNodes(descendantNodes);
-    }
-  });
-
-  return descendantNodes;
-}
-
-function retrieveParentNode(childNode, node = this) {
-  let parentNode = null;
-
-  const nodeNonTerminalNode = node.isNonTerminalNode();
-
-  if (nodeNonTerminalNode) {
-    const nonTerminalNode = node, ///
-          childNodes = nonTerminalNode.getChildNodes(),
-          index = childNodes.indexOf(childNode);
-
-    if (index !== -1) {
-      parentNode = node;  ///
-    } else {
-      const nodes = childNodes; ///
-
-      nodes.some((node) => {
-        parentNode = this.retrieveParentNode(childNode, node);
-
-        if (parentNode !== null) {
-          return true;
-        }
-      });
-    }
-  }
-
-  return parentNode;
-}
-
 function fromFirstChildNode(callback) {
   let result;
 
@@ -223,8 +175,6 @@ const nodeMixins = {
   replaceChildNodes,
   addChildNodeAfter,
   addChildNodesAfter,
-  getDescendantNodes,
-  retrieveParentNode,
   fromFirstChildNode,
   fromSecondChildNode,
   fromThirdChildNode,
