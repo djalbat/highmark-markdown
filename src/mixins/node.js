@@ -1,77 +1,35 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
-const { first, last } = arrayUtilities;
-
-function removeChildNodes(removedChildNodes) {
-  const childNodes = this.getChildNodes(),
-        firstRemovedChildNode = first(removedChildNodes),
-        lastRemovedChildNode = last(removedChildNodes),
-        firstIndex = childNodes.indexOf(firstRemovedChildNode), ///
-        lastIndex = childNodes.indexOf(lastRemovedChildNode), ///
-        start = firstIndex,  ///
-        end = lastIndex + 1,
-        deleteCount = end - start;
-
-  childNodes.splice(start, deleteCount);
-}
-
-function removeChildNode(removedChildNode) {
-  const childNodes = this.getChildNodes(),
-        index = childNodes.indexOf(removedChildNode),
-        start = index,  ///
-        deleteCount = 1;
-
-  childNodes.splice(start, deleteCount);
-}
-
 function prependChildNode(prependedChildNode) {
-  const childNodes = this.getChildNodes();
+  const offset = 0,
+        addedChildNode = prependedChildNode; ///
 
-  childNodes.unshift(prependedChildNode);
+  this.addChildNode(addedChildNode, offset);
 }
 
 function appendChildNode(appendedChildNode) {
-  const childNodes = this.getChildNodes();
+  const multiplicity = this.getMultiplicity(),
+        offset = multiplicity,  ///
+        addedChildNode = appendedChildNode; ///
 
-  childNodes.push(appendedChildNode);
-}
-
-function replaceChildNode(replacedChildNode, replacementChildNode) {
-  const childNodes = this.getChildNodes(),
-        index = childNodes.indexOf(replacedChildNode),
-        start = index,  ///
-        deleteCount = 1;
-
-  childNodes.splice(start, deleteCount, replacementChildNode);
-}
-
-function replaceChildNodes(replacedChildNode, replacementChildNodes) {
-  const childNodes = this.getChildNodes(),
-        index = childNodes.indexOf(replacedChildNode),
-        start = index,  ///
-        deleteCount = 1;
-
-  childNodes.splice(start, deleteCount, ...replacementChildNodes);
+  this.addChildNode(addedChildNode, offset);
 }
 
 function addChildNodeAfter(existingChildNode, addedChildNode) {
-  const childNodes = this.getChildNodes(),
-        index = childNodes.indexOf(existingChildNode),
-        start = index + 1,
-        deleteCount = 0;
+  const addedChildNodes = [
+          addedChildNode
+        ];
 
-  childNodes.splice(start, deleteCount, addedChildNode);
+  this.addChildNodesAfter(existingChildNode, addedChildNodes);
 }
 
 function addChildNodesAfter(existingChildNode, addedChildNodes) {
-  const childNodes = this.getChildNodes(),
-        index = childNodes.indexOf(existingChildNode),
-        start = index + 1,
+  const childNode = existingChildNode,  ///
+        index = this.indexOfChildNode(childNode),
+        startIndex = index + 1,
         deleteCount = 0;
 
-  childNodes.splice(start, deleteCount, ...addedChildNodes);
+  this.spliceChildNodes(startIndex, deleteCount, addedChildNodes);
 }
 
 function fromFirstChildNode(callback) {
@@ -167,12 +125,8 @@ function fromSecondLastChildNode(callback) {
 }
 
 const nodeMixins = {
-  removeChildNodes,
-  removeChildNode,
   appendChildNode,
   prependChildNode,
-  replaceChildNode,
-  replaceChildNodes,
   addChildNodeAfter,
   addChildNodesAfter,
   fromFirstChildNode,
