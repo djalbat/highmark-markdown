@@ -1,18 +1,18 @@
 "use strict";
 
-function prependChildNode(prependedChildNode) {
-  const offset = 0,
-        addedChildNode = prependedChildNode; ///
-
-  this.addChildNode(addedChildNode, offset);
-}
-
 function appendChildNode(appendedChildNode) {
   const multiplicity = this.getMultiplicity(),
-        offset = multiplicity,  ///
+        startIndex = multiplicity,  ///
         addedChildNode = appendedChildNode; ///
 
-  this.addChildNode(addedChildNode, offset);
+  this.addChildNode(addedChildNode, startIndex);
+}
+
+function prependChildNode(prependedChildNode) {
+  const startIndex = 0,
+        addedChildNode = prependedChildNode; ///
+
+  this.addChildNode(addedChildNode, startIndex);
 }
 
 function addChildNodeAfter(existingChildNode, addedChildNode) {
