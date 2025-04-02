@@ -89,8 +89,10 @@ export default class Replacement {
 
   addAfter(existingNode, parentNode, context) {
     const { tokens } = context,
-          addedNodes = this.node.getChildNodes(), ///
-          addedTokens = this.tokens;  ///
+          markdownNode = this.node, ///
+          removedChildNodes = markdownNode.removeChildNodes(),
+          addedTokens = this.tokens,  ///
+          addedNodes = removedChildNodes;  ///
 
     addNodesAfter(existingNode, addedNodes, parentNode);
 

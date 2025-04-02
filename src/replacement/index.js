@@ -1,9 +1,8 @@
 "use strict";
 
-import Replacement from "../replacement";
-
 import letters from "../letters";
 import IndexList from "../index/list";
+import Replacement from "../replacement";
 import IndexListReplacement from "../replacement/indexList";
 import IndexHeadingReplacement from "./indexHeading";
 

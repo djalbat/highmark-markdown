@@ -1,7 +1,6 @@
 "use strict";
 
 import Replacement from "../replacement";
-
 import AnchorMarkdownNode from "../node/markdown/anchor";
 
 import { INDEX_PREPEND } from "../prepends";

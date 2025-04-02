@@ -1,7 +1,6 @@
 "use strict";
 
 import Replacement from "../replacement";
-
 import FootnotesItemMarkdownNode from "../node/markdown/footnotesItem";
 
 export default class FootnotesItemReplacement extends Replacement {

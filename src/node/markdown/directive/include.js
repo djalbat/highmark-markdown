@@ -1,12 +1,8 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import PathMarkdownNode from "../path";
 import DirectiveMarkdownNode from "../../../node/markdown/directive";
 import IncludeDirectiveReplacement from "../../../replacement/includeDirective";
-
-const { last } = arrayUtilities;
 
 export default class IncludeDirectiveMarkdownNode extends DirectiveMarkdownNode {
   resolve(context) {
