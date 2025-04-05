@@ -14,5 +14,6 @@ export const GLOBAL_FLAG = "g";
 export const GREATER_THAN = ">";
 export const EMPTY_STRING = "";
 export const SINGLE_SPACE = " ";
+export const DOUBLE_SPACE = "  ";
 export const CARRIAGE_RETURN = "\n";
 export const PARENTHESISED_S_STRING = "(s)";

@@ -4,8 +4,6 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import PageButtonsDiv from "../div/pageButtons";
-
 class PreviewDiv extends Element {
   getParentDOMElement() {
     const domElement = this.getDOMElement(),
@@ -61,17 +59,6 @@ class PreviewDiv extends Element {
     });
   }
 
-  childElements() {
-    const { onCustomPageUpdate } = this.properties,
-          pageUpdateCustomHandler = onCustomPageUpdate; ///
-
-    return (
-
-      <PageButtonsDiv onCustomPageUpdate={pageUpdateCustomHandler} />
-
-    );
-  }
-
   parentContext() {
     const context = this.getContext(),
           clearPreviewDiv = this.clear.bind(this), ///
@@ -89,10 +76,6 @@ class PreviewDiv extends Element {
   }
 
   static tagName = "div";
-
-  static ignoredProperties = [
-    "onCustomPageUpdate"
-  ];
 
   static defaultProperties = {
     className: "preview"

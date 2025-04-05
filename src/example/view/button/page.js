@@ -33,7 +33,7 @@ export default withStyle(PageButton)`
   border: 1px solid black;
   padding: 0.5rem;
   font-size: 1.7rem;
-  background: transparent;  
+  background: white;  
   font-family: serif;
   margin-left: 1rem;
   

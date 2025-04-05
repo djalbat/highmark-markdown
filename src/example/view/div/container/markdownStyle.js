@@ -1,11 +1,20 @@
 "use strict";
 
-import ContainerDiv from "../../div/container";
+import withStyle from "easy-with-style";  ///
 
+import ContainerDiv from "../../div/container";
 import MarkdownStyleTextarea from "../../textarea/markdownStyle";
 import MarkdownStyleParseTeeTextarea from "../../textarea/parseTree/markdownStyle";
 
-export default class MarkdownStyleContainerDiv extends ContainerDiv {
+import { FLEX } from "../../../constants";
+
+class MarkdownStyleContainerDiv extends ContainerDiv {
+  show() {
+    const displayStyle = FLEX;
+
+    this.display(displayStyle);
+  }
+
   childElements() {
     return ([
 
@@ -33,3 +42,13 @@ export default class MarkdownStyleContainerDiv extends ContainerDiv {
     className: "markdown-style"
   };
 }
+
+export default withStyle(MarkdownStyleContainerDiv)`
+
+  gap: 1rem;
+  height: 65rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+`;

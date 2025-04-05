@@ -7,12 +7,9 @@ import ContainerDiv from "../../div/container";
 
 class PreviewContainerDiv extends ContainerDiv {
   childElements() {
-    const { onCustomPageUpdate } = this.properties,
-          pageUpdateCustomHandler = onCustomPageUpdate; ///
-
     return ([
 
-      <PreviewDiv onCustomPageUpdate={pageUpdateCustomHandler} />
+      <PreviewDiv/>
 
     ]);
   }
@@ -28,15 +25,10 @@ class PreviewContainerDiv extends ContainerDiv {
       hidePreviewContainerDiv
     });
   }
-
-  static ignoredProperties = [
-    "onCustomPageUpdate"
-  ];
 }
 
 export default withStyle(PreviewContainerDiv)`
   
-  height: 56rem;
   padding: 0;
   position: relative;
   

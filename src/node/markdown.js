@@ -207,38 +207,6 @@ class MarkdownNode extends NonTerminalNode {
     return domElement;
   }
 
-  asHTML(indent, context) {
-    let html = null;
-
-    const tagName = this.tagName(context);
-
-    if (tagName !== null) {
-      indent = this.adjustIndent(indent);
-
-      const childNodesHTML = this.childNodesAsHTML(indent, context);
-
-      if (childNodesHTML !== null) {
-        const startingTag = this.startingTag(context),
-              closingTag = this.closingTag(context);
-
-        html = (indent === null) ?
-                 `${startingTag}${childNodesHTML}${closingTag}` :
-                   `${indent}${startingTag}
-${childNodesHTML}${indent}${closingTag}
-`;
-      } else {
-        const selfClosingTag = this.selfClosingTag(context);
-
-        html = (indent === null) ?
-                selfClosingTag :  ///
-`${indent}${selfClosingTag}
-`;
-      }
-    }
-
-    return html;
-  }
-
   asPlainText(context) {
     let plainText = null;
 
@@ -251,27 +219,6 @@ ${childNodesHTML}${indent}${closingTag}
     }
 
     return plainText;
-  }
-
-  childNodesAsHTML(indent, context) {
-    const childNodesHTML = this.reduceChildNode((childNodesHTML, childNode) => {
-            const childNodeMarkdownNode = (childNode instanceof MarkdownNode);
-
-            if (childNodeMarkdownNode) {
-              const markdownNode = childNode, ///
-                    markdownNodeHTML = markdownNode.asHTML(indent, context);
-
-              if (markdownNodeHTML !== null) {
-                childNodesHTML = (childNodesHTML === null) ?
-                                   markdownNodeHTML :  ///
-                                    `${childNodesHTML}${markdownNodeHTML}`;
-              }
-            }
-
-            return childNodesHTML;
-          }, null);
-
-    return childNodesHTML;
   }
 
   childNodesAsPlainText(context) {

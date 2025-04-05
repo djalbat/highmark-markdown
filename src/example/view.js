@@ -3,11 +3,14 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
+import { nodeUtilities } from "occam-dom";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 import { MarkdownLexer, MarkdownParser, MarkdownStyleLexer, MarkdownStyleParser } from "../index";
 
 import importer from "./importer";
+import HTMLNode from "../node/html";
 import indexOptions from "./indexOptions";
+import PageButtonsDiv from "./view/div/pageButtons";
 import LeftSizeableDiv from "./view/div/sizeable/left";
 import CSSContainerDiv from "./view/div/container/css";
 import HTMLContainerDiv from "./view/div/container/html";
@@ -17,10 +20,14 @@ import PreviewContainerDiv from "./view/div/container/preview";
 import MarkdownContainerDiv from "./view/div/container/markdown";
 import PlainTextContainerDiv from "./view/div/container/plainText";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
+import InnerMarkdownParseTreeTextarea from "./view/textarea/parseTree/markdown/inner";
 
 import { defaultContent } from "./importer";
 import { LINES_PER_PAGE, CONTENTS_DEPTH, CHARACTERS_PER_LINE } from "./constants";
 import { postprocess, divisionMarkdownNodesFromMarkdownNodes } from "../utilities/processing";
+import {nodesFromNodeAndQueries} from "../utilities/query";
+
+const { topmostNodeFromOuterNodes } = nodeUtilities;
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
@@ -79,8 +86,13 @@ class View extends Element {
           context = {
             tokens
           },
-          length = null,
-          html = divisionMarkdownNode.asHTML(context),
+          length = null;
+
+  const { queries } = HTMLNode,
+          node = divisionMarkdownNode,  ///
+          nodes = nodesFromNodeAndQueries(node, queries),
+          topmostHTMLNode = topmostNodeFromOuterNodes(HTMLNode, nodes),
+          html = topmostHTMLNode.asHTML(context),
           plainText = divisionMarkdownNode.asPlainText(context);
 
     this.updateXMP(html);
@@ -123,9 +135,10 @@ class View extends Element {
 
       this.setDivisionMarkdownNodes(divisionMarkdownNodes);
 
-      const parseTree = divisionMarkdownNode.asParseTree(tokens);
+      const parseTree = divisionMarkdownNode.asParseTree(tokens),
+            outerMarkdownParseTree = parseTree; ///
 
-      this.updateMarkdownParseTreeTextarea(parseTree);
+      this.updateOuterMarkdownParseTreeTextarea(outerMarkdownParseTree);
 
       const index = 0,
             length = divisionMarkdownNodes.length;
@@ -142,7 +155,7 @@ class View extends Element {
 
       this.clearPlainTextTextarea();
 
-      this.clearMarkdownParseTreeTextarea();
+      this.clearOuterMarkdownParseTreeTextarea();
 
       const divisionMarkdownNodes = null;
 
@@ -262,10 +275,12 @@ class View extends Element {
                                 onCustomPreview={this.previewCustomHandler}
                                 onCustomPlainText={this.plainTextCustomHandler}
             />
+            <PageButtonsDiv onCustomPageUpdate={this.pageUpdateCustomHandler} />
             <CSSContainerDiv/>
             <HTMLContainerDiv/>
-            <PreviewContainerDiv onCustomPageUpdate={this.pageUpdateCustomHandler} />
+            <PreviewContainerDiv/>
             <PlainTextContainerDiv/>
+            <InnerMarkdownParseTreeTextarea/>
           </RowsDiv>
         </ColumnDiv>
       </ColumnsDiv>
@@ -291,6 +306,15 @@ class View extends Element {
     this.css();
   }
 
+  static initialMarkdown = defaultContent;  ///
+
+  static initialMarkdownStyle = `width: 100%;
+height: 199%;  
+position: absolute;
+min-height: 100%;  
+padding-top: 5rem;  
+`;
+
   static tagName = "div";
 
   static ignoredProperties = [
@@ -300,18 +324,6 @@ class View extends Element {
   static defaultProperties = {
     className: "view"
   };
-
-  static initialMarkdown = defaultContent;  ///
-
-  static initialMarkdownStyle = `
-
-width: 100%;
-height: 199%;  
-position: absolute;
-min-height: 100%;  
-padding-top: 5rem;  
-
-`;
 }
 
 export default withStyle(View)`

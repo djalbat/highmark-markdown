@@ -90,8 +90,8 @@ class PageButtonsDiv extends Element {
 
 export default withStyle(PageButtonsDiv)`
 
-  top: 1rem;
-  right: 1rem;
+  top: 7rem;
+  right: 3rem;
   z-index: 1;
   position: absolute;
   

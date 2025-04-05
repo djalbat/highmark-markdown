@@ -24,9 +24,9 @@ class HTMLDiv extends Element {
 
 export default withStyle(HTMLDiv)`
 
+  height: 100%;
   border: 1px solid darkgrey;
   overflow: scroll;
   position: relative;
-  min-height: 48rem;
   
 `;

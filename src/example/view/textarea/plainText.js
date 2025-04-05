@@ -41,6 +41,6 @@ class PlainTextTextarea extends Textarea {
 
 export default withStyle(PlainTextTextarea)`
 
-  height: 48rem;
+  height: 100%;
   
 `;

@@ -1,5 +1,6 @@
 "use strict";
 
+export const FLEX = "flex";
 export const EMPTY_STRING = "";
 export const LINES_PER_PAGE = Infinity;
 export const CONTENTS_DEPTH = 2;

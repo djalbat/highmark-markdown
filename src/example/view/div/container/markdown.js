@@ -1,16 +1,25 @@
 "use strict";
 
+import withStyle from "easy-with-style";  ///
+
 import ContainerDiv from "../../div/container";
-
 import MarkdownTextarea from "../../textarea/markdown";
-import MarkdownParseTreeTextarea from "../../textarea/parseTree/markdown";
+import OuterMarkdownParseTreeTextarea from "../../textarea/parseTree/markdown/outer";
 
-export default class MarkdownContainerDiv extends ContainerDiv {
+import { FLEX } from "../../../constants";
+
+class MarkdownContainerDiv extends ContainerDiv {
+  show() {
+    const displayStyle = FLEX;
+
+    this.display(displayStyle);
+  }
+
   childElements() {
     return ([
 
       <MarkdownTextarea onKeyUp={this.keyUpHandler} />,
-      <MarkdownParseTreeTextarea/>
+      <OuterMarkdownParseTreeTextarea/>
 
     ]);
   }
@@ -31,3 +40,13 @@ export default class MarkdownContainerDiv extends ContainerDiv {
     className: "markdown"
   };
 }
+
+export default withStyle(MarkdownContainerDiv)`
+
+  gap: 1rem;
+  height: 65rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+`;
