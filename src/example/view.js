@@ -76,7 +76,10 @@ class View extends Element {
 
   clearPage() {
     this.clearXMP();
+
     this.clearPreviewDiv();
+
+    this.clearInnerMarkdownParseTreeTextarea();
   }
 
   updatePage(index) {
@@ -92,8 +95,10 @@ class View extends Element {
           node = divisionMarkdownNode,  ///
           nodes = nodesFromNodeAndQueries(node, queries),
           topmostHTMLNode = topmostNodeFromOuterNodes(HTMLNode, nodes),
+          parseTree = topmostHTMLNode.asParseTree(),
           html = topmostHTMLNode.asHTML(context),
-          plainText = divisionMarkdownNode.asPlainText(context);
+          plainText = divisionMarkdownNode.asPlainText(context),
+          innerMarkdownParseTree = parseTree; ///
 
     this.updateXMP(html);
 
@@ -102,6 +107,8 @@ class View extends Element {
     this.updatePageButtonsDiv(length, index);
 
     this.updatePlainTextTextarea(plainText);
+
+    this.updateInnerMarkdownParseTreeTextarea(innerMarkdownParseTree);
   }
 
   updateMarkdown() {
