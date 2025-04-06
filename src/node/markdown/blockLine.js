@@ -77,22 +77,6 @@ export default class BlockLineMarkdownNode extends MarkdownNode {
     return domElement;
   }
 
-  asHTML(indent, context) {
-    const childNodesHTML = this.childNodesAsHTML(indent, context),
-          startingTag = this.startingTag(context),
-          closingTag = this.closingTag(context),
-          html = `${startingTag}${childNodesHTML}${closingTag}`;
-
-    return html;
-  }
-
-  childNodesAsHTML(indent, context) {
-    const content = this.content(context),
-          childNodesHTML = content; ///
-
-    return childNodesHTML;
-  }
-
   childNodesAsPlainText(context) {
     const content = this.content(context),
           childNodesPlainText = content;  ///

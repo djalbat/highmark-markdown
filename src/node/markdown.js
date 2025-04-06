@@ -39,53 +39,6 @@ class MarkdownNode extends NonTerminalNode {
     return className;
   }
 
-  closingTag(context) {
-    const tagName = this.tagName(context),
-          closingTag = `</${tagName}>`;
-
-    return closingTag;
-  }
-
-  startingTag(context) {
-    const tagName = this.tagName(context),
-          className = this.className(context),
-          attributeName = this.attributeName(context),
-          attributeValue = this.attributeValue(context),
-          classHTML = (className !== null) ?
-                       ` class="${className}"` :
-                          EMPTY_STRING,
-          attributeHTML = ((attributeName !== null) && (attributeValue !== null)) ?
-                           ` ${attributeName}="${attributeValue}"` :
-                              EMPTY_STRING,
-          startingTag = `<${tagName}${classHTML}${attributeHTML}>`;
-
-    return startingTag;
-  }
-
-  selfClosingTag(context) {
-    const tagName = this.tagName(context),
-          className = this.className(context),
-          attributeName = this.attributeName(context),
-          attributeValue = this.attributeValue(context),
-          classHTML = (className !== null) ?
-                       ` class="${className}"` :
-                          EMPTY_STRING,
-          attributeHTML = ((attributeName !== null) && (attributeValue !== null)) ?
-                           ` ${attributeName}="${attributeValue}"` :
-                              EMPTY_STRING,
-          selfClosingTag = `<${tagName}${classHTML}${attributeHTML}/>`;
-
-    return selfClosingTag;
-  }
-
-  adjustIndent(indent) {
-    if (indent !== null) {
-      indent = `  ${indent}`;
-    }
-
-    return indent;
-  }
-
   attributeName(context) {
     const attributeName = null;
 

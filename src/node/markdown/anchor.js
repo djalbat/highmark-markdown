@@ -24,18 +24,6 @@ export default class AnchorMarkdownNode extends MarkdownNode {
     return this.identifier;
   }
 
-  attributeName(context) {
-    const attributeName = ID_ATTRIBUTE_NAME;
-
-    return attributeName;
-  }
-
-  attributeValue(context) {
-    const attributeValue = `${this.prepend}-${this.identifier}`;
-
-    return attributeValue;
-  }
-
   createDOMElement(context) {
     let domElement;
 
@@ -53,34 +41,6 @@ export default class AnchorMarkdownNode extends MarkdownNode {
     domElement = parentDOMElement;  ///
 
     return domElement;
-  }
-
-  asHTML(indent, context) {
-    if (context === undefined) {
-      context = indent; ///
-
-      indent = null;
-    }
-
-    indent = this.adjustIndent(indent);
-
-    const childNodesHTML = this.childNodesAsHTML(indent, context),
-          startingTag = this.startingTag(context),
-          closingTag = this.closingTag(context),
-          html = (indent === null) ?
-                  `${startingTag}${childNodesHTML}${closingTag}` :
-                    `${indent}${startingTag}
-${childNodesHTML}${indent}${closingTag}
-`;
-
-    return html;
-  }
-
-  childNodesAsHTML(indent, context) {
-    const content = this.content(context),
-          childNodesHTML = content; ///
-
-    return childNodesHTML;
   }
 
   content(context) {

@@ -13,13 +13,6 @@ export default class CommaMarkdownNode extends MarkdownNode {
     return domElement;
   }
 
-  asHTML(indent, context) {
-    const content = this.content(context),
-          html = content; ///
-
-    return html;
-  }
-
   content(context) {
     const content = COMMA; ///
 

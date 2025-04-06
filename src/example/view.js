@@ -7,8 +7,8 @@ import { nodeUtilities } from "occam-dom";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 import { MarkdownLexer, MarkdownParser, MarkdownStyleLexer, MarkdownStyleParser } from "../index";
 
+import queries from "../queries";
 import importer from "./importer";
-import HTMLNode from "../node/html";
 import indexOptions from "./indexOptions";
 import PageButtonsDiv from "./view/div/pageButtons";
 import LeftSizeableDiv from "./view/div/sizeable/left";
@@ -16,6 +16,7 @@ import CSSContainerDiv from "./view/div/container/css";
 import HTMLContainerDiv from "./view/div/container/html";
 import LeftTabButtonsDiv from "./view/div/tabButtons/left";
 import RightTabButtonsDiv from "./view/div/tabButtons/right";
+import ClassFromOuterNode from "../classFromOuterNode";
 import PreviewContainerDiv from "./view/div/container/preview";
 import MarkdownContainerDiv from "./view/div/container/markdown";
 import PlainTextContainerDiv from "./view/div/container/plainText";
@@ -23,9 +24,9 @@ import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 import InnerMarkdownParseTreeTextarea from "./view/textarea/parseTree/markdown/inner";
 
 import { defaultContent } from "./importer";
+import { nodesFromNodeAndQueries } from "../utilities/query";
 import { LINES_PER_PAGE, CONTENTS_DEPTH, CHARACTERS_PER_LINE } from "./constants";
 import { postprocess, divisionMarkdownNodesFromMarkdownNodes } from "../utilities/processing";
-import {nodesFromNodeAndQueries} from "../utilities/query";
 
 const { topmostNodeFromOuterNodes } = nodeUtilities;
 
@@ -91,10 +92,9 @@ class View extends Element {
           },
           length = null;
 
-  const { queries } = HTMLNode,
-          node = divisionMarkdownNode,  ///
+    const node = divisionMarkdownNode,  ///
           nodes = nodesFromNodeAndQueries(node, queries),
-          topmostHTMLNode = topmostNodeFromOuterNodes(HTMLNode, nodes),
+          topmostHTMLNode = topmostNodeFromOuterNodes(ClassFromOuterNode, nodes),
           parseTree = topmostHTMLNode.asParseTree(),
           html = topmostHTMLNode.asHTML(context),
           plainText = divisionMarkdownNode.asPlainText(context),

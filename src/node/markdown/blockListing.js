@@ -3,15 +3,6 @@
 import MarkdownNode from "../../node/markdown";
 
 export default class BlockListingMarkdownNode extends MarkdownNode {
-  asHTML(indent, context) {
-      const childNodesHTML = this.childNodesAsHTML(indent, context),
-            startingTag = this.startingTag(context),
-            closingTag = this.closingTag(context),
-            html = `${startingTag}${childNodesHTML}${closingTag}`;
-
-    return html;
-  }
-
   className(context) {
     let className = super.className(context);
 

@@ -1,67 +1,43 @@
 "use strict";
 
 import { Node } from "occam-dom";
-import { Query } from "occam-query";
 
 import elementMap from "../elementMap";
 
 import { EMPTY_STRING, DOUBLE_SPACE } from "../constants";
 
-const expressionStrings = [
-        "//primaryHeading",
-        "//secondaryHeading",
-        "//tertiaryHeading",
-        "//quaternaryHeading"
-      ],
-      queries = expressionStrings.map((expressionString) => {
-        const query = Query.fromExpressionString(expressionString);
-
-        return query;
-      });
-
 export default class HTMLNode extends Node {
   getRuleName() {
-    let ruleName = null;
+    let ruleName;
 
-    const outerNode = this.getOuterNode();
+    const outerNode = this.getOuterNode(),
+          nonTerminalNode = outerNode;  ///
 
-    if (outerNode !== null) {
-      const outerNodeNonTerminalNode = outerNode.isNonTerminalNode();
-
-      if (outerNodeNonTerminalNode) {
-        const nonTerminalNode = outerNode;  ///
-
-        ruleName = nonTerminalNode.getRuleName();
-      }
-    }
+    ruleName = nonTerminalNode.getRuleName();
 
     return ruleName;
   }
 
   tagName(context) {
-    let tagName = null;
+    let tagName;
 
     const ruleName = this.getRuleName();
 
-    if (ruleName !== null) {
-      const element = elementMap[ruleName];
+    const element = elementMap[ruleName];
 
-      ({ tagName } = element);
-    }
+    ({ tagName } = element);
 
     return tagName;
   }
 
   className(context) {
-    let className = null;
+    let className;
 
     const ruleName = this.getRuleName();
 
-    if (ruleName !== null) {
-      const element = elementMap[ruleName];
+    const element = elementMap[ruleName];
 
-      ({ className } = element);
-    }
+    ({ className } = element);
 
     return className;
   }
@@ -118,9 +94,9 @@ export default class HTMLNode extends Node {
   }
 
   adjustIndent(indent) {
-    if (indent !== null) {
-      indent = `${DOUBLE_SPACE}${indent}`;
-    }
+    indent = (indent === null) ?
+               EMPTY_STRING :
+                `${DOUBLE_SPACE}${indent}`;
 
     return indent;
   }
@@ -183,9 +159,25 @@ ${childNodesHTML}${indent}${closingTag}
     return childNodesHTML;
   }
 
-  static queries = queries;
+  static fromNothing(Class) {
+    if (Class === undefined) {
+      Class = HTMLNode; ///
+    }
 
-  static fromNothing() { return Node.fromNothing(HTMLNode); }
+    const node = Node.fromNothing(Class);
 
-  static fromOuterNode(outerNode) { return Node.fromOuterNode(HTMLNode, outerNode); }
+    return node;
+  }
+
+  static fromOuterNode(Class, outerNode) {
+    if (outerNode === undefined) {
+      outerNode = Class;  ///
+
+      Class = HTMLNode; ///
+    }
+
+    const node = Node.fromOuterNode(Class, outerNode);
+
+    return node;
+  }
 }

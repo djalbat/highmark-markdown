@@ -2,8 +2,6 @@
 
 import MarkdownNode from "../../node/markdown";
 
-import { CONTENTS_PREPEND } from "../../prepends";
-import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 import { CONTENTS_LINK_RULE_NAME } from "../../ruleNames";
 
 export default class ContentsLinkMarkdownNode extends MarkdownNode {
@@ -15,19 +13,6 @@ export default class ContentsLinkMarkdownNode extends MarkdownNode {
 
   getIdentifier() {
     return this.identifier;
-  }
-
-  attributeName(context) {
-    const attributeName = HREF_ATTRIBUTE_NAME;
-
-    return attributeName;
-  }
-
-  attributeValue(context) {
-    const prepend = CONTENTS_PREPEND,
-          attributeValue = `#${prepend}-${this.identifier}`;
-
-    return attributeValue;
   }
 
   clone() { return super.clone(this.identifier); }
