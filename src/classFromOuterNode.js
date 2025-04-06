@@ -3,6 +3,8 @@
 import HTMLNode from "./node/html";
 import TopmostHTMLNode from "./node/html/topmost";
 import ruleNameToClassMap from "./ruleNameToClassMap";
+import VerticalSpaceHTMLNode from "./node/html/verticalSpace";
+import VerticalSpaceMarkdownNode from "./node/markdown/verticalSpace";
 
 export default function ClassFromOuterNode(outerNode) {
   let Class;
@@ -10,10 +12,16 @@ export default function ClassFromOuterNode(outerNode) {
   if (outerNode === null) {
     Class = TopmostHTMLNode;
   } else {
-    const nonTerminalNode = outerNode,  ///
-          ruleName = nonTerminalNode.getRuleName();
+    const outerNodeVerticalSpaceMarkdownNode = (outerNode instanceof VerticalSpaceMarkdownNode);
 
-    Class = ruleNameToClassMap[ruleName] || HTMLNode;
+    if (outerNodeVerticalSpaceMarkdownNode) {
+      Class = VerticalSpaceHTMLNode;
+    } else {
+      const nonTerminalNode = outerNode,  ///
+            ruleName = nonTerminalNode.getRuleName();
+
+      Class = ruleNameToClassMap[ruleName] || HTMLNode;
+    }
   }
 
   return Class;

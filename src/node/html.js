@@ -7,6 +7,77 @@ import elementMap from "../elementMap";
 import { EMPTY_STRING, DOUBLE_SPACE } from "../constants";
 
 export default class HTMLNode extends Node {
+  constructor(outerNode, parentNode, childNodes, domElement) {
+    super(outerNode, parentNode, childNodes);
+
+    this.domElement = domElement;
+  }
+
+  getDOMElement() {
+    return this.domElement;
+  }
+
+  setDOMElement(domElement) {
+    this.domElement = domElement;
+  }
+
+  mount(parentDOMElement, siblingDOMElement, context) {
+    this.domElement = this.createDOMElement(context);
+
+    if (this.domElement !== null) {
+      parentDOMElement.insertBefore(this.domElement, siblingDOMElement)
+
+      parentDOMElement = this.domElement; ///
+
+      siblingDOMElement = null;
+    }
+
+    this.childNodes.forEach((childNode) => {
+      childNode.mount(parentDOMElement, siblingDOMElement, context);
+    });
+  }
+
+  unmount(parentDOMElement, context) {
+    if (this.domElement !== null) {
+      parentDOMElement.removeChild(this.domElement);
+
+      parentDOMElement = this.domElement; ///
+
+      this.domElement = null;
+
+      return;
+    }
+
+    this.childNodes.forEach((childNode) => {
+      childNode.unmount(parentDOMElement, context);
+    });
+  }
+
+  isMounted() {
+    const mounted = (this.domElement !== null);
+
+    return mounted;
+  }
+
+  lines(context) {
+    let lines;
+
+    ({ lines = null } = this.constructor);
+
+    if (lines === null) {
+      lines = this.reduceChildNode((lines, childNode) => {
+        const htmlNode = childNode, ///
+              htmlNodeLines = htmlNode.lines(context);
+
+        lines += htmlNodeLines;
+
+        return lines;
+      }, 0);
+    }
+
+    return lines;
+  }
+
   content(context) { return this.outerNode.content(context); }
 
   inlineText(context) { return this.outerNode.inlineText(context); }
@@ -147,6 +218,46 @@ ${childNodesHTML}${indent}${closingTag}
     return html;
   }
 
+  asPlainText(context) {
+    let plainText = null;
+
+    const tagName = this.tagName(context);
+
+    if (tagName !== null) {
+      const childNodesPlainText = this.childNodesAsPlainText(context);
+
+      plainText = childNodesPlainText;  ///
+    }
+
+    return plainText;
+  }
+
+  createDOMElement(context) {
+    let domElement = null;
+
+    const tagName = this.tagName(context);
+
+    if (tagName !== null) {
+      domElement = document.createElement(tagName);
+
+      const className = this.className(context),
+            attributeName = this.attributeName(context),
+            attributeValue = this.attributeValue(context);
+
+      if (className !== null) {
+        Object.assign(domElement, {
+          className
+        });
+      }
+
+      if ((attributeName !== null) && (attributeValue !== null)) {
+        domElement.setAttribute(attributeName, attributeValue);
+      }
+    }
+
+    return domElement;
+  }
+
   childNodesAsHTML(indent, context) {
     const childNodesHTML = this.reduceChildNode((childNodesHTML, childNode) => {
       const childNodeHTML = childNode.asHTML(indent, context);
@@ -163,12 +274,31 @@ ${childNodesHTML}${indent}${closingTag}
     return childNodesHTML;
   }
 
+  childNodesAsPlainText(context) {
+    const childNodesPlainText = this.reduceChildNode((childNodesPlainText, childNode) => {
+      const htmlNode = childNode, ///
+            htmlNodePlainText = htmlNode.asPlainText(context);
+
+      if (htmlNodePlainText !== null) {
+        childNodesPlainText = (childNodesPlainText === null) ?
+                                 htmlNodePlainText :  ///
+                                  `${childNodesPlainText}
+${htmlNodePlainText}`;
+      }
+
+      return childNodesPlainText;
+    }, null);
+
+    return childNodesPlainText;
+  }
+
   static fromNothing(Class) {
     if (Class === undefined) {
       Class = HTMLNode; ///
     }
 
-    const node = Node.fromNothing(Class);
+    const domElement = null,
+          node = Node.fromNothing(Class, domElement);
 
     return node;
   }
@@ -180,7 +310,8 @@ ${childNodesHTML}${indent}${closingTag}
       Class = HTMLNode; ///
     }
 
-    const node = Node.fromOuterNode(Class, outerNode);
+    const domElement = null,
+          node = Node.fromOuterNode(Class, outerNode);
 
     return node;
   }

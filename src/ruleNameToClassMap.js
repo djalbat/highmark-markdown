@@ -5,6 +5,7 @@ import ErrorHTMLNode from "./node/html/error";
 import ImageHTMLNode from "./node/html/image";
 import CommaHTMLNode from "./node/html/comma";
 import AnchorHTMLNode from "./node/html/anchor";
+import TableBodyHTMLNode from "./node/html/tableBody";
 import TableCellHTMLNode from "./node/html/tableCell";
 import HyperlinkHTMLNode from "./node/html/hyperlink";
 import IndexItemHTMLNode from "./node/html/indexItem";
@@ -36,6 +37,7 @@ import { LINE_RULE_NAME,
          COMMA_RULE_NAME,
          ANCHOR_RULE_NAME,
          HYPERLINK_RULE_NAME,
+         TABLE_BODY_RULE_NAME,
          TABLE_CELL_RULE_NAME,
          INDEX_ITEM_RULE_NAME,
          INDEX_LINK_RULE_NAME,
@@ -67,6 +69,7 @@ const ruleNameToClassMap = {
   [COMMA_RULE_NAME]: CommaHTMLNode,
   [ANCHOR_RULE_NAME]: AnchorHTMLNode,
   [HYPERLINK_RULE_NAME]: HyperlinkHTMLNode,
+  [TABLE_BODY_RULE_NAME]: TableBodyHTMLNode,
   [TABLE_CELL_RULE_NAME]: TableCellHTMLNode,
   [INDEX_ITEM_RULE_NAME]: IndexItemHTMLNode,
   [INDEX_LINK_RULE_NAME]: IndexLinkHTMLNode,
