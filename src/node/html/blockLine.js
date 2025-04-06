@@ -3,8 +3,6 @@
 import HTMLNode from "../../node/html";
 
 export default class BlockLineHTMLNode extends HTMLNode {
-  content(context) { return this.outerNode.content(context); }
-
   asHTML(indent, context) {
     const childNodesHTML = this.childNodesAsHTML(indent, context),
           startingTag = this.startingTag(context),

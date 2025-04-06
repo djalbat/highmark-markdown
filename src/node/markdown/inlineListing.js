@@ -30,16 +30,6 @@ class InlineListingMarkdownNode extends MarkdownNode {
     return domElement;
   }
 
-  childNodesAsHTML(indent, context) {
-    let content = this.content(context);
-
-    content = removeBackticks(content); ///
-
-    const childNodesHTML = content; ///
-
-    return childNodesHTML;
-  }
-
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(InlineListingMarkdownNode, ruleName, childNodes, opacity); }
 }
 

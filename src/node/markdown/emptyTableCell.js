@@ -9,11 +9,5 @@ export default class EmptyTableCellMarkdownNode extends MarkdownNode {
     return domElement;
   }
 
-  childNodesAsHTML(indent, context) {
-    const childNodesHTML = null;
-
-    return childNodesHTML;
-  }
-
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EmptyTableCellMarkdownNode, ruleName, childNodes, opacity); }
 }

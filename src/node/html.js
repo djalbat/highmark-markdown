@@ -7,6 +7,10 @@ import elementMap from "../elementMap";
 import { EMPTY_STRING, DOUBLE_SPACE } from "../constants";
 
 export default class HTMLNode extends Node {
+  content(context) { return this.outerNode.content(context); }
+
+  inlineText(context) { return this.outerNode.inlineText(context); }
+
   getRuleName() {
     let ruleName;
 

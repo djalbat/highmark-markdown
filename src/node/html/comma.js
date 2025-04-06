@@ -3,8 +3,6 @@
 import HTMLNode from "../../node/html";
 
 export default class CommaHTMLNode extends HTMLNode {
-  content(context) { return this.outerNode.content(context); }
-
   asHTML(indent, context) {
     const content = this.content(context),
           html = content; ///

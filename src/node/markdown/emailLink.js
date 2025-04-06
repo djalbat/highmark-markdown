@@ -49,19 +49,6 @@ class EmailLinkMarkdownNode extends MarkdownNode {
     return emailAddress;
   }
 
-  attributeName(context) {
-    const attributeName = HREF_ATTRIBUTE_NAME;
-
-    return attributeName;
-  }
-
-  attributeValue(context) {
-    const emailAddress = this.emailAddress(context),
-          attributeValue = `mailto:${emailAddress}`;
-
-    return attributeValue;
-  }
-
   createDOMElement(context) {
     let content;
 
@@ -88,22 +75,6 @@ class EmailLinkMarkdownNode extends MarkdownNode {
     domElement = parentDOMElement;  ///
 
     return domElement;
-  }
-
-  childNodesAsHTML(indent, context) {
-    let content;
-
-    const inlineText = this.inlineText(context);
-
-    if (inlineText !== null) {
-      content = inlineText;  ///
-    } else {
-      content = this.content(context);
-    }
-
-    const childNodesHTML = content;
-
-    return childNodesHTML;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EmailLinkMarkdownNode, ruleName, childNodes, opacity); }

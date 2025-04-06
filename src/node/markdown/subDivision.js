@@ -38,17 +38,6 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
     return lines;
   }
 
-  asHTML(indent, context) {
-    const html = this.fromSecondChildNode((secondChildNode) => {
-      const secondMarkdownNode = secondChildNode, ///
-            html = secondMarkdownNode.asHTML(indent, context);
-
-      return html;
-    });
-
-    return html;
-  }
-
   asPlainText(context) {
     const plainText = this.fromSecondChildNode((secondChildNode) => {
       const secondMarkdownNode = secondChildNode, ///

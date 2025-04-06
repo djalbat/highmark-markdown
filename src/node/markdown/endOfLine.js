@@ -19,13 +19,6 @@ export default class EndOfLineMarkdownNode extends MarkdownNode {
     return domElement;
   }
 
-  asHTML(indent, context) {
-    const content = this.content(context),
-          html = content;  ///
-
-    return html;
-  }
-
   asPlainText(context) {
     const content = this.content(context),
           plainText = content;  ///

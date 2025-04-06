@@ -6,8 +6,6 @@ import elementMap from "../elementMap";
 import nodeMixins from "../mixins/node";
 import elementMixins from "../mixins/element";
 
-import { EMPTY_STRING } from "../constants";
-
 class MarkdownNode extends NonTerminalNode {
   constructor(ruleName, childNodes, precedence, opacity, domElement) {
     super(ruleName, childNodes, precedence, opacity);

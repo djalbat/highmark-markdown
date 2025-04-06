@@ -1,20 +1,5 @@
 "use strict";
 
-function appendChildNode(appendedChildNode) {
-  const multiplicity = this.getMultiplicity(),
-        startIndex = multiplicity,  ///
-        addedChildNode = appendedChildNode; ///
-
-  this.addChildNode(addedChildNode, startIndex);
-}
-
-function prependChildNode(prependedChildNode) {
-  const startIndex = 0,
-        addedChildNode = prependedChildNode; ///
-
-  this.addChildNode(addedChildNode, startIndex);
-}
-
 function addChildNodeAfter(existingChildNode, addedChildNode) {
   const addedChildNodes = [
           addedChildNode
@@ -124,16 +109,34 @@ function fromSecondLastChildNode(callback) {
   return result;
 }
 
+function fromThirdLastChildNode(callback) {
+  let result;
+
+  const multiplicity = this.getMultiplicity(),
+        thirdLastIndex = multiplicity - 2;
+
+  this.backwardsSomeChildNode((childNode, index) => {
+    if (index === thirdLastIndex) {
+      const thirdChildNode = childNode; ///
+
+      result = callback(thirdChildNode);
+
+      return true;
+    }
+  });
+
+  return result;
+}
+
 const nodeMixins = {
-  appendChildNode,
-  prependChildNode,
   addChildNodeAfter,
   addChildNodesAfter,
   fromFirstChildNode,
   fromSecondChildNode,
   fromThirdChildNode,
   fromFirstLastChildNode,
-  fromSecondLastChildNode
+  fromSecondLastChildNode,
+  fromThirdLastChildNode
 };
 
 export default nodeMixins;

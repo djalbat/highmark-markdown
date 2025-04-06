@@ -60,18 +60,6 @@ class StronglyEmphasisedTextMarkdownNode extends MarkdownNode {
     return domElement;
   }
 
-  asHTML(indent, context) {
-    let html = super.asHTML(indent, context);
-
-    const childNodesHTML = html,  ///
-          startingTag = `<${tagName}>`,
-          closingTag = `</${tagName}>`;
-
-    html = `${startingTag}${childNodesHTML}${closingTag}`;
-
-    return html;
-  }
-
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(StronglyEmphasisedTextMarkdownNode, ruleName, childNodes, opacity); }
 }
 

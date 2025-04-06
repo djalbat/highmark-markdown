@@ -2,7 +2,6 @@
 
 import MarkdownNode from "../../node/markdown";
 
-import { START_ATTRIBUTE_NAME } from "../../attributeNames";
 import { FOOTNOTES_LIST_RULE_NAME } from "../../ruleNames";
 
 export default class FootnotesListMarkdownNode extends MarkdownNode {
@@ -14,18 +13,6 @@ export default class FootnotesListMarkdownNode extends MarkdownNode {
 
   getStart() {
     return this.start;
-  }
-
-  attributeName(context) {
-    const attributeName = START_ATTRIBUTE_NAME;
-
-    return attributeName;
-  }
-
-  attributeValue(context) {
-    const attributeValue = this.start;  ///
-
-    return attributeValue;
   }
 
   clone() { return super.clone(this.start); }

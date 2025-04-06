@@ -14,7 +14,6 @@ import ContentsDirectiveSubDivisionReplacement from "../../replacement/subDivisi
 import FootnotesDirectiveSubDivisionReplacement from "../../replacement/subDivision/footnotesDirective";
 import PageNumberDirectiveSubDivisionReplacement from "../../replacement/subDivision/pageNumberDirective";
 
-import { EMPTY_STRING } from "../../constants";
 import { DIVISION_RULE_NAME } from "../../ruleNames";
 import { renumberFootnoteLinkMarkdownNodes } from "../../utilities/footnotes";
 import { subDivisionMarkdownNodesFromNode, ignoreDirectiveMarkdownNodeFromNode, pageNumberDirectiveMarkdownNodeFromNode } from "../../utilities/query";
@@ -301,24 +300,6 @@ export default class DivisionMarkdownNode extends MarkdownNode {
           footnotesListSubDivisionReplacement = FootnotesListReplacement.fromDivisionMarkdownNodeAndFootnoteReplacementMap(divisionMarkdownNode, footnoteReplacementMap, context);
 
     return footnotesListSubDivisionReplacement;
-  }
-
-  asHTML(context) {
-    let html = null;
-
-    const indent = EMPTY_STRING,
-          childNodesHTML = this.childNodesAsHTML(indent, context);
-
-    if (childNodesHTML !== null) {
-      const startingTag = this.startingTag(context),
-            closingTag = this.closingTag(context);
-
-      html = `${indent}${startingTag}
-${childNodesHTML}${indent}${closingTag}
-`;
-    }
-
-    return html;
   }
 
   clone() { return super.clone(this.divisionClassName); }

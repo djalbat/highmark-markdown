@@ -1,13 +1,7 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
 import contentMixins from "../../mixins/content";
-
-import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
-
-const { second } = arrayUtilities;
 
 class HyperlinkLinkMarkdownNode extends MarkdownNode {
   url(context) {
@@ -53,19 +47,6 @@ class HyperlinkLinkMarkdownNode extends MarkdownNode {
     return inlineText;
   }
 
-  attributeName(context) {
-    const attributeName = HREF_ATTRIBUTE_NAME;
-
-    return attributeName;
-  }
-
-  attributeValue(context) {
-    const url = this.url(context),
-          attributeValue = url; ///
-
-    return attributeValue;
-  }
-
   createDOMElement(context) {
     let content;
 
@@ -92,22 +73,6 @@ class HyperlinkLinkMarkdownNode extends MarkdownNode {
     domElement = parentDOMElement;  ///
 
     return domElement;
-  }
-
-  childNodesAsHTML(indent, context) {
-    let content;
-
-    const inlineText = this.inlineText(context);
-
-    if (inlineText !== null) {
-      content = inlineText;  ///
-    } else {
-      content = this.content(context);
-    }
-
-    const childNodesHTML = content; ///
-
-    return childNodesHTML;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(HyperlinkLinkMarkdownNode, ruleName, childNodes, opacity); }

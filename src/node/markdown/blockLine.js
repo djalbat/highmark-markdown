@@ -36,9 +36,7 @@ export default class BlockLineMarkdownNode extends MarkdownNode {
       content = `${whitespaceTokenContent}${content}`;
     }
 
-    const childNodesHTML = content; ///
-
-    return childNodesHTML;
+    return content;
   }
 
   mount(parentDOMElement, siblingDOMElement, context) {

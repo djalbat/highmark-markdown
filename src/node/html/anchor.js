@@ -5,8 +5,6 @@ import HTMLNode from "../../node/html";
 import { ID_ATTRIBUTE_NAME } from "../../attributeNames";
 
 export default class AnchorHTMLNode extends HTMLNode {
-  content(context) { return this.outerNode.content(context); }
-
   attributeName(context) {
     const attributeName = ID_ATTRIBUTE_NAME;
 

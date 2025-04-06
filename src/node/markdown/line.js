@@ -2,7 +2,7 @@
 
 import MarkdownNode from "../../node/markdown";
 
-import { htmlFromMarkdownNode, plainTextFromMarkdownNode, domElementsFromMarkdownNode } from "../../utilities/childNodes";
+import { plainTextFromMarkdownNode, domElementsFromMarkdownNode } from "../../utilities/line";
 
 export default class LineMarkdownNode extends MarkdownNode {
   lines(context) {
@@ -43,27 +43,6 @@ export default class LineMarkdownNode extends MarkdownNode {
     });
 
     return domElement;
-  }
-
-  asHTML(indent, context) {
-    indent = this.adjustIndent(indent);
-
-    const childNodesHTML = this.childNodesAsHTML(indent, context),
-          startingTag = this.startingTag(context),
-          closingTag = this.closingTag(context),
-          html = (indent !== null) ?
-                   `${indent}${startingTag}${childNodesHTML}${closingTag}
-`:                   `${startingTag}${childNodesHTML}${closingTag}`;
-
-    return html;
-  }
-
-  childNodesAsHTML(indent, context) {
-    const markdownNode = this,
-          html = htmlFromMarkdownNode(markdownNode, context),
-          childNodesHTML = html;  ///
-
-    return childNodesHTML;
   }
 
   childNodesAsPlainText(context) {

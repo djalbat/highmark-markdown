@@ -5,10 +5,8 @@ import { arrayUtilities } from "necessary";
 import MarkdownNode from "../../node/markdown";
 
 import { EMPTY_STRING } from "../../constants";
-import { FOOTNOTE_PREPEND } from "../../prepends";
-import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 
-const { first, second } = arrayUtilities;
+const { second } = arrayUtilities;
 
 export default class FootnoteLinkMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, opacity, precedence, domElement, number) {
@@ -42,20 +40,6 @@ export default class FootnoteLinkMarkdownNode extends MarkdownNode {
     });
 
     return identifier;
-  }
-
-  attributeName(context) {
-    const attributeName = HREF_ATTRIBUTE_NAME;
-
-    return attributeName;
-  }
-
-  attributeValue(context) {
-    const prepend = FOOTNOTE_PREPEND,
-          identifier = this.identifier(context),
-          attributeValue = `#${prepend}-${identifier}`; ///
-
-    return attributeValue;
   }
 
   clear() {
@@ -95,13 +79,6 @@ export default class FootnoteLinkMarkdownNode extends MarkdownNode {
     this.clear();
 
     this.update(context);
-  }
-
-  childNodesAsHTML(indent, context) {
-    const content = this.content(context),
-          childNodesHTML = content; ///
-
-    return childNodesHTML;
   }
 
   clone() { return super.clone(this.number); }
