@@ -2,7 +2,15 @@
 
 import HTMLNode from "../../node/html";
 
+import { CARRIAGE_RETURN } from "../../constants";
+
 export default class VerticalSpaceHTMLNode extends HTMLNode {
+  content(context) {
+    const content = CARRIAGE_RETURN;
+
+    return content;
+  }
+
   asHTML(indent, context) {
     const content = this.content(context),
           html = content;  ///
@@ -24,6 +32,8 @@ export default class VerticalSpaceHTMLNode extends HTMLNode {
 
     return domElement;
   }
+
+  static lines = 0;
 
   static fromNothing() { return HTMLNode.fromNothing(VerticalSpaceHTMLNode); }
 

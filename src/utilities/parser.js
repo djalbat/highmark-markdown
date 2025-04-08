@@ -2,6 +2,8 @@
 
 import { rulesUtilities } from "occam-parsers";
 
+import MarkdownNode from "../node/markdown"; ///
+
 const { rulesFromStartRuleAndRuleMap } = rulesUtilities;
 
 export function setNonTerminalNodes(parser, nodeMap) {
@@ -11,8 +13,7 @@ export function setNonTerminalNodes(parser, nodeMap) {
 
   rules.forEach((rule) => {
     const ruleName = rule.getName(),
-          MarkdownNode = nodeMap[ruleName],
-          NonTerminalNode = MarkdownNode; ///
+          NonTerminalNode = nodeMap[ruleName] || MarkdownNode; ///
 
     rule.setNonTerminalNode(NonTerminalNode);
   });

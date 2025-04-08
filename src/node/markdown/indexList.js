@@ -5,12 +5,6 @@ import MarkdownNode from "../../node/markdown";
 import { INDEX_LIST_RULE_NAME } from "../../ruleNames";
 
 export default class IndexListMarkdownNode extends MarkdownNode {
-  asPlainText(context) {
-    const plainText = null;
-
-    return plainText;
-  }
-
   static fromIndexItemReplacements(indexItemReplacements) {
     const ruleName = INDEX_LIST_RULE_NAME,
           childNodes = indexItemReplacements.map((indexItemReplacement) => {

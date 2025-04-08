@@ -47,34 +47,6 @@ class HyperlinkLinkMarkdownNode extends MarkdownNode {
     return inlineText;
   }
 
-  createDOMElement(context) {
-    let content;
-
-    const inlineText = this.inlineText(context);
-
-    if (inlineText !== null) {
-      content = inlineText; ///
-    } else {
-      content = this.content(context);
-    }
-
-    let domElement;
-
-    const textNode = document.createTextNode(content);
-
-    domElement = super.createDOMElement(context);
-
-    const parentDOMElement = domElement;  ///
-
-    domElement = textNode; ///
-
-    parentDOMElement.appendChild(domElement);
-
-    domElement = parentDOMElement;  ///
-
-    return domElement;
-  }
-
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(HyperlinkLinkMarkdownNode, ruleName, childNodes, opacity); }
 }
 

@@ -56,6 +56,21 @@ export default class ImageHTMLNode extends HTMLNode {
     return html;
   }
 
+  createDOMElement(context) {
+    const tagName = this.tagName(context),
+          domElement = document.createElement(tagName),
+          attributeNames = this.attributeNames(context),
+          attributeValues = this.attributeValues(context);
+
+    attributeNames.forEach((attributeName, index) => {
+      const attributeValue = attributeValues[index];
+
+      domElement.setAttribute(attributeName, attributeValue);
+    });
+
+    return domElement;
+  }
+
   static fromNothing() { return HTMLNode.fromNothing(ImageHTMLNode); }
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(ImageHTMLNode, outerNode); }

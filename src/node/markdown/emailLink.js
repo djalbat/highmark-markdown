@@ -3,8 +3,6 @@
 import MarkdownNode from "../../node/markdown";
 import contentMixins from "../../mixins/content";
 
-import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
-
 class EmailLinkMarkdownNode extends MarkdownNode {
   inlineText(context) {
     let inlineText = null;
@@ -47,34 +45,6 @@ class EmailLinkMarkdownNode extends MarkdownNode {
           emailAddress = emailAddressTerminalNodeContent; ///
 
     return emailAddress;
-  }
-
-  createDOMElement(context) {
-    let content;
-
-    const inlineText = this.inlineText(context);
-
-    if (inlineText !== null) {
-      content = inlineText; ///
-    } else {
-      content = this.content(context);
-    }
-
-    let domElement;
-
-    const textNode = document.createTextNode(content);
-
-    domElement = super.createDOMElement(context);
-
-    const parentDOMElement = domElement;  ///
-
-    domElement = textNode; ///
-
-    parentDOMElement.appendChild(domElement);
-
-    domElement = parentDOMElement;  ///
-
-    return domElement;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EmailLinkMarkdownNode, ruleName, childNodes, opacity); }

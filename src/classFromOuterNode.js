@@ -1,8 +1,8 @@
 "use strict";
 
 import HTMLNode from "./node/html";
+import htmlNodeMap from "./nodeMap/html";
 import TopmostHTMLNode from "./node/html/topmost";
-import ruleNameToClassMap from "./ruleNameToClassMap";
 import VerticalSpaceHTMLNode from "./node/html/verticalSpace";
 import VerticalSpaceMarkdownNode from "./node/markdown/verticalSpace";
 
@@ -20,7 +20,7 @@ export default function ClassFromOuterNode(outerNode) {
       const nonTerminalNode = outerNode,  ///
             ruleName = nonTerminalNode.getRuleName();
 
-      Class = ruleNameToClassMap[ruleName] || HTMLNode;
+      Class = htmlNodeMap[ruleName] || HTMLNode;
     }
   }
 

@@ -14,6 +14,8 @@ export default class BlockListingHTMLNode extends HTMLNode {
     return html;
   }
 
+  static lines = 2;
+
   static fromNothing() { return HTMLNode.fromNothing(BlockListingHTMLNode); }
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(BlockListingHTMLNode, outerNode); }

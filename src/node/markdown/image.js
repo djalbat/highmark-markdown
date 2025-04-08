@@ -31,20 +31,5 @@ export default class ImageMarkdownNode extends MarkdownNode {
     return src;
   }
 
-  createDOMElement(context) {
-    const tagName = this.tagName(context),
-        domElement = document.createElement(tagName),
-        attributeNames = this.attributeNames(context),
-        attributeValues = this.attributeValues(context);
-
-    attributeNames.forEach((attributeName, index) => {
-      const attributeValue = attributeValues[index];
-
-      domElement.setAttribute(attributeName, attributeValue);
-    });
-
-    return domElement;
-  }
-
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ImageMarkdownNode, ruleName, childNodes, opacity); }
 }

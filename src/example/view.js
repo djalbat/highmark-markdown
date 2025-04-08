@@ -102,7 +102,7 @@ class View extends Element {
 
     this.updateXMP(html);
 
-    this.updatePreviewDiv(divisionMarkdownNode, context);
+    // this.updatePreviewDiv(divisionMarkdownNode, context);
 
     this.updatePageButtonsDiv(length, index);
 

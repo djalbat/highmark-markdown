@@ -27,27 +27,5 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
     }
   }
 
-  lines(context) {
-    const lines = this.fromSecondChildNode((secondChildNode) => {
-      const secondMarkdownNode = secondChildNode, ///
-            lines = secondMarkdownNode.lines(context);
-
-      return lines;
-    });
-
-    return lines;
-  }
-
-  asPlainText(context) {
-    const plainText = this.fromSecondChildNode((secondChildNode) => {
-      const secondMarkdownNode = secondChildNode, ///
-            plainText = secondMarkdownNode.asPlainText(context);
-
-      return plainText;
-    });
-
-    return plainText;
-  }
-
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(SubDivisionMarkdownNode, ruleName, childNodes, opacity); }
 }

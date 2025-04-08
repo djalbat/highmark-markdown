@@ -23,25 +23,6 @@ export default class PageNumberDirectiveMarkdownNode extends DirectiveMarkdownNo
     return content;
   }
 
-  createDOMElement(context) {
-    let domElement;
-
-    const content = this.content(context),
-          textNode = document.createTextNode(content);
-
-    domElement = super.createDOMElement(context);
-
-    const parentDOMElement = domElement;  ///
-
-    domElement = textNode; ///
-
-    parentDOMElement.appendChild(domElement);
-
-    domElement = parentDOMElement;
-
-    return domElement;
-  }
-
   clone() { return super.clone(this.pageNumber); }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {

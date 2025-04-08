@@ -22,6 +22,25 @@ export default class ErrorHTMLNode extends HTMLNode {
     return childNodesHTML;
   }
 
+  createDOMElement(context) {
+    let domElement;
+
+    const content = this.content(context),
+          textNode  = document.createTextNode(content);
+
+    domElement = super.createDOMElement(context);
+
+    const parentDOMElement = domElement;
+
+    domElement = textNode; ///
+
+    parentDOMElement.appendChild(domElement);
+
+    domElement = parentDOMElement;  ///
+
+    return domElement;
+  }
+
   static fromNothing() { return HTMLNode.fromNothing(ErrorHTMLNode); }
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(ErrorHTMLNode, outerNode); }
