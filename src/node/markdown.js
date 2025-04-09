@@ -11,12 +11,6 @@ class MarkdownNode extends NonTerminalNode {
     return divisionMarkdownNode;
   }
 
-  isPlainTextMarkdownNode() {
-    const plainTextMarkdownNode = false;
-
-    return plainTextMarkdownNode;
-  }
-
   static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments) {
     const domElement = null,
           markdownNode = NonTerminalNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, domElement, ...remainingArguments);

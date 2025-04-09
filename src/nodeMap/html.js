@@ -14,7 +14,7 @@ import IndexListHTMLNode from "../node/html/indexList";
 import EmailLinkHTMLNode from "../node/html/emailLink";
 import ClassNameHTMLNode from "../node/html/className";
 import BlockLineHTMLNode from "../node/html/blockLine";
-import EndOfLineHTMLNode from "../node/html/endOfLine";
+import PlainTextHTMLNode from "../node/html/plainText";
 import StrongTextHTMLNode from "../node/html/strongText";
 import InlineTextHTMLNode from "../node/html/inlineText";
 import OrderedItemHTMLNode from "../node/html/item/ordered";
@@ -51,7 +51,7 @@ import { LINE_RULE_NAME,
          EMAIL_LINK_RULE_NAME,
          CLASS_NAME_RULE_NAME,
          BLOCK_LINE_RULE_NAME,
-         END_OF_LINE_RULE_NAME,
+         PLAIN_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          ORDERED_ITEM_RULE_NAME,
@@ -89,7 +89,7 @@ const htmlNodeMap = {
   [EMAIL_LINK_RULE_NAME]: EmailLinkHTMLNode,
   [CLASS_NAME_RULE_NAME]: ClassNameHTMLNode,
   [BLOCK_LINE_RULE_NAME]: BlockLineHTMLNode,
-  [END_OF_LINE_RULE_NAME]: EndOfLineHTMLNode,
+  [PLAIN_TEXT_RULE_NAME]: PlainTextHTMLNode,
   [STRONG_TEXT_RULE_NAME]: StrongTextHTMLNode,
   [INLINE_TEXT_RULE_NAME]: InlineTextHTMLNode,
   [ORDERED_ITEM_RULE_NAME]: OrderedItemHTMLNode,
@@ -112,5 +112,7 @@ const htmlNodeMap = {
   [PAGE_NUMBER_DIRECTIVE_RULE_NAME]: PageNumberDirectiveHTMLNode,
   [STRONGLY_EMPHASISED_TEXT_RULE_NAME]: StronglyEmphasisedTextHTMLNode
 }
+
+export const ruleNames = Object.keys(htmlNodeMap);
 
 export default htmlNodeMap;

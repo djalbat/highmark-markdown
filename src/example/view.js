@@ -90,23 +90,21 @@ class View extends Element {
           context = {
             tokens
           },
-          length = null;
-
-    const node = divisionMarkdownNode,  ///
+          node = divisionMarkdownNode,  ///
           nodes = nodesFromNodeAndQueries(node, queries),
-          topmostHTMLNode = topmostNodeFromOuterNodes(ClassFromOuterNode, nodes),
+          topmostHTMLNode = topmostNodeFromOuterNodes(ClassFromOuterNode, nodes);
+
+    this.updateXMP(topmostHTMLNode, context);
+
+    this.updatePreviewDiv(topmostHTMLNode, context);
+
+    this.updatePlainTextTextarea(topmostHTMLNode, context);
+
+    const length = null,
           parseTree = topmostHTMLNode.asParseTree(),
-          html = topmostHTMLNode.asHTML(context),
-          plainText = divisionMarkdownNode.asPlainText(context),
           innerMarkdownParseTree = parseTree; ///
 
-    this.updateXMP(html);
-
-    // this.updatePreviewDiv(divisionMarkdownNode, context);
-
     this.updatePageButtonsDiv(length, index);
-
-    this.updatePlainTextTextarea(plainText);
 
     this.updateInnerMarkdownParseTreeTextarea(innerMarkdownParseTree);
   }
@@ -123,22 +121,29 @@ class View extends Element {
     this.setTokens(tokens);
 
     if (node !== null) {
+      // const divisionMarkdownNode = node,  ///
+      //       charactersPerLine = CHARACTERS_PER_LINE,
+      //       contentsDepth = CONTENTS_DEPTH,
+      //       linesPerPage = LINES_PER_PAGE,
+      //       context = {
+      //         tokens,
+      //         importer,
+      //         indexOptions,
+      //         linesPerPage,
+      //         contentsDepth,
+      //         nodeFromTokens,
+      //         tokensFromContent,
+      //         charactersPerLine
+      //       },
+      //       markdownNodes = postprocess(divisionMarkdownNode, context),
+      //       divisionMarkdownNodes = divisionMarkdownNodesFromMarkdownNodes(markdownNodes);
+      //
+      // this.setDivisionMarkdownNodes(divisionMarkdownNodes);
+
       const divisionMarkdownNode = node,  ///
-            charactersPerLine = CHARACTERS_PER_LINE,
-            contentsDepth = CONTENTS_DEPTH,
-            linesPerPage = LINES_PER_PAGE,
-            context = {
-              tokens,
-              importer,
-              indexOptions,
-              linesPerPage,
-              contentsDepth,
-              nodeFromTokens,
-              tokensFromContent,
-              charactersPerLine
-            },
-            markdownNodes = postprocess(divisionMarkdownNode, context),
-            divisionMarkdownNodes = divisionMarkdownNodesFromMarkdownNodes(markdownNodes);
+            divisionMarkdownNodes = [
+              divisionMarkdownNode
+            ];
 
       this.setDivisionMarkdownNodes(divisionMarkdownNodes);
 
@@ -313,7 +318,7 @@ class View extends Element {
     this.css();
   }
 
-  static initialMarkdown = defaultContent;  ///
+  static initialMarkdown = `Hello`;  ///
 
   static initialMarkdownStyle = `width: 100%;
 height: 199%;  

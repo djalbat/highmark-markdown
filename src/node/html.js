@@ -21,42 +21,25 @@ export default class HTMLNode extends Node {
     this.domElement = domElement;
   }
 
-  mount(parentDOMElement, siblingDOMElement, context) {
-    this.domElement = this.createDOMElement(context);
+  getMarkdownNode() {
+    const outerNode = this.getOuterNode(),
+          markdownNode = outerNode; ///
 
-    if (this.domElement !== null) {
-      parentDOMElement.insertBefore(this.domElement, siblingDOMElement)
-
-      parentDOMElement = this.domElement; ///
-
-      siblingDOMElement = null;
-    }
-
-    this.childNodes.forEach((childNode) => {
-      childNode.mount(parentDOMElement, siblingDOMElement, context);
-    });
+    return markdownNode;
   }
 
-  unmount(parentDOMElement, context) {
-    if (this.domElement !== null) {
-      parentDOMElement.removeChild(this.domElement);
+  getRuleName() { return this.outerNode.getRuleName(); }
 
-      parentDOMElement = this.domElement; ///
+  content(context) { return this.outerNode.content(context); }
 
-      this.domElement = null;
+  inlineText(context) { return this.outerNode.inlineText(context); }
 
-      return;
-    }
+  adjustIndent(indent) {
+    indent = (indent === null) ?
+               EMPTY_STRING :
+                `${DOUBLE_SPACE}${indent}`;
 
-    this.childNodes.forEach((childNode) => {
-      childNode.unmount(parentDOMElement, context);
-    });
-  }
-
-  isMounted() {
-    const mounted = (this.domElement !== null);
-
-    return mounted;
+    return indent;
   }
 
   lines(context) {
@@ -66,31 +49,15 @@ export default class HTMLNode extends Node {
 
     if (lines === null) {
       lines = this.reduceChildNode((lines, childNode) => {
-        const htmlNode = childNode, ///
-              htmlNodeLines = htmlNode.lines(context);
+        const childNodeLines = childNode.lines(context);
 
-        lines += htmlNodeLines;
+        lines += childNodeLines;
 
         return lines;
       }, 0);
     }
 
     return lines;
-  }
-
-  content(context) { return this.outerNode.content(context); }
-
-  inlineText(context) { return this.outerNode.inlineText(context); }
-
-  getRuleName() {
-    let ruleName;
-
-    const outerNode = this.getOuterNode(),
-          nonTerminalNode = outerNode;  ///
-
-    ruleName = nonTerminalNode.getRuleName();
-
-    return ruleName;
   }
 
   tagName(context) {
@@ -168,12 +135,56 @@ export default class HTMLNode extends Node {
     return attributeValue;
   }
 
-  adjustIndent(indent) {
-    indent = (indent === null) ?
-               EMPTY_STRING :
-                `${DOUBLE_SPACE}${indent}`;
+  createDOMElement(context) {
+    let domElement;
 
-    return indent;
+    const tagName = this.tagName(context);
+
+    domElement = document.createElement(tagName);
+
+    const className = this.className(context),
+          attributeName = this.attributeName(context),
+          attributeValue = this.attributeValue(context);
+
+    if (className !== null) {
+      Object.assign(domElement, {
+        className
+      });
+    }
+
+    if ((attributeName !== null) && (attributeValue !== null)) {
+      domElement.setAttribute(attributeName, attributeValue);
+    }
+
+    return domElement;
+  }
+
+  mount(parentDOMElement, siblingDOMElement, context) {
+    this.domElement = this.createDOMElement(context);
+
+    parentDOMElement.insertBefore(this.domElement, siblingDOMElement)
+
+    parentDOMElement = this.domElement; ///
+
+    siblingDOMElement = null;
+
+    this.childNodes.forEach((childNode) => {
+      childNode.mount(parentDOMElement, siblingDOMElement, context);
+    });
+  }
+
+  unmount(parentDOMElement, context) {
+    {
+      const parentDOMElement = this.domElement; ///
+
+      this.childNodes.forEach((childNode) => {
+        childNode.unmount(parentDOMElement, context);
+      });
+    }
+
+    parentDOMElement.removeChild(this.domElement);
+
+    this.domElement = null;
   }
 
   asHTML(indent, context) {
@@ -185,34 +196,26 @@ export default class HTMLNode extends Node {
 
     let html;
 
-    const tagName = this.tagName(context);
+    indent = this.adjustIndent(indent);
 
-    if (tagName === null) {
-      const childNodesHTML = this.childNodesAsHTML(indent, context);
+    const childNodesHTML = this.childNodesAsHTML(indent, context);
 
-      html = childNodesHTML;  ///
-    } else {
-      indent = this.adjustIndent(indent);
+    if (childNodesHTML !== null) {
+      const startingTag = this.startingTag(context),
+            closingTag = this.closingTag(context);
 
-      const childNodesHTML = this.childNodesAsHTML(indent, context);
-
-      if (childNodesHTML !== null) {
-        const startingTag = this.startingTag(context),
-              closingTag = this.closingTag(context);
-
-        html = (indent === null) ?
-                `${startingTag}${childNodesHTML}${closingTag}` :
-                  `${indent}${startingTag}
+      html = (indent === null) ?
+              `${startingTag}${childNodesHTML}${closingTag}` :
+                `${indent}${startingTag}
 ${childNodesHTML}${indent}${closingTag}
 `;
-      } else {
-        const selfClosingTag = this.selfClosingTag(context);
+    } else {
+      const selfClosingTag = this.selfClosingTag(context);
 
-        html = (indent === null) ?
-                 selfClosingTag :  ///
-                  `${indent}${selfClosingTag}
+      html = (indent === null) ?
+               selfClosingTag :  ///
+                `${indent}${selfClosingTag}
 `;
-      }
     }
 
     return html;
@@ -230,32 +233,6 @@ ${childNodesHTML}${indent}${closingTag}
     }
 
     return plainText;
-  }
-
-  createDOMElement(context) {
-    let domElement = null;
-
-    const tagName = this.tagName(context);
-
-    if (tagName !== null) {
-      domElement = document.createElement(tagName);
-
-      const className = this.className(context),
-            attributeName = this.attributeName(context),
-            attributeValue = this.attributeValue(context);
-
-      if (className !== null) {
-        Object.assign(domElement, {
-          className
-        });
-      }
-
-      if ((attributeName !== null) && (attributeValue !== null)) {
-        domElement.setAttribute(attributeName, attributeValue);
-      }
-    }
-
-    return domElement;
   }
 
   childNodesAsHTML(indent, context) {
@@ -276,14 +253,13 @@ ${childNodesHTML}${indent}${closingTag}
 
   childNodesAsPlainText(context) {
     const childNodesPlainText = this.reduceChildNode((childNodesPlainText, childNode) => {
-      const htmlNode = childNode, ///
-            htmlNodePlainText = htmlNode.asPlainText(context);
+      const childNodePlainText = childNode.asPlainText(context);
 
-      if (htmlNodePlainText !== null) {
+      if (childNodePlainText !== null) {
         childNodesPlainText = (childNodesPlainText === null) ?
-                                 htmlNodePlainText :  ///
-                                  `${childNodesPlainText}
-${htmlNodePlainText}`;
+                                childNodePlainText :  ///
+                                 `${childNodesPlainText}
+${childNodePlainText}`;
       }
 
       return childNodesPlainText;

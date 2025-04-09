@@ -7,7 +7,9 @@ import { Element } from "easy";
 import { EMPTY_STRING } from "../constants";
 
 class XMP extends Element {
-  update(html) {
+  update(topmostHTMLNode, context) {
+    const html = topmostHTMLNode.asHTML(context);
+
     this.html(html);
   }
 

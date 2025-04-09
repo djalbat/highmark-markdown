@@ -162,23 +162,26 @@ const bnf = `
     tableCellDivider        ::=  [vertical-bar] ;
     
     
-    line.                   ::=  ( footnoteLink 
+    line.                   ::=  ( inlineListing 
     
+                                 | footnoteLink 
+                                 
                                  | emailLink 
                                  
                                  | hyperlink 
                                  
                                  | image 
                                  
-                                 | inlineListing 
-                                 
-                                 | stronglyEmphasisedText 
-                                 
-                                 | emphasisedText 
+                                 | plainText 
                                  
                                  | strongText 
                                  
-                                 | plainText )+ ;
+                                 | emphasisedText 
+                                 
+                                 | stronglyEmphasisedText )+ ;
+    
+    
+    inlineText              ::=  plainText+ ;
     
     
     footnoteLink.           ::=  [link] ;
@@ -216,16 +219,9 @@ const bnf = `
     strongText              ::=  "***" inlineText "***" ;
 
 
-    blockLine.              ::=  ( plainText 
-                                
-                                 | [dashes] 
-    
-                                 | [vertical-bar] )* ;
+    blockLine.              ::=  blockText+ ;
     
 
-    inlineText              ::=  plainText+ ;
-    
-    
     plainText               ::=  [escaped] 
                               
                               |  [number] 
@@ -243,6 +239,31 @@ const bnf = `
                               |  [special] 
                               
                               |  [unassigned] 
+                              
+                              ;
+    
+
+    blockText               ::=  [escaped] 
+                              
+                              |  [number] 
+                              
+                              |  [identifier] 
+                              
+                              |  [email-address]
+                              
+                              |  [url] 
+                              
+                              |  [path] 
+                              
+                              |  [word] 
+                              
+                              |  [special] 
+                              
+                              |  [unassigned]  
+                                
+                              |  [dashes] 
+ 
+                              |  [vertical-bar]
                               
                               ;
     

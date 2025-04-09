@@ -2,7 +2,7 @@
 
 import MarkdownNode from "../../node/markdown";
 
-export default class PlainTextMarkdownNode extends MarkdownNode {
+export default class BlockTextMarkdownNode extends MarkdownNode {
   content(context) {
     const content = this.fromFirstChildNode((firstChildNode) => {
       const terminalNode = firstChildNode,  ///
@@ -14,5 +14,5 @@ export default class PlainTextMarkdownNode extends MarkdownNode {
     return content;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(PlainTextMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(BlockTextMarkdownNode, ruleName, childNodes, opacity); }
 }

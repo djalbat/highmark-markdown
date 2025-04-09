@@ -1,67 +1,76 @@
 "use strict";
 
-import HTMLNode from "../../node/html";
+import { arrayUtilities } from "necessary";
 
-import { htmlFromMarkdownNode, plainTextFromMarkdownNode, domElementsFromMarkdownNode } from "../../utilities/line";
+import HTMLNode from "../../node/html";
+import PlainTextHTMLNode from "./plainText";
+
+import { EMPTY_STRING } from "../../constants";
+import { contentFromPlainTextHTMLNodes } from "../../utilities/plainText";
+
+const { clear } = arrayUtilities;
 
 export default class LineHTMLNode extends HTMLNode {
-  mount(parentDOMElement, siblingDOMElement, context) {
-    this.domElement = this.createDOMElement(context);
-
-    parentDOMElement.insertBefore(this.domElement, siblingDOMElement);
-  }
-
-  unmount(parentDOMElement, context) {
-    if (this.domElement !== null) {
-      parentDOMElement.removeChild(this.domElement);
-
-      this.domElement = null;
-    }
-  }
-
   asHTML(indent, context) {
     indent = this.adjustIndent(indent);
 
-    const childNodesHTML = this.childNodesAsHTML(indent, context),
+    const content = this.childNodesAsHTML(indent, context),
           startingTag = this.startingTag(context),
           closingTag = this.closingTag(context),
           html = (indent !== null) ?
-                  `${indent}${startingTag}${childNodesHTML}${closingTag}
-`:                   `${startingTag}${childNodesHTML}${closingTag}`;
+                  `${indent}${startingTag}${content}${closingTag}
+`:                   `${startingTag}${content}${closingTag}`;
 
     return html;
   }
 
-  createDOMElement(context) {
-    const markdownNode = this,
-          domElement = super.createDOMElement(context),
-          domElements = domElementsFromMarkdownNode(markdownNode, context),
-          parentDOMElement = domElement,  ///
-          childNodeDOMElements = domElements; ///
+  childNodesAsHTML(indent, context) {
+    let html;
 
-    childNodeDOMElements.forEach((childNodeDOMElement) => {
-      const domElement = childNodeDOMElement; ///
+    const htmls = [],
+          htmlNode = this,  ///
+          plainTextHTMLNodes = [];
 
-      parentDOMElement.appendChild(domElement);
+    this.forEachChildNode((childNode) => {
+      const childNodePlainTextHTMLNode = (childNode instanceof PlainTextHTMLNode);
+
+      if (childNodePlainTextHTMLNode) {
+        const plainTextHTMLNode = childNode;  ///
+
+        plainTextHTMLNodes.push(plainTextHTMLNode);
+      } else {
+        const content = contentFromPlainTextHTMLNodes(plainTextHTMLNodes, htmlNode, context);
+
+        clear(plainTextHTMLNodes);
+
+        if (content !== null) {
+          const html = content; ///
+
+          htmls.push(html);
+        }
+
+        const indent = null,
+              html = childNode.asHTML(indent, context);
+
+        if (html !== null) {
+          htmls.push(html);
+        }
+      }
     });
 
-    return domElement;
-  }
+    const content = contentFromPlainTextHTMLNodes(plainTextHTMLNodes, htmlNode, context);
 
-  childNodesAsPlainText(context) {
-    const markdownNode = this, ///
-          plainText = plainTextFromMarkdownNode(markdownNode, context),
-          childNodesPlainText = plainText;  ///
+    clear(plainTextHTMLNodes);
 
-    return childNodesPlainText;
-  }
+    if (content !== null) {
+      const html = content; ///
 
-  childNodesAsHTML(indent, context) {
-    const markdownNode = this,
-          html = htmlFromMarkdownNode(markdownNode, context),
-          childNodesHTML = html;  ///
+      htmls.push(html);
+    }
 
-    return childNodesHTML;
+    html = htmls.join(EMPTY_STRING);
+
+    return html;
   }
 
   static fromNothing() { return HTMLNode.fromNothing(LineHTMLNode); }

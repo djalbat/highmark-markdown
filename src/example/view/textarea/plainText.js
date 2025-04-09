@@ -19,7 +19,9 @@ class PlainTextTextarea extends Textarea {
     this.setPlainText(plainText);
   }
 
-  update(plainText) {
+  update(topmostHTMLNode, context) {
+    const plainText = topmostHTMLNode.asPlainText(context);
+
     this.setPlainText(plainText);
   }
 
