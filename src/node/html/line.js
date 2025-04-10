@@ -1,76 +1,78 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import HTMLNode from "../../node/html";
-import PlainTextHTMLNode from "./plainText";
 
-import { EMPTY_STRING } from "../../constants";
-import { contentFromPlainTextHTMLNodes } from "../../utilities/plainText";
-
-const { clear } = arrayUtilities;
+import { childNodesAsHTML, childNodesAsPlainText, childNodesAsDOMElements } from "../../utilities/childNodes";
 
 export default class LineHTMLNode extends HTMLNode {
+  mount(parentDOMElement, siblingDOMElement, context) {
+    this.domElement = this.createDOMElement(context);
+
+    parentDOMElement.insertBefore(this.domElement, siblingDOMElement)
+
+    parentDOMElement = this.domElement; ///
+
+    const childDOMElements = this.createChildDOMElements(context);
+
+    childDOMElements.forEach((childDOMElement) => {
+      parentDOMElement.appendChild(childDOMElement);
+    });
+  }
+
+  unmount(parentDOMElement, context) {
+    {
+      let childDOMElement;
+
+      const parentDOMElement = this.domElement; ///
+
+      childDOMElement = parentDOMElement.firstChild || null;
+
+      while (childDOMElement !== null) {
+        parentDOMElement.removeChild(childDOMElement);
+
+        childDOMElement = parentDOMElement.firstChild || null;
+      }
+    }
+
+    parentDOMElement.removeChild(this.domElement);
+
+    this.domElement = null;
+  }
+
   asHTML(indent, context) {
     indent = this.adjustIndent(indent);
 
-    const content = this.childNodesAsHTML(indent, context),
+    const childNodesHTML = this.childNodesAsHTML(indent, context),
           startingTag = this.startingTag(context),
           closingTag = this.closingTag(context),
           html = (indent !== null) ?
-                  `${indent}${startingTag}${content}${closingTag}
-`:                   `${startingTag}${content}${closingTag}`;
+            `${indent}${startingTag}${childNodesHTML}${closingTag}
+`:                   `${startingTag}${childNodesHTML}${closingTag}`;
 
     return html;
   }
 
   childNodesAsHTML(indent, context) {
-    let html;
+    const htmlNode = this,  ///
+          html = childNodesAsHTML(htmlNode, context),
+          childNodesHTML = html;  ///
 
-    const htmls = [],
-          htmlNode = this,  ///
-          plainTextHTMLNodes = [];
+    return childNodesHTML;
+  }
 
-    this.forEachChildNode((childNode) => {
-      const childNodePlainTextHTMLNode = (childNode instanceof PlainTextHTMLNode);
+  childNodesAsPlainText(context) {
+    const htmlNode = this,  ///
+          plainText = childNodesAsPlainText(htmlNode, context);
 
-      if (childNodePlainTextHTMLNode) {
-        const plainTextHTMLNode = childNode;  ///
+    return plainText;
+  }
 
-        plainTextHTMLNodes.push(plainTextHTMLNode);
-      } else {
-        const content = contentFromPlainTextHTMLNodes(plainTextHTMLNodes, htmlNode, context);
+  createChildDOMElements(context) {
+    const htmlNode = this,  ///
+          domElements = childNodesAsDOMElements(htmlNode, context),
+          childDOMElements = domElements; ///
 
-        clear(plainTextHTMLNodes);
-
-        if (content !== null) {
-          const html = content; ///
-
-          htmls.push(html);
-        }
-
-        const indent = null,
-              html = childNode.asHTML(indent, context);
-
-        if (html !== null) {
-          htmls.push(html);
-        }
-      }
-    });
-
-    const content = contentFromPlainTextHTMLNodes(plainTextHTMLNodes, htmlNode, context);
-
-    clear(plainTextHTMLNodes);
-
-    if (content !== null) {
-      const html = content; ///
-
-      htmls.push(html);
-    }
-
-    html = htmls.join(EMPTY_STRING);
-
-    return html;
+    return childDOMElements;
   }
 
   static fromNothing() { return HTMLNode.fromNothing(LineHTMLNode); }
