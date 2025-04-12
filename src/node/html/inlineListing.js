@@ -6,39 +6,50 @@ import { replaceEntities } from "../../utilities/html";
 import { removeBackticks } from "../../utilities/string";
 
 export default class InlineListingHTMLNode extends HTMLNode {
-  createDOMElement(context) {
-    let domElement,
-        content = this.content(context);
+  content(context) {
+    let content = super.content(context);
 
     content = removeBackticks(content); ///
 
     content = replaceEntities(content); ///
 
-    const textNode = document.createTextNode(content);
+    return content;
+  }
+
+  createDOMElement(context) {
+    let domElement;
+
+    const content = this.content(context),
+          textNode = document.createTextNode(content);
 
     domElement = super.createDOMElement(context);
 
-    const parentDOMElement = domElement;  ///
-
-    domElement = textNode; ///
-
-    parentDOMElement.appendChild(domElement);
-
-    domElement = parentDOMElement;  ///
+    domElement.appendChild(textNode);
 
     return domElement;
   }
 
+  asHTML(indent, context) {
+    const childNodesHTML = this.childNodesAsHTML(indent, context),
+          startingTag = this.startingTag(context),
+          closingTag = this.closingTag(context),
+          html = `${startingTag}${childNodesHTML}${closingTag}`;
+
+    return html;
+  }
+
+  asPlainText(context) {
+    const content = this.content(context),
+          plainText = content;  ///
+
+    return plainText; ///
+  }
+
   childNodesAsHTML(indent, context) {
-    let childNodesHTML;
+    const content = this.content(context),
+          html = content; ///
 
-    let content = this.content(context);
-
-    content = removeBackticks(content); ///
-
-    childNodesHTML = content; ///
-
-    return childNodesHTML;
+    return html;
   }
 
   static fromNothing() { return HTMLNode.fromNothing(InlineListingHTMLNode); }
