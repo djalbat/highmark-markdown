@@ -5,21 +5,6 @@ import HTMLNode from "../../node/html";
 import { EMPTY_STRING } from "../../constants";
 
 export default class BlockLineHTMLNode extends HTMLNode {
-  isEndBlockText(context) { return this.outerNode.isEndBlockText(context); }
-
-  childNodesAsHTML(indent, context) {
-    let childNodesHTML = super.childNodesAsHTML(indent, context);
-
-    const endBlockText = this.isEndBlockText(context);
-
-    if (endBlockText) {
-      childNodesHTML = `${childNodesHTML}
-`;
-    }
-
-    return childNodesHTML;
-  }
-
   childNodesAsPlainText(context) {
     const childNodesPlainText = this.reduceChildNode((childNodesPlainText, childNode) => {
       const childNodePlainText = childNode.asPlainText(context);

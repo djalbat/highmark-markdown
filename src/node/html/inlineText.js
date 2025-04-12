@@ -1,18 +1,40 @@
 "use strict";
 
 import HTMLNode from "../../node/html";
+import PlainTextHTMLNode from "./text/plain";
 
 import { EMPTY_STRING } from "../../constants";
 
 export default class InlineTextHTMLNode extends HTMLNode {
-  isEndPlainText(context) { return this.outerNode.isEndPlainText(context); }
-
   childNodesAsHTML(indent, context) {
-    let childNodesHTML = super.childNodesAsHTML(indent, context);
+    let childNodesHTML;
 
-    const endPlainText = this.isEndPlainText(context);
+    let previousChildNode = null;
 
-    if (endPlainText) {
+    childNodesHTML = this.reduceChildNode((childNodesHTML, childNode) => {
+      const previousChildNodePlainTextHTMLNode = (previousChildNode instanceof PlainTextHTMLNode);
+
+      if (previousChildNodePlainTextHTMLNode) {
+        const childNodePlainTextHTMLNode = (childNode instanceof PlainTextHTMLNode);
+
+        if (!childNodePlainTextHTMLNode) {
+          childNodesHTML = `${childNodesHTML}
+`;
+        }
+      }
+
+      const childNodeHTML = childNode.asHTML(indent, context);
+
+      childNodesHTML = `${childNodesHTML}${childNodeHTML}`;
+
+      previousChildNode = childNode;  ///
+
+      return childNodesHTML;
+    }, EMPTY_STRING);
+
+    const previousChildNodePlainTextHTMLNode = (previousChildNode instanceof PlainTextHTMLNode);
+
+    if (previousChildNodePlainTextHTMLNode) {
       childNodesHTML = `${childNodesHTML}
 `;
     }
