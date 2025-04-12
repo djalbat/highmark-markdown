@@ -14,7 +14,8 @@ import IndexListHTMLNode from "../node/html/indexList";
 import EmailLinkHTMLNode from "../node/html/emailLink";
 import ClassNameHTMLNode from "../node/html/className";
 import BlockLineHTMLNode from "../node/html/blockLine";
-import PlainTextHTMLNode from "../node/html/plainText";
+import PlainTextHTMLNode from "../node/html/text/plain";
+import BlockTextHTMLNode from "../node/html/text/block";
 import StrongTextHTMLNode from "../node/html/strongText";
 import InlineTextHTMLNode from "../node/html/inlineText";
 import OrderedItemHTMLNode from "../node/html/item/ordered";
@@ -52,6 +53,7 @@ import { LINE_RULE_NAME,
          CLASS_NAME_RULE_NAME,
          BLOCK_LINE_RULE_NAME,
          PLAIN_TEXT_RULE_NAME,
+         BLOCK_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          ORDERED_ITEM_RULE_NAME,
@@ -90,6 +92,7 @@ const htmlNodeMap = {
   [CLASS_NAME_RULE_NAME]: ClassNameHTMLNode,
   [BLOCK_LINE_RULE_NAME]: BlockLineHTMLNode,
   [PLAIN_TEXT_RULE_NAME]: PlainTextHTMLNode,
+  [BLOCK_TEXT_RULE_NAME]: BlockTextHTMLNode,
   [STRONG_TEXT_RULE_NAME]: StrongTextHTMLNode,
   [INLINE_TEXT_RULE_NAME]: InlineTextHTMLNode,
   [ORDERED_ITEM_RULE_NAME]: OrderedItemHTMLNode,

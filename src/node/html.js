@@ -32,8 +32,6 @@ export default class HTMLNode extends Node {
 
   content(context) { return this.outerNode.content(context); }
 
-  inlineText(context) { return this.outerNode.inlineText(context); }
-
   adjustIndent(indent) {
     indent = (indent === null) ?
                EMPTY_STRING :
@@ -200,21 +198,17 @@ export default class HTMLNode extends Node {
 
     const childNodesHTML = this.childNodesAsHTML(indent, context);
 
-    if (childNodesHTML !== null) {
+    if (childNodesHTML !== EMPTY_STRING) {
       const startingTag = this.startingTag(context),
             closingTag = this.closingTag(context);
 
-      html = (indent === null) ?
-              `${startingTag}${childNodesHTML}${closingTag}` :
-                `${indent}${startingTag}
+      html = `${indent}${startingTag}
 ${childNodesHTML}${indent}${closingTag}
 `;
     } else {
       const selfClosingTag = this.selfClosingTag(context);
 
-      html = (indent === null) ?
-               selfClosingTag :  ///
-                `${indent}${selfClosingTag}
+      html = `${indent}${selfClosingTag}
 `;
     }
 
@@ -222,15 +216,11 @@ ${childNodesHTML}${indent}${closingTag}
   }
 
   asPlainText(context) {
-    let plainText = null;
+    let plainText;
 
-    const tagName = this.tagName(context);
+    const childNodesPlainText = this.childNodesAsPlainText(context);
 
-    if (tagName !== null) {
-      const childNodesPlainText = this.childNodesAsPlainText(context);
-
-      plainText = childNodesPlainText;  ///
-    }
+    plainText = childNodesPlainText;  ///
 
     return plainText;
   }
@@ -239,14 +229,10 @@ ${childNodesHTML}${indent}${closingTag}
     const childNodesHTML = this.reduceChildNode((childNodesHTML, childNode) => {
       const childNodeHTML = childNode.asHTML(indent, context);
 
-      if (childNodeHTML !== null) {
-        childNodesHTML = (childNodesHTML === null) ?
-                           childNodeHTML :  ///
-                            `${childNodesHTML}${childNodeHTML}`;
-      }
+      childNodesHTML = `${childNodesHTML}${childNodeHTML}`;
 
       return childNodesHTML;
-    }, null);
+    }, EMPTY_STRING);
 
     return childNodesHTML;
   }
@@ -255,15 +241,11 @@ ${childNodesHTML}${indent}${closingTag}
     const childNodesPlainText = this.reduceChildNode((childNodesPlainText, childNode) => {
       const childNodePlainText = childNode.asPlainText(context);
 
-      if (childNodePlainText !== null) {
-        childNodesPlainText = (childNodesPlainText === null) ?
-                                childNodePlainText :  ///
-                                 `${childNodesPlainText}
+      childNodesPlainText = `${childNodesPlainText}
 ${childNodePlainText}`;
-      }
 
       return childNodesPlainText;
-    }, null);
+    }, EMPTY_STRING);
 
     return childNodesPlainText;
   }
@@ -287,7 +269,7 @@ ${childNodePlainText}`;
     }
 
     const domElement = null,
-          node = Node.fromOuterNode(Class, outerNode);
+          node = Node.fromOuterNode(Class, outerNode, domElement);
 
     return node;
   }

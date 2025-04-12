@@ -8,6 +8,13 @@ import { STRONG_TEXT_RULE_NAME } from "../../ruleNames";
 const { tagName } = elementMap[STRONG_TEXT_RULE_NAME];
 
 export default class StronglyEmphasisedTextHTMLNode extends HTMLNode {
+  content(context) {
+    const inlineText = this.inlineText(context),
+          content = inlineText; ///
+
+    return content;
+  }
+
   asHTML(indent, context) {
     let html = super.asHTML(indent, context);
 
@@ -53,10 +60,8 @@ export default class StronglyEmphasisedTextHTMLNode extends HTMLNode {
   createChildDOMElement(context) {
     let domElement;
 
-    const inlineText = this.inlineText(context),
-          content = inlineText; ///
-
-    const textNode = document.createTextNode(content);
+    const content = this.content(context),
+          textNode = document.createTextNode(content);
 
     domElement = super.createDOMElement(context);
 

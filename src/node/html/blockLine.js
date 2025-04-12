@@ -1,64 +1,33 @@
 "use strict";
 
 import HTMLNode from "../../node/html";
-import {replaceEntities} from "../../utilities/html";
+
+import { EMPTY_STRING } from "../../constants";
 
 export default class BlockLineHTMLNode extends HTMLNode {
-  mount(parentDOMElement, siblingDOMElement, context) {
-    this.domElement = this.createDOMElement(context);
-
-    parentDOMElement.insertBefore(this.domElement, siblingDOMElement);
-  }
-
-  unmount(parentDOMElement, context) {
-    if (this.domElement !== null) {
-      parentDOMElement.removeChild(this.domElement);
-
-      this.domElement = null;
-    }
-  }
-
-  asHTML(indent, context) {
-    const childNodesHTML = this.childNodesAsHTML(indent, context),
-          startingTag = this.startingTag(context),
-          closingTag = this.closingTag(context),
-          html = `${startingTag}${childNodesHTML}${closingTag}`;
-
-    return html;
-  }
+  isEndBlockText(context) { return this.outerNode.isEndBlockText(context); }
 
   childNodesAsHTML(indent, context) {
-    const content = this.content(context),
-          childNodesHTML = content; ///
+    let childNodesHTML = super.childNodesAsHTML(indent, context);
+
+    const endBlockText = this.isEndBlockText(context);
+
+    if (endBlockText) {
+      childNodesHTML = `${childNodesHTML}
+`;
+    }
 
     return childNodesHTML;
   }
 
-  createDOMElement(context) {
-    let domElement;
-
-    let content = this.content(context);
-
-    content = replaceEntities(content); ///
-
-    const textNode = document.createTextNode(content);
-
-    domElement = super.createDOMElement(context)
-
-    const parentDOMElement = domElement;  ///
-
-    domElement = textNode; ///
-
-    parentDOMElement.appendChild(domElement);
-
-    domElement = parentDOMElement;  ///
-
-    return domElement;
-  }
-
   childNodesAsPlainText(context) {
-    const content = this.content(context),
-          childNodesPlainText = content;  ///
+    const childNodesPlainText = this.reduceChildNode((childNodesPlainText, childNode) => {
+      const childNodePlainText = childNode.asPlainText(context);
+
+      childNodesPlainText = `${childNodesPlainText}${childNodePlainText}`;
+
+      return childNodesPlainText;
+    }, EMPTY_STRING);
 
     return childNodesPlainText;
   }

@@ -26,16 +26,6 @@ export default class TopmostHTMLNode extends HTMLNode {
     return html;
   }
 
-  asPlainText(context) {
-    let plainText;
-
-    const childNodesPlainText = this.childNodesAsPlainText(context);
-
-    plainText = childNodesPlainText;
-
-    return plainText;
-  }
-
   static fromNothing() { return HTMLNode.fromNothing(TopmostHTMLNode); }
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(TopmostHTMLNode, outerNode); }

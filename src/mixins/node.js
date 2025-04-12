@@ -1,22 +1,5 @@
 "use strict";
 
-function addChildNodeAfter(existingChildNode, addedChildNode) {
-  const addedChildNodes = [
-          addedChildNode
-        ];
-
-  this.addChildNodesAfter(existingChildNode, addedChildNodes);
-}
-
-function addChildNodesAfter(existingChildNode, addedChildNodes) {
-  const childNode = existingChildNode,  ///
-        index = this.indexOfChildNode(childNode),
-        startIndex = index + 1,
-        deleteCount = 0;
-
-  this.spliceChildNodes(startIndex, deleteCount, addedChildNodes);
-}
-
 function fromFirstChildNode(callback) {
   let result;
 
@@ -129,8 +112,6 @@ function fromThirdLastChildNode(callback) {
 }
 
 const nodeMixins = {
-  addChildNodeAfter,
-  addChildNodesAfter,
   fromFirstChildNode,
   fromSecondChildNode,
   fromThirdChildNode,

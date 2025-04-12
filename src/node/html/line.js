@@ -2,76 +2,34 @@
 
 import HTMLNode from "../../node/html";
 
-import { childNodesAsHTML, childNodesAsPlainText, childNodesAsDOMElements } from "../../utilities/childNodes";
+import { EMPTY_STRING } from "../../constants";
 
 export default class LineHTMLNode extends HTMLNode {
-  mount(parentDOMElement, siblingDOMElement, context) {
-    this.domElement = this.createDOMElement(context);
-
-    parentDOMElement.insertBefore(this.domElement, siblingDOMElement)
-
-    parentDOMElement = this.domElement; ///
-
-    const childDOMElements = this.createChildDOMElements(context);
-
-    childDOMElements.forEach((childDOMElement) => {
-      parentDOMElement.appendChild(childDOMElement);
-    });
-  }
-
-  unmount(parentDOMElement, context) {
-    {
-      let childDOMElement;
-
-      const parentDOMElement = this.domElement; ///
-
-      childDOMElement = parentDOMElement.firstChild || null;
-
-      while (childDOMElement !== null) {
-        parentDOMElement.removeChild(childDOMElement);
-
-        childDOMElement = parentDOMElement.firstChild || null;
-      }
-    }
-
-    parentDOMElement.removeChild(this.domElement);
-
-    this.domElement = null;
-  }
-
-  asHTML(indent, context) {
-    indent = this.adjustIndent(indent);
-
-    const childNodesHTML = this.childNodesAsHTML(indent, context),
-          startingTag = this.startingTag(context),
-          closingTag = this.closingTag(context),
-          html = `${indent}${startingTag}${childNodesHTML}${closingTag}
-`;
-
-    return html;
-  }
+  isEndPlainText(context) { return this.outerNode.isEndPlainText(context); }
 
   childNodesAsHTML(indent, context) {
-    const htmlNode = this,  ///
-          html = childNodesAsHTML(htmlNode, context),
-          childNodesHTML = html;  ///
+    let childNodesHTML = super.childNodesAsHTML(indent, context);
+
+    const endPlainText = this.isEndPlainText(context);
+
+    if (endPlainText) {
+      childNodesHTML = `${childNodesHTML}
+`;
+    }
 
     return childNodesHTML;
   }
 
   childNodesAsPlainText(context) {
-    const htmlNode = this,  ///
-          plainText = childNodesAsPlainText(htmlNode, context);
+    const childNodesPlainText = this.reduceChildNode((childNodesPlainText, childNode) => {
+      const childNodePlainText = childNode.asPlainText(context);
 
-    return plainText;
-  }
+      childNodesPlainText = `${childNodesPlainText}${childNodePlainText}`;
 
-  createChildDOMElements(context) {
-    const htmlNode = this,  ///
-          domElements = childNodesAsDOMElements(htmlNode, context),
-          childDOMElements = domElements; ///
+      return childNodesPlainText;
+    }, EMPTY_STRING);
 
-    return childDOMElements;
+    return childNodesPlainText;
   }
 
   static fromNothing() { return HTMLNode.fromNothing(LineHTMLNode); }

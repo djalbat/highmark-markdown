@@ -5,6 +5,14 @@ import HTMLNode from "../../node/html";
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 
 export default class EmailLinkHTMLNode extends HTMLNode {
+  content(context) {
+    return null;
+  }
+
+  emailAddress(context) {
+    return null;
+  }
+
   attributeName(context) {
     const attributeName = HREF_ATTRIBUTE_NAME;
 
@@ -18,50 +26,17 @@ export default class EmailLinkHTMLNode extends HTMLNode {
     return attributeValue;
   }
 
-  childNodesAsHTML(indent, context) {
-    let childNodesHTML;
+  asHTML(indent, context) {
+    indent = this.adjustIndent(indent);
 
-    const inlineText = this.inlineText(context);
+    const childNodesHTML = this.childNodesAsHTML(indent, context),
+          startingTag = this.startingTag(context),
+          closingTag = this.closingTag(context),
+          html = `${indent}${startingTag}
+${childNodesHTML}${indent}${closingTag}
+`;
 
-    let content;
-
-    if (inlineText !== null) {
-      content = inlineText;  ///
-    } else {
-      content = this.content(context);
-    }
-
-    childNodesHTML = content; ///
-
-    return childNodesHTML;
-  }
-
-  createDOMElement(context) {
-    let domElement;
-
-    let content;
-
-    const inlineText = this.inlineText(context);
-
-    if (inlineText !== null) {
-      content = inlineText; ///
-    } else {
-      content = this.content(context);
-    }
-
-    const textNode = document.createTextNode(content);
-
-    domElement = super.createDOMElement(context);
-
-    const parentDOMElement = domElement;  ///
-
-    domElement = textNode; ///
-
-    parentDOMElement.appendChild(domElement);
-
-    domElement = parentDOMElement;  ///
-
-    return domElement;
+    return html;
   }
 
   static fromNothing() { return HTMLNode.fromNothing(EmailLinkHTMLNode); }

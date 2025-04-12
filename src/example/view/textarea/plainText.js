@@ -20,6 +20,12 @@ class PlainTextTextarea extends Textarea {
   }
 
   update(topmostHTMLNode, context) {
+    const whitespaceTokenIndex = -1;
+
+    Object.assign(context, {
+      whitespaceTokenIndex
+    });
+
     const plainText = topmostHTMLNode.asPlainText(context);
 
     this.setPlainText(plainText);

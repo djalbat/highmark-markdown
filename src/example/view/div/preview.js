@@ -31,6 +31,12 @@ class PreviewDiv extends Element {
   update(markdownNode, context) {
     this.clear();
 
+    const whitespaceTokenIndex = -1;
+
+    Object.assign(context, {
+      whitespaceTokenIndex
+    });
+
     const parentDOMElement = this.getParentDOMElement(),
           siblingDOMElement = null;
 

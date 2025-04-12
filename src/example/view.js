@@ -318,7 +318,7 @@ class View extends Element {
     this.css();
   }
 
-  static initialMarkdown = `Hello \`world!\``;  ///
+  static initialMarkdown = `James Smith`;
 
   static initialMarkdownStyle = `width: 100%;
 height: 100%;

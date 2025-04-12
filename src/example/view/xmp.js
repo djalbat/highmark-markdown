@@ -8,6 +8,12 @@ import { EMPTY_STRING } from "../constants";
 
 class XMP extends Element {
   update(topmostHTMLNode, context) {
+    const whitespaceTokenIndex = -1;
+
+    Object.assign(context, {
+      whitespaceTokenIndex
+    });
+
     const html = topmostHTMLNode.asHTML(context);
 
     this.html(html);

@@ -3,12 +3,19 @@
 import HTMLNode from "../../node/html";
 
 export default class StrongTextHTMLNode extends HTMLNode {
+  content(context) {
+    const inlineText = this.inlineText(context),
+          content = inlineText; ///
+
+    return content;
+  }
+
   inlineText(context) {
     const inlineText = this.fromSecondChildNode((secondChildNode) => {
       const indent = null,
-          inlineTextMarkdownNode = secondChildNode, ///
-          inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context),
-          inlineText = inlineTextMarkdownNodeHTML;  ///
+            inlineTextMarkdownNode = secondChildNode, ///
+            inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context),
+            inlineText = inlineTextMarkdownNodeHTML;  ///
 
       return inlineText;
     });
@@ -19,10 +26,8 @@ export default class StrongTextHTMLNode extends HTMLNode {
   createDOMElement(context) {
     let domElement;
 
-    const inlineText = this.inlineText(context),
-          content = inlineText; ///
-
-    const textNode = document.createTextNode(content);
+    const content = this.content(context),
+          textNode = document.createTextNode(content);
 
     domElement = super.createDOMElement(context);
 

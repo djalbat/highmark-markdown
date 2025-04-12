@@ -24,16 +24,25 @@ export default class InlineListingHTMLNode extends HTMLNode {
 
     domElement = super.createDOMElement(context);
 
-    domElement.appendChild(textNode);
+    const parentDOMElement = domElement;  ///
+
+    domElement = textNode; ///
+
+    parentDOMElement.appendChild(domElement);
+
+    domElement = parentDOMElement;  ///
 
     return domElement;
   }
 
   asHTML(indent, context) {
+    indent = this.adjustIndent(indent);
+
     const childNodesHTML = this.childNodesAsHTML(indent, context),
           startingTag = this.startingTag(context),
           closingTag = this.closingTag(context),
-          html = `${startingTag}${childNodesHTML}${closingTag}`;
+          html = `${indent}${startingTag}${childNodesHTML}${closingTag}
+`;
 
     return html;
   }
@@ -47,9 +56,9 @@ export default class InlineListingHTMLNode extends HTMLNode {
 
   childNodesAsHTML(indent, context) {
     const content = this.content(context),
-          html = content; ///
+          childNodesHTML = content; ///
 
-    return html;
+    return childNodesHTML;
   }
 
   static fromNothing() { return HTMLNode.fromNothing(InlineListingHTMLNode); }

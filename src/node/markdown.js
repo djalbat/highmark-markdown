@@ -11,12 +11,7 @@ class MarkdownNode extends NonTerminalNode {
     return divisionMarkdownNode;
   }
 
-  static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments) {
-    const domElement = null,
-          markdownNode = NonTerminalNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, domElement, ...remainingArguments);
-
-    return markdownNode;
-  }
+  static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments) { return NonTerminalNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments); }
 }
 
 Object.assign(MarkdownNode.prototype, nodeMixins);

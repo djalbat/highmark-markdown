@@ -41,11 +41,22 @@ export function replaceNodes(replacementNodes, replacedNode, parentNode) {
   parentNode.replaceChildNodes(replacedChildNode, replacementChildNodes);
 }
 
-export function addNodesAfter(existingNode, addedNodes, parentNode) {
-  const existingChildNode = existingNode, ///
-        addedChildNodes = addedNodes; ///
+export function addNodeAfter(existingNode, addedNode, parentNode) {
+  const childNode = existingNode, ///
+        index = parentNode.indexOfChildNode(childNode),
+        addedChildNode = addedNode, ///
+        startIndex = index + 1;
 
-  parentNode.addChildNodesAfter(existingChildNode, addedChildNodes);
+  parentNode.addChildNode(addedChildNode, startIndex);
+}
+
+export function addNodesAfter(existingNode, addedNodes, parentNode) {
+  const childNode = existingNode, ///
+        index = parentNode.indexOfChildNode(childNode),
+        addedChildNodes = addedNodes, ///
+        startIndex = index + 1;
+
+  parentNode.addChildNodes(addedChildNodes, startIndex);
 }
 
 export function appendTokens(appendedTokens, parentNode, tokens) {
@@ -86,13 +97,6 @@ export function replaceTokens(replacementTokens, replacedNode, tokens) {
         deleteCount = end - start;
 
   tokens.splice(start, deleteCount, ...replacementTokens);
-}
-
-export function addNodeAfter(existingNode, addedNode, parentNode) {
-  const existingChildNode = existingNode, ///
-        addedChildNode = addedNode; ///
-
-  parentNode.appendChildNodeAfter(existingChildNode, addedChildNode);
 }
 
 export function addTokensAfter(existingNode, addedTokens, tokens) {

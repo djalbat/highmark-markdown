@@ -3,13 +3,18 @@
 import HTMLNode from "../../node/html";
 
 export default class EmphasisedTextHTMLNode extends HTMLNode {
-  createDOMElement(context) {
+  content(context) {
     const inlineText = this.inlineText(context),
           content = inlineText; ///
 
+    return content;
+  }
+
+  createDOMElement(context) {
     let domElement;
 
-    const textNode = document.createTextNode(content);
+    const content = this.content(context),
+          textNode = document.createTextNode(content);
 
     domElement = super.createDOMElement(context);
 
