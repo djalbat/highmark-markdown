@@ -1,11 +1,11 @@
 "use strict";
 
-import HeadingHTMLNode from "../../../node/html/heading";
+import HTMLNode from "../../../node/html";
 
-export default class PrimaryHeadingHTMLNode extends HeadingHTMLNode {
+export default class PrimaryHeadingHTMLNode extends HTMLNode {
   static lines = 3;
 
-  static fromNothing() { return HeadingHTMLNode.fromNothing(PrimaryHeadingHTMLNode); }
+  static fromNothing() { return HTMLNode.fromNothing(PrimaryHeadingHTMLNode); }
 
-  static fromOuterNode(outerNode) { return HeadingHTMLNode.fromOuterNode(PrimaryHeadingHTMLNode, outerNode); }
+  static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(PrimaryHeadingHTMLNode, outerNode); }
 }

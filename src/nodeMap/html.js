@@ -20,6 +20,7 @@ import BlockTextHTMLNode from "../node/html/text/block";
 import StrongTextHTMLNode from "../node/html/strongText";
 import InlineTextHTMLNode from "../node/html/inlineText";
 import OrderedItemHTMLNode from "../node/html/item/ordered";
+import OrderedListHTMLNode from "../node/html/list/ordered";
 import ContentsListHTMLNode from "../node/html/contentsList";
 import ContentsLinkHTMLNode from "../node/html/contentsLink";
 import BlockListingHTMLNode from "../node/html/blockListing";
@@ -28,6 +29,8 @@ import TableBodyCellHTMLNode from "../node/html/tableBodyCell";
 import InlineListingHTMLNode from "../node/html/inlineListing";
 import FootnotesListHTMLNode from "../node/html/footnotesList";
 import TableHeadCellHTMLNode from "../node/html/tableHeadCell";
+import UnorderedItemHTMLNode from "../node/html/item/unordered";
+import UnorderedListHTMLNode from "../node/html/list/unordered";
 import PrimaryHeadingHTMLNode from "../node/html/heading/primary";
 import EmptyTableCellHTMLNode from "../node/html/emptyTableCell";
 import EmphasisedTextHTMLNode from "../node/html/emphasisedText";
@@ -58,12 +61,15 @@ import { LINE_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          ORDERED_ITEM_RULE_NAME,
+         ORDERED_LIST_RULE_NAME,
          CONTENTS_LIST_RULE_NAME,
          CONTENTS_LINK_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
          FOOTNOTE_LINK_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
          FOOTNOTES_LIST_RULE_NAME,
+         UNORDERED_ITEM_RULE_NAME,
+         UNORDERED_LIST_RULE_NAME,
          TABLE_HEAD_CELL_RULE_NAME,
          TABLE_BODY_CELL_RULE_NAME,
          EMPHASISED_TEXT_RULE_NAME,
@@ -97,12 +103,15 @@ const htmlNodeMap = {
   [STRONG_TEXT_RULE_NAME]: StrongTextHTMLNode,
   [INLINE_TEXT_RULE_NAME]: InlineTextHTMLNode,
   [ORDERED_ITEM_RULE_NAME]: OrderedItemHTMLNode,
+  [ORDERED_LIST_RULE_NAME]: OrderedListHTMLNode,
   [CONTENTS_LIST_RULE_NAME]: ContentsListHTMLNode,
   [CONTENTS_LINK_RULE_NAME]: ContentsLinkHTMLNode,
   [BLOCK_LISTING_RULE_NAME]: BlockListingHTMLNode,
   [FOOTNOTE_LINK_RULE_NAME]: FootnoteLinkHTMLNode,
   [INLINE_LISTING_RULE_NAME]: InlineListingHTMLNode,
   [FOOTNOTES_LIST_RULE_NAME]: FootnotesListHTMLNode,
+  [UNORDERED_ITEM_RULE_NAME]: UnorderedItemHTMLNode,
+  [UNORDERED_LIST_RULE_NAME]: UnorderedListHTMLNode,
   [TABLE_HEAD_CELL_RULE_NAME]: TableHeadCellHTMLNode,
   [TABLE_BODY_CELL_RULE_NAME]: TableBodyCellHTMLNode,
   [EMPHASISED_TEXT_RULE_NAME]: EmphasisedTextHTMLNode,
