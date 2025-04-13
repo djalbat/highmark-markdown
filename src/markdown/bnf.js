@@ -82,7 +82,7 @@ const bnf = `
     unorderedList           ::=  unorderedItem ( endOfLine unorderedItem )* ;
 
 
-    blockListing            ::=  blockListingStart ( blockLine | endOfLine )+ blockListingEnd ;
+    blockListing            ::=  blockListingStart blockLine+ blockListingEnd ;
 
 
     paragraph               ::=  line ( endOfLine line )* ;
@@ -219,7 +219,7 @@ const bnf = `
     strongText              ::=  "***" inlineText "***" ;
 
 
-    blockLine.              ::=  blockText+ ;
+    blockLine.              ::=  blockText* endOfLine ;
     
 
     plainText               ::=  [escaped] 
