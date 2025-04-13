@@ -7,6 +7,7 @@ import ErrorMarkdownNode from "../node/markdown/error";
 import AnchorMarkdownNode from "../node/markdown/anchor";
 import DivisionMarkdownNode from "../node/markdown/division";
 import FootnoteMarkdownNode from "../node/markdown/footnote";
+import ParagraphMarkdownNode from "../node/markdown/paragraph";
 import ReferenceMarkdownNode from "../node/markdown/reference";
 import HyperlinkMarkdownNode from "../node/markdown/hyperlink";
 import IndexListMarkdownNode from "../node/markdown/indexList";
@@ -43,6 +44,7 @@ import { LINE_RULE_NAME,
          ANCHOR_RULE_NAME,
          DIVISION_RULE_NAME,
          FOOTNOTE_RULE_NAME,
+         PARAGRAPH_RULE_NAME,
          REFERENCE_RULE_NAME,
          HYPERLINK_RULE_NAME,
          INDEX_LIST_RULE_NAME,
@@ -51,7 +53,6 @@ import { LINE_RULE_NAME,
          PLAIN_TEXT_RULE_NAME,
          BLOCK_TEXT_RULE_NAME,
          CLASS_NAME_RULE_NAME,
-         END_OF_LINE_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
          SUB_DIVISION_RULE_NAME,
@@ -83,6 +84,7 @@ const markdownNodeMap = {
   [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
   [REFERENCE_RULE_NAME]: ReferenceMarkdownNode,
   [HYPERLINK_RULE_NAME]: HyperlinkMarkdownNode,
+  [PARAGRAPH_RULE_NAME]: ParagraphMarkdownNode,
   [INDEX_LIST_RULE_NAME]: IndexListMarkdownNode,
   [INDEX_LINK_RULE_NAME]: IndexLinkMarkdownNode,
   [EMAIL_LINK_RULE_NAME]: EmailLinkMarkdownNode,

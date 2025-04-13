@@ -6,6 +6,7 @@ import ImageHTMLNode from "../node/html/image";
 import TableHTMLNode from "../node/html/table";
 import AnchorHTMLNode from "../node/html/anchor";
 import DivisionHTMLNode from "../node/html/division";
+import ParagraphHTMLNode from "../node/html/paragraph";
 import TableHeadHTMLNode from "../node/html/tableHead";
 import TableBodyHTMLNode from "../node/html/tableBody";
 import HyperlinkHTMLNode from "../node/html/hyperlink";
@@ -47,6 +48,7 @@ import { LINE_RULE_NAME,
          TABLE_RULE_NAME,
          ANCHOR_RULE_NAME,
          DIVISION_RULE_NAME,
+         PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
          TABLE_HEAD_RULE_NAME,
          TABLE_BODY_RULE_NAME,
@@ -89,6 +91,7 @@ const htmlNodeMap = {
   [TABLE_RULE_NAME]: TableHTMLNode,
   [ANCHOR_RULE_NAME]: AnchorHTMLNode,
   [DIVISION_RULE_NAME]: DivisionHTMLNode,
+  [PARAGRAPH_RULE_NAME]: ParagraphHTMLNode,
   [HYPERLINK_RULE_NAME]: HyperlinkHTMLNode,
   [TABLE_HEAD_RULE_NAME]: TableHeadHTMLNode,
   [TABLE_BODY_RULE_NAME]: TableBodyHTMLNode,
