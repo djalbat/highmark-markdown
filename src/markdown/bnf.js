@@ -82,7 +82,7 @@ const bnf = `
     unorderedList           ::=  unorderedItem ( endOfLine unorderedItem )* ;
 
 
-    blockListing            ::=  blockListingStart blockLine+ blockListingEnd ;
+    blockListing            ::=  blockListingStart blockLine* blockListingEnd ;
 
 
     paragraph               ::=  line ( endOfLine line )* ;
