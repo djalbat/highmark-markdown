@@ -34,7 +34,7 @@ export default class ErrorHTMLNode extends HTMLNode {
           startingTag = this.startingTag(context),
           closingTag = this.closingTag(context);
 
-    html = `${indent}${startingTag}${childNodesHTML}${indent}${closingTag}
+    html = `${indent}${startingTag}${childNodesHTML}${closingTag}
 `;
 
     return html;

@@ -119,7 +119,7 @@ const elementMap = {
   },
   [BLOCK_LISTING_RULE_NAME]: {
     tagName: "pre",
-    className: "block"
+    className: null
   },
   [CONTENTS_LINK_RULE_NAME]: {
     tagName: "a",

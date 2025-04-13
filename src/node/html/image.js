@@ -4,6 +4,7 @@ import HTMLNode from "../../node/html";
 
 import { EMPTY_STRING } from "../../constants";
 import { ALT_ATTRIBUTE_NAME, SRC_ATTRIBUTE_NAME } from "../../attributeNames";
+import {IMAGE_RULE_NAME} from "../../ruleNames";
 
 export default class ImageHTMLNode extends HTMLNode {
   src(context) { return this.outerNode.src(context); }

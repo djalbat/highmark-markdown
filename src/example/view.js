@@ -322,8 +322,6 @@ class View extends Element {
 function () {
   var variable = 1;
 }  
-  
-  
 \`\`\`  
 
 `;
@@ -331,6 +329,13 @@ function () {
   static initialMarkdownStyle = `width: 100%;
 height: 100%;
 font-size: 2rem;  
+
+blockListing {
+  colour: white;
+  text-align: left;
+  font-family: monospace;
+  background-colour: black;
+}
 `;
 
   static tagName = "div";
