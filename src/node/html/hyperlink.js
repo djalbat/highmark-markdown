@@ -5,19 +5,9 @@ import HTMLNode from "../../node/html";
 import { HREF_ATTRIBUTE_NAME } from "../../attributeNames";
 
 export default class HyperlinkHTMLNode extends HTMLNode {
-  content(context) {
-    let content;
+  isSimple() { return this.outerNode.isSimple(); }
 
-    const inlineText = this.inlineText(context);
-
-    if (inlineText !== null) {
-      content = inlineText; ///
-    } else {
-      content = super.content(context);
-    }
-
-    return content;
-  }
+  url(context) { return this.outerNode.url(context); }
 
   attributeName(context) {
     const attributeName = HREF_ATTRIBUTE_NAME;
@@ -32,30 +22,68 @@ export default class HyperlinkHTMLNode extends HTMLNode {
     return attributeValue;
   }
 
-  childNodesAsHTML(indent, context) {
-    const content = this.content(context),
-          childNodesHTML = content; ///
+  mount(parentDOMElement, siblingDOMElement, context) {
+    super.mount(parentDOMElement, siblingDOMElement, context);
 
-    return childNodesHTML;
+    const simple = this.isSimple();
+
+    if (simple) {
+      const url = this.url(context),
+            content = url, ///
+            textNode = document.createTextNode(content),
+            domElement = textNode,  ///
+            parentDOMElement = this.domElement, ///
+            siblingDOMElement = null;
+
+      parentDOMElement.insertBefore(domElement, siblingDOMElement)
+    }
   }
 
-  createDOMElement(context) {
-    let domElement;
+  unmount(parentDOMElement, context) {
+    const simple = this.isSimple();
 
-    const content = this.content(context),
-          textNode = document.createTextNode(content);
+    if (simple) {
+      const parentDOMElement = this.domElement,
+            firstChild = parentDOMElement.firstChild,
+            domElement = firstChild;  ///
 
-    domElement = super.createDOMElement(context);
+      parentDOMElement.removeChild(domElement)
+    }
 
-    const parentDOMElement = domElement;  ///
+    super.unmount(parentDOMElement, context);
+  }
 
-    domElement = textNode; ///
+  asPlainText(context) {
+    let plainText;
 
-    parentDOMElement.appendChild(domElement);
+    const simple = this.isSimple();
 
-    domElement = parentDOMElement;  ///
+    if (simple) {
+      const url = this.url(context);
 
-    return domElement;
+      plainText = url; ///
+    } else {
+      plainText = super.asPlainText(context);
+    }
+
+    return plainText;
+  }
+
+  childNodesAsHTML(indent, context) {
+    let childNodesHTML;
+
+    const simple = this.isSimple();
+
+    if (simple) {
+      const url = this.url(context);
+
+      childNodesHTML = `${url}
+`;
+    } else {
+      childNodesHTML = super.childNodesAsHTML(indent, context);
+    }
+
+    return childNodesHTML;
   }
 
   static fromNothing() { return HTMLNode.fromNothing(HyperlinkHTMLNode); }

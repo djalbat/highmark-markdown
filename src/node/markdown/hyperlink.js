@@ -2,31 +2,67 @@
 
 import MarkdownNode from "../../node/markdown";
 
-export default class HyperlinkLinkMarkdownNode extends MarkdownNode {
-  url(context) {
-    const multiplicity = this.getMultiplicity();
+import { URL_TOKEN_TYPE } from "../../tokenTypes";
 
-    let urlTerminalNode;
+export default class HyperlinkMarkdownNode extends MarkdownNode {
+  urlFromSecondLastChildNode(context) {
+    const url = this.fromSecondLastChildNode((secondLastChildNode) => {
+      const terminalNode = secondLastChildNode,  ///
+            url = urlFromTerminalNode(terminalNode);
 
-    if (multiplicity === 1) {
-      urlTerminalNode = this.fromFirstChildNode((firstChildNode) => {
-        const urlTerminalNode = firstChildNode; ///
-
-        return urlTerminalNode;
-      });
-    } else {
-      urlTerminalNode = this.fromSecondLastChildNode((secondLastChildNode) => {
-        const urlTerminalNode = secondLastChildNode; ///
-
-        return urlTerminalNode;
-      });
-    }
-
-    const urlTerminalNodeContent = urlTerminalNode.getContent(),
-          url = urlTerminalNodeContent; ///
+      return url;
+    });
 
     return url;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(HyperlinkLinkMarkdownNode, ruleName, childNodes, opacity); }
+  urlFromFirstLastChildNode(context) {
+    const url = this.fromFirstLastChildNode((firstLastChildNode) => {
+      const terminalNode = firstLastChildNode,  ///
+            url = urlFromTerminalNode(terminalNode);
+
+      return url;
+    });
+
+    return url;
+  }
+
+  url(context) {
+    const simple = this.isSimple(),
+          url = simple ?
+                  this.urlFromFirstLastChildNode(context) :
+                    this.urlFromSecondLastChildNode(context);
+
+    return url;
+  }
+
+  isSimple() {
+    const simple = this.fromFirstLastChildNode((firstLastChildNode) => {
+      const terminalNode = firstLastChildNode,  ///
+            type = terminalNode.getType(),
+            typeURLTokenType = (type === URL_TOKEN_TYPE),
+            simple = typeURLTokenType; ///
+
+      return simple;
+    });
+
+    return simple;
+  }
+
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(HyperlinkMarkdownNode, ruleName, childNodes, opacity); }
+}
+
+function urlFromTerminalNode(terminalNode) {
+  let url = null;
+
+  const type = terminalNode.getType(),
+        typeURLTokenType = (type === URL_TOKEN_TYPE);
+
+  if (typeURLTokenType) {
+    const content = terminalNode.getContent();
+
+    url = content; ///
+  }
+
+  return url;
 }
