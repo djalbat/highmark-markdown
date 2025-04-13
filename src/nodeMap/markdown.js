@@ -13,6 +13,7 @@ import IndexListMarkdownNode from "../node/markdown/indexList";
 import IndexLinkMarkdownNode from "../node/markdown/indexLink";
 import BlockLineMarkdownNode from "../node/markdown/blockLine";
 import ClassNameMarkdownNode from "../node/markdown/className";
+import EmailLinkMarkdownNode from "../node/markdown/emailLink";
 import PlainTextMarkdownNode from "../node/markdown/text/plain";
 import BlockTextMarkdownNode from "../node/markdown/text/block";
 import InlineTextMarkdownNode from "../node/markdown/inlineText";
@@ -52,6 +53,7 @@ import { LINE_RULE_NAME,
          INDEX_LINK_RULE_NAME,
          BLOCK_LINE_RULE_NAME,
          CLASS_NAME_RULE_NAME,
+         EMAIL_LINK_RULE_NAME,
          PLAIN_TEXT_RULE_NAME,
          BLOCK_TEXT_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
@@ -92,6 +94,7 @@ const markdownNodeMap = {
   [INDEX_LINK_RULE_NAME]: IndexLinkMarkdownNode,
   [BLOCK_LINE_RULE_NAME]: BlockLineMarkdownNode,
   [CLASS_NAME_RULE_NAME]: ClassNameMarkdownNode,
+  [EMAIL_LINK_RULE_NAME]: EmailLinkMarkdownNode,
   [PLAIN_TEXT_RULE_NAME]: PlainTextMarkdownNode,
   [BLOCK_TEXT_RULE_NAME]: BlockTextMarkdownNode,
   [INLINE_TEXT_RULE_NAME]: InlineTextMarkdownNode,

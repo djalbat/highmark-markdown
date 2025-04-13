@@ -6,6 +6,25 @@ import PlainTextHTMLNode from "./text/plain";
 import { EMPTY_STRING } from "../../constants";
 
 export default class InlineTextHTMLNode extends HTMLNode {
+  mount(parentDOMElement, siblingDOMElement, context) {
+    this.childNodes.forEach((childNode) => {
+      childNode.mount(parentDOMElement, siblingDOMElement, context);
+    });
+  }
+
+  unmount(parentDOMElement, context) {
+    this.childNodes.forEach((childNode) => {
+      childNode.unmount(parentDOMElement, context);
+    });
+  }
+
+  asHTML(indent, context) {
+    const childNodesHTML = this.childNodesAsHTML(indent, context),
+          html = childNodesHTML;  ///
+
+    return html;
+  }
+
   childNodesAsHTML(indent, context) {
     let childNodesHTML;
 
