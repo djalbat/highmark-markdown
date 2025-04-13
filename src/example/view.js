@@ -318,7 +318,7 @@ class View extends Element {
     this.css();
   }
 
-  static initialMarkdown = `| Heading1 | Heading2 |
+  static initialMarkdown = `| .        | Heading2 |
 -----------------------  
 | Body1    | Body2    |
 

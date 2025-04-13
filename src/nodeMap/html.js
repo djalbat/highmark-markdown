@@ -3,10 +3,11 @@
 import LineHTMLNode from "../node/html/line";
 import ErrorHTMLNode from "../node/html/error";
 import ImageHTMLNode from "../node/html/image";
+import TableHTMLNode from "../node/html/table";
 import AnchorHTMLNode from "../node/html/anchor";
 import DivisionHTMLNode from "../node/html/division";
+import TableHeadHTMLNode from "../node/html/tableHead";
 import TableBodyHTMLNode from "../node/html/tableBody";
-import TableCellHTMLNode from "../node/html/tableCell";
 import HyperlinkHTMLNode from "../node/html/hyperlink";
 import IndexItemHTMLNode from "../node/html/indexItem";
 import IndexLinkHTMLNode from "../node/html/indexLink";
@@ -40,11 +41,12 @@ import StronglyEmphasisedTextHTMLNode from "../node/html/stronglyEmphasisedText"
 import { LINE_RULE_NAME,
          ERROR_RULE_NAME,
          IMAGE_RULE_NAME,
+         TABLE_RULE_NAME,
          ANCHOR_RULE_NAME,
          DIVISION_RULE_NAME,
          HYPERLINK_RULE_NAME,
+         TABLE_HEAD_RULE_NAME,
          TABLE_BODY_RULE_NAME,
-         TABLE_CELL_RULE_NAME,
          INDEX_ITEM_RULE_NAME,
          INDEX_LINK_RULE_NAME,
          INDEX_LIST_RULE_NAME,
@@ -78,11 +80,12 @@ const htmlNodeMap = {
   [LINE_RULE_NAME]: LineHTMLNode,
   [ERROR_RULE_NAME]: ErrorHTMLNode,
   [IMAGE_RULE_NAME]: ImageHTMLNode,
+  [TABLE_RULE_NAME]: TableHTMLNode,
   [ANCHOR_RULE_NAME]: AnchorHTMLNode,
   [DIVISION_RULE_NAME]: DivisionHTMLNode,
   [HYPERLINK_RULE_NAME]: HyperlinkHTMLNode,
+  [TABLE_HEAD_RULE_NAME]: TableHeadHTMLNode,
   [TABLE_BODY_RULE_NAME]: TableBodyHTMLNode,
-  [TABLE_CELL_RULE_NAME]: TableCellHTMLNode,
   [INDEX_ITEM_RULE_NAME]: IndexItemHTMLNode,
   [INDEX_LINK_RULE_NAME]: IndexLinkHTMLNode,
   [INDEX_LIST_RULE_NAME]: IndexListHTMLNode,

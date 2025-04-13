@@ -2,17 +2,27 @@
 
 import HTMLNode from "../../node/html";
 
-export default class EmptyTableCellHTMLNode extends HTMLNode {
-  childNodesAsHTML(indent, context) {
-    const childNodesHTML = null;
+import { EMPTY_STRING } from "../../constants";
 
-    return childNodesHTML;
+export default class EmptyTableCellHTMLNode extends HTMLNode {
+  mount(parentDOMElement, siblingDOMElement, context) {
+    ///
   }
 
-  createDOMElement(context) {
-    const domElement = null;
+  unmount(parentDOMElement, context) {
+    ///
+  }
 
-    return domElement;
+  asHTML(indent, context) {
+    const html = EMPTY_STRING;
+
+    return html;
+  }
+
+  asPlainText(context) {
+    const plainText = EMPTY_STRING;
+
+    return plainText;
   }
 
   static fromNothing() { return HTMLNode.fromNothing(EmptyTableCellHTMLNode); }
