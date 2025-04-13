@@ -6,6 +6,7 @@ import ImageHTMLNode from "../node/html/image";
 import TableHTMLNode from "../node/html/table";
 import AnchorHTMLNode from "../node/html/anchor";
 import DivisionHTMLNode from "../node/html/division";
+import BlockEndHTMLNode from "../node/html/blockEnd";
 import ParagraphHTMLNode from "../node/html/paragraph";
 import TableHeadHTMLNode from "../node/html/tableHead";
 import TableBodyHTMLNode from "../node/html/tableBody";
@@ -20,6 +21,7 @@ import PlainTextHTMLNode from "../node/html/text/plain";
 import BlockTextHTMLNode from "../node/html/text/block";
 import StrongTextHTMLNode from "../node/html/strongText";
 import InlineTextHTMLNode from "../node/html/inlineText";
+import BlockHStartHTMLNode from "../node/html/blockStart";
 import OrderedItemHTMLNode from "../node/html/item/ordered";
 import OrderedListHTMLNode from "../node/html/list/ordered";
 import ContentsListHTMLNode from "../node/html/contentsList";
@@ -36,10 +38,8 @@ import PrimaryHeadingHTMLNode from "../node/html/heading/primary";
 import EmptyTableCellHTMLNode from "../node/html/emptyTableCell";
 import EmphasisedTextHTMLNode from "../node/html/emphasisedText";
 import TertiaryHeadingHTMLNode from "../node/html/heading/tertiary";
-import BlockListingHEndHTMLNode from "../node/html/blockListingEnd";
 import SecondaryHeadingHTMLNode from "../node/html/heading/secondary";
 import QuaternaryHeadingHTMLNode from "../node/html/heading/quaternary";
-import BlockListingHStartHTMLNode from "../node/html/blockListingStart";
 import StronglyEmphasisedTextHTMLNode from "../node/html/stronglyEmphasisedText";
 
 import { LINE_RULE_NAME,
@@ -78,10 +78,10 @@ import { LINE_RULE_NAME,
          PRIMARY_HEADING_RULE_NAME,
          EMPTY_TABLE_CELL_RULE_NAME,
          TERTIARY_HEADING_RULE_NAME,
-         BLOCK_LISTING_END_RULE_NAME,
+         BLOCK_END_RULE_NAME,
          SECONDARY_HEADING_RULE_NAME,
          QUATERNARY_HEADING_RULE_NAME,
-         BLOCK_LISTING_START_RULE_NAME,
+         BLOCK_START_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "../ruleNames";
 
 const htmlNodeMap = {
@@ -93,6 +93,7 @@ const htmlNodeMap = {
   [DIVISION_RULE_NAME]: DivisionHTMLNode,
   [PARAGRAPH_RULE_NAME]: ParagraphHTMLNode,
   [HYPERLINK_RULE_NAME]: HyperlinkHTMLNode,
+  [BLOCK_END_RULE_NAME]: BlockEndHTMLNode,
   [TABLE_HEAD_RULE_NAME]: TableHeadHTMLNode,
   [TABLE_BODY_RULE_NAME]: TableBodyHTMLNode,
   [INDEX_ITEM_RULE_NAME]: IndexItemHTMLNode,
@@ -105,6 +106,7 @@ const htmlNodeMap = {
   [BLOCK_TEXT_RULE_NAME]: BlockTextHTMLNode,
   [STRONG_TEXT_RULE_NAME]: StrongTextHTMLNode,
   [INLINE_TEXT_RULE_NAME]: InlineTextHTMLNode,
+  [BLOCK_START_RULE_NAME]: BlockHStartHTMLNode,
   [ORDERED_ITEM_RULE_NAME]: OrderedItemHTMLNode,
   [ORDERED_LIST_RULE_NAME]: OrderedListHTMLNode,
   [CONTENTS_LIST_RULE_NAME]: ContentsListHTMLNode,
@@ -121,10 +123,8 @@ const htmlNodeMap = {
   [PRIMARY_HEADING_RULE_NAME]: PrimaryHeadingHTMLNode,
   [EMPTY_TABLE_CELL_RULE_NAME]: EmptyTableCellHTMLNode,
   [TERTIARY_HEADING_RULE_NAME]: TertiaryHeadingHTMLNode,
-  [BLOCK_LISTING_END_RULE_NAME]: BlockListingHEndHTMLNode,
   [SECONDARY_HEADING_RULE_NAME]: SecondaryHeadingHTMLNode,
   [QUATERNARY_HEADING_RULE_NAME]: QuaternaryHeadingHTMLNode,
-  [BLOCK_LISTING_START_RULE_NAME]: BlockListingHStartHTMLNode,
   [STRONGLY_EMPHASISED_TEXT_RULE_NAME]: StronglyEmphasisedTextHTMLNode
 }
 

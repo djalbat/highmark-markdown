@@ -4,7 +4,7 @@ import HHTMLNode from "../../node/html";
 
 import { EMPTY_STRING } from "../../constants";
 
-export default class BlockListingHEndHTMLNode extends HHTMLNode {
+export default class BlockHEndHTMLNode extends HHTMLNode {
   mount(parentDOMElement, siblingDOMElement, context) {
     ////
   }
@@ -27,7 +27,7 @@ export default class BlockListingHEndHTMLNode extends HHTMLNode {
 
   static lines = 2;
 
-  static fromNothing() { return HHTMLNode.fromNothing(BlockListingHEndHTMLNode); }
+  static fromNothing() { return HHTMLNode.fromNothing(BlockHEndHTMLNode); }
 
-  static fromOuterNode(outerNode) { return HHTMLNode.fromOuterNode(BlockListingHEndHTMLNode, outerNode); }
+  static fromOuterNode(outerNode) { return HHTMLNode.fromOuterNode(BlockHEndHTMLNode, outerNode); }
 }

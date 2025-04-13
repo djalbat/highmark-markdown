@@ -4,7 +4,7 @@ import HHTMLNode from "../../node/html";
 
 import { EMPTY_STRING } from "../../constants";
 
-export default class BlockListingHStartHTMLNode extends HHTMLNode {
+export default class BlockHStartHTMLNode extends HHTMLNode {
   className(context) {
     const className = this.fromFirstChildNode((firstChildNode) => {
       const classNameHTMLNode = firstChildNode, ///
@@ -36,7 +36,7 @@ export default class BlockListingHStartHTMLNode extends HHTMLNode {
     return plainText;
   }
 
-  static fromNothing() { return HHTMLNode.fromNothing(BlockListingHStartHTMLNode); }
+  static fromNothing() { return HHTMLNode.fromNothing(BlockHStartHTMLNode); }
 
-  static fromOuterNode(outerNode) { return HHTMLNode.fromOuterNode(BlockListingHStartHTMLNode, outerNode); }
+  static fromOuterNode(outerNode) { return HHTMLNode.fromOuterNode(BlockHStartHTMLNode, outerNode); }
 }

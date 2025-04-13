@@ -82,7 +82,7 @@ const bnf = `
     unorderedList           ::=  unorderedItem ( endOfLine unorderedItem )* ;
 
 
-    blockListing            ::=  blockListingStart blockLine* blockListingEnd ;
+    blockListing            ::=  blockStart blockLine* blockEnd ;
 
 
     paragraph               ::=  line ( endOfLine line )* ;
@@ -124,11 +124,14 @@ const bnf = `
     unorderedItem           ::=  [bullet] line ( endOfLine line )* ;
 
 
-    blockListingStart       ::=  [backticks] className? <END_OF_LINE> ;
+    blockStart              ::=  [backticks] className? <END_OF_LINE> ;
 
 
-    blockListingEnd         ::=  [backticks] ;
+    blockEnd                ::=  [backticks] ;
 
+
+    blockLine.              ::=  blockText* endOfLine ;
+    
 
     tableHeadRow            ::=  tableCellDivider tableHeadCell+ ;
 
@@ -218,9 +221,6 @@ const bnf = `
 
     strongText              ::=  "***" inlineText "***" ;
 
-
-    blockLine.              ::=  blockText* endOfLine ;
-    
 
     plainText               ::=  [escaped] 
                               
