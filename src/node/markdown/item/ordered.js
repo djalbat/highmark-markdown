@@ -2,11 +2,11 @@
 
 import { arrayUtilities } from "necessary";
 
-import ItemNode from "../../../node/markdown/item";
+import MarkdownNode from "../../../node/markdown";
 
 const { second } = arrayUtilities;
 
-export default class OrderedItemMarkdownNode extends ItemNode {
+export default class OrderedItemMarkdownNode extends MarkdownNode {
   value(context) {
     const value = this.fromFirstChildNode((firstChildNode) => {
       const markerTerminalNode = firstChildNode,  ///
@@ -18,7 +18,7 @@ export default class OrderedItemMarkdownNode extends ItemNode {
     return value;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return ItemNode.fromRuleNameChildNodesAndOpacity(OrderedItemMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(OrderedItemMarkdownNode, ruleName, childNodes, opacity); }
 }
 
 function valueFromMarkerTerminalNode(markerTerminalNode) {

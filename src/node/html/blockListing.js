@@ -3,15 +3,15 @@
 import HTMLNode from "../../node/html";
 
 export default class BlockListingHTMLNode extends HTMLNode {
-  className(context) { return this.outerNode.className(context); }
+  className(context) {
+    const className = this.fromFirstChildNode((firstChildNode) => {
+      const blockListingStartHTMLNode = firstChildNode, ///
+            className = blockListingStartHTMLNode.className(context);
 
-  asHTML(indent, context) {
-    const childNodesHTML = this.childNodesAsHTML(indent, context),
-          startingTag = this.startingTag(context),
-          closingTag = this.closingTag(context),
-          html = `${startingTag}${childNodesHTML}${closingTag}`;
+      return className;
+    });
 
-    return html;
+    return className;
   }
 
   static lines = 2;

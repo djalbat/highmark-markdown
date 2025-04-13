@@ -6,8 +6,8 @@ export default class ClassNameMarkdownNode extends MarkdownNode {
   className(context) {
     const className = this.fromSecondChildNode((secondChildNode) => {
       const identifierTerminalNode = secondChildNode, ///
-            identifierTerminalNodeContent = identifierTerminalNode.getContent(),
-            className = identifierTerminalNodeContent; ///
+            content = identifierTerminalNode.getContent(),
+            className = content;  ///
 
       return className;
     });

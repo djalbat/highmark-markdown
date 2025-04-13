@@ -11,16 +11,14 @@ import ReferenceMarkdownNode from "../node/markdown/reference";
 import HyperlinkMarkdownNode from "../node/markdown/hyperlink";
 import IndexListMarkdownNode from "../node/markdown/indexList";
 import IndexLinkMarkdownNode from "../node/markdown/indexLink";
-import BlockLineMarkdownNode from "../node/markdown/blockLine";
-import ClassNameMarkdownNode from "../node/markdown/className";
 import EmailLinkMarkdownNode from "../node/markdown/emailLink";
 import PlainTextMarkdownNode from "../node/markdown/text/plain";
 import BlockTextMarkdownNode from "../node/markdown/text/block";
+import ClassNameMarkdownNode from "../node/markdown/className";
 import InlineTextMarkdownNode from "../node/markdown/inlineText";
 import StrongTextMarkdownNode from "../node/markdown/strongText";
 import SubDivisionMarkdownNode from "../node/markdown/subDivision";
 import OrderedItemMarkdownNode from "../node/markdown/item/ordered";
-import BlockListingMarkdownNode from "../node/markdown/blockListing";
 import ContentsLinkMarkdownNode from "../node/markdown/contentsLink";
 import ContentsItemMarkdownNode from "../node/markdown/contentsItem";
 import ContentsListMarkdownNode from "../node/markdown/contentsList";
@@ -35,7 +33,6 @@ import TertiaryHeadingMarkdownNode from "../node/markdown/heading/tertiary";
 import SecondaryHeadingMarkdownNode from "../node/markdown/heading/secondary";
 import IncludeDirectiveMarkdownNode from "../node/markdown/directive/include";
 import QuaternaryHeadingMarkdownNode from "../node/markdown/heading/quaternary";
-import BlockListingStartMarkdownNode from "../node/markdown/blockListingStart";
 import PageNumberDirectiveMarkdownNode from "../node/markdown/directive/pageNumber";
 import StronglyEmphasisedTextMarkdownNode from "../node/markdown/stronglyEmphasisedText";
 
@@ -50,16 +47,14 @@ import { LINE_RULE_NAME,
          HYPERLINK_RULE_NAME,
          INDEX_LIST_RULE_NAME,
          INDEX_LINK_RULE_NAME,
-         BLOCK_LINE_RULE_NAME,
-         CLASS_NAME_RULE_NAME,
          EMAIL_LINK_RULE_NAME,
          PLAIN_TEXT_RULE_NAME,
          BLOCK_TEXT_RULE_NAME,
+         CLASS_NAME_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
          SUB_DIVISION_RULE_NAME,
          ORDERED_ITEM_RULE_NAME,
-         BLOCK_LISTING_RULE_NAME,
          CONTENTS_LINK_RULE_NAME,
          CONTENTS_ITEM_RULE_NAME,
          CONTENTS_LIST_RULE_NAME,
@@ -74,7 +69,6 @@ import { LINE_RULE_NAME,
          SECONDARY_HEADING_RULE_NAME,
          INCLUDE_DIRECTIVE_RULE_NAME,
          QUATERNARY_HEADING_RULE_NAME,
-         BLOCK_LISTING_START_RULE_NAME,
          PAGE_NUMBER_DIRECTIVE_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "../ruleNames";
 
@@ -90,16 +84,14 @@ const markdownNodeMap = {
   [HYPERLINK_RULE_NAME]: HyperlinkMarkdownNode,
   [INDEX_LIST_RULE_NAME]: IndexListMarkdownNode,
   [INDEX_LINK_RULE_NAME]: IndexLinkMarkdownNode,
-  [BLOCK_LINE_RULE_NAME]: BlockLineMarkdownNode,
-  [CLASS_NAME_RULE_NAME]: ClassNameMarkdownNode,
   [EMAIL_LINK_RULE_NAME]: EmailLinkMarkdownNode,
   [PLAIN_TEXT_RULE_NAME]: PlainTextMarkdownNode,
   [BLOCK_TEXT_RULE_NAME]: BlockTextMarkdownNode,
+  [CLASS_NAME_RULE_NAME]: ClassNameMarkdownNode,
   [INLINE_TEXT_RULE_NAME]: InlineTextMarkdownNode,
   [STRONG_TEXT_RULE_NAME]: StrongTextMarkdownNode,
   [SUB_DIVISION_RULE_NAME]: SubDivisionMarkdownNode,
   [ORDERED_ITEM_RULE_NAME]: OrderedItemMarkdownNode,
-  [BLOCK_LISTING_RULE_NAME]: BlockListingMarkdownNode,
   [CONTENTS_LINK_RULE_NAME]: ContentsLinkMarkdownNode,
   [CONTENTS_ITEM_RULE_NAME]: ContentsItemMarkdownNode,
   [CONTENTS_LIST_RULE_NAME]: ContentsListMarkdownNode,
@@ -114,7 +106,6 @@ const markdownNodeMap = {
   [SECONDARY_HEADING_RULE_NAME]: SecondaryHeadingMarkdownNode,
   [INCLUDE_DIRECTIVE_RULE_NAME]: IncludeDirectiveMarkdownNode,
   [QUATERNARY_HEADING_RULE_NAME]: QuaternaryHeadingMarkdownNode,
-  [BLOCK_LISTING_START_RULE_NAME]: BlockListingStartMarkdownNode,
   [PAGE_NUMBER_DIRECTIVE_RULE_NAME]: PageNumberDirectiveMarkdownNode,
   [STRONGLY_EMPHASISED_TEXT_RULE_NAME]: StronglyEmphasisedTextMarkdownNode
 };

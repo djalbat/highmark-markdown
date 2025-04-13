@@ -1,10 +1,10 @@
 "use strict";
 
-import PathMarkdownNode from "../path";
-import DirectiveMarkdownNode from "../../../node/markdown/directive";
+import MarkdownNode from "../../../node/markdown";
+import PathMarkdownNode from "../../../node/markdown/path";
 import IncludeDirectiveReplacement from "../../../replacement/includeDirective";
 
-export default class IncludeDirectiveMarkdownNode extends DirectiveMarkdownNode {
+export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
   resolve(context) {
     let includeDirectiveReplacement = null;
 
@@ -56,5 +56,5 @@ export default class IncludeDirectiveMarkdownNode extends DirectiveMarkdownNode 
     return filePath;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return DirectiveMarkdownNode.fromRuleNameChildNodesAndOpacity(IncludeDirectiveMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(IncludeDirectiveMarkdownNode, ruleName, childNodes, opacity); }
 }
