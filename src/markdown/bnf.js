@@ -41,9 +41,7 @@ const bnf = `
                               ;
 
 
-    directives              ::=  pageNumber 
-    
-                               | indexDirective 
+    directives              ::=  indexDirective 
   
                                | ignoreDirective 
   
@@ -51,6 +49,8 @@ const bnf = `
   
                                | footnotesDirective
                                
+                               | pageNumberDirective 
+    
                                | embedDirective ( endOfLine embedDirective )* 
                                
                                | includeDirective ( endOfLine includeDirective )* 
@@ -88,9 +88,6 @@ const bnf = `
     paragraph               ::=  line ( endOfLine line )* ;
     
 
-    pageNumber              ::=  "@pageNumber" ;
-
-
     indexDirective          ::=  "@index" ;
 
 
@@ -107,6 +104,9 @@ const bnf = `
 
 
     footnotesDirective      ::=  "@footnotes" ;
+
+
+    pageNumberDirective     ::=  "@pageNumber" ;
 
 
     nonsense                ::=  ( [escaped] | [number] | [identifier] | [word] | [special] | [unassigned] )+ ;

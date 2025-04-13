@@ -3,8 +3,8 @@
 import DirectiveMarkdownNode from "../../../node/markdown/directive";
 
 export default class PageNumberDirectiveMarkdownNode extends DirectiveMarkdownNode {
-  constructor(ruleName, childNodes, precedence, opacity, domElement, pageNumber) {
-    super(ruleName, childNodes, precedence, opacity, domElement);
+  constructor(ruleName, childNodes, precedence, opacity, pageNumber) {
+    super(ruleName, childNodes, precedence, opacity);
 
     this.pageNumber = pageNumber;
   }

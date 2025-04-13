@@ -61,7 +61,6 @@ import { LINE_RULE_NAME,
          CONTENTS_DIRECTIVE_RULE_NAME,
          BLOCK_LISTING_START_RULE_NAME,
          FOOTNOTES_DIRECTIVE_RULE_NAME,
-         PAGE_NUMBER_DIRECTIVE_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "./ruleNames";
 
 const elementMap = {
@@ -308,10 +307,6 @@ const elementMap = {
   [FOOTNOTES_DIRECTIVE_RULE_NAME]: {
     tagName: null,
     className: null
-  },
-  [PAGE_NUMBER_DIRECTIVE_RULE_NAME]: {
-    tagName: "span",
-    className: "page-number"
   },
   [STRONGLY_EMPHASISED_TEXT_RULE_NAME]: {
     tagName: "em",

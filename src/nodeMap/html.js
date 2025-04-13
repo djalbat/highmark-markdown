@@ -35,7 +35,6 @@ import BlockListingHEndHTMLNode from "../node/html/blockListingEnd";
 import SecondaryHeadingHTMLNode from "../node/html/heading/secondary";
 import QuaternaryHeadingHTMLNode from "../node/html/heading/quaternary";
 import BlockListingHStartHTMLNode from "../node/html/blockListingStart";
-import PageNumberDirectiveHTMLNode from "../node/html/directive/pageNumber";
 import StronglyEmphasisedTextHTMLNode from "../node/html/stronglyEmphasisedText";
 
 import { LINE_RULE_NAME,
@@ -73,7 +72,6 @@ import { LINE_RULE_NAME,
          SECONDARY_HEADING_RULE_NAME,
          QUATERNARY_HEADING_RULE_NAME,
          BLOCK_LISTING_START_RULE_NAME,
-         PAGE_NUMBER_DIRECTIVE_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "../ruleNames";
 
 const htmlNodeMap = {
@@ -112,7 +110,6 @@ const htmlNodeMap = {
   [SECONDARY_HEADING_RULE_NAME]: SecondaryHeadingHTMLNode,
   [QUATERNARY_HEADING_RULE_NAME]: QuaternaryHeadingHTMLNode,
   [BLOCK_LISTING_START_RULE_NAME]: BlockListingHStartHTMLNode,
-  [PAGE_NUMBER_DIRECTIVE_RULE_NAME]: PageNumberDirectiveHTMLNode,
   [STRONGLY_EMPHASISED_TEXT_RULE_NAME]: StronglyEmphasisedTextHTMLNode
 }
 

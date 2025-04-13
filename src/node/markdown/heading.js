@@ -1,14 +1,10 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import MarkdownNode from "../../node/markdown";
 import AnchorMarkdownNode from "../../node/markdown/anchor";
 
 import { CONTENTS_PREPEND } from "../../prepends";
 import { replaceSpacesWithHyphens, removedLeadingWhitespace, removeNonAlphabeticAndSpaceCharacters } from "../../utilities/string";
-
-const { last } = arrayUtilities;
 
 export default class HeadingMarkdownNode extends MarkdownNode {
   getDepth() {
@@ -31,16 +27,6 @@ export default class HeadingMarkdownNode extends MarkdownNode {
           identifier = identifierFromPlainText(plainText);
 
     return identifier;
-  }
-
-  getLineMarkdownNode() {
-    const lineMarkdownNode = this.fromFirstLastChildNode((firstLastChildNode) => {
-      const lineMarkdownNode = firstLastChildNode;  ///
-
-      return lineMarkdownNode;
-    });
-
-    return lineMarkdownNode;
   }
 
   static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity); }

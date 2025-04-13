@@ -63,7 +63,7 @@ export const QUATERNARY_HEADING_RULE_NAME = "quaternaryHeading";
 export const CONTENTS_DIRECTIVE_RULE_NAME = "contentsDirective";
 export const BLOCK_LISTING_START_RULE_NAME = "blockListingStart";
 export const FOOTNOTES_DIRECTIVE_RULE_NAME = "footnotesDirective";
-export const PAGE_NUMBER_DIRECTIVE_RULE_NAME = "pageNumber";  ///
+export const PAGE_NUMBER_DIRECTIVE_RULE_NAME = "pageNumberDirective";
 export const STRONGLY_EMPHASISED_TEXT_RULE_NAME = "stronglyEmphasisedText";
 
 const ruleNames = {

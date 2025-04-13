@@ -1,6 +1,6 @@
 "use strict";
 
-import HTMLNode from "../../html";
+import HTMLNode from "../../../node/html";
 
 import { VALUE_ATTRIBUTE_NAME } from "../../../attributeNames";
 
