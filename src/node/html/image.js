@@ -2,9 +2,24 @@
 
 import HTMLNode from "../../node/html";
 
+import { EMPTY_STRING } from "../../constants";
 import { ALT_ATTRIBUTE_NAME, SRC_ATTRIBUTE_NAME } from "../../attributeNames";
 
 export default class ImageHTMLNode extends HTMLNode {
+  src(context) { return this.outerNode.src(context); }
+
+  alt(context) {
+    const alt = this.fromFirstChildNode((firstChildNode) => {
+      const inlineTextHTMLNode = firstChildNode,  ///
+            plainText = inlineTextHTMLNode.asPlainText(context),
+            alt = plainText;  ///
+
+      return alt;
+    });
+
+    return alt;
+  }
+
   selfClosingTag(context) {
     const tagName = this.tagName(context),
           attributeNames = this.attributeNames(context),
@@ -44,22 +59,26 @@ export default class ImageHTMLNode extends HTMLNode {
     return attributeValues;
   }
 
-  asHTML(indent, context) {
-    indent = this.adjustIndent(indent);
+  mount(parentDOMElement, siblingDOMElement, context) {
+    this.domElement = this.createDOMElement(context);
 
-    const selfClosingTag = this.selfClosingTag(context),
-          html = (indent === null) ?
-                   selfClosingTag :  ///
-                    `${indent}${selfClosingTag}
-`;
+    parentDOMElement.insertBefore(this.domElement, siblingDOMElement)
+  }
 
-    return html;
+  unmount(parentDOMElement, context) {
+    parentDOMElement.removeChild(this.domElement);
+
+    this.domElement = null;
   }
 
   createDOMElement(context) {
-    const tagName = this.tagName(context),
-          domElement = document.createElement(tagName),
-          attributeNames = this.attributeNames(context),
+    let domElement;
+
+    const tagName = this.tagName(context);
+
+    domElement = document.createElement(tagName);
+
+    const attributeNames = this.attributeNames(context),
           attributeValues = this.attributeValues(context);
 
     attributeNames.forEach((attributeName, index) => {
@@ -69,6 +88,12 @@ export default class ImageHTMLNode extends HTMLNode {
     });
 
     return domElement;
+  }
+
+  childNodesAsHTML(indent, context) {
+    const childNodesHTML = EMPTY_STRING;
+
+    return childNodesHTML;
   }
 
   static fromNothing() { return HTMLNode.fromNothing(ImageHTMLNode); }

@@ -3,10 +3,11 @@
 import { Node } from "occam-dom";
 
 import elementMap from "../elementMap";
+import nodeMixins from "../mixins/node";
 
 import { EMPTY_STRING, DOUBLE_SPACE } from "../constants";
 
-export default class HTMLNode extends Node {
+class HTMLNode extends Node {
   constructor(outerNode, parentNode, childNodes, domElement) {
     super(outerNode, parentNode, childNodes);
 
@@ -274,3 +275,7 @@ ${childNodePlainText}`;
     return node;
   }
 }
+
+Object.assign(HTMLNode.prototype, nodeMixins);
+
+export default HTMLNode;

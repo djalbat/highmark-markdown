@@ -77,9 +77,7 @@ class View extends Element {
 
   clearPage() {
     this.clearXMP();
-
     this.clearPreviewDiv();
-
     this.clearInnerMarkdownParseTreeTextarea();
   }
 
@@ -87,8 +85,10 @@ class View extends Element {
     const divisionMarkdownNodes = this.getDivisionMarkdownNodes(),
           divisionMarkdownNode = divisionMarkdownNodes[index],
           tokens = this.getTokens(),
+          pathToURL = (path) => `https://static.djalbat.com/${path}`,
           context = {
-            tokens
+            tokens,
+            pathToURL
           },
           node = divisionMarkdownNode,  ///
           nodes = nodesFromNodeAndQueries(node, queries),
@@ -318,7 +318,7 @@ class View extends Element {
     this.css();
   }
 
-  static initialMarkdown = `[James Smith](https://djalbat.com)`;
+  static initialMarkdown = `![Image](image/music-notation/lovely_s_shaped_slur.jpg)`;
 
   static initialMarkdownStyle = `width: 100%;
 height: 100%;
