@@ -3,67 +3,22 @@
 import HTMLNode from "../../node/html";
 import elementMap from "../../elementMap";
 
+import { EMPTY_STRING } from "../../constants";
 import { STRONG_TEXT_RULE_NAME } from "../../ruleNames";
 
-const { tagName } = elementMap[STRONG_TEXT_RULE_NAME];
+const { tagName: strongTextTagName } = elementMap[STRONG_TEXT_RULE_NAME];
 
 export default class StronglyEmphasisedTextHTMLNode extends HTMLNode {
-  content(context) {
-    const inlineText = this.inlineText(context),
-          content = inlineText; ///
-
-    return content;
-  }
-
-  asHTML(indent, context) {
-    let html = super.asHTML(indent, context);
-
-    const childNodesHTML = html,  ///
-          startingTag = `<${tagName}>`,
-          closingTag = `</${tagName}>`;
-
-    html = `${startingTag}${childNodesHTML}${closingTag}`;
-
-    return html;
-  }
-
-  inlineText(context) {
-    const inlineText = this.fromSecondChildNode((secondChildNode) => {
-      const indent = null,
-            inlineTextMarkdownNode = secondChildNode, ///
-            inlineTextMarkdownNodeHTML = inlineTextMarkdownNode.asHTML(indent, context),
-            inlineText = inlineTextMarkdownNodeHTML;  ///
-
-      return inlineText;
-    });
-
-    return inlineText;
-  }
-
-  createDOMElement(context) {
-    let domElement;
-
-    domElement = document.createElement(tagName);
-
-    const parentDOMElement = domElement,  ///
-          childDOMElement = this.createChildDOMElement(context);
-
-    domElement = childDOMElement; ///
-
-    parentDOMElement.appendChild(domElement);
-
-    domElement = parentDOMElement;  ///
-
-    return domElement;
-  }
-
   createChildDOMElement(context) {
     let domElement;
 
-    const content = this.content(context),
+    const plainText = this.childNodesAsPlainText(context),
+          content = plainText,  ///
           textNode = document.createTextNode(content);
 
-    domElement = super.createDOMElement(context);
+    const tagName = strongTextTagName;  ///
+
+    domElement = document.createElement(tagName);
 
     const parentDOMElement = domElement;  ///
 
@@ -74,6 +29,66 @@ export default class StronglyEmphasisedTextHTMLNode extends HTMLNode {
     domElement = parentDOMElement;  ///
 
     return domElement;
+  }
+
+  mount(parentDOMElement, siblingDOMElement, context) {
+    this.domElement = this.createDOMElement(context);
+
+    parentDOMElement.insertBefore(this.domElement, siblingDOMElement);
+
+    const childDOMElement = this.createChildDOMElement(context),
+          domElement = childDOMElement; ///
+
+    parentDOMElement = this.domElement;
+
+    siblingDOMElement = null;
+
+    parentDOMElement.insertBefore(domElement, siblingDOMElement);
+
+  }
+
+  unmount(parentDOMElement, context) {
+    {
+      const parentDOMElement = this.domElement,
+            firstChild = parentDOMElement.firstChild,
+            domElement = firstChild;  ///
+
+      parentDOMElement.removeChild(domElement)
+    }
+
+    parentDOMElement.removeChild(this.domElement);
+
+    this.domElement = null;
+  }
+
+  childNodesAsHTML(indent, context) {
+    let childNodesHTML;
+
+    indent = this.adjustIndent(indent);
+
+    childNodesHTML = super.childNodesAsHTML(indent, context);
+
+    const startingTag = `<${strongTextTagName}>`,
+          closingTag = `</${strongTextTagName}>`,
+          html = `${indent}${startingTag}
+${childNodesHTML}${indent}${closingTag}
+`;
+
+    childNodesHTML = html;  ///
+
+    return childNodesHTML;
+  }
+
+  childNodesAsPlainText(context) {
+    const childNodesPlainText = this.reduceChildNode((childNodesPlainText, childNode) => {
+      const childNodePlainText = childNode.asPlainText(context);
+
+      childNodesPlainText = `${childNodesPlainText}${childNodePlainText}`;
+
+      return childNodesPlainText;
+    }, EMPTY_STRING);
+
+    return childNodesPlainText;
   }
 
   static fromNothing() { return HTMLNode.fromNothing(StronglyEmphasisedTextHTMLNode); }

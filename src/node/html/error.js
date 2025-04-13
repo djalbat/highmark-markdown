@@ -30,7 +30,7 @@ export default class ErrorHTMLNode extends HTMLNode {
 
     domElement = super.createDOMElement(context);
 
-    const parentDOMElement = domElement;
+    const parentDOMElement = domElement;  ///
 
     domElement = textNode; ///
 

@@ -318,7 +318,7 @@ class View extends Element {
     this.css();
   }
 
-  static initialMarkdown = `![Image](image/music-notation/lovely_s_shaped_slur.jpg)`;
+  static initialMarkdown = `****James Smith****`;
 
   static initialMarkdownStyle = `width: 100%;
 height: 100%;

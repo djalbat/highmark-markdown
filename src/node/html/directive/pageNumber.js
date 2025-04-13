@@ -63,7 +63,7 @@ export default class PageNumberDirectiveHTMLNode extends HTMLNode {
 
     parentDOMElement.appendChild(domElement);
 
-    domElement = parentDOMElement;
+    domElement = parentDOMElement;  ///
 
     return domElement;
   }
