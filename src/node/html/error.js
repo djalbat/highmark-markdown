@@ -3,32 +3,16 @@
 import HTMLNode from "../../node/html";
 
 export default class ErrorHTMLNode extends HTMLNode {
-  asHTML(indent, context) {
-    indent = this.adjustIndent(indent);
-
-    const childNodesHTML = this.childNodesAsHTML(indent, context),
-          startingTag = this.startingTag(context),
-          closingTag = this.closingTag(context),
-          html = `${indent}${startingTag}${childNodesHTML}${closingTag}
-`;
-
-    return html;
-  }
-
-  childNodesAsHTML(indent, context) {
-    const content = this.content(context),
-          childNodesHTML = content; ///
-
-    return childNodesHTML;
-  }
+  error(context) { return this.outerNode.error(context); }
 
   createDOMElement(context) {
     let domElement;
 
-    const content = this.content(context),
-          textNode  = document.createTextNode(content);
+    const error = this.error(context),
+          content = error,  ///
+          textNode = document.createTextNode(content);
 
-    domElement = super.createDOMElement(context);
+    domElement = super.createDOMElement(context)
 
     const parentDOMElement = domElement;  ///
 
@@ -39,6 +23,35 @@ export default class ErrorHTMLNode extends HTMLNode {
     domElement = parentDOMElement;  ///
 
     return domElement;
+  }
+
+  asHTML(indent, context) {
+    let html;
+
+    indent = this.adjustIndent(indent);
+
+    const childNodesHTML = this.childNodesAsHTML(indent, context),
+          startingTag = this.startingTag(context),
+          closingTag = this.closingTag(context);
+
+    html = `${indent}${startingTag}${childNodesHTML}${indent}${closingTag}
+`;
+
+    return html;
+  }
+
+  asPlainText(context) {
+    const error = this.error(context),
+          plainText = error;  ///
+
+    return plainText;
+  }
+
+  childNodesAsHTML(indent, context) {
+    const error = this.error(context),
+          childNodesHTML = error; ///
+
+    return childNodesHTML;
   }
 
   static fromNothing() { return HTMLNode.fromNothing(ErrorHTMLNode); }

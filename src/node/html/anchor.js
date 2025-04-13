@@ -57,12 +57,12 @@ export default class AnchorHTMLNode extends HTMLNode {
     return domElement;
   }
 
-  childNodesAsHTML(indent, context) {
-    const content = this.content(context),
-          childNodesHTML = content; ///
-
-    return childNodesHTML;
-  }
+  // childNodesAsHTML(indent, context) {
+  //   const content = this.content(context),
+  //         childNodesHTML = content; ///
+  //
+  //   return childNodesHTML;
+  // }
 
   static fromNothing() { return HTMLNode.fromNothing(AnchorHTMLNode); }
 

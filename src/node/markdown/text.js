@@ -6,13 +6,13 @@ import { EMPTY_STRING } from "../../constants";
 import { ESCAPED_TOKEN_TYPE } from "../../tokenTypes";
 
 export default class TextMarkdownNode extends MarkdownNode {
-  content(context) {
+  text(context) {
     const { tokens } = context;
 
     let { whitespaceTokenIndex } = context;
 
-    const content = this.fromFirstChildNode((firstChildNode) => {
-      let content = EMPTY_STRING;
+    const text = this.fromFirstChildNode((firstChildNode) => {
+      let text = EMPTY_STRING;
 
       const terminalNode = firstChildNode,  ///
             significantToken = terminalNode.getSignificantToken(),
@@ -28,7 +28,7 @@ export default class TextMarkdownNode extends MarkdownNode {
             const whitespaceToken = previousToken,  ///
                   whitespaceTokenContent = whitespaceToken.getContent();
 
-            content = `${content}${whitespaceTokenContent}`;
+            text = `${text}${whitespaceTokenContent}`;
 
             whitespaceTokenIndex = previousTokenIndex;  ///
           }
@@ -45,7 +45,7 @@ export default class TextMarkdownNode extends MarkdownNode {
         significantTokenContent = significantTokenContent.substring(start);
       }
 
-      content = `${content}${significantTokenContent}`;
+      text = `${text}${significantTokenContent}`;
 
       const tokensLength = tokens.length,
             nextTokenIndex = significantTokenIndex + 1;
@@ -59,21 +59,21 @@ export default class TextMarkdownNode extends MarkdownNode {
             const whitespaceToken = nextToken,  ///
                   whitespaceTokenContent = whitespaceToken.getContent();
 
-            content = `${content}${whitespaceTokenContent}`;
+            text = `${text}${whitespaceTokenContent}`;
 
             whitespaceTokenIndex = nextTokenIndex;  ///
           }
         }
       }
 
-      return content;
+      return text;
     });
 
     Object.assign(context, {
       whitespaceTokenIndex
     });
 
-    return content;
+    return text;
   }
 
   static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity); }

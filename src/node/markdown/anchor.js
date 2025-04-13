@@ -23,11 +23,11 @@ export default class AnchorMarkdownNode extends MarkdownNode {
     return this.identifier;
   }
 
-  content(context) {
-    const content = EMPTY_STRING;
-
-    return content;
-  }
+  // content(context) {
+  //   const content = EMPTY_STRING;
+  //
+  //   return content;
+  // }
 
   clone() { return super.clone(this.prepend, this.identifier); }
 

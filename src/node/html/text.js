@@ -3,8 +3,11 @@
 import HTMLNode from "../../node/html";
 
 export default class TextHTMLNode extends HTMLNode {
+  text(content) { return this.outerNode.text(content); }
+
   createDOMElement(context) {
-    const content = this.content(context),
+    const text = this.text(context),
+          content = text, ///
           textNode = document.createTextNode(content),
           domElement = textNode;  ///
 
@@ -12,15 +15,15 @@ export default class TextHTMLNode extends HTMLNode {
   }
 
   asHTML(indent, context) {
-    const content = this.content(context),
-          html = content; ///
+    const text = this.text(context),
+          html = text; ///
 
     return html;
   }
 
   asPlainText(context) {
-    const content = this.content(context),
-          plainText = content; ///
+    const text = this.text(context),
+          plainText = text; ///
 
     return plainText;
   }

@@ -28,7 +28,6 @@ import FootnoteLinkMarkdownNode from "../node/markdown/footnoteLink";
 import InlineListingMarkdownNode from "../node/markdown/inlineListing";
 import FootnotesItemMarkdownNode from "../node/markdown/footnotesItem";
 import FootnotesListMarkdownNode from "../node/markdown/footnotesList";
-import VerticalSpaceMarkdownNode from "../node/markdown/verticalSpace";
 import EmphasisedTextMarkdownNode from "../node/markdown/emphasisedText";
 import PrimaryHeadingMarkdownNode from "../node/markdown/heading/primary";
 import EmbedDirectiveMarkdownNode from "../node/markdown/directive/embee";
@@ -68,7 +67,6 @@ import { LINE_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
          FOOTNOTES_ITEM_RULE_NAME,
          FOOTNOTES_LIST_RULE_NAME,
-         VERTICAL_SPACE_RULE_NAME,
          EMPHASISED_TEXT_RULE_NAME,
          PRIMARY_HEADING_RULE_NAME,
          EMBED_DIRECTIVE_RULE_NAME,
@@ -109,7 +107,6 @@ const markdownNodeMap = {
   [INLINE_LISTING_RULE_NAME]: InlineListingMarkdownNode,
   [FOOTNOTES_ITEM_RULE_NAME]: FootnotesItemMarkdownNode,
   [FOOTNOTES_LIST_RULE_NAME]: FootnotesListMarkdownNode,
-  [VERTICAL_SPACE_RULE_NAME]: VerticalSpaceMarkdownNode,
   [EMPHASISED_TEXT_RULE_NAME]: EmphasisedTextMarkdownNode,
   [PRIMARY_HEADING_RULE_NAME]: PrimaryHeadingMarkdownNode,
   [EMBED_DIRECTIVE_RULE_NAME]: EmbedDirectiveMarkdownNode,

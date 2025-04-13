@@ -31,8 +31,6 @@ class HTMLNode extends Node {
 
   getRuleName() { return this.outerNode.getRuleName(); }
 
-  content(context) { return this.outerNode.content(context); }
-
   adjustIndent(indent) {
     indent = (indent === null) ?
                EMPTY_STRING :

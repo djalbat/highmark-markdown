@@ -17,11 +17,11 @@ export default class PageNumberDirectiveMarkdownNode extends DirectiveMarkdownNo
     this.pageNumber = pageNumber;
   }
 
-  content(context) {
-    const content = this.pageNumber;
-
-    return content;
-  }
+  // content(context) {
+  //   const content = this.pageNumber;
+  //
+  //   return content;
+  // }
 
   clone() { return super.clone(this.pageNumber); }
 

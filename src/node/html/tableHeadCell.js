@@ -14,17 +14,6 @@ export default class TableHeadCellHTMLNode extends HTMLNode {
     return childNodesHTML;
   }
 
-  childNodesAsPlainText(indent, context) {
-    const childNodesPlainText = this.fromFirstChildNode((firstChildNode) => {
-      const tableCellMarkdownNode = firstChildNode, ///
-            childNodesPlainText = tableCellMarkdownNode.childNodesAsPlainText(indent, context);
-
-      return childNodesPlainText;
-    });
-
-    return childNodesPlainText;
-  }
-
   static fromNothing() { return HTMLNode.fromNothing(TableHeadCellHTMLNode); }
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(TableHeadCellHTMLNode, outerNode); }

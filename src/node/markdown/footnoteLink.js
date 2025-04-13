@@ -23,13 +23,13 @@ export default class FootnoteLinkMarkdownNode extends MarkdownNode {
     this.number = number;
   }
 
-  content(context) {
-    const content = (this.number !== null) ?
-                      this.number :
-                        EMPTY_STRING;
-
-    return content;
-  }
+  // content(context) {
+  //   const content = (this.number !== null) ?
+  //                     this.number :
+  //                       EMPTY_STRING;
+  //
+  //   return content;
+  // }
 
   identifier(context) {
     const identifier = this.fromFirstChildNode((firstChildNode) => {
