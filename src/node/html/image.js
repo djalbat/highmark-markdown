@@ -97,6 +97,10 @@ export default class ImageHTMLNode extends HTMLNode {
     return childNodesHTML;
   }
 
+  static tagName = "img";
+
+  static className = null;
+
   static fromNothing() { return HTMLNode.fromNothing(ImageHTMLNode); }
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(ImageHTMLNode, outerNode); }

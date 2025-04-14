@@ -2,7 +2,6 @@
 
 import { Node } from "occam-dom";
 
-import elementMap from "../elementMap";
 import nodeMixins from "../mixins/node";
 
 import { EMPTY_STRING, DOUBLE_SPACE } from "../constants";
@@ -58,25 +57,13 @@ class HTMLNode extends Node {
   }
 
   tagName(context) {
-    let tagName;
-
-    const ruleName = this.getRuleName();
-
-    const element = elementMap[ruleName];
-
-    ({ tagName } = element);
+    const { tagName } = this.constructor;
 
     return tagName;
   }
 
   className(context) {
-    let className;
-
-    const ruleName = this.getRuleName();
-
-    const element = elementMap[ruleName];
-
-    ({ className } = element);
+    const { className } = this.constructor;
 
     return className;
   }

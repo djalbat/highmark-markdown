@@ -20,6 +20,10 @@ export default class OrderedItemHTMLNode extends HTMLNode {
     return attributeValue;
   }
 
+  static tagName = "li";
+
+  static className = null;
+
   static fromNothing() { return HTMLNode.fromNothing(OrderedItemHTMLNode); }
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(OrderedItemHTMLNode, outerNode); }

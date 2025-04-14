@@ -54,6 +54,10 @@ export default class ErrorHTMLNode extends HTMLNode {
     return childNodesHTML;
   }
 
+  static tagName = "span";
+
+  static className = "error";
+
   static fromNothing() { return HTMLNode.fromNothing(ErrorHTMLNode); }
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(ErrorHTMLNode, outerNode); }

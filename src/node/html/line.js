@@ -54,6 +54,10 @@ export default class LineHTMLNode extends HTMLNode {
     return childNodesPlainText;
   }
 
+  static tagName = "span";
+
+  static className = "line";
+
   static fromNothing() { return HTMLNode.fromNothing(LineHTMLNode); }
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(LineHTMLNode, outerNode); }

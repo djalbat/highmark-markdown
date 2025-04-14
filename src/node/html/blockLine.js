@@ -68,6 +68,10 @@ export default class BlockLineHTMLNode extends HTMLNode {
 
   static lines = 2;
 
+  static tagName = "span";
+
+  static className = "block-line";
+
   static fromNothing() { return HTMLNode.fromNothing(BlockLineHTMLNode); }
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(BlockLineHTMLNode, outerNode); }

@@ -64,6 +64,10 @@ export default class AnchorHTMLNode extends HTMLNode {
   //   return childNodesHTML;
   // }
 
+  static tagName = "a";
+
+  static className = "anchor";
+
   static fromNothing() { return HTMLNode.fromNothing(AnchorHTMLNode); }
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(AnchorHTMLNode, outerNode); }
