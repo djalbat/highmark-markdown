@@ -7,6 +7,7 @@ import ErrorMarkdownNode from "../node/markdown/error";
 import AnchorMarkdownNode from "../node/markdown/anchor";
 import DivisionMarkdownNode from "../node/markdown/division";
 import FootnoteMarkdownNode from "../node/markdown/footnote";
+import BlockEndMarkdownNode from "../node/markdown/blockEnd";
 import ParagraphMarkdownNode from "../node/markdown/paragraph";
 import ReferenceMarkdownNode from "../node/markdown/reference";
 import HyperlinkMarkdownNode from "../node/markdown/hyperlink";
@@ -16,10 +17,12 @@ import EmailLinkMarkdownNode from "../node/markdown/emailLink";
 import PlainTextMarkdownNode from "../node/markdown/text/plain";
 import BlockTextMarkdownNode from "../node/markdown/text/block";
 import ClassNameMarkdownNode from "../node/markdown/className";
+import BlockStartMarkdownNode from "../node/markdown/blockStart";
 import InlineTextMarkdownNode from "../node/markdown/inlineText";
 import StrongTextMarkdownNode from "../node/markdown/strongText";
 import SubDivisionMarkdownNode from "../node/markdown/subDivision";
 import OrderedItemMarkdownNode from "../node/markdown/item/ordered";
+import BlockListingMarkdownNode from "../node/markdown/blockListing";
 import ContentsLinkMarkdownNode from "../node/markdown/contentsLink";
 import ContentsItemMarkdownNode from "../node/markdown/contentsItem";
 import ContentsListMarkdownNode from "../node/markdown/contentsList";
@@ -44,6 +47,7 @@ import { LINE_RULE_NAME,
          ANCHOR_RULE_NAME,
          DIVISION_RULE_NAME,
          FOOTNOTE_RULE_NAME,
+         BLOCK_END_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          REFERENCE_RULE_NAME,
          HYPERLINK_RULE_NAME,
@@ -53,10 +57,12 @@ import { LINE_RULE_NAME,
          PLAIN_TEXT_RULE_NAME,
          BLOCK_TEXT_RULE_NAME,
          CLASS_NAME_RULE_NAME,
+         BLOCK_START_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
          SUB_DIVISION_RULE_NAME,
          ORDERED_ITEM_RULE_NAME,
+         BLOCK_LISTING_RULE_NAME,
          CONTENTS_LINK_RULE_NAME,
          CONTENTS_ITEM_RULE_NAME,
          CONTENTS_LIST_RULE_NAME,
@@ -82,6 +88,7 @@ const markdownNodeMap = {
   [ANCHOR_RULE_NAME]: AnchorMarkdownNode,
   [DIVISION_RULE_NAME]: DivisionMarkdownNode,
   [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
+  [BLOCK_END_RULE_NAME]: BlockEndMarkdownNode,
   [REFERENCE_RULE_NAME]: ReferenceMarkdownNode,
   [HYPERLINK_RULE_NAME]: HyperlinkMarkdownNode,
   [PARAGRAPH_RULE_NAME]: ParagraphMarkdownNode,
@@ -91,11 +98,13 @@ const markdownNodeMap = {
   [PLAIN_TEXT_RULE_NAME]: PlainTextMarkdownNode,
   [BLOCK_TEXT_RULE_NAME]: BlockTextMarkdownNode,
   [CLASS_NAME_RULE_NAME]: ClassNameMarkdownNode,
+  [BLOCK_START_RULE_NAME]: BlockStartMarkdownNode,
   [INLINE_TEXT_RULE_NAME]: InlineTextMarkdownNode,
   [STRONG_TEXT_RULE_NAME]: StrongTextMarkdownNode,
   [SUB_DIVISION_RULE_NAME]: SubDivisionMarkdownNode,
   [ORDERED_ITEM_RULE_NAME]: OrderedItemMarkdownNode,
   [CONTENTS_LINK_RULE_NAME]: ContentsLinkMarkdownNode,
+  [BLOCK_LISTING_RULE_NAME]: BlockListingMarkdownNode,
   [CONTENTS_ITEM_RULE_NAME]: ContentsItemMarkdownNode,
   [CONTENTS_LIST_RULE_NAME]: ContentsListMarkdownNode,
   [FOOTNOTE_LINK_RULE_NAME]: FootnoteLinkMarkdownNode,

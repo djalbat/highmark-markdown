@@ -3,16 +3,7 @@
 import HTMLNode from "../../node/html";
 
 export default class BlockListingHTMLNode extends HTMLNode {
-  className(context) {
-    const className = this.fromFirstChildNode((firstChildNode) => {
-      const blockListingStartHTMLNode = firstChildNode, ///
-            className = blockListingStartHTMLNode.className(context);
-
-      return className;
-    });
-
-    return className;
-  }
+  className(context) { return this.outerNode.className(context); }
 
   static lines = 2;
 

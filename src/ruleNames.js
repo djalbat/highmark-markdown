@@ -2,11 +2,12 @@
 
 export const LINE_RULE_NAME = "line";
 export const PATH_RULE_NAME = "path";
-export const COMMA_RULE_NAME = "comma";
 export const IMAGE_RULE_NAME = "image";
 export const TABLE_RULE_NAME = "table";
 export const ERROR_RULE_NAME = "error";
+export const COMMA_RULE_NAME = "comma";
 export const ANCHOR_RULE_NAME = "anchor";
+export const FOOTER_RULE_NAME = "footer";
 export const DIVISION_RULE_NAME = "division";
 export const FOOTNOTE_RULE_NAME = "footnote";
 export const NONSENSE_RULE_NAME = "nonsense";
@@ -30,6 +31,7 @@ export const BLOCK_START_RULE_NAME = "blockStart";
 export const END_OF_LINE_RULE_NAME = "endOfLine";
 export const INLINE_TEXT_RULE_NAME = "inlineText";
 export const STRONG_TEXT_RULE_NAME = "strongText";
+export const FOOTER_LINK_RULE_NAME = "footerLink";
 export const SUB_DIVISION_RULE_NAME = "subDivision";
 export const ORDERED_LIST_RULE_NAME = "orderedList";
 export const ORDERED_ITEM_RULE_NAME = "orderedItem";
@@ -40,6 +42,7 @@ export const CONTENTS_ITEM_RULE_NAME = "contentsItem";
 export const CONTENTS_LIST_RULE_NAME = "contentsList";
 export const FOOTNOTE_LINK_RULE_NAME = "footnoteLink";
 export const TABLE_DIVIDER_RULE_NAME = "tableDivider";
+export const VERTICAL_SPACE_RULE_NAME = "verticalSpace";
 export const TABLE_HEAD_ROW_RULE_NAME = "tableHeadRow";
 export const TABLE_BODY_ROW_RULE_NAME = "tableBodyRow";
 export const INLINE_LISTING_RULE_NAME = "inlineListing";
@@ -106,6 +109,7 @@ const ruleNames = {
   CONTENTS_LIST_RULE_NAME,
   FOOTNOTE_LINK_RULE_NAME,
   TABLE_DIVIDER_RULE_NAME,
+  VERTICAL_SPACE_RULE_NAME,
   TABLE_HEAD_ROW_RULE_NAME,
   TABLE_BODY_ROW_RULE_NAME,
   INLINE_LISTING_RULE_NAME,

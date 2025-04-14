@@ -318,11 +318,9 @@ class View extends Element {
     this.css();
   }
 
-  static initialMarkdown = `\`\`\`css
-function () {
-  var variable = 1;
-}  
-\`\`\`  
+  static initialMarkdown = `[James Smith](james.smith@djalbat.com)
+  
+james.smith@djalbat.com  
 
 `;
 

@@ -1,36 +1,39 @@
 "use strict";
 
 import { LINE_RULE_NAME,
+         ERROR_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
-         ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
          DIVISION_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
-         INDEX_LIST_RULE_NAME,
-         INDEX_ITEM_RULE_NAME,
-         INDEX_LINK_RULE_NAME,
          TABLE_HEAD_RULE_NAME,
          TABLE_BODY_RULE_NAME,
-         BLOCK_LINE_RULE_NAME,
+         INDEX_ITEM_RULE_NAME,
+         INDEX_LINK_RULE_NAME,
+         INDEX_LIST_RULE_NAME,
          EMAIL_LINK_RULE_NAME,
+         BLOCK_LINE_RULE_NAME,
+         PLAIN_TEXT_RULE_NAME,
+         BLOCK_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
-         ORDERED_LIST_RULE_NAME,
+         INLINE_TEXT_RULE_NAME,
          ORDERED_ITEM_RULE_NAME,
-         INDEX_HEADING_RULE_NAME,
-         BLOCK_LISTING_RULE_NAME,
-         CONTENTS_LINK_RULE_NAME,
+         ORDERED_LIST_RULE_NAME,
          CONTENTS_ITEM_RULE_NAME,
          CONTENTS_LIST_RULE_NAME,
+         CONTENTS_LINK_RULE_NAME,
+         INDEX_HEADING_RULE_NAME,
+         BLOCK_LISTING_RULE_NAME,
          FOOTNOTE_LINK_RULE_NAME,
          TABLE_HEAD_ROW_RULE_NAME,
          TABLE_BODY_ROW_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
-         UNORDERED_LIST_RULE_NAME,
-         UNORDERED_ITEM_RULE_NAME,
          FOOTNOTES_ITEM_RULE_NAME,
          FOOTNOTES_LIST_RULE_NAME,
+         UNORDERED_ITEM_RULE_NAME,
+         UNORDERED_LIST_RULE_NAME,
          TABLE_HEAD_CELL_RULE_NAME,
          TABLE_BODY_CELL_RULE_NAME,
          EMPHASISED_TEXT_RULE_NAME,
@@ -97,12 +100,24 @@ const elementMap = {
     tagName: "span",
     className: "block-line"
   },
+  [PLAIN_TEXT_RULE_NAME]: {
+    tagName: null,
+    className: null
+  },
+  [BLOCK_TEXT_RULE_NAME]: {
+    tagName: null,
+    className: null
+  },
   [EMAIL_LINK_RULE_NAME]: {
     tagName: "a",
     className: "email-link"
   },
   [STRONG_TEXT_RULE_NAME]: {
     tagName: "strong",
+    className: null
+  },
+  [INLINE_TEXT_RULE_NAME]: {
+    tagName: null,
     className: null
   },
   [ORDERED_LIST_RULE_NAME]: {

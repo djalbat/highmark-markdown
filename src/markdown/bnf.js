@@ -124,12 +124,6 @@ const bnf = `
     unorderedItem           ::=  [bullet] line ( endOfLine line )* ;
 
 
-    blockStart              ::=  [backticks] className? <END_OF_LINE> ;
-
-
-    blockEnd                ::=  [backticks] ;
-
-
     blockLine.              ::=  blockText* endOfLine ;
     
 
@@ -159,12 +153,34 @@ const bnf = `
     tableCell               ::=  line tableCellDivider ;
     
     
-    tableDivider            ::=  [dashes] ;
+    contentsList            ::=  contentsItem+ ;
+
+
+    contentsItem            ::=  contentsLink 
+    
+                              |  contentsLink? contentsList
+                              
+                              ;
+
+
+    contentsLink            ::=  line ;
+
+
+    footnotesList           ::=  footnotesItem+ ;
+
+
+    footnotesItem           ::=  anchor paragraph ;
+
+
+    indexHeading            ::=  line ;
     
     
-    tableCellDivider        ::=  [vertical-bar] ;
-    
-    
+    indexList               ::=  indexItem+ ;
+
+
+    indexItem               ::=  line... comma indexLink ( comma indexLink )* ;
+
+
     line.                   ::=  ( inlineListing 
     
                                  | footnoteLink 
@@ -184,12 +200,6 @@ const bnf = `
                                  | stronglyEmphasisedText )+ ;
     
     
-    inlineText              ::=  plainText+ ;
-    
-    
-    footnoteLink.           ::=  [link] ;
-    
-
     emailLink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [email-address] ")" 
     
                               |  [email-address] 
@@ -207,21 +217,36 @@ const bnf = `
     image.                  ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" path ")" ;
 
 
-    path                    ::=  [path] ;
-
-
-    inlineListing           ::=  [backticked-literal] ;
+    inlineText              ::=  plainText+ ;
     
-
-    stronglyEmphasisedText  ::=  "****" inlineText "****" ;
     
+    strongText              ::=  "***" inlineText "***" ;
+
 
     emphasisedText          ::=  "**" inlineText "**" ;
 
 
-    strongText              ::=  "***" inlineText "***" ;
+    stronglyEmphasisedText  ::=  "****" inlineText "****" ;
+    
+
+    className               ::=  <NO_WHITESPACE>[identifier] ;
+    
+
+    blockStart              ::=  [backticks] className? <END_OF_LINE> ;
 
 
+    blockEnd                ::=  [backticks] ;
+
+
+    footnoteLink.           ::=  [link] ;
+    
+
+    tableCellDivider        ::=  [vertical-bar] ;
+    
+    
+    tableDivider            ::=  [dashes] ;
+    
+    
     plainText               ::=  [escaped] 
                               
                               |  [number] 
@@ -268,41 +293,16 @@ const bnf = `
                               ;
     
 
+    inlineListing           ::=  [backticked-literal] ;
+    
+
     reference.              ::=  [reference] ;
     
 
-    className               ::=  <NO_WHITESPACE>[identifier] ;
-    
-
-    contentsList            ::=  contentsItem+ ;
-
-
-    contentsItem            ::=  contentsLink 
-    
-                              |  contentsLink? contentsList
-                              
-                              ;
-
-
-    contentsLink            ::=  line ;
-
-
-    footnotesList           ::=  footnotesItem+ ;
-
-
-    footnotesItem           ::=  anchor paragraph ;
-
-
-    indexHeading            ::=  line ;
-    
-    
-    indexList               ::=  indexItem+ ;
-
-
-    indexItem               ::=  line... comma indexLink ( comma indexLink )* ;
-
-
     indexLink               ::=  [number] ;    
+
+
+    path                    ::=  [path] ;
 
 
     comma.                  ::=  "," ;    
