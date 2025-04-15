@@ -3,9 +3,9 @@
 import { UNDERSCORE, GLOBAL_FLAG, SINGLE_SPACE } from "../constants";
 
 export default class IndexMatch {
-  constructor(regularExpression, replacement) {
+  constructor(regularExpression, transform) {
     this.regularExpression = regularExpression;
-    this.replacement = replacement;
+    this.transform = transform;
   }
 
   getRegularExpression() {
@@ -13,11 +13,11 @@ export default class IndexMatch {
   }
 
   getReplacement() {
-    return this.replacement;
+    return this.transform;
   }
 
   replace(plainText) {
-    plainText = plainText.replace(this.regularExpression, this.replacement);  ///
+    plainText = plainText.replace(this.regularExpression, this.transform);  ///
 
     return plainText;
   }
@@ -30,8 +30,8 @@ export default class IndexMatch {
 
   static fromPhrase(phrase) {
     const regularExpression = new RegExp(phrase, GLOBAL_FLAG),
-          replacement = phrase.replace(/\s/g, UNDERSCORE),
-          indexMatch = new IndexMatch(regularExpression, replacement);
+          transform = phrase.replace(/\s/g, UNDERSCORE),
+          indexMatch = new IndexMatch(regularExpression, transform);
 
     return indexMatch;
   }

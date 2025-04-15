@@ -2,7 +2,7 @@
 
 import MarkdownNode from "../../../node/markdown";
 import PathMarkdownNode from "../../../node/markdown/path";
-import IncludeDirectiveReplacement from "../../../replacement/includeDirective";
+import IncludeDirectiveReplacement from "../../../transform/includeDirective";
 
 export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
   resolve(context) {

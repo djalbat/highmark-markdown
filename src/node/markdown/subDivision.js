@@ -1,8 +1,8 @@
 "use strict";
 
 import MarkdownNode from "../../node/markdown";
-import EmbedDirectivesSubDivisionReplacement from "../../replacement/subDivision/embedDirectives";
-import IncludeDirectivesSubDivisionReplacement from "../../replacement/subDivision/includeDirectives";
+import EmbedDirectivesSubDivisionReplacement from "../../transform/subDivision/embedDirectives";
+import IncludeDirectivesSubDivisionReplacement from "../../transform/subDivision/includeDirectives";
 
 export default class SubDivisionMarkdownNode extends MarkdownNode {
   resolveEmbeddings(divisionMarkdownNode, context) {

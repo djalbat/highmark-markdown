@@ -3,16 +3,16 @@
 import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
-import IndexReplacement from "../../replacement/index";
-import FootnoteReplacement from "../../replacement/footnote";
-import IndexAnchorReplacement from "../../replacement/indexAnchor";
-import ContentsListReplacement from "../../replacement/contentsList";
-import FootnotesListReplacement from "../../replacement/footnotesList";
-import FootnoteSubDivisionReplacement from "../../replacement/subDivision/footnote";
-import IndexDirectiveSubDivisionReplacement from "../../replacement/subDivision/indexDirective";
-import ContentsDirectiveSubDivisionReplacement from "../../replacement/subDivision/contentsDirective";
-import FootnotesDirectiveSubDivisionReplacement from "../../replacement/subDivision/footnotesDirective";
-import PageNumberDirectiveSubDivisionReplacement from "../../replacement/subDivision/pageNumberDirective";
+import IndexReplacement from "../../transform/index";
+import FootnoteReplacement from "../../transform/footnote";
+import IndexAnchorReplacement from "../../transform/indexAnchor";
+import ContentsListReplacement from "../../transform/contentsList";
+import FootnotesListReplacement from "../../transform/footnotesList";
+import FootnoteSubDivisionReplacement from "../../transform/subDivision/footnote";
+import IndexDirectiveSubDivisionReplacement from "../../transform/subDivision/indexDirective";
+import ContentsDirectiveSubDivisionReplacement from "../../transform/subDivision/contentsDirective";
+import FootnotesDirectiveSubDivisionReplacement from "../../transform/subDivision/footnotesDirective";
+import PageNumberDirectiveSubDivisionReplacement from "../../transform/subDivision/pageNumberDirective";
 
 import { DIVISION_RULE_NAME } from "../../ruleNames";
 import { renumberFootnoteLinkMarkdownNodes } from "../../utilities/footnotes";

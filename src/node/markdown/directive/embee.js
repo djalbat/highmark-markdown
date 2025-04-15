@@ -2,7 +2,7 @@
 
 import MarkdownNode from "../../../node/markdown";
 import PathMarkdownNode from "../../../node/markdown/path";
-import EmbedDirectiveReplacement from "../../../replacement/embedDirective";
+import EmbedDirectiveReplacement from "../../../transform/embedDirective";
 
 export default class EmbedDirectiveMarkdownNode extends MarkdownNode {
   resolve(context) {
