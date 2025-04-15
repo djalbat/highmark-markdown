@@ -1,7 +1,7 @@
 "use strict";
 
 import HTMLNode from "../../../node/html";
-import elementMap from "../../../elementMap";
+import tagNameMap from "../../../map/tagName";
 
 import { EMPTY_STRING } from "../../../constants";
 import { STRONG_TEXT_RULE_NAME } from "../../../ruleNames";
@@ -10,7 +10,7 @@ export default class StronglyEmphasisedTextHTMLNode extends HTMLNode {
   createChildDOMElement(context) {
     let domElement;
 
-    const { tagName } = elementMap[STRONG_TEXT_RULE_NAME],
+    const tagName = tagNameMap[STRONG_TEXT_RULE_NAME],
           plainText = this.childNodesAsPlainText(context),
           content = plainText,  ///
           textNode = document.createTextNode(content);

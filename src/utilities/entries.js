@@ -1,12 +1,12 @@
 "use strict";
 
-export function ruleNamesExpressionFromElementMap(elementMap) {
-  const ruleNames = Object.keys(elementMap);
+export function ruleNamesExpressionFromTagNameMap(tagNameMap) {
+  const ruleNames = Object.keys(tagNameMap);
 
   ruleNames.reverse();
 
   const ruleNamesExpression = ruleNames.reduce((ruleNamesExpression, ruleName) => {
-          const { tagName } = elementMap[ruleName];
+          const tagName = tagNameMap[ruleName];
 
           if (tagName !== null) {
             ruleNamesExpression = (ruleNamesExpression === null) ?

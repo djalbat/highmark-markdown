@@ -1,7 +1,7 @@
 "use strict";
 
 import HTMLNode from "./node/html";
-import htmlNodeMap from "./nodeMap/html";
+import htmlNodeMap from "./map/node/html";
 import TopmostHTMLNode from "./node/html/topmost";
 
 export default function ClassFromOuterNode(outerNode) {

@@ -1,47 +1,47 @@
 "use strict";
 
-import LineHTMLNode from "../node/html/line";
-import ErrorHTMLNode from "../node/html/error";
-import ImageHTMLNode from "../node/html/image";
-import TableHTMLNode from "../node/html/table";
-import AnchorHTMLNode from "../node/html/anchor";
-import DivisionHTMLNode from "../node/html/division";
-import ParagraphHTMLNode from "../node/html/paragraph";
-import TableHeadHTMLNode from "../node/html/tableHead";
-import TableBodyHTMLNode from "../node/html/tableBody";
-import HyperlinkHTMLNode from "../node/html/link/hyper";
-import IndexItemHTMLNode from "../node/html/item/index";
-import IndexLinkHTMLNode from "../node/html/link/index";
-import IndexListHTMLNode from "../node/html/indexList";
-import EmailLinkHTMLNode from "../node/html/link/email";
-import BlockLineHTMLNode from "../node/html/blockLine";
-import PlainTextHTMLNode from "../node/html/text/plain";
-import BlockTextHTMLNode from "../node/html/text/block";
-import StrongTextHTMLNode from "../node/html/text/strong";
-import InlineTextHTMLNode from "../node/html/text/inline";
-import OrderedItemHTMLNode from "../node/html/item/ordered";
-import OrderedListHTMLNode from "../node/html/list/ordered";
-import ContentsItemHTMLNode from "../node/html/item/contents";
-import ContentsListHTMLNode from "../node/html/list/contents";
-import ContentsLinkHTMLNode from "../node/html/link/contents";
-import BlockListingHTMLNode from "../node/html/listing/block";
-import IndexHeadingHTMLNode from "../node/html/heading/index";
-import FootnoteLinkHTMLNode from "../node/html/link/footnote";
-import TableHeadRowHTMLNode from "../node/html/tableHeadRow";
-import TableBodyRowHTMLNode from "../node/html/tableBodyRow";
-import InlineListingHTMLNode from "../node/html/listing/inline";
-import FootnotesItemHTMLNode from "../node/html/item/footnotes";
-import FootnotesListHTMLNode from "../node/html/list/footnotes";
-import TableHeadCellHTMLNode from "../node/html/tableHeadCell";
-import TableBodyCellHTMLNode from "../node/html/tableBodyCell";
-import UnorderedItemHTMLNode from "../node/html/item/unordered";
-import UnorderedListHTMLNode from "../node/html/list/unordered";
-import PrimaryHeadingHTMLNode from "../node/html/heading/primary";
-import EmphasisedTextHTMLNode from "../node/html/text/emphasised";
-import TertiaryHeadingHTMLNode from "../node/html/heading/tertiary";
-import SecondaryHeadingHTMLNode from "../node/html/heading/secondary";
-import QuaternaryHeadingHTMLNode from "../node/html/heading/quaternary";
-import StronglyEmphasisedTextHTMLNode from "../node/html/text/stronglyEmphasised";
+import LineHTMLNode from "../../node/html/line";
+import ErrorHTMLNode from "../../node/html/error";
+import ImageHTMLNode from "../../node/html/image";
+import TableHTMLNode from "../../node/html/table";
+import AnchorHTMLNode from "../../node/html/anchor";
+import DivisionHTMLNode from "../../node/html/division";
+import ParagraphHTMLNode from "../../node/html/paragraph";
+import TableHeadHTMLNode from "../../node/html/tableHead";
+import TableBodyHTMLNode from "../../node/html/tableBody";
+import HyperlinkHTMLNode from "../../node/html/link/hyper";
+import IndexItemHTMLNode from "../../node/html/item";
+import IndexLinkHTMLNode from "../../node/html/link";
+import IndexListHTMLNode from "../../node/html/indexList";
+import EmailLinkHTMLNode from "../../node/html/link/email";
+import BlockLineHTMLNode from "../../node/html/blockLine";
+import PlainTextHTMLNode from "../../node/html/text/plain";
+import BlockTextHTMLNode from "../../node/html/text/block";
+import StrongTextHTMLNode from "../../node/html/text/strong";
+import InlineTextHTMLNode from "../../node/html/text/inline";
+import OrderedItemHTMLNode from "../../node/html/item/ordered";
+import OrderedListHTMLNode from "../../node/html/list/ordered";
+import ContentsItemHTMLNode from "../../node/html/item/contents";
+import ContentsListHTMLNode from "../../node/html/list/contents";
+import ContentsLinkHTMLNode from "../../node/html/link/contents";
+import BlockListingHTMLNode from "../../node/html/listing/block";
+import IndexHeadingHTMLNode from "../../node/html/heading";
+import FootnoteLinkHTMLNode from "../../node/html/link/footnote";
+import TableHeadRowHTMLNode from "../../node/html/tableHeadRow";
+import TableBodyRowHTMLNode from "../../node/html/tableBodyRow";
+import InlineListingHTMLNode from "../../node/html/listing/inline";
+import FootnotesItemHTMLNode from "../../node/html/item/footnotes";
+import FootnotesListHTMLNode from "../../node/html/list/footnotes";
+import TableHeadCellHTMLNode from "../../node/html/tableHeadCell";
+import TableBodyCellHTMLNode from "../../node/html/tableBodyCell";
+import UnorderedItemHTMLNode from "../../node/html/item/unordered";
+import UnorderedListHTMLNode from "../../node/html/list/unordered";
+import PrimaryHeadingHTMLNode from "../../node/html/heading/primary";
+import EmphasisedTextHTMLNode from "../../node/html/text/emphasised";
+import TertiaryHeadingHTMLNode from "../../node/html/heading/tertiary";
+import SecondaryHeadingHTMLNode from "../../node/html/heading/secondary";
+import QuaternaryHeadingHTMLNode from "../../node/html/heading/quaternary";
+import StronglyEmphasisedTextHTMLNode from "../../node/html/text/stronglyEmphasised";
 
 import { LINE_RULE_NAME,
          ERROR_RULE_NAME,
@@ -84,7 +84,7 @@ import { LINE_RULE_NAME,
          TERTIARY_HEADING_RULE_NAME,
          SECONDARY_HEADING_RULE_NAME,
          QUATERNARY_HEADING_RULE_NAME,
-         STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "../ruleNames";
+         STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "../../ruleNames";
 
 const htmlNodeMap = {
   [LINE_RULE_NAME]: LineHTMLNode,

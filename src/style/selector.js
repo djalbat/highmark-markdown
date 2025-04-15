@@ -1,7 +1,8 @@
 "use strict";
 
 import ruleNames from "../ruleNames";
-import elementMap from "../elementMap";
+import tagNameMap from "../map/tagName";
+import classNameMap from "../map/className";
 
 import { nodeQuery } from "../utilities/query";
 import { EMPTY_STRING } from "../constants";
@@ -71,7 +72,7 @@ function contentFromNodeAndTokens(node, tokens) {
       const ruleNameValuesIncludesRuleName = ruleNameValues.includes(ruleName);
 
       if (ruleNameValuesIncludesRuleName) {
-        const { tagName, className } = elementMap[ruleName];
+        const tagName = tagNameMap[ruleName];
 
         if (tagName !== null) {
           content = `${content}${tagName}`;
@@ -79,7 +80,7 @@ function contentFromNodeAndTokens(node, tokens) {
 
         switch (ruleName) {
           case ORDERED_ITEM_RULE_NAME: {
-            const { tagName } = elementMap[ORDERED_LIST_RULE_NAME],
+            const tagName = tagNameMap[ORDERED_LIST_RULE_NAME],
 
             content = `${tagName} > ${content}`;
 
@@ -87,7 +88,7 @@ function contentFromNodeAndTokens(node, tokens) {
           }
 
           case UNORDERED_ITEM_RULE_NAME: {
-            const { tagName } = elementMap[UNORDERED_LIST_RULE_NAME];
+            const tagName = tagNameMap[UNORDERED_LIST_RULE_NAME];
 
             content = `${tagName} > ${content}`;
 
@@ -95,13 +96,15 @@ function contentFromNodeAndTokens(node, tokens) {
           }
 
           case STRONGLY_EMPHASISED_TEXT_RULE_NAME: {
-            const { tagName } = elementMap[STRONG_TEXT_RULE_NAME];
+            const tagName = tagNameMap[STRONG_TEXT_RULE_NAME];
 
             content = `${content} > ${tagName}`;
 
             break;
           }
         }
+
+        const className = classNameMap[ruleName];
 
         if (className !== null) {
           content = `${content}.${className}`;

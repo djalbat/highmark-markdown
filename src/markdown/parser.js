@@ -3,7 +3,7 @@
 import { CommonParser } from "occam-parsers";
 
 import bnf from "./bnf";
-import markdownNodeMap from "../nodeMap/markdown";
+import markdownNodeMap from "../map/node/markdown";
 
 import { setNonTerminalNodes } from "../utilities/parser";
 

@@ -1,10 +1,10 @@
 "use strict";
 
-import elementMap from "../elementMap";
+import tagNameMap from "../map/tagName";
 
-import { ruleNamesExpressionFromElementMap } from "../utilities/entries";
+import { ruleNamesExpressionFromTagNameMap } from "../utilities/entries";
 
-const ruleNamesExpression = ruleNamesExpressionFromElementMap(elementMap);
+const ruleNamesExpression = ruleNamesExpressionFromTagNameMap(tagNameMap);
 
 const entries = [
   {

@@ -2,7 +2,7 @@
 
 import { Query } from "occam-query";
 
-import { ruleNames } from "./nodeMap/html";
+import { ruleNames } from "./map/node//html";
 
 const queries = ruleNames.map((ruleName) => {
   const expressionString = `//${ruleName}`,
