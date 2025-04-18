@@ -1,6 +1,6 @@
 "use strict";
 
-import Transform from "../transform";
+import { Transform } from "occam-dom";
 
 export default class LineTransform extends Transform {
   getLineMarkdownNode() {

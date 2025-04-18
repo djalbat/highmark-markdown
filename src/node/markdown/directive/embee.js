@@ -40,9 +40,9 @@ export default class EmbedDirectiveMarkdownNode extends MarkdownNode {
 
       if (firstLastChildNodePathMarkdownNode) {
         const pathMarkdownNode = firstLastChildNode, ///
-              pathMarkdownNodeContent = pathMarkdownNode.getContent();
+              pathMarkdownNodePath = pathMarkdownNode.path(context);
 
-        filePath = pathMarkdownNodeContent; ///
+        filePath = pathMarkdownNodePath; ///
       }
 
       return filePath;

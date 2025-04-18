@@ -1,6 +1,7 @@
 "use strict";
 
-import Transform from "../transform";
+import { Transform } from "occam-dom";
+
 import ContentsLinkTransform from "../transform/contentsLink";
 import ContentsItemMarkdownNode from "../node/markdown/contentsItem";
 

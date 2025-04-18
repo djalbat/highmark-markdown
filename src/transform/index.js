@@ -1,12 +1,13 @@
 "use strict";
 
+import { Transform, transformUtilities } from "occam-dom";
+
 import letters from "../letters";
 import IndexList from "../index/list";
-import Transform from "../transform";
 import IndexListTransform from "../transform/indexList";
 import IndexHeadingTransform from "../transform/indexHeading";
 
-import { replaceNodes, replaceTokens } from "../utilities/transform";
+const { replaceNodes, replaceTokens } = transformUtilities;
 
 export default class IndexTransform extends Transform {
   constructor(node, tokens, nodes) {

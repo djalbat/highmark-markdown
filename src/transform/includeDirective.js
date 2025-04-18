@@ -1,6 +1,6 @@
 "use strict";
 
-import Transform from "../transform";
+import { Transform } from "occam-dom";
 
 import { subDivisionMarkdownNodesFromNode } from "../utilities/query";
 

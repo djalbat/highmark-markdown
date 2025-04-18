@@ -9,7 +9,6 @@ import { MarkdownLexer, MarkdownParser, MarkdownStyleLexer, MarkdownStyleParser 
 
 import queries from "../queries";
 import importer from "./importer";
-import indexOptions from "./indexOptions";
 import PageButtonsDiv from "./view/div/pageButtons";
 import LeftSizeableDiv from "./view/div/sizeable/left";
 import CSSContainerDiv from "./view/div/container/css";
@@ -23,10 +22,10 @@ import PlainTextContainerDiv from "./view/div/container/plainText";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 import InnerMarkdownParseTreeTextarea from "./view/textarea/parseTree/markdown/inner";
 
+import { resolve } from "../utilities/markdown";
+import { postProcess } from "../utilities/html";
 import { initialMarkdown } from "./importer";
 import { nodesFromNodeAndQueries } from "../utilities/query";
-import { LINES_PER_PAGE, CONTENTS_DEPTH, CHARACTERS_PER_LINE } from "./constants";
-import { postprocess, divisionMarkdownNodesFromMarkdownNodes } from "../utilities/processing";
 
 const { topmostNodeFromOuterNodes } = nodeUtilities;
 
@@ -81,15 +80,16 @@ class View extends Element {
     this.clearInnerMarkdownParseTreeTextarea();
   }
 
-  updatePage(index) {
-    const divisionMarkdownNodes = this.getDivisionMarkdownNodes(),
-          divisionMarkdownNode = divisionMarkdownNodes[index],
+  updatePage(index = 0) {
+    return;
+
+    const topmostMarkdownNode = this.getTopmostMarkdownNode(),
           tokens = this.getTokens(),
-          pathToURL = (path) => `https://static.djalbat.com/${path}`,
           context = {
             tokens,
             pathToURL
           },
+          divisionMarkdownNode = topmostMarkdownNode[index],
           node = divisionMarkdownNode,  ///
           nodes = nodesFromNodeAndQueries(node, queries),
           topmostHTMLNode = topmostNodeFromOuterNodes(ClassFromOuterNode, nodes);
@@ -118,69 +118,53 @@ class View extends Element {
           tokens = lexer.tokenise(content),
           node = parser.parse(tokens, startRule);
 
-    this.setTokens(tokens);
+    if (node === null) {
+      this.resetTokens();
 
-    if (node !== null) {
-      // const divisionMarkdownNode = node,  ///
-      //       charactersPerLine = CHARACTERS_PER_LINE,
-      //       contentsDepth = CONTENTS_DEPTH,
-      //       linesPerPage = LINES_PER_PAGE,
-      //       context = {
-      //         tokens,
-      //         importer,
-      //         indexOptions,
-      //         linesPerPage,
-      //         contentsDepth,
-      //         nodeFromTokens,
-      //         tokensFromContent,
-      //         charactersPerLine
-      //       },
-      //       markdownNodes = postprocess(divisionMarkdownNode, context),
-      //       divisionMarkdownNodes = divisionMarkdownNodesFromMarkdownNodes(markdownNodes);
-      //
-      // this.setDivisionMarkdownNodes(divisionMarkdownNodes);
-
-      const divisionMarkdownNode = node,  ///
-            divisionMarkdownNodes = [
-              divisionMarkdownNode
-            ],
-            context = {
-              tokens,
-              importer,
-              nodeFromTokens,
-              tokensFromContent
-            };
-
-      divisionMarkdownNode.resolveEmbeddings(context);
-
-      this.setDivisionMarkdownNodes(divisionMarkdownNodes);
-
-      const parseTree = divisionMarkdownNode.asParseTree(tokens),
-            outerMarkdownParseTree = parseTree; ///
-
-      this.updateOuterMarkdownParseTreeTextarea(outerMarkdownParseTree);
-
-      const index = 0,
-            length = divisionMarkdownNodes.length;
-
-      if (length > 0) {
-        this.updatePage(index);
-
-        this.updatePageButtonsDiv(length);
-      }
-    } else {
-      this.clearPage();
-
-      this.clearPageButtonsDiv();
-
-      this.clearPlainTextTextarea();
+      this.resetTopmostMarkdownNode();
 
       this.clearOuterMarkdownParseTreeTextarea();
 
-      const divisionMarkdownNodes = null;
+      this.clearPageButtonsDiv();
 
-      this.setDivisionMarkdownNodes(divisionMarkdownNodes);
+      this.clearPage();
+
+      return;
     }
+
+    const divisionMarkdownNode = node,  ///
+          context = {
+            tokens,
+            importer,
+            nodeFromTokens,
+            tokensFromContent
+          },
+          topmostMarkdownNode = resolve(divisionMarkdownNode, context);
+
+    if (topmostMarkdownNode === null) {
+      this.resetTokens();
+
+      this.resetTopmostMarkdownNode();
+
+      this.clearOuterMarkdownParseTreeTextarea();
+
+      this.clearPageButtonsDiv();
+
+      this.clearPage();
+
+      return;
+    }
+
+    const parseTree = topmostMarkdownNode.asParseTree(tokens),
+          outerMarkdownParseTree = parseTree; ///
+
+    this.setTokens(tokens);
+
+    this.setTopmostMarkdownNode(topmostMarkdownNode);
+
+    this.updateOuterMarkdownParseTreeTextarea(outerMarkdownParseTree);
+
+    this.updatePage();
   }
 
   updateMarkdownStyle() {
@@ -244,16 +228,28 @@ class View extends Element {
     this.hidePlainTextContainerDiv();
   }
 
+  resetTokens() {
+    const tokens = null;
+
+    this.setTokens(tokens);
+  }
+
+  resetTopmostMarkdownNode() {
+    const topmostMarkdownNode = null;
+
+    this.setTopmostMarkdownNode(topmostMarkdownNode);
+  }
+
   getTokens() {
     const { tokens } = this.getState();
 
     return tokens;
   }
 
-  getDivisionMarkdownNodes() {
-    const { divisionMarkdownNodes } = this.getState();
+  getTopmostMarkdownNode() {
+    const { topmostMarkdownNode } = this.getState();
 
-    return divisionMarkdownNodes;
+    return topmostMarkdownNode;
   }
 
   setTokens(tokens) {
@@ -262,19 +258,19 @@ class View extends Element {
     });
   }
 
-  setDivisionMarkdownNodes(divisionMarkdownNodes) {
+  setTopmostMarkdownNode(topmostMarkdownNode) {
     this.updateState({
-      divisionMarkdownNodes
+      topmostMarkdownNode
     });
   }
 
   setInitialState() {
     const tokens = null,
-          divisionMarkdownNodes = null;
+          topmostMarkdownNode = null;
 
     this.setState({
       tokens,
-      divisionMarkdownNodes
+      topmostMarkdownNode
     });
   }
 
@@ -371,4 +367,10 @@ function nodeFromTokens(tokens, startRuleName = null) {
         node = markdownParser.parse(tokens, startRule);
 
   return node;
+}
+
+function pathToURL(path) {
+  const url = `https://static.djalbat.com/${path}`;
+
+  return url;
 }

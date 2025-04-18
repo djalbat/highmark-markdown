@@ -1,6 +1,6 @@
 "use strict";
 
-import Transform from "../transform";
+import { Transform } from "occam-dom";
 
 export default class SubDivisionTransform extends Transform {
   constructor(node, tokens, subDivisionMarkdownNode) {

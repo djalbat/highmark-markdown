@@ -1,6 +1,6 @@
 "use strict";
 
-import Transform from "../transform";
+import { Transform } from "occam-dom";
 
 import { INDEX_HEADING_RULE_NAME } from "../ruleNames";
 

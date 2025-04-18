@@ -1,6 +1,7 @@
 "use strict";
 
-import Transform from "../transform";
+import { Transform } from "occam-dom";
+
 import AnchorMarkdownNode from "../node/markdown/anchor";
 
 import { INDEX_PREPEND } from "../prepends";

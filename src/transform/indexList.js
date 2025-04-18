@@ -1,6 +1,7 @@
 "use strict";
 
-import Transform from "../transform";
+import { Transform } from "occam-dom";
+
 import IndexItemTransform from "../transform/indexItem";
 import IndexListMarkdownNode from "../node/markdown/indexList";
 

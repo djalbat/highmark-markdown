@@ -1,6 +1,7 @@
 "use strict";
 
-import Transform from "../transform";
+import { Transform } from "occam-dom";
+
 import FootnotesItemMarkdownNode from "../node/markdown/footnotesItem";
 
 export default class FootnotesItemTransform extends Transform {

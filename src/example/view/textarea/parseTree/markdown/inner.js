@@ -10,7 +10,6 @@ class InnerMarkdownParseTreeTextarea extends MarkdownParseTreeTextarea {
     parseTree.shiftLine();
 
     super.update(parseTree);
-
   }
 
   parentContext() {

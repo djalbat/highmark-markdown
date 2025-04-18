@@ -42,17 +42,10 @@ const INDEX_PATH = "index.md",
       INSTALLING_THE_CLI_PATH = "installing-the-cli.md",
       GETTING_TO_GRIPS_WITH_THE_IDE_PATH = "getting-to-grips-with-the-ide.md";
 
-export const initialMarkdown = `
-@embed ${INSTALLING_THE_CLI_PATH}
+export const initialMarkdown = `@ignore 
 
+@include ${FRONT_MATTER_PATH}
 `;
-
-// export const initialMarkdown = `@ignore
-//
-// @include ${FRONT_MATTER_PATH}
-// @include ${CONTENT_PATH}
-// @include ${INDEX_PATH}
-// `;
 
 const indexContent = `## Index
 

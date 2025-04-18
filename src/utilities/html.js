@@ -1,12 +1,6 @@
 "use strict";
 
-export function postprocess(divisionMarkdownNode, context) {
-  let divisionMarkdownNodes;
-
-  divisionMarkdownNodes = resolveIncludes(divisionMarkdownNode, context);
-
-  resolveEmbeddings(divisionMarkdownNodes, context);
-
+export function postProcess(divisionMarkdownNodes, context) {
   const footnoteReplacementMap = prepareFootnotes(divisionMarkdownNodes, context),
         markdownNodes = paginate(divisionMarkdownNodes, context);
 
@@ -17,8 +11,6 @@ export function postprocess(divisionMarkdownNode, context) {
   createContents(divisionMarkdownNodes, context);
 
   createIndex(divisionMarkdownNodes, context);
-
-  return markdownNodes;
 }
 
 function paginate(divisionMarkdownNodes, context) {
@@ -64,26 +56,6 @@ function createFootnotes(divisionMarkdownNodes, footnoteReplacementMap, context)
   });
 }
 
-function resolveIncludes(divisionMarkdownNode, context) {
-  const divisionMarkdownNodes = [];
-
-  Object.assign(context, {
-    divisionMarkdownNodes
-  });
-
-  const divisionMarkdownNodeIgnored = divisionMarkdownNode.isIgnored();
-
-  if (!divisionMarkdownNodeIgnored) {
-    divisionMarkdownNodes.push(divisionMarkdownNode);
-  }
-
-  divisionMarkdownNode.resolveIncludes(context);
-
-  delete context.divisionMarkdownNodes;
-
-  return divisionMarkdownNodes;
-}
-
 function prepareFootnotes(divisionMarkdownNodes, context) {
   const footnoteReplacementMap = {};
 
@@ -94,13 +66,7 @@ function prepareFootnotes(divisionMarkdownNodes, context) {
   return footnoteReplacementMap;
 }
 
-function resolveEmbeddings(divisionMarkdownNodes, context) {
-  divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-    divisionMarkdownNode.resolveEmbeddings(context);
-  });
-}
-
-export function divisionMarkdownNodesFromMarkdownNodes(markdownNodes) {
+function divisionMarkdownNodesFromMarkdownNodes(markdownNodes) {
   const divisionMarkdownNodes = markdownNodes.reduce((divisionMarkdownNodes, markdownNode) => {
     const markdownNodeDivisionMarkdownNode = markdownNode.isDivisionMarkdownNode();
 
@@ -117,6 +83,5 @@ export function divisionMarkdownNodesFromMarkdownNodes(markdownNodes) {
 }
 
 export default {
-  postprocess,
-  divisionMarkdownNodesFromMarkdownNodes
+  postProcess
 }
