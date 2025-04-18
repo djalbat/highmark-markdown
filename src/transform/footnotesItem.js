@@ -1,9 +1,9 @@
 "use strict";
 
-import Replacement from "./";
+import Transform from "../transform";
 import FootnotesItemMarkdownNode from "../node/markdown/footnotesItem";
 
-export default class FootnotesItemReplacement extends Replacement {
+export default class FootnotesItemTransform extends Transform {
   getFootnotesItemMarkdownNode() {
     const node = this.getNode(),
           footnotesItemMarkdownNode = node; ///
@@ -11,14 +11,14 @@ export default class FootnotesItemReplacement extends Replacement {
     return footnotesItemMarkdownNode;
   }
 
-  static fromNode(node, context) { return Replacement.fromNode(FootnotesItemReplacement, node, context); }
+  static fromNode(node, context) { return Transform.fromNode(FootnotesItemTransform, node, context); }
 
-  static fromFootnoteReplacementAndIdentifier(footnoteReplacement, identifier) {
-      const footnoteMarkdownNode = footnoteReplacement.getFootnoteMarkdownNode(),
+  static fromFootnoteTransformAndIdentifier(footnoteTransform, identifier) {
+      const footnoteMarkdownNode = footnoteTransform.getFootnoteMarkdownNode(),
             footnotesItemMarkdownNode = FootnotesItemMarkdownNode.fromFootnotesMarkdownNodeAndIdentifier(footnoteMarkdownNode, identifier),
             ascendantNode = footnotesItemMarkdownNode, ///
-            footnotesItemReplacement = footnoteReplacement.expand(FootnotesItemReplacement, ascendantNode);
+            footnotesItemTransform = footnoteTransform.expand(FootnotesItemTransform, ascendantNode);
 
-    return footnotesItemReplacement;
+    return footnotesItemTransform;
   }
 }

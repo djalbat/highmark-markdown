@@ -1,12 +1,12 @@
 "use strict";
 
-import Replacement from "./";
-import LineReplacement from ".//line";
+import Transform from "../transform";
+import LineTransform from "../transform/line";
 import ContentsLinkMarkdownNode from "../node/markdown/contentsLink";
 
-export default class ContentsLinkReplacement extends Replacement {
+export default class ContentsLinkTransform extends Transform {
   static fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context) {
-    let contentsLinkReplacement = null;
+    let contentsLinkTransform = null;
 
     const node = nestedHeadingMarkdownNode.getNode(),
           headingMarkdownNode = node;  ///
@@ -14,14 +14,14 @@ export default class ContentsLinkReplacement extends Replacement {
     if (headingMarkdownNode !== null) {
       const identifier = headingMarkdownNode.identifier(context),
             lineMarkdownNode = headingMarkdownNode.getLineMarkdownNode(),
-            lineReplacement = LineReplacement.fromLineMarkdownNode(lineMarkdownNode, context),
-            contentsLinkMarkdownNode = ContentsLinkMarkdownNode.fromLineReplacementAndIdentifier(lineReplacement, identifier),
+            lineTransform = LineTransform.fromLineMarkdownNode(lineMarkdownNode, context),
+            contentsLinkMarkdownNode = ContentsLinkMarkdownNode.fromLineTransformAndIdentifier(lineTransform, identifier),
             node = contentsLinkMarkdownNode,  ///
-            tokens = lineReplacement.getTokens();
+            tokens = lineTransform.getTokens();
 
-      contentsLinkReplacement = Replacement.fromNodeAndTokens(ContentsLinkReplacement, node, tokens);
+      contentsLinkTransform = Transform.fromNodeAndTokens(ContentsLinkTransform, node, tokens);
     }
 
-    return contentsLinkReplacement;
+    return contentsLinkTransform;
   }
 }

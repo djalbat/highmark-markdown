@@ -1,32 +1,32 @@
 "use strict";
 
-import Replacement from "./";
-import IndexItemReplacement from ".//indexItem";
+import Transform from "../transform";
+import IndexItemTransform from "../transform/indexItem";
 import IndexListMarkdownNode from "../node/markdown/indexList";
 
-export default class IndexListReplacement extends Replacement {
+export default class IndexListTransform extends Transform {
   static fromIndexListAndLetter(indexList, letter, context) {
-    let indexListReplacement = null;
+    let indexListTransform = null;
 
-    const indexItemReplacements = indexList.reduceIndexItemByLetter(letter, (indexItem) => {
-            const indexItemReplacement = IndexItemReplacement.fromIndexItem(indexItem, context);
+    const indexItemTransforms = indexList.reduceIndexItemByLetter(letter, (indexItem) => {
+            const indexItemTransform = IndexItemTransform.fromIndexItem(indexItem, context);
 
-            return indexItemReplacement;
+            return indexItemTransform;
           }),
-          indexItemReplacementsLength = indexItemReplacements.length;
+          indexItemTransformsLength = indexItemTransforms.length;
 
-    if (indexItemReplacementsLength > 0) {
-      const indexListMarkdownNode = IndexListMarkdownNode.fromIndexItemReplacements(indexItemReplacements),
+    if (indexItemTransformsLength > 0) {
+      const indexListMarkdownNode = IndexListMarkdownNode.fromIndexItemTransforms(indexItemTransforms),
             node = indexListMarkdownNode, ///
             tokens = [];
 
-      indexItemReplacements.forEach((indexItemReplacement) => {
-        indexItemReplacement.getTokens(tokens);
+      indexItemTransforms.forEach((indexItemTransform) => {
+        indexItemTransform.getTokens(tokens);
       });
 
-      indexListReplacement = Replacement.fromNodeAndTokens(IndexListReplacement, node, tokens);
+      indexListTransform = Transform.fromNodeAndTokens(IndexListTransform, node, tokens);
     }
 
-    return indexListReplacement;
+    return indexListTransform;
   }
 }

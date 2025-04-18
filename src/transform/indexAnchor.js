@@ -1,11 +1,11 @@
 "use strict";
 
-import Replacement from "./";
+import Transform from "../transform";
 import AnchorMarkdownNode from "../node/markdown/anchor";
 
 import { INDEX_PREPEND } from "../prepends";
 
-export default class IndexAnchorReplacement extends Replacement {
+export default class IndexAnchorTransform extends Transform {
   getAnchorMarkdownNode() {
     const node = this.getNode(),
           anchorMarkdownNode = node;  ///
@@ -19,8 +19,8 @@ export default class IndexAnchorReplacement extends Replacement {
           anchorMarkdownNode = AnchorMarkdownNode.fromPrependAndIdentifier(prepend, identifier),
           node = anchorMarkdownNode,  ///
           tokens = [],
-          indexAnchorReplacement = Replacement.fromNodeAndTokens(IndexAnchorReplacement, node, tokens);
+          indexAnchorTransform = Transform.fromNodeAndTokens(IndexAnchorTransform, node, tokens);
 
-    return indexAnchorReplacement;
+    return indexAnchorTransform;
   }
 }

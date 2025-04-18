@@ -1,20 +1,20 @@
 "use strict";
 
-import SubDivisionReplacement from "../subDivision";
+import SubDivisionTransform from "../../transform/subDivision";
 
 import { pageNumberDirectiveMarkdownNodeFromNode } from "../../utilities/query";
 
-export default class PageNumberDirectiveSubDivisionReplacement extends SubDivisionReplacement {
+export default class PageNumberDirectiveSubDivisionTransform extends SubDivisionTransform {
   static fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context) {
-    let pageNumberDirectiveSubDivisionReplacement = null;
+    let pageNumberDirectiveSubDivisionTransform = null;
 
     const node = subDivisionMarkdownNode, ///
           pageNumberDirectiveMarkdownNode = pageNumberDirectiveMarkdownNodeFromNode(node);
 
     if (pageNumberDirectiveMarkdownNode !== null) {
-      pageNumberDirectiveSubDivisionReplacement = SubDivisionReplacement.fromSubDivisionMarkdownNode(PageNumberDirectiveSubDivisionReplacement, subDivisionMarkdownNode, context);
+      pageNumberDirectiveSubDivisionTransform = SubDivisionTransform.fromSubDivisionMarkdownNode(PageNumberDirectiveSubDivisionTransform, subDivisionMarkdownNode, context);
     }
 
-    return pageNumberDirectiveSubDivisionReplacement;
+    return pageNumberDirectiveSubDivisionTransform;
   }
 }

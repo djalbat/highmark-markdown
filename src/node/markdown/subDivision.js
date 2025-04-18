@@ -1,16 +1,16 @@
 "use strict";
 
 import MarkdownNode from "../../node/markdown";
-import EmbedDirectivesSubDivisionReplacement from "../../transform/subDivision/embedDirectives";
-import IncludeDirectivesSubDivisionReplacement from "../../transform/subDivision/includeDirectives";
+import EmbedDirectivesSubDivisionTransform from "../../transform/subDivision/embedDirectives";
+import IncludeDirectivesSubDivisionTransform from "../../transform/subDivision/includeDirectives";
 
 export default class SubDivisionMarkdownNode extends MarkdownNode {
   resolveEmbeddings(divisionMarkdownNode, context) {
     const subDivisionMarkdownNode = this, ///
-          embedDirectivesSubDivisionReplacement = EmbedDirectivesSubDivisionReplacement.fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context);
+          embedDirectivesSubDivisionTransform = EmbedDirectivesSubDivisionTransform.fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context);
 
-    if (embedDirectivesSubDivisionReplacement !== null) {
-      const subDivisionMarkdownNodes = embedDirectivesSubDivisionReplacement.replaceSubDivisionMarkdownNode(divisionMarkdownNode, context);
+    if (embedDirectivesSubDivisionTransform !== null) {
+      const subDivisionMarkdownNodes = embedDirectivesSubDivisionTransform.replaceSubDivisionMarkdownNode(divisionMarkdownNode, context);
 
       subDivisionMarkdownNodes.forEach((subDivisionMarkdownNode) => {
         subDivisionMarkdownNode.resolveEmbeddings(divisionMarkdownNode, context);
@@ -20,10 +20,10 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
 
   resolveIncludes(divisionMarkdownNode, context) {
     const subDivisionMarkdownNode = this, ///
-          includeDirectivesSubDivisionReplacement = IncludeDirectivesSubDivisionReplacement.fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context);
+          includeDirectivesSubDivisionTransform = IncludeDirectivesSubDivisionTransform.fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context);
 
-    if (includeDirectivesSubDivisionReplacement !== null) {
-      includeDirectivesSubDivisionReplacement.removeSubDivisionMarkdownNode(divisionMarkdownNode, context);
+    if (includeDirectivesSubDivisionTransform !== null) {
+      includeDirectivesSubDivisionTransform.removeSubDivisionMarkdownNode(divisionMarkdownNode, context);
     }
   }
 

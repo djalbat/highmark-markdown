@@ -2,13 +2,13 @@
 
 import { arrayUtilities } from "necessary";
 
-import SubDivisionReplacement from "../subDivision";
+import SubDivisionTransform from "../../transform/subDivision";
 
 import { embedDirectiveMarkdownNodesFromNode } from "../../utilities/query";
 
 const { backwardsForEach } = arrayUtilities;
 
-export default class EmbedDirectivesSubDivisionReplacement extends SubDivisionReplacement {
+export default class EmbedDirectivesSubDivisionTransform extends SubDivisionTransform {
   constructor(node, tokens, subDivisionMarkdownNode, embedDirectiveMarkdownNodes) {
     super(node, tokens, subDivisionMarkdownNode);
 
@@ -24,10 +24,10 @@ export default class EmbedDirectivesSubDivisionReplacement extends SubDivisionRe
           subDivisionMarkdownNode = this.getSubDivisionMarkdownNode();
 
     backwardsForEach(this.embedDirectiveMarkdownNodes, (embedDirectiveMarkdownNode) => {
-      const embedDirectiveReplacement = embedDirectiveMarkdownNode.resolve(context);
+      const embedDirectiveTransform = embedDirectiveMarkdownNode.resolve(context);
 
-      if (embedDirectiveReplacement !== null) {
-        embedDirectiveReplacement.addAfterSubDivisionMarkdownNode(subDivisionMarkdownNode, divisionMarkdownNode, subDivisionMarkdownNodes, context);
+      if (embedDirectiveTransform !== null) {
+        embedDirectiveTransform.addAfterSubDivisionMarkdownNode(subDivisionMarkdownNode, divisionMarkdownNode, subDivisionMarkdownNodes, context);
       }
     });
 
@@ -37,16 +37,16 @@ export default class EmbedDirectivesSubDivisionReplacement extends SubDivisionRe
   }
 
   static fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context) {
-    let embedDirectivesSubDivisionReplacement = null;
+    let embedDirectivesSubDivisionTransform = null;
 
     const node = subDivisionMarkdownNode, ///
           embedDirectiveMarkdownNodes = embedDirectiveMarkdownNodesFromNode(node),
           embedDirectiveMarkdownNodesLength = embedDirectiveMarkdownNodes.length;
 
     if (embedDirectiveMarkdownNodesLength > 0) {
-      embedDirectivesSubDivisionReplacement = SubDivisionReplacement.fromSubDivisionMarkdownNode(EmbedDirectivesSubDivisionReplacement, subDivisionMarkdownNode, embedDirectiveMarkdownNodes, context);
+      embedDirectivesSubDivisionTransform = SubDivisionTransform.fromSubDivisionMarkdownNode(EmbedDirectivesSubDivisionTransform, subDivisionMarkdownNode, embedDirectiveMarkdownNodes, context);
     }
 
-    return embedDirectivesSubDivisionReplacement;
+    return embedDirectivesSubDivisionTransform;
   }
 }

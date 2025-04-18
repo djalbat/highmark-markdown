@@ -1,78 +1,78 @@
 "use strict";
 
-import Replacement from "./";
-import FootnotesItemReplacement from ".//footnotesItem";
+import Transform from "../transform";
+import FootnotesItemTransform from "../transform/footnotesItem";
 import FootnotesListMarkdownNode from "../node/markdown/footnotesList";
 
 import { footnoteLinkMarkdownNodesFromNode } from "../utilities/query";
 
-export default class FootnotesListReplacement extends Replacement {
-  replaceFootnotesDirectiveSubDivisionReplacement(footnotesDirectiveSubDivisionReplacement, divisionMarkdownNode, context) {
-    const subDivisionMarkdownNode = footnotesDirectiveSubDivisionReplacement.getSubDivisionMarkdownNode(),
+export default class FootnotesListTransform extends Transform {
+  replaceFootnotesDirectiveSubDivisionTransform(footnotesDirectiveSubDivisionTransform, divisionMarkdownNode, context) {
+    const subDivisionMarkdownNode = footnotesDirectiveSubDivisionTransform.getSubDivisionMarkdownNode(),
           replacedNode = subDivisionMarkdownNode, ///
           parentNode = divisionMarkdownNode;  ///
 
     super.replace(replacedNode, parentNode, context)
   }
 
-  static fromDivisionMarkdownNodeAndFootnoteReplacementMap(divisionMarkdownNode, footnoteReplacementMap, context) {
-    let footnotesListReplacement = null;
+  static fromDivisionMarkdownNodeAndFootnoteTransformMap(divisionMarkdownNode, footnoteTransformMap, context) {
+    let footnotesListTransform = null;
 
     const node = divisionMarkdownNode,  ///
-          start = startFromFootnoteReplacementMap(footnoteReplacementMap),
+          start = startFromFootnoteTransformMap(footnoteTransformMap),
           footnoteLinkMarkdownNodes = footnoteLinkMarkdownNodesFromNode(node),
-          footnotesItemReplacements = [];
+          footnotesItemTransforms = [];
 
     let number = start;
 
     footnoteLinkMarkdownNodes.forEach((footnoteLinkMarkdownNode) => {
       const identifier = footnoteLinkMarkdownNode.identifier(context),
-            footnoteReplacement = footnoteReplacementMap[identifier] || null;
+            footnoteTransform = footnoteTransformMap[identifier] || null;
 
-      if (footnoteReplacement !== null) {
-        const footnoteReplacementUnnumbered = footnoteReplacement.isUnnumbered();
+      if (footnoteTransform !== null) {
+        const footnoteTransformUnnumbered = footnoteTransform.isUnnumbered();
 
-        if (footnoteReplacementUnnumbered) {
-          const footnotesItemReplacement = FootnotesItemReplacement.fromFootnoteReplacementAndIdentifier(footnoteReplacement, identifier, context);
+        if (footnoteTransformUnnumbered) {
+          const footnotesItemTransform = FootnotesItemTransform.fromFootnoteTransformAndIdentifier(footnoteTransform, identifier, context);
 
-          footnotesItemReplacements.push(footnotesItemReplacement);
+          footnotesItemTransforms.push(footnotesItemTransform);
 
-          footnoteReplacement.setNumber(number);
+          footnoteTransform.setNumber(number);
 
           number++;
         }
       }
     });
 
-    const footnotesItemReplacementsLength = footnotesItemReplacements.length;
+    const footnotesItemTransformsLength = footnotesItemTransforms.length;
 
-    if (footnotesItemReplacementsLength > 0) {
-      const footnotesListMarkdownNode = FootnotesListMarkdownNode.fromFootnotesItemReplacementsAndStart(footnotesItemReplacements, start),
+    if (footnotesItemTransformsLength > 0) {
+      const footnotesListMarkdownNode = FootnotesListMarkdownNode.fromFootnotesItemTransformsAndStart(footnotesItemTransforms, start),
             node = footnotesListMarkdownNode, ///
             tokens = [];
 
-      footnotesItemReplacements.forEach((footnotesItemReplacement) => {
-        footnotesItemReplacement.getTokens(tokens);
+      footnotesItemTransforms.forEach((footnotesItemTransform) => {
+        footnotesItemTransform.getTokens(tokens);
       });
 
-      footnotesListReplacement = Replacement.fromNodeAndTokens(FootnotesListReplacement, node, tokens);
+      footnotesListTransform = Transform.fromNodeAndTokens(FootnotesListTransform, node, tokens);
     }
 
-    return footnotesListReplacement;
+    return footnotesListTransform;
   }
 }
 
-function startFromFootnoteReplacementMap(footnoteReplacementMap) {
-  const footnoteReplacements = Object.values(footnoteReplacementMap),  ///
-        numberedFootnoteReplacements = footnoteReplacements.filter((footnoteReplacement) => {
-          const footnoteReplacementNumbered = footnoteReplacement.isNumbered();
+function startFromFootnoteTransformMap(footnoteTransformMap) {
+  const footnoteTransforms = Object.values(footnoteTransformMap),  ///
+        numberedFootnoteTransforms = footnoteTransforms.filter((footnoteTransform) => {
+          const footnoteTransformNumbered = footnoteTransform.isNumbered();
 
-          if (footnoteReplacementNumbered) {
+          if (footnoteTransformNumbered) {
             return true;
           }
         }),
-        numberedFootnoteReplacementsLength = numberedFootnoteReplacements.length,
-        start = numberedFootnoteReplacementsLength + 1;
+        numberedFootnoteTransformsLength = numberedFootnoteTransforms.length,
+        start = numberedFootnoteTransformsLength + 1;
 
   return start;
 }

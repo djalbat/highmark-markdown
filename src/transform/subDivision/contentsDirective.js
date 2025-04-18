@@ -1,20 +1,20 @@
 "use strict";
 
-import SubDivisionReplacement from "../subDivision";
+import SubDivisionTransform from "../../transform/subDivision";
 
 import { contentsDirectiveMarkdownNodeFromNode } from "../../utilities/query";
 
-export default class ContentsDirectiveSubDivisionReplacement extends SubDivisionReplacement {
+export default class ContentsDirectiveSubDivisionTransform extends SubDivisionTransform {
   static fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context) {
-    let contentsDirectiveSubDivisionReplacement = null;
+    let contentsDirectiveSubDivisionTransform = null;
 
     const node = subDivisionMarkdownNode, ///
           contentsDirectiveMarkdownNode = contentsDirectiveMarkdownNodeFromNode(node);
 
     if (contentsDirectiveMarkdownNode !== null) {
-      contentsDirectiveSubDivisionReplacement = SubDivisionReplacement.fromSubDivisionMarkdownNode(ContentsDirectiveSubDivisionReplacement, subDivisionMarkdownNode, context);
+      contentsDirectiveSubDivisionTransform = SubDivisionTransform.fromSubDivisionMarkdownNode(ContentsDirectiveSubDivisionTransform, subDivisionMarkdownNode, context);
     }
 
-    return contentsDirectiveSubDivisionReplacement;
+    return contentsDirectiveSubDivisionTransform;
   }
 }

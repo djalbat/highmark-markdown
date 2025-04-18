@@ -1,10 +1,10 @@
 "use strict";
 
-import Replacement from "./";
+import Transform from "../transform";
 
 import { footnoteMarkdownNodeFromNode } from "../utilities/query";
 
-export default class FootnoteReplacement extends Replacement {
+export default class FootnoteTransform extends Transform {
   constructor(node, tokens, number) {
     super(node, tokens);
 
@@ -39,15 +39,15 @@ export default class FootnoteReplacement extends Replacement {
     return footnoteMarkdownNode;
   }
 
-  static fromNode(node, ...remainingArguments) { return Replacement.fromNode(FootnoteReplacement, node, ...remainingArguments); }
+  static fromNode(node, ...remainingArguments) { return Transform.fromNode(FootnoteTransform, node, ...remainingArguments); }
 
-  static fromFootnoteSubDivisionReplacement(footnoteSubDivisionReplacement) {
-    const node = footnoteSubDivisionReplacement.getNode(),
+  static fromFootnoteSubDivisionTransform(footnoteSubDivisionTransform) {
+    const node = footnoteSubDivisionTransform.getNode(),
           footnoteMarkdownNode = footnoteMarkdownNodeFromNode(node),
           descendentNode = footnoteMarkdownNode,  ///
           number = null,
-          footnoteReplacement = footnoteSubDivisionReplacement.contract(FootnoteReplacement, descendentNode, number);
+          footnoteTransform = footnoteSubDivisionTransform.contract(FootnoteTransform, descendentNode, number);
 
-    return footnoteReplacement;
+    return footnoteTransform;
   }
 }

@@ -2,11 +2,11 @@
 
 import MarkdownNode from "../../../node/markdown";
 import PathMarkdownNode from "../../../node/markdown/path";
-import EmbedDirectiveReplacement from "../../../transform/embedDirective";
+import EmbedDirectiveTransform from "../../../transform/embedDirective";
 
 export default class EmbedDirectiveMarkdownNode extends MarkdownNode {
   resolve(context) {
-    let embedDirectiveReplacement = null;
+    let embedDirectiveTransform = null;
 
     const filePath = this.filePath(context);
 
@@ -25,11 +25,11 @@ export default class EmbedDirectiveMarkdownNode extends MarkdownNode {
         const divisionMarkdownNode = importedNode,  ///
               tokens = importedTokens;  ///
 
-        embedDirectiveReplacement = EmbedDirectiveReplacement.fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens);
+        embedDirectiveTransform = EmbedDirectiveTransform.fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens);
       }
     }
 
-    return embedDirectiveReplacement;
+    return embedDirectiveTransform;
   }
 
   filePath(context) {

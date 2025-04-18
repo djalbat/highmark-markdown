@@ -1,10 +1,10 @@
 "use strict";
 
-import SubDivisionReplacement from "../subDivision";
+import SubDivisionTransform from "../../transform/subDivision";
 
 import { includeDirectiveMarkdownNodesFromNode } from "../../utilities/query";
 
-export default class IncludeDirectivesSubDivisionReplacement extends SubDivisionReplacement {
+export default class IncludeDirectivesSubDivisionTransform extends SubDivisionTransform {
   constructor(node, tokens, subDivisionMarkdownNode, includeDirectiveMarkdownNodes) {
     super(node, tokens, subDivisionMarkdownNode);
 
@@ -27,11 +27,11 @@ export default class IncludeDirectivesSubDivisionReplacement extends SubDivision
 
   removeSubDivisionMarkdownNode(divisionMarkdownNode, context) {
     this.includeDirectiveMarkdownNodes.forEach((includeDirectiveMarkdownNode) => {
-      const includeDirectiveReplacement = includeDirectiveMarkdownNode.resolve(context);
+      const includeDirectiveTransform = includeDirectiveMarkdownNode.resolve(context);
 
-      if (includeDirectiveReplacement !== null) {
-        const divisionMarkdownNode = includeDirectiveReplacement.getDivisionMarkdownNode(),
-              subDivisionMarkdownNodes = includeDirectiveReplacement.addDivisionMarkdownNode(context);
+      if (includeDirectiveTransform !== null) {
+        const divisionMarkdownNode = includeDirectiveTransform.getDivisionMarkdownNode(),
+              subDivisionMarkdownNodes = includeDirectiveTransform.addDivisionMarkdownNode(context);
 
         subDivisionMarkdownNodes.forEach((subDivisionMarkdownNode) => {
           subDivisionMarkdownNode.resolveIncludes(divisionMarkdownNode, context);
@@ -43,16 +43,16 @@ export default class IncludeDirectivesSubDivisionReplacement extends SubDivision
   }
 
   static fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context) {
-    let includeDirectivesSubDivisionReplacement = null;
+    let includeDirectivesSubDivisionTransform = null;
 
     const node = subDivisionMarkdownNode, ///
           includeDirectiveMarkdownNodes = includeDirectiveMarkdownNodesFromNode(node),
           includeDirectiveMarkdownNodesLength = includeDirectiveMarkdownNodes.length;
 
     if (includeDirectiveMarkdownNodesLength > 0) {
-      includeDirectivesSubDivisionReplacement = SubDivisionReplacement.fromSubDivisionMarkdownNode(IncludeDirectivesSubDivisionReplacement, subDivisionMarkdownNode, includeDirectiveMarkdownNodes, context);
+      includeDirectivesSubDivisionTransform = SubDivisionTransform.fromSubDivisionMarkdownNode(IncludeDirectivesSubDivisionTransform, subDivisionMarkdownNode, includeDirectiveMarkdownNodes, context);
     }
 
-    return includeDirectivesSubDivisionReplacement;
+    return includeDirectivesSubDivisionTransform;
   }
 }

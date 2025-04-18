@@ -1,10 +1,10 @@
 "use strict";
 
-import Replacement from "./";
+import Transform from "../transform";
 
 import { subDivisionMarkdownNodesFromNode } from "../utilities/query";
 
-export default class EmbedDirectiveReplacement extends Replacement {
+export default class EmbedDirectiveTransform extends Transform {
   addAfterSubDivisionMarkdownNode(subDivisionMarkdownNode, divisionMarkdownNode, subDivisionMarkdownNodes, context) {
     const existingNode = subDivisionMarkdownNode, ///
           parentNode = divisionMarkdownNode;  ///
@@ -27,8 +27,8 @@ export default class EmbedDirectiveReplacement extends Replacement {
 
   static fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens) {
     const node = divisionMarkdownNode,  ///
-          embedDirectiveReplacement = Replacement.fromNodeAndTokens(EmbedDirectiveReplacement, node, tokens);
+          embedDirectiveTransform = Transform.fromNodeAndTokens(EmbedDirectiveTransform, node, tokens);
 
-    return embedDirectiveReplacement;
+    return embedDirectiveTransform;
   }
 }

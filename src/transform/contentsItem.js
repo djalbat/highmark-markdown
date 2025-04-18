@@ -1,10 +1,10 @@
 "use strict";
 
-import Replacement from "./";
-import ContentsLinkReplacement from ".//contentsLink";
+import Transform from "../transform";
+import ContentsLinkTransform from "../transform/contentsLink";
 import ContentsItemMarkdownNode from "../node/markdown/contentsItem";
 
-export default class ContentsItemReplacement extends Replacement {
+export default class ContentsItemTransform extends Transform {
   getContentsItemMarkdownNode() {
     const node = this.getNode(),
           contentsItemMarkdownNode = node;  ///
@@ -14,15 +14,15 @@ export default class ContentsItemReplacement extends Replacement {
 
   static fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context) {
     const transforms = [],
-          contentsLinkReplacement = ContentsLinkReplacement.fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context);
+          contentsLinkTransform = ContentsLinkTransform.fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context);
 
-    if (contentsLinkReplacement !== null) {
+    if (contentsLinkTransform !== null) {
       const node = nestedHeadingMarkdownNode.getNode(),
             headingMarkdownNode = node;  ///
 
       headingMarkdownNode.addAnchor(context);
 
-      const transform = contentsLinkReplacement;
+      const transform = contentsLinkTransform;
 
       transforms.push(transform);
     }
@@ -32,14 +32,14 @@ export default class ContentsItemReplacement extends Replacement {
           nestedHeadingMarkdownNodesLength = nestedHeadingMarkdownNodes.length;
 
     if (nestedHeadingMarkdownNodesLength > 0) {
-      const { ContentsListReplacement } = ContentsItemReplacement,
-            contentsListReplacement = ContentsListReplacement.fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
-            transform = contentsListReplacement; ///
+      const { ContentsListTransform } = ContentsItemTransform,
+            contentsListTransform = ContentsListTransform.fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
+            transform = contentsListTransform; ///
 
       transforms.push(transform);
     }
 
-    const contentsItemMarkdownNode = ContentsItemMarkdownNode.fromReplacements(transforms),
+    const contentsItemMarkdownNode = ContentsItemMarkdownNode.fromTransforms(transforms),
           node = contentsItemMarkdownNode,  ///
           tokens = [];
 
@@ -47,8 +47,8 @@ export default class ContentsItemReplacement extends Replacement {
       transform.getTokens(tokens);
     });
 
-    const contentsItemReplacement = Replacement.fromNodeAndTokens(ContentsItemReplacement, node, tokens);
+    const contentsItemTransform = Transform.fromNodeAndTokens(ContentsItemTransform, node, tokens);
 
-    return contentsItemReplacement;
+    return contentsItemTransform;
   }
 }

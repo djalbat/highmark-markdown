@@ -1,8 +1,8 @@
 "use strict";
 
-import Replacement from "./";
+import Transform from "../transform";
 
-export default class LineReplacement extends Replacement {
+export default class LineTransform extends Transform {
   getLineMarkdownNode() {
     const node = this.getNode(),
           lineMarkdownNode = node;  ///
@@ -12,8 +12,8 @@ export default class LineReplacement extends Replacement {
 
   static fromLineMarkdownNode(lineMarkdownNode, context) {
     const node = lineMarkdownNode,  ///
-          lineReplacement = Replacement.fromNode(LineReplacement, node, context);
+          lineTransform = Transform.fromNode(LineTransform, node, context);
 
-    return lineReplacement;
+    return lineTransform;
   }
 }

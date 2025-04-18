@@ -2,8 +2,8 @@
 
 import { arrayUtilities } from "necessary";
 
-import Replacement from "./";
-import ContentsItemReplacement from "./contentsItem";
+import Transform from "../transform";
+import ContentsItemTransform from "../transform/contentsItem";
 import ContentsListMarkdownNode from "../node/markdown/contentsList";
 
 import { nestNodes } from "../utilities/contents";
@@ -11,9 +11,9 @@ import { headingMarkdownNodesFromNode } from "../utilities/query";
 
 const { filter } = arrayUtilities;
 
-class ContentsListReplacement extends Replacement {
-  replaceContentsDirectiveSubdivisionReplacement(contentsDirectiveSubDivisionReplacement, divisionMarkdownNode, context) {
-    const subDivisionMarkdownNode = contentsDirectiveSubDivisionReplacement.getSubDivisionMarkdownNode(),
+class ContentsListTransform extends Transform {
+  replaceContentsDirectiveSubdivisionTransform(contentsDirectiveSubDivisionTransform, divisionMarkdownNode, context) {
+    const subDivisionMarkdownNode = contentsDirectiveSubDivisionTransform.getSubDivisionMarkdownNode(),
           replacedNode = subDivisionMarkdownNode, ///
           parentNode = divisionMarkdownNode;  ///
 
@@ -21,49 +21,49 @@ class ContentsListReplacement extends Replacement {
   }
 
   static fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context) {
-    const contentsItemReplacements = contentsItemReplacementsFromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
-          contentsListMarkdownNode = ContentsListMarkdownNode.fromContentsItemReplacements(contentsItemReplacements),
+    const contentsItemTransforms = contentsItemTransformsFromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
+          contentsListMarkdownNode = ContentsListMarkdownNode.fromContentsItemTransforms(contentsItemTransforms),
           node = contentsListMarkdownNode, ///
           tokens = [];
 
-    contentsItemReplacements.forEach((contentsItemReplacement) => {
-      contentsItemReplacement.getTokens(tokens);
+    contentsItemTransforms.forEach((contentsItemTransform) => {
+      contentsItemTransform.getTokens(tokens);
     });
 
-    const contentsListReplacement = Replacement.fromNodeAndTokens(ContentsListReplacement, node, tokens);
+    const contentsListTransform = Transform.fromNodeAndTokens(ContentsListTransform, node, tokens);
 
-    return contentsListReplacement;
+    return contentsListTransform;
   }
 
   static fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context) {
-    let contentsListReplacement = null;
+    let contentsListTransform = null;
 
     const headingMarkdownNodes = headingMarkdownNodesFromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context),
           headingMarkdownNodesLength = headingMarkdownNodes.length;
 
     if (headingMarkdownNodesLength > 0) {
       const nestedHeadingMarkdownNodes = nestedHeadingMarkdownNodesFromHeadingMarkdownNodes(headingMarkdownNodes),
-            contentsItemReplacements = contentsItemReplacementsFromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
-            contentsListMarkdownNode = ContentsListMarkdownNode.fromContentsItemReplacements(contentsItemReplacements),
+            contentsItemTransforms = contentsItemTransformsFromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
+            contentsListMarkdownNode = ContentsListMarkdownNode.fromContentsItemTransforms(contentsItemTransforms),
             node = contentsListMarkdownNode, ///
             tokens = [];
 
-      contentsItemReplacements.forEach((contentsItemReplacement) => {
-        contentsItemReplacement.getTokens(tokens);
+      contentsItemTransforms.forEach((contentsItemTransform) => {
+        contentsItemTransform.getTokens(tokens);
       });
 
-      contentsListReplacement = Replacement.fromNodeAndTokens(ContentsListReplacement, node, tokens);
+      contentsListTransform = Transform.fromNodeAndTokens(ContentsListTransform, node, tokens);
     }
 
-    return contentsListReplacement;
+    return contentsListTransform;
   }
 }
 
-Object.assign(ContentsItemReplacement, {  ///
-  ContentsListReplacement
+Object.assign(ContentsItemTransform, {  ///
+  ContentsListTransform
 });
 
-export default ContentsListReplacement;
+export default ContentsListTransform;
 
 function nestedHeadingMarkdownNodesFromHeadingMarkdownNodes(headingMarkdownNodes) {
   const nodes = headingMarkdownNodes, ///
@@ -74,14 +74,14 @@ function nestedHeadingMarkdownNodesFromHeadingMarkdownNodes(headingMarkdownNodes
   return nestedHeadingMarkdownNodes;
 }
 
-function contentsItemReplacementsFromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context) {
-  const contentsItemReplacements = nestedHeadingMarkdownNodes.map((nestedHeadingMarkdownNode) => {
-    const contentsItemReplacement = ContentsItemReplacement.fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context);
+function contentsItemTransformsFromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context) {
+  const contentsItemTransforms = nestedHeadingMarkdownNodes.map((nestedHeadingMarkdownNode) => {
+    const contentsItemTransform = ContentsItemTransform.fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context);
 
-    return contentsItemReplacement;
+    return contentsItemTransform;
   });
 
-  return contentsItemReplacements;
+  return contentsItemTransforms;
 }
 
 function headingMarkdownNodesFromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context) {

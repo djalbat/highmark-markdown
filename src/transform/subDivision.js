@@ -1,8 +1,8 @@
 "use strict";
 
-import Replacement from "./";
+import Transform from "../transform";
 
-export default class SubDivisionReplacement extends Replacement {
+export default class SubDivisionTransform extends Transform {
   constructor(node, tokens, subDivisionMarkdownNode) {
     super(node, tokens);
 
@@ -34,8 +34,8 @@ export default class SubDivisionReplacement extends Replacement {
 
   static fromSubDivisionMarkdownNode(Class, subDivisionMarkdownNode, ...remainingArguments) {
     const node = subDivisionMarkdownNode, ///
-          subDivisionReplacement = Replacement.fromNode(Class, node, subDivisionMarkdownNode, ...remainingArguments);
+          subDivisionTransform = Transform.fromNode(Class, node, subDivisionMarkdownNode, ...remainingArguments);
 
-    return subDivisionReplacement;
+    return subDivisionTransform;
   }
 }

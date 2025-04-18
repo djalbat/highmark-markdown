@@ -1,11 +1,11 @@
 "use strict";
 
-import Replacement from "./";
+import Transform from "../transform";
 
 import { COMMA } from "../constants";
 import { INDEX_ITEM_RULE_NAME } from "../ruleNames";
 
-export default class IndexItemReplacement extends Replacement {
+export default class IndexItemTransform extends Transform {
   getIndexItemMarkdownNode() {
     const node = this.getNode(),
           indexItemMarkdownNode = node; ///
@@ -22,8 +22,8 @@ export default class IndexItemReplacement extends Replacement {
           startRuleName = INDEX_ITEM_RULE_NAME,
           tokens = tokensFromContent(content),
           node = nodeFromTokens(tokens, startRuleName),
-          indexItemReplacement = Replacement.fromNodeAndTokens(IndexItemReplacement, node, tokens);
+          indexItemTransform = Transform.fromNodeAndTokens(IndexItemTransform, node, tokens);
 
-    return indexItemReplacement;
+    return indexItemTransform;
   }
 }

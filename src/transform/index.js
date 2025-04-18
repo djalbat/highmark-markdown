@@ -2,13 +2,13 @@
 
 import letters from "../letters";
 import IndexList from "../index/list";
-import Replacement from "./";
-import IndexListReplacement from ".//indexList";
-import IndexHeadingReplacement from "./indexHeading";
+import Transform from "../transform";
+import IndexListTransform from "../transform/indexList";
+import IndexHeadingTransform from "../transform/indexHeading";
 
 import { replaceNodes, replaceTokens } from "../utilities/transform";
 
-export default class IndexReplacement extends Replacement {
+export default class IndexTransform extends Transform {
   constructor(node, tokens, nodes) {
     super(node, tokens);
 
@@ -34,8 +34,8 @@ export default class IndexReplacement extends Replacement {
     replaceTokens(replacementTokens, replacedNode, tokens);
   }
 
-  replaceIndexDirectiveSubdivisionReplacement(indexDirectiveSubDivisionReplacement, divisionMarkdownNode, context) {
-    const subDivisionMarkdownNode = indexDirectiveSubDivisionReplacement.getSubDivisionMarkdownNode(),
+  replaceIndexDirectiveSubdivisionTransform(indexDirectiveSubDivisionTransform, divisionMarkdownNode, context) {
+    const subDivisionMarkdownNode = indexDirectiveSubDivisionTransform.getSubDivisionMarkdownNode(),
           replacedNode = subDivisionMarkdownNode, ///
           parentNode = divisionMarkdownNode;  ///
 
@@ -43,47 +43,47 @@ export default class IndexReplacement extends Replacement {
   }
 
   static fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context) {
-    let indexReplacement = null;
+    let indexTransform = null;
 
     const indexList = IndexList.fromDivisionMarkdownNodes(divisionMarkdownNodes, context),
-          indexReplacements = [];
+          indexTransforms = [];
 
     letters.forEach((letter) => {
-      const indexListReplacement = IndexListReplacement.fromIndexListAndLetter(indexList, letter, context);
+      const indexListTransform = IndexListTransform.fromIndexListAndLetter(indexList, letter, context);
 
-      if (indexListReplacement !== null) {
-        let indexReplacement;
+      if (indexListTransform !== null) {
+        let indexTransform;
 
-        const indexHeadingReplacement = IndexHeadingReplacement.fromLetter(letter, context);
+        const indexHeadingTransform = IndexHeadingTransform.fromLetter(letter, context);
 
-        indexReplacement = indexHeadingReplacement; ///
+        indexTransform = indexHeadingTransform; ///
 
-        indexReplacements.push(indexReplacement);
+        indexTransforms.push(indexTransform);
 
-        indexReplacement = indexListReplacement;  ///
+        indexTransform = indexListTransform;  ///
 
-        indexReplacements.push(indexReplacement);
+        indexTransforms.push(indexTransform);
       }
     });
 
-    const indexListReplacementsLength = indexReplacements.length;
+    const indexListTransformsLength = indexTransforms.length;
 
-    if (indexListReplacementsLength > 0) {
+    if (indexListTransformsLength > 0) {
       const node = null,
             nodes = [],
             tokens = [];
 
-      indexReplacements.forEach((indexReplacement) => {
-        const node = indexReplacement.getNode();
+      indexTransforms.forEach((indexTransform) => {
+        const node = indexTransform.getNode();
 
-        indexReplacement.getTokens(tokens);
+        indexTransform.getTokens(tokens);
 
         nodes.push(node);
       });
 
-      indexReplacement = Replacement.fromNodeAndTokens(IndexReplacement, node, tokens, nodes);
+      indexTransform = Transform.fromNodeAndTokens(IndexTransform, node, tokens, nodes);
     }
 
-    return indexReplacement;
+    return indexTransform;
   }
 }

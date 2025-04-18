@@ -2,11 +2,11 @@
 
 import MarkdownNode from "../../../node/markdown";
 import PathMarkdownNode from "../../../node/markdown/path";
-import IncludeDirectiveReplacement from "../../../transform/includeDirective";
+import IncludeDirectiveTransform from "../../../transform/includeDirective";
 
 export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
   resolve(context) {
-    let includeDirectiveReplacement = null;
+    let includeDirectiveTransform = null;
 
     const filePath = this.filePath(context);
 
@@ -30,11 +30,11 @@ export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
 
         divisionMarkdownNode.setDivisionClassName(divisionClassName);
 
-        includeDirectiveReplacement = IncludeDirectiveReplacement.fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens);
+        includeDirectiveTransform = IncludeDirectiveTransform.fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens);
       }
     }
 
-    return includeDirectiveReplacement;
+    return includeDirectiveTransform;
   }
 
   filePath(context) {

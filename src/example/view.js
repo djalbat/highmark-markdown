@@ -23,7 +23,7 @@ import PlainTextContainerDiv from "./view/div/container/plainText";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 import InnerMarkdownParseTreeTextarea from "./view/textarea/parseTree/markdown/inner";
 
-import { defaultContent } from "./importer";
+import { initialMarkdown } from "./importer";
 import { nodesFromNodeAndQueries } from "../utilities/query";
 import { LINES_PER_PAGE, CONTENTS_DEPTH, CHARACTERS_PER_LINE } from "./constants";
 import { postprocess, divisionMarkdownNodesFromMarkdownNodes } from "../utilities/processing";
@@ -143,7 +143,15 @@ class View extends Element {
       const divisionMarkdownNode = node,  ///
             divisionMarkdownNodes = [
               divisionMarkdownNode
-            ];
+            ],
+            context = {
+              tokens,
+              importer,
+              nodeFromTokens,
+              tokensFromContent
+            };
+
+      divisionMarkdownNode.resolveEmbeddings(context);
 
       this.setDivisionMarkdownNodes(divisionMarkdownNodes);
 
@@ -318,11 +326,7 @@ class View extends Element {
     this.css();
   }
 
-  static initialMarkdown = `[James Smith](james.smith@djalbat.com)
-  
-james.smith@djalbat.com  
-
-`;
+  static initialMarkdown = initialMarkdown;
 
   static initialMarkdownStyle = `width: 100%;
 height: 100%;
