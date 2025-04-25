@@ -1,6 +1,6 @@
 "use strict";
 
-import {Node, nodeUtilities} from "occam-dom";
+import { nodeUtilities} from "occam-dom";
 import { arrayUtilities } from "necessary";
 
 import queries from "../../queries";
@@ -11,38 +11,20 @@ const { push } = arrayUtilities,
       { topmostNodeFromOuterNodes } = nodeUtilities;
 
 export default class TopmostHTMLNode extends HTMLNode {
-  mount(parentDOMElement, siblingDOMElement, context) {
-    this.childNodes.forEach((childNode) => {
-      childNode.mount(parentDOMElement, siblingDOMElement, context);
-    });
+  adjustIndent(indent) {
+    return indent;
   }
 
-  unmount(parentDOMElement, context) {
-    this.childNodes.forEach((childNode) => {
-      childNode.unmount(parentDOMElement, context);
-    });
+  asString() {
+    const { tagName } = this.constructor,
+          string = tagName; ///
+
+    return string;
   }
 
-  asHTML(context) {
-    let html;
+  static tagName = "html";
 
-    const indent = null,
-          childNodesHTML = this.childNodesAsHTML(indent, context);
-
-    html = childNodesHTML;  ///
-
-    return html;
-  }
-
-  asPlainText(context) {
-    let plainText;
-
-    const childNodesPlainText = this.childNodesAsPlainText(context);
-
-    plainText = childNodesPlainText;  ///
-
-    return plainText;
-  }
+  static className = null;
 
   static fromNothing() { return HTMLNode.fromNothing(TopmostHTMLNode); }
 

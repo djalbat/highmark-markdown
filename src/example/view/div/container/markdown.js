@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import ContainerDiv from "../../div/container";
 import MarkdownTextarea from "../../textarea/markdown";
-import OuterMarkdownParseTreeTextarea from "../../textarea/parseTree/markdown/outer";
+import MarkdownParseTreeTextarea from "../../textarea/parseTree/markdown";
 
 import { FLEX } from "../../../constants";
 
@@ -19,7 +19,7 @@ class MarkdownContainerDiv extends ContainerDiv {
     return ([
 
       <MarkdownTextarea onKeyUp={this.keyUpHandler} />,
-      <OuterMarkdownParseTreeTextarea/>
+      <MarkdownParseTreeTextarea/>
 
     ]);
   }

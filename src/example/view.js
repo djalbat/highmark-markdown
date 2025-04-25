@@ -17,8 +17,8 @@ import RightTabButtonsDiv from "./view/div/tabButtons/right";
 import PreviewContainerDiv from "./view/div/container/preview";
 import MarkdownContainerDiv from "./view/div/container/markdown";
 import PlainTextContainerDiv from "./view/div/container/plainText";
+import HTMLParseTreeTextarea from "./view/textarea/parseTree/html";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
-import InnerMarkdownParseTreeTextarea from "./view/textarea/parseTree/markdown/inner";
 
 import { resolve } from "../utilities/markdown";
 import { initialMarkdown } from "./importer";
@@ -71,7 +71,7 @@ class View extends Element {
   clearPage() {
     this.clearXMP();
     this.clearPreviewDiv();
-    this.clearInnerMarkdownParseTreeTextarea();
+    this.clearHTMLParseTreeTextarea();
   }
 
   updatePage(index = 0) {
@@ -92,11 +92,11 @@ class View extends Element {
 
     const length = null,
           parseTree = topmostHTMLNode.asParseTree(),
-          innerMarkdownParseTree = parseTree; ///
+          htmlParseTree = parseTree; ///
 
     this.updatePageButtonsDiv(length, index);
 
-    this.updateInnerMarkdownParseTreeTextarea(innerMarkdownParseTree);
+    this.updateHTMLParseTreeTextarea(htmlParseTree);
   }
 
   updateMarkdown() {
@@ -113,7 +113,7 @@ class View extends Element {
 
       this.resetTopmostMarkdownNode();
 
-      this.clearOuterMarkdownParseTreeTextarea();
+      this.clearMarkdownParseTreeTextarea();
 
       this.clearPageButtonsDiv();
 
@@ -136,7 +136,7 @@ class View extends Element {
 
       this.resetTopmostMarkdownNode();
 
-      this.clearOuterMarkdownParseTreeTextarea();
+      this.clearMarkdownParseTreeTextarea();
 
       this.clearPageButtonsDiv();
 
@@ -146,13 +146,13 @@ class View extends Element {
     }
 
     const parseTree = topmostMarkdownNode.asParseTree(tokens),
-          outerMarkdownParseTree = parseTree; ///
+          markdownParseTree = parseTree; ///
 
     this.setTokens(tokens);
 
     this.setTopmostMarkdownNode(topmostMarkdownNode);
 
-    this.updateOuterMarkdownParseTreeTextarea(outerMarkdownParseTree);
+    this.updateMarkdownParseTreeTextarea(markdownParseTree);
 
     this.updatePage();
   }
@@ -286,7 +286,7 @@ class View extends Element {
             <HTMLContainerDiv/>
             <PreviewContainerDiv/>
             <PlainTextContainerDiv/>
-            <InnerMarkdownParseTreeTextarea/>
+            <HTMLParseTreeTextarea/>
           </RowsDiv>
         </ColumnDiv>
       </ColumnsDiv>
