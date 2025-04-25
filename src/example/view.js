@@ -3,19 +3,17 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { nodeUtilities } from "occam-dom";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 import { MarkdownLexer, MarkdownParser, MarkdownStyleLexer, MarkdownStyleParser } from "../index";
 
-import queries from "../queries";
 import importer from "./importer";
 import PageButtonsDiv from "./view/div/pageButtons";
 import LeftSizeableDiv from "./view/div/sizeable/left";
 import CSSContainerDiv from "./view/div/container/css";
+import TopmostHTMLNode from "../node/html/topmost";
 import HTMLContainerDiv from "./view/div/container/html";
 import LeftTabButtonsDiv from "./view/div/tabButtons/left";
 import RightTabButtonsDiv from "./view/div/tabButtons/right";
-import ClassFromOuterNode from "../classFromOuterNode";
 import PreviewContainerDiv from "./view/div/container/preview";
 import MarkdownContainerDiv from "./view/div/container/markdown";
 import PlainTextContainerDiv from "./view/div/container/plainText";
@@ -23,11 +21,7 @@ import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 import InnerMarkdownParseTreeTextarea from "./view/textarea/parseTree/markdown/inner";
 
 import { resolve } from "../utilities/markdown";
-import { postProcess } from "../utilities/html";
 import { initialMarkdown } from "./importer";
-import { nodesFromNodeAndQueries } from "../utilities/query";
-
-const { topmostNodeFromOuterNodes } = nodeUtilities;
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
@@ -81,18 +75,14 @@ class View extends Element {
   }
 
   updatePage(index = 0) {
-    return;
-
-    const topmostMarkdownNode = this.getTopmostMarkdownNode(),
-          tokens = this.getTokens(),
+    const tokens = this.getTokens(),
+          topmostMarkdownNode = this.getTopmostMarkdownNode(),
+          divisionMarkdownNode = topmostMarkdownNode.getDivisionMarkdownNodeAt(index),
+          topmostHTMLNode = TopmostHTMLNode.fromDivisionMarkdownNode(divisionMarkdownNode),
           context = {
             tokens,
             pathToURL
-          },
-          divisionMarkdownNode = topmostMarkdownNode[index],
-          node = divisionMarkdownNode,  ///
-          nodes = nodesFromNodeAndQueries(node, queries),
-          topmostHTMLNode = topmostNodeFromOuterNodes(ClassFromOuterNode, nodes);
+          };
 
     this.updateXMP(topmostHTMLNode, context);
 

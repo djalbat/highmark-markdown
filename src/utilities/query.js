@@ -40,18 +40,6 @@ export function nodesQuery(expression) {
   }
 }
 
-export function nodesFromNodeAndQueries(node, queries) {
-  const nodes = [];
-
-  queries.forEach((query) => {
-    const queryNodes = query.execute(node);
-
-    push(nodes, queryNodes);
-  });
-
-  return nodes;
-}
-
 export function footnoteMarkdownNodeFromNode(node) {
   const footnoteMarkdownNode = nodeFromNodeAndQuery(node, footnoteMarkdownNodeQuery);
 
