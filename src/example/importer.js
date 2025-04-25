@@ -7,7 +7,7 @@ import { EMPTY_STRING } from "./constants";
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing();
 
-export default function importer(filePath, context) {
+export function importer(filePath, context) {
   const content = contentMap[filePath] || null;
 
   if (content !== null) {

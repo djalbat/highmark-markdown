@@ -5,6 +5,7 @@ import PathMarkdownNode from "../../node/markdown/path";
 import ImageMarkdownNode from "../../node/markdown/image";
 import ErrorMarkdownNode from "../../node/markdown/error";
 import AnchorMarkdownNode from "../../node/markdown/anchor";
+import TopmostMarkdownNode from "../../node/markdown/topmost";
 import DivisionMarkdownNode from "../../node/markdown/division";
 import FootnoteMarkdownNode from "../../node/markdown/footnote";
 import BlockEndMarkdownNode from "../../node/markdown/blockEnd";
@@ -45,6 +46,7 @@ import { LINE_RULE_NAME,
          IMAGE_RULE_NAME,
          ERROR_RULE_NAME,
          ANCHOR_RULE_NAME,
+         TOPMOST_RULE_NAME,
          DIVISION_RULE_NAME,
          FOOTNOTE_RULE_NAME,
          BLOCK_END_RULE_NAME,
@@ -86,6 +88,7 @@ const markdownNodeMap = {
   [IMAGE_RULE_NAME]: ImageMarkdownNode,
   [ERROR_RULE_NAME]: ErrorMarkdownNode,
   [ANCHOR_RULE_NAME]: AnchorMarkdownNode,
+  [TOPMOST_RULE_NAME]: TopmostMarkdownNode,
   [DIVISION_RULE_NAME]: DivisionMarkdownNode,
   [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
   [BLOCK_END_RULE_NAME]: BlockEndMarkdownNode,

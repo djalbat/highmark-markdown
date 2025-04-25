@@ -6,7 +6,6 @@ import { Element } from "easy";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 import { MarkdownLexer, MarkdownParser, MarkdownStyleLexer, MarkdownStyleParser } from "../index";
 
-import importer from "./importer";
 import PageButtonsDiv from "./view/div/pageButtons";
 import LeftSizeableDiv from "./view/div/sizeable/left";
 import CSSContainerDiv from "./view/div/container/css";
@@ -20,8 +19,7 @@ import PlainTextContainerDiv from "./view/div/container/plainText";
 import HTMLParseTreeTextarea from "./view/textarea/parseTree/html";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
-import { resolve } from "../utilities/markdown";
-import { initialMarkdown } from "./importer";
+import { importer, initialMarkdown } from "./importer";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
@@ -64,8 +62,9 @@ class View extends Element {
   }
 
   update() {
-    this.updateMarkdown();
     this.updateMarkdownStyle();
+    this.updateMarkdown();
+    this.updatePage();
   }
 
   clearPage() {
@@ -104,9 +103,8 @@ class View extends Element {
           lexer = markdownLexer,  ///
           parser =  markdownParser, ///
           content = markdown, ///
-          startRule = parser.getStartRule(),
           tokens = lexer.tokenise(content),
-          node = parser.parse(tokens, startRule);
+          node = parser.parse(tokens);
 
     if (node === null) {
       this.resetTokens();
@@ -122,28 +120,15 @@ class View extends Element {
       return;
     }
 
-    const divisionMarkdownNode = node,  ///
+    const topmostMarkdownNode = node, ///
           context = {
             tokens,
             importer,
             nodeFromTokens,
             tokensFromContent
-          },
-          topmostMarkdownNode = resolve(divisionMarkdownNode, context);
+          };
 
-    if (topmostMarkdownNode === null) {
-      this.resetTokens();
-
-      this.resetTopmostMarkdownNode();
-
-      this.clearMarkdownParseTreeTextarea();
-
-      this.clearPageButtonsDiv();
-
-      this.clearPage();
-
-      return;
-    }
+    topmostMarkdownNode.resolve(context);
 
     const parseTree = topmostMarkdownNode.asParseTree(tokens),
           markdownParseTree = parseTree; ///
@@ -153,8 +138,6 @@ class View extends Element {
     this.setTopmostMarkdownNode(topmostMarkdownNode);
 
     this.updateMarkdownParseTreeTextarea(markdownParseTree);
-
-    this.updatePage();
   }
 
   updateMarkdownStyle() {

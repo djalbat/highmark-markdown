@@ -2,7 +2,10 @@
 
 const bnf = `
 
-    division                ::=  ( subDivision | endOfLine | error )+ ;
+    markdown                ::=  ( division | error )+ ;
+
+
+    division                ::=  ( subDivision | endOfLine )+ ;
     
     
     subDivision             ::=  verticalSpace ( directives 

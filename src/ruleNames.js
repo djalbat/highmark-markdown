@@ -8,6 +8,7 @@ export const ERROR_RULE_NAME = "error";
 export const COMMA_RULE_NAME = "comma";
 export const ANCHOR_RULE_NAME = "anchor";
 export const FOOTER_RULE_NAME = "footer";
+export const TOPMOST_RULE_NAME = "markdown";  ///
 export const DIVISION_RULE_NAME = "division";
 export const FOOTNOTE_RULE_NAME = "footnote";
 export const NONSENSE_RULE_NAME = "nonsense";
@@ -76,6 +77,7 @@ const ruleNames = {
   TABLE_RULE_NAME,
   ERROR_RULE_NAME,
   ANCHOR_RULE_NAME,
+  TOPMOST_RULE_NAME,
   DIVISION_RULE_NAME,
   FOOTNOTE_RULE_NAME,
   NONSENSE_RULE_NAME,

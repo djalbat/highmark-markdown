@@ -28,6 +28,10 @@ export default class TopmostHTMLNode extends HTMLNode {
 
   static fromNothing() { return HTMLNode.fromNothing(TopmostHTMLNode); }
 
+  static fromTopmostMarkdownNode(topmostMarkdownNode) {
+
+  }
+
   static fromDivisionMarkdownNode(divisionMarkdownNode) {
     const node = divisionMarkdownNode,  ///
           nodes = nodesFromNodeAndQueries(node, queries),
