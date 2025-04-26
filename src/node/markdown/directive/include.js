@@ -4,6 +4,8 @@ import MarkdownNode from "../../../node/markdown";
 import PathMarkdownNode from "../../../node/markdown/path";
 import IncludeDirectiveTransform from "../../../transform/includeDirective";
 
+import { divisionMarkdownNodeFromNode } from "../../../utilities/query";
+
 export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
   filePath(context) {
     const filePath = this.fromFirstLastChildNode((firstLastChildNode) => {
@@ -43,13 +45,15 @@ export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
         delete context.importedTokens;
         delete context.importedClassName;
 
-        const topmostMarkdownNode = importedNode,  ///
-              firstDivisionMarkdownNode = topmostMarkdownNode.removeFirstDivisionMarkdownNode();
+        const node = importedNode,  ///
+              divisionMarkdownNode = divisionMarkdownNodeFromNode(node);
 
-        if (firstDivisionMarkdownNode !== null) {
-          const divisionMarkdownNode = firstDivisionMarkdownNode, ///
+        if (divisionMarkdownNode !== null) {
+          const topmostMarkdownNode = node, ///
                 divisionClassName = importedClassName,  ///
                 tokens = importedTokens;  ///
+
+          topmostMarkdownNode.removeDivisionMarkdownNode(divisionMarkdownNode);
 
           divisionMarkdownNode.setDivisionClassName(divisionClassName);
 

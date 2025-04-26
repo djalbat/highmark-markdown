@@ -9,33 +9,17 @@ export default class SubDivisionTransform extends Transform {
     this.subDivisionMarkdownNode = subDivisionMarkdownNode;
   }
 
-  getSubDivisionMarkdownNode() {
-    return this.subDivisionMarkdownNode;
+  removeFromDivisionMarkdownNode(divisionMarkdownNode, context) {
+    const parentNode = divisionMarkdownNode; ///
+
+    super.removeFrom(parentNode, context);
   }
 
-  appendToTopmostMarkdownNode(topmostMarkdownNode, context) {
-    const parentNode = topmostMarkdownNode;  ///
-
-    super.appendTo(parentNode, context);
-  }
-
-  prependToTopmostMarkdownNode(topmostMarkdownNode, context) {
-    const parentNode = topmostMarkdownNode;  ///
-
-    super.prependTo(parentNode, context);
-  }
-
-  removeFromTopmostMarkdownNode(topmostMarkdownNode, context) {
-    const removedNode = this.subDivisionMarkdownNode, ///
-          parentNode = topmostMarkdownNode;
-
-    super.removeFrom(removedNode, parentNode, context);
-  }
-
-  static fromSubDivisionMarkdownNode(Class, subDivisionMarkdownNode, ...remainingArguments) {
+  static fromSubDivisionMarkdownNode(subDivisionMarkdownNode) {
     const node = subDivisionMarkdownNode, ///
-          divisionTransform = Transform.fromNode(Class, node, subDivisionMarkdownNode, ...remainingArguments);
+          tokens = null,
+          subDivisionTransform = Transform.fromNodeAndTokens(SubDivisionTransform, node, tokens);
 
-    return divisionTransform;
+    return subDivisionTransform;
   }
 }

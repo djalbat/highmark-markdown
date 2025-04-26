@@ -12,7 +12,7 @@ class LeftSizeableDiv extends SizeableDiv {
 
 export default withStyle(LeftSizeableDiv)`
 
-  width: 80rem;
+  width: 128rem;
   min-width: 12rem;
   flex-direction: column;
   

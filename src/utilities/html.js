@@ -1,9 +1,6 @@
 "use strict";
 
 export function postProcess(divisionMarkdownNodes, context) {
-  debugger
-
-
   // const footnoteReplacementMap = prepareFootnotes(divisionMarkdownNodes, context),
   //       markdownNodes = paginate(divisionMarkdownNodes, context);
   //

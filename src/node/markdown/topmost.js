@@ -1,11 +1,16 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import MarkdownNode from "../../node/markdown";
-import DivisionMarkdownNode from "../../node/markdown/division";
+
+import { divisionMarkdownNodesFromNode } from "../../utilities/query";
+
+const { first } = arrayUtilities;
 
 export default class TopmostMarkdownNode extends MarkdownNode {
   resolve(context) {
-    const firstDivisionMarkdownNode = this.findFirstDivisionMarkdownNode();
+    const firstDivisionMarkdownNode = this.getFirstDivisionMarkdownNode();
 
     if (firstDivisionMarkdownNode === null) {
       return;
@@ -15,85 +20,41 @@ export default class TopmostMarkdownNode extends MarkdownNode {
 
     firstDivisionMarkdownNode.resolveIncludes(topmostMarkdownNode, context);
 
-    // this.filterDivisionMarkdownNode((divisionMarkdownNode) => {
-    //   const ignored = divisionMarkdownNode.isIgnored();
-    //
-    //   if (!ignored) {
-    //     return true;
-    //   }
-    // });
-
-    // this.forEachDivisionMarkdownNode((divisionMarkdownNode) => {
-    //   divisionMarkdownNode.resolveEmbeddings(context);
-    // });
-  }
-
-  findFirstDivisionMarkdownNode() {
-    const firstDivisionMarkdownNode = this.findDivisionMarkdownNode((divisionMarkdownNode) => {
-      return true;
-    }) || null;
-
-    return firstDivisionMarkdownNode;
-  }
-
-  removeFirstDivisionMarkdownNode() {
-    const firstDivisionMarkdownNode = this.findFirstDivisionMarkdownNode();
-
-    if (firstDivisionMarkdownNode !== null) {
-      const childNode = firstDivisionMarkdownNode;  ///
-
-      this.removeChildNode(childNode);
-    }
-
-    return firstDivisionMarkdownNode;
-  }
-
-  findDivisionMarkdownNode(callback) {
-    const firstDivisionMarkdownNode = this.findChildNode((childNode) => {
-      const childNodeDivisionMarkdownNode = (childNode instanceof DivisionMarkdownNode);
-
-      if (childNodeDivisionMarkdownNode) {
-        const divisionMarkNode = childNode, ///
-              result = callback(divisionMarkNode);
-
-        if (result) {
-          return true;
-        }
-      }
+    this.forEachDivisionMarkdownNode((divisionMarkdownNode) => {
+      divisionMarkdownNode.resolveIgnored(topmostMarkdownNode, context);
     });
 
-    return firstDivisionMarkdownNode;
+    this.forEachDivisionMarkdownNode((divisionMarkdownNode) => {
+      divisionMarkdownNode.resolveEmbeddings(context);
+    });
   }
 
-  filterDivisionMarkdownNode(callback) {
-    this.filterChildNode((childNode) => {
-      const childNodeDivisionMarkdownNode = (childNode instanceof DivisionMarkdownNode);
+  getDivisionMarkdownNodes() {
+    const node = this,  ///
+          divisionMarkdownNodes = divisionMarkdownNodesFromNode(node);
 
-      if (!childNodeDivisionMarkdownNode) {
-        return true;
-      }
+    return divisionMarkdownNodes;
+  }
 
-      if (childNodeDivisionMarkdownNode) {
-        const divisionMarkNode = childNode, ///
-              result = callback(divisionMarkNode);
+  getFirstDivisionMarkdownNode() {
+    const divisionMarkdownNodes = this.getDivisionMarkdownNodes(),
+          firstDivisionMarkdownNode = first(divisionMarkdownNodes) || null;
 
-        if (result) {
-          return true;
-        }
-      }
-    });
+    return firstDivisionMarkdownNode;
   }
 
   forEachDivisionMarkdownNode(callback) {
-    this.forEachChildNode((childNode) => {
-      const childNodeDivisionMarkdownNode = (childNode instanceof DivisionMarkdownNode);
+    const divisionMarkdownNodes = this.getDivisionMarkdownNodes();
 
-      if (childNodeDivisionMarkdownNode) {
-        const divisionMarkNode = childNode; ///
-
-        callback(divisionMarkNode);
-      }
+    divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+      callback(divisionMarkdownNode);
     });
+  }
+
+  removeDivisionMarkdownNode(divisionMarkdownNode) {
+    const childNode = divisionMarkdownNode;  ///
+
+    this.removeChildNode(childNode);
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(TopmostMarkdownNode, ruleName, childNodes, opacity); }

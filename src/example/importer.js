@@ -53,7 +53,6 @@ const indexContent = `## Index
 
       contentContent = `@ignore
 
-@include ${INTRODUCTION_PATH}
 @include ${GETTING_STARTED_PATH}`,
 
       contentsContent = `## Contents

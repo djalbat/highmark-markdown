@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "necessary": "^14.3.2",
-    "occam-dom": "^5.2.1",
+    "occam-dom": "^5.2.7",
     "occam-lexers": "^23.0.47",
     "occam-parsers": "^23.0.120",
     "occam-query": "^4.1.77"

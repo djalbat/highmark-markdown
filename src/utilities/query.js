@@ -6,16 +6,20 @@ import { arrayUtilities } from "necessary";
 const { push } = arrayUtilities;
 
 const footnoteMarkdownNodeQuery = Query.fromExpressionString("/division/footnote"),
-      indexDirectiveMarkdownNodeQuery = Query.fromExpressionString("/division/directives/indexDirective"),
-      ignoreDirectiveMarkdownNodeQuery = Query.fromExpressionString("/division/directives/ignoreDirective"),
-      contentsDirectiveMarkdownNodeQuery = Query.fromExpressionString("/division/directives/contentsDirective"),
-      footnotesDirectiveMarkdownNodeQuery = Query.fromExpressionString("/division/directives/footnotesDirective"),
+      divisionMarkdownNodeQuery = Query.fromExpressionString("/markdown/division"),
+      subDivisionMarkdownNodeQuery = Query.fromExpressionString("/division/subDivision"),
+      indexDirectiveMarkdownNodeQuery = Query.fromExpressionString("/division/subDivision/directives/indexDirective"),
+      ignoreDirectiveMarkdownNodeQuery = Query.fromExpressionString("/division/subDivision/directives/ignoreDirective"),
+      contentsDirectiveMarkdownNodeQuery = Query.fromExpressionString("/division/subDivision/directives/contentsDirective"),
+      footnotesDirectiveMarkdownNodeQuery = Query.fromExpressionString("/division/subDivision/directives/footnotesDirective"),
       pageNumberDirectiveMarkdownNodeQuery = Query.fromExpressionString("//directives/pageNumber"),  ///
       headingMarkdownNodesQuery = Query.fromExpressionString("/division/primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),  ///
+      divisionMarkdownNodesQuery = Query.fromExpressionString("/markdown/division"),
       footnotesMarkdownNodesQuery = Query.fromExpressionString("//footnote|footnoteLink|footnotesDirective"), ///
+      subDivisionMarkdownNodesQuery = Query.fromExpressionString("/division/subDivision"),
       footnoteLinkMarkdownNodesQuery = Query.fromExpressionString("//footnoteLink"),
-      embedDirectiveMarkdownNodesQuery = Query.fromExpressionString("/division/directives/embedDirective"),
-      includeDirectiveMarkdownNodesQuery = Query.fromExpressionString("//includeDirective");
+      embedDirectiveMarkdownNodesQuery = Query.fromExpressionString("/subDivision/directives/embedDirective"),
+      includeDirectiveMarkdownNodesQuery = Query.fromExpressionString("/division/subDivision/directives/includeDirective");
 
 export function nodeQuery(expression) {
   const query = Query.fromExpressionString(expression);
@@ -43,6 +47,18 @@ export function footnoteMarkdownNodeFromNode(node) {
   const footnoteMarkdownNode = nodeFromNodeAndQuery(node, footnoteMarkdownNodeQuery);
 
   return footnoteMarkdownNode;
+}
+
+export function divisionMarkdownNodeFromNode(node) {
+  const divisionMarkdownNode = nodeFromNodeAndQuery(node, divisionMarkdownNodeQuery);
+
+  return divisionMarkdownNode;
+}
+
+export function subDivisionMarkdownNodeFromNode(node) {
+  const subDivisionMarkdownNode = nodeFromNodeAndQuery(node, subDivisionMarkdownNodeQuery);
+
+  return subDivisionMarkdownNode;
 }
 
 export function indexDirectiveMarkdownNodeFromNode(node) {
@@ -81,10 +97,22 @@ export function headingMarkdownNodesFromNode(node, headingMarkdownNodes = []) {
   return headingMarkdownNodes;
 }
 
+export function divisionMarkdownNodesFromNode(node, divisionMarkdownNodes = []) {
+  nodesFromNodeAndQuery(node, divisionMarkdownNodesQuery, divisionMarkdownNodes);
+
+  return divisionMarkdownNodes;
+}
+
 export function footnotesMarkdownNodesFromNode(node, footnotesMarkdownNodes = []) {
   nodesFromNodeAndQuery(node, footnotesMarkdownNodesQuery, footnotesMarkdownNodes);
 
   return footnotesMarkdownNodes;
+}
+
+export function subDivisionMarkdownNodesFromNode(node, subDivisionMarkdownNodes = []) {
+  nodesFromNodeAndQuery(node, subDivisionMarkdownNodesQuery, subDivisionMarkdownNodes);
+
+  return subDivisionMarkdownNodes;
 }
 
 export function footnoteLinkMarkdownNodesFromNode(node, linkMarkdownNodes = []) {

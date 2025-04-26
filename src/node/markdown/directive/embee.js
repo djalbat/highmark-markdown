@@ -4,8 +4,10 @@ import MarkdownNode from "../../../node/markdown";
 import PathMarkdownNode from "../../../node/markdown/path";
 import EmbedDirectiveTransform from "../../../transform/embedDirective";
 
+import { divisionMarkdownNodeFromNode, subDivisionMarkdownNodeFromNode } from "../../../utilities/query";
+
 export default class EmbedDirectiveMarkdownNode extends MarkdownNode {
-  resolve(context) {
+  resolveEmbedding(context) {
     let embedDirectiveTransform = null;
 
     const filePath = this.filePath(context);
@@ -22,10 +24,20 @@ export default class EmbedDirectiveMarkdownNode extends MarkdownNode {
         delete context.importedNode;
         delete context.importedTokens;
 
-        const divisionMarkdownNode = importedNode,  ///
-              tokens = importedTokens;  ///
+        const node = importedNode,  ///
+              divisionMarkdownNode = divisionMarkdownNodeFromNode(node);
 
-        embedDirectiveTransform = EmbedDirectiveTransform.fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens);
+        if (divisionMarkdownNode !== null) {
+          const node = divisionMarkdownNode,  ///
+                tokens = importedTokens,  ///
+                subDivisionMarkdownNode = subDivisionMarkdownNodeFromNode(node);
+
+          if (subDivisionMarkdownNode !== null) {
+            divisionMarkdownNode.removeSubDivisionMarkdownNode(subDivisionMarkdownNode);
+
+            embedDirectiveTransform = EmbedDirectiveTransform.fromSubDivisionMarkdownNodeAndTokens(subDivisionMarkdownNode, tokens);
+          }
+        }
       }
     }
 
