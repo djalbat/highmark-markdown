@@ -1,12 +1,12 @@
 "use strict";
 
-import SubDivisionTransform from "../../transform/subDivision";
+import DivisionTransform from "../division";
 
 import { includeDirectiveMarkdownNodesFromNode } from "../../utilities/query";
 
-export default class IncludeDirectivesSubDivisionTransform extends SubDivisionTransform {
-  constructor(node, tokens, subDivisionMarkdownNode, includeDirectiveMarkdownNodes) {
-    super(node, tokens, subDivisionMarkdownNode);
+export default class IncludeDirectivesDivisionTransform extends DivisionTransform {
+  constructor(node, tokens, divisionMarkdownNode, includeDirectiveMarkdownNodes) {
+    super(node, tokens, divisionMarkdownNode);
 
     this.includeDirectiveMarkdownNodes = includeDirectiveMarkdownNodes;
   }
@@ -15,44 +15,34 @@ export default class IncludeDirectivesSubDivisionTransform extends SubDivisionTr
     return this.includeDirectiveMarkdownNodes;
   }
 
-  removeFromDivisionMarkdownNode(divisionMarkdownNode, context) {
-    const ignored = divisionMarkdownNode.isIgnored();
-
-    if (ignored) {
-      return;
-    }
-
-    super.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
-  }
-
-  removeSubDivisionMarkdownNode(divisionMarkdownNode, context) {
+  removeDivisionMarkdownNode(divisionMarkdownNode, context) {
     this.includeDirectiveMarkdownNodes.forEach((includeDirectiveMarkdownNode) => {
       const includeDirectiveTransform = includeDirectiveMarkdownNode.resolve(context);
 
       if (includeDirectiveTransform !== null) {
         const divisionMarkdownNode = includeDirectiveTransform.getDivisionMarkdownNode(),
-              subDivisionMarkdownNodes = includeDirectiveTransform.addDivisionMarkdownNode(context);
+              divisionMarkdownNodes = includeDirectiveTransform.addDivisionMarkdownNode(context);
 
-        subDivisionMarkdownNodes.forEach((subDivisionMarkdownNode) => {
-          subDivisionMarkdownNode.resolveIncludes(divisionMarkdownNode, context);
+        divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
+          divisionMarkdownNode.resolveIncludes(divisionMarkdownNode, context);
         });
       }
     });
 
-    this.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
+    this.removeFromTopmostMarkdownNode(divisionMarkdownNode, context);
   }
 
-  static fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context) {
-    let includeDirectivesSubDivisionTransform = null;
+  static fromDivisionMarkdownNode(divisionMarkdownNode, context) {
+    let includeDirectivesDivisionTransform = null;
 
-    const node = subDivisionMarkdownNode, ///
+    const node = divisionMarkdownNode, ///
           includeDirectiveMarkdownNodes = includeDirectiveMarkdownNodesFromNode(node),
           includeDirectiveMarkdownNodesLength = includeDirectiveMarkdownNodes.length;
 
     if (includeDirectiveMarkdownNodesLength > 0) {
-      includeDirectivesSubDivisionTransform = SubDivisionTransform.fromSubDivisionMarkdownNode(IncludeDirectivesSubDivisionTransform, subDivisionMarkdownNode, includeDirectiveMarkdownNodes, context);
+      includeDirectivesDivisionTransform = DivisionTransform.fromDivisionMarkdownNode(IncludeDirectivesDivisionTransform, divisionMarkdownNode, includeDirectiveMarkdownNodes, context);
     }
 
-    return includeDirectivesSubDivisionTransform;
+    return includeDirectivesDivisionTransform;
   }
 }

@@ -21,7 +21,6 @@ import ClassNameMarkdownNode from "../../node/markdown/className";
 import BlockStartMarkdownNode from "../../node/markdown/blockStart";
 import InlineTextMarkdownNode from "../../node/markdown/inlineText";
 import StrongTextMarkdownNode from "../../node/markdown/strongText";
-import SubDivisionMarkdownNode from "../../node/markdown/subDivision";
 import OrderedItemMarkdownNode from "../../node/markdown/item/ordered";
 import BlockListingMarkdownNode from "../../node/markdown/blockListing";
 import ContentsLinkMarkdownNode from "../../node/markdown/contentsLink";
@@ -62,7 +61,6 @@ import { LINE_RULE_NAME,
          BLOCK_START_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
-         SUB_DIVISION_RULE_NAME,
          ORDERED_ITEM_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
          CONTENTS_LINK_RULE_NAME,
@@ -104,7 +102,6 @@ const markdownNodeMap = {
   [BLOCK_START_RULE_NAME]: BlockStartMarkdownNode,
   [INLINE_TEXT_RULE_NAME]: InlineTextMarkdownNode,
   [STRONG_TEXT_RULE_NAME]: StrongTextMarkdownNode,
-  [SUB_DIVISION_RULE_NAME]: SubDivisionMarkdownNode,
   [ORDERED_ITEM_RULE_NAME]: OrderedItemMarkdownNode,
   [CONTENTS_LINK_RULE_NAME]: ContentsLinkMarkdownNode,
   [BLOCK_LISTING_RULE_NAME]: BlockListingMarkdownNode,

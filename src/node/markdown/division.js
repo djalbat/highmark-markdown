@@ -8,11 +8,13 @@ import FootnoteTransform from "../../transform/footnote";
 import IndexAnchorTransform from "../../transform/indexAnchor";
 import ContentsListTransform from "../../transform/contentsList";
 import FootnotesListTransform from "../../transform/footnotesList";
-import FootnoteSubDivisionTransform from "../../transform/subDivision/footnote";
-import IndexDirectiveSubDivisionTransform from "../../transform/subDivision/indexDirective";
-import ContentsDirectiveSubDivisionTransform from "../../transform/subDivision/contentsDirective";
-import FootnotesDirectiveSubDivisionTransform from "../../transform/subDivision/footnotesDirective";
-import PageNumberDirectiveSubDivisionTransform from "../../transform/subDivision/pageNumberDirective";
+import FootnoteDivisionTransform from "../../transform/subDivision/footnote";
+import EmbedDirectivesDivisionTransform from "../../transform/subDivision/embedDirectives";
+import IncludeDirectivesDivisionTransform from "../../transform/subDivision/includeDirectives";
+import IndexDirectiveDivisionTransform from "../../transform/subDivision/indexDirective";
+import ContentsDirectiveDivisionTransform from "../../transform/subDivision/contentsDirective";
+import FootnotesDirectiveDivisionTransform from "../../transform/subDivision/footnotesDirective";
+import PageNumberDirectiveDivisionTransform from "../../transform/subDivision/pageNumberDirective";
 
 import { DIVISION_RULE_NAME } from "../../ruleNames";
 import { renumberFootnoteLinkMarkdownNodes } from "../../utilities/footnotes";
@@ -21,24 +23,26 @@ import { subDivisionMarkdownNodesFromNode, ignoreDirectiveMarkdownNodeFromNode, 
 const { clear, filter } = arrayUtilities;
 
 export default class DivisionMarkdownNode extends MarkdownNode {
-  constructor(ruleName, childNodes, precedence, opacity, domElement, divisionClassName) {
-    super(ruleName, childNodes, precedence, opacity, domElement);
+  resolveIncludes(context) {
+    const divisionMarkdownNode = this, ///
+          includeDirectivesDivisionTransform = IncludeDirectivesDivisionTransform.fromDivisionMarkdownNode(divisionMarkdownNode, context);
 
-    this.divisionClassName = divisionClassName;
+    if (includeDirectivesDivisionTransform !== null) {
+      includeDirectivesDivisionTransform.removeDivisionMarkdownNode(divisionMarkdownNode, context);
+    }
   }
 
-  getDivisionClassName() {
-    return this.divisionClassName;
-  }
+  resolveEmbeddings(divisionMarkdownNode, context) {
+    const divisionMarkdownNode = this, ///
+          embedDirectivesDivisionTransform = EmbedDirectivesDivisionTransform.fromDivisionMarkdownNode(divisionMarkdownNode, context);
 
-  setDivisionClassName(divisionClassName) {
-    this.divisionClassName = divisionClassName;
-  }
+    if (embedDirectivesDivisionTransform !== null) {
+      const subDivisionMarkdownNodes = embedDirectivesDivisionTransform.replaceDivisionMarkdownNode(divisionMarkdownNode, context);
 
-  isDivisionMarkdownNode() {
-    const divisionMarkdownNode = true;
-
-    return divisionMarkdownNode;
+      subDivisionMarkdownNodes.forEach((subDivisionMarkdownNode) => {
+        subDivisionMarkdownNode.resolveEmbeddings(divisionMarkdownNode, context);
+      });
+    }
   }
 
   className(context) {
@@ -55,166 +59,148 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return ignored;
   }
 
-  getPageNumber() {
-    let pageNumber = null;
+  // getPageNumber() {
+  //   let pageNumber = null;
+  //
+  //   const pageNumberDirectiveMarkdownNode = this.findPageNumberDirectiveMarkdownNode();
+  //
+  //   if (pageNumberDirectiveMarkdownNode !== null) {
+  //     pageNumber = pageNumberDirectiveMarkdownNode.getPageNumber();
+  //   }
+  //
+  //   return pageNumber;
+  // }
+  //
+  // setPageNumber(pageNumber) {
+  //   const pageNumberDirectiveMarkdownNode = this.findPageNumberDirectiveMarkdownNode();
+  //
+  //   if (pageNumberDirectiveMarkdownNode !== null) {
+  //     pageNumberDirectiveMarkdownNode.setPageNumber(pageNumber);
+  //   }
+  // }
+  //
+  // paginate(markdownNodes, context) {
+  //   const footnotesDirectiveDivisionTransform = this.removeDivisionMarkdownNode(FootnotesDirectiveDivisionTransform, context),
+  //         pageNumberDirectiveDivisionTransform = this.removeDivisionMarkdownNode(PageNumberDirectiveDivisionTransform, context),
+  //         subDivisionTransforms = [
+  //           footnotesDirectiveDivisionTransform,
+  //           pageNumberDirectiveDivisionTransform
+  //         ];
+  //
+  //   filter(subDivisionTransforms, (subDivisionTransform) => {
+  //     if (subDivisionTransform !== null) {
+  //       return true;
+  //     }
+  //   });
+  //
+  //   const { linesPerPage } = context,
+  //         paginatedChildNodes = [];
+  //
+  //   let { pageNumber } = context,
+  //       totalLines = 0;
+  //
+  //   this.forEachChildNode((childNode) => {
+  //     const lines = childNode.lines(context);
+  //
+  //     if ((totalLines + lines) > linesPerPage) {
+  //       paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionTransforms, this.divisionClassName, markdownNodes, pageNumber, context);
+  //
+  //       pageNumber++;
+  //
+  //       totalLines = 0;
+  //
+  //       clear(paginatedChildNodes);
+  //     }
+  //
+  //     const paginatedChildNode = childNode;  ///
+  //
+  //     paginatedChildNodes.push(paginatedChildNode);
+  //
+  //     totalLines += lines;
+  //   });
+  //
+  //   if (totalLines > 0) {
+  //     paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionTransforms, this.divisionClassName, markdownNodes, pageNumber, context);
+  //
+  //     pageNumber++;
+  //   }
+  //
+  //   Object.assign(context, {
+  //     pageNumber
+  //   });
+  // }
+  //
+  // createIndex(divisionMarkdownNodes, context) {
+  //   let indexCreated = false;
+  //
+  //   const indexDirectiveDivisionTransform = this.findDivisionTransform(IndexDirectiveDivisionTransform, context);
+  //
+  //   if (indexDirectiveDivisionTransform !== null) {
+  //     const divisionMarkdownNode = this,  ///
+  //           indexTransform = IndexTransform.fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context);
+  //
+  //     if (indexTransform !== null) {
+  //       indexTransform.replaceIndexDirectiveSubdivisionTransform(indexDirectiveDivisionTransform, divisionMarkdownNode, context);
+  //
+  //       indexCreated = true;
+  //     }
+  //   }
+  //
+  //   return indexCreated;
+  // }
+  //
+  // createContents(divisionMarkdownNodes, context) {
+  //   let contentsCreated = false;
+  //
+  //   const contentsDirectiveDivisionTransform = this.findDivisionTransform(ContentsDirectiveDivisionTransform, context);
+  //
+  //   if (contentsDirectiveDivisionTransform !== null) {
+  //     const divisionMarkdownNode = this,  ///
+  //           contentsListTransform = ContentsListTransform.fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context);
+  //
+  //     if (contentsListTransform !== null) {
+  //       contentsListTransform.replaceContentsDirectiveSubdivisionTransform(contentsDirectiveDivisionTransform, divisionMarkdownNode, context);
+  //
+  //       contentsCreated = true;
+  //     }
+  //   }
+  //
+  //   return contentsCreated;
+  // }
+  //
+  // createFootnotes(footnoteTransformMap, context) {
+  //   const footnotesDirectiveDivisionTransform = this.findDivisionTransform(FootnotesDirectiveDivisionTransform, context);
+  //
+  //   if (footnotesDirectiveDivisionTransform !== null) {
+  //     const divisionMarkdownNode = this,  ///
+  //           footnotesListDivisionTransform = FootnotesListTransform.fromDivisionMarkdownNodeAndFootnoteTransformMap(divisionMarkdownNode, footnoteTransformMap, context);
+  //
+  //     if (footnotesListDivisionTransform !== null) {
+  //       footnotesListDivisionTransform.replaceFootnotesDirectiveDivisionTransform(footnotesDirectiveDivisionTransform, divisionMarkdownNode, context);
+  //     }
+  //
+  //     renumberFootnoteLinkMarkdownNodes(divisionMarkdownNode, footnoteTransformMap, context);
+  //   }
+  // }
+  //
+  // prepareFootnotes(footnoteTransformMap, context) {
+  //   const footnoteDivisionTransforms = this.removeDivisionMarkdownNodes(FootnoteDivisionTransform, context);
+  //
+  //   footnoteDivisionTransforms.forEach((footnoteDivisionTransform) => {
+  //     const footnoteTransform = FootnoteTransform.fromFootnoteDivisionTransform(footnoteDivisionTransform),
+  //           identifier = footnoteDivisionTransform.identifier(context);
+  //
+  //     footnoteTransformMap[identifier] = footnoteTransform;
+  //   });
+  // }
 
-    const pageNumberDirectiveMarkdownNode = this.findPageNumberDirectiveMarkdownNode();
-
-    if (pageNumberDirectiveMarkdownNode !== null) {
-      pageNumber = pageNumberDirectiveMarkdownNode.getPageNumber();
-    }
-
-    return pageNumber;
-  }
-
-  setPageNumber(pageNumber) {
-    const pageNumberDirectiveMarkdownNode = this.findPageNumberDirectiveMarkdownNode();
-
-    if (pageNumberDirectiveMarkdownNode !== null) {
-      pageNumberDirectiveMarkdownNode.setPageNumber(pageNumber);
-    }
-  }
-
-  paginate(markdownNodes, context) {
-    const footnotesDirectiveSubDivisionTransform = this.removeSubDivisionMarkdownNode(FootnotesDirectiveSubDivisionTransform, context),
-          pageNumberDirectiveSubDivisionTransform = this.removeSubDivisionMarkdownNode(PageNumberDirectiveSubDivisionTransform, context),
-          subDivisionTransforms = [
-            footnotesDirectiveSubDivisionTransform,
-            pageNumberDirectiveSubDivisionTransform
-          ];
-
-    filter(subDivisionTransforms, (subDivisionTransform) => {
-      if (subDivisionTransform !== null) {
-        return true;
-      }
-    });
-
-    const { linesPerPage } = context,
-          paginatedChildNodes = [];
-
-    let { pageNumber } = context,
-        totalLines = 0;
-
-    this.forEachChildNode((childNode) => {
-      const lines = childNode.lines(context);
-
-      if ((totalLines + lines) > linesPerPage) {
-        paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionTransforms, this.divisionClassName, markdownNodes, pageNumber, context);
-
-        pageNumber++;
-
-        totalLines = 0;
-
-        clear(paginatedChildNodes);
-      }
-
-      const paginatedChildNode = childNode;  ///
-
-      paginatedChildNodes.push(paginatedChildNode);
-
-      totalLines += lines;
-    });
-
-    if (totalLines > 0) {
-      paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionTransforms, this.divisionClassName, markdownNodes, pageNumber, context);
-
-      pageNumber++;
-    }
-
-    Object.assign(context, {
-      pageNumber
-    });
-  }
-
-  createIndex(divisionMarkdownNodes, context) {
-    let indexCreated = false;
-
-    const indexDirectiveSubDivisionTransform = this.findSubDivisionTransform(IndexDirectiveSubDivisionTransform, context);
-
-    if (indexDirectiveSubDivisionTransform !== null) {
-      const divisionMarkdownNode = this,  ///
-            indexTransform = IndexTransform.fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context);
-
-      if (indexTransform !== null) {
-        indexTransform.replaceIndexDirectiveSubdivisionTransform(indexDirectiveSubDivisionTransform, divisionMarkdownNode, context);
-
-        indexCreated = true;
-      }
-    }
-
-    return indexCreated;
-  }
-
-  createContents(divisionMarkdownNodes, context) {
-    let contentsCreated = false;
-
-    const contentsDirectiveSubDivisionTransform = this.findSubDivisionTransform(ContentsDirectiveSubDivisionTransform, context);
-
-    if (contentsDirectiveSubDivisionTransform !== null) {
-      const divisionMarkdownNode = this,  ///
-            contentsListTransform = ContentsListTransform.fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context);
-
-      if (contentsListTransform !== null) {
-        contentsListTransform.replaceContentsDirectiveSubdivisionTransform(contentsDirectiveSubDivisionTransform, divisionMarkdownNode, context);
-
-        contentsCreated = true;
-      }
-    }
-
-    return contentsCreated;
-  }
-
-  createFootnotes(footnoteTransformMap, context) {
-    const footnotesDirectiveSubDivisionTransform = this.findSubDivisionTransform(FootnotesDirectiveSubDivisionTransform, context);
-
-    if (footnotesDirectiveSubDivisionTransform !== null) {
-      const divisionMarkdownNode = this,  ///
-            footnotesListSubDivisionTransform = FootnotesListTransform.fromDivisionMarkdownNodeAndFootnoteTransformMap(divisionMarkdownNode, footnoteTransformMap, context);
-
-      if (footnotesListSubDivisionTransform !== null) {
-        footnotesListSubDivisionTransform.replaceFootnotesDirectiveSubDivisionTransform(footnotesDirectiveSubDivisionTransform, divisionMarkdownNode, context);
-      }
-
-      renumberFootnoteLinkMarkdownNodes(divisionMarkdownNode, footnoteTransformMap, context);
-    }
-  }
-
-  prepareFootnotes(footnoteTransformMap, context) {
-    const footnoteSubDivisionTransforms = this.removeSubDivisionMarkdownNodes(FootnoteSubDivisionTransform, context);
-
-    footnoteSubDivisionTransforms.forEach((footnoteSubDivisionTransform) => {
-      const footnoteTransform = FootnoteTransform.fromFootnoteSubDivisionTransform(footnoteSubDivisionTransform),
-            identifier = footnoteSubDivisionTransform.identifier(context);
-
-      footnoteTransformMap[identifier] = footnoteTransform;
-    });
-  }
-
-  resolveIncludes(context) {
-    const divisionMarkdownNode = this,  ///
-          subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes();
-
-    subDivisionMarkdownNodes.forEach((subDivisionMarkdownNode) => {
-      subDivisionMarkdownNode.resolveIncludes(divisionMarkdownNode, context);
-    });
-  }
-
-  resolveEmbeddings(context) {
-    const divisionMarkdownNode = this,  ///
-          subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes();
-
-    subDivisionMarkdownNodes.forEach((subDivisionMarkdownNode) => {
-      subDivisionMarkdownNode.resolveEmbeddings(divisionMarkdownNode, context);
-    });
-  }
-
-  findSubDivisionTransform(SubDivisionTransform, context) {
+  findDivisionTransform(DivisionTransform, context) {
     let subDivisionTransform = null;
 
-    const subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes();
+    const subDivisionMarkdownNodes = this.findDivisionMarkdownNodes();
 
     subDivisionMarkdownNodes.some((subDivisionMarkdownNode) => {
-      subDivisionTransform = SubDivisionTransform.fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context);
+      subDivisionTransform = DivisionTransform.fromDivisionMarkdownNode(subDivisionMarkdownNode, context);
 
       if (subDivisionTransform !== null) {
         return true;
@@ -224,10 +210,10 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return subDivisionTransform;
   }
 
-  findSubDivisionTransforms(SubDivisionTransform, context) {
-    const subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes(),
+  findDivisionTransforms(DivisionTransform, context) {
+    const subDivisionMarkdownNodes = this.findDivisionMarkdownNodes(),
           subDivisionTransforms = subDivisionMarkdownNodes.reduce((subDivisionTransforms, subDivisionMarkdownNode) => {
-            const subDivisionTransform = SubDivisionTransform.fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context);
+            const subDivisionTransform = DivisionTransform.fromDivisionMarkdownNode(subDivisionMarkdownNode, context);
 
             if (subDivisionTransform !== null) {
               subDivisionTransforms.push(subDivisionTransform);
@@ -239,7 +225,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return subDivisionTransforms;
   }
 
-  findSubDivisionMarkdownNodes() {
+  findDivisionMarkdownNodes() {
     const node = this,  ///
           subDivisionMarkdownNodes = subDivisionMarkdownNodesFromNode(node);
 
@@ -249,7 +235,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   findPageNumberDirectiveMarkdownNode() {
     let pageNumberDirectiveMarkdownNode = null;
 
-    const subDivisionMarkdownNodes = this.findSubDivisionMarkdownNodes();
+    const subDivisionMarkdownNodes = this.findDivisionMarkdownNodes();
 
     subDivisionMarkdownNodes.some((subDivisionMarkdownNode) => {
       const node = subDivisionMarkdownNode; ///
@@ -264,9 +250,9 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return pageNumberDirectiveMarkdownNode;
   }
 
-  removeSubDivisionMarkdownNode(SubDivisionTransform, context) {
+  removeDivisionMarkdownNode(DivisionTransform, context) {
     const divisionMarkdownNode = this,  //
-          subDivisionTransform = this.findSubDivisionTransform(SubDivisionTransform, context);
+          subDivisionTransform = this.findDivisionTransform(DivisionTransform, context);
 
     if (subDivisionTransform !== null) {
       subDivisionTransform.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
@@ -275,9 +261,9 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return subDivisionTransform;
   }
 
-  removeSubDivisionMarkdownNodes(SubDivisionTransform, context) {
+  removeDivisionMarkdownNodes(DivisionTransform, context) {
     const divisionMarkdownNode = this,  //
-          subDivisionTransforms = this.findSubDivisionTransforms(SubDivisionTransform, context);
+          subDivisionTransforms = this.findDivisionTransforms(DivisionTransform, context);
 
     subDivisionTransforms.forEach((subDivisionTransform) => {
       subDivisionTransform.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
@@ -287,55 +273,31 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   }
 
   createFootnotesListTransform(footnoteTransformMap, context) {
-    const footnoteSubDivisionTransforms = this.findSubDivisionTransforms(FootnoteSubDivisionTransform, context);
+    const footnoteDivisionTransforms = this.findDivisionTransforms(FootnoteDivisionTransform, context);
 
-    footnoteSubDivisionTransforms.forEach((footnoteSubDivisionTransform) => {
-      const footnoteTransform = FootnoteTransform.fromFootnoteSubDivisionTransform(footnoteSubDivisionTransform),
-            identifier = footnoteSubDivisionTransform.identifier(context);
+    footnoteDivisionTransforms.forEach((footnoteDivisionTransform) => {
+      const footnoteTransform = FootnoteTransform.fromFootnoteDivisionTransform(footnoteDivisionTransform),
+            identifier = footnoteDivisionTransform.identifier(context);
 
       footnoteTransformMap[identifier] = footnoteTransform;
     });
 
     const divisionMarkdownNode = this,  ///
-          footnotesListSubDivisionTransform = FootnotesListTransform.fromDivisionMarkdownNodeAndFootnoteTransformMap(divisionMarkdownNode, footnoteTransformMap, context);
+          footnotesListDivisionTransform = FootnotesListTransform.fromDivisionMarkdownNodeAndFootnoteTransformMap(divisionMarkdownNode, footnoteTransformMap, context);
 
-    return footnotesListSubDivisionTransform;
+    return footnotesListDivisionTransform;
   }
 
   clone() { return super.clone(this.divisionClassName); }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
-    const divisionClassName = null,
-          divisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(DivisionMarkdownNode, ruleName, childNodes, opacity, divisionClassName);
-
-    return divisionMarkdownNode;
-  }
-
-  static fromPaginatedChildNodesSubDivisionTransformsAndDivisionClassName(paginatedChildNodes, subDivisionTransforms, divisionClassName, context) {
-    const ruleName = DIVISION_RULE_NAME,
-          childNodes = [
-            ...paginatedChildNodes
-          ],
-          opacity = null,
-          divisionMarkdownNode = DivisionMarkdownNode.fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity);
-
-    divisionMarkdownNode.setDivisionClassName(divisionClassName);
-
-    subDivisionTransforms.forEach((subDivisionTransform) => {
-      subDivisionTransform = subDivisionTransform.clone();  ///
-
-      subDivisionTransform.appendToDivisionMarkdownNode(divisionMarkdownNode, context);
-    });
-
-    return divisionMarkdownNode;
-  }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(DivisionMarkdownNode, ruleName, childNodes, opacity); }
 }
 
 function paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionTransforms, divisionClassName, markdownNodes, pageNumber, context) {
   let markdownNode;
 
   const indexAnchorTransform = IndexAnchorTransform.fromPageNumber(pageNumber, context),
-        divisionMarkdownNode = DivisionMarkdownNode.fromPaginatedChildNodesSubDivisionTransformsAndDivisionClassName(paginatedChildNodes, subDivisionTransforms, divisionClassName, context),
+        divisionMarkdownNode = DivisionMarkdownNode.fromPaginatedChildNodesDivisionTransformsAndDivisionClassName(paginatedChildNodes, subDivisionTransforms, divisionClassName, context),
         anchorMarkdownNode = indexAnchorTransform.getAnchorMarkdownNode();
 
   divisionMarkdownNode.setPageNumber(pageNumber);

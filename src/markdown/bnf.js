@@ -2,13 +2,10 @@
 
 const bnf = `
 
-    markdown                ::=  ( division | error )+ ;
-
-
-    division                ::=  ( subDivision | endOfLine )+ ;
+    markdown                ::=  ( division | endOfLine | error )+ ;
     
     
-    subDivision             ::=  verticalSpace ( directives 
+    division                ::=  verticalSpace ( directives 
     
                                                | primaryHeading 
          

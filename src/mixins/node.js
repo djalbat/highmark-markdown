@@ -1,5 +1,15 @@
 "use strict";
 
+function filterChildNode(callback) {
+  this.forEachChildNode((childNode) => {
+    const result = callback(childNode);
+
+    if (!result) {
+       this.removeChildNode(childNode);
+    }
+  });
+}
+
 function fromFirstChildNode(callback) {
   let result;
 
@@ -112,6 +122,7 @@ function fromThirdLastChildNode(callback) {
 }
 
 const nodeMixins = {
+  filterChildNode,
   fromFirstChildNode,
   fromSecondChildNode,
   fromThirdChildNode,

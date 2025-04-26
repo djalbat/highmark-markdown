@@ -1,16 +1,19 @@
 "use strict";
 
 export function postProcess(divisionMarkdownNodes, context) {
-  const footnoteReplacementMap = prepareFootnotes(divisionMarkdownNodes, context),
-        markdownNodes = paginate(divisionMarkdownNodes, context);
+  debugger
 
-  divisionMarkdownNodes = divisionMarkdownNodesFromMarkdownNodes(markdownNodes);  ///
 
-  createFootnotes(divisionMarkdownNodes, footnoteReplacementMap, context);
-
-  createContents(divisionMarkdownNodes, context);
-
-  createIndex(divisionMarkdownNodes, context);
+  // const footnoteReplacementMap = prepareFootnotes(divisionMarkdownNodes, context),
+  //       markdownNodes = paginate(divisionMarkdownNodes, context);
+  //
+  // divisionMarkdownNodes = divisionMarkdownNodesFromMarkdownNodes(markdownNodes);  ///
+  //
+  // createFootnotes(divisionMarkdownNodes, footnoteReplacementMap, context);
+  //
+  // createContents(divisionMarkdownNodes, context);
+  //
+  // createIndex(divisionMarkdownNodes, context);
 }
 
 function paginate(divisionMarkdownNodes, context) {
@@ -64,22 +67,6 @@ function prepareFootnotes(divisionMarkdownNodes, context) {
   });
 
   return footnoteReplacementMap;
-}
-
-function divisionMarkdownNodesFromMarkdownNodes(markdownNodes) {
-  const divisionMarkdownNodes = markdownNodes.reduce((divisionMarkdownNodes, markdownNode) => {
-    const markdownNodeDivisionMarkdownNode = markdownNode.isDivisionMarkdownNode();
-
-    if (markdownNodeDivisionMarkdownNode) {
-      const divisionMarkdownNode = markdownNode;  ///
-
-      divisionMarkdownNodes.push(divisionMarkdownNode);
-    }
-
-    return divisionMarkdownNodes;
-  }, []);
-
-  return divisionMarkdownNodes;
 }
 
 export default {

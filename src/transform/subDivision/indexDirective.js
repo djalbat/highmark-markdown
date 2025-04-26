@@ -1,6 +1,6 @@
 "use strict";
 
-import SubDivisionTransform from "../../transform/subDivision";
+import SubDivisionTransform from "../division";
 
 import { indexDirectiveMarkdownNodeFromNode } from "../../utilities/query";
 
