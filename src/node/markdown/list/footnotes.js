@@ -1,8 +1,8 @@
 "use strict";
 
-import MarkdownNode from "../../node/markdown";
+import MarkdownNode from "../../../node/markdown";
 
-import { FOOTNOTES_LIST_RULE_NAME } from "../../ruleNames";
+import { FOOTNOTES_LIST_RULE_NAME } from "../../../ruleNames";
 
 export default class FootnotesListMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, opacity, precedence, domElement, start) {

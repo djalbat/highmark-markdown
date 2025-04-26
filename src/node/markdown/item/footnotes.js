@@ -2,11 +2,11 @@
 
 import { arrayUtilities } from "necessary";
 
-import MarkdownNode from "../../node/markdown";
-import AnchorMarkdownNode from "../../node/markdown/anchor";
+import MarkdownNode from "../../../node/markdown";
+import AnchorMarkdownNode from "../../../node/markdown/anchor";
 
-import { FOOTNOTE_PREPEND } from "../../prepends";
-import { FOOTNOTES_ITEM_RULE_NAME } from "../../ruleNames";
+import { FOOTNOTE_PREPEND } from "../../../prepends";
+import { FOOTNOTES_ITEM_RULE_NAME } from "../../../ruleNames";
 
 const { first } = arrayUtilities;
 

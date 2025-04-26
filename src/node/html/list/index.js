@@ -1,6 +1,6 @@
 "use strict";
 
-import HTMLNode from "../../node/html";
+import HTMLNode from "../../../node/html";
 
 export default class IndexListHTMLNode extends HTMLNode {
   static tagName = "ul";

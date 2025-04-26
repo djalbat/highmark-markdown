@@ -9,13 +9,13 @@ export default class TopmostMarkdownNode extends MarkdownNode {
     //   divisionMarkdownNode.resolveIncludes(context);
     // });
 
-    this.filterDivisionMarkdownNode((divisionMarkdownNode) => {
-      const ignored = divisionMarkdownNode.isIgnored();
-
-      if (!ignored) {
-        return true;
-      }
-    });
+    // this.filterDivisionMarkdownNode((divisionMarkdownNode) => {
+    //   const ignored = divisionMarkdownNode.isIgnored();
+    //
+    //   if (!ignored) {
+    //     return true;
+    //   }
+    // });
 
     // this.forEachDivisionMarkdownNode((divisionMarkdownNode) => {
     //   divisionMarkdownNode.resolveEmbeddings(context);

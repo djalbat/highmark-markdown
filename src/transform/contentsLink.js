@@ -3,7 +3,7 @@
 import { Transform } from "occam-dom";
 
 import LineTransform from "../transform/line";
-import ContentsLinkMarkdownNode from "../node/markdown/contentsLink";
+import ContentsLinkMarkdownNode from "../node/markdown/link/contents";
 
 export default class ContentsLinkTransform extends Transform {
   static fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context) {

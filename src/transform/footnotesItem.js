@@ -2,7 +2,7 @@
 
 import { Transform } from "occam-dom";
 
-import FootnotesItemMarkdownNode from "../node/markdown/footnotesItem";
+import FootnotesItemMarkdownNode from "../node/markdown/item/footnotes";
 
 export default class FootnotesItemTransform extends Transform {
   getFootnotesItemMarkdownNode() {

@@ -1,8 +1,8 @@
 "use strict";
 
-import MarkdownNode from "../../node/markdown";
+import MarkdownNode from "../../../node/markdown";
 
-import { EMAIL_ADDRESS_TOKEN_TYPE } from "../../tokenTypes";
+import { EMAIL_ADDRESS_TOKEN_TYPE } from "../../../tokenTypes";
 
 export default class EmailLinkMarkdownNode extends MarkdownNode {
   emailAddressFromSecondLastChildNode(context) {

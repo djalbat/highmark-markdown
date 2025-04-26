@@ -1,6 +1,6 @@
 "use strict";
 
-import FootnotesListMarkdownNode from "../node/markdown/footnotesList";
+import FootnotesListMarkdownNode from "../node/markdown/list/footnotes";
 
 import { footnoteLinkMarkdownNodesFromNode } from "../utilities/query";
 

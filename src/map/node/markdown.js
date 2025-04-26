@@ -12,9 +12,9 @@ import BlockEndMarkdownNode from "../../node/markdown/blockEnd";
 import ParagraphMarkdownNode from "../../node/markdown/paragraph";
 import ReferenceMarkdownNode from "../../node/markdown/reference";
 import HyperlinkMarkdownNode from "../../node/markdown/hyperlink";
-import IndexListMarkdownNode from "../../node/markdown/indexList";
-import IndexLinkMarkdownNode from "../../node/markdown/indexLink";
-import EmailLinkMarkdownNode from "../../node/markdown/emailLink";
+import IndexListMarkdownNode from "../../node/markdown/list/index";
+import IndexLinkMarkdownNode from "../../node/markdown/link/index";
+import EmailLinkMarkdownNode from "../../node/markdown/link/email";
 import PlainTextMarkdownNode from "../../node/markdown/text/plain";
 import BlockTextMarkdownNode from "../../node/markdown/text/block";
 import ClassNameMarkdownNode from "../../node/markdown/className";
@@ -22,14 +22,15 @@ import BlockStartMarkdownNode from "../../node/markdown/blockStart";
 import InlineTextMarkdownNode from "../../node/markdown/inlineText";
 import StrongTextMarkdownNode from "../../node/markdown/strongText";
 import OrderedItemMarkdownNode from "../../node/markdown/item/ordered";
-import BlockListingMarkdownNode from "../../node/markdown/blockListing";
-import ContentsLinkMarkdownNode from "../../node/markdown/contentsLink";
+import SubDivisionMarkdownNode from "../../node/markdown/subDivision";
+import BlockListingMarkdownNode from "../../node/markdown/listng/block";
+import ContentsLinkMarkdownNode from "../../node/markdown/link/contents";
 import ContentsItemMarkdownNode from "../../node/markdown/contentsItem";
-import ContentsListMarkdownNode from "../../node/markdown/contentsList";
-import FootnoteLinkMarkdownNode from "../../node/markdown/footnoteLink";
-import InlineListingMarkdownNode from "../../node/markdown/inlineListing";
-import FootnotesItemMarkdownNode from "../../node/markdown/footnotesItem";
-import FootnotesListMarkdownNode from "../../node/markdown/footnotesList";
+import ContentsListMarkdownNode from "../../node/markdown/list/contents";
+import FootnoteLinkMarkdownNode from "../../node/markdown/link/footnote";
+import InlineListingMarkdownNode from "../../node/markdown/listng/inline";
+import FootnotesItemMarkdownNode from "../../node/markdown/item/footnotes";
+import FootnotesListMarkdownNode from "../../node/markdown/list/footnotes";
 import EmphasisedTextMarkdownNode from "../../node/markdown/emphasisedText";
 import PrimaryHeadingMarkdownNode from "../../node/markdown/heading/primary";
 import EmbedDirectiveMarkdownNode from "../../node/markdown/directive/embee";
@@ -62,6 +63,7 @@ import { LINE_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
          ORDERED_ITEM_RULE_NAME,
+         SUB_DIVISION_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
          CONTENTS_LINK_RULE_NAME,
          CONTENTS_ITEM_RULE_NAME,
@@ -103,6 +105,7 @@ const markdownNodeMap = {
   [INLINE_TEXT_RULE_NAME]: InlineTextMarkdownNode,
   [STRONG_TEXT_RULE_NAME]: StrongTextMarkdownNode,
   [ORDERED_ITEM_RULE_NAME]: OrderedItemMarkdownNode,
+  [SUB_DIVISION_RULE_NAME]: SubDivisionMarkdownNode,
   [CONTENTS_LINK_RULE_NAME]: ContentsLinkMarkdownNode,
   [BLOCK_LISTING_RULE_NAME]: BlockListingMarkdownNode,
   [CONTENTS_ITEM_RULE_NAME]: ContentsItemMarkdownNode,

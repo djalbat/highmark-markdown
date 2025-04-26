@@ -4,7 +4,7 @@ import { Transform } from "occam-dom";
 import { arrayUtilities } from "necessary";
 
 import ContentsItemTransform from "../transform/contentsItem";
-import ContentsListMarkdownNode from "../node/markdown/contentsList";
+import ContentsListMarkdownNode from "../node/markdown/list/contents";
 
 import { nestNodes } from "../utilities/contents";
 import { headingMarkdownNodesFromNode } from "../utilities/query";

@@ -3,6 +3,8 @@
 import HTMLNode from "../../../node/html";
 
 export default class InlineListingHTMLNode extends HTMLNode {
+  content(context) { return this.outerNode.content(context); }
+
   createDOMElement(context) {
     let domElement;
 

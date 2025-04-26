@@ -1,8 +1,8 @@
 "use strict";
 
-import MarkdownNode from "../../node/markdown";
+import MarkdownNode from "../../../node/markdown";
 
-import { CONTENTS_LINK_RULE_NAME } from "../../ruleNames";
+import { CONTENTS_LINK_RULE_NAME } from "../../../ruleNames";
 
 export default class ContentsLinkMarkdownNode extends MarkdownNode {
   constructor(ruleName, childNodes, opacity, precedence, domElement, identifier) {

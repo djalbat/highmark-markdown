@@ -1,6 +1,6 @@
 "use strict";
 
-import MarkdownNode from "../../node/markdown";
+import MarkdownNode from "../../../node/markdown";
 
 export default class IndexLinkMarkdownNode extends MarkdownNode {
   // content(context) {

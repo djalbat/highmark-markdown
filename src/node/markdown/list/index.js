@@ -1,8 +1,8 @@
 "use strict";
 
-import MarkdownNode from "../../node/markdown";
+import MarkdownNode from "../../../node/markdown";
 
-import { INDEX_LIST_RULE_NAME } from "../../ruleNames";
+import { INDEX_LIST_RULE_NAME } from "../../../ruleNames";
 
 export default class IndexListMarkdownNode extends MarkdownNode {
   static fromIndexItemReplacements(indexItemReplacements) {

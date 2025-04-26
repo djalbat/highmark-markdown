@@ -22,7 +22,7 @@ import { subDivisionMarkdownNodesFromNode, ignoreDirectiveMarkdownNodeFromNode, 
 
 const { clear, filter } = arrayUtilities;
 
-export default class DivisionMarkdownNode extends MarkdownNode {
+export default class SubDivisionMarkdownNode extends MarkdownNode {
   resolveIncludes(context) {
     const divisionMarkdownNode = this, ///
           includeDirectivesDivisionTransform = IncludeDirectivesDivisionTransform.fromDivisionMarkdownNode(divisionMarkdownNode, context);
@@ -290,14 +290,14 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
   clone() { return super.clone(this.divisionClassName); }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(DivisionMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(SubDivisionMarkdownNode, ruleName, childNodes, opacity); }
 }
 
 function paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionTransforms, divisionClassName, markdownNodes, pageNumber, context) {
   let markdownNode;
 
   const indexAnchorTransform = IndexAnchorTransform.fromPageNumber(pageNumber, context),
-        divisionMarkdownNode = DivisionMarkdownNode.fromPaginatedChildNodesDivisionTransformsAndDivisionClassName(paginatedChildNodes, subDivisionTransforms, divisionClassName, context),
+        divisionMarkdownNode = SubDivisionMarkdownNode.fromPaginatedChildNodesDivisionTransformsAndDivisionClassName(paginatedChildNodes, subDivisionTransforms, divisionClassName, context),
         anchorMarkdownNode = indexAnchorTransform.getAnchorMarkdownNode();
 
   divisionMarkdownNode.setPageNumber(pageNumber);

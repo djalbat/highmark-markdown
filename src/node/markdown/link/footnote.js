@@ -2,9 +2,9 @@
 
 import { arrayUtilities } from "necessary";
 
-import MarkdownNode from "../../node/markdown";
+import MarkdownNode from "../../../node/markdown";
 
-import { EMPTY_STRING } from "../../constants";
+import { EMPTY_STRING } from "../../../constants";
 
 const { second } = arrayUtilities;
 

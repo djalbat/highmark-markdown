@@ -3,7 +3,7 @@
 import { Transform } from "occam-dom";
 
 import IndexItemTransform from "../transform/indexItem";
-import IndexListMarkdownNode from "../node/markdown/indexList";
+import IndexListMarkdownNode from "../node/markdown/list/index";
 
 export default class IndexListTransform extends Transform {
   static fromIndexListAndLetter(indexList, letter, context) {

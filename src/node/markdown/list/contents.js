@@ -1,8 +1,8 @@
 "use strict";
 
-import MarkdownNode from "../../node/markdown";
+import MarkdownNode from "../../../node/markdown";
 
-import { CONTENTS_LIST_RULE_NAME } from "../../ruleNames";
+import { CONTENTS_LIST_RULE_NAME } from "../../../ruleNames";
 
 export default class ContentsListMarkdownNode extends MarkdownNode {
   static fromContentsItemReplacements(contentsItemReplacements) {

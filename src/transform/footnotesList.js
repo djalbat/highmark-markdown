@@ -3,7 +3,7 @@
 import { Transform } from "occam-dom";
 
 import FootnotesItemTransform from "../transform/footnotesItem";
-import FootnotesListMarkdownNode from "../node/markdown/footnotesList";
+import FootnotesListMarkdownNode from "../node/markdown/list/footnotes";
 
 import { footnoteLinkMarkdownNodesFromNode } from "../utilities/query";
 

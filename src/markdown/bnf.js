@@ -2,43 +2,41 @@
 
 const bnf = `
 
-    markdown                ::=  ( division | endOfLine | error )+ ;
+    markdown                ::=  ( division | error )+ ;
     
     
-    division                ::=  verticalSpace ( directives 
+    division                ::=  ( verticalSpace | subDivision )+ ;
     
-                                               | primaryHeading 
-         
-                                               | secondaryHeading 
-                                                   
-                                               | tertiaryHeading 
-                                                   
-                                               | quaternaryHeading 
-                                                   
-                                               | table 
-                                                   
-                                               | footnote
-                                                   
-                                               | orderedList 
-                                                   
-                                               | unorderedList 
-                                                   
-                                               | blockListing 
-                      
-                                               | paragraph ) ;
+    
+    subDivision             ::=  directives 
+    
+                              |  primaryHeading 
+
+                              |  secondaryHeading 
+                                   
+                              |  tertiaryHeading 
+                                   
+                              |  quaternaryHeading 
+                                   
+                              |  table 
+                                   
+                              |  footnote
+                                   
+                              |  orderedList 
+                                   
+                              |  unorderedList 
+                                   
+                              |  blockListing 
+      
+                              |  paragraph 
+                               
+                              ;
 
     
-    endOfLine.              ::=  <END_OF_LINE> ;
-
-
     error.                  ::=  . ;
 
 
-    verticalSpace.          ::=  <START_OF_CONTENT> <END_OF_LINE>*
-    
-                              |  <END_OF_LINE> <END_OF_LINE>+ 
-    
-                              ;
+    verticalSpace.          ::=  <END_OF_LINE>+ ;
 
 
     directives              ::=  indexDirective 
@@ -309,7 +307,10 @@ const bnf = `
       
 
     anchor.                 ::=  ε ;
+
     
+    endOfLine.              ::=  <END_OF_LINE> ;
+
 `;
 
 export default bnf;
