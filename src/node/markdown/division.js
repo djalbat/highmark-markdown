@@ -8,6 +8,7 @@ import FootnoteTransform from "../../transform/footnote";
 import IndexAnchorTransform from "../../transform/indexAnchor";
 import ContentsListTransform from "../../transform/contentsList";
 import FootnotesListTransform from "../../transform/footnotesList";
+import SubDivisionMarkdownNode from "../../node/markdown/subDivision";
 import FootnoteDivisionTransform from "../../transform/subDivision/footnote";
 import EmbedDirectivesDivisionTransform from "../../transform/subDivision/embedDirectives";
 import IncludeDirectivesDivisionTransform from "../../transform/subDivision/includeDirectives";
@@ -16,34 +17,46 @@ import ContentsDirectiveDivisionTransform from "../../transform/subDivision/cont
 import FootnotesDirectiveDivisionTransform from "../../transform/subDivision/footnotesDirective";
 import PageNumberDirectiveDivisionTransform from "../../transform/subDivision/pageNumberDirective";
 
-import { DIVISION_RULE_NAME } from "../../ruleNames";
 import { renumberFootnoteLinkMarkdownNodes } from "../../utilities/footnotes";
+import { includeDirectiveMarkdownNodesFromNode } from "../../utilities/query";
 import { subDivisionMarkdownNodesFromNode, ignoreDirectiveMarkdownNodeFromNode, pageNumberDirectiveMarkdownNodeFromNode } from "../../utilities/query";
 
 const { clear, filter } = arrayUtilities;
 
 export default class DivisionMarkdownNode extends MarkdownNode {
-  resolveIncludes(context) {
-    const divisionMarkdownNode = this, ///
-          includeDirectivesDivisionTransform = IncludeDirectivesDivisionTransform.fromDivisionMarkdownNode(divisionMarkdownNode, context);
+  constructor(ruleName, parentNode, childNodes, opacity, precedence, divisionClassName) {
+    super(ruleName, parentNode, childNodes, opacity, precedence);
 
-    if (includeDirectivesDivisionTransform !== null) {
-      includeDirectivesDivisionTransform.removeDivisionMarkdownNode(divisionMarkdownNode, context);
-    }
+    this.divisionClassName = divisionClassName;
   }
 
-  // resolveEmbeddings(divisionMarkdownNode, context) {
-  //   const divisionMarkdownNode = this, ///
-  //         embedDirectivesDivisionTransform = EmbedDirectivesDivisionTransform.fromDivisionMarkdownNode(divisionMarkdownNode, context);
-  //
-  //   if (embedDirectivesDivisionTransform !== null) {
-  //     const subDivisionMarkdownNodes = embedDirectivesDivisionTransform.replaceDivisionMarkdownNode(divisionMarkdownNode, context);
-  //
-  //     subDivisionMarkdownNodes.forEach((subDivisionMarkdownNode) => {
-  //       subDivisionMarkdownNode.resolveEmbeddings(divisionMarkdownNode, context);
-  //     });
-  //   }
-  // }
+  getDivisionClassName() {
+    return this.divisionClassName;
+  }
+
+  setDivisionClassName(divisionClassName) {
+    this.divisionClassName = divisionClassName;
+  }
+
+  resolveIncludes(topmostMarkdownNode, context) {
+    const node = this,  ///
+          includeDirectiveMarkdownNodes = includeDirectiveMarkdownNodesFromNode(node),
+          includeDirectiveTransforms = includeDirectiveMarkdownNodes.reduce((includeDirectiveTransforms, includeDirectiveMarkdownNode) => {
+            const includeDirectiveTransform = includeDirectiveMarkdownNode.resolveInclude(context);
+
+            if (includeDirectiveTransform !== null) {
+              includeDirectiveTransforms.push(includeDirectiveTransform);
+            }
+
+            return includeDirectiveTransforms;
+          }, []);
+
+    includeDirectiveTransforms.forEach((includeDirectiveTransform) => {
+      const divisionMarkdownNode = includeDirectiveTransform.appendToTopmostMarkdownNode(topmostMarkdownNode, context);
+
+      divisionMarkdownNode.resolveIncludes(topmostMarkdownNode, context);
+    });
+  }
 
   className(context) {
     const className = this.divisionClassName; ///
@@ -290,7 +303,12 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
   clone() { return super.clone(this.divisionClassName); }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(DivisionMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
+    const divisionClassName = null,
+          divisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(DivisionMarkdownNode, ruleName, childNodes, opacity, divisionClassName);
+
+    return divisionMarkdownNode;
+  }
 }
 
 function paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionTransforms, divisionClassName, markdownNodes, pageNumber, context) {

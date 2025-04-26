@@ -2,7 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 
-import SubDivisionTransform from "../division";
+import SubDivisionTransform from "../subDivision";
 
 import { embedDirectiveMarkdownNodesFromNode } from "../../utilities/query";
 

@@ -1,6 +1,6 @@
 "use strict";
 
-import SubDivisionTransform from "../division";
+import SubDivisionTransform from "../subDivision";
 
 import { footnoteMarkdownNodeFromNode } from "../../utilities/query";
 

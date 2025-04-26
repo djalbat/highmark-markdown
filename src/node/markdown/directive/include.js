@@ -5,7 +5,26 @@ import PathMarkdownNode from "../../../node/markdown/path";
 import IncludeDirectiveTransform from "../../../transform/includeDirective";
 
 export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
-  resolve(context) {
+  filePath(context) {
+    const filePath = this.fromFirstLastChildNode((firstLastChildNode) => {
+      let filePath = null;
+
+      const firstLastChildNodePathMarkdownNode = (firstLastChildNode instanceof PathMarkdownNode);
+
+      if (firstLastChildNodePathMarkdownNode) {
+        const pathMarkdownNode = firstLastChildNode, ///
+              pathMarkdownNodePath = pathMarkdownNode.path(context);
+
+        filePath = pathMarkdownNodePath; ///
+      }
+
+      return filePath;
+    });
+
+    return filePath;
+  }
+
+  resolveInclude(context) {
     let includeDirectiveTransform = null;
 
     const filePath = this.filePath(context);
@@ -24,36 +43,22 @@ export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
         delete context.importedTokens;
         delete context.importedClassName;
 
-        const divisionMarkdownNode = importedNode,  ///
-              divisionClassName = importedClassName,  ///
-              tokens = importedTokens;  ///
+        const topmostMarkdownNode = importedNode,  ///
+              firstDivisionMarkdownNode = topmostMarkdownNode.removeFirstDivisionMarkdownNode();
 
-        divisionMarkdownNode.setDivisionClassName(divisionClassName);
+        if (firstDivisionMarkdownNode !== null) {
+          const divisionMarkdownNode = firstDivisionMarkdownNode, ///
+                divisionClassName = importedClassName,  ///
+                tokens = importedTokens;  ///
 
-        includeDirectiveTransform = IncludeDirectiveTransform.fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens);
+          divisionMarkdownNode.setDivisionClassName(divisionClassName);
+
+          includeDirectiveTransform = IncludeDirectiveTransform.fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens);
+        }
       }
     }
 
     return includeDirectiveTransform;
-  }
-
-  filePath(context) {
-    const filePath = this.fromFirstLastChildNode((firstLastChildNode) => {
-      let filePath = null;
-
-      const firstLastChildNodePathMarkdownNode = (firstLastChildNode instanceof PathMarkdownNode);
-
-      if (firstLastChildNodePathMarkdownNode) {
-        const pathMarkdownNode = firstLastChildNode, ///
-              pathMarkdownNodePath = pathMarkdownNode.path(context);
-
-        filePath = pathMarkdownNodePath; ///
-      }
-
-      return filePath;
-    });
-
-    return filePath;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(IncludeDirectiveMarkdownNode, ruleName, childNodes, opacity); }

@@ -5,7 +5,7 @@ const bnf = `
     markdown                ::=  ( division | error )+ ;
     
     
-    division                ::=  ( verticalSpace | subDivision )+ ;
+    division                ::=  ( subDivision | verticalSpace )+ ;
     
     
     subDivision             ::=  directives 
@@ -33,10 +33,10 @@ const bnf = `
                               ;
 
     
-    error.                  ::=  . ;
-
-
     verticalSpace.          ::=  <END_OF_LINE>+ ;
+
+
+    error.                  ::=  . ;
 
 
     directives              ::=  indexDirective 

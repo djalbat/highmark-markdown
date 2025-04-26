@@ -5,9 +5,15 @@ import DivisionMarkdownNode from "../../node/markdown/division";
 
 export default class TopmostMarkdownNode extends MarkdownNode {
   resolve(context) {
-    // this.forEachDivisionMarkdownNode((divisionMarkdownNode) => {
-    //   divisionMarkdownNode.resolveIncludes(context);
-    // });
+    const firstDivisionMarkdownNode = this.findFirstDivisionMarkdownNode();
+
+    if (firstDivisionMarkdownNode === null) {
+      return;
+    }
+
+    const topmostMarkdownNode = this; ///
+
+    firstDivisionMarkdownNode.resolveIncludes(topmostMarkdownNode, context);
 
     // this.filterDivisionMarkdownNode((divisionMarkdownNode) => {
     //   const ignored = divisionMarkdownNode.isIgnored();
@@ -22,38 +28,41 @@ export default class TopmostMarkdownNode extends MarkdownNode {
     // });
   }
 
-  getDivisionMarkdownNodeAt(index) {
-    const divisionNodeIndex = index,  ///
-          divisionMarkdownNode = this.findDivisionMarkdownNode((childNode, index) => {
-            const childNodeIndex = index; ///
+  findFirstDivisionMarkdownNode() {
+    const firstDivisionMarkdownNode = this.findDivisionMarkdownNode((divisionMarkdownNode) => {
+      return true;
+    }) || null;
 
-            if (childNodeIndex === divisionNodeIndex) {
-              return true;
-            }
-          });
+    return firstDivisionMarkdownNode;
+  }
 
-    return divisionMarkdownNode;
+  removeFirstDivisionMarkdownNode() {
+    const firstDivisionMarkdownNode = this.findFirstDivisionMarkdownNode();
+
+    if (firstDivisionMarkdownNode !== null) {
+      const childNode = firstDivisionMarkdownNode;  ///
+
+      this.removeChildNode(childNode);
+    }
+
+    return firstDivisionMarkdownNode;
   }
 
   findDivisionMarkdownNode(callback) {
-    let index = 0;
-
-    const divisionMarkdownNode = this.findChildNode((childNode) => {
+    const firstDivisionMarkdownNode = this.findChildNode((childNode) => {
       const childNodeDivisionMarkdownNode = (childNode instanceof DivisionMarkdownNode);
 
       if (childNodeDivisionMarkdownNode) {
         const divisionMarkNode = childNode, ///
-              result = callback(divisionMarkNode, index);
+              result = callback(divisionMarkNode);
 
         if (result) {
           return true;
         }
-
-        index++;
       }
     });
 
-    return divisionMarkdownNode;
+    return firstDivisionMarkdownNode;
   }
 
   filterDivisionMarkdownNode(callback) {

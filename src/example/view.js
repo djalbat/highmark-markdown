@@ -74,6 +74,8 @@ class View extends Element {
   }
 
   updatePage(index = 0) {
+    return;
+
     const tokens = this.getTokens(),
           topmostMarkdownNode = this.getTopmostMarkdownNode(),
           divisionMarkdownNode = topmostMarkdownNode.getDivisionMarkdownNodeAt(index),

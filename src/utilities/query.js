@@ -15,7 +15,7 @@ const footnoteMarkdownNodeQuery = Query.fromExpressionString("/division/footnote
       footnotesMarkdownNodesQuery = Query.fromExpressionString("//footnote|footnoteLink|footnotesDirective"), ///
       footnoteLinkMarkdownNodesQuery = Query.fromExpressionString("//footnoteLink"),
       embedDirectiveMarkdownNodesQuery = Query.fromExpressionString("/division/directives/embedDirective"),
-      includeDirectiveMarkdownNodesQuery = Query.fromExpressionString("/division/directives/includeDirective");
+      includeDirectiveMarkdownNodesQuery = Query.fromExpressionString("//includeDirective");
 
 export function nodeQuery(expression) {
   const query = Query.fromExpressionString(expression);

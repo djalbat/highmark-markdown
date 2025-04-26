@@ -2,15 +2,15 @@
 
 import { Transform } from "occam-dom";
 
-export default class DivisionTransform extends Transform {
-  constructor(node, tokens, divisionMarkdownNode) {
+export default class SubDivisionTransform extends Transform {
+  constructor(node, tokens, subDivisionMarkdownNode) {
     super(node, tokens);
 
-    this.divisionMarkdownNode = divisionMarkdownNode;
+    this.subDivisionMarkdownNode = subDivisionMarkdownNode;
   }
 
-  getDivisionMarkdownNode() {
-    return this.divisionMarkdownNode;
+  getSubDivisionMarkdownNode() {
+    return this.subDivisionMarkdownNode;
   }
 
   appendToTopmostMarkdownNode(topmostMarkdownNode, context) {
@@ -26,15 +26,15 @@ export default class DivisionTransform extends Transform {
   }
 
   removeFromTopmostMarkdownNode(topmostMarkdownNode, context) {
-    const removedNode = this.divisionMarkdownNode, ///
+    const removedNode = this.subDivisionMarkdownNode, ///
           parentNode = topmostMarkdownNode;
 
     super.removeFrom(removedNode, parentNode, context);
   }
 
-  static fromDivisionMarkdownNode(Class, divisionMarkdownNode, ...remainingArguments) {
-    const node = divisionMarkdownNode, ///
-          divisionTransform = Transform.fromNode(Class, node, divisionMarkdownNode, ...remainingArguments);
+  static fromSubDivisionMarkdownNode(Class, subDivisionMarkdownNode, ...remainingArguments) {
+    const node = subDivisionMarkdownNode, ///
+          divisionTransform = Transform.fromNode(Class, node, subDivisionMarkdownNode, ...remainingArguments);
 
     return divisionTransform;
   }

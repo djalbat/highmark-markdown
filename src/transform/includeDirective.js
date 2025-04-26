@@ -2,40 +2,20 @@
 
 import { Transform } from "occam-dom";
 
-import { subDivisionMarkdownNodesFromNode } from "../utilities/query";
-
 export default class IncludeDirectiveTransform extends Transform {
-  addDivisionMarkdownNode(context) {
-    const divisionMarkdownNode = this.getDivisionMarkdownNode(),
-          ignored = divisionMarkdownNode.isIgnored();
-
-    if (!ignored) {
-      const { divisionMarkdownNodes } = context;
-
-      divisionMarkdownNodes.push(divisionMarkdownNode);
-
-      let tokens = this.getTokens();
-
-      const includedTokens = tokens; ///
-
-      ({ tokens } = context);
-
-      const tokensLength = tokens.length,
-            start = tokensLength, ///
-            deleteCount = 0;
-
-      tokens.splice(start, deleteCount, ...includedTokens);
-    }
-
-    const node = divisionMarkdownNode,  ///
-          subDivisionMarkdownNodes = subDivisionMarkdownNodesFromNode(node);
-
-    return subDivisionMarkdownNodes;
-  }
-
   getDivisionMarkdownNode() {
     const node = this.getNode(),
           divisionMarkdownNode = node;  ///
+
+    return divisionMarkdownNode;
+  }
+
+  appendToTopmostMarkdownNode(topmostMarkdownNode, context) {
+    const parentNode = topmostMarkdownNode;  ///
+
+    super.appendTo(parentNode, context);
+
+    const divisionMarkdownNode = this.getDivisionMarkdownNode();
 
     return divisionMarkdownNode;
   }

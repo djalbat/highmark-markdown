@@ -10,7 +10,6 @@ import ContentsListTransform from "../../transform/contentsList";
 import FootnotesListTransform from "../../transform/footnotesList";
 import FootnoteDivisionTransform from "../../transform/subDivision/footnote";
 import EmbedDirectivesDivisionTransform from "../../transform/subDivision/embedDirectives";
-import IncludeDirectivesDivisionTransform from "../../transform/subDivision/includeDirectives";
 import IndexDirectiveDivisionTransform from "../../transform/subDivision/indexDirective";
 import ContentsDirectiveDivisionTransform from "../../transform/subDivision/contentsDirective";
 import FootnotesDirectiveDivisionTransform from "../../transform/subDivision/footnotesDirective";
@@ -44,12 +43,6 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
   //     });
   //   }
   // }
-
-  className(context) {
-    const className = this.divisionClassName; ///
-
-    return className;
-  }
 
   isIgnored() {
     const node = this,  ///
@@ -287,8 +280,6 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
 
     return footnotesListDivisionTransform;
   }
-
-  clone() { return super.clone(this.divisionClassName); }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(SubDivisionMarkdownNode, ruleName, childNodes, opacity); }
 }
