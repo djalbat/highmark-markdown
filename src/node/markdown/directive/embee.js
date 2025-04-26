@@ -7,6 +7,25 @@ import EmbedDirectiveTransform from "../../../transform/embedDirective";
 import { divisionMarkdownNodeFromNode, subDivisionMarkdownNodeFromNode } from "../../../utilities/query";
 
 export default class EmbedDirectiveMarkdownNode extends MarkdownNode {
+  filePath(context) {
+    const filePath = this.fromFirstLastChildNode((firstLastChildNode) => {
+      let filePath = null;
+
+      const firstLastChildNodePathMarkdownNode = (firstLastChildNode instanceof PathMarkdownNode);
+
+      if (firstLastChildNodePathMarkdownNode) {
+        const pathMarkdownNode = firstLastChildNode, ///
+              pathMarkdownNodePath = pathMarkdownNode.path(context);
+
+        filePath = pathMarkdownNodePath; ///
+      }
+
+      return filePath;
+    });
+
+    return filePath;
+  }
+
   resolveEmbedding(context) {
     let embedDirectiveTransform = null;
 
@@ -42,25 +61,6 @@ export default class EmbedDirectiveMarkdownNode extends MarkdownNode {
     }
 
     return embedDirectiveTransform;
-  }
-
-  filePath(context) {
-    const filePath = this.fromFirstLastChildNode((firstLastChildNode) => {
-      let filePath = null;
-
-      const firstLastChildNodePathMarkdownNode = (firstLastChildNode instanceof PathMarkdownNode);
-
-      if (firstLastChildNodePathMarkdownNode) {
-        const pathMarkdownNode = firstLastChildNode, ///
-              pathMarkdownNodePath = pathMarkdownNode.path(context);
-
-        filePath = pathMarkdownNodePath; ///
-      }
-
-      return filePath;
-    });
-
-    return filePath;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EmbedDirectiveMarkdownNode, ruleName, childNodes, opacity); }
