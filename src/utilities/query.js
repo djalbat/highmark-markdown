@@ -44,9 +44,7 @@ export function nodesFromNodeAndQuery(node, query, nodes) {
   return nodes;
 }
 
-export function nodesFromNodeAndQueries(node, queries) {
-  const nodes = [];
-
+export function nodesFromNodeAndQueries(node, queries, nodes = []) {
   queries.forEach((query) => {
     const queryNodes = query.execute(node);
 

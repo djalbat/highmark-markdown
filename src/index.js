@@ -5,6 +5,7 @@ export { default as MarkdownParser } from "./markdown/parser";
 export { default as MarkdownStyleLexer } from "./markdownStyle/lexer";
 export { default as MarkdownStyleParser } from "./markdownStyle/parser";
 
+export { default as domUtilities } from "./utilities/dom";
 export { default as cssUtilities } from "./utilities/css";
 export { default as htmlUtilities } from "./utilities/html";
 export { default as queryUtilities } from "./utilities/query";

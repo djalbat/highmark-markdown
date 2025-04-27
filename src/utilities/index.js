@@ -124,8 +124,8 @@ function adjustProperNouns(indexMap, context) {
   });
 
   mapKeys(indexMap, (wordOrPhrase) => {
-    const index = lowerCaseProperNouns.findIndex((lowerCaseProperNmae) => {
-      if (lowerCaseProperNmae === wordOrPhrase) {
+    const index = lowerCaseProperNouns.findIndex((lowerCaseProperName) => {
+      if (lowerCaseProperName === wordOrPhrase) {
         return true;
       }
     });
@@ -163,8 +163,8 @@ function adjustAcronyms(indexMap, context) {
   });
 
   mapKeys(indexMap, (wordOrPhrase) => {
-    const index = lowerCaseAcronyms.findIndex((lowerCaseProperNmae) => {
-      if (lowerCaseProperNmae === wordOrPhrase) {
+    const index = lowerCaseAcronyms.findIndex((lowerCaseProperName) => {
+      if (lowerCaseProperName === wordOrPhrase) {
         return true;
       }
     });
