@@ -1,93 +1,11 @@
 "use strict";
 
 import MarkdownNode from "../../node/markdown";
-import FootnoteTransform from "../../transform/footnote";
-import SubDivisionTransform from "../../transform/subDivision";
-import FootnotesListTransform from "../../transform/footnotesList";
-import IgnoreDirectiveTransform from "../../transform/ignoreDirective";
-import FootnoteDivisionTransform from "../../transform/subDivision/footnote";
+import IgnoreDirectiveMarkdownTransform from "../../transform/markdown/directive/ignore";
 
-import { subDivisionMarkdownNodesFromNode,
-         ignoreDirectiveMarkdownNodeFromNode,
-         includeDirectiveMarkdownNodesFromNode,
-         pageNumberDirectiveMarkdownNodeFromNode } from "../../utilities/query";
+import { ignoreDirectiveMarkdownNodeFromNode, includeDirectiveMarkdownNodesFromNode } from "../../utilities/query";
 
 export default class DivisionMarkdownNode extends MarkdownNode {
-  constructor(ruleName, parentNode, childNodes, opacity, precedence, divisionClassName) {
-    super(ruleName, parentNode, childNodes, opacity, precedence);
-
-    this.divisionClassName = divisionClassName;
-  }
-
-  getDivisionClassName() {
-    return this.divisionClassName;
-  }
-
-  setDivisionClassName(divisionClassName) {
-    this.divisionClassName = divisionClassName;
-  }
-
-  className(context) {
-    const className = this.divisionClassName; ///
-
-    return className;
-  }
-
-  isIgnored() {
-    const node = this,  ///
-          ignoreDirectiveMarkdownNode = ignoreDirectiveMarkdownNodeFromNode(node),
-          ignored = (ignoreDirectiveMarkdownNode !== null);
-
-    return ignored;
-  }
-
-  resolveIgnored(topmostMarkdownNode, context) {
-    const ignored = this.isIgnored();
-
-    if (!ignored) {
-      return;
-    }
-
-    const divisionMarkdownNode = this,  ///
-          ignoreDirectiveTransform = IgnoreDirectiveTransform.fromDivisionMarkdownNode(divisionMarkdownNode);
-
-    ignoreDirectiveTransform.removeFromTopmostMarkdownNode(topmostMarkdownNode, context);
-  }
-
-  resolveIncludes(topmostMarkdownNode, context) {
-    const node = this,  ///
-          includeDirectiveMarkdownNodes = includeDirectiveMarkdownNodesFromNode(node),
-          includeDirectiveTransforms = includeDirectiveMarkdownNodes.reduce((includeDirectiveTransforms, includeDirectiveMarkdownNode) => {
-            const includeDirectiveTransform = includeDirectiveMarkdownNode.resolveInclude(context);
-
-            if (includeDirectiveTransform !== null) {
-              includeDirectiveTransforms.push(includeDirectiveTransform);
-            }
-
-            return includeDirectiveTransforms;
-          }, []);
-
-    includeDirectiveTransforms.forEach((includeDirectiveTransform) => {
-      const divisionMarkdownNode = includeDirectiveTransform.appendToTopmostMarkdownNode(topmostMarkdownNode, context);
-
-      divisionMarkdownNode.resolveIncludes(topmostMarkdownNode, context);
-    });
-  }
-
-  resolveEmbeddings(context) {
-    const divisionMarkdownNode = this;  ///
-
-    this.forEachSubDivisionMarkdownNode((subDivisionMarkdownNode) => {
-      const embeddingsResolved = subDivisionMarkdownNode.resolveEmbeddings(divisionMarkdownNode, context);
-
-      if (embeddingsResolved) {
-        const subDivisionTransform = SubDivisionTransform.fromSubDivisionMarkdownNode(subDivisionMarkdownNode)
-
-        subDivisionTransform.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
-      }
-    });
-  }
-
   // getPageNumber() {
   //   let pageNumber = null;
   //
@@ -222,89 +140,164 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   //     footnoteTransformMap[identifier] = footnoteTransform;
   //   });
   // }
+  //
+  // findDivisionTransform(DivisionTransform, context) {
+  //   let subDivisionTransform = null;
+  //
+  //   const subDivisionMarkdownNodes = this.findDivisionMarkdownNodes();
+  //
+  //   subDivisionMarkdownNodes.some((subDivisionMarkdownNode) => {
+  //     subDivisionTransform = DivisionTransform.fromDivisionMarkdownNode(subDivisionMarkdownNode, context);
+  //
+  //     if (subDivisionTransform !== null) {
+  //       return true;
+  //     }
+  //   });
+  //
+  //   return subDivisionTransform;
+  // }
+  //
+  // findDivisionTransforms(DivisionTransform, context) {
+  //   const subDivisionMarkdownNodes = this.findDivisionMarkdownNodes(),
+  //         subDivisionTransforms = subDivisionMarkdownNodes.reduce((subDivisionTransforms, subDivisionMarkdownNode) => {
+  //           const subDivisionTransform = DivisionTransform.fromDivisionMarkdownNode(subDivisionMarkdownNode, context);
+  //
+  //           if (subDivisionTransform !== null) {
+  //             subDivisionTransforms.push(subDivisionTransform);
+  //           }
+  //
+  //           return subDivisionTransforms;
+  //         }, []);
+  //
+  //   return subDivisionTransforms;
+  // }
+  //
+  // findPageNumberDirectiveMarkdownNode() {
+  //   let pageNumberDirectiveMarkdownNode = null;
+  //
+  //   const subDivisionMarkdownNodes = this.findDivisionMarkdownNodes();
+  //
+  //   subDivisionMarkdownNodes.some((subDivisionMarkdownNode) => {
+  //     const node = subDivisionMarkdownNode; ///
+  //
+  //     pageNumberDirectiveMarkdownNode = pageNumberDirectiveMarkdownNodeFromNode(node);
+  //
+  //     if (pageNumberDirectiveMarkdownNode !== null) {
+  //       return true;
+  //     }
+  //   });
+  //
+  //   return pageNumberDirectiveMarkdownNode;
+  // }
+  //
+  // getSubDivisionMarkdownNodes() {
+  //   const node = this,
+  //         subDivisionMarkdownNodes = subDivisionMarkdownNodesFromNode(node);
+  //
+  //   return subDivisionMarkdownNodes;
+  // }
+  //
+  // forEachSubDivisionMarkdownNode(callback) {
+  //   const subDivisionMarkdownNodes = this.getSubDivisionMarkdownNodes();
+  //
+  //   subDivisionMarkdownNodes.forEach(callback);
+  // }
+  //
+  // removeSubDivisionMarkdownNode(subDivisionMarkdownNode) {
+  //   const childNode = subDivisionMarkdownNode;  ///
+  //
+  //   this.removeChildNode(childNode);
+  // }
+  //
+  // createFootnotesListTransform(footnoteTransformMap, context) {
+  //   const footnoteDivisionTransforms = this.findDivisionTransforms(FootnoteDivisionTransform, context);
+  //
+  //   footnoteDivisionTransforms.forEach((footnoteDivisionTransform) => {
+  //     const footnoteTransform = FootnoteTransform.fromFootnoteDivisionTransform(footnoteDivisionTransform),
+  //           identifier = footnoteDivisionTransform.identifier(context);
+  //
+  //     footnoteTransformMap[identifier] = footnoteTransform;
+  //   });
+  //
+  //   const divisionMarkdownNode = this,  ///
+  //         footnotesListDivisionTransform = FootnotesListTransform.fromDivisionMarkdownNodeAndFootnoteTransformMap(divisionMarkdownNode, footnoteTransformMap, context);
+  //
+  //   return footnotesListDivisionTransform;
+  // }
 
-  findDivisionTransform(DivisionTransform, context) {
-    let subDivisionTransform = null;
+  constructor(ruleName, parentNode, childNodes, opacity, precedence, divisionClassName) {
+    super(ruleName, parentNode, childNodes, opacity, precedence);
 
-    const subDivisionMarkdownNodes = this.findDivisionMarkdownNodes();
-
-    subDivisionMarkdownNodes.some((subDivisionMarkdownNode) => {
-      subDivisionTransform = DivisionTransform.fromDivisionMarkdownNode(subDivisionMarkdownNode, context);
-
-      if (subDivisionTransform !== null) {
-        return true;
-      }
-    });
-
-    return subDivisionTransform;
+    this.divisionClassName = divisionClassName;
   }
 
-  findDivisionTransforms(DivisionTransform, context) {
-    const subDivisionMarkdownNodes = this.findDivisionMarkdownNodes(),
-          subDivisionTransforms = subDivisionMarkdownNodes.reduce((subDivisionTransforms, subDivisionMarkdownNode) => {
-            const subDivisionTransform = DivisionTransform.fromDivisionMarkdownNode(subDivisionMarkdownNode, context);
-
-            if (subDivisionTransform !== null) {
-              subDivisionTransforms.push(subDivisionTransform);
-            }
-
-            return subDivisionTransforms;
-          }, []);
-
-    return subDivisionTransforms;
+  getDivisionClassName() {
+    return this.divisionClassName;
   }
 
-  findPageNumberDirectiveMarkdownNode() {
-    let pageNumberDirectiveMarkdownNode = null;
-
-    const subDivisionMarkdownNodes = this.findDivisionMarkdownNodes();
-
-    subDivisionMarkdownNodes.some((subDivisionMarkdownNode) => {
-      const node = subDivisionMarkdownNode; ///
-
-      pageNumberDirectiveMarkdownNode = pageNumberDirectiveMarkdownNodeFromNode(node);
-
-      if (pageNumberDirectiveMarkdownNode !== null) {
-        return true;
-      }
-    });
-
-    return pageNumberDirectiveMarkdownNode;
+  setDivisionClassName(divisionClassName) {
+    this.divisionClassName = divisionClassName;
   }
 
-  getSubDivisionMarkdownNodes() {
-    const node = this,
-          subDivisionMarkdownNodes = subDivisionMarkdownNodesFromNode(node);
+  isIgnored() {
+    const node = this,  ///
+          ignoreDirectiveMarkdownNode = ignoreDirectiveMarkdownNodeFromNode(node),
+          ignored = (ignoreDirectiveMarkdownNode !== null);
 
-    return subDivisionMarkdownNodes;
+    return ignored;
   }
 
-  forEachSubDivisionMarkdownNode(callback) {
-    const subDivisionMarkdownNodes = this.getSubDivisionMarkdownNodes();
+  className(context) {
+    const className = this.divisionClassName; ///
 
-    subDivisionMarkdownNodes.forEach(callback);
+    return className;
   }
 
-  removeSubDivisionMarkdownNode(subDivisionMarkdownNode) {
-    const childNode = subDivisionMarkdownNode;  ///
+  resolveIgnored(topmostMarkdownNode, context) {
+    const ignored = this.isIgnored();
 
-    this.removeChildNode(childNode);
-  }
-
-  createFootnotesListTransform(footnoteTransformMap, context) {
-    const footnoteDivisionTransforms = this.findDivisionTransforms(FootnoteDivisionTransform, context);
-
-    footnoteDivisionTransforms.forEach((footnoteDivisionTransform) => {
-      const footnoteTransform = FootnoteTransform.fromFootnoteDivisionTransform(footnoteDivisionTransform),
-            identifier = footnoteDivisionTransform.identifier(context);
-
-      footnoteTransformMap[identifier] = footnoteTransform;
-    });
+    if (!ignored) {
+      return;
+    }
 
     const divisionMarkdownNode = this,  ///
-          footnotesListDivisionTransform = FootnotesListTransform.fromDivisionMarkdownNodeAndFootnoteTransformMap(divisionMarkdownNode, footnoteTransformMap, context);
+          ignoreDirectiveMarkdownTransform = IgnoreDirectiveMarkdownTransform.fromDivisionMarkdownNode(divisionMarkdownNode);
 
-    return footnotesListDivisionTransform;
+    ignoreDirectiveMarkdownTransform.removeFromTopmostMarkdownNode(topmostMarkdownNode, context);
+  }
+
+  resolveIncludes(topmostMarkdownNode, context) {
+    const node = this,  ///
+          includeDirectiveMarkdownNodes = includeDirectiveMarkdownNodesFromNode(node),
+          includeDirectiveMarkdownTransforms = includeDirectiveMarkdownNodes.reduce((includeDirectiveMarkdownTransforms, includeDirectiveMarkdownNode) => {
+            const includeDirectiveMarkdownTransform = includeDirectiveMarkdownNode.resolveInclude(context);
+
+            if (includeDirectiveMarkdownTransform !== null) {
+              includeDirectiveMarkdownTransforms.push(includeDirectiveMarkdownTransform);
+            }
+
+            return includeDirectiveMarkdownTransforms;
+          }, []);
+
+    includeDirectiveMarkdownTransforms.forEach((includeDirectiveMarkdownTransform) => {
+      const divisionMarkdownNode = includeDirectiveMarkdownTransform.appendToTopmostMarkdownNode(topmostMarkdownNode, context);
+
+      divisionMarkdownNode.resolveIncludes(topmostMarkdownNode, context);
+    });
+  }
+
+  resolveEmbeddings(context) {
+    const divisionMarkdownNode = this;  ///
+
+    this.forEachSubDivisionMarkdownNode((subDivisionMarkdownNode) => {
+      const embeddingsResolved = subDivisionMarkdownNode.resolveEmbeddings(divisionMarkdownNode, context);
+
+      if (embeddingsResolved) {
+        const subDivisionTransform = SubDivisionTransform.fromSubDivisionMarkdownNode(subDivisionMarkdownNode)
+
+        subDivisionTransform.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
+      }
+    });
   }
 
   clone() { return super.clone(this.divisionClassName); }

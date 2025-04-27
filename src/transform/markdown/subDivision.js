@@ -2,7 +2,7 @@
 
 import { Transform } from "occam-dom";
 
-export default class SubDivisionTransform extends Transform {
+export default class SubDivisionMarkdownTransform extends Transform {
   constructor(node, tokens, subDivisionMarkdownNode) {
     super(node, tokens);
 
@@ -18,8 +18,8 @@ export default class SubDivisionTransform extends Transform {
   static fromSubDivisionMarkdownNode(subDivisionMarkdownNode) {
     const node = subDivisionMarkdownNode, ///
           tokens = null,
-          subDivisionTransform = Transform.fromNodeAndTokens(SubDivisionTransform, node, tokens);
+          subDivisionMarkdownTransform = Transform.fromNodeAndTokens(SubDivisionMarkdownTransform, node, tokens);
 
-    return subDivisionTransform;
+    return subDivisionMarkdownTransform;
   }
 }

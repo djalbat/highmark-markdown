@@ -2,7 +2,7 @@
 
 import { Transform } from "occam-dom";
 
-export default class IgnoreDirectiveTransform extends Transform {
+export default class IgnoreDirectiveMarkdownTransform extends Transform {
   removeFromTopmostMarkdownNode(topmostMarkdownNode, context) {
     const parentNode = topmostMarkdownNode; ///
 
@@ -12,8 +12,8 @@ export default class IgnoreDirectiveTransform extends Transform {
   static fromDivisionMarkdownNode(divisionMarkdownNode) {
     const node = divisionMarkdownNode,  ///
           tokens = null,
-          includeDirectiveTransform = Transform.fromNodeAndTokens(IgnoreDirectiveTransform, node, tokens);
+          ignoredDirectiveMarkdownTransform = Transform.fromNodeAndTokens(IgnoreDirectiveMarkdownTransform, node, tokens);
 
-    return includeDirectiveTransform;
+    return ignoredDirectiveMarkdownTransform;
   }
 }

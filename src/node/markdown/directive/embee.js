@@ -2,7 +2,7 @@
 
 import MarkdownNode from "../../../node/markdown";
 import PathMarkdownNode from "../../../node/markdown/path";
-import EmbedDirectiveTransform from "../../../transform/embedDirective";
+import EmbedDirectiveMarkdownTransform from "../../../transform/markdown/directive/embed";
 
 import { divisionMarkdownNodeFromNode, subDivisionMarkdownNodeFromNode } from "../../../utilities/query";
 
@@ -27,7 +27,7 @@ export default class EmbedDirectiveMarkdownNode extends MarkdownNode {
   }
 
   resolveEmbedding(context) {
-    let embedDirectiveTransform = null;
+    let embedDirectiveMarkdownTransform = null;
 
     const filePath = this.filePath(context);
 
@@ -54,13 +54,13 @@ export default class EmbedDirectiveMarkdownNode extends MarkdownNode {
           if (subDivisionMarkdownNode !== null) {
             divisionMarkdownNode.removeSubDivisionMarkdownNode(subDivisionMarkdownNode);
 
-            embedDirectiveTransform = EmbedDirectiveTransform.fromSubDivisionMarkdownNodeAndTokens(subDivisionMarkdownNode, tokens);
+            embedDirectiveMarkdownTransform = EmbedDirectiveMarkdownTransform.fromSubDivisionMarkdownNodeAndTokens(subDivisionMarkdownNode, tokens);
           }
         }
       }
     }
 
-    return embedDirectiveTransform;
+    return embedDirectiveMarkdownTransform;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(EmbedDirectiveMarkdownNode, ruleName, childNodes, opacity); }

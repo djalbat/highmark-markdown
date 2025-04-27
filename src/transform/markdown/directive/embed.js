@@ -2,7 +2,7 @@
 
 import { Transform } from "occam-dom";
 
-export default class EmbedDirectiveTransform extends Transform {
+export default class EmbedDirectiveMarkdownTransform extends Transform {
   addAfterSubDivisionMarkdownNode(subDivisionMarkdownNode, divisionMarkdownNode, context) {
     const existingNode = subDivisionMarkdownNode, ///
           parentNode = divisionMarkdownNode;  ///
@@ -12,8 +12,8 @@ export default class EmbedDirectiveTransform extends Transform {
 
   static fromSubDivisionMarkdownNodeAndTokens(subDivisionMarkdownNode, tokens) {
     const node = subDivisionMarkdownNode,  ///
-          embedDirectiveTransform = Transform.fromNodeAndTokens(EmbedDirectiveTransform, node, tokens);
+          embedDirectiveMarkdownTransform = Transform.fromNodeAndTokens(EmbedDirectiveMarkdownTransform, node, tokens);
 
-    return embedDirectiveTransform;
+    return embedDirectiveMarkdownTransform;
   }
 }

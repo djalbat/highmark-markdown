@@ -3,9 +3,6 @@
 import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
-import FootnoteTransform from "../../transform/footnote";
-import FootnotesListTransform from "../../transform/footnotesList";
-import FootnoteDivisionTransform from "../../transform/subDivision/footnote";
 
 import { embedDirectiveMarkdownNodesFromNode } from "../../utilities/query";
 
@@ -17,21 +14,21 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
 
     const node = this,  ///
           embedDirectiveMarkdownNodes = embedDirectiveMarkdownNodesFromNode(node),
-          embedDirectiveTransforms = embedDirectiveMarkdownNodes.reduce((embedDirectiveTransforms, embedDirectiveMarkdownNode) => {
+          embedDirectiveMarkdownTransforms = embedDirectiveMarkdownNodes.reduce((embedDirectiveMarkdownTransforms, embedDirectiveMarkdownNode) => {
             const embedDirectiveTransform = embedDirectiveMarkdownNode.resolveEmbedding(context);
 
             if (embedDirectiveTransform !== null) {
-              embedDirectiveTransforms.push(embedDirectiveTransform);
+              embedDirectiveMarkdownTransforms.push(embedDirectiveTransform);
             }
 
-            return embedDirectiveTransforms;
+            return embedDirectiveMarkdownTransforms;
           }, []),
-          embedDirectiveTransformsLength = embedDirectiveTransforms.length;
+          embedDirectiveMarkdownTransformsLength = embedDirectiveMarkdownTransforms.length;
 
-    if (embedDirectiveTransformsLength > 0) {
+    if (embedDirectiveMarkdownTransformsLength > 0) {
       const subDivisionMarkdownNode = this; ///
 
-      backwardsForEach(embedDirectiveTransforms, (embedDirectiveTransform) => {
+      backwardsForEach(embedDirectiveMarkdownTransforms, (embedDirectiveTransform) => {
         embedDirectiveTransform.addAfterSubDivisionMarkdownNode(subDivisionMarkdownNode, divisionMarkdownNode, context);
       });
 

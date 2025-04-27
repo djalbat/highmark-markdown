@@ -2,7 +2,7 @@
 
 import MarkdownNode from "../../../node/markdown";
 import PathMarkdownNode from "../../../node/markdown/path";
-import IncludeDirectiveTransform from "../../../transform/includeDirective";
+import IncludeDirectiveMarkdownTransform from "../../../transform/markdown/directive/include";
 
 import { divisionMarkdownNodeFromNode } from "../../../utilities/query";
 
@@ -27,7 +27,7 @@ export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
   }
 
   resolveInclude(context) {
-    let includeDirectiveTransform = null;
+    let includeDirectiveMarkdownTransform = null;
 
     const filePath = this.filePath(context);
 
@@ -57,12 +57,12 @@ export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
 
           divisionMarkdownNode.setDivisionClassName(divisionClassName);
 
-          includeDirectiveTransform = IncludeDirectiveTransform.fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens);
+          includeDirectiveMarkdownTransform = IncludeDirectiveMarkdownTransform.fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens);
         }
       }
     }
 
-    return includeDirectiveTransform;
+    return includeDirectiveMarkdownTransform;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(IncludeDirectiveMarkdownNode, ruleName, childNodes, opacity); }

@@ -2,7 +2,7 @@
 
 import { Transform } from "occam-dom";
 
-export default class IncludeDirectiveTransform extends Transform {
+export default class IncludeDirectiveMarkdownTransform extends Transform {
   getDivisionMarkdownNode() {
     const node = this.getNode(),
           divisionMarkdownNode = node;  ///
@@ -22,8 +22,8 @@ export default class IncludeDirectiveTransform extends Transform {
 
   static fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens) {
     const node = divisionMarkdownNode,  ///
-          includeDirectiveTransform = Transform.fromNodeAndTokens(IncludeDirectiveTransform, node, tokens);
+          includeDirectiveMarkdownTransform = Transform.fromNodeAndTokens(IncludeDirectiveMarkdownTransform, node, tokens);
 
-    return includeDirectiveTransform;
+    return includeDirectiveMarkdownTransform;
   }
 }
