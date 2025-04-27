@@ -2,8 +2,6 @@
 
 import FootnotesListMarkdownNode from "../node/markdown/list/footnotes";
 
-import { footnoteLinkMarkdownNodesFromNode } from "../utilities/query";
-
 export function renumberFootnoteLinkMarkdownNodes(divisionMarkdownNode, footnoteReplacementMap, context) {
   const node = divisionMarkdownNode,  ///
         footnoteLinkMarkdownNodes = footnoteLinkMarkdownNodesFromNode(node);

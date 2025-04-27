@@ -2,8 +2,6 @@
 
 import SubDivisionTransform from "../subDivision";
 
-import { footnotesDirectiveMarkdownNodeFromNode } from "../../utilities/query";
-
 export default class FootnotesDirectiveSubDivisionTransform extends SubDivisionTransform {
   static fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context) {
     let footnotesDirectiveSubDivisionTransform = null;

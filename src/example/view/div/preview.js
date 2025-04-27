@@ -13,22 +13,22 @@ class PreviewDiv extends Element {
   }
 
   clear() {
-    let markdownNode;
+    let divisionHTMLNode;
 
-    markdownNode = this.getMarkdownNode();
+    divisionHTMLNode = this.getDivisionHTMLNode();
 
-    if (markdownNode !== null) {
+    if (divisionHTMLNode !== null) {
       const parentDOMElement = this.getParentDOMElement();
 
-      markdownNode.unmount(parentDOMElement);
+      divisionHTMLNode.unmount(parentDOMElement);
 
-      markdownNode = null;
+      divisionHTMLNode = null;
 
-      this.setMarkdownNode(markdownNode);
+      this.setDivisionHTMLNode(divisionHTMLNode);
     }
   }
 
-  update(markdownNode, context) {
+  update(divisionHTMLNode, context) {
     this.clear();
 
     const whitespaceTokenIndex = -1;
@@ -40,28 +40,28 @@ class PreviewDiv extends Element {
     const parentDOMElement = this.getParentDOMElement(),
           siblingDOMElement = null;
 
-    markdownNode.mount(parentDOMElement, siblingDOMElement, context);
+    divisionHTMLNode.mount(parentDOMElement, siblingDOMElement, context);
 
-    this.setMarkdownNode(markdownNode);
+    this.setDivisionHTMLNode(divisionHTMLNode);
   }
 
-  getMarkdownNode() {
-    const { markdownNode } = this.getState();
+  getDivisionHTMLNode() {
+    const { divisionHTMLNode } = this.getState();
 
-    return markdownNode;
+    return divisionHTMLNode;
   }
 
-  setMarkdownNode(markdownNode) {
+  setDivisionHTMLNode(divisionHTMLNode) {
     this.updateState({
-      markdownNode
+      divisionHTMLNode
     });
   }
 
   setInitialState() {
-    const markdownNode = null;
+    const divisionHTMLNode = null;
 
     this.setState({
-      markdownNode
+      divisionHTMLNode
     });
   }
 

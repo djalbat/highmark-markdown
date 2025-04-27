@@ -4,7 +4,7 @@ import MarkdownNode from "../../../node/markdown";
 import PathMarkdownNode from "../../../node/markdown/path";
 import IncludeDirectiveMarkdownTransform from "../../../transform/markdown/directive/include";
 
-import { divisionMarkdownNodeFromNode } from "../../../utilities/query";
+import { divisionMarkdownNodeFromNode } from "../../../utilities/markdown";
 
 export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
   filePath(context) {

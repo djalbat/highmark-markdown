@@ -2,8 +2,6 @@
 
 import SubDivisionTransform from "../subDivision";
 
-import { pageNumberDirectiveMarkdownNodeFromNode } from "../../utilities/query";
-
 export default class PageNumberDirectiveSubDivisionTransform extends SubDivisionTransform {
   static fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context) {
     let pageNumberDirectiveSubDivisionTransform = null;

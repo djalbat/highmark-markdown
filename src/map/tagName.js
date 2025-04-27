@@ -1,14 +1,11 @@
 "use strict";
 
-import htmlNodeMap from "../map/node/html";
-
-import { ruleNames } from "../map/node/html";
+import { forEachHTMLNode } from "../map/node/html";
 
 const tagNameMap = {};
 
-ruleNames.forEach((ruleName) => {
-  const Class = htmlNodeMap[ruleName],
-        { tagName } = Class;
+forEachHTMLNode((Class, ruleName) => {
+  const { tagName } = Class;
 
   tagNameMap[ruleName] = tagName;
 });

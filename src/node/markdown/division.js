@@ -3,7 +3,7 @@
 import MarkdownNode from "../../node/markdown";
 import IgnoreDirectiveMarkdownTransform from "../../transform/markdown/directive/ignore";
 
-import { ignoreDirectiveMarkdownNodeFromNode, includeDirectiveMarkdownNodesFromNode } from "../../utilities/query";
+import { ignoreDirectiveMarkdownNodeFromNode, subDivisionMarkdownNodesFromNode, includeDirectiveMarkdownNodesFromNode } from "../../utilities/markdown";
 
 export default class DivisionMarkdownNode extends MarkdownNode {
   // getPageNumber() {
@@ -190,19 +190,6 @@ export default class DivisionMarkdownNode extends MarkdownNode {
   //   return pageNumberDirectiveMarkdownNode;
   // }
   //
-  // getSubDivisionMarkdownNodes() {
-  //   const node = this,
-  //         subDivisionMarkdownNodes = subDivisionMarkdownNodesFromNode(node);
-  //
-  //   return subDivisionMarkdownNodes;
-  // }
-  //
-  // forEachSubDivisionMarkdownNode(callback) {
-  //   const subDivisionMarkdownNodes = this.getSubDivisionMarkdownNodes();
-  //
-  //   subDivisionMarkdownNodes.forEach(callback);
-  // }
-  //
   // removeSubDivisionMarkdownNode(subDivisionMarkdownNode) {
   //   const childNode = subDivisionMarkdownNode;  ///
   //
@@ -298,6 +285,19 @@ export default class DivisionMarkdownNode extends MarkdownNode {
         subDivisionTransform.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
       }
     });
+  }
+
+  getSubDivisionMarkdownNodes() {
+    const node = this,
+          subDivisionMarkdownNodes = subDivisionMarkdownNodesFromNode(node);
+
+    return subDivisionMarkdownNodes;
+  }
+
+  forEachSubDivisionMarkdownNode(callback) {
+    const subDivisionMarkdownNodes = this.getSubDivisionMarkdownNodes();
+
+    subDivisionMarkdownNodes.forEach(callback);
   }
 
   clone() { return super.clone(this.divisionClassName); }

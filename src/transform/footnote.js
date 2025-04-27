@@ -2,8 +2,6 @@
 
 import { Transform } from "occam-dom";
 
-import { footnoteMarkdownNodeFromNode } from "../utilities/query";
-
 export default class FootnoteTransform extends Transform {
   constructor(node, tokens, number) {
     super(node, tokens);

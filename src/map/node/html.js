@@ -5,6 +5,7 @@ import ErrorHTMLNode from "../../node/html/error";
 import ImageHTMLNode from "../../node/html/image";
 import TableHTMLNode from "../../node/html/table";
 import AnchorHTMLNode from "../../node/html/anchor";
+import TopmostHTMLNode from "../../node/html/topmost";
 import DivisionHTMLNode from "../../node/html/division";
 import ParagraphHTMLNode from "../../node/html/paragraph";
 import TableHeadHTMLNode from "../../node/html/tableHead";
@@ -43,7 +44,8 @@ import SecondaryHeadingHTMLNode from "../../node/html/heading/secondary";
 import QuaternaryHeadingHTMLNode from "../../node/html/heading/quaternary";
 import StronglyEmphasisedTextHTMLNode from "../../node/html/text/stronglyEmphasised";
 
-import { LINE_RULE_NAME,
+import { HTML_RULE_NAME,
+         LINE_RULE_NAME,
          ERROR_RULE_NAME,
          IMAGE_RULE_NAME,
          TABLE_RULE_NAME,
@@ -87,6 +89,7 @@ import { LINE_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "../../ruleNames";
 
 const htmlNodeMap = {
+  [HTML_RULE_NAME]: TopmostHTMLNode,  ///
   [LINE_RULE_NAME]: LineHTMLNode,
   [ERROR_RULE_NAME]: ErrorHTMLNode,
   [IMAGE_RULE_NAME]: ImageHTMLNode,
@@ -131,6 +134,15 @@ const htmlNodeMap = {
   [STRONGLY_EMPHASISED_TEXT_RULE_NAME]: StronglyEmphasisedTextHTMLNode
 }
 
-export const ruleNames = Object.keys(htmlNodeMap);
+export function forEachHTMLNode(callback) {
+  const ruleNames = Object.keys(htmlNodeMap);
+
+  ruleNames.forEach((ruleName) => {
+    const HTMLNode = htmlNodeMap[ruleName],
+          Class = HTMLNode;
+
+    callback(Class, ruleName);
+  });
+}
 
 export default htmlNodeMap;

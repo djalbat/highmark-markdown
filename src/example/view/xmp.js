@@ -7,14 +7,15 @@ import { Element } from "easy";
 import { EMPTY_STRING } from "../constants";
 
 class XMP extends Element {
-  update(topmostHTMLNode, context) {
+  update(divisionHTMLNode, context) {
     const whitespaceTokenIndex = -1;
 
     Object.assign(context, {
       whitespaceTokenIndex
     });
 
-    const html = topmostHTMLNode.asHTML(context);
+    const indent = null,
+          html = divisionHTMLNode.asHTML(indent, context);
 
     this.html(html);
   }

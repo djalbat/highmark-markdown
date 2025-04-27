@@ -2,8 +2,6 @@
 
 import SubDivisionTransform from "../subDivision";
 
-import { indexDirectiveMarkdownNodeFromNode } from "../../utilities/query";
-
 export default class IndexDirectiveSubDivisionTransform extends SubDivisionTransform {
   static fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context) {
     let indexDirectiveSubDivisionTransform = null;

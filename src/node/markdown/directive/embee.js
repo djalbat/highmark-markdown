@@ -4,7 +4,7 @@ import MarkdownNode from "../../../node/markdown";
 import PathMarkdownNode from "../../../node/markdown/path";
 import EmbedDirectiveMarkdownTransform from "../../../transform/markdown/directive/embed";
 
-import { divisionMarkdownNodeFromNode, subDivisionMarkdownNodeFromNode } from "../../../utilities/query";
+import { divisionMarkdownNodeFromNode, subDivisionMarkdownNodeFromNode } from "../../../utilities/markdown";
 
 export default class EmbedDirectiveMarkdownNode extends MarkdownNode {
   filePath(context) {

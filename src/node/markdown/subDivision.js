@@ -4,7 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
-import { embedDirectiveMarkdownNodesFromNode } from "../../utilities/query";
+import { embedDirectiveMarkdownNodesFromNode } from "../../utilities/markdown";
 
 const { backwardsForEach } = arrayUtilities;
 

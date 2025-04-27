@@ -2,8 +2,6 @@
 
 import SubDivisionTransform from "../subDivision";
 
-import { contentsDirectiveMarkdownNodeFromNode } from "../../utilities/query";
-
 export default class ContentsDirectiveSubDivisionTransform extends SubDivisionTransform {
   static fromSubDivisionMarkdownNode(subDivisionMarkdownNode, context) {
     let contentsDirectiveSubDivisionTransform = null;

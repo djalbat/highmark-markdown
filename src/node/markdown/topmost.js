@@ -4,7 +4,7 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
-import { divisionMarkdownNodesFromNode } from "../../utilities/query";
+import { divisionMarkdownNodesFromNode } from "../../utilities/markdown";
 
 const { first } = arrayUtilities;
 

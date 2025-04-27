@@ -2,13 +2,15 @@
 
 import { Query } from "occam-query";
 
-import { ruleNames } from "./map/node//html";
+import { forEachHTMLNode } from "./map/node//html";
 
-const queries = ruleNames.map((ruleName) => {
+const queries = [];
+
+forEachHTMLNode((Class, ruleName) => {
   const expressionString = `//${ruleName}`,
         query = Query.fromExpressionString(expressionString);
 
-  return query;
+  queries.push(query);
 });
 
 export default queries;

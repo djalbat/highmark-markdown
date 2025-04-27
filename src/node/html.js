@@ -30,6 +30,18 @@ class HTMLNode extends Node {
 
   getRuleName() { return this.outerNode.getRuleName(); }
 
+  isTerminalNode() {
+    const terminalNode = false;
+
+    return terminalNode;
+  }
+
+  isNonTerminalNode() {
+    const nonTerminalNode = true;
+
+    return nonTerminalNode;
+  }
+
   adjustIndent(indent) {
     indent = (indent === null) ?
                EMPTY_STRING :

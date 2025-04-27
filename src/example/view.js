@@ -3,6 +3,7 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
+import { nodeUtilities } from "occam-dom";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 import { MarkdownLexer, MarkdownParser, MarkdownStyleLexer, MarkdownStyleParser } from "../index";
 
@@ -19,12 +20,19 @@ import PlainTextContainerDiv from "./view/div/container/plainText";
 import HTMLParseTreeTextarea from "./view/textarea/parseTree/html";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
+import { nodesFromNodeAndQueries } from "../utilities/query";
 import { importer, initialMarkdown } from "./importer";
+
+import queries from "../queries";
+import HTMLNode from "../node/html";
+import htmlNodeMap from "../map/node/html";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
       markdownStyleLexer = MarkdownStyleLexer.fromNothing(),
       markdownStyleParser = MarkdownStyleParser.fromNothing();
+
+const { topmostNodeFromOuterNodes } = nodeUtilities;
 
 class View extends Element {
   markdownStyleCustomHandler = (event, element) => {
@@ -74,25 +82,24 @@ class View extends Element {
   }
 
   updatePage(index = 0) {
-    return;
-
     const tokens = this.getTokens(),
           topmostMarkdownNode = this.getTopmostMarkdownNode(),
-          divisionMarkdownNode = topmostMarkdownNode.getDivisionMarkdownNodeAt(index),
-          topmostHTMLNode = TopmostHTMLNode.fromDivisionMarkdownNode(divisionMarkdownNode),
+          topmostHTMLNode = topmostHTMLNodeFromTopmostMarkdownNode(topmostMarkdownNode),
+          divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNodeAt(index),
           context = {
             tokens,
             pathToURL
           };
 
-    this.updateXMP(topmostHTMLNode, context);
+    this.updateXMP(divisionHTMLNOde, context);
 
-    this.updatePreviewDiv(topmostHTMLNode, context);
+    this.updatePreviewDiv(divisionHTMLNOde, context);
 
-    this.updatePlainTextTextarea(topmostHTMLNode, context);
+    this.updatePlainTextTextarea(divisionHTMLNOde, context);
 
-    const length = null,
-          parseTree = topmostHTMLNode.asParseTree(),
+    const multiplicity = topmostHTMLNode.getMultiplicity(),
+          length = multiplicity,  ///
+          parseTree = divisionHTMLNOde.asParseTree(),
           htmlParseTree = parseTree; ///
 
     this.updatePageButtonsDiv(length, index);
@@ -348,4 +355,27 @@ function pathToURL(path) {
   const url = `https://static.djalbat.com/${path}`;
 
   return url;
+}
+
+function ClassFromOuterNode(outerNode) {
+  let Class;
+
+  if (outerNode === null) {
+    Class = TopmostHTMLNode;  ///
+  } else {
+    const nonTerminalNode = outerNode,  ///
+          ruleName = nonTerminalNode.getRuleName();
+
+    Class = htmlNodeMap[ruleName] || HTMLNode;
+  }
+
+  return Class;
+}
+
+function topmostHTMLNodeFromTopmostMarkdownNode(topmostMarkdownNode) {
+  const node = topmostMarkdownNode,  ///
+        nodes = nodesFromNodeAndQueries(node, queries),
+        topmostHTMLNode = topmostNodeFromOuterNodes(ClassFromOuterNode, nodes);
+
+  return topmostHTMLNode;
 }

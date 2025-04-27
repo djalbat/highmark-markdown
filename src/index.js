@@ -8,6 +8,7 @@ export { default as MarkdownStyleParser } from "./markdownStyle/parser";
 export { default as cssUtilities } from "./utilities/css";
 export { default as htmlUtilities } from "./utilities/html";
 export { default as queryUtilities } from "./utilities/query";
+export { default as markdownUtilities } from "./utilities/markdown";
 export { default as footnotesUtilities } from "./utilities/footnotes";
 
 export { default as ruleNames } from "./ruleNames";

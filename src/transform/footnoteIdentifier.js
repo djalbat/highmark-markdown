@@ -2,8 +2,6 @@
 
 import SubDivisionTransform from "../subDivision";
 
-import { footnoteMarkdownNodeFromNode } from "../../utilities/query";
-
 export default class FootnoteSubDivisionTransform extends SubDivisionTransform {
   identifier(context) {
     const subDivisionMarkdownNode = this.getSubDivisionMarkdownNode(),
