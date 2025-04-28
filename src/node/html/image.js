@@ -61,15 +61,19 @@ export default class ImageHTMLNode extends HTMLNode {
   }
 
   mount(parentDOMElement, siblingDOMElement, context) {
-    this.domElement = this.createDOMElement(context);
+    const domElement = this.createDOMElement(context);
 
-    parentDOMElement.insertBefore(this.domElement, siblingDOMElement)
+    this.setDOMElement(domElement);
+
+    parentDOMElement.insertBefore(domElement, siblingDOMElement)
   }
 
   unmount(parentDOMElement, context) {
-    parentDOMElement.removeChild(this.domElement);
+    const domElement = this.getDOMElement();
 
-    this.domElement = null;
+    parentDOMElement.removeChild(domElement);
+
+    this.resetDOMElement();
   }
 
   createDOMElement(context) {

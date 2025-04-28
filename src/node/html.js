@@ -21,6 +21,10 @@ class HTMLNode extends Node {
     this.domElement = domElement;
   }
 
+  resetDOMElement() {
+    this.domElement = null;
+  }
+
   getMarkdownNode() {
     const outerNode = this.getOuterNode(),
           markdownNode = outerNode; ///

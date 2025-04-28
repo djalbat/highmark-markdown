@@ -2,9 +2,11 @@
 
 import HTMLNode from "../../../node/html";
 
-import { EMPTY_STRING } from "../../../constants";
 import { FOOTNOTE_PREPEND } from "../../../prepends";
 import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
+import {CARRIAGE_RETURN} from "../../../constants";
+
+let number = 1; ///
 
 export default class FootnoteLinkHTMLNode extends HTMLNode {
   // getNumber() {
@@ -74,16 +76,13 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
   // }
 
   content(context) {
-    const content = EMPTY_STRING;
+    const content = `${number++}
+`;
 
     return content;
   }
 
-  identifier(context) {
-    const identifier = EMPTY_STRING;
-
-    return identifier;
-  }
+  identifier(context) { return this.outerNode.identifier(context); }
 
   attributeName(context) {
     const attributeName = HREF_ATTRIBUTE_NAME;
@@ -99,6 +98,41 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
     return attributeValue;
   }
 
+  mount(parentDOMElement, siblingDOMElement, context) {
+    super.mount(parentDOMElement, siblingDOMElement, context);
+
+    let domElement;
+
+    domElement = this.getDOMElement();
+
+    parentDOMElement = domElement; ///
+
+    siblingDOMElement = null;
+
+    const content = this.content(context),
+          textNode = document.createTextNode(content);
+
+    domElement = textNode;  ///
+
+    parentDOMElement.insertBefore(domElement, siblingDOMElement)
+  }
+
+  unmount(parentDOMElement, context) {
+    let domElement;
+
+    domElement = this.getDOMElement();
+
+    parentDOMElement = domElement; ///
+
+    const firstChild = parentDOMElement.firstChild;
+
+    domElement = firstChild;  ///
+
+    parentDOMElement.removeChild(domElement);
+
+    super.unmount(parentDOMElement, context);
+  }
+
   childNodesAsHTML(indent, context) {
     const content = this.content(context),
           childNodesHTML = content; ///
@@ -106,16 +140,11 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
     return childNodesHTML;
   }
 
+  static tagName = "a";
+
+  static className = "footnote";
+
   static fromNothing() { return HTMLNode.fromNothing(FootnoteLinkHTMLNode); }
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(FootnoteLinkHTMLNode, outerNode); }
 }
-
-// function identifierFromLinkTerminalNode(linkTerminalNode) {
-//   const content = linkTerminalNode.getContent(),
-//     matches = content.match(/\[\^([^\]]+)]/),
-//     secondMatch = second(matches),
-//     identifier = secondMatch; ///
-//
-//   return identifier;
-// }

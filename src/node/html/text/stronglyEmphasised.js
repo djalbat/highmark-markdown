@@ -29,33 +29,44 @@ export default class StronglyEmphasisedTextHTMLNode extends HTMLNode {
   }
 
   mount(parentDOMElement, siblingDOMElement, context) {
-    this.domElement = this.createDOMElement(context);
+    let domElement;
 
-    parentDOMElement.insertBefore(this.domElement, siblingDOMElement);
+    domElement = this.createDOMElement(context);
 
-    const childDOMElement = this.createChildDOMElement(context),
-          domElement = childDOMElement; ///
-
-    parentDOMElement = this.domElement;
-
-    siblingDOMElement = null;
+    this.setDOMElement(domElement);
 
     parentDOMElement.insertBefore(domElement, siblingDOMElement);
 
+    parentDOMElement = domElement; ///
+
+    siblingDOMElement = null;
+
+    const childDOMElement = this.createChildDOMElement(context);
+
+    domElement = childDOMElement; ///
+
+    parentDOMElement.insertBefore(domElement, siblingDOMElement);
   }
 
   unmount(parentDOMElement, context) {
+    let domElement;
+
+    domElement = this.getDOMElement();
+
     {
-      const parentDOMElement = this.domElement,
-            firstChild = parentDOMElement.firstChild,
-            domElement = firstChild;  ///
+      const parentDOMElement = domElement, ///
+            firstChild = parentDOMElement.firstChild;
+
+      domElement = firstChild;  ///
 
       parentDOMElement.removeChild(domElement)
     }
 
-    parentDOMElement.removeChild(this.domElement);
+    domElement = this.getDOMElement();
 
-    this.domElement = null;
+    parentDOMElement.removeChild(domElement);
+
+    this.resetDOMElement();
   }
 
   childNodesAsHTML(indent, context) {

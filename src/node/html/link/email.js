@@ -28,12 +28,17 @@ export default class EmailLinkHTMLNode extends HTMLNode {
     const simple = this.isSimple();
 
     if (simple) {
-      const emailAddress = this.emailAddress(context),
+      let domElement;
+
+      domElement = this.getDOMElement();
+
+      const siblingDOMElement = null,
+            parentDOMElement = domElement, ///
+            emailAddress = this.emailAddress(context),
             content = emailAddress, ///
-            textNode = document.createTextNode(content),
-            domElement = textNode,  ///
-            parentDOMElement = this.domElement, ///
-            siblingDOMElement = null;
+            textNode = document.createTextNode(content);
+
+      domElement = textNode;  ///
 
       parentDOMElement.insertBefore(domElement, siblingDOMElement)
     }
@@ -43,9 +48,14 @@ export default class EmailLinkHTMLNode extends HTMLNode {
     const simple = this.isSimple();
 
     if (simple) {
-      const parentDOMElement = this.domElement,
-            firstChild = parentDOMElement.firstChild,
-            domElement = firstChild;  ///
+      let domElement;
+
+      domElement = this.getDOMElement();
+
+      const parentDOMElement = domElement, ///
+            firstChild = parentDOMElement.firstChild;
+
+      domElement = firstChild;  ///
 
       parentDOMElement.removeChild(domElement)
     }

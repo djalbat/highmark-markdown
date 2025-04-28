@@ -12,14 +12,14 @@ export default class BlockLineHTMLNode extends HTMLNode {
 
     domElement = this.getDOMElement();
 
-    parentDOMElement = domElement;
+    parentDOMElement = domElement;  ///
 
     siblingDOMElement = null;
 
     const content = CARRIAGE_RETURN,
           textNode = document.createTextNode(content);
 
-    domElement = textNode;
+    domElement = textNode;  ///
 
     parentDOMElement.insertBefore(domElement, siblingDOMElement)
   }

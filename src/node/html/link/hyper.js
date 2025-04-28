@@ -28,12 +28,17 @@ export default class HyperlinkHTMLNode extends HTMLNode {
     const simple = this.isSimple();
 
     if (simple) {
-      const url = this.url(context),
+      let domElement;
+
+      domElement = this.getDOMElement();
+
+      const siblingDOMElement = null,
+            parentDOMElement = domElement, ///
+            url = this.url(context),
             content = url, ///
-            textNode = document.createTextNode(content),
-            domElement = textNode,  ///
-            parentDOMElement = this.domElement, ///
-            siblingDOMElement = null;
+            textNode = document.createTextNode(content);
+
+      domElement = textNode;  ///
 
       parentDOMElement.insertBefore(domElement, siblingDOMElement)
     }
@@ -43,11 +48,16 @@ export default class HyperlinkHTMLNode extends HTMLNode {
     const simple = this.isSimple();
 
     if (simple) {
-      const parentDOMElement = this.domElement,
-            firstChild = parentDOMElement.firstChild,
-            domElement = firstChild;  ///
+      let domElement;
 
-      parentDOMElement.removeChild(domElement)
+      domElement = this.getDOMElement();
+
+      const parentDOMElement = domElement, ///
+            firstChild = parentDOMElement.firstChild;
+
+      domElement = firstChild;  ///
+
+      parentDOMElement.removeChild(domElement);
     }
 
     super.unmount(parentDOMElement, context);
