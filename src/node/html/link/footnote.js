@@ -4,7 +4,6 @@ import HTMLNode from "../../../node/html";
 
 import { FOOTNOTE_PREPEND } from "../../../prepends";
 import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
-import {CARRIAGE_RETURN} from "../../../constants";
 
 let number = 1; ///
 
@@ -76,8 +75,7 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
   // }
 
   content(context) {
-    const content = `${number++}
-`;
+    const content = number++; ///
 
     return content;
   }
@@ -131,6 +129,21 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
     parentDOMElement.removeChild(domElement);
 
     super.unmount(parentDOMElement, context);
+  }
+
+  asHTML(indent, context) {
+    let html;
+
+    indent = this.adjustIndent(indent);
+
+    const childNodesHTML = this.childNodesAsHTML(indent, context),
+          startingTag = this.startingTag(context),
+          closingTag = this.closingTag(context);
+
+    html = `${indent}${startingTag}${childNodesHTML}${closingTag}
+`;
+
+    return html;
   }
 
   childNodesAsHTML(indent, context) {
