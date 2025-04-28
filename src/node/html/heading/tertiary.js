@@ -1,15 +1,15 @@
 "use strict";
 
-import HTMLNode from "../../../node/html";
+import HeadingHTMLNode from "../../../node/html/heading";
 
-export default class TertiaryHeadingHTMLNode extends HTMLNode {
+export default class TertiaryHeadingHTMLNode extends HeadingHTMLNode {
   static lines = 2.25;
 
   static tagName = "h3";
 
   static className = null;
 
-  static fromNothing() { return HTMLNode.fromNothing(TertiaryHeadingHTMLNode); }
+  static fromNothing() { return HeadingHTMLNode.fromNothing(TertiaryHeadingHTMLNode); }
 
-  static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(TertiaryHeadingHTMLNode, outerNode); }
+  static fromOuterNode(outerNode) { return HeadingHTMLNode.fromOuterNode(TertiaryHeadingHTMLNode, outerNode); }
 }

@@ -1,6 +1,6 @@
 "use strict";
 
-import FootnotesListMarkdownNode from "../node/markdown/list/footnotes";
+import FootnotesListHTMLNode from "../node/html/list/footnotes";
 
 export function renumberFootnoteLinkMarkdownNodes(divisionMarkdownNode, footnoteReplacementMap, context) {
   const node = divisionMarkdownNode,  ///
@@ -17,14 +17,14 @@ export function renumberFootnoteLinkMarkdownNodes(divisionMarkdownNode, footnote
   });
 }
 
-export function footnotesListMarkdownNodeFromFootnotesListDOMElement(footnotesListDOMElement) {
+export function footnotesListHTMLNodeFromFootnotesListDOMElement(footnotesListDOMElement) {
   const domElement = footnotesListDOMElement, ///
-        footnotesListMarkdownNode = FootnotesListMarkdownNode.fromDOMElement(domElement);
+        footnotesListHTMLNode = FootnotesListHTMLNode.fromDOMElement(domElement);
 
-  return footnotesListMarkdownNode;
+  return footnotesListHTMLNode;
 }
 
 export default {
   renumberFootnoteLinkMarkdownNodes,
-  footnotesListMarkdownNodeFromFootnotesListDOMElement
+  footnotesListHTMLNodeFromFootnotesListDOMElement
 };

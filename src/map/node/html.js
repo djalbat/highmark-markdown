@@ -30,8 +30,8 @@ import IndexHeadingHTMLNode from "../../node/html/heading/index";
 import FootnoteLinkHTMLNode from "../../node/html/link/footnote";
 import TableHeadRowHTMLNode from "../../node/html/tableHeadRow";
 import TableBodyRowHTMLNode from "../../node/html/tableBodyRow";
+import FootnoteItemHTMLNode from "../../node/html/item/footnote";
 import InlineListingHTMLNode from "../../node/html/listing/inline";
-import FootnotesItemHTMLNode from "../../node/html/item/footnotes";
 import FootnotesListHTMLNode from "../../node/html/list/footnotes";
 import TableHeadCellHTMLNode from "../../node/html/tableHeadCell";
 import TableBodyCellHTMLNode from "../../node/html/tableBodyCell";
@@ -72,10 +72,10 @@ import { HTML_RULE_NAME,
          INDEX_HEADING_RULE_NAME,
          BLOCK_LISTING_RULE_NAME,
          FOOTNOTE_LINK_RULE_NAME,
+         FOOTNOTE_ITEM_RULE_NAME,
          TABLE_HEAD_ROW_RULE_NAME,
          TABLE_BODY_ROW_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
-         FOOTNOTES_ITEM_RULE_NAME,
          FOOTNOTES_LIST_RULE_NAME,
          UNORDERED_ITEM_RULE_NAME,
          UNORDERED_LIST_RULE_NAME,
@@ -117,10 +117,10 @@ const htmlNodeMap = {
   [INDEX_HEADING_RULE_NAME]: IndexHeadingHTMLNode,
   [BLOCK_LISTING_RULE_NAME]: BlockListingHTMLNode,
   [FOOTNOTE_LINK_RULE_NAME]: FootnoteLinkHTMLNode,
+  [FOOTNOTE_ITEM_RULE_NAME]: FootnoteItemHTMLNode,
   [TABLE_HEAD_ROW_RULE_NAME]: TableHeadRowHTMLNode,
   [TABLE_BODY_ROW_RULE_NAME]: TableBodyRowHTMLNode,
   [INLINE_LISTING_RULE_NAME]: InlineListingHTMLNode,
-  [FOOTNOTES_ITEM_RULE_NAME]: FootnotesItemHTMLNode,
   [FOOTNOTES_LIST_RULE_NAME]: FootnotesListHTMLNode,
   [UNORDERED_ITEM_RULE_NAME]: UnorderedItemHTMLNode,
   [UNORDERED_LIST_RULE_NAME]: UnorderedListHTMLNode,

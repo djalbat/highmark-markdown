@@ -164,12 +164,6 @@ const bnf = `
     contentsLink            ::=  line ;
 
 
-    footnotesList           ::=  footnotesItem+ ;
-
-
-    footnotesItem           ::=  anchor paragraph ;
-
-
     indexHeading            ::=  line ;
     
     
@@ -306,9 +300,6 @@ const bnf = `
     comma.                  ::=  "," ;    
       
 
-    anchor.                 ::=  ε ;
-
-    
     endOfLine.              ::=  <END_OF_LINE> ;
 
 `;

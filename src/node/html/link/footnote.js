@@ -2,10 +2,89 @@
 
 import HTMLNode from "../../../node/html";
 
+import { EMPTY_STRING } from "../../../constants";
 import { FOOTNOTE_PREPEND } from "../../../prepends";
 import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
 
 export default class FootnoteLinkHTMLNode extends HTMLNode {
+  // getNumber() {
+  //   return this.number;
+  // }
+  //
+  // setNumber(number) {
+  //   this.number = number;
+  // }
+  //
+  // content(context) {
+  //   const content = (this.number !== null) ?
+  //                     this.number :
+  //                       EMPTY_STRING;
+  //
+  //   return content;
+  // }
+  //
+  // identifier(context) {
+  //   const identifier = this.fromFirstChildNode((firstChildNode) => {
+  //     const linkTerminalNode = firstChildNode,  ///
+  //           identifier = identifierFromLinkTerminalNode(linkTerminalNode);
+  //
+  //     return identifier;
+  //   });
+  //
+  //   return identifier;
+  // }
+  //
+  // clear() {
+  //   if (this.domElement === null) {
+  //     return;
+  //   }
+  //
+  //   const { lastChild = null } = this.domElement;
+  //
+  //   if (lastChild !== null) {
+  //     const domElement = lastChild,  ///
+  //           parentDOMElement = this.domElement;
+  //
+  //     parentDOMElement.removeChild(domElement);
+  //   }
+  // }
+  //
+  // update(context) {
+  //   if (this.domElement === null) {
+  //     return;
+  //   }
+  //
+  //   const content = this.content(context);
+  //
+  //   if (content !== EMPTY_STRING) {
+  //     const textNode  = document.createTextNode(content),
+  //           domElement = textNode,  ///
+  //           parentDOMElement = this.domElement; ///
+  //
+  //     parentDOMElement.appendChild(domElement);
+  //   }
+  // }
+  //
+  // renumber(number, context) {
+  //   this.setNumber(number);
+  //
+  //   this.clear();
+  //
+  //   this.update(context);
+  // }
+
+  content(context) {
+    const content = EMPTY_STRING;
+
+    return content;
+  }
+
+  identifier(context) {
+    const identifier = EMPTY_STRING;
+
+    return identifier;
+  }
+
   attributeName(context) {
     const attributeName = HREF_ATTRIBUTE_NAME;
 
@@ -31,3 +110,12 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(FootnoteLinkHTMLNode, outerNode); }
 }
+
+// function identifierFromLinkTerminalNode(linkTerminalNode) {
+//   const content = linkTerminalNode.getContent(),
+//     matches = content.match(/\[\^([^\]]+)]/),
+//     secondMatch = second(matches),
+//     identifier = secondMatch; ///
+//
+//   return identifier;
+// }

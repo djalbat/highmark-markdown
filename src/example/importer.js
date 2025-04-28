@@ -42,9 +42,15 @@ const INDEX_PATH = "index.md",
       INSTALLING_THE_CLI_PATH = "installing-the-cli.md",
       GETTING_TO_GRIPS_WITH_THE_IDE_PATH = "getting-to-grips-with-the-ide.md";
 
-export const initialMarkdown = `@ignore 
+// export const initialMarkdown = `@ignore
+//
+// @include ${FRONT_MATTER_PATH}
+// `;
 
-@include ${FRONT_MATTER_PATH}
+export const initialMarkdown = `
+Footnote[^occam].
+
+[^occam]: Occam.
 `;
 
 const indexContent = `## Index

@@ -4,7 +4,6 @@ import LineMarkdownNode from "../../node/markdown/line";
 import PathMarkdownNode from "../../node/markdown/path";
 import ImageMarkdownNode from "../../node/markdown/image";
 import ErrorMarkdownNode from "../../node/markdown/error";
-import AnchorMarkdownNode from "../../node/markdown/anchor";
 import TopmostMarkdownNode from "../../node/markdown/topmost";
 import DivisionMarkdownNode from "../../node/markdown/division";
 import FootnoteMarkdownNode from "../../node/markdown/footnote";
@@ -29,8 +28,6 @@ import ContentsItemMarkdownNode from "../../node/markdown/contentsItem";
 import ContentsListMarkdownNode from "../../node/markdown/list/contents";
 import FootnoteLinkMarkdownNode from "../../node/markdown/link/footnote";
 import InlineListingMarkdownNode from "../../node/markdown/listng/inline";
-import FootnotesItemMarkdownNode from "../../node/markdown/item/footnotes";
-import FootnotesListMarkdownNode from "../../node/markdown/list/footnotes";
 import EmphasisedTextMarkdownNode from "../../node/markdown/emphasisedText";
 import PrimaryHeadingMarkdownNode from "../../node/markdown/heading/primary";
 import EmbedDirectiveMarkdownNode from "../../node/markdown/directive/embee";
@@ -45,7 +42,6 @@ import { LINE_RULE_NAME,
          PATH_RULE_NAME,
          IMAGE_RULE_NAME,
          ERROR_RULE_NAME,
-         ANCHOR_RULE_NAME,
          MARKDOWN_RULE_NAME,
          DIVISION_RULE_NAME,
          FOOTNOTE_RULE_NAME,
@@ -70,8 +66,6 @@ import { LINE_RULE_NAME,
          CONTENTS_LIST_RULE_NAME,
          FOOTNOTE_LINK_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
-         FOOTNOTES_ITEM_RULE_NAME,
-         FOOTNOTES_LIST_RULE_NAME,
          EMPHASISED_TEXT_RULE_NAME,
          PRIMARY_HEADING_RULE_NAME,
          EMBED_DIRECTIVE_RULE_NAME,
@@ -87,7 +81,6 @@ const markdownNodeMap = {
   [PATH_RULE_NAME]: PathMarkdownNode,
   [IMAGE_RULE_NAME]: ImageMarkdownNode,
   [ERROR_RULE_NAME]: ErrorMarkdownNode,
-  [ANCHOR_RULE_NAME]: AnchorMarkdownNode,
   [MARKDOWN_RULE_NAME]: TopmostMarkdownNode,
   [DIVISION_RULE_NAME]: DivisionMarkdownNode,
   [FOOTNOTE_RULE_NAME]: FootnoteMarkdownNode,
@@ -112,8 +105,6 @@ const markdownNodeMap = {
   [CONTENTS_LIST_RULE_NAME]: ContentsListMarkdownNode,
   [FOOTNOTE_LINK_RULE_NAME]: FootnoteLinkMarkdownNode,
   [INLINE_LISTING_RULE_NAME]: InlineListingMarkdownNode,
-  [FOOTNOTES_ITEM_RULE_NAME]: FootnotesItemMarkdownNode,
-  [FOOTNOTES_LIST_RULE_NAME]: FootnotesListMarkdownNode,
   [EMPHASISED_TEXT_RULE_NAME]: EmphasisedTextMarkdownNode,
   [PRIMARY_HEADING_RULE_NAME]: PrimaryHeadingMarkdownNode,
   [EMBED_DIRECTIVE_RULE_NAME]: EmbedDirectiveMarkdownNode,
