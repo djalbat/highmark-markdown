@@ -2,305 +2,293 @@
 
 const bnf = `
 
-    markdown                ::=  ( division | error )+ ;
+    markdown                 ::=  ( division | error )+ ;
     
     
-    division                ::=  ( subDivision | verticalSpace )+ ;
+    division                 ::=  ( subDivision | verticalSpace )+ ;
     
     
-    subDivision             ::=  directives 
+    subDivision..            ::=  directives 
     
-                              |  primaryHeading 
+                               |  primaryHeading 
 
-                              |  secondaryHeading 
+                               |  secondaryHeading 
                                    
-                              |  tertiaryHeading 
+                               |  tertiaryHeading 
                                    
-                              |  quaternaryHeading 
+                               |  quaternaryHeading 
                                    
-                              |  table 
+                               |  table 
                                    
-                              |  footnote
+                               |  footnote
                                    
-                              |  orderedList 
+                               |  orderedList 
                                    
-                              |  unorderedList 
+                               |  unorderedList 
                                    
-                              |  blockListing 
+                               |  blockListing 
       
-                              |  paragraph 
+                               |  paragraph 
                                
-                              ;
+                               ;
 
     
-    verticalSpace.          ::=  <END_OF_LINE>+ ;
+    verticalSpace            ::=  <END_OF_LINE>+ ;
 
 
-    error.                  ::=  . ;
+    error.                   ::=  . ;
 
 
-    directives              ::=  indexDirective 
+    directives               ::=  indexDirective 
   
-                               | ignoreDirective 
+                               |  ignoreDirective 
   
-                               | contentsDirective 
+                               |  contentsDirective 
   
-                               | footnotesDirective
+                               |  footnotesDirective
                                
-                               | pageNumberDirective 
+                               |  pageNumberDirective 
     
-                               | embedDirective ( endOfLine embedDirective )* 
+                               |  embedDirective ( endOfLine embedDirective )* 
                                
-                               | includeDirective ( endOfLine includeDirective )* 
+                               |  includeDirective ( endOfLine includeDirective )* 
 
                                ; 
   
 
-    primaryHeading.         ::=  "#" line ;
+    primaryHeading           ::=  "#" line ;
 
 
-    secondaryHeading.       ::=  "##" line ;
+    secondaryHeading         ::=  "##" line ;
 
 
-    tertiaryHeading.        ::=  "###" line ;
+    tertiaryHeading          ::=  "###" line ;
     
     
-    quaternaryHeading.      ::=  "####" line ;
+    quaternaryHeading        ::=  "####" line ;
 
 
-    table                   ::=  tableHead endOfLine tableDivider endOfLine tableBody ;
+    table                    ::=  tableHead endOfLine tableDivider endOfLine tableBody ;
 
 
-    footnote.               ::=  reference paragraph ;
+    footnote.                ::=  reference paragraph ;
 
 
-    orderedList             ::=  orderedItem ( endOfLine orderedItem )* ;
+    orderedList              ::=  orderedItem ( endOfLine orderedItem )* ;
 
 
-    unorderedList           ::=  unorderedItem ( endOfLine unorderedItem )* ;
+    unorderedList            ::=  unorderedItem ( endOfLine unorderedItem )* ;
 
 
-    blockListing            ::=  blockStart blockLine* blockEnd ;
+    blockListing             ::=  blockStart blockLine* blockEnd ;
 
 
-    paragraph               ::=  line ( endOfLine line )* ;
+    paragraph                ::=  line ( endOfLine line )* ;
     
 
-    indexDirective          ::=  "@index" ;
+    indexDirective           ::=  "@index" ;
 
 
-    ignoreDirective         ::=  "@ignore" ;
+    ignoreDirective          ::=  "@ignore" ;
 
 
-    embedDirective.         ::=  "@embed" ( path | nonsense ) ;
+    embedDirective           ::=  "@embed" ( path | nonsense ) ;
 
 
-    includeDirective.       ::=  "@include" ( path | nonsense ) ;
+    includeDirective         ::=  "@include" ( path | nonsense ) ;
 
 
-    contentsDirective       ::=  "@contents" ;
+    contentsDirective        ::=  "@contents" ;
 
 
-    footnotesDirective      ::=  "@footnotes" ;
+    footnotesDirective       ::=  "@footnotes" ;
 
 
-    pageNumberDirective     ::=  "@pageNumber" ;
+    pageNumberDirective      ::=  "@pageNumber" ;
 
 
-    nonsense                ::=  ( [escaped] | [number] | [identifier] | [word] | [special] | [unassigned] )+ ;
+    nonsense                 ::=  ( [escaped] | [number] | [identifier] | [word] | [special] | [unassigned] )+ ;
 
 
-    tableHead               ::=  tableHeadRow ;
+    tableHead                ::=  tableHeadRow ;
     
     
-    tableBody               ::=  tableBodyRow ( endOfLine tableBodyRow )* ;
+    tableBody                ::=  tableBodyRow ( endOfLine tableBodyRow )* ;
 
     
-    orderedItem             ::=  [marker] line ( endOfLine line )* ;
+    orderedItem              ::=  [marker] line ( endOfLine line )* ;
     
     
-    unorderedItem           ::=  [bullet] line ( endOfLine line )* ;
+    unorderedItem            ::=  [bullet] line ( endOfLine line )* ;
 
 
-    blockLine.              ::=  blockText* endOfLine ;
+    blockLine.               ::=  blockText* endOfLine ;
     
 
-    tableHeadRow            ::=  tableCellDivider tableHeadCell+ ;
+    tableHeadRow             ::=  tableCellDivider tableHeadCell+ ;
 
     
-    tableBodyRow            ::=  tableCellDivider tableBodyCell+ ;
+    tableBodyRow             ::=  tableCellDivider tableBodyCell+ ;
 
 
-    tableHeadCell.          ::=  emptyTableCell 
+    tableHeadCell            ::=  emptyTableCell 
     
-                              |  tableCell 
+                               |  tableCell 
                               
-                              ;
+                               ;
 
 
-    tableBodyCell.          ::=  emptyTableCell 
+    tableBodyCell            ::=  emptyTableCell 
     
-                              |  tableCell 
+                               |  tableCell 
                               
-                              ; 
+                               ; 
 
 
-    emptyTableCell          ::=  "." tableCellDivider ;
+    emptyTableCell           ::=  "." tableCellDivider ;
     
 
-    tableCell               ::=  line tableCellDivider ;
+    tableCell                ::=  line tableCellDivider ;
     
     
-    contentsList            ::=  contentsItem+ ;
+    contentsList             ::=  contentsItem+ ;
 
 
-    contentsItem            ::=  contentsLink 
+    contentsItem             ::=  contentsLink 
     
-                              |  contentsLink? contentsList
+                               |  contentsLink? contentsList
                               
-                              ;
+                               ;
 
 
-    contentsLink            ::=  line ;
+    contentsLink             ::=  line ;
 
 
-    indexHeading            ::=  line ;
+    line                     ::=  ( inlineListing 
     
-    
-    indexList               ::=  indexItem+ ;
-
-
-    indexItem               ::=  line... comma indexLink ( comma indexLink )* ;
-
-
-    line.                   ::=  ( inlineListing 
-    
-                                 | footnoteLink 
+                                  | footnoteLink 
                                  
-                                 | emailLink 
+                                  | emailLink 
                                  
-                                 | hyperlink 
+                                  | hyperlink 
                                  
-                                 | image 
+                                  | image 
                                  
-                                 | plainText 
+                                  | plainText 
                                  
-                                 | strongText 
+                                  | strongText 
                                  
-                                 | emphasisedText 
+                                  | emphasisedText 
                                  
-                                 | stronglyEmphasisedText )+ ;
+                                  | stronglyEmphasisedText )+ ;
     
     
-    emailLink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [email-address] ")" 
+    emailLink.               ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [email-address] ")" 
     
-                              |  [email-address] 
+                               |  [email-address] 
                               
-                              ;
+                               ;
 
 
-    hyperlink.              ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [url] ")" 
+    hyperlink.               ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [url] ")" 
     
-                              |  [url]
+                               |  [url]
                               
-                              ;
+                               ;
 
 
-    image.                  ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" path ")" ;
-
-
-    inlineText              ::=  plainText+ ;
-    
-    
-    strongText              ::=  "***" inlineText "***" ;
-
-
-    emphasisedText          ::=  "**" inlineText "**" ;
-
-
-    stronglyEmphasisedText  ::=  "****" inlineText "****" ;
+    footnoteLink.            ::=  [link] ;
     
 
-    className               ::=  <NO_WHITESPACE>[identifier] ;
-    
-
-    blockStart              ::=  [backticks] className? <END_OF_LINE> ;
+    image.                   ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" path ")" ;
 
 
-    blockEnd                ::=  [backticks] ;
+    inlineText.              ::=  plainText+ ;
+    
+    
+    strongText               ::=  "***" inlineText "***" ;
 
 
-    footnoteLink.           ::=  [link] ;
+    emphasisedText           ::=  "**" inlineText "**" ;
+
+
+    stronglyEmphasisedText.  ::=  "****" inlineText "****" ;
     
 
-    tableCellDivider        ::=  [vertical-bar] ;
-    
-    
-    tableDivider            ::=  [dashes] ;
-    
-    
-    plainText               ::=  [escaped] 
-                              
-                              |  [number] 
-                              
-                              |  [identifier] 
-                              
-                              |  [email-address]
-                              
-                              |  [url] 
-                              
-                              |  [path] 
-                              
-                              |  [word] 
-                              
-                              |  [special] 
-                              
-                              |  [unassigned] 
-                              
-                              ;
+    className                ::=  <NO_WHITESPACE>[identifier] ;
     
 
-    blockText               ::=  [escaped] 
+    blockStart               ::=  [backticks] className? <END_OF_LINE> ;
+
+
+    blockEnd                 ::=  [backticks] ;
+
+
+    tableCellDivider         ::=  [vertical-bar] ;
+    
+    
+    tableDivider             ::=  [dashes] ;
+    
+    
+    plainText.               ::=  [escaped] 
                               
-                              |  [number] 
+                               |  [number] 
                               
-                              |  [identifier] 
+                               |  [identifier] 
                               
-                              |  [email-address]
+                               |  [email-address]
                               
-                              |  [url] 
+                               |  [url] 
                               
-                              |  [path] 
+                               |  [path] 
                               
-                              |  [word] 
+                               |  [word] 
                               
-                              |  [special] 
+                               |  [special] 
                               
-                              |  [unassigned]  
+                               |  [unassigned] 
+                              
+                               ;
+    
+
+    blockText.               ::=  [escaped] 
+                              
+                               |  [number] 
+                              
+                               |  [identifier] 
+                              
+                               |  [email-address]
+                              
+                               |  [url] 
+                              
+                               |  [path] 
+                              
+                               |  [word] 
+                              
+                               |  [special] 
+                              
+                               |  [unassigned]  
                                 
-                              |  [dashes] 
+                               |  [dashes] 
  
-                              |  [vertical-bar]
+                               |  [vertical-bar]
                               
-                              ;
+                               ;
     
 
-    inlineListing           ::=  [backticked-literal] ;
+    inlineListing.           ::=  [backticked-literal] ;
     
 
-    reference.              ::=  [reference] ;
+    reference                ::=  [reference] ;
     
 
-    indexLink               ::=  [number] ;    
+    path                     ::=  [path] ;
 
 
-    path                    ::=  [path] ;
-
-
-    comma.                  ::=  "," ;    
+    comma                    ::=  "," ;    
       
 
-    endOfLine.              ::=  <END_OF_LINE> ;
+    endOfLine                ::=  <END_OF_LINE> ;
 
 `;
 

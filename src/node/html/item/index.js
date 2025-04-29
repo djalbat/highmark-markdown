@@ -3,25 +3,25 @@
 import HTMLNode from "../../../node/html";
 
 export default class IndexItemHTMLNode extends HTMLNode {
-  asHTML(indent, context) {
-    indent = this.adjustIndent(indent);
-
-    const childNodesHTML = this.childNodesAsHTML(indent, context),
-          startingTag = this.startingTag(context),
-          closingTag = this.closingTag(context),
-          html = `${indent}${startingTag}${childNodesHTML}${closingTag}
-`;
-
-    return html;
-  }
-
-  childNodesAsHTML(indent, context) {
-    indent = null;
-
-    const childNodesHTML = super.childNodesAsHTML(indent, context);
-
-    return childNodesHTML;
-  }
+//   asHTML(indent, context) {
+//     indent = this.adjustIndent(indent);
+//
+//     const childNodesHTML = this.childNodesAsHTML(indent, context),
+//           startingTag = this.startingTag(context),
+//           closingTag = this.closingTag(context),
+//           html = `${indent}${startingTag}${childNodesHTML}${closingTag}
+// `;
+//
+//     return html;
+//   }
+//
+//   childNodesAsHTML(indent, context) {
+//     indent = null;
+//
+//     const childNodesHTML = super.childNodesAsHTML(indent, context);
+//
+//     return childNodesHTML;
+//   }
 
   static tagName = "li";
 

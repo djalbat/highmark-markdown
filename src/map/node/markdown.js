@@ -11,8 +11,6 @@ import BlockEndMarkdownNode from "../../node/markdown/blockEnd";
 import ParagraphMarkdownNode from "../../node/markdown/paragraph";
 import ReferenceMarkdownNode from "../../node/markdown/reference";
 import HyperlinkMarkdownNode from "../../node/markdown/hyperlink";
-import IndexListMarkdownNode from "../../node/markdown/list/index";
-import IndexLinkMarkdownNode from "../../node/markdown/link/index";
 import EmailLinkMarkdownNode from "../../node/markdown/link/email";
 import PlainTextMarkdownNode from "../../node/markdown/text/plain";
 import BlockTextMarkdownNode from "../../node/markdown/text/block";
@@ -49,8 +47,6 @@ import { LINE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          REFERENCE_RULE_NAME,
          HYPERLINK_RULE_NAME,
-         INDEX_LIST_RULE_NAME,
-         INDEX_LINK_RULE_NAME,
          EMAIL_LINK_RULE_NAME,
          PLAIN_TEXT_RULE_NAME,
          BLOCK_TEXT_RULE_NAME,
@@ -88,8 +84,6 @@ const markdownNodeMap = {
   [REFERENCE_RULE_NAME]: ReferenceMarkdownNode,
   [HYPERLINK_RULE_NAME]: HyperlinkMarkdownNode,
   [PARAGRAPH_RULE_NAME]: ParagraphMarkdownNode,
-  [INDEX_LIST_RULE_NAME]: IndexListMarkdownNode,
-  [INDEX_LINK_RULE_NAME]: IndexLinkMarkdownNode,
   [EMAIL_LINK_RULE_NAME]: EmailLinkMarkdownNode,
   [PLAIN_TEXT_RULE_NAME]: PlainTextMarkdownNode,
   [BLOCK_TEXT_RULE_NAME]: BlockTextMarkdownNode,
