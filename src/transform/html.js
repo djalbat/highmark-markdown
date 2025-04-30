@@ -22,8 +22,16 @@ export default class HTMLTransform extends Transform {
   static fromHTNLNOde(Class, htmlNode, context) {
     const outerNode = htmlNode.getOuterNode(),
           node = outerNode, ///
-          footnoteHTMLTransform = Transform.fromNode(Class, node, htmlNode, context);
+          htmlTransform = Transform.fromNode(Class, node, htmlNode, context);
 
-    return footnoteHTMLTransform;
+    return htmlTransform;
+  }
+
+  static fromHTMLNodeAndTokens(Class, htmlNode, tokens, context) {
+    const outerNode = htmlNode.getOuterNode(),
+          node = outerNode, ///
+          htmlTransform = Transform.fromNodeAndTokens(Class, node, tokens, htmlNode, context);
+
+    return htmlTransform;
   }
 }

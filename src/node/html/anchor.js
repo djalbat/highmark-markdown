@@ -2,9 +2,26 @@
 
 import HTMLNode from "../../node/html";
 
+import { EMPTY_STRING } from "../../constants";
 import { ID_ATTRIBUTE_NAME } from "../../attributeNames";
 
 export default class AnchorHTMLNode extends HTMLNode {
+  constructor(outerNode, parentNode, childNodes, domElement, identifier) {
+    super(outerNode, parentNode, childNodes, domElement);
+
+    this.identifier = identifier;
+  }
+
+  getIdentifier() {
+    return this.identifier;
+  }
+
+  content(context) {
+    const content = EMPTY_STRING;
+
+    return content;
+  }
+
   attributeName(context) {
     const attributeName = ID_ATTRIBUTE_NAME;
 
@@ -17,60 +34,15 @@ export default class AnchorHTMLNode extends HTMLNode {
     return attributeValue;
   }
 
-  asHTML(indent, context) {
-    if (context === undefined) {
-      context = indent; ///
-
-      indent = null;
-    }
-
-    indent = this.adjustIndent(indent);
-
-    const childNodesHTML = this.childNodesAsHTML(indent, context),
-          startingTag = this.startingTag(context),
-          closingTag = this.closingTag(context),
-          html = (indent === null) ?
-                   `${startingTag}${childNodesHTML}${closingTag}` :
-                     `${indent}${startingTag}
-  ${childNodesHTML}${indent}${closingTag}
-  `;
-
-    return html;
-  }
-
-  createDOMElement(context) {
-    let domElement;
-
-    const content = this.content(context),
-          textNode = document.createTextNode(content);
-
-    domElement = super.createDOMElement(context)
-
-    const parentDOMElement = domElement;  ///
-
-    domElement = textNode; ///
-
-    parentDOMElement.appendChild(domElement);
-
-    domElement = parentDOMElement;  ///
-
-    return domElement;
-  }
-
-  // childNodesAsHTML(indent, context) {
-  //   const content = this.content(context),
-  //         childNodesHTML = content; ///
-  //
-  //   return childNodesHTML;
-  // }
-
   static tagName = "a";
 
   static className = "anchor";
 
-  static fromNothing() { return HTMLNode.fromNothing(AnchorHTMLNode); }
+  static fromIdentifier(identifier) {
+    const anchorHTMLNode = HTMLNode.fromNothing(AnchorHTMLNode, identifier);
 
-  static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(AnchorHTMLNode, outerNode); }
+    return anchorHTMLNode;
+  }
 }
 
 // "use strict";
@@ -83,27 +55,6 @@ export default class AnchorHTMLNode extends HTMLNode {
 // import { ANCHOR_RULE_NAME } from "../../ruleNames";
 //
 // export default class AnchorMarkdownNode extends MarkdownNode {
-//   constructor(ruleName, childNodes, opacity, precedence, domElement, prepend, identifier) {
-//     super(ruleName, childNodes, opacity, precedence, domElement, prepend);
-//
-//     this.prepend = prepend;
-//     this.identifier = identifier;
-//   }
-//
-//   getPrepend() {
-//     return this.prepend;
-//   }
-//
-//   getIdentifier() {
-//     return this.identifier;
-//   }
-//
-//   // content(context) {
-//   //   const content = EMPTY_STRING;
-//   //
-//   //   return content;
-//   // }
-//
 //   clone() { return super.clone(this.prepend, this.identifier); }
 //
 //   static fromPrependAndIdentifier(prepend, identifier) {

@@ -252,18 +252,18 @@ ${childNodePlainText}`;
     return childNodesPlainText;
   }
 
-  static fromNothing(Class) {
+  static fromNothing(Class, ...remainingArguments) {
     if (Class === undefined) {
       Class = HTMLNode; ///
     }
 
     const domElement = null,
-          node = Node.fromNothing(Class, domElement);
+          node = Node.fromNothing(Class, domElement, ...remainingArguments);
 
     return node;
   }
 
-  static fromOuterNode(Class, outerNode) {
+  static fromOuterNode(Class, outerNode, ...remainingArguments) {
     if (outerNode === undefined) {
       outerNode = Class;  ///
 
@@ -271,7 +271,20 @@ ${childNodePlainText}`;
     }
 
     const domElement = null,
-          node = Node.fromOuterNode(Class, outerNode, domElement);
+          node = Node.fromOuterNode(Class, outerNode, domElement, ...remainingArguments);
+
+    return node;
+  }
+
+  static fromChildNodes(Class, childNodes, ...remainingArguments) {
+    if (childNodes === undefined) {
+      childNodes = Class;  ///
+
+      Class = HTMLNode; ///
+    }
+
+    const domElement = null,
+          node = Node.fromChildNodes(Class, childNodes, domElement, ...remainingArguments);
 
     return node;
   }

@@ -4,6 +4,7 @@ import HTMLNode from "../../node/html";
 import FootnoteHTMLTransform from "../../transform/html/footnote";
 
 import { footnoteHTMLNodesFromNode, footnotesDirectiveHTMLNodeFromNode } from "../../utilities/html";
+import FootnotesListHTMLTransform from "../../transform/html/footnotesList";
 
 export default class DivisionHTMLNode extends HTMLNode {
   className(context) { return this.outerNode.className(context); }
@@ -21,7 +22,7 @@ export default class DivisionHTMLNode extends HTMLNode {
       return;
     }
 
-    const divisionHTMLNode = this;
+    const divisionHTMLNode = this;  ///
 
     footnoteHTMLTransforms.forEach((footnoteHTMLTransform) => {
       footnoteHTMLTransform.removeFromDivisionHTMLNode(divisionHTMLNode, context);
@@ -32,6 +33,9 @@ export default class DivisionHTMLNode extends HTMLNode {
     if (footnotesDirectiveHTMLNode === null) {
       return;
     }
+
+    // const footnotesListHTMLTransform = FootnotesListHTMLTransform.fromDivisionHTMLNodeAndFootnoteHTMLTransforms(divisionHTMLNode, footnoteHTMLTransforms, context);
+
 
 
   }

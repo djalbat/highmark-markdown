@@ -33,7 +33,6 @@ import TertiaryHeadingMarkdownNode from "../../node/markdown/heading/tertiary";
 import SecondaryHeadingMarkdownNode from "../../node/markdown/heading/secondary";
 import IncludeDirectiveMarkdownNode from "../../node/markdown/directive/include";
 import QuaternaryHeadingMarkdownNode from "../../node/markdown/heading/quaternary";
-import PageNumberDirectiveMarkdownNode from "../../node/markdown/directive/pageNumber";
 import StronglyEmphasisedTextMarkdownNode from "../../node/markdown/stronglyEmphasisedText";
 
 import { LINE_RULE_NAME,
@@ -69,7 +68,6 @@ import { LINE_RULE_NAME,
          SECONDARY_HEADING_RULE_NAME,
          INCLUDE_DIRECTIVE_RULE_NAME,
          QUATERNARY_HEADING_RULE_NAME,
-         PAGE_NUMBER_DIRECTIVE_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "../../ruleNames";
 
 const markdownNodeMap = {
@@ -106,7 +104,6 @@ const markdownNodeMap = {
   [SECONDARY_HEADING_RULE_NAME]: SecondaryHeadingMarkdownNode,
   [INCLUDE_DIRECTIVE_RULE_NAME]: IncludeDirectiveMarkdownNode,
   [QUATERNARY_HEADING_RULE_NAME]: QuaternaryHeadingMarkdownNode,
-  [PAGE_NUMBER_DIRECTIVE_RULE_NAME]: PageNumberDirectiveMarkdownNode,
   [STRONGLY_EMPHASISED_TEXT_RULE_NAME]: StronglyEmphasisedTextMarkdownNode
 };
 
