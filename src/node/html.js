@@ -34,10 +34,6 @@ class HTMLNode extends Node {
 
   getRuleName() { return this.outerNode.getRuleName(); }
 
-  getFirstSignificantTokenIndex(tokens) { return this.outerNode.getFirstSignificantTokenIndex(tokens); }
-
-  getLastSignificantTokenIndex(tokens) { return this.outerNode.getLastSignificantTokenIndex(tokens); }
-
   isTerminalNode() {
     const terminalNode = false;
 
@@ -256,19 +252,6 @@ ${childNodePlainText}`;
     return childNodesPlainText;
   }
 
-  clone(...remainingArguments) {
-    const Class = this.constructor,
-          outerNode = this.outerNode.clone(),
-          parentNode = null,
-          childNodes = cloneChildNodes(this.childNodes),
-          domElement = null,
-          htmlNode = new Class(outerNode, parentNode, childNodes, domElement, ...remainingArguments);
-
-    htmlNode.setChildNodesParentNode();
-
-    return htmlNode;
-  }
-
   static fromNothing(Class) {
     if (Class === undefined) {
       Class = HTMLNode; ///
@@ -297,13 +280,3 @@ ${childNodePlainText}`;
 Object.assign(HTMLNode.prototype, nodeMixins);
 
 export default HTMLNode;
-
-function cloneChildNodes(childNodes) {
-  childNodes = childNodes.map((childNode) => {  ///
-    childNode = childNode.clone();  ///
-
-    return childNode;
-  });
-
-  return childNodes;
-}

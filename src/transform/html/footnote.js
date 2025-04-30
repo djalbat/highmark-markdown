@@ -1,17 +1,17 @@
 "use strict";
 
-import { Transform } from "occam-dom";
+import HTMLTransform from "../../transform/html"
 
-export default class FootnoteHTMLTransform extends Transform {
+export default class FootnoteHTMLTransform extends HTMLTransform {
   removeFromDivisionHTMLNode(divisionHTMLNode, context) {
-    const parentNode = divisionHTMLNode;  ///
+    const parentHTNLNode = divisionHTMLNode; ///
 
-    super.removeFrom(parentNode, context);
+    super.removeFrom(parentHTNLNode, context);
   }
 
   static fromFootnoteHTMLNode(footnoteHTMLNde, context) {
-    const node = footnoteHTMLNde,
-          footnoteHTMLTransform = Transform.fromNode(FootnoteHTMLTransform, node, context);
+    const htmlNode = footnoteHTMLNde, ///
+          footnoteHTMLTransform = HTMLTransform.fromHTNLNOde(FootnoteHTMLTransform, htmlNode, context);
 
     return footnoteHTMLTransform;
   }

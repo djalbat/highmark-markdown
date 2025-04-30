@@ -4,10 +4,10 @@ import { Query } from "occam-query";
 
 import { nodeFromNodeAndQuery, nodesFromNodeAndQuery } from "../utilities/query";
 
-const ignoreDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/directives/ignoreDirective"),
-      contentsDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/directives/contentsDirective"),
-      footnotesDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/directives/footnotesDirective"),
-      pageNumberDirectiveHTMLNodeQuery = Query.fromExpressionString("//directives/pageNumber"),
+const ignoreDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/ignoreDirective"),
+      contentsDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/contentsDirective"),
+      footnotesDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/footnotesDirective"),
+      pageNumberDirectiveHTMLNodeQuery = Query.fromExpressionString("//pageNumber"),
       headingHTMLNodesQuery = Query.fromExpressionString("/division/primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),
       divisionHTMLNodesQuery = Query.fromExpressionString("/html/division"),
       footnoteHTMLNodesQuery = Query.fromExpressionString("/division/footnote"),

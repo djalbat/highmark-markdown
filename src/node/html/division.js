@@ -9,31 +9,31 @@ export default class DivisionHTMLNode extends HTMLNode {
   className(context) { return this.outerNode.className(context); }
 
   resolve(context) {
-    // const footnoteHTMLNodes = this.getFootnoteHTMLNodes(),
-    //       footnoteHTMLTransforms = footnoteHTMLNodes.map((footnoteHTMLNode) => {
-    //         const footnoteHTMLTransform = FootnoteHTMLTransform.fromFootnoteHTMLNode(footnoteHTMLNode, context);
-    //
-    //         return footnoteHTMLTransform;
-    //       }),
-    //       footnoteHTMLTransformsLength = footnoteHTMLTransforms.length;
-    //
-    // if (footnoteHTMLTransformsLength === 0) {
-    //   return;
-    // }
-    //
-    // const divisionHTMLNode = this;
-    //
-    // footnoteHTMLTransforms.forEach((footnoteHTMLTransform) => {
-    //   footnoteHTMLTransform.removeFromDivisionHTMLNode(divisionHTMLNode, context);
-    // });
-    //
-    // const footnotesDirectiveHTMLNode = this.getFootnotesDirectiveHTMLNode();
-    //
-    // if (footnotesDirectiveHTMLNode === null) {
-    //   return;
-    // }
-    //
-    // debugger
+    const footnoteHTMLNodes = this.getFootnoteHTMLNodes(),
+          footnoteHTMLTransforms = footnoteHTMLNodes.map((footnoteHTMLNode) => {
+            const footnoteHTMLTransform = FootnoteHTMLTransform.fromFootnoteHTMLNode(footnoteHTMLNode, context);
+
+            return footnoteHTMLTransform;
+          }),
+          footnoteHTMLTransformsLength = footnoteHTMLTransforms.length;
+
+    if (footnoteHTMLTransformsLength === 0) {
+      return;
+    }
+
+    const divisionHTMLNode = this;
+
+    footnoteHTMLTransforms.forEach((footnoteHTMLTransform) => {
+      footnoteHTMLTransform.removeFromDivisionHTMLNode(divisionHTMLNode, context);
+    });
+
+    const footnotesDirectiveHTMLNode = this.getFootnotesDirectiveHTMLNode();
+
+    if (footnotesDirectiveHTMLNode === null) {
+      return;
+    }
+
+    debugger
   }
 
   getFootnoteHTMLNodes() {
