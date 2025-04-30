@@ -5,18 +5,26 @@ import HTMLNode from "../../node/html";
 import { EMPTY_STRING, CARRIAGE_RETURN } from "../../constants";
 
 export default class BlockLineHTMLNode extends HTMLNode {
-  mount(parentDOMElement, siblingDOMElement, context) {
-    super.mount(parentDOMElement, siblingDOMElement, context);
+  content(context) {
+    const content = CARRIAGE_RETURN;
 
+    return content;
+  }
+
+  mount(parentDOMElement, siblingDOMElement, context) {
     let domElement;
 
-    domElement = this.getDOMElement();
+    domElement = this.createDOMElement(context);
 
-    parentDOMElement = domElement;  ///
+    this.setDOMElement(domElement);
+
+    parentDOMElement.insertBefore(domElement, siblingDOMElement)
+
+    parentDOMElement = domElement; ///
 
     siblingDOMElement = null;
 
-    const content = CARRIAGE_RETURN,
+    const content = this.content(context),
           textNode = document.createTextNode(content);
 
     domElement = textNode;  ///
@@ -25,20 +33,24 @@ export default class BlockLineHTMLNode extends HTMLNode {
   }
 
   unmount(parentDOMElement, context) {
-    {
-      let domElement;
+    let domElement;
 
+    {
       domElement = this.getDOMElement();
 
       const parentDOMElement = domElement,  ///
-            lastChild = domElement.lastChild
+            firstChild = domElement.firstChild
 
-      domElement = lastChild;  ///
+      domElement = firstChild;  ///
 
       parentDOMElement.removeChild(domElement);
     }
 
-    super.unmount(parentDOMElement, context);
+    domElement = this.getDOMElement();
+
+    parentDOMElement.removeChild(domElement);
+
+    this.resetDOMElement();
   }
 
   asHTML(indent, context) {

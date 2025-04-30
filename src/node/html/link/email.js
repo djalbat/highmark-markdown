@@ -7,6 +7,13 @@ import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
 export default class EmailLinkHTMLNode extends HTMLNode {
   isSimple() { return this.outerNode.isSimple(); }
 
+  content(context) {
+    const emailAddress = this.emailAddress(context),
+          content = emailAddress; ///
+
+    return content;
+  }
+
   emailAddress(context) { return this.outerNode.emailAddress(context); }
 
   attributeName(context) {
@@ -23,44 +30,61 @@ export default class EmailLinkHTMLNode extends HTMLNode {
   }
 
   mount(parentDOMElement, siblingDOMElement, context) {
-    super.mount(parentDOMElement, siblingDOMElement, context);
-
     const simple = this.isSimple();
 
-    if (simple) {
-      let domElement;
+    if (!simple) {
+      super.mount(parentDOMElement, siblingDOMElement, context);
 
-      domElement = this.getDOMElement();
-
-      const siblingDOMElement = null,
-            parentDOMElement = domElement, ///
-            emailAddress = this.emailAddress(context),
-            content = emailAddress, ///
-            textNode = document.createTextNode(content);
-
-      domElement = textNode;  ///
-
-      parentDOMElement.insertBefore(domElement, siblingDOMElement)
+      return;
     }
+
+    let domElement;
+
+    domElement = this.createDOMElement(context);
+
+    this.setDOMElement(domElement);
+
+    parentDOMElement.insertBefore(domElement, siblingDOMElement)
+
+    parentDOMElement = domElement; ///
+
+    siblingDOMElement = null;
+
+    const content = this.content(context),
+          textNode = document.createTextNode(content);
+
+    domElement = textNode;  ///
+
+    parentDOMElement.insertBefore(domElement, siblingDOMElement)
   }
 
   unmount(parentDOMElement, context) {
     const simple = this.isSimple();
 
-    if (simple) {
-      let domElement;
+    if (!simple) {
+      super.unmount(parentDOMElement, context);
 
+      return;
+    }
+
+    let domElement;
+
+    {
       domElement = this.getDOMElement();
 
-      const parentDOMElement = domElement, ///
-            firstChild = parentDOMElement.firstChild;
+      const parentDOMElement = domElement,  ///
+            firstChild = domElement.firstChild
 
       domElement = firstChild;  ///
 
-      parentDOMElement.removeChild(domElement)
+      parentDOMElement.removeChild(domElement);
     }
 
-    super.unmount(parentDOMElement, context);
+    domElement = this.getDOMElement();
+
+    parentDOMElement.removeChild(domElement);
+
+    this.resetDOMElement();
   }
 
   asPlainText(context) {

@@ -97,11 +97,13 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
   }
 
   mount(parentDOMElement, siblingDOMElement, context) {
-    super.mount(parentDOMElement, siblingDOMElement, context);
-
     let domElement;
 
-    domElement = this.getDOMElement();
+    domElement = this.createDOMElement(context);
+
+    this.setDOMElement(domElement);
+
+    parentDOMElement.insertBefore(domElement, siblingDOMElement)
 
     parentDOMElement = domElement; ///
 
@@ -118,17 +120,22 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
   unmount(parentDOMElement, context) {
     let domElement;
 
+    {
+      domElement = this.getDOMElement();
+
+      const parentDOMElement = domElement,  ///
+            firstChild = domElement.firstChild
+
+      domElement = firstChild;  ///
+
+      parentDOMElement.removeChild(domElement);
+    }
+
     domElement = this.getDOMElement();
-
-    parentDOMElement = domElement; ///
-
-    const firstChild = parentDOMElement.firstChild;
-
-    domElement = firstChild;  ///
 
     parentDOMElement.removeChild(domElement);
 
-    super.unmount(parentDOMElement, context);
+    this.resetDOMElement();
   }
 
   asHTML(indent, context) {

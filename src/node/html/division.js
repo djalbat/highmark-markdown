@@ -1,9 +1,54 @@
 "use strict";
 
 import HTMLNode from "../../node/html";
+import FootnoteHTMLTransform from "../../transform/html/footnote";
+
+import { footnoteHTMLNodesFromNode, footnotesDirectiveHTMLNodeFromNode } from "../../utilities/html";
 
 export default class DivisionHTMLNode extends HTMLNode {
   className(context) { return this.outerNode.className(context); }
+
+  resolve(context) {
+    // const footnoteHTMLNodes = this.getFootnoteHTMLNodes(),
+    //       footnoteHTMLTransforms = footnoteHTMLNodes.map((footnoteHTMLNode) => {
+    //         const footnoteHTMLTransform = FootnoteHTMLTransform.fromFootnoteHTMLNode(footnoteHTMLNode, context);
+    //
+    //         return footnoteHTMLTransform;
+    //       }),
+    //       footnoteHTMLTransformsLength = footnoteHTMLTransforms.length;
+    //
+    // if (footnoteHTMLTransformsLength === 0) {
+    //   return;
+    // }
+    //
+    // const divisionHTMLNode = this;
+    //
+    // footnoteHTMLTransforms.forEach((footnoteHTMLTransform) => {
+    //   footnoteHTMLTransform.removeFromDivisionHTMLNode(divisionHTMLNode, context);
+    // });
+    //
+    // const footnotesDirectiveHTMLNode = this.getFootnotesDirectiveHTMLNode();
+    //
+    // if (footnotesDirectiveHTMLNode === null) {
+    //   return;
+    // }
+    //
+    // debugger
+  }
+
+  getFootnoteHTMLNodes() {
+    const node = this,  ///
+          footnoteHTMLNodes = footnoteHTMLNodesFromNode(node);
+
+    return footnoteHTMLNodes;
+  }
+
+  getFootnotesDirectiveHTMLNode() {
+    const node = this,  ///
+          footnotesDirectiveHTMLNode = footnotesDirectiveHTMLNodeFromNode(node)
+
+    return footnotesDirectiveHTMLNode;
+  }
 
   static tagName = "div";
 

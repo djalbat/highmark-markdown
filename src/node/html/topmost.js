@@ -6,6 +6,14 @@ import { HTML_RULE_NAME } from "../../ruleNames";
 import { divisionHTMLNodesFromNode } from "../../utilities/html";
 
 export default class TopmostHTMLNode extends HTMLNode {
+  resolve(context) {
+    const divisionHTMLNodes = this.getDivisionHTMLNodes();
+
+    divisionHTMLNodes.forEach((divisionHTMLNode) => {
+      divisionHTMLNode.resolve(context);
+    });
+  }
+
   adjustIndent(indent) {
     return indent;
   }

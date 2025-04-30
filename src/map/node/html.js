@@ -7,6 +7,8 @@ import TableHTMLNode from "../../node/html/table";
 import AnchorHTMLNode from "../../node/html/anchor";
 import TopmostHTMLNode from "../../node/html/topmost";
 import DivisionHTMLNode from "../../node/html/division";
+import FootnoteHTMLNode from "../../node/html/footnote";
+import ReferenceHTMLNode from "../../node/html/reference";
 import ParagraphHTMLNode from "../../node/html/paragraph";
 import TableHeadHTMLNode from "../../node/html/tableHead";
 import TableBodyHTMLNode from "../../node/html/tableBody";
@@ -42,6 +44,7 @@ import EmphasisedTextHTMLNode from "../../node/html/text/emphasised";
 import TertiaryHeadingHTMLNode from "../../node/html/heading/tertiary";
 import SecondaryHeadingHTMLNode from "../../node/html/heading/secondary";
 import QuaternaryHeadingHTMLNode from "../../node/html/heading/quaternary";
+import FootnotesDirectiveHTMLNode from "../../node/html/directive/footnotes";
 import StronglyEmphasisedTextHTMLNode from "../../node/html/text/stronglyEmphasised";
 
 import { HTML_RULE_NAME,
@@ -51,6 +54,8 @@ import { HTML_RULE_NAME,
          TABLE_RULE_NAME,
          ANCHOR_RULE_NAME,
          DIVISION_RULE_NAME,
+         FOOTNOTE_RULE_NAME,
+         REFERENCE_RULE_NAME,
          PARAGRAPH_RULE_NAME,
          HYPERLINK_RULE_NAME,
          TABLE_HEAD_RULE_NAME,
@@ -86,6 +91,7 @@ import { HTML_RULE_NAME,
          TERTIARY_HEADING_RULE_NAME,
          SECONDARY_HEADING_RULE_NAME,
          QUATERNARY_HEADING_RULE_NAME,
+         FOOTNOTES_DIRECTIVE_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "../../ruleNames";
 
 const htmlNodeMap = {
@@ -96,6 +102,8 @@ const htmlNodeMap = {
   [TABLE_RULE_NAME]: TableHTMLNode,
   [ANCHOR_RULE_NAME]: AnchorHTMLNode,
   [DIVISION_RULE_NAME]: DivisionHTMLNode,
+  [FOOTNOTE_RULE_NAME]: FootnoteHTMLNode,
+  [REFERENCE_RULE_NAME]: ReferenceHTMLNode,
   [PARAGRAPH_RULE_NAME]: ParagraphHTMLNode,
   [HYPERLINK_RULE_NAME]: HyperlinkHTMLNode,
   [TABLE_HEAD_RULE_NAME]: TableHeadHTMLNode,
@@ -131,6 +139,7 @@ const htmlNodeMap = {
   [TERTIARY_HEADING_RULE_NAME]: TertiaryHeadingHTMLNode,
   [SECONDARY_HEADING_RULE_NAME]: SecondaryHeadingHTMLNode,
   [QUATERNARY_HEADING_RULE_NAME]: QuaternaryHeadingHTMLNode,
+  [FOOTNOTES_DIRECTIVE_RULE_NAME]: FootnotesDirectiveHTMLNode,
   [STRONGLY_EMPHASISED_TEXT_RULE_NAME]: StronglyEmphasisedTextHTMLNode
 }
 

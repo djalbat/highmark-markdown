@@ -51,6 +51,8 @@ export const initialMarkdown = `
 Footnote[^occam].
 
 [^occam]: Occam.
+
+@footnotes
 `;
 
 const indexContent = `## Index

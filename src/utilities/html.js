@@ -4,21 +4,15 @@ import { Query } from "occam-query";
 
 import { nodeFromNodeAndQuery, nodesFromNodeAndQuery } from "../utilities/query";
 
-const footnoteHTMLNodeQuery = Query.fromExpressionString("/division/footnote"),
-      ignoreDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/subDivision/directives/ignoreDirective"),
-      contentsDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/subDivision/directives/contentsDirective"),
-      footnotesDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/subDivision/directives/footnotesDirective"),
-      pageNumberDirectiveHTMLNodeQuery = Query.fromExpressionString("//directives/pageNumber"),  ///
-      headingHTMLNodesQuery = Query.fromExpressionString("/division/primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),  ///
-      divisionHTMLNodesQuery = Query.fromExpressionString("/html/division"),  ///
-      footnotesHTMLNodesQuery = Query.fromExpressionString("//footnote|footnoteLink|footnotesDirective"), ///
+const ignoreDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/directives/ignoreDirective"),
+      contentsDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/directives/contentsDirective"),
+      footnotesDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/directives/footnotesDirective"),
+      pageNumberDirectiveHTMLNodeQuery = Query.fromExpressionString("//directives/pageNumber"),
+      headingHTMLNodesQuery = Query.fromExpressionString("/division/primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),
+      divisionHTMLNodesQuery = Query.fromExpressionString("/html/division"),
+      footnoteHTMLNodesQuery = Query.fromExpressionString("/division/footnote"),
+      footnotesHTMLNodesQuery = Query.fromExpressionString("//footnote"),
       footnoteLinkHTMLNodesQuery = Query.fromExpressionString("//footnoteLink");
-
-export function footnoteHTMLNodeFromNode(node) {
-  const footnoteHTMLNode = nodeFromNodeAndQuery(node, footnoteHTMLNodeQuery);
-
-  return footnoteHTMLNode;
-}
 
 export function contentsDirectiveHTMLNodeFromNode(node) {
   const contentsDirectiveHTMLNode = nodeFromNodeAndQuery(node, contentsDirectiveHTMLNodeQuery);
@@ -50,6 +44,12 @@ export function divisionHTMLNodesFromNode(node, divisionHTMLNodes = []) {
   return divisionHTMLNodes;
 }
 
+export function footnoteHTMLNodesFromNode(node, footnoteHTMLNodes = []) {
+  nodesFromNodeAndQuery(node, footnoteHTMLNodesQuery, footnoteHTMLNodes);
+
+  return footnoteHTMLNodes;
+}
+
 export function footnotesHTMLNodesFromNode(node, footnotesHTMLNodes = []) {
   nodesFromNodeAndQuery(node, footnotesHTMLNodesQuery, footnotesHTMLNodes);
 
@@ -63,12 +63,12 @@ export function footnoteLinkHTMLNodesFromNode(node, linkHTMLNodes = []) {
 }
 
 export default {
-  footnoteHTMLNodeFromNode,
   contentsDirectiveHTMLNodeFromNode,
   footnotesDirectiveHTMLNodeFromNode,
   pageNumberDirectiveHTMLNodeFromNode,
   headingHTMLNodesFromNode,
   divisionHTMLNodesFromNode,
+  footnoteHTMLNodesFromNode,
   footnotesHTMLNodesFromNode,
   footnoteLinkHTMLNodesFromNode
 };

@@ -285,9 +285,6 @@ const bnf = `
     path                     ::=  [path] ;
 
 
-    comma                    ::=  "," ;    
-      
-
     endOfLine                ::=  <END_OF_LINE> ;
 
 `;

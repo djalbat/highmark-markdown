@@ -83,6 +83,8 @@ class View extends Element {
             pathToURL
           };
 
+    divisionHTMLNOde.resolve(context);
+
     this.updateXMP(divisionHTMLNOde, context);
 
     this.updatePreviewDiv(divisionHTMLNOde, context);

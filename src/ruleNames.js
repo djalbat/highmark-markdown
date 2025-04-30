@@ -6,7 +6,6 @@ export const PATH_RULE_NAME = "path";
 export const IMAGE_RULE_NAME = "image";
 export const TABLE_RULE_NAME = "table";
 export const ERROR_RULE_NAME = "error";
-export const COMMA_RULE_NAME = "comma";
 export const ANCHOR_RULE_NAME = "anchor";
 export const FOOTER_RULE_NAME = "footer";
 export const MARKDOWN_RULE_NAME = "markdown";
@@ -74,7 +73,6 @@ const ruleNames = {
   HTML_RULE_NAME,
   LINE_RULE_NAME,
   PATH_RULE_NAME,
-  COMMA_RULE_NAME,
   IMAGE_RULE_NAME,
   TABLE_RULE_NAME,
   ERROR_RULE_NAME,
