@@ -6,7 +6,6 @@ import { nodeFromNodeAndQuery, nodesFromNodeAndQuery } from "../utilities/query"
 
 const divisionMarkdownNodeQuery = Query.fromExpressionString("/markdown/division"),
       subDivisionMarkdownNodeQuery = Query.fromExpressionString("/division/subDivision"),
-      indexDirectiveMarkdownNodeQuery = Query.fromExpressionString("/division/subDivision/directives/indexDirective"),
       ignoreDirectiveMarkdownNodeQuery = Query.fromExpressionString("/division/subDivision/directives/ignoreDirective"),
       divisionMarkdownNodesQuery = Query.fromExpressionString("/markdown/division"),
       subDivisionMarkdownNodesQuery = Query.fromExpressionString("/division/subDivision"),
@@ -23,12 +22,6 @@ export function subDivisionMarkdownNodeFromNode(node) {
   const subDivisionMarkdownNode = nodeFromNodeAndQuery(node, subDivisionMarkdownNodeQuery);
 
   return subDivisionMarkdownNode;
-}
-
-export function indexDirectiveMarkdownNodeFromNode(node) {
-  const indexDirectiveMarkdownNode = nodeFromNodeAndQuery(node, indexDirectiveMarkdownNodeQuery);
-
-  return indexDirectiveMarkdownNode;
 }
 
 export function ignoreDirectiveMarkdownNodeFromNode(node) {
@@ -64,7 +57,6 @@ export function includeDirectiveMarkdownNodesFromNode(node, includeDirectiveMark
 export default {
   divisionMarkdownNodeFromNode,
   subDivisionMarkdownNodeFromNode,
-  indexDirectiveMarkdownNodeFromNode,
   ignoreDirectiveMarkdownNodeFromNode,
   divisionMarkdownNodesFromNode,
   embedDirectiveMarkdownNodesFromNode,
