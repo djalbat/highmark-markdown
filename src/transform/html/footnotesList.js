@@ -1,17 +1,9 @@
 "use strict";
 
 import HTMLTransform from "../../transform/html"
-import FootnotesItemHTMLTransform from "../../transform/html/footnotesItem";
 
 export default class FootnotesListHTMLTransform extends HTMLTransform {
-  static fromDivisionHTMLNodeAndFootnoteHTMLTransforms(divisionHTMLNode, footnoteHTMLTransforms, context) {
-    const footnotesItemHTMLTransforms = footnoteHTMLTransforms.map((footnoteHTMLTransform) => {
-            const identifier = null,
-                  footnotesItemHTMLTransform = FootnotesItemHTMLTransform.fromFootnoteHTMLTransformAndIdentifier(footnoteHTMLTransform, identifier, context);
-
-            return footnotesItemHTMLTransform;
-          }),
-          tokens = [];
+  static fromFootnoteHTMLTransforms(footnotesItemHTMLTransforms, context) {
 
     debugger
 

@@ -1,18 +1,12 @@
 "use strict";
 
-import { Transform } from "occam-dom";
+import MarkdownTransform from "../../../transform/markdown";
 
-export default class IgnoreDirectiveMarkdownTransform extends Transform {
-  removeFromTopmostMarkdownNode(topmostMarkdownNode, context) {
-    const parentNode = topmostMarkdownNode; ///
-
-    super.removeFrom(parentNode, context);
-  }
-
+export default class IgnoreDirectiveMarkdownTransform extends MarkdownTransform {
   static fromDivisionMarkdownNode(divisionMarkdownNode) {
     const node = divisionMarkdownNode,  ///
           tokens = null,
-          ignoredDirectiveMarkdownTransform = Transform.fromNodeAndTokens(IgnoreDirectiveMarkdownTransform, node, tokens);
+          ignoredDirectiveMarkdownTransform = MarkdownTransform.fromNodeAndTokens(IgnoreDirectiveMarkdownTransform, node, tokens);
 
     return ignoredDirectiveMarkdownTransform;
   }

@@ -32,9 +32,9 @@ class View extends Element {
   }
 
   pageUpdateCustomHandler = (event, element, index) => {
-    this.clearPage();
+    this.updateMarkdown();
 
-    this.updatePage(index);
+    this.updateHTML(index);
   }
 
   plainTextCustomHandler = (event, element) => {
@@ -63,42 +63,57 @@ class View extends Element {
 
   update() {
     this.updateMarkdownStyle();
+
     this.updateMarkdown();
-    this.updatePage();
+
+    this.updateHTML();
   }
 
-  clearPage() {
-    this.clearXMP();
-    this.clearPreviewDiv();
-    this.clearHTMLParseTreeTextarea();
-  }
+  updateHTML(index = 0) {
+    const topmostMarkdownNode = this.getTopmostMarkdownNode();
 
-  updatePage(index = 0) {
+    if (topmostMarkdownNode === null) {
+      this.clearXMP();
+
+      this.clearPreviewDiv();
+
+      this.clearPageButtonsDiv();
+
+      this.clearHTMLParseTreeTextarea();
+
+      this.clearMarkdownParseTreeTextarea();
+
+      return;
+    }
+
     const tokens = this.getTokens(),
-          topmostMarkdownNode = this.getTopmostMarkdownNode(),
           topmostHTMLNode = htmlNodeFromMarkdownNode(topmostMarkdownNode),
-          divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNodeAt(index),
-          context = {
-            tokens,
-            pathToURL
-          };
+              divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNodeAt(index),
+              context = {
+                tokens,
+                pathToURL
+              };
 
     divisionHTMLNOde.resolve(context);
+
+    const topmostMarkdownNodeParseTree = topmostMarkdownNode.asParseTree(tokens),
+          divisionHTMLNOdeParseTree = divisionHTMLNOde.asParseTree(),
+          markdownParseTree = topmostMarkdownNodeParseTree, ///
+          htmlParseTree = divisionHTMLNOdeParseTree, ///
+          multiplicity = topmostHTMLNode.getMultiplicity(),
+          length = multiplicity;  ///
 
     this.updateXMP(divisionHTMLNOde, context);
 
     this.updatePreviewDiv(divisionHTMLNOde, context);
 
-    this.updatePlainTextTextarea(divisionHTMLNOde, context);
-
-    const multiplicity = topmostHTMLNode.getMultiplicity(),
-          length = multiplicity,  ///
-          parseTree = divisionHTMLNOde.asParseTree(),
-          htmlParseTree = parseTree; ///
-
     this.updatePageButtonsDiv(length, index);
 
+    this.updatePlainTextTextarea(divisionHTMLNOde, context);
+
     this.updateHTMLParseTreeTextarea(htmlParseTree);
+
+    this.updateMarkdownParseTreeTextarea(markdownParseTree);
   }
 
   updateMarkdown() {
@@ -114,12 +129,6 @@ class View extends Element {
 
       this.resetTopmostMarkdownNode();
 
-      this.clearMarkdownParseTreeTextarea();
-
-      this.clearPageButtonsDiv();
-
-      this.clearPage();
-
       return;
     }
 
@@ -133,14 +142,9 @@ class View extends Element {
 
     topmostMarkdownNode.resolve(context);
 
-    const parseTree = topmostMarkdownNode.asParseTree(tokens),
-          markdownParseTree = parseTree; ///
-
     this.setTokens(tokens);
 
     this.setTopmostMarkdownNode(topmostMarkdownNode);
-
-    this.updateMarkdownParseTreeTextarea(markdownParseTree);
   }
 
   updateMarkdownStyle() {

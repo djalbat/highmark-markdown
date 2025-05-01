@@ -1,18 +1,17 @@
 "use strict";
 
-import { Transform } from "occam-dom";
+import MarkdownTransform from "../../../transform/markdown";
 
-export default class EmbedDirectiveMarkdownTransform extends Transform {
-  addAfterSubDivisionMarkdownNode(subDivisionMarkdownNode, divisionMarkdownNode, context) {
-    const existingNode = subDivisionMarkdownNode, ///
-          parentNode = divisionMarkdownNode;  ///
+export default class EmbedDirectiveMarkdownTransform extends MarkdownTransform {
+  addAfterSubDivisionMarkdownNode(subDivisionMarkdownNode, context) {
+    const existingNode = subDivisionMarkdownNode;  ///
 
-    super.addAfter(existingNode, parentNode, context);
+    super.addAfter(existingNode, context);
   }
 
   static fromSubDivisionMarkdownNodeAndTokens(subDivisionMarkdownNode, tokens) {
     const node = subDivisionMarkdownNode,  ///
-          embedDirectiveMarkdownTransform = Transform.fromNodeAndTokens(EmbedDirectiveMarkdownTransform, node, tokens);
+          embedDirectiveMarkdownTransform = MarkdownTransform.fromNodeAndTokens(EmbedDirectiveMarkdownTransform, node, tokens);
 
     return embedDirectiveMarkdownTransform;
   }

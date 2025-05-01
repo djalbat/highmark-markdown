@@ -11,10 +11,10 @@ export default class FootnotesItemHTMLTransform extends HTMLTransform {
     return footnoteItemHTMLNode;
   }
 
-  static fromFootnoteHTMLTransformAndIdentifier(footnoteHTMLTransform, identifier, context) {
+  static fromParagraphHTMLTransformAndIdentifier(paragraphHTMLTransform, identifier, context) {
     const footnoteItemHTMLNode = FootnoteItemHTMLNode.fromFootnotesHTMLTransformAndIdentifier(footnoteHTMLTransform, identifier),
           ascendantNode = footnoteItemHTMLNode, ///
-          footnotesItemTransform = footnoteHTMLTransform.expand(FootnotesItemTransform, ascendantNode);
+          footnotesItemTransform = footnoteHTMLTransform.expand(FootnotesItemHTMLTransform, ascendantNode);
 
     return footnotesItemTransform;
   }

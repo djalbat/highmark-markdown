@@ -4,8 +4,8 @@ import HTMLTransform from "../../transform/html"
 
 export default class FootnoteHTMLTransform extends HTMLTransform {
   getFootnoteHTMLNode() {
-    const htmlNode = this.getHTMLNode(),
-          footnoteHTMLNode = htmlNode;  ///
+    const node = this.getNode(),
+          footnoteHTMLNode = node;  ///
 
     return footnoteHTMLNode;
   }
@@ -19,12 +19,6 @@ export default class FootnoteHTMLTransform extends HTMLTransform {
           });
 
     return paragraphHTMLNode;
-  }
-
-  removeFromDivisionHTMLNode(divisionHTMLNode, context) {
-    const parentHTNLNode = divisionHTMLNode; ///
-
-    super.removeFrom(parentHTNLNode, context);
   }
 
   static fromFootnoteHTMLNode(footnoteHTMLNde, context) {

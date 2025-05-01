@@ -29,7 +29,7 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
       const subDivisionMarkdownNode = this; ///
 
       backwardsForEach(embedDirectiveMarkdownTransforms, (embedDirectiveTransform) => {
-        embedDirectiveTransform.addAfterSubDivisionMarkdownNode(subDivisionMarkdownNode, divisionMarkdownNode, context);
+        embedDirectiveTransform.addAfterSubDivisionMarkdownNode(subDivisionMarkdownNode, context);
       });
 
       embeddingsResolved = true;

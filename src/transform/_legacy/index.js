@@ -35,12 +35,11 @@ export default class IndexTransform extends Transform {
     replaceTokens(replacementTokens, replacedNode, tokens);
   }
 
-  replaceIndexDirectiveSubdivisionTransform(indexDirectiveSubDivisionTransform, divisionMarkdownNode, context) {
+  replaceIndexDirectiveSubdivisionTransform(indexDirectiveSubDivisionTransform, context) {
     const subDivisionMarkdownNode = indexDirectiveSubDivisionTransform.getSubDivisionMarkdownNode(),
-          replacedNode = subDivisionMarkdownNode, ///
-          parentNode = divisionMarkdownNode;  ///
+          replacedNode = subDivisionMarkdownNode;  ///
 
-    this.replace(replacedNode, parentNode, context)
+    this.replace(replacedNode, context)
   }
 
   static fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context) {

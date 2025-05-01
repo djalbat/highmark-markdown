@@ -1,8 +1,8 @@
 "use strict";
 
-import { Transform } from "occam-dom";
+import MarkdownTransform from "../../../transform/markdown";
 
-export default class IncludeDirectiveMarkdownTransform extends Transform {
+export default class IncludeDirectiveMarkdownTransform extends MarkdownTransform {
   getDivisionMarkdownNode() {
     const node = this.getNode(),
           divisionMarkdownNode = node;  ///
@@ -22,7 +22,7 @@ export default class IncludeDirectiveMarkdownTransform extends Transform {
 
   static fromDivisionMarkdownNodeAndTokens(divisionMarkdownNode, tokens) {
     const node = divisionMarkdownNode,  ///
-          includeDirectiveMarkdownTransform = Transform.fromNodeAndTokens(IncludeDirectiveMarkdownTransform, node, tokens);
+          includeDirectiveMarkdownTransform = MarkdownTransform.fromNodeAndTokens(IncludeDirectiveMarkdownTransform, node, tokens);
 
     return includeDirectiveMarkdownTransform;
   }

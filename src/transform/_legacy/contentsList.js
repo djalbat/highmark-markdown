@@ -11,12 +11,11 @@ import { nestNodes } from "../utilities/contents";
 const { filter } = arrayUtilities;
 
 class ContentsListTransform extends Transform {
-  replaceContentsDirectiveSubdivisionTransform(contentsDirectiveSubDivisionTransform, divisionMarkdownNode, context) {
+  replaceContentsDirectiveSubdivisionTransform(contentsDirectiveSubDivisionTransform, context) {
     const subDivisionMarkdownNode = contentsDirectiveSubDivisionTransform.getSubDivisionMarkdownNode(),
-          replacedNode = subDivisionMarkdownNode, ///
-          parentNode = divisionMarkdownNode;  ///
+          replacedNode = subDivisionMarkdownNode;  ///
 
-    super.replace(replacedNode, parentNode, context)
+    super.replace(replacedNode, context)
   }
 
   static fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context) {

@@ -250,7 +250,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     const divisionMarkdownNode = this,  ///
           ignoreDirectiveMarkdownTransform = IgnoreDirectiveMarkdownTransform.fromDivisionMarkdownNode(divisionMarkdownNode);
 
-    ignoreDirectiveMarkdownTransform.removeFromTopmostMarkdownNode(topmostMarkdownNode, context);
+    ignoreDirectiveMarkdownTransform.remove(context);
   }
 
   resolveIncludes(topmostMarkdownNode, context) {
@@ -282,7 +282,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       if (embeddingsResolved) {
         const subDivisionTransform = SubDivisionTransform.fromSubDivisionMarkdownNode(subDivisionMarkdownNode)
 
-        subDivisionTransform.removeFromDivisionMarkdownNode(divisionMarkdownNode, context);
+        subDivisionTransform.remove(context);
       }
     });
   }

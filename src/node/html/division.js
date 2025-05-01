@@ -2,9 +2,11 @@
 
 import HTMLNode from "../../node/html";
 import FootnoteHTMLTransform from "../../transform/html/footnote";
+import ParagraphHTMLTransform from "../../transform/html/paragraph";
+import FootnotesItemHTMLTransform from "../../transform/html/footnotesItem";
+// import FootnotesListHTMLTransform from "../../transform/html/footnotesList";
 
 import { footnoteHTMLNodesFromNode, footnotesDirectiveHTMLNodeFromNode } from "../../utilities/html";
-import FootnotesListHTMLTransform from "../../transform/html/footnotesList";
 
 export default class DivisionHTMLNode extends HTMLNode {
   className(context) { return this.outerNode.className(context); }
@@ -22,10 +24,8 @@ export default class DivisionHTMLNode extends HTMLNode {
       return;
     }
 
-    const divisionHTMLNode = this;  ///
-
     footnoteHTMLTransforms.forEach((footnoteHTMLTransform) => {
-      footnoteHTMLTransform.removeFromDivisionHTMLNode(divisionHTMLNode, context);
+      // footnoteHTMLTransform.remove(context);
     });
 
     const footnotesDirectiveHTMLNode = this.getFootnotesDirectiveHTMLNode();
@@ -34,7 +34,24 @@ export default class DivisionHTMLNode extends HTMLNode {
       return;
     }
 
-    // const footnotesListHTMLTransform = FootnotesListHTMLTransform.fromDivisionHTMLNodeAndFootnoteHTMLTransforms(divisionHTMLNode, footnoteHTMLTransforms, context);
+    const paragraphHTMLTransforms = footnoteHTMLTransforms.map((footnoteHTMLTransform) => {
+      const paragraphHTMLTransform = ParagraphHTMLTransform.fromFootnoteHTMLTransform(footnoteHTMLTransform, context);
+
+      return paragraphHTMLTransform;
+    });
+
+    paragraphHTMLTransforms.forEach((paragraphHTMLTransform) => {
+      paragraphHTMLTransform.remove(context);
+    });
+
+    // const footnotesItemHTMLTransforms = paragraphHTMLTransforms.map((paragraphHTMLTransform) => {
+    //         const identifier = null,
+    //               footnotesItemHTMLTransform = FootnotesItemHTMLTransform.fromParagraphHTMLTransformAndIdentifier(paragraphHTMLTransform, identifier, context);
+    //
+    //         return footnotesItemHTMLTransform;
+    //       });
+
+    // FootnotesListHTMLTransform.fromFootnotesItemHTMLTransforms(footnotesItemHTMLTransforms, context);
 
 
 
