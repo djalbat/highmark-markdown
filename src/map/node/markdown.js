@@ -28,7 +28,7 @@ import FootnoteLinkMarkdownNode from "../../node/markdown/link/footnote";
 import InlineListingMarkdownNode from "../../node/markdown/listng/inline";
 import EmphasisedTextMarkdownNode from "../../node/markdown/emphasisedText";
 import PrimaryHeadingMarkdownNode from "../../node/markdown/heading/primary";
-import EmbedDirectiveMarkdownNode from "../../node/markdown/directive/embee";
+import EmbedDirectiveMarkdownNode from "../../node/markdown/directive/embed";
 import TertiaryHeadingMarkdownNode from "../../node/markdown/heading/tertiary";
 import SecondaryHeadingMarkdownNode from "../../node/markdown/heading/secondary";
 import IncludeDirectiveMarkdownNode from "../../node/markdown/directive/include";

@@ -1,6 +1,7 @@
 "use strict";
 
 import MarkdownNode from "../../node/markdown";
+import SubDivisionMarkdownTransform from "../../transform/markdown/subDivision";
 import IgnoreDirectiveMarkdownTransform from "../../transform/markdown/directive/ignore";
 
 import { ignoreDirectiveMarkdownNodeFromNode, subDivisionMarkdownNodesFromNode, includeDirectiveMarkdownNodesFromNode } from "../../utilities/markdown";
@@ -280,7 +281,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       const embeddingsResolved = subDivisionMarkdownNode.resolveEmbeddings(divisionMarkdownNode, context);
 
       if (embeddingsResolved) {
-        const subDivisionTransform = SubDivisionTransform.fromSubDivisionMarkdownNode(subDivisionMarkdownNode)
+        const subDivisionTransform = SubDivisionMarkdownTransform.fromSubDivisionMarkdownNode(subDivisionMarkdownNode)
 
         subDivisionTransform.remove(context);
       }
@@ -292,6 +293,13 @@ export default class DivisionMarkdownNode extends MarkdownNode {
           subDivisionMarkdownNodes = subDivisionMarkdownNodesFromNode(node);
 
     return subDivisionMarkdownNodes;
+  }
+
+  removeSubDivisionMarkdownNode(subDivisionMarkdownNode) {
+    const node = this,  ///
+          childNode = subDivisionMarkdownNode;  ///
+
+    node.removeChildNode(childNode);
   }
 
   forEachSubDivisionMarkdownNode(callback) {
