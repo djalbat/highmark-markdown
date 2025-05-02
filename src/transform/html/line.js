@@ -3,10 +3,17 @@
 import HTMLTransform from "../../transform/html"
 
 export default class LineHTMLTransform extends HTMLTransform {
-  static fromFootnoteHTMLTransform(footnoteHTNLTransform, context) {
-    const linehHTMLNode = footnoteHTNLTransform.getLineHTMLNode(),
-          htmlNode = linehHTMLNode, ///
-          paragraphHTMLTransform = HTMLTransform.fromHTNLNOde(LineHTMLTransform, htmlNode, context);
+  getLineHTMLNode() {
+    const node = this.getNode(),
+          lineHTMLNode = node;  ///;
+
+    return lineHTMLNode;
+  }
+
+  static fromFootnoteHTMLTransform(footnoteHTNLTransform) {
+    const lineHTMLNode = footnoteHTNLTransform.getLineHTMLNode(),
+          htmlNode = lineHTMLNode, ///
+          paragraphHTMLTransform = HTMLTransform.fromHTNLNOde(LineHTMLTransform, htmlNode);
 
     return paragraphHTMLTransform;
   }

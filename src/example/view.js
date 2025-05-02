@@ -86,22 +86,22 @@ class View extends Element {
       return;
     }
 
+    const topmostHTMLNode = htmlNodeFromMarkdownNode(topmostMarkdownNode),
+          divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNodeAt(index);
+
+    divisionHTMLNOde.resolve();
+
     const tokens = this.getTokens(),
-          topmostHTMLNode = htmlNodeFromMarkdownNode(topmostMarkdownNode),
-              divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNodeAt(index),
-              context = {
-                tokens,
-                pathToURL
-              };
-
-    divisionHTMLNOde.resolve(context);
-
-    const topmostMarkdownNodeParseTree = topmostMarkdownNode.asParseTree(tokens),
+          topmostMarkdownNodeParseTree = topmostMarkdownNode.asParseTree(tokens),
           divisionHTMLNOdeParseTree = divisionHTMLNOde.asParseTree(),
           markdownParseTree = topmostMarkdownNodeParseTree, ///
           htmlParseTree = divisionHTMLNOdeParseTree, ///
           multiplicity = topmostHTMLNode.getMultiplicity(),
-          length = multiplicity;  ///
+          length = multiplicity,  ///
+          context = {
+            tokens,
+            pathToURL
+          };
 
     this.updateXMP(divisionHTMLNOde, context);
 

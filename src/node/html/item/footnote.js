@@ -3,20 +3,28 @@
 import HTMLNode from "../../../node/html";
 import AnchorHTMLNode from "../../../node/html/anchor";
 
+import { FOOTNOTE_ITEM_RULE_NAME } from "../../../ruleNames";
+
 export default class FootnoteItemHTMLNode extends HTMLNode {
+  asString() {
+    const string = FOOTNOTE_ITEM_RULE_NAME; ///
+
+    return string;
+  }
+
   static tagName = "li";
 
   static className = "footnote";
 
-  static fromFootnotesHTMLTransformAndIdentifier(footnoteHTMLTransform, identifier) {
+  static fromLineTMLTransformAndIdentifier(lineHTMLTransform, identifier) {
     const anchorHTMLNode = AnchorHTMLNode.fromIdentifier(identifier),
-          paragraphHTMLNode = footnoteHTMLTransform.getParagraphHTMLNode(),
+          lineHTMLNode = lineHTMLTransform.getLineHTMLNode(),
           childNodes = [
             anchorHTMLNode,
-            paragraphHTMLNode
+            lineHTMLNode
           ],
-          footnotesItemHTMLNode = HTMLNode.fromChildNodes(FootnoteItemHTMLNode, childNodes);
+          footnoteItemHTMLNode = HTMLNode.fromChildNodes(FootnoteItemHTMLNode, childNodes);
 
-    return footnotesItemHTMLNode;
+    return footnoteItemHTMLNode;
   }
 }

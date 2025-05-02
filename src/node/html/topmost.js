@@ -6,11 +6,11 @@ import { HTML_RULE_NAME } from "../../ruleNames";
 import { divisionHTMLNodesFromNode } from "../../utilities/html";
 
 export default class TopmostHTMLNode extends HTMLNode {
-  resolve(context) {
+  resolve() {
     const divisionHTMLNodes = this.getDivisionHTMLNodes();
 
     divisionHTMLNodes.forEach((divisionHTMLNode) => {
-      divisionHTMLNode.resolve(context);
+      divisionHTMLNode.resolve();
     });
   }
 

@@ -3,6 +3,7 @@
 import HTMLNode from "../../node/html";
 
 import { EMPTY_STRING } from "../../constants";
+import { ANCHOR_RULE_NAME } from "../../ruleNames";
 import { ID_ATTRIBUTE_NAME } from "../../attributeNames";
 
 export default class AnchorHTMLNode extends HTMLNode {
@@ -32,6 +33,12 @@ export default class AnchorHTMLNode extends HTMLNode {
     const attributeValue = `${this.prepend}-${this.identifier}`;
 
     return attributeValue;
+  }
+
+  asString() {
+    const string = ANCHOR_RULE_NAME;
+
+    return string;
   }
 
   static tagName = "a";

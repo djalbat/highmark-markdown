@@ -1,19 +1,21 @@
 "use strict";
 
-import HTMLTransform from "../../transform/html"
+import HTMLTransform from "../../transform/html";
+import FootnotesListHTMLNode from "../../node/html/list/footnotes";
 
 export default class FootnotesListHTMLTransform extends HTMLTransform {
-  static fromFootnoteHTMLTransforms(footnotesItemHTMLTransforms, context) {
+  appendToDivisionHTMLNode(divisionHTMLNode) {
+    const parentHTMLNode = divisionHTMLNode;
 
-    debugger
+    this.appendTo(parentHTMLNode);
+  }
 
-    // footnotesItemHTMLTransforms.forEach((footnotesItemHTMLTransform) => {
-    //   footnotesItemHTMLTransform.getTokens(tokens);
-    // });
-    //
-    // const footnotesListHTMLTransform = HTMLTransform.fromNodeAndTokens(FootnotesListHTMLTransform, node, tokens);
-    //
-    // return footnotesListHTMLTransform;
+  static fromFootnoteItemHTMLTransforms(footnoteItemHTMLTransforms) {
+    const footnotesListHTMLNode = FootnotesListHTMLNode.fromFootnoteItemHTMLTransforms(footnoteItemHTMLTransforms),
+          htmlNode = footnotesListHTMLNode, ///
+          footnotesListHTMLTransform = HTMLTransform.fromHTNLNOde(FootnotesListHTMLTransform, htmlNode);
+
+    return footnotesListHTMLTransform;
   }
 }
 
@@ -35,7 +37,7 @@ export default class FootnotesListHTMLTransform extends HTMLTransform {
 // const node = divisionHTMLNode,  ///
 //   start = 0,
 //   footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node),
-//   footnotesItemHTMLTransforms = [];
+//   footnoteItemHTMLTransforms = [];
 //
 // let number = start;
 //
@@ -47,9 +49,9 @@ export default class FootnotesListHTMLTransform extends HTMLTransform {
 //     const footnoteHTMLTransformUnnumbered = footnoteHTMLTransform.isUnnumbered();
 //
 //     if (footnoteHTMLTransformUnnumbered) {
-//       const footnotesItemHTMLTransform = FootnotesItemHTMLTransform.fromFootnoteHTMLTransformAndIdentifier(footnoteHTMLTransform, identifier, context);
+//       const footnoteItemHTMLTransform = FootnoteItemHTMLTransform.fromFootnoteHTMLTransformAndIdentifier(footnoteHTMLTransform, identifier, context);
 //
-//       footnotesItemHTMLTransforms.push(footnotesItemHTMLTransform);
+//       footnoteItemHTMLTransforms.push(footnoteItemHTMLTransform);
 //
 //       footnoteHTMLTransform.setNumber(number);
 //
@@ -58,6 +60,6 @@ export default class FootnotesListHTMLTransform extends HTMLTransform {
 //   }
 // });
 //
-// const footnotesListHTMLNode = FootnotesListHTMLNode.fromFootnotesItemHTMLTransformsAndStart(footnotesItemHTMLTransforms, start),
+// const footnotesListHTMLNode = FootnotesListHTMLNode.fromFootnoteItemHTMLTransformsAndStart(footnoteItemHTMLTransforms, start),
 //   node = footnotesListHTMLNode, ///
 //   tokens = [];

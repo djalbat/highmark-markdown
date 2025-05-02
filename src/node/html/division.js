@@ -3,55 +3,37 @@
 import HTMLNode from "../../node/html";
 import LineHTMLTransform from "../../transform/html/line";
 import FootnoteHTMLTransform from "../../transform/html/footnote";
-import FootnotesItemHTMLTransform from "../../transform/html/footnotesItem";
-// import FootnotesListHTMLTransform from "../../transform/html/footnotesList";
+import FootnoteItemHTMLTransform from "../../transform/html/footnoteItem";
+import FootnotesListHTMLTransform from "../../transform/html/footnotesList";
 
 import { footnoteHTMLNodesFromNode, footnotesDirectiveHTMLNodeFromNode } from "../../utilities/html";
 
 export default class DivisionHTMLNode extends HTMLNode {
   className(context) { return this.outerNode.className(context); }
 
-  resolve(context) {
+  resolve() {
     const footnoteHTMLNodes = this.getFootnoteHTMLNodes(),
-          footnoteHTMLTransforms = footnoteHTMLNodes.map((footnoteHTMLNode) => {
-            const footnoteHTMLTransform = FootnoteHTMLTransform.fromFootnoteHTMLNode(footnoteHTMLNode, context);
+          footnotesDirectiveHTMLNode = this.getFootnotesDirectiveHTMLNode(),
+          footnoteHTMLTransforms = footnoteHTMLTransformsFromFootnoteHTMLNodes(footnoteHTMLNodes);
 
-            return footnoteHTMLTransform;
-          }),
-          footnoteHTMLTransformsLength = footnoteHTMLTransforms.length;
-
-    if (footnoteHTMLTransformsLength === 0) {
+    if (footnoteHTMLTransforms === null) {
       return;
     }
-
-    const footnotesDirectiveHTMLNode = this.getFootnotesDirectiveHTMLNode();
 
     if (footnotesDirectiveHTMLNode === null) {
       return;
     }
 
-    const lineHTMLTransforms = footnoteHTMLTransforms.map((footnoteHTMLTransform) => {
-      const lineHTMLTransform = LineHTMLTransform.fromFootnoteHTMLTransform(footnoteHTMLTransform, context);
-
-      return lineHTMLTransform;
-    });
+    const divisionHTMLNode = this,  ///
+          lineHTMLTransforms = lineHTMLTransformsFromFootnoteHTMLTransforms(footnoteHTMLTransforms),
+          footnoteItemHTMLTransforms = footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms),
+          footnotesListHTMLTransform = FootnotesListHTMLTransform.fromFootnoteItemHTMLTransforms(footnoteItemHTMLTransforms);
 
     footnoteHTMLTransforms.forEach((footnoteHTMLTransform) => {
-      // footnoteHTMLTransform.remove(context);
+      footnoteHTMLTransform.remove();
     });
 
-
-    // const footnotesItemHTMLTransforms = lineHTMLTransforms.map((lineHTMLTransform) => {
-    //         const identifier = null,
-    //               footnotesItemHTMLTransform = FootnotesItemHTMLTransform.fromParagraphHTMLTransformAndIdentifier(lineHTMLTransform, identifier, context);
-    //
-    //         return footnotesItemHTMLTransform;
-    //       });
-
-    // FootnotesListHTMLTransform.fromFootnotesItemHTMLTransforms(footnotesItemHTMLTransforms, context);
-
-
-
+    footnotesListHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
   }
 
   getFootnoteHTMLNodes() {
@@ -77,6 +59,42 @@ export default class DivisionHTMLNode extends HTMLNode {
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(DivisionHTMLNode, outerNode); }
 }
 
+function footnoteHTMLTransformsFromFootnoteHTMLNodes(footnoteHTMLNodes) {
+  let footnoteHTMLTransforms = null;
+
+  const footnoteHTMLNodesLength = footnoteHTMLNodes.length;
+
+  if (footnoteHTMLNodesLength > 0) {
+    footnoteHTMLTransforms = footnoteHTMLNodes.map((footnoteHTMLNode) => {
+      const footnoteHTMLTransform = FootnoteHTMLTransform.fromFootnoteHTMLNode(footnoteHTMLNode);
+
+      return footnoteHTMLTransform;
+    });
+  }
+
+  return footnoteHTMLTransforms;
+}
+
+function lineHTMLTransformsFromFootnoteHTMLTransforms(footnoteHTMLTransforms) {
+  const lineHTMLTransforms = footnoteHTMLTransforms.map((footnoteHTMLTransform) => {
+    const lineHTMLTransform = LineHTMLTransform.fromFootnoteHTMLTransform(footnoteHTMLTransform);
+
+    return lineHTMLTransform;
+  });
+
+  return lineHTMLTransforms;
+}
+
+function footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms) {
+  const footnoteItemHTMLTransforms = lineHTMLTransforms.map((lineHTMLTransform) => {
+    const identifier = null,
+          footnoteItemHTMLTransform = FootnoteItemHTMLTransform.fromLineTMLTransformAndIdentifier(lineHTMLTransform, identifier);
+
+    return footnoteItemHTMLTransform;
+  });
+
+  return footnoteItemHTMLTransforms;
+}
 
 // getPageNumber() {
 //   let pageNumber = null;
