@@ -44,3 +44,36 @@ export default class AnchorHTMLNode extends HTMLNode {
     return anchorHTMLNode;
   }
 }
+
+// import { removedLeadingWhitespace, replaceSpacesWithHyphens, removeNonAlphabeticAndSpaceCharacters } from "../../utilities/string";
+//
+// addAnchor(context) {
+//   const prepend = CONTENTS_PREPEND,
+//     identifier = this.identifier(context),
+//     anchorMarkdownNode = AnchorMarkdownNode.fromPrependAndIdentifier(prepend, identifier),
+//     prependedChildNode = anchorMarkdownNode; ///
+//
+//   this.prependChildNode(prependedChildNode);
+// }
+//
+// identifier(context) {
+//   const plainText = this.asPlainText(context),
+//     identifier = identifierFromPlainText(plainText);
+//
+//   return identifier;
+// }
+//
+// function identifierFromPlainText(plainText) {
+//   plainText = plainText.toLowerCase();  ///
+//
+//   plainText = removedLeadingWhitespace(plainText);  ///
+//
+//   plainText = removeNonAlphabeticAndSpaceCharacters(plainText); ///
+//
+//   plainText = replaceSpacesWithHyphens(plainText);  ///
+//
+//   const identifier = plainText; ///
+//
+//   return identifier;
+// }
+//

@@ -1,17 +1,23 @@
 "use strict";
 
 import HTMLTransform from "../../transform/html"
+import LineHTMLTransform from "./line";
 
 export default class FootnoteHTMLTransform extends HTMLTransform {
-  getFootnoteHTMLNode() {
-    const node = this.getNode(),
-          footnoteHTMLNode = node;  ///
+  getLineHTMLNode() {
+    const paragraphHTMLNode = this.getParagraphHTMLNode(),
+          lineHTMLNode = paragraphHTMLNode.fromFirstChildNode((firstChildNode) => {
+            const lineHTMLNode = firstChildNode;  ///
 
-    return footnoteHTMLNode;
+            return lineHTMLNode;
+          });
+
+    return lineHTMLNode;
   }
 
   getParagraphHTMLNode() {
-    const footnoteHTMLNode = this.getFootnoteHTMLNode(),
+    const node = this.getNode(),
+          footnoteHTMLNode = node,  ///
           paragraphHTMLNode = footnoteHTMLNode.fromSecondChildNode((secondChildNode) => {
             const paragraphHTMLNode = secondChildNode;  ///
 
