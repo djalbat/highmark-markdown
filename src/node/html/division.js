@@ -16,7 +16,7 @@ const { filter } = arrayUtilities;
 export default class DivisionHTMLNode extends HTMLNode {
   className(context) { return this.outerNode.className(context); }
 
-  resolve(context) {
+  resolve(start, context) {
     const footnoteHTMLNodes = this.getFootnoteHTMLNodes(),
           footnoteHTMLTransforms = footnoteHTMLTransformsFromFootnoteHTMLNodes(footnoteHTMLNodes);
 
@@ -41,17 +41,25 @@ export default class DivisionHTMLNode extends HTMLNode {
     }
 
     const node = this,  ///
+          previousStart = start,  ///
           footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node);
 
-    filterAndSortFootnoteHTMLTransforms(footnoteHTMLTransforms, footnoteLinkHTMLNodes, context);
+    start = filterAndSortFootnoteHTMLTransforms(footnoteHTMLTransforms, footnoteLinkHTMLNodes, start, context);
 
-    const start = 1,
-          divisionHTMLNode = this,  ///
+    const latestStart = start,  ///
           lineHTMLTransforms = lineHTMLTransformsFromFootnoteHTMLTransforms(footnoteHTMLTransforms),
-          footnoteItemHTMLTransforms = footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms),
+          footnoteItemHTMLTransforms = footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms);
+
+    start = previousStart;  ///
+
+    const divisionHTMLNode = this,  ///
           footnotesListHTMLTransform = FootnotesListHTMLTransform.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms);
 
     footnotesListHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
+
+    start = latestStart;  ///
+
+    return start;
   }
 
   getFootnoteHTMLNodes() {
@@ -77,7 +85,7 @@ export default class DivisionHTMLNode extends HTMLNode {
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(DivisionHTMLNode, outerNode); }
 }
 
-function filterAndSortFootnoteHTMLTransforms(footnoteHTMLTransforms, footnoteLinkHTMLNodes, context) {
+function filterAndSortFootnoteHTMLTransforms(footnoteHTMLTransforms, footnoteLinkHTMLNodes, start, context) {
   const identifiers = identifiersFromFootnoteLinkHTMLNodes(footnoteLinkHTMLNodes, context);
 
   filter(footnoteHTMLTransforms, (footnoteHTMLTransform) => {
@@ -100,6 +108,26 @@ function filterAndSortFootnoteHTMLTransforms(footnoteHTMLTransforms, footnoteLin
 
     return difference;
   });
+
+  footnoteHTMLTransforms.forEach((footnoteHTMLTransform) => {
+    const identifier = footnoteHTMLTransform.identifier(context),
+          identifierA = identifier, ///
+          footnoteLinkHTMLNode = footnoteLinkHTMLNodes.find((footnoteLinkHTMLNode) => {
+            const identifier = footnoteLinkHTMLNode.identifier(context),
+                  identifierB = identifier; ///
+
+            if (identifierA === identifierB) {
+              return true;
+            }
+          }),
+          number = start; ///
+
+    footnoteLinkHTMLNode.setNumber(number);
+
+    start++;
+  });
+
+  return start;
 }
 
 function identifiersFromFootnoteLinkHTMLNodes(footnoteLinkHTMLNodes, context) {

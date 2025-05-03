@@ -2,39 +2,33 @@
 
 import HTMLNode from "../../../node/html";
 
+import { EMPTY_STRING } from "../../../constants";
 import { FOOTNOTE_PREPEND } from "../../../prepends";
 import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
 
-let number = 1; ///
-
 export default class FootnoteLinkHTMLNode extends HTMLNode {
-  // getNumber() {
-  //   return this.number;
-  // }
-  //
-  // setNumber(number) {
-  //   this.number = number;
-  // }
-  //
-  // content(context) {
-  //   const content = (this.number !== null) ?
-  //                     this.number :
-  //                       EMPTY_STRING;
-  //
-  //   return content;
-  // }
-  //
-  // identifier(context) {
-  //   const identifier = this.fromFirstChildNode((firstChildNode) => {
-  //     const linkTerminalNode = firstChildNode,  ///
-  //           identifier = identifierFromLinkTerminalNode(linkTerminalNode);
-  //
-  //     return identifier;
-  //   });
-  //
-  //   return identifier;
-  // }
-  //
+  constructor(outerNode, parentNode, childNodes, domElement, number) {
+    super(outerNode, parentNode, childNodes, domElement);
+
+    this.number = number;
+  }
+
+  getNumber() {
+    return this.number;
+  }
+
+  setNumber(number) {
+    this.number = number;
+  }
+
+  content(context) {
+    const content = (this.number !== null) ?
+                      this.number :
+                        EMPTY_STRING;
+
+    return content;
+  }
+
   // clear() {
   //   if (this.domElement === null) {
   //     return;
@@ -73,12 +67,6 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
   //
   //   this.update(context);
   // }
-
-  content(context) {
-    const content = number++; ///
-
-    return content;
-  }
 
   identifier(context) { return this.outerNode.identifier(context); }
 
@@ -164,7 +152,17 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
 
   static className = "footnote";
 
-  static fromNothing() { return HTMLNode.fromNothing(FootnoteLinkHTMLNode); }
+  static fromNothing() {
+    const number = null,
+          footnoteLinkHTMLNode = HTMLNode.fromNothing(FootnoteLinkHTMLNode, number);
 
-  static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(FootnoteLinkHTMLNode, outerNode); }
+    return footnoteLinkHTMLNode;
+  }
+
+  static fromOuterNode(outerNode) {
+    const number = null,
+          footnoteLinkHTMLNode = HTMLNode.fromOuterNode(FootnoteLinkHTMLNode, outerNode, number);
+
+    return footnoteLinkHTMLNode;
+  }
 }

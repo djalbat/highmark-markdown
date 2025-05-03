@@ -76,7 +76,7 @@ class RightTabButtonsDiv extends TabButtonsDiv {
   }
 
   didMount() {
-    this.css();
+    this.html();
   }
 
   willUnmount() {
@@ -86,10 +86,10 @@ class RightTabButtonsDiv extends TabButtonsDiv {
   childElements() {
     return ([
 
-      <CSSTabButton onClick={this.cssTabButtonClickHandler} />,
       <HTMLTabButton onClick={this.htmlTabButtonClickHandler} />,
       <PreviewTabButton onClick={this.previewTabButtonClickHandler} />,
-      <PlainTextTabButton onClick={this.plainTextTabButtonClickHandler} />
+      <PlainTextTabButton onClick={this.plainTextTabButtonClickHandler} />,
+      <CSSTabButton onClick={this.cssTabButtonClickHandler} />
 
     ]);
   }

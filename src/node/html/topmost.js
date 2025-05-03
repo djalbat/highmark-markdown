@@ -9,8 +9,10 @@ export default class TopmostHTMLNode extends HTMLNode {
   resolve(context) {
     const divisionHTMLNodes = this.getDivisionHTMLNodes();
 
+    let start = 1;
+
     divisionHTMLNodes.forEach((divisionHTMLNode) => {
-      divisionHTMLNode.resolve(context);
+      start = divisionHTMLNode.resolve(start, context);
     });
   }
 

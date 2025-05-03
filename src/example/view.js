@@ -86,7 +86,8 @@ class View extends Element {
       return;
     }
 
-    const tokens = this.getTokens(),
+    const start = 1,
+          tokens = this.getTokens(),
           context = {
             tokens,
             pathToURL
@@ -94,7 +95,7 @@ class View extends Element {
           topmostHTMLNode = htmlNodeFromMarkdownNode(topmostMarkdownNode),
           divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNodeAt(index);
 
-    divisionHTMLNOde.resolve(context);
+    divisionHTMLNOde.resolve(start, context);
 
     const topmostMarkdownNodeParseTree = topmostMarkdownNode.asParseTree(tokens),
           divisionHTMLNOdeParseTree = divisionHTMLNOde.asParseTree(),
@@ -272,10 +273,10 @@ class View extends Element {
                                 onCustomPlainText={this.plainTextCustomHandler}
             />
             <PageButtonsDiv onCustomPageUpdate={this.pageUpdateCustomHandler} />
-            <CSSContainerDiv/>
             <HTMLContainerDiv/>
             <PreviewContainerDiv/>
             <PlainTextContainerDiv/>
+            <CSSContainerDiv/>
             <HTMLParseTreeTextarea/>
           </RowsDiv>
         </ColumnDiv>
