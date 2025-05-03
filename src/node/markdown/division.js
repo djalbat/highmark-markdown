@@ -45,7 +45,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     const divisionMarkdownNode = this,  ///
           ignoreDirectiveMarkdownTransform = IgnoreDirectiveMarkdownTransform.fromDivisionMarkdownNode(divisionMarkdownNode);
 
-    ignoreDirectiveMarkdownTransform.remove();
+    ignoreDirectiveMarkdownTransform.remove(context);
   }
 
   resolveIncludes(topmostMarkdownNode, context) {
@@ -75,9 +75,9 @@ export default class DivisionMarkdownNode extends MarkdownNode {
       const embeddingsResolved = subDivisionMarkdownNode.resolveEmbeddings(divisionMarkdownNode, context);
 
       if (embeddingsResolved) {
-        const subDivisionTransform = SubDivisionMarkdownTransform.fromSubDivisionMarkdownNode(subDivisionMarkdownNode)
+        const subDivisionMarkdownTransform = SubDivisionMarkdownTransform.fromSubDivisionMarkdownNode(subDivisionMarkdownNode)
 
-        subDivisionTransform.remove();
+        subDivisionMarkdownTransform.remove(context);
       }
     });
   }

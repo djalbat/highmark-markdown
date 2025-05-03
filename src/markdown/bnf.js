@@ -151,19 +151,6 @@ const bnf = `
     tableCell                ::=  line tableCellDivider ;
     
     
-    contentsList             ::=  contentsItem+ ;
-
-
-    contentsItem             ::=  contentsLink 
-    
-                               |  contentsLink? contentsList
-                              
-                               ;
-
-
-    contentsLink             ::=  line ;
-
-
     line                     ::=  ( inlineListing 
     
                                   | footnoteLink 

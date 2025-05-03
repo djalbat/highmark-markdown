@@ -42,24 +42,9 @@ const INDEX_PATH = "index.md",
       INSTALLING_THE_CLI_PATH = "installing-the-cli.md",
       GETTING_TO_GRIPS_WITH_THE_IDE_PATH = "getting-to-grips-with-the-ide.md";
 
-// export const initialMarkdown = `@ignore
-//
-// @include ${FRONT_MATTER_PATH}
-// `;
+export const initialMarkdown = `@ignore
 
-export const initialMarkdown = `
-
-\`\`\`
-Block - listing
-\`\`\`
-
-[^occam]
-[^cusa]
-
-[^cusa]: Cusa footnote.
-[^occam]: Occam footnote.
-
-@footnotes
+@include ${CONTENT_PATH}
 `;
 
 const indexContent = `## Index
@@ -78,8 +63,7 @@ const indexContent = `## Index
 
       frontMatterContent = `@ignore
 
-@include ${HALF_TITLE_PATH}
-@include ${CONTENTS_PATH}`,
+@include ${HALF_TITLE_PATH}`,
 
       introductionContent = `# Introduction
       

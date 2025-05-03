@@ -1,18 +1,36 @@
 "use strict";
 
 import HTMLNode from "../../node/html";
+import DivisionHTMLTransform from "../../transform/html/division";
 
 import { HTML_RULE_NAME } from "../../ruleNames";
 import { divisionHTMLNodesFromNode } from "../../utilities/html";
 
 export default class TopmostHTMLNode extends HTMLNode {
   resolve(context) {
-    const divisionHTMLNodes = this.getDivisionHTMLNodes();
+    let divisionHTMLNodes,
+        divisionHTMLTransforms;
+
+    divisionHTMLNodes = this.getDivisionHTMLNodes();
+
+    divisionHTMLTransforms = divisionHTMLTransformsFromDivisionHTMLNodes(divisionHTMLNodes);
+
+    divisionHTMLNodes = [];
 
     let start = 1;
 
-    divisionHTMLNodes.forEach((divisionHTMLNode) => {
-      start = divisionHTMLNode.resolve(start, context);
+    divisionHTMLTransforms.forEach((divisionHTMLTransform) => {
+      divisionHTMLTransform.remove();
+
+      start = divisionHTMLTransform.resolve(divisionHTMLNodes, start, context);
+    });
+
+    divisionHTMLTransforms = divisionHTMLTransformsFromDivisionHTMLNodes(divisionHTMLNodes);
+
+    const topmostHTMLNode = this;
+
+    divisionHTMLTransforms.forEach((divisionHTMLTransform) => {
+      divisionHTMLTransform.appendToTopmostHTMLNode(topmostHTMLNode);
     });
   }
 
@@ -45,4 +63,14 @@ export default class TopmostHTMLNode extends HTMLNode {
   static className = null;
 
   static fromNothing() { return HTMLNode.fromNothing(TopmostHTMLNode); }
+}
+
+function divisionHTMLTransformsFromDivisionHTMLNodes(divisionHTMLNodes) {
+  const divisionHTMLTransforms = divisionHTMLNodes.map((divisionHTMLNode) => {
+    const divisionHTMLTransform = DivisionHTMLTransform.fromDivisionHTMLNode(divisionHTMLNode);
+
+    return divisionHTMLTransform;
+  });
+
+  return divisionHTMLTransforms;
 }

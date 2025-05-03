@@ -70,51 +70,43 @@ class View extends Element {
   }
 
   updateHTML(index = 0) {
-    const topmostMarkdownNode = this.getTopmostMarkdownNode();
+    const topmostHTMLNode = this.getTopmostHTMLNode();
 
-    if (topmostMarkdownNode === null) {
+    if (topmostHTMLNode === null) {
       this.clearXMP();
 
       this.clearPreviewDiv();
 
-      this.clearPageButtonsDiv();
+      this.clearPlainTextTextarea();
 
       this.clearHTMLParseTreeTextarea();
 
-      this.clearMarkdownParseTreeTextarea();
+      this.clearPageButtonsDiv();
 
       return;
     }
 
-    const start = 1,
-          tokens = this.getTokens(),
-          context = {
-            tokens,
-            pathToURL
-          },
-          topmostHTMLNode = htmlNodeFromMarkdownNode(topmostMarkdownNode),
-          divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNodeAt(index);
+    let context;
 
-    divisionHTMLNOde.resolve(start, context);
-
-    const topmostMarkdownNodeParseTree = topmostMarkdownNode.asParseTree(tokens),
+    const tokens = this.getTokens(),
+          divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNodeAt(index),
           divisionHTMLNOdeParseTree = divisionHTMLNOde.asParseTree(),
-          markdownParseTree = topmostMarkdownNodeParseTree, ///
-          htmlParseTree = divisionHTMLNOdeParseTree, ///
-          multiplicity = topmostHTMLNode.getMultiplicity(),
-          length = multiplicity;  ///
+          htmlParseTree = divisionHTMLNOdeParseTree; ///
+
+    context = {
+      tokens,
+      pathToURL
+    };
 
     this.updateXMP(divisionHTMLNOde, context);
 
     this.updatePreviewDiv(divisionHTMLNOde, context);
 
-    this.updatePageButtonsDiv(length, index);
-
     this.updatePlainTextTextarea(divisionHTMLNOde, context);
 
     this.updateHTMLParseTreeTextarea(htmlParseTree);
 
-    this.updateMarkdownParseTreeTextarea(markdownParseTree);
+    this.updatePageButtonsDiv(index);
   }
 
   updateMarkdown() {
@@ -128,24 +120,47 @@ class View extends Element {
     if (node === null) {
       this.resetTokens();
 
-      this.resetTopmostMarkdownNode();
+      this.resetTopmostHTMLNode();
+
+      this.clearMarkdownParseTreeTextarea();
 
       return;
     }
 
-    const topmostMarkdownNode = node, ///
-          context = {
-            tokens,
-            importer,
-            nodeFromTokens,
-            tokensFromContent
-          };
+    let context;
+
+    const topmostMarkdownNode = node; ///
+
+    context = {
+      tokens,
+      importer,
+      nodeFromTokens,
+      tokensFromContent
+    };
 
     topmostMarkdownNode.resolve(context);
 
+    const topmostHTMLNode = htmlNodeFromMarkdownNode(topmostMarkdownNode);
+
+    context = {
+      tokens
+    };
+
+    topmostHTMLNode.resolve(context);
+
+    const topmostMarkdownNodeParseTree = topmostMarkdownNode.asParseTree(tokens),
+          markdownParseTree = topmostMarkdownNodeParseTree, ///
+          multiplicity = topmostHTMLNode.getMultiplicity(),
+          length = multiplicity,  ///
+          index = 0;
+
     this.setTokens(tokens);
 
-    this.setTopmostMarkdownNode(topmostMarkdownNode);
+    this.setTopmostHTMLNode(topmostHTMLNode);
+
+    this.updatePageButtonsDiv(length, index);
+
+    this.updateMarkdownParseTreeTextarea(markdownParseTree);
   }
 
   updateMarkdownStyle() {
@@ -215,10 +230,10 @@ class View extends Element {
     this.setTokens(tokens);
   }
 
-  resetTopmostMarkdownNode() {
-    const topmostMarkdownNode = null;
+  resetTopmostHTMLNode() {
+    const topmostHTMLNode = null;
 
-    this.setTopmostMarkdownNode(topmostMarkdownNode);
+    this.setTopmostHTMLNode(topmostHTMLNode);
   }
 
   getTokens() {
@@ -227,10 +242,10 @@ class View extends Element {
     return tokens;
   }
 
-  getTopmostMarkdownNode() {
-    const { topmostMarkdownNode } = this.getState();
+  getTopmostHTMLNode() {
+    const { topmostMHTMLNode } = this.getState();
 
-    return topmostMarkdownNode;
+    return topmostMHTMLNode;
   }
 
   setTokens(tokens) {
@@ -239,19 +254,19 @@ class View extends Element {
     });
   }
 
-  setTopmostMarkdownNode(topmostMarkdownNode) {
+  setTopmostHTMLNode(topmostMHTMLNode) {
     this.updateState({
-      topmostMarkdownNode
+      topmostMHTMLNode
     });
   }
 
   setInitialState() {
     const tokens = null,
-          topmostMarkdownNode = null;
+          topmostHTMLNode = null;
 
     this.setState({
       tokens,
-      topmostMarkdownNode
+      topmostHTMLNode
     });
   }
 
@@ -307,11 +322,8 @@ class View extends Element {
 
   static initialMarkdownStyle = `width: 100%;
 height: 100%;
-font-size: 2rem;  
-
-footnotesList {
-  
-}
+font-size: 2rem;
+text-align: left;  
 `;
 
   static tagName = "div";

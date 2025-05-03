@@ -50,7 +50,13 @@ class PageButtonsDiv extends Element {
     return pageButtons;
   }
 
-  update(length, index = 0) {
+  update(length, index) {
+    if (index === undefined) {
+      index = length; ///
+
+      length = null;
+    }
+
     if (length !== null) {
       this.unmountPageButtons();
 
@@ -58,7 +64,7 @@ class PageButtonsDiv extends Element {
     }
 
     const pageButtons = this.getPageButtons(),
-          currentIndex = index;
+          currentIndex = index; ///
 
     pageButtons.forEach((pageButton, index) => {
       (index === currentIndex) ?

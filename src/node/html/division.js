@@ -26,38 +26,36 @@ export default class DivisionHTMLNode extends HTMLNode {
 
     const footnotesDirectiveHTMLNode = this.getFootnotesDirectiveHTMLNode();
 
-    if (footnotesDirectiveHTMLNode === null) {
-      return;
+    if (footnotesDirectiveHTMLNode !== null) {
+      const footnotesDirectiveHTMLTransform = FootnotesDirectiveHTMLTransform.fromFootnotesDirectiveHTMLNode(footnotesDirectiveHTMLNode);
+
+      footnotesDirectiveHTMLTransform.remove();
+
+      const footnoteHTMLTransformsLength = footnoteHTMLTransforms.length;
+
+      if (footnoteHTMLTransformsLength === 0) {
+        return;
+      }
+
+      const node = this,  ///
+            previousStart = start,  ///
+            footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node);
+
+      start = filterAndSortFootnoteHTMLTransforms(footnoteHTMLTransforms, footnoteLinkHTMLNodes, start, context);
+
+      const latestStart = start,  ///
+            lineHTMLTransforms = lineHTMLTransformsFromFootnoteHTMLTransforms(footnoteHTMLTransforms),
+            footnoteItemHTMLTransforms = footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms);
+
+      start = previousStart;  ///
+
+      const divisionHTMLNode = this,  ///
+            footnotesListHTMLTransform = FootnotesListHTMLTransform.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms);
+
+      footnotesListHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
+
+      start = latestStart;  ///
     }
-
-    const footnotesDirectiveHTMLTransform = FootnotesDirectiveHTMLTransform.fromFootnotesDirectiveHTMLNode(footnotesDirectiveHTMLNode);
-
-    footnotesDirectiveHTMLTransform.remove();
-
-    const footnoteHTMLTransformsLength = footnoteHTMLTransforms.length;
-
-    if (footnoteHTMLTransformsLength === 0) {
-      return;
-    }
-
-    const node = this,  ///
-          previousStart = start,  ///
-          footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node);
-
-    start = filterAndSortFootnoteHTMLTransforms(footnoteHTMLTransforms, footnoteLinkHTMLNodes, start, context);
-
-    const latestStart = start,  ///
-          lineHTMLTransforms = lineHTMLTransformsFromFootnoteHTMLTransforms(footnoteHTMLTransforms),
-          footnoteItemHTMLTransforms = footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms);
-
-    start = previousStart;  ///
-
-    const divisionHTMLNode = this,  ///
-          footnotesListHTMLTransform = FootnotesListHTMLTransform.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms);
-
-    footnotesListHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
-
-    start = latestStart;  ///
 
     return start;
   }
