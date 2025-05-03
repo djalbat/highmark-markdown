@@ -2,55 +2,50 @@
 
 import HTMLNode from "../../node/html";
 
+import { assignIndexes, deleteIndexes } from "../../utilities/whitespace";
 import { EMPTY_STRING, CARRIAGE_RETURN } from "../../constants";
 
 export default class BlockLineHTMLNode extends HTMLNode {
-  content(context) {
-    const content = CARRIAGE_RETURN;
-
-    return content;
-  }
-
   mount(parentDOMElement, siblingDOMElement, context) {
+    const node = this;  ///
+
+    assignIndexes(node, context);
+
+    super.mount(parentDOMElement, siblingDOMElement, context);
+
     let domElement;
 
-    domElement = this.createDOMElement(context);
+    domElement = this.getDOMElement();
 
-    this.setDOMElement(domElement);
-
-    parentDOMElement.insertBefore(domElement, siblingDOMElement)
-
-    parentDOMElement = domElement; ///
+    parentDOMElement = domElement;  ///
 
     siblingDOMElement = null;
 
-    const content = this.content(context),
+    const content = CARRIAGE_RETURN,
           textNode = document.createTextNode(content);
 
     domElement = textNode;  ///
 
-    parentDOMElement.insertBefore(domElement, siblingDOMElement)
+    parentDOMElement.insertBefore(domElement, siblingDOMElement);
+
+    deleteIndexes(context);
   }
 
   unmount(parentDOMElement, context) {
-    let domElement;
-
     {
+      let domElement;
+
       domElement = this.getDOMElement();
 
       const parentDOMElement = domElement,  ///
-            firstChild = domElement.firstChild
+            lastChild = domElement.lastChild
 
-      domElement = firstChild;  ///
+      domElement = lastChild;  ///
 
       parentDOMElement.removeChild(domElement);
     }
 
-    domElement = this.getDOMElement();
-
-    parentDOMElement.removeChild(domElement);
-
-    this.resetDOMElement();
+    super.unmount(parentDOMElement, context);
   }
 
   asHTML(indent, context) {
@@ -66,14 +61,36 @@ export default class BlockLineHTMLNode extends HTMLNode {
     return html;
   }
 
+  childNodesAsHTML(indent, context) {
+    let childNodesHTML;
+
+    const node = this;  ///
+
+    assignIndexes(node, context);
+
+    childNodesHTML = super.childNodesAsHTML(indent, context);
+
+    deleteIndexes(context);
+
+    return childNodesHTML;
+  }
+
   childNodesAsPlainText(context) {
-    const childNodesPlainText = this.reduceChildNode((childNodesPlainText, childNode) => {
+    let childNodesPlainText;
+
+    const node = this;  ///
+
+    assignIndexes(node, context);
+
+    childNodesPlainText = this.reduceChildNode((childNodesPlainText, childNode) => {
       const childNodePlainText = childNode.asPlainText(context);
 
       childNodesPlainText = `${childNodesPlainText}${childNodePlainText}`;
 
       return childNodesPlainText;
     }, EMPTY_STRING);
+
+    deleteIndexes(context);
 
     return childNodesPlainText;
   }

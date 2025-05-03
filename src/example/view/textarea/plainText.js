@@ -20,12 +20,6 @@ class PlainTextTextarea extends Textarea {
   }
 
   update(divisionHTMLNode, context) {
-    const whitespaceTokenIndex = -1;
-
-    Object.assign(context, {
-      whitespaceTokenIndex
-    });
-
     const plainText = divisionHTMLNode.asPlainText(context);
 
     this.setPlainText(plainText);

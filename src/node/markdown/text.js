@@ -2,75 +2,74 @@
 
 import MarkdownNode from "../../node/markdown";
 
-import { EMPTY_STRING } from "../../constants";
 import { ESCAPED_TOKEN_TYPE } from "../../tokenTypes";
 
 export default class TextMarkdownNode extends MarkdownNode {
   text(context) {
-    const { tokens } = context;
-
-    let { whitespaceTokenIndex } = context;
-
     const text = this.fromFirstChildNode((firstChildNode) => {
-      let text = EMPTY_STRING;
+      let text;
 
       const terminalNode = firstChildNode,  ///
             significantToken = terminalNode.getSignificantToken(),
-            significantTokenIndex = tokens.indexOf(significantToken),
-            previousTokenIndex = significantTokenIndex - 1;
+            significantTokenType = significantToken.getType(),
+            significantTokenContent = significantToken.getContent();
 
-      if (previousTokenIndex > -1) {
-        const previousToken = tokens[previousTokenIndex],
-              previousTokenWhitespaceToken = previousToken.isWhitespaceToken();
-
-        if (previousTokenWhitespaceToken) {
-          if (previousTokenIndex > whitespaceTokenIndex) {
-            const whitespaceToken = previousToken,  ///
-                  whitespaceTokenContent = whitespaceToken.getContent();
-
-            text = `${text}${whitespaceTokenContent}`;
-
-            whitespaceTokenIndex = previousTokenIndex;  ///
-          }
-        }
-      }
-
-      let significantTokenContent = significantToken.getContent();
-
-      const significantTokenType = significantToken.getType();
+      text = significantTokenContent; ///
 
       if (significantTokenType === ESCAPED_TOKEN_TYPE) {
         const start = 1;
 
-        significantTokenContent = significantTokenContent.substring(start);
+        text = text.substring(start);
       }
 
-      text = `${text}${significantTokenContent}`;
+      const { tokens, firstSignificantTokenIndex, lastSignificantTokenIndex, whitespaceTokenIndexes } = context,
+            index = tokens.indexOf(significantToken),
+            nextIndex = index + 1,
+            previousIndex = index - 1;
 
-      const tokensLength = tokens.length,
-            nextTokenIndex = significantTokenIndex + 1;
+      if (previousIndex > firstSignificantTokenIndex) {
+        const previousToken = tokens[previousIndex],
+              previousTokenWhitespaceToken = previousToken.isWhitespaceToken();
 
-      if (nextTokenIndex < tokensLength) {
-        const nextToken = tokens[nextTokenIndex],
+        if (previousTokenWhitespaceToken) {
+          const whitespaceTokenIndexesIncludesPreviousIndex = whitespaceTokenIndexes.includes(previousIndex);
+
+          if (!whitespaceTokenIndexesIncludesPreviousIndex) {
+            const whitespaceToken = previousToken,  ///
+                  whitespaceTokenContent = whitespaceToken.getContent(),
+                  whitespace = whitespaceTokenContent;  ///
+
+            text = `${whitespace}${text}`;
+
+            const whitespaceTokenIndex = previousIndex;  ///
+
+            whitespaceTokenIndexes.push(whitespaceTokenIndex);
+          }
+        }
+      }
+
+      if (nextIndex < lastSignificantTokenIndex) {
+        const nextToken = tokens[nextIndex],
               nextTokenWhitespaceToken = nextToken.isWhitespaceToken();
 
         if (nextTokenWhitespaceToken) {
-          if (nextTokenIndex > whitespaceTokenIndex) {
+          const whitespaceTokenIndexesIncludesPreviousIndex = whitespaceTokenIndexes.includes(nextIndex);
+
+          if (!whitespaceTokenIndexesIncludesPreviousIndex) {
             const whitespaceToken = nextToken,  ///
-                  whitespaceTokenContent = whitespaceToken.getContent();
+                  whitespaceTokenContent = whitespaceToken.getContent(),
+                  whitespace = whitespaceTokenContent;  ///
 
-            text = `${text}${whitespaceTokenContent}`;
+            text = `${text}${whitespace}`;
 
-            whitespaceTokenIndex = nextTokenIndex;  ///
+            const whitespaceTokenIndex = nextIndex;  ///
+
+            whitespaceTokenIndexes.push(whitespaceTokenIndex);
           }
         }
       }
 
       return text;
-    });
-
-    Object.assign(context, {
-      whitespaceTokenIndex
     });
 
     return text;

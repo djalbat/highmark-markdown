@@ -183,6 +183,9 @@ const bnf = `
                                   | stronglyEmphasisedText )+ ;
     
     
+    footnoteLink.            ::=  [link] ;
+    
+
     emailLink.               ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [email-address] ")" 
     
                                |  [email-address] 
@@ -197,15 +200,9 @@ const bnf = `
                                ;
 
 
-    footnoteLink.            ::=  [link] ;
-    
-
     image.                   ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" path ")" ;
 
 
-    inlineText.              ::=  plainText+ ;
-    
-    
     strongText               ::=  "***" inlineText "***" ;
 
 
@@ -215,6 +212,9 @@ const bnf = `
     stronglyEmphasisedText.  ::=  "****" inlineText "****" ;
     
 
+    inlineText.              ::=  plainText+ ;
+    
+    
     className                ::=  <NO_WHITESPACE>[identifier] ;
     
 

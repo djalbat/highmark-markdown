@@ -44,7 +44,7 @@ export default class HyperlinkHTMLNode extends HTMLNode {
 
     this.setDOMElement(domElement);
 
-    parentDOMElement.insertBefore(domElement, siblingDOMElement)
+    parentDOMElement.insertBefore(domElement, siblingDOMElement);
 
     parentDOMElement = domElement; ///
 
@@ -55,7 +55,7 @@ export default class HyperlinkHTMLNode extends HTMLNode {
 
     domElement = textNode;  ///
 
-    parentDOMElement.insertBefore(domElement, siblingDOMElement)
+    parentDOMElement.insertBefore(domElement, siblingDOMElement);
   }
 
   unmount(parentDOMElement, context) {

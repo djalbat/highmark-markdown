@@ -8,4 +8,6 @@ export function replaceSpacesWithHyphens(string) { return string.replace(/ +/g, 
 
 export function removedLeadingWhitespace(string) { return string.replace(/^ +/, EMPTY_STRING) }
 
+export function removeTrailingWhitespace(string) { return string.replace(/ +$/, EMPTY_STRING) }
+
 export function removeNonAlphabeticCharacters(string) { return string.replace(/[^a-z]/g, EMPTY_STRING); }

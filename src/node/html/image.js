@@ -65,7 +65,7 @@ export default class ImageHTMLNode extends HTMLNode {
 
     this.setDOMElement(domElement);
 
-    parentDOMElement.insertBefore(domElement, siblingDOMElement)
+    parentDOMElement.insertBefore(domElement, siblingDOMElement);
   }
 
   unmount(parentDOMElement, context) {

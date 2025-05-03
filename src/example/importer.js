@@ -48,6 +48,11 @@ const INDEX_PATH = "index.md",
 // `;
 
 export const initialMarkdown = `
+
+\`\`\`
+Block - listing
+\`\`\`
+
 [^occam]
 [^cusa]
 

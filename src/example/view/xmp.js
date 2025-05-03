@@ -8,12 +8,6 @@ import { EMPTY_STRING } from "../constants";
 
 class XMP extends Element {
   update(divisionHTMLNode, context) {
-    const whitespaceTokenIndex = -1;
-
-    Object.assign(context, {
-      whitespaceTokenIndex
-    });
-
     const indent = null,
           html = divisionHTMLNode.asHTML(indent, context);
 

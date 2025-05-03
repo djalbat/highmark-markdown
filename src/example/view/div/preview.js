@@ -31,12 +31,6 @@ class PreviewDiv extends Element {
   update(divisionHTMLNode, context) {
     this.clear();
 
-    const whitespaceTokenIndex = -1;
-
-    Object.assign(context, {
-      whitespaceTokenIndex
-    });
-
     const parentDOMElement = this.getParentDOMElement(),
           siblingDOMElement = null;
 
