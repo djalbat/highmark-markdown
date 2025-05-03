@@ -23,7 +23,7 @@ class ContainerDiv extends Element {
 export default withStyle(ContainerDiv)`
 
   border: 1px solid black;
-  height: 32rem;
+  height: 48rem;
   padding: 1rem;
   overflow: hidden;
   border-top: 0;

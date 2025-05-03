@@ -46,7 +46,7 @@ class MarkdownStyleContainerDiv extends ContainerDiv {
 export default withStyle(MarkdownStyleContainerDiv)`
 
   gap: 1rem;
-  height: 65rem;
+  height: 97rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

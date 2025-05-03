@@ -36,6 +36,7 @@ class MarkdownTextarea extends Textarea {
 
 export default withStyle(MarkdownTextarea)`
 
+  height: 32em;
   resize: vertical;
   min-height: 12rem;
   

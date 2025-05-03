@@ -23,6 +23,6 @@ class HTMLParseTreeTextarea extends ParseTreeTextarea {
 export default withStyle(HTMLParseTreeTextarea)`
 
   margin-top: 1rem;
-  height: 32rem;
+  height: 48rem;
   
 `;

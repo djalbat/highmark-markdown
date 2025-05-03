@@ -1,7 +1,6 @@
 "use strict";
 
 import HTMLTransform from "../../transform/html"
-import LineHTMLTransform from "./line";
 
 export default class FootnoteHTMLTransform extends HTMLTransform {
   getLineHTMLNode() {
@@ -15,9 +14,15 @@ export default class FootnoteHTMLTransform extends HTMLTransform {
     return lineHTMLNode;
   }
 
-  getParagraphHTMLNode() {
+  getFootnoteHTMLNode() {
     const node = this.getNode(),
-          footnoteHTMLNode = node,  ///
+          footnoteHTMLNode = node;  ///
+
+    return footnoteHTMLNode;
+  }
+
+  getParagraphHTMLNode() {
+    const footnoteHTMLNode = this.getFootnoteHTMLNode(),  ///
           paragraphHTMLNode = footnoteHTMLNode.fromSecondChildNode((secondChildNode) => {
             const paragraphHTMLNode = secondChildNode;  ///
 
@@ -25,6 +30,13 @@ export default class FootnoteHTMLTransform extends HTMLTransform {
           });
 
     return paragraphHTMLNode;
+  }
+
+  identifier(context) {
+    const footnoteHTMLNode = this.getFootnoteHTMLNode(),
+          identifier = footnoteHTMLNode.identifier(context);
+
+    return identifier;
   }
 
   static fromFootnoteHTMLNode(footnoteHTMLNde) {

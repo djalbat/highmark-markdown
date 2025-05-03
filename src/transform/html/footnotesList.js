@@ -10,8 +10,8 @@ export default class FootnotesListHTMLTransform extends HTMLTransform {
     this.appendTo(parentHTMLNode);
   }
 
-  static fromFootnoteItemHTMLTransforms(footnoteItemHTMLTransforms) {
-    const footnotesListHTMLNode = FootnotesListHTMLNode.fromFootnoteItemHTMLTransforms(footnoteItemHTMLTransforms),
+  static fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms) {
+    const footnotesListHTMLNode = FootnotesListHTMLNode.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms),
           htmlNode = footnotesListHTMLNode, ///
           footnotesListHTMLTransform = HTMLTransform.fromHTNLNOde(FootnotesListHTMLTransform, htmlNode);
 

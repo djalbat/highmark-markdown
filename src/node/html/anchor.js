@@ -4,6 +4,7 @@ import HTMLNode from "../../node/html";
 
 import { EMPTY_STRING } from "../../constants";
 import { ANCHOR_RULE_NAME } from "../../ruleNames";
+import { FOOTNOTE_PREPEND } from "../../prepends";
 import { ID_ATTRIBUTE_NAME } from "../../attributeNames";
 
 export default class AnchorHTMLNode extends HTMLNode {
@@ -30,7 +31,9 @@ export default class AnchorHTMLNode extends HTMLNode {
   }
 
   attributeValue(context) {
-    const attributeValue = `${this.prepend}-${this.identifier}`;
+    const prepend = FOOTNOTE_PREPEND, ///
+          identifier = this.identifier,
+          attributeValue = `#${prepend}-${identifier}`; ///
 
     return attributeValue;
   }
@@ -51,36 +54,3 @@ export default class AnchorHTMLNode extends HTMLNode {
     return anchorHTMLNode;
   }
 }
-
-// import { removedLeadingWhitespace, replaceSpacesWithHyphens, removeNonAlphabeticAndSpaceCharacters } from "../../utilities/string";
-//
-// addAnchor(context) {
-//   const prepend = CONTENTS_PREPEND,
-//     identifier = this.identifier(context),
-//     anchorMarkdownNode = AnchorMarkdownNode.fromPrependAndIdentifier(prepend, identifier),
-//     prependedChildNode = anchorMarkdownNode; ///
-//
-//   this.prependChildNode(prependedChildNode);
-// }
-//
-// identifier(context) {
-//   const plainText = this.asPlainText(context),
-//     identifier = identifierFromPlainText(plainText);
-//
-//   return identifier;
-// }
-//
-// function identifierFromPlainText(plainText) {
-//   plainText = plainText.toLowerCase();  ///
-//
-//   plainText = removedLeadingWhitespace(plainText);  ///
-//
-//   plainText = removeNonAlphabeticAndSpaceCharacters(plainText); ///
-//
-//   plainText = replaceSpacesWithHyphens(plainText);  ///
-//
-//   const identifier = plainText; ///
-//
-//   return identifier;
-// }
-//

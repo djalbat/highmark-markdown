@@ -48,9 +48,12 @@ const INDEX_PATH = "index.md",
 // `;
 
 export const initialMarkdown = `
-Footnote[^occam].
+Occam[^occam].
+Cusa[^cusa].
 
-[^occam]: Occam.
+[^cusa]: Cusa footnote.
+[^occam]: Occam footnote.
+[^random]: Random footnote.
 
 @footnotes
 `;

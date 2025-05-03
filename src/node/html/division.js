@@ -1,37 +1,55 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import HTMLNode from "../../node/html";
 import LineHTMLTransform from "../../transform/html/line";
 import FootnoteHTMLTransform from "../../transform/html/footnote";
 import FootnoteItemHTMLTransform from "../../transform/html/footnoteItem";
 import FootnotesListHTMLTransform from "../../transform/html/footnotesList";
+import FootnotesDirectiveHTMLTransform from "../../transform/html/footnotesDirective";
 
-import { footnoteHTMLNodesFromNode, footnotesDirectiveHTMLNodeFromNode } from "../../utilities/html";
+import { footnoteHTMLNodesFromNode, footnoteLinkHTMLNodesFromNode, footnotesDirectiveHTMLNodeFromNode } from "../../utilities/html";
+
+const { filter } = arrayUtilities;
 
 export default class DivisionHTMLNode extends HTMLNode {
   className(context) { return this.outerNode.className(context); }
 
-  resolve() {
+  resolve(context) {
     const footnoteHTMLNodes = this.getFootnoteHTMLNodes(),
-          footnotesDirectiveHTMLNode = this.getFootnotesDirectiveHTMLNode(),
           footnoteHTMLTransforms = footnoteHTMLTransformsFromFootnoteHTMLNodes(footnoteHTMLNodes);
 
-    if (footnoteHTMLTransforms === null) {
-      return;
-    }
+    footnoteHTMLTransforms.forEach((footnoteHTMLTransform) => {
+      footnoteHTMLTransform.remove();
+    });
+
+    const footnotesDirectiveHTMLNode = this.getFootnotesDirectiveHTMLNode();
 
     if (footnotesDirectiveHTMLNode === null) {
       return;
     }
 
-    const divisionHTMLNode = this,  ///
+    const footnotesDirectiveHTMLTransform = FootnotesDirectiveHTMLTransform.fromFootnotesDirectiveHTMLNode(footnotesDirectiveHTMLNode);
+
+    footnotesDirectiveHTMLTransform.remove();
+
+    const footnoteHTMLTransformsLength = footnoteHTMLTransforms.length;
+
+    if (footnoteHTMLTransformsLength === 0) {
+      return;
+    }
+
+    const node = this,  ///
+          footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node);
+
+    filterAndSortFootnoteHTMLTransforms(footnoteHTMLTransforms, footnoteLinkHTMLNodes, context);
+
+    const start = 1,
+          divisionHTMLNode = this,  ///
           lineHTMLTransforms = lineHTMLTransformsFromFootnoteHTMLTransforms(footnoteHTMLTransforms),
           footnoteItemHTMLTransforms = footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms),
-          footnotesListHTMLTransform = FootnotesListHTMLTransform.fromFootnoteItemHTMLTransforms(footnoteItemHTMLTransforms);
-
-    footnoteHTMLTransforms.forEach((footnoteHTMLTransform) => {
-      footnoteHTMLTransform.remove();
-    });
+          footnotesListHTMLTransform = FootnotesListHTMLTransform.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms);
 
     footnotesListHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
   }
@@ -59,18 +77,47 @@ export default class DivisionHTMLNode extends HTMLNode {
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(DivisionHTMLNode, outerNode); }
 }
 
+function filterAndSortFootnoteHTMLTransforms(footnoteHTMLTransforms, footnoteLinkHTMLNodes, context) {
+  const identifiers = identifiersFromFootnoteLinkHTMLNodes(footnoteLinkHTMLNodes, context);
+
+  filter(footnoteHTMLTransforms, (footnoteHTMLTransform) => {
+    const identifier = footnoteHTMLTransform.identifier(context),
+          identifiersIncludesIdentifier = identifiers.includes(identifier);
+
+    if (identifiersIncludesIdentifier) {
+      return true;
+    }
+  });
+
+  footnoteHTMLTransforms.sort((footnoteHTMLTransformA, footnoteHTMLTransformsB) => {
+    const footnoteHTMLTransformAIdentifier = footnoteHTMLTransformA.identifier(context),
+          footnoteHTMLTransformBIdentifier = footnoteHTMLTransformsB.identifier(context),
+          identifierA = footnoteHTMLTransformAIdentifier, ///
+          identifierB = footnoteHTMLTransformBIdentifier, ///
+          indexA = identifiers.indexOf(identifierA),
+          indexB = identifiers.indexOf(identifierB),
+          difference = (indexA - indexB);
+
+    return difference;
+  });
+}
+
+function identifiersFromFootnoteLinkHTMLNodes(footnoteLinkHTMLNodes, context) {
+  const identifiers = footnoteLinkHTMLNodes.map((footnoteHTMLNode) => {
+    const identifier = footnoteHTMLNode.identifier(context);
+
+    return identifier;
+  });
+
+  return identifiers;
+}
+
 function footnoteHTMLTransformsFromFootnoteHTMLNodes(footnoteHTMLNodes) {
-  let footnoteHTMLTransforms = null;
+  const footnoteHTMLTransforms = footnoteHTMLNodes.map((footnoteHTMLNode) => {
+    const footnoteHTMLTransform = FootnoteHTMLTransform.fromFootnoteHTMLNode(footnoteHTMLNode);
 
-  const footnoteHTMLNodesLength = footnoteHTMLNodes.length;
-
-  if (footnoteHTMLNodesLength > 0) {
-    footnoteHTMLTransforms = footnoteHTMLNodes.map((footnoteHTMLNode) => {
-      const footnoteHTMLTransform = FootnoteHTMLTransform.fromFootnoteHTMLNode(footnoteHTMLNode);
-
-      return footnoteHTMLTransform;
-    });
-  }
+    return footnoteHTMLTransform;
+  });
 
   return footnoteHTMLTransforms;
 }
@@ -205,21 +252,6 @@ function footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms) {
 //   return contentsCreated;
 // }
 //
-// createFootnotes(footnoteTransformMap, context) {
-//   const footnotesDirectiveDivisionTransform = this.findDivisionTransform(FootnotesDirectiveDivisionTransform, context);
-//
-//   if (footnotesDirectiveDivisionTransform !== null) {
-//     const divisionMarkdownNode = this,  ///
-//           footnotesListDivisionTransform = FootnotesListTransform.fromDivisionMarkdownNodeAndFootnoteTransformMap(divisionMarkdownNode, footnoteTransformMap, context);
-//
-//     if (footnotesListDivisionTransform !== null) {
-//       footnotesListDivisionTransform.replaceFootnotesDirectiveDivisionTransform(footnotesDirectiveDivisionTransform, divisionMarkdownNode, context);
-//     }
-//
-//     renumberFootnoteLinkMarkdownNodes(divisionMarkdownNode, footnoteTransformMap, context);
-//   }
-// }
-//
 // prepareFootnotes(footnoteTransformMap, context) {
 //   const footnoteDivisionTransforms = this.removeDivisionMarkdownNodes(FootnoteDivisionTransform, context);
 //
@@ -229,37 +261,6 @@ function footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms) {
 //
 //     footnoteTransformMap[identifier] = footnoteTransform;
 //   });
-// }
-//
-// findDivisionTransform(DivisionTransform, context) {
-//   let subDivisionTransform = null;
-//
-//   const subDivisionMarkdownNodes = this.findDivisionMarkdownNodes();
-//
-//   subDivisionMarkdownNodes.some((subDivisionMarkdownNode) => {
-//     subDivisionTransform = DivisionTransform.fromDivisionMarkdownNode(subDivisionMarkdownNode, context);
-//
-//     if (subDivisionTransform !== null) {
-//       return true;
-//     }
-//   });
-//
-//   return subDivisionTransform;
-// }
-//
-// findDivisionTransforms(DivisionTransform, context) {
-//   const subDivisionMarkdownNodes = this.findDivisionMarkdownNodes(),
-//         subDivisionTransforms = subDivisionMarkdownNodes.reduce((subDivisionTransforms, subDivisionMarkdownNode) => {
-//           const subDivisionTransform = DivisionTransform.fromDivisionMarkdownNode(subDivisionMarkdownNode, context);
-//
-//           if (subDivisionTransform !== null) {
-//             subDivisionTransforms.push(subDivisionTransform);
-//           }
-//
-//           return subDivisionTransforms;
-//         }, []);
-//
-//   return subDivisionTransforms;
 // }
 //
 // findPageNumberDirectiveMarkdownNode() {
@@ -278,28 +279,6 @@ function footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms) {
 //   });
 //
 //   return pageNumberDirectiveMarkdownNode;
-// }
-//
-// removeSubDivisionMarkdownNode(subDivisionMarkdownNode) {
-//   const childNode = subDivisionMarkdownNode;  ///
-//
-//   this.removeChildNode(childNode);
-// }
-//
-// createFootnotesListTransform(footnoteTransformMap, context) {
-//   const footnoteDivisionTransforms = this.findDivisionTransforms(FootnoteDivisionTransform, context);
-//
-//   footnoteDivisionTransforms.forEach((footnoteDivisionTransform) => {
-//     const footnoteTransform = FootnoteTransform.fromFootnoteDivisionTransform(footnoteDivisionTransform),
-//           identifier = footnoteDivisionTransform.identifier(context);
-//
-//     footnoteTransformMap[identifier] = footnoteTransform;
-//   });
-//
-//   const divisionMarkdownNode = this,  ///
-//         footnotesListDivisionTransform = FootnotesListTransform.fromDivisionMarkdownNodeAndFootnoteTransformMap(divisionMarkdownNode, footnoteTransformMap, context);
-//
-//   return footnotesListDivisionTransform;
 // }
 
 // function paginateDivisionMarkdownNode(paginatedChildNodes, subDivisionTransforms, divisionClassName, markdownNodes, pageNumber, context) {

@@ -113,8 +113,8 @@ inlineListing {
 footnoteLink {
   cursor: pointer;
   font-size: 9pt;
-  line-height: 13pt;
   margin-left: 3pt;
+  line-height: 13pt;
   vertical-align: super;
 }
 
@@ -170,14 +170,9 @@ footnotesList {
 
 footnoteItem {
   font-size: 11pt;
+  text-align: justify;
   line-height: 17pt;
   margin-left: 13pt;
-  
-  paragraph {
-    margin: 0;
-    font-size: 11pt;
-    line-height: 17pt;
-  }
 }
 
 indexList {

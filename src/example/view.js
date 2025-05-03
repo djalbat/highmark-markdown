@@ -86,22 +86,22 @@ class View extends Element {
       return;
     }
 
-    const topmostHTMLNode = htmlNodeFromMarkdownNode(topmostMarkdownNode),
+    const tokens = this.getTokens(),
+          context = {
+            tokens,
+            pathToURL
+          },
+          topmostHTMLNode = htmlNodeFromMarkdownNode(topmostMarkdownNode),
           divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNodeAt(index);
 
-    divisionHTMLNOde.resolve();
+    divisionHTMLNOde.resolve(context);
 
-    const tokens = this.getTokens(),
-          topmostMarkdownNodeParseTree = topmostMarkdownNode.asParseTree(tokens),
+    const topmostMarkdownNodeParseTree = topmostMarkdownNode.asParseTree(tokens),
           divisionHTMLNOdeParseTree = divisionHTMLNOde.asParseTree(),
           markdownParseTree = topmostMarkdownNodeParseTree, ///
           htmlParseTree = divisionHTMLNOdeParseTree, ///
           multiplicity = topmostHTMLNode.getMultiplicity(),
-          length = multiplicity,  ///
-          context = {
-            tokens,
-            pathToURL
-          };
+          length = multiplicity;  ///
 
     this.updateXMP(divisionHTMLNOde, context);
 
@@ -308,11 +308,8 @@ class View extends Element {
 height: 100%;
 font-size: 2rem;  
 
-blockListing {
-  colour: white;
-  text-align: left;
-  font-family: monospace;
-  background-colour: black;
+footnotesList {
+  
 }
 `;
 
