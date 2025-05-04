@@ -32,7 +32,12 @@ class HTMLNode extends Node {
     return markdownNode;
   }
 
-  getRuleName() { return this.outerNode.getRuleName(); }
+  getRuleName() {
+    const markdownNode = this.getMarkdownNode(),
+          ruleName = markdownNode.getRuleName();
+
+    return ruleName;
+  }
 
   isTerminalNode() {
     const terminalNode = false;

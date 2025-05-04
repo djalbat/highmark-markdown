@@ -7,11 +7,12 @@ import { nodeFromNodeAndQuery, nodesFromNodeAndQuery } from "../utilities/query"
 const contentsDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/contentsDirective"),
       footnotesDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/footnotesDirective"),
       pageNumberDirectiveHTMLNodeQuery = Query.fromExpressionString("//pageNumber"),
-      headingHTMLNodesQuery = Query.fromExpressionString("/division/primaryHeading|secondaryHeading|tertiaryHeading|quaternaryHeading"),
+      htmlNodesQuery = Query.fromExpressionString("/division/*"),
       divisionHTMLNodesQuery = Query.fromExpressionString("/html/division"),
       footnoteHTMLNodesQuery = Query.fromExpressionString("/division/footnote"),
       footnotesHTMLNodesQuery = Query.fromExpressionString("//footnote"),
-      footnoteLinkHTMLNodesQuery = Query.fromExpressionString("//footnoteLink");
+      footnoteLinkHTMLNodesQuery = Query.fromExpressionString("//footnoteLink"),
+      nestedFootnoteLinkHTMLNodesQuery = Query.fromExpressionString("//footnote//footnoteLink");
 
 export function contentsDirectiveHTMLNodeFromNode(node) {
   const contentsDirectiveHTMLNode = nodeFromNodeAndQuery(node, contentsDirectiveHTMLNodeQuery);
@@ -31,10 +32,10 @@ export function pageNumberDirectiveHTMLNodeFromNode(node) {
   return pageNumberDirectiveHTMLNode;
 }
 
-export function headingHTMLNodesFromNode(node, headingHTMLNodes = []) {
-  nodesFromNodeAndQuery(node, headingHTMLNodesQuery, headingHTMLNodes);
+export function htmlNodesFromNode(node, htmlNodes = []) {
+  nodesFromNodeAndQuery(node, htmlNodesQuery, htmlNodes);
 
-  return headingHTMLNodes;
+  return htmlNodes;
 }
 
 export function divisionHTMLNodesFromNode(node, divisionHTMLNodes = []) {
@@ -61,15 +62,21 @@ export function footnoteLinkHTMLNodesFromNode(node, linkHTMLNodes = []) {
   return linkHTMLNodes;
 }
 
+export function nestedFootnoteLinkHTMLNodesFromNode(node, nestedFootnoteLinkHTMLNodes = []) {
+  nodesFromNodeAndQuery(node, nestedFootnoteLinkHTMLNodesQuery, nestedFootnoteLinkHTMLNodes);
+
+  return nestedFootnoteLinkHTMLNodes;
+}
+
 export default {
   contentsDirectiveHTMLNodeFromNode,
   footnotesDirectiveHTMLNodeFromNode,
   pageNumberDirectiveHTMLNodeFromNode,
-  headingHTMLNodesFromNode,
   divisionHTMLNodesFromNode,
   footnoteHTMLNodesFromNode,
   footnotesHTMLNodesFromNode,
-  footnoteLinkHTMLNodesFromNode
+  footnoteLinkHTMLNodesFromNode,
+  nestedFootnoteLinkHTMLNodesFromNode
 };
 
 // export function postProcess(divisionHTMLNodes, context) {

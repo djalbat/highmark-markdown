@@ -1,20 +1,34 @@
 "use strict";
 
-import { Transform } from "occam-dom";
+export default class HTMLTransform {
+  constructor(node) {
+    this.node = node;
+  }
 
-export default class HTMLTransform extends Transform {
+  getNode() {
+    return this.node;
+  }
+
+  addAfter(exitingHTMLNode) {
+    const childNode = exitingHTMLNode,  ///
+          parentNode = childNode.getParentNode(),
+          index = parentNode.indexOfChildNode(childNode),
+          startIndex = index + 1,
+          addedChildNode = this.node;  ///
+
+    parentNode.addChildNode(addedChildNode, startIndex);
+  }
+
   appendTo(parentHTMLNode) {
-    const node = this.getNode(),
-          childNode = node, ///
+    const childNode = this.node, ///
           parentNode = parentHTMLNode;  ///
 
     parentNode.appendChildNode(childNode);
   }
 
   remove() {
-    const node = this.getNode(),
-          childNode = node, ///
-          parentNode = node.getParentNode();
+    const childNode = this.node, ///
+          parentNode = childNode.getParentNode();
 
     parentNode.removeChildNode(childNode);
   }
@@ -23,12 +37,11 @@ export default class HTMLTransform extends Transform {
     if (ascendantNode === undefined) {
       ascendantNode = Class;  ///
 
-      Class = Transform;  ///
+      Class = HTMLTransform;  ///
     }
 
     const node = ascendantNode, ///
-          tokens = null,
-          transform = Transform.fromNodeAndTokens(Class, node, tokens);
+          transform = new Class(node);
 
     return transform;
   }
@@ -54,12 +67,11 @@ export default class HTMLTransform extends Transform {
     if (htmlNode === undefined) {
       htmlNode = Class; ///
 
-      Class = Transform;  ///
+      Class = HTMLTransform;  ///
     }
 
     const node = htmlNode,  ///
-          tokens = null,
-          htmlTransform = Transform.fromNodeAndTokens(Class, node, tokens);
+          htmlTransform = new Class(node);
 
     return htmlTransform;
   }

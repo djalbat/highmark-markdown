@@ -17,17 +17,15 @@ export default class TopmostHTMLNode extends HTMLNode {
 
     divisionHTMLNodes = [];
 
-    let start = 1;
-
     divisionHTMLTransforms.forEach((divisionHTMLTransform) => {
       divisionHTMLTransform.remove();
 
-      start = divisionHTMLTransform.resolve(divisionHTMLNodes, start, context);
+      divisionHTMLTransform.resolve(divisionHTMLNodes, context);
     });
 
     divisionHTMLTransforms = divisionHTMLTransformsFromDivisionHTMLNodes(divisionHTMLNodes);
 
-    const topmostHTMLNode = this;
+    const topmostHTMLNode = this; ///
 
     divisionHTMLTransforms.forEach((divisionHTMLTransform) => {
       divisionHTMLTransform.appendToTopmostHTMLNode(topmostHTMLNode);

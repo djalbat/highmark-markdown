@@ -3,10 +3,20 @@
 import HTMLNode from "../../node/html";
 import PlainTextHTMLNode from "./text/plain";
 
-import { EMPTY_STRING } from "../../constants";
 import { assignIndexes, deleteIndexes } from "../../utilities/whitespace";
+import { EMPTY_STRING, DEFAULT_MAXIMUM_LINE_CHARACTERS } from "../../constants";
 
 export default class LineHTMLNode extends HTMLNode {
+  lines(context) {
+    const { maximumLineCharacters = DEFAULT_MAXIMUM_LINE_CHARACTERS } = context,
+          plainText = this.asPlainText(context),
+          plainTextLength = plainText.length,
+          characters = plainTextLength, ///
+          lines = (characters / maximumLineCharacters) + 1;
+
+    return lines;
+  }
+
   mount(parentDOMElement, siblingDOMElement, context) {
     const node = this;  ///
 

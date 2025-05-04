@@ -39,6 +39,24 @@ export default class FootnoteHTMLTransform extends HTMLTransform {
     return identifier;
   }
 
+  matchIdentifier(identifier, context) {
+    const identifierA = identifier; ///
+
+    identifier = this.identifier(context);
+
+    const identifierB = identifier, ///
+          identifierMatches = (identifierA === identifierB);
+
+    return identifierMatches;
+  }
+
+  addAfterFootnoteLinkHTMLTransform(footnoteLinkHTMLTransform) {
+    const containingHTMLNode = footnoteLinkHTMLTransform.getContainingHTMLNode(),
+          existingHTMLNode = containingHTMLNode;  ///
+
+    this.addAfter(existingHTMLNode);
+  }
+
   static fromFootnoteHTMLNode(footnoteHTMLNde) {
     const htmlNode = footnoteHTMLNde, ///
           footnoteHTMLTransform = HTMLTransform.fromHTNLNOde(FootnoteHTMLTransform, htmlNode);

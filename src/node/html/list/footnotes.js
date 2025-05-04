@@ -44,7 +44,7 @@ export default class FootnotesListHTMLNode extends HTMLNode {
 
             return footnoteItemHTMLNode;
           }),
-          childNodes = footnoteItemHTMLNodes,
+          childNodes = footnoteItemHTMLNodes, ///
           footnotesListHTMLNode = HTMLNode.fromChildNodes(FootnotesListHTMLNode, childNodes, start);
 
     return footnotesListHTMLNode;

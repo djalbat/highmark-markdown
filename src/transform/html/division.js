@@ -18,14 +18,10 @@ export default class DivisionHTMLTransform extends HTMLTransform {
     parentNode.appendChildNode(childNode);
   }
 
-  resolve(divisionHTMLNodes, start, context) {
+  resolve(divisionHTMLNodes, context) {
     const divisionHTMLNode = this.getDivisionHTMLNode();
 
-    start = divisionHTMLNode.resolve(start, context);
-
-    divisionHTMLNodes.push(divisionHTMLNode);
-
-    return start;
+    divisionHTMLNode.resolve(divisionHTMLNodes, context);
   }
 
   static fromDivisionHTMLNode(divisionHTMLNode) {

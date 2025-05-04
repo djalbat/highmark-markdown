@@ -17,3 +17,5 @@ export const SINGLE_SPACE = " ";
 export const DOUBLE_SPACE = "  ";
 export const CARRIAGE_RETURN = "\n";
 export const PARENTHESISED_S_STRING = "(s)";
+export const DEFAULT_MAXIMUM_PAGE_LINES = 40;
+export const DEFAULT_MAXIMUM_LINE_CHARACTERS = 70;
