@@ -17,10 +17,12 @@ export default class TopmostHTMLNode extends HTMLNode {
 
     divisionHTMLNodes = [];
 
+    let pageNumber = 1;
+
     divisionHTMLTransforms.forEach((divisionHTMLTransform) => {
       divisionHTMLTransform.remove();
 
-      divisionHTMLTransform.resolve(divisionHTMLNodes, context);
+      pageNumber = divisionHTMLTransform.resolve(divisionHTMLNodes, pageNumber, context);
     });
 
     divisionHTMLTransforms = divisionHTMLTransformsFromDivisionHTMLNodes(divisionHTMLNodes);

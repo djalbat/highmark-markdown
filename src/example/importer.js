@@ -57,6 +57,8 @@ Cusa[^cusa].
 [^occam]: Occam footnote.
 
 @footnotes
+
+@pageNumber
 `;
 
 const indexContent = `## Index

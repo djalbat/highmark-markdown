@@ -29,45 +29,6 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
     return content;
   }
 
-  // clear() {
-  //   if (this.domElement === null) {
-  //     return;
-  //   }
-  //
-  //   const { lastChild = null } = this.domElement;
-  //
-  //   if (lastChild !== null) {
-  //     const domElement = lastChild,  ///
-  //           parentDOMElement = this.domElement;
-  //
-  //     parentDOMElement.removeChild(domElement);
-  //   }
-  // }
-  //
-  // update(context) {
-  //   if (this.domElement === null) {
-  //     return;
-  //   }
-  //
-  //   const content = this.content(context);
-  //
-  //   if (content !== EMPTY_STRING) {
-  //     const textNode  = document.createTextNode(content),
-  //           domElement = textNode,  ///
-  //           parentDOMElement = this.domElement; ///
-  //
-  //     parentDOMElement.appendChild(domElement);
-  //   }
-  // }
-  //
-  // renumber(number, context) {
-  //   this.setNumber(number);
-  //
-  //   this.clear();
-  //
-  //   this.update(context);
-  // }
-
   identifier(context) { return this.outerNode.identifier(context); }
 
   attributeName(context) {

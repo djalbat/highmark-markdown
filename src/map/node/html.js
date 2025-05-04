@@ -44,6 +44,7 @@ import TertiaryHeadingHTMLNode from "../../node/html/heading/tertiary";
 import SecondaryHeadingHTMLNode from "../../node/html/heading/secondary";
 import QuaternaryHeadingHTMLNode from "../../node/html/heading/quaternary";
 import FootnotesDirectiveHTMLNode from "../../node/html/directive/footnotes";
+import PageNumberDirectiveHTMLNode from "../../node/html/directive/pageNumber";
 import StronglyEmphasisedTextHTMLNode from "../../node/html/text/stronglyEmphasised";
 
 import { HTML_RULE_NAME,
@@ -90,6 +91,7 @@ import { HTML_RULE_NAME,
          SECONDARY_HEADING_RULE_NAME,
          QUATERNARY_HEADING_RULE_NAME,
          FOOTNOTES_DIRECTIVE_RULE_NAME,
+         PAGE_NUMBER_DIRECTIVE_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_RULE_NAME } from "../../ruleNames";
 
 const htmlNodeMap = {
@@ -137,6 +139,7 @@ const htmlNodeMap = {
   [SECONDARY_HEADING_RULE_NAME]: SecondaryHeadingHTMLNode,
   [QUATERNARY_HEADING_RULE_NAME]: QuaternaryHeadingHTMLNode,
   [FOOTNOTES_DIRECTIVE_RULE_NAME]: FootnotesDirectiveHTMLNode,
+  [PAGE_NUMBER_DIRECTIVE_RULE_NAME]: PageNumberDirectiveHTMLNode,
   [STRONGLY_EMPHASISED_TEXT_RULE_NAME]: StronglyEmphasisedTextHTMLNode
 }
 

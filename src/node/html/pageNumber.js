@@ -3,44 +3,57 @@
 import HTMLNode from "../../node/html";
 
 export default class PageNumberHTMLNode extends HTMLNode {
-  getPageNumber() { return this.outerNode.getPageNumber(); }
+  constructor(outerNode, parentNode, childNodes, domElement, pageNumber) {
+    super(outerNode, parentNode, childNodes, domElement);
 
-  createDOMElement(context) {
-    let domElement;
-
-    const pageNumber = this.getPageNumber(),
-          content = pageNumber, ///
-          textNode = document.createTextNode(content);
-
-    domElement = super.createDOMElement(context)
-
-    const parentDOMElement = domElement;  ///
-
-    domElement = textNode; ///
-
-    parentDOMElement.appendChild(domElement);
-
-    domElement = parentDOMElement;  ///
-
-    return domElement;
+    this.pageNumber = pageNumber;
   }
 
-  asPlainText(context) {
-    const pageNumber = this.getPageNumber(),
-          plainText = pageNumber; ///
+  getPageNumber() {
+    return this.pageNumber;
+  }
 
-    return plainText;
+  mount(parentDOMElement, siblingDOMElement, context) {
+    const content = this.pageNumber,
+          textNode = document.createTextNode(content),
+          domElement = textNode;  ///
+
+    parentDOMElement.insertBefore(domElement, siblingDOMElement);
+  }
+
+  unmount(parentDOMElement, context) {
+    {
+      let domElement;
+
+      domElement = this.getDOMElement();
+
+      const parentDOMElement = domElement,  ///
+            lastChild = domElement.lastChild
+
+      domElement = lastChild;  ///
+
+      parentDOMElement.removeChild(domElement);
+    }
   }
 
   childNodesAsHTML(indent, context) {
-    const pageNumber = this.getPageNumber(),
-          childNodesHTML = `${pageNumber}
+    const childNodesHTML = `${this.pageNumber}
 `;
 
     return childNodesHTML;
   }
 
+  static tagName = "span";
+
+  static className = "page-number";
+
   static fromNothing() { return HTMLNode.fromNothing(PageNumberHTMLNode); }
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(PageNumberHTMLNode, outerNode); }
+
+  static fromPageNumber(pageNumber) {
+    const pageNumberHTMLNode = HTMLNode.fromNothing(PageNumberHTMLNode, pageNumber);
+
+    return pageNumberHTMLNode;
+  }
 }
