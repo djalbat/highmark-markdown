@@ -2,6 +2,8 @@
 
 import HTMLNode from "../../node/html";
 
+import { PAGE_NUMBER_RULE_NAME } from "../../ruleNames";
+
 export default class PageNumberHTMLNode extends HTMLNode {
   constructor(outerNode, parentNode, childNodes, domElement, pageNumber) {
     super(outerNode, parentNode, childNodes, domElement);
@@ -41,6 +43,12 @@ export default class PageNumberHTMLNode extends HTMLNode {
 `;
 
     return childNodesHTML;
+  }
+
+  asString() {
+    const string = PAGE_NUMBER_RULE_NAME;
+
+    return string;
   }
 
   static tagName = "span";
