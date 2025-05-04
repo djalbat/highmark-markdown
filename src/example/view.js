@@ -140,10 +140,12 @@ class View extends Element {
 
     topmostMarkdownNode.resolve(context);
 
-    const topmostHTMLNode = htmlNodeFromMarkdownNode(topmostMarkdownNode);
+    const topmostHTMLNode = htmlNodeFromMarkdownNode(topmostMarkdownNode),
+          maximumPageLines = 1;
 
     context = {
-      tokens
+      tokens,
+      maximumPageLines,
     };
 
     topmostHTMLNode.resolve(context);

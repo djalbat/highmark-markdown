@@ -68,43 +68,31 @@ export default class DivisionHTMLNode extends HTMLNode {
 
     removeHTMLNodes(htmlNodes);
 
-    const groupedHTMLNodesArray = groupHTMLNodes(htmlNodes),
+    const identifierMap = {},
+          groupedHTMLNodesArray = groupHTMLNodes(htmlNodes),
           paginatedHTMLNodesArray = paginateGroupedHTMLNodes(groupedHTMLNodesArray, context);
-
-    let start = 1;
 
     paginatedHTMLNodesArray.forEach((paginatedHTMLNodes) => {
       const divisionHTMLNode = DivisionHTMLNode.fromPaginatedHTMLNodes(paginatedHTMLNodes);
 
-      start = divisionHTMLNode.resolveFootnotes(start, context);
+      divisionHTMLNode.resolveFootnotes(identifierMap, context);
 
       divisionHTMLNodes.push(divisionHTMLNode);
     });
   }
 
-  resolveFootnotes(start, context) {
+  resolveFootnotes(identifierMap, context) {
     const node = this,  ///
-          previousStart = start,  ///
           footnoteHTMLNodes = footnoteHTMLNodesFromNode(node),
           footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node),
-          footnoteHTMLTransforms = removeFootnoteHTMLNodes(footnoteHTMLNodes);
-
-    // start = filterAndSortFootnoteHTMLTransforms(footnoteHTMLTransforms, footnoteLinkHTMLNodes, start, context);
-
-    const latestStart = start,  ///
+          footnoteHTMLTransforms = removeFootnoteHTMLNodes(footnoteHTMLNodes),
+          start = numberFootnoteLinkHTMLNodes(footnoteHTMLNodes, footnoteLinkHTMLNodes, identifierMap, context),
           lineHTMLTransforms = lineHTMLTransformsFromFootnoteHTMLTransforms(footnoteHTMLTransforms),
-          footnoteItemHTMLTransforms = footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms);
-
-    start = previousStart;  ///
-
-    const divisionHTMLNode = this,  ///
-          footnotesListHTMLTransform = FootnotesListHTMLTransform.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms);
+          footnoteItemHTMLTransforms = footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms, identifierMap, start),
+          footnotesListHTMLTransform = FootnotesListHTMLTransform.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms),
+          divisionHTMLNode = this;  ///
 
     footnotesListHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
-
-    start = latestStart;  ///
-
-    return start;
   }
 
   asString() {
@@ -241,6 +229,28 @@ function paginateGroupedHTMLNodes(groupedHTMLNodesArray, context) {
   return paginatedHTMLNodesArray;
 }
 
+function numberFootnoteLinkHTMLNodes(footnoteHTMLNodes, footnoteLinkHTMLNodes, identifierMap, context) {
+  const identifiers = Object.keys(identifierMap),
+        identifiersLength = identifiers.length,
+        start = identifiersLength + 1;
+
+  footnoteHTMLNodes.forEach((footnoteHTMLNode, index) => {
+    const identifier = footnoteHTMLNode.identifier(context),
+          number = start + index;
+
+    identifierMap[identifier] = number;
+  });
+
+  footnoteLinkHTMLNodes.forEach((footnoteLinkHTMLNode) => {
+    const identifier = footnoteLinkHTMLNode.identifier(context),
+          number = identifierMap[identifier];
+
+    footnoteLinkHTMLNode.setNumber(number);
+  })
+
+  return start;
+}
+
 function removeFootnotesDirectiveHTMLNode(footnotesDirectiveHTMLNode) {
   const footnotesDirectiveHTMLTransform = FootnotesDirectiveHTMLTransform.fromFootnotesDirectiveHTMLNode(footnotesDirectiveHTMLNode);
 
@@ -275,13 +285,19 @@ function lineHTMLTransformsFromFootnoteHTMLTransforms(footnoteHTMLTransforms) {
   return lineHTMLTransforms;
 }
 
-function footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms) {
-  const footnoteItemHTMLTransforms = lineHTMLTransforms.map((lineHTMLTransform) => {
-    const identifier = null,
-          footnoteItemHTMLTransform = FootnoteItemHTMLTransform.fromLineTMLTransformAndIdentifier(lineHTMLTransform, identifier);
+function footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms, identifierMap, start) {
+  const numbers = Object.values(identifierMap),
+        identifiers = Object.keys(identifierMap),
+        footnoteItemHTMLTransforms = lineHTMLTransforms.map((lineHTMLTransform, index) => {
+          const number = start + index;
 
-    return footnoteItemHTMLTransform;
-  });
+          index = numbers.indexOf(number);
+
+          const identifier = identifiers[index],
+                footnoteItemHTMLTransform = FootnoteItemHTMLTransform.fromLineTMLTransformAndIdentifier(lineHTMLTransform, identifier);
+
+          return footnoteItemHTMLTransform;
+        });
 
   return footnoteItemHTMLTransforms;
 }
