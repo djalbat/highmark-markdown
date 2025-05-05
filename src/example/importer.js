@@ -77,7 +77,7 @@ Constructor.
 
       gettingStartedContent = `# Getting started
       
-Another short paragraph with a reference to a footnote[^occam].
+A short paragraph with a reference to a footnote[^occam].
 
 [^occam]: The word Occam is used somewhat nebulously here.
 It is most often associated with Occam's IDE but in fact it encompasses a range of software and services.
@@ -85,13 +85,15 @@ This book explains these divers parts and there is a companion book, called The 
 
 @footnotes
 
-@embed ${INSTALLING_THE_CLI_PATH}
-@embed ${GETTING_TO_GRIPS_WITH_THE_IDE_PATH}
+@include ${INSTALLING_THE_CLI_PATH}
+@include ${GETTING_TO_GRIPS_WITH_THE_IDE_PATH}
 
 @pageNumber
 `,
 
       installingTheCLIContent = `## Installing the CLI
+
+@pageNumber
 `,
 
       gettingToGripsWithTheIDEIContent = `## Getting to grips with the IDE
@@ -102,6 +104,7 @@ This book explains these divers parts and there is a companion book, called The 
 1. As well as an...
 2. ...ordered list.
       
+@pageNumber
 `;
 
 const contentMap = {

@@ -88,7 +88,9 @@ quaternaryHeading {
   }
 }
 
-paragraph {
+paragraph,
+orderedItem,
+unorderedItem {
   text-align: justify;
 }
 
