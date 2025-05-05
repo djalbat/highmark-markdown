@@ -13,7 +13,12 @@ import FootnotesDirectiveHTMLTransform from "../transform/html/directive/footnot
 import PageNumberDirectiveHTMLTransform from "../transform/html/directive/pageNumber";
 
 import { DEFAULT_MAXIMUM_PAGE_LINES } from "../constants";
-import { htmlNodesFromNode, nestedFootnoteLinkHTMLNodesFromNode, pageNumberDirectiveHTMLNodeFromNode } from "../utilities/html";
+import { htmlNodesFromNode,
+         footnoteHTMLNodesFromNode,
+         footnoteLinkHTMLNodesFromNode,
+         footnotesDirectiveHTMLNodeFromNode,
+         nestedFootnoteLinkHTMLNodesFromNode,
+         pageNumberDirectiveHTMLNodeFromNode } from "../utilities/html";
 
 const { backwardsForEach } = arrayUtilities;
 
@@ -61,8 +66,29 @@ export function removeHTMLNodes(node) {
   return htmlNodes;
 }
 
-export function removeFootnoteHTMLNodes(footnoteHTMLNodes) {
-  const footnoteHTMLTransforms = footnoteHTMLTransformsFromFootnoteHTMLNodes(footnoteHTMLNodes);
+export function addFootnoteHTMLNodes(footnoteHTMLTransforms, node, context) {
+  const footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node),
+        footnoteLinkHTMLTransforms = footnoteLinkHTMLTransformsFromFootnoteLinkHTMLNodes(footnoteLinkHTMLNodes);
+
+  backwardsForEach(footnoteLinkHTMLTransforms, (footnoteLinkHTMLTransform) => {
+    const identifier = footnoteLinkHTMLTransform.identifier(context),
+          footnoteHTMLTransform = footnoteHTMLTransforms.find((footnoteHTMLTransform) => {
+            const identifierMatches = footnoteHTMLTransform.matchIdentifier(identifier, context);
+
+            if (identifierMatches) {
+              return true;
+            }
+          }) || null;
+
+    if (footnoteHTMLTransform !== null) {
+      footnoteHTMLTransform.addAfterFootnoteLinkHTMLTransform(footnoteLinkHTMLTransform);
+    }
+  });
+}
+
+export function removeFootnoteHTMLNodes(node) {
+  const footnoteHTMLNodes = footnoteHTMLNodesFromNode(node),
+        footnoteHTMLTransforms = footnoteHTMLTransformsFromFootnoteHTMLNodes(footnoteHTMLNodes);
 
   footnoteHTMLTransforms.forEach((footnoteHTMLTransform) => {
     footnoteHTMLTransform.remove();
@@ -114,32 +140,14 @@ export function paginateGroupedHTMLNodes(groupedHTMLNodesArray, context) {
   return paginatedHTMLNodesArray;
 }
 
-export function reorderFootnoteHTMLNodes(footnoteLinkHTMLNodes, footnoteHTMLTransforms, context) {
-  const footnoteLinkHTMLTransforms = footnoteLinkHTMLTransformsFromFootnoteLinkHTMLNodes(footnoteLinkHTMLNodes);
-
-  backwardsForEach(footnoteLinkHTMLTransforms, (footnoteLinkHTMLTransform) => {
-    const identifier = footnoteLinkHTMLTransform.identifier(context),
-          footnoteHTMLTransform = footnoteHTMLTransforms.find((footnoteHTMLTransform) => {
-            const identifierMatches = footnoteHTMLTransform.matchIdentifier(identifier, context);
-
-            if (identifierMatches) {
-              return true;
-            }
-          }) || null;
-
-    if (footnoteHTMLTransform !== null) {
-      footnoteHTMLTransform.addAfterFootnoteLinkHTMLTransform(footnoteLinkHTMLTransform);
-    }
-  });
-}
-
-export function numberFootnoteLinkHTMLNodes(footnoteHTMLNodes, footnoteLinkHTMLNodes, identifierMap, context) {
-  const identifiers = Object.keys(identifierMap),
+export function numberFootnoteLinkHTMLNodes(footnoteHTMLTransforms, identifierMap, node, context) {
+  const footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node),
+        identifiers = Object.keys(identifierMap),
         identifiersLength = identifiers.length,
         start = identifiersLength + 1;
 
-  footnoteHTMLNodes.forEach((footnoteHTMLNode, index) => {
-    const identifier = footnoteHTMLNode.identifier(context),
+  footnoteHTMLTransforms.forEach((footnoteHTMLTransform, index) => {
+    const identifier = footnoteHTMLTransform.identifier(context),
           number = start + index;
 
     identifierMap[identifier] = number;
@@ -155,26 +163,30 @@ export function numberFootnoteLinkHTMLNodes(footnoteHTMLNodes, footnoteLinkHTMLN
   return start;
 }
 
-export function removeFootnotesDirectiveHTMLNode(footnotesDirectiveHTMLNode) {
-  const footnotesDirectiveHTMLTransform = FootnotesDirectiveHTMLTransform.fromFootnotesDirectiveHTMLNode(footnotesDirectiveHTMLNode);
+export function removeFootnotesDirectiveHTMLNode(node) {
+  const footnotesDirectiveHTMLNode = footnotesDirectiveHTMLNodeFromNode(node);
 
-  footnotesDirectiveHTMLTransform.remove();
+  if (footnotesDirectiveHTMLNode !== null) {
+    const footnotesDirectiveHTMLTransform = FootnotesDirectiveHTMLTransform.fromFootnotesDirectiveHTMLNode(footnotesDirectiveHTMLNode);
+
+    footnotesDirectiveHTMLTransform.remove();
+  }
+
+  return footnotesDirectiveHTMLNode;
 }
 
 export function removePageNumberDirectiveHTMLNode(node) {
-  let pageNumbers = false;
+  let pageNumberDirectiveHTNLTransform = null;
 
   const pageNumberDirectiveHTMLNode = pageNumberDirectiveHTMLNodeFromNode(node);
 
   if (pageNumberDirectiveHTMLNode !== null) {
-    const pageNumberDirectiveHTNLTransform = PageNumberDirectiveHTMLTransform.fromPageNumberDirectiveHTMLNode(pageNumberDirectiveHTMLNode);
+    pageNumberDirectiveHTNLTransform = PageNumberDirectiveHTMLTransform.fromPageNumberDirectiveHTMLNode(pageNumberDirectiveHTMLNode);
 
     pageNumberDirectiveHTNLTransform.remove();
-
-    pageNumbers = true;
   }
 
-  return pageNumbers;
+  return pageNumberDirectiveHTNLTransform;
 }
 
 export function removeNestedFootnoteLinkHTMLNodes(node) {

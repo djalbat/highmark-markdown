@@ -3,6 +3,13 @@
 import HTMLTransform from "../../transform/html"
 
 export default class FootnoteHTMLTransform extends HTMLTransform {
+  identifier(context) {
+    const footnoteHTMLNode = this.getFootnoteHTMLNode(),
+          identifier = footnoteHTMLNode.identifier(context);
+
+    return identifier;
+  }
+
   getLineHTMLNode() {
     const paragraphHTMLNode = this.getParagraphHTMLNode(),
           lineHTMLNode = paragraphHTMLNode.fromFirstChildNode((firstChildNode) => {
@@ -30,13 +37,6 @@ export default class FootnoteHTMLTransform extends HTMLTransform {
           });
 
     return paragraphHTMLNode;
-  }
-
-  identifier(context) {
-    const footnoteHTMLNode = this.getFootnoteHTMLNode(),
-          identifier = footnoteHTMLNode.identifier(context);
-
-    return identifier;
   }
 
   matchIdentifier(identifier, context) {

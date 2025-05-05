@@ -2,12 +2,19 @@
 
 import HTMLNode from "../../node/html";
 import DivisionHTMLTransform from "../../transform/html/division";
+import ContentsDirectiveHTMLTransform from "../../transform/html/directive/contents";
 
 import { HTML_RULE_NAME } from "../../ruleNames";
-import { divisionHTMLNodesFromNode } from "../../utilities/html";
+import { divisionHTMLNodesFromNode, contentsDirectiveHTMLNodeFromNode } from "../../utilities/html";
 
 export default class TopmostHTMLNode extends HTMLNode {
   resolve(context) {
+    this.paginate(context);
+
+    this.addContents(context);
+  }
+
+  paginate(context) {
     let divisionHTMLNodes,
         divisionHTMLTransforms;
 
@@ -17,13 +24,21 @@ export default class TopmostHTMLNode extends HTMLNode {
 
     divisionHTMLNodes = [];
 
-    let pageNumber = 1;
+    let pageNumber;
+
+    pageNumber = 1;
+
+    Object.assign(context, {
+      pageNumber
+    });
 
     divisionHTMLTransforms.forEach((divisionHTMLTransform) => {
       divisionHTMLTransform.remove();
 
-      pageNumber = divisionHTMLTransform.resolve(divisionHTMLNodes, pageNumber, context);
+      divisionHTMLTransform.resolve(divisionHTMLNodes, context);
     });
+
+    delete context.pageNumber;
 
     divisionHTMLTransforms = divisionHTMLTransformsFromDivisionHTMLNodes(divisionHTMLNodes);
 
@@ -32,6 +47,12 @@ export default class TopmostHTMLNode extends HTMLNode {
     divisionHTMLTransforms.forEach((divisionHTMLTransform) => {
       divisionHTMLTransform.appendToTopmostHTMLNode(topmostHTMLNode);
     });
+  }
+
+  addContents(context) {
+    const node = this;  ///
+
+
   }
 
   adjustIndent(indent) {
@@ -73,4 +94,16 @@ function divisionHTMLTransformsFromDivisionHTMLNodes(divisionHTMLNodes) {
   });
 
   return divisionHTMLTransforms;
+}
+
+export function removeContentsDirectiveHTMLNode(node) {
+  let contentsDirectiveHTMLTransform = null;
+
+  const contentsDirectiveHTMLNode = contentsDirectiveHTMLNodeFromNode(node);
+
+  if (contentsDirectiveHTMLNode !== null) {
+    contentsDirectiveHTMLTransform = ContentsDirectiveHTMLTransform.fromContentsDirectiveHTMLNode(contentsDirectiveHTMLNode);
+  }
+
+  return contentsDirectiveHTMLTransform;
 }

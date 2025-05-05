@@ -5,19 +5,17 @@ import PageNumberHTMLTransform from "../../transform/html/pageNumber";
 import FootnotesListHTMLTransform from "../../transform/html/footnotesList";
 
 import { DIVISION_RULE_NAME } from "../../ruleNames";
-import { footnoteHTMLNodesFromNode, footnoteLinkHTMLNodesFromNode, footnotesDirectiveHTMLNodeFromNode } from "../../utilities/html";
 import { groupHTMLNodes,
          removeHTMLNodes,
+         addFootnoteHTMLNodes,
          removeFootnoteHTMLNodes,
          paginateGroupedHTMLNodes,
-         reorderFootnoteHTMLNodes,
          numberFootnoteLinkHTMLNodes,
          removeFootnotesDirectiveHTMLNode,
          removePageNumberDirectiveHTMLNode,
          removeNestedFootnoteLinkHTMLNodes,
          lineHTMLTransformsFromFootnoteHTMLTransforms,
          footnoteItemHTMLTransformsFromLineHTMLTransforms } from "../../utilities/division";
-import {EMPTY_STRING} from "../../constants";
 
 export default class DivisionHTMLNode extends HTMLNode {
   constructor(outerNode, parentNode, childNodes, domElement, divisionClassName) {
@@ -42,46 +40,38 @@ export default class DivisionHTMLNode extends HTMLNode {
     return ruleNme;
   }
 
-  getFootnoteHTMLNodes() {
-    const node = this,  ///
-          footnoteHTMLNodes = footnoteHTMLNodesFromNode(node);
-
-    return footnoteHTMLNodes;
-  }
-
-  getFootnotesDirectiveHTMLNode() {
-    const node = this,  ///
-          footnotesDirectiveHTMLNode = footnotesDirectiveHTMLNodeFromNode(node)
-
-    return footnotesDirectiveHTMLNode;
-  }
-
-  resolve(divisionHTMLNodes, pageNumber, context) {
+  resolve(divisionHTMLNodes, context) {
     const node = this;
 
     removeNestedFootnoteLinkHTMLNodes(node);
 
-    const pageNumbers = removePageNumberDirectiveHTMLNode(node),
-          footnoteHTMLNodes = this.getFootnoteHTMLNodes(),
-          footnoteHTMLTransforms = removeFootnoteHTMLNodes(footnoteHTMLNodes),
-          footnotesDirectiveHTMLNode = this.getFootnotesDirectiveHTMLNode();
+    const pageNumberDirectiveHTNLTransform = removePageNumberDirectiveHTMLNode(node),
+          footnotesDirectiveHTMLNode = removeFootnotesDirectiveHTMLNode(node),
+          footnoteHTMLTransforms = removeFootnoteHTMLNodes(node);
 
     if (footnotesDirectiveHTMLNode !== null) {
-      removeFootnotesDirectiveHTMLNode(footnotesDirectiveHTMLNode);
-
-      const footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node);
-
-      reorderFootnoteHTMLNodes(footnoteLinkHTMLNodes, footnoteHTMLTransforms, context);
+      addFootnoteHTMLNodes(footnoteHTMLTransforms, node, context);
     }
 
-    const outerNode = this.getOuterNode(),
-          htmlNodes = removeHTMLNodes(node),
+    this.paginate(pageNumberDirectiveHTNLTransform, divisionHTMLNodes, context);
+  }
+
+  paginate(pageNumberDirectiveHTNLTransform, divisionHTMLNodes, context) {
+    const node = this,  ///
+          outerNode = this.getOuterNode(),
+          pageNumbers = (pageNumberDirectiveHTNLTransform !== null),
           identifierMap = {},
-          divisionClassName = outerNode.className(context),
+          divisionClassName = outerNode.className(context);
+
+    const htmlNodes = removeHTMLNodes(node),
           groupedHTMLNodesArray = groupHTMLNodes(htmlNodes),
           paginatedHTMLNodesArray = paginateGroupedHTMLNodes(groupedHTMLNodesArray, context);
 
     paginatedHTMLNodesArray.forEach((paginatedHTMLNodes) => {
+      let pageNumber;
+
+      ({ pageNumber } = context);
+
       const divisionHTMLNode = DivisionHTMLNode.fromPaginatedHTMLNodesAndDivisionClassName(paginatedHTMLNodes, divisionClassName);
 
       divisionHTMLNode.resolveFootnotes(identifierMap, context);
@@ -95,24 +85,24 @@ export default class DivisionHTMLNode extends HTMLNode {
       divisionHTMLNodes.push(divisionHTMLNode);
 
       pageNumber++;
-    });
 
-    return pageNumber;
+      Object.assign(context, {
+        pageNumber
+      });
+    });
   }
 
   resolveFootnotes(identifierMap, context) {
     const node = this,  ///
-          footnoteHTMLNodes = footnoteHTMLNodesFromNode(node),
-          footnoteHTMLTransforms = removeFootnoteHTMLNodes(footnoteHTMLNodes),
+          footnoteHTMLTransforms = removeFootnoteHTMLNodes(node),
           footnoteHTMLTransformsLength = footnoteHTMLTransforms.length;
 
     if (footnoteHTMLTransformsLength === 0) {
       return;
     }
 
-    const footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node),
-          divisionHTMLNode = node,  ///
-          start = numberFootnoteLinkHTMLNodes(footnoteHTMLNodes, footnoteLinkHTMLNodes, identifierMap, context),
+    const divisionHTMLNode = node,  ///
+          start = numberFootnoteLinkHTMLNodes(footnoteHTMLTransforms, identifierMap, node, context),
           lineHTMLTransforms = lineHTMLTransformsFromFootnoteHTMLTransforms(footnoteHTMLTransforms),
           footnoteItemHTMLTransforms = footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms, identifierMap, start),
           footnotesListHTMLTransform = FootnotesListHTMLTransform.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms);

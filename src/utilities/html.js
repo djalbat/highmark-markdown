@@ -4,7 +4,7 @@ import { Query } from "occam-query";
 
 import { nodeFromNodeAndQuery, nodesFromNodeAndQuery } from "../utilities/query";
 
-const contentsDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/contentsDirective"),
+const contentsDirectiveHTMLNodeQuery = Query.fromExpressionString("//contentsDirective"),
       footnotesDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/footnotesDirective"),
       pageNumberDirectiveHTMLNodeQuery = Query.fromExpressionString("//pageNumberDirective"),
       htmlNodesQuery = Query.fromExpressionString("/division/*"),
