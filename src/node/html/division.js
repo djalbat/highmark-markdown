@@ -17,10 +17,21 @@ import { groupHTMLNodes,
          removeNestedFootnoteLinkHTMLNodes,
          lineHTMLTransformsFromFootnoteHTMLTransforms,
          footnoteItemHTMLTransformsFromLineHTMLTransforms } from "../../utilities/division";
+import {EMPTY_STRING} from "../../constants";
 
 export default class DivisionHTMLNode extends HTMLNode {
+  constructor(outerNode, parentNode, childNodes, domElement, divisionClassName) {
+    super(outerNode, parentNode, childNodes, domElement);
+
+    this.divisionClassName = divisionClassName;
+  }
+
+  getDivisionClassName() {
+    return this.divisionClassName;
+  }
+
   className(context) {
-    const { className } = this.constructor;
+    const className = this.divisionClassName; ///
 
     return className;
   }
@@ -63,13 +74,15 @@ export default class DivisionHTMLNode extends HTMLNode {
       reorderFootnoteHTMLNodes(footnoteLinkHTMLNodes, footnoteHTMLTransforms, context);
     }
 
-    const htmlNodes = removeHTMLNodes(node),
+    const outerNode = this.getOuterNode(),
+          htmlNodes = removeHTMLNodes(node),
           identifierMap = {},
+          divisionClassName = outerNode.className(context),
           groupedHTMLNodesArray = groupHTMLNodes(htmlNodes),
           paginatedHTMLNodesArray = paginateGroupedHTMLNodes(groupedHTMLNodesArray, context);
 
     paginatedHTMLNodesArray.forEach((paginatedHTMLNodes) => {
-      const divisionHTMLNode = DivisionHTMLNode.fromPaginatedHTMLNodes(paginatedHTMLNodes);
+      const divisionHTMLNode = DivisionHTMLNode.fromPaginatedHTMLNodesAndDivisionClassName(paginatedHTMLNodes, divisionClassName);
 
       divisionHTMLNode.resolveFootnotes(identifierMap, context);
 
@@ -89,12 +102,17 @@ export default class DivisionHTMLNode extends HTMLNode {
 
   resolveFootnotes(identifierMap, context) {
     const node = this,  ///
-          divisionHTMLNode = node,  ///
           footnoteHTMLNodes = footnoteHTMLNodesFromNode(node),
-          footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node),
-          footnoteHTMLTransforms = removeFootnoteHTMLNodes(footnoteHTMLNodes);
+          footnoteHTMLTransforms = removeFootnoteHTMLNodes(footnoteHTMLNodes),
+          footnoteHTMLTransformsLength = footnoteHTMLTransforms.length;
 
-    const start = numberFootnoteLinkHTMLNodes(footnoteHTMLNodes, footnoteLinkHTMLNodes, identifierMap, context),
+    if (footnoteHTMLTransformsLength === 0) {
+      return;
+    }
+
+    const footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node),
+          divisionHTMLNode = node,  ///
+          start = numberFootnoteLinkHTMLNodes(footnoteHTMLNodes, footnoteLinkHTMLNodes, identifierMap, context),
           lineHTMLTransforms = lineHTMLTransformsFromFootnoteHTMLTransforms(footnoteHTMLTransforms),
           footnoteItemHTMLTransforms = footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms, identifierMap, start),
           footnotesListHTMLTransform = FootnotesListHTMLTransform.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms);
@@ -110,15 +128,23 @@ export default class DivisionHTMLNode extends HTMLNode {
 
   static tagName = "div";
 
-  static className = null;
+  static fromNothing() {
+    const divisionClassName = null,
+          divisionHTMLNode = HTMLNode.fromNothing(DivisionHTMLNode, divisionClassName);
 
-  static fromNothing() { return HTMLNode.fromNothing(DivisionHTMLNode); }
+    return divisionHTMLNode;
+  }
 
-  static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(DivisionHTMLNode, outerNode); }
+  static fromOuterNode(outerNode) {
+    const divisionClassName = null,
+          divisionHTMLNode = HTMLNode.fromOuterNode(DivisionHTMLNode, outerNode, divisionClassName);
 
-  static fromPaginatedHTMLNodes(paginatedHTMLNodes) {
+    return divisionHTMLNode;
+  }
+
+  static fromPaginatedHTMLNodesAndDivisionClassName(paginatedHTMLNodes, divisionClassName) {
     const childNodes = paginatedHTMLNodes,  ///
-          divisionHTMLNode = HTMLNode.fromChildNodes(DivisionHTMLNode, childNodes);
+          divisionHTMLNode = HTMLNode.fromChildNodes(DivisionHTMLNode, childNodes, divisionClassName);
 
     return divisionHTMLNode;
   }
