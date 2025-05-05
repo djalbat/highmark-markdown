@@ -2,6 +2,7 @@
 
 import HTMLNode from "../../node/html";
 
+import { EMPTY_STRING } from "../../constants";
 import { PAGE_NUMBER_RULE_NAME } from "../../ruleNames";
 
 export default class PageNumberHTMLNode extends HTMLNode {
@@ -16,9 +17,20 @@ export default class PageNumberHTMLNode extends HTMLNode {
   }
 
   mount(parentDOMElement, siblingDOMElement, context) {
-    const content = this.pageNumber,
-          textNode = document.createTextNode(content),
-          domElement = textNode;  ///
+    super.mount(parentDOMElement, siblingDOMElement, context);
+
+    let domElement;
+
+    domElement = this.getDOMElement();
+
+    parentDOMElement = domElement;  ///
+
+    siblingDOMElement = null;
+
+    const content = this.pageNumber,  ///
+          textNode = document.createTextNode(content);
+
+    domElement = textNode;  ///
 
     parentDOMElement.insertBefore(domElement, siblingDOMElement);
   }
@@ -36,6 +48,14 @@ export default class PageNumberHTMLNode extends HTMLNode {
 
       parentDOMElement.removeChild(domElement);
     }
+
+    super.unmount(parentDOMElement, context);
+  }
+
+  asPlainText(context) {
+    const plainText = EMPTY_STRING;
+
+    return plainText;
   }
 
   childNodesAsHTML(indent, context) {
