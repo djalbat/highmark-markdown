@@ -320,11 +320,7 @@ class View extends Element {
 
   static initialMarkdown = initialMarkdown;
 
-  static initialMarkdownStyle = `width: 100%;
-height: 100%;
-font-size: 2rem;
-text-align: left;  
-`;
+  static initialMarkdownStyle = ``;
 
   static tagName = "div";
 

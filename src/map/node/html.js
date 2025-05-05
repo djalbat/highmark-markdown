@@ -19,6 +19,7 @@ import EmailLinkHTMLNode from "../../node/html/link/email";
 import BlockLineHTMLNode from "../../node/html/blockLine";
 import PlainTextHTMLNode from "../../node/html/text/plain";
 import BlockTextHTMLNode from "../../node/html/text/block";
+import PageNumberHTMLNode from "../../node/html/pageNumber";
 import StrongTextHTMLNode from "../../node/html/text/strong";
 import InlineTextHTMLNode from "../../node/html/text/inline";
 import OrderedItemHTMLNode from "../../node/html/item/ordered";
@@ -66,6 +67,7 @@ import { HTML_RULE_NAME,
          BLOCK_LINE_RULE_NAME,
          PLAIN_TEXT_RULE_NAME,
          BLOCK_TEXT_RULE_NAME,
+         PAGE_NUMBER_RULE_NAME,
          STRONG_TEXT_RULE_NAME,
          INLINE_TEXT_RULE_NAME,
          ORDERED_ITEM_RULE_NAME,
@@ -114,6 +116,7 @@ const htmlNodeMap = {
   [BLOCK_LINE_RULE_NAME]: BlockLineHTMLNode,
   [PLAIN_TEXT_RULE_NAME]: PlainTextHTMLNode,
   [BLOCK_TEXT_RULE_NAME]: BlockTextHTMLNode,
+  [PAGE_NUMBER_RULE_NAME]: PageNumberHTMLNode,
   [STRONG_TEXT_RULE_NAME]: StrongTextHTMLNode,
   [INLINE_TEXT_RULE_NAME]: InlineTextHTMLNode,
   [ORDERED_ITEM_RULE_NAME]: OrderedItemHTMLNode,
