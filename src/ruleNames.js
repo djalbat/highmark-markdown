@@ -69,7 +69,7 @@ export const FOOTNOTES_DIRECTIVE_RULE_NAME = "footnotesDirective";
 export const PAGE_NUMBER_DIRECTIVE_RULE_NAME = "pageNumberDirective";
 export const STRONGLY_EMPHASISED_TEXT_RULE_NAME = "stronglyEmphasisedText";
 
-const ruleNames = {
+const ruleNames = [
   HTML_RULE_NAME,
   LINE_RULE_NAME,
   PATH_RULE_NAME,
@@ -137,6 +137,6 @@ const ruleNames = {
   FOOTNOTES_DIRECTIVE_RULE_NAME,
   PAGE_NUMBER_DIRECTIVE_RULE_NAME,
   STRONGLY_EMPHASISED_TEXT_RULE_NAME
-};
+];
 
 export default ruleNames;

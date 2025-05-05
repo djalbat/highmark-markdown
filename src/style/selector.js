@@ -16,8 +16,7 @@ const { STRONG_TEXT_RULE_NAME,
         UNORDERED_LIST_RULE_NAME,
         STRONGLY_EMPHASISED_TEXT_RULE_NAME } = ruleNames;
 
-const ruleNameValues = Object.values(ruleNames),
-      ruleNameTerminalNodeQuery = nodeQuery("/selector/@rule-name");
+const ruleNameTerminalNodeQuery = nodeQuery("/selector/@rule-name");
 
 export default class Selector {
   constructor(content, whitespace) {
@@ -69,9 +68,9 @@ function contentFromNodeAndTokens(node, tokens) {
     } else {
       content = EMPTY_STRING;
 
-      const ruleNameValuesIncludesRuleName = ruleNameValues.includes(ruleName);
+      const ruleNamesIncludesRuleName = ruleNames.includes(ruleName);
 
-      if (ruleNameValuesIncludesRuleName) {
+      if (ruleNamesIncludesRuleName) {
         const tagName = tagNameMap[ruleName];
 
         if (tagName !== null) {
