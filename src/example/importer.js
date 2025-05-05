@@ -64,7 +64,8 @@ const indexContent = `## Index
 
       frontMatterContent = `@ignore
 
-@include ${HALF_TITLE_PATH}`,
+@include ${HALF_TITLE_PATH}
+@include ${CONTENTS_PATH}`,
 
       introductionContent = `# Introduction
       
