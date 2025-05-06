@@ -6,9 +6,9 @@ import HTMLTransform from "../transform/html";
 import FootnoteHTMLNode from "../node/html/footnote";
 import LineHTMLTransform from "../transform/html/line";
 import FootnoteHTMLTransform from "../transform/html/footnote";
-import FootnoteItemHTMLTransform from "../transform/html/footnoteItem";
-import FootnoteLinkHTMLTransform from "../transform/html/footnoteLink";
-import NestedFootnoteLinkHTMLTransform from "../transform/html/nestedFootnoteLink";
+import FootnoteItemHTMLTransform from "../transform/html/item/footnote";
+import FootnoteLinkHTMLTransform from "../transform/html/link/footnote";
+import NestedFootnoteLinkHTMLTransform from "../transform/html/link/nestedFootnote";
 import FootnotesDirectiveHTMLTransform from "../transform/html/directive/footnotes";
 import PageNumberDirectiveHTMLTransform from "../transform/html/directive/pageNumber";
 

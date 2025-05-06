@@ -1,6 +1,6 @@
 "use strict";
 
-import HTMLTransform from "../../transform/html"
+import HTMLTransform from "../../../transform/html"
 
 export default class NestedFootnoteLinkHTMLTransform extends HTMLTransform {
   static fromNestedFootnoteLinkHTMLNode(nestedFootnoteLinkHTMLNode) {

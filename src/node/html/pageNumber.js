@@ -16,6 +16,12 @@ export default class PageNumberHTMLNode extends HTMLNode {
     return this.pageNumber;
   }
 
+  getRuleName() {
+    const ruleName = PAGE_NUMBER_RULE_NAME;
+
+    return ruleName;
+  }
+
   mount(parentDOMElement, siblingDOMElement, context) {
     super.mount(parentDOMElement, siblingDOMElement, context);
 
@@ -66,7 +72,8 @@ export default class PageNumberHTMLNode extends HTMLNode {
   }
 
   asString() {
-    const string = PAGE_NUMBER_RULE_NAME;
+    const ruleName = this.getRuleName(),
+          string = ruleName;  ///
 
     return string;
   }

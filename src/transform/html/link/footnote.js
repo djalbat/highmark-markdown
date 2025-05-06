@@ -1,7 +1,7 @@
 "use strict";
 
-import HTMLTransform from "../../transform/html"
-import DivisionHTMLNode from "../../node/html/division";
+import HTMLTransform from "../../../transform/html"
+import DivisionHTMLNode from "../../../node/html/division";
 
 export default class FootnoteLinkHTMLTransform extends HTMLTransform {
   getDivisionHTMLNode() {

@@ -18,6 +18,12 @@ export default class AnchorHTMLNode extends HTMLNode {
     return this.identifier;
   }
 
+  getRuleName() {
+    const ruleName = ANCHOR_RULE_NAME;  ///
+
+    return ruleName;
+  }
+
   content(context) {
     const content = EMPTY_STRING;
 
@@ -39,7 +45,8 @@ export default class AnchorHTMLNode extends HTMLNode {
   }
 
   asString() {
-    const string = ANCHOR_RULE_NAME;  ///
+    const ruleName = this.getRuleName(),
+          string = ruleName;  ///
 
     return string;
   }

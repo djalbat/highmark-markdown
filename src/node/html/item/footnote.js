@@ -6,8 +6,15 @@ import AnchorHTMLNode from "../../../node/html/anchor";
 import { FOOTNOTE_ITEM_RULE_NAME } from "../../../ruleNames";
 
 export default class FootnoteItemHTMLNode extends HTMLNode {
+  getRuleName() {
+    const ruleName = FOOTNOTE_ITEM_RULE_NAME; ///
+
+    return ruleName;
+  }
+
   asString() {
-    const string = FOOTNOTE_ITEM_RULE_NAME; ///
+    const ruleName = this.getRuleName(),
+          string = ruleName;  ///
 
     return string;
   }

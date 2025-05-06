@@ -1,7 +1,7 @@
 "use strict";
 
-import HTMLTransform from "../../transform/html"
-import FootnoteItemHTMLNode from "../../node/html/item/footnote";
+import HTMLTransform from "../../../transform/html"
+import FootnoteItemHTMLNode from "../../../node/html/item/footnote";
 
 export default class FootnoteItemHTMLTransform extends HTMLTransform {
   getFootnoteItemHTMLNode() {

@@ -50,9 +50,14 @@ export default class TopmostHTMLNode extends HTMLNode {
   }
 
   addContents(context) {
-    const node = this;  ///
+    const node = this,  ///
+          contentsDirectiveHTMLTransform = removeContentsDirectiveHTMLNode(node);
 
+    if (contentsDirectiveHTMLTransform === null) {
+      return;
+    }
 
+    ///
   }
 
   adjustIndent(indent) {

@@ -1,7 +1,7 @@
 "use strict";
 
-import HTMLTransform from "../../transform/html";
-import FootnotesListHTMLNode from "../../node/html/list/footnotes";
+import HTMLTransform from "../../../transform/html";
+import FootnotesListHTMLNode from "../../../node/html/list/footnotes";
 
 export default class FootnotesListHTMLTransform extends HTMLTransform {
   appendToDivisionHTMLNode(divisionHTMLNode) {

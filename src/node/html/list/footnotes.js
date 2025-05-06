@@ -16,6 +16,12 @@ export default class FootnotesListHTMLNode extends HTMLNode {
     return this.start;
   }
 
+  getRuleName() {
+    const ruleName = FOOTNOTES_LIST_RULE_NAME;
+
+    return ruleName;
+  }
+
   attributeName(context) {
     const attributeName = START_ATTRIBUTE_NAME;
 
@@ -29,7 +35,8 @@ export default class FootnotesListHTMLNode extends HTMLNode {
   }
 
   asString() {
-    const string = FOOTNOTES_LIST_RULE_NAME;  ///
+    const ruleName = this.getRuleName(),
+          string = ruleName;  ///
 
     return string;
   }

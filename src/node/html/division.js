@@ -2,7 +2,7 @@
 
 import HTMLNode from "../../node/html";
 import PageNumberHTMLTransform from "../../transform/html/pageNumber";
-import FootnotesListHTMLTransform from "../../transform/html/footnotesList";
+import FootnotesListHTMLTransform from "../../transform/html/list/footnotes";
 
 import { DIVISION_RULE_NAME } from "../../ruleNames";
 import { groupHTMLNodes,
@@ -111,7 +111,8 @@ export default class DivisionHTMLNode extends HTMLNode {
   }
 
   asString() {
-    const string = DIVISION_RULE_NAME; ///
+    const ruleName = this.getRuleName(),
+          string = ruleName;  ///
 
     return string;
   }
