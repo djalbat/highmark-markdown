@@ -3,6 +3,8 @@
 import HeadingHTMLNode from "../../../node/html/heading";
 
 export default class TertiaryHeadingHTMLNode extends HeadingHTMLNode {
+  static depth = 3;
+
   static lines = 2.25;
 
   static tagName = "h3";

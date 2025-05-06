@@ -4,11 +4,11 @@ import { arrayUtilities } from "necessary";
 
 const { first, last } = arrayUtilities;
 
-export function nestNodes(nodes) {
+export function nestHTMLNodes(htmlNodes) {
   const nestedNodesStack = NestedNodeStack.fromNothing();
 
-  nodes.forEach((node) => {
-    const depth = node.getDepth();
+  htmlNodes.forEach((htmlNode) => {
+    const depth = htmlNode.depth();
 
     let nestedNodesStackDepth = nestedNodesStack.getDepth()
 
@@ -20,7 +20,7 @@ export function nestNodes(nodes) {
       nestedNodesStackDepth = nestedNodesStack.decrement();
     }
 
-    const nestedNode = NestedNode.fromNode(node);
+    const nestedNode = NestedNode.fromHTMLNode(htmlNode);
 
     nestedNodesStack.addNestedNode(nestedNode);
   });
@@ -31,13 +31,13 @@ export function nestNodes(nodes) {
 }
 
 class NestedNode {
-  constructor(node, childNestedNodes) {
-    this.node = node;
+  constructor(htmlNode, childNestedNodes) {
+    this.htmlNode = htmlNode;
     this.childNestedNodes = childNestedNodes;
   }
 
-  getNode() {
-    return this.node;
+  getHTMLNode() {
+    return this.htmlNode;
   }
 
   getChildNestedNodes() {
@@ -50,17 +50,17 @@ class NestedNode {
     this.childNestedNodes.push(childNestedNode);
   }
 
-  static fromNode(node) {
+  static fromHTMLNode(htmlNode) {
     const childNestedNodes = [],
-          nestedNode = new NestedNode(node, childNestedNodes);
+          nestedNode = new NestedNode(htmlNode, childNestedNodes);
 
     return nestedNode;
   }
 
   static fromNothing() {
-    const node = null,
+    const htmlNode = null,
           childNestedNodes = [],
-          nestedNode = new NestedNode(node, childNestedNodes);
+          nestedNode = new NestedNode(htmlNode, childNestedNodes);
 
     return nestedNode;
   }

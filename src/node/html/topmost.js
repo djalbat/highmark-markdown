@@ -2,6 +2,7 @@
 
 import HTMLNode from "../../node/html";
 import DivisionHTMLTransform from "../../transform/html/division";
+import ContentsListHTMLTransform from "../../transform/html/list/contents";
 import ContentsDirectiveHTMLTransform from "../../transform/html/directive/contents";
 
 import { HTML_RULE_NAME } from "../../ruleNames";
@@ -56,6 +57,9 @@ export default class TopmostHTMLNode extends HTMLNode {
     if (contentsDirectiveHTMLTransform === null) {
       return;
     }
+
+    const topmostHTMLNOde = this, ///
+          contentsListHTMLTransform = ContentsListHTMLTransform.fromTopmostHTMLNode(topmostHTMLNOde, context);
 
     ///
   }

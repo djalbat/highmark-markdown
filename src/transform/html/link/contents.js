@@ -2,7 +2,7 @@
 
 import HTMLTransform from "../../../transform/html";
 import LineHTMLTransform from "../../../transform/html/line";
-import ContentsLinkMarkdownNode from "../node/markdown/link/contents";
+import ContentsLinkMarkdownNode from "../../../node/html/link/contents";
 
 export default class ContentsLinkHTMLTransform extends HTMLTransform {
   static fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context) {

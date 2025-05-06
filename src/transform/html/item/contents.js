@@ -1,46 +1,46 @@
 "use strict";
 
 import HTMLTransform from "../../../transform/html";
-import ContentsItemMarkdownNode from "../../../node/markdown/item/contents";
+import ContentsItemHTMLNode from "../../../node/html/item/contents";
 import ContentsLinkHTMLTransform from "../../../transform/html/link/contents";
 
 export default class ContentsItemHTMLTransform extends HTMLTransform {
-  getContentsItemMarkdownNode() {
+  getContentsItemHTMLNode() {
     const node = this.getNode(),
-          contentsItemMarkdownNode = node;  ///
+          contentsItemHTMLNode = node;  ///
 
-    return contentsItemMarkdownNode;
+    return contentsItemHTMLNode;
   }
 
-  static fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context) {
+  static fromNestedHeadingHTMLNode(nestedHeadingHTMLNode, context) {
     const transforms = [],
-          contentsLinkHTMLTransform = ContentsLinkHTMLTransform.fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context);
+          contentsLinkHTMLTransform = ContentsLinkHTMLTransform.fromNestedHeadingHTMLNode(nestedHeadingHTMLNode, context);
 
     if (contentsLinkHTMLTransform !== null) {
-      const node = nestedHeadingMarkdownNode.getNode(),
-            headingMarkdownNode = node;  ///
+      const node = nestedHeadingHTMLNode.getNode(),
+            headingHTMLNode = node;  ///
 
-      headingMarkdownNode.addAnchor(context);
+      headingHTMLNode.addAnchor(context);
 
       const transform = contentsLinkHTMLTransform;
 
       transforms.push(transform);
     }
 
-    const childNestedNodes = nestedHeadingMarkdownNode.getChildNestedNodes(),
-          nestedHeadingMarkdownNodes = childNestedNodes,  ///
-          nestedHeadingMarkdownNodesLength = nestedHeadingMarkdownNodes.length;
+    const childNestedNodes = nestedHeadingHTMLNode.getChildNestedNodes(),
+          nestedHeadingHTMLNodes = childNestedNodes,  ///
+          nestedHeadingHTMLNodesLength = nestedHeadingHTMLNodes.length;
 
-    if (nestedHeadingMarkdownNodesLength > 0) {
+    if (nestedHeadingHTMLNodesLength > 0) {
       const { ContentsListHTMLTransform } = ContentsItemHTMLTransform,
-            contentsListHTMLTransform = ContentsListHTMLTransform.fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
+            contentsListHTMLTransform = ContentsListHTMLTransform.fromNestedHeadingHTMLNodes(nestedHeadingHTMLNodes, context),
             transform = contentsListHTMLTransform; ///
 
       transforms.push(transform);
     }
 
-    const contentsItemMarkdownNode = ContentsItemMarkdownNode.fromHTMLTransforms(transforms),
-          node = contentsItemMarkdownNode,  ///
+    const contentsItemHTMLNode = ContentsItemHTMLNode.fromHTMLTransforms(transforms),
+          node = contentsItemHTMLNode,  ///
           tokens = [];
 
     transforms.forEach((transform) => {

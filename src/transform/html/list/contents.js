@@ -1,27 +1,24 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import HTMLTransform from "../../../transform/html";
-import ContentsListMarkdownNode from "../../../node/markdown/list/contents";
+import ContentsListHTMLNode from "../../../node/html/list/contents";
 import ContentsItemHTMLTransform from "../../../transform/html/item/contents";
 
-import { nestNodes } from "../../../utilities/contents";
-
-const { filter } = arrayUtilities;
+import { nestHTMLNodes } from "../../../utilities/contents";
+import { headingHTMLNodesFromNode } from "../../../utilities/html";
 
 class ContentsListHTMLTransform extends HTMLTransform {
   // replaceContentsDirectiveSubdivisionHTMLTransform(contentsDirectiveSubDivisionHTMLTransform, context) {
-  //   const subDivisionMarkdownNode = contentsDirectiveSubDivisionHTMLTransform.getSubDivisionMarkdownNode(),
-  //         replacedNode = subDivisionMarkdownNode;  ///
+  //   const subDivisionHTMLNode = contentsDirectiveSubDivisionHTMLTransform.getSubDivisionHTMLNode(),
+  //         replacedNode = subDivisionHTMLNode;  ///
   //
   //   super.replace(replacedNode, context)
   // }
 
-  static fromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context) {
-    const contentsItemHTMLTransforms = contentsItemHTMLTransformsFromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
-          contentsListMarkdownNode = ContentsListMarkdownNode.fromContentsItemHTMLTransforms(contentsItemHTMLTransforms),
-          node = contentsListMarkdownNode, ///
+  static fromNestedHeadingHTMLNodes(nestedHeadingHTMLNodes, context) {
+    const contentsItemHTMLTransforms = contentsItemHTMLTransformsFromNestedHeadingHTMLNodes(nestedHeadingHTMLNodes, context),
+          contentsListHTMLNode = ContentsListHTMLNode.fromContentsItemHTMLTransforms(contentsItemHTMLTransforms),
+          node = contentsListHTMLNode, ///
           tokens = [];
 
     contentsItemHTMLTransforms.forEach((contentsItemHTMLTransform) => {
@@ -33,17 +30,18 @@ class ContentsListHTMLTransform extends HTMLTransform {
     return contentsListHTMLTransform;
   }
 
-  static fromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context) {
+  static fromTopmostHTMLNode(topmostHTMLNode, context) {
     let contentsListHTMLTransform = null;
 
-    const headingMarkdownNodes = headingMarkdownNodesFromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context),
-          headingMarkdownNodesLength = headingMarkdownNodes.length;
+    const node = topmostHTMLNode, ///
+          headingHTMLNodes = headingHTMLNodesFromNode(node),
+          headingHTMLNodesLength = headingHTMLNodes.length;
 
-    if (headingMarkdownNodesLength > 0) {
-      const nestedHeadingMarkdownNodes = nestedHeadingMarkdownNodesFromHeadingMarkdownNodes(headingMarkdownNodes),
-            contentsItemHTMLTransforms = contentsItemHTMLTransformsFromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context),
-            contentsListMarkdownNode = ContentsListMarkdownNode.fromContentsItemHTMLTransforms(contentsItemHTMLTransforms),
-            node = contentsListMarkdownNode, ///
+    if (headingHTMLNodesLength > 0) {
+      const nestedHeadingHTMLNodes = nestedHeadingHTMLNodesFromHeadingHTMLNodes(headingHTMLNodes),
+            contentsItemHTMLTransforms = contentsItemHTMLTransformsFromNestedHeadingHTMLNodes(nestedHeadingHTMLNodes, context),
+            contentsListHTMLNode = ContentsListHTMLNode.fromContentsItemHTMLTransforms(contentsItemHTMLTransforms),
+            node = contentsListHTMLNode, ///
             tokens = [];
 
       contentsItemHTMLTransforms.forEach((contentsItemHTMLTransform) => {
@@ -63,47 +61,21 @@ Object.assign(ContentsItemHTMLTransform, {  ///
 
 export default ContentsListHTMLTransform;
 
-function nestedHeadingMarkdownNodesFromHeadingMarkdownNodes(headingMarkdownNodes) {
-  const nodes = headingMarkdownNodes, ///
-        nestedNode = nestNodes(nodes),
+function nestedHeadingHTMLNodesFromHeadingHTMLNodes(headingHTMLNodes) {
+  const htmlNodes = headingHTMLNodes, ///
+        nestedNode = nestHTMLNodes(htmlNodes),
         childNestedNodes = nestedNode.getChildNestedNodes(),
-        nestedHeadingMarkdownNodes = childNestedNodes;  ///
+        nestedHeadingHTMLNodes = childNestedNodes;  ///
 
-  return nestedHeadingMarkdownNodes;
+  return nestedHeadingHTMLNodes;
 }
 
-function contentsItemHTMLTransformsFromNestedHeadingMarkdownNodes(nestedHeadingMarkdownNodes, context) {
-  const contentsItemHTMLTransforms = nestedHeadingMarkdownNodes.map((nestedHeadingMarkdownNode) => {
-    const contentsItemHTMLTransform = ContentsItemHTMLTransform.fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context);
+function contentsItemHTMLTransformsFromNestedHeadingHTMLNodes(nestedHeadingHTMLNodes, context) {
+  const contentsItemHTMLTransforms = nestedHeadingHTMLNodes.map((nestedHeadingHTMLNode) => {
+    const contentsItemHTMLTransform = ContentsItemHTMLTransform.fromNestedHeadingHTMLNode(nestedHeadingHTMLNode, context);
 
     return contentsItemHTMLTransform;
   });
 
   return contentsItemHTMLTransforms;
 }
-
-function headingMarkdownNodesFromDivisionMarkdownNodesAndDivisionMarkdownNode(divisionMarkdownNodes, divisionMarkdownNode, context) {
-  const headingMarkdownNodes = [],
-        index = divisionMarkdownNodes.indexOf(divisionMarkdownNode),
-        start = index + 1;
-
-  divisionMarkdownNodes = divisionMarkdownNodes.slice(start); ///
-
-  divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-    const node = divisionMarkdownNode;  ///
-
-    headingMarkdownNodesFromNode(node, headingMarkdownNodes);
-  });
-
-  filter(headingMarkdownNodes, (headingMarkdownNode) => {
-    const { contentsDepth } = context,
-      depth = headingMarkdownNode.getDepth();
-
-    if (depth <= contentsDepth) {
-      return true;
-    }
-  });
-
-  return headingMarkdownNodes;
-}
-

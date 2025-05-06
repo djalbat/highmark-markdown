@@ -83,6 +83,12 @@ class HTMLNode extends Node {
     return tagName;
   }
 
+  depth() {
+    const { depth = null } = this.constructor;
+
+    return depth;
+  }
+
   className(context) {
     const { className } = this.constructor;
 

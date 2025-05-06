@@ -3,6 +3,8 @@
 import HeadingHTMLNode from "../../../node/html/heading";
 
 export default class QuaternaryHeadingHTMLNode extends HeadingHTMLNode {
+  static depth = 4;
+
   static lines = 2;
 
   static tagName = "h4";

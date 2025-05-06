@@ -8,6 +8,7 @@ const contentsDirectiveHTMLNodeQuery = Query.fromExpressionString("//contentsDir
       footnotesDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/footnotesDirective"),
       pageNumberDirectiveHTMLNodeQuery = Query.fromExpressionString("//pageNumberDirective"),
       htmlNodesQuery = Query.fromExpressionString("/division/*"),
+      headingHTMLNodesQuery = Query.fromExpressionString("//primaryHeading|secondaryHeading|tertiaryHeading|tertiaryHeading"),
       divisionHTMLNodesQuery = Query.fromExpressionString("/html/division"),
       footnoteHTMLNodesQuery = Query.fromExpressionString("/division/footnote"),
       footnotesHTMLNodesQuery = Query.fromExpressionString("//footnote"),
@@ -36,6 +37,12 @@ export function htmlNodesFromNode(node, htmlNodes = []) {
   nodesFromNodeAndQuery(node, htmlNodesQuery, htmlNodes);
 
   return htmlNodes;
+}
+
+export function headingHTMLNodesFromNode(node, headingHTMLNodes = []) {
+  nodesFromNodeAndQuery(node, headingHTMLNodesQuery, headingHTMLNodes);
+
+  return headingHTMLNodes;
 }
 
 export function divisionHTMLNodesFromNode(node, divisionHTMLNodes = []) {
@@ -72,79 +79,11 @@ export default {
   contentsDirectiveHTMLNodeFromNode,
   footnotesDirectiveHTMLNodeFromNode,
   pageNumberDirectiveHTMLNodeFromNode,
+  htmlNodesFromNode,
+  headingHTMLNodesFromNode,
   divisionHTMLNodesFromNode,
   footnoteHTMLNodesFromNode,
   footnotesHTMLNodesFromNode,
   footnoteLinkHTMLNodesFromNode,
   nestedFootnoteLinkHTMLNodesFromNode
 };
-
-// export function postProcess(divisionHTMLNodes, context) {
-//   const footnoteReplacementMap = prepareFootnotes(divisionHTMLNodes, context),
-//         markdownNodes = paginate(divisionHTMLNodes, context);
-//
-//   divisionHTMLNodes = divisionHTMLNodesFromHTMLNodes(markdownNodes);  ///
-//
-//   createFootnotes(divisionHTMLNodes, footnoteReplacementMap, context);
-//
-//   createContents(divisionHTMLNodes, context);
-//
-//   createIndex(divisionHTMLNodes, context);
-// }
-//
-// function paginate(divisionHTMLNodes, context) {
-//   const pageNumber = 1,
-//         markdownNOdes = [];
-//
-//   Object.assign(context, {
-//     pageNumber
-//   });
-//
-//   divisionHTMLNodes.forEach((divisionHTMLNode) => {
-//     divisionHTMLNode.paginate(markdownNOdes, context);
-//   });
-//
-//   delete context.pageNumber;
-//
-//   return markdownNOdes;
-// }
-//
-// function createIndex(divisionHTMLNodes, context) {
-//   divisionHTMLNodes.some((divisionHTMLNode) => {
-//     const indexCreated = divisionHTMLNode.createIndex(divisionHTMLNodes, context);
-//
-//     if (indexCreated) {
-//       return true;
-//     }
-//   });
-// }
-//
-// function createContents(divisionHTMLNodes, context) {
-//   divisionHTMLNodes.some((divisionHTMLNode) => {
-//     const contentsCreated = divisionHTMLNode.createContents(divisionHTMLNodes, context);
-//
-//     if (contentsCreated) {
-//       return true;
-//     }
-//   });
-// }
-//
-// function createFootnotes(divisionHTMLNodes, footnoteReplacementMap, context) {
-//   divisionHTMLNodes.forEach((divisionHTMLNode) => {
-//     divisionHTMLNode.createFootnotes(footnoteReplacementMap, context);
-//   });
-// }
-//
-// function prepareFootnotes(divisionHTMLNodes, context) {
-//   const footnoteReplacementMap = {};
-//
-//   divisionHTMLNodes.forEach((divisionHTMLNode) => {
-//     divisionHTMLNode.prepareFootnotes(footnoteReplacementMap, context);
-//   });
-//
-//   return footnoteReplacementMap;
-// }
-//
-// export default {
-//   postProcess
-// }
