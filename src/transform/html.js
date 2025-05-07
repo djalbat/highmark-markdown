@@ -63,7 +63,7 @@ export default class HTMLTransform {
   //   return transform;
   // }
 
-  static fromHTNLNOde(Class, htmlNode) {
+  static fromHTMLNode(Class, htmlNode) {
     if (htmlNode === undefined) {
       htmlNode = Class; ///
 

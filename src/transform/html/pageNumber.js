@@ -13,7 +13,7 @@ export default class PageNumberTMLTransform extends HTMLTransform {
   static fromPageNumber(pageNumber) {
     const pageNumberHTMLNode = PageNumberHTMLNode.fromPageNumber(pageNumber),
           htmlNode = pageNumberHTMLNode, ///
-          paragraphHTMLTransform = HTMLTransform.fromHTNLNOde(PageNumberTMLTransform, htmlNode);
+          paragraphHTMLTransform = HTMLTransform.fromHTMLNode(PageNumberTMLTransform, htmlNode);
 
     return paragraphHTMLTransform;
   }

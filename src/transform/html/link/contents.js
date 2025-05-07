@@ -2,26 +2,25 @@
 
 import HTMLTransform from "../../../transform/html";
 import LineHTMLTransform from "../../../transform/html/line";
-import ContentsLinkMarkdownNode from "../../../node/html/link/contents";
+import ContentsLinkHTMLNode from "../../../node/html/link/contents";
 
 export default class ContentsLinkHTMLTransform extends HTMLTransform {
-  static fromNestedHeadingMarkdownNode(nestedHeadingMarkdownNode, context) {
-    // let contentsLinkHTMLTransform = null;
-    //
-    // const node = nestedHeadingMarkdownNode.getNode(),
-    //       headingMarkdownNode = node;  ///
-    //
-    // if (headingMarkdownNode !== null) {
-    //   const identifier = headingMarkdownNode.identifier(context),
-    //         lineMarkdownNode = headingMarkdownNode.getLineMarkdownNode(),
-    //         lineHTMLTransform = LineHTMLTransform.fromLineMarkdownNode(lineMarkdownNode, context),
-    //         contentsLinkMarkdownNode = ContentsLinkMarkdownNode.fromLineHTMLTransformAndIdentifier(lineHTMLTransform, identifier),
-    //         node = contentsLinkMarkdownNode,  ///
-    //         tokens = lineHTMLTransform.getTokens();
-    //
-    //   contentsLinkHTMLTransform = HTMLTransform.fromNodeAndTokens(ContentsLinkHTMLTransform, node, tokens);
-    // }
-    //
-    // return contentsLinkHTMLTransform;
+  static fromNestedHeadingNode(nestedHeadingNode, context) {
+    let contentsLinkHTMLTransform = null;
+
+    const htmlNode = nestedHeadingNode.getHTMLNode(),
+          headingHTMLNode = htmlNode;  ///
+
+    if (headingHTMLNode !== null) {
+      const identifier = headingHTMLNode.identifier(context),
+            lineHTMLNode = headingHTMLNode.getLineHTMLNode(),
+            lineHTMLTransform = LineHTMLTransform.fromLineHTMLNode(lineHTMLNode, context),
+            contentsLinkHTMLNode = ContentsLinkHTMLNode.fromLineHTMLTransformAndIdentifier(lineHTMLTransform, identifier),
+            htmlNode = contentsLinkHTMLNode;  ///
+
+      contentsLinkHTMLTransform = HTMLTransform.fromHTMLNode(ContentsLinkHTMLTransform, htmlNode);
+    }
+
+    return contentsLinkHTMLTransform;
   }
 }

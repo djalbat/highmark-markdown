@@ -58,7 +58,7 @@ export function removeHTMLNodes(node) {
   const htmlNodes = htmlNodesFromNode(node);
 
   htmlNodes.forEach((htmlNode) => {
-    const htmlTransform = HTMLTransform.fromHTNLNOde(htmlNode);
+    const htmlTransform = HTMLTransform.fromHTMLNode(htmlNode);
 
     htmlTransform.remove();
   });

@@ -6,7 +6,15 @@ import { CONTENTS_PREPEND } from "../../../prepends";
 import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
 
 export default class ContentsLinkHTMLNode extends HTMLNode {
-  getIdentifier() { return this.outerNode.getIdentifier(); }
+  constructor(outerNode, parentNode, childNodes, domElement, identifier) {
+    super(outerNode, parentNode, childNodes, domElement);
+
+    this.identifier = identifier;
+  }
+
+  getIdentifier() {
+    return this.identifier;
+  }
 
   attributeName(context) {
     const attributeName = HREF_ATTRIBUTE_NAME;
@@ -16,8 +24,7 @@ export default class ContentsLinkHTMLNode extends HTMLNode {
 
   attributeValue(context) {
     const prepend = CONTENTS_PREPEND,
-          identifier = this.getIdentifier(),
-          attributeValue = `#${prepend}-${identifier}`;
+          attributeValue = `#${prepend}-${this.identifier}`;
 
     return attributeValue;
   }
@@ -29,4 +36,14 @@ export default class ContentsLinkHTMLNode extends HTMLNode {
   static fromNothing() { return HTMLNode.fromNothing(ContentsLinkHTMLNode); }
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(ContentsLinkHTMLNode, outerNode); }
+
+  static fromLineHTMLTransformAndIdentifier(lineHTMLTransform, identifier) {
+    const lineHTMLNode = lineHTMLTransform.getLineHTMLNode(),
+          childNodes = [
+            lineHTMLNode
+          ],
+          contentsLinkHTMLNode = HTMLNode.fromChildNodes(ContentsLinkHTMLNode, childNodes, identifier);
+
+    return contentsLinkHTMLNode;
+  }
 }

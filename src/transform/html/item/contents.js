@@ -12,12 +12,12 @@ export default class ContentsItemHTMLTransform extends HTMLTransform {
     return contentsItemHTMLNode;
   }
 
-  static fromNestedHeadingHTMLNode(nestedHeadingHTMLNode, context) {
+  static fromNestedHeadingNode(nestedHeadingNode, context) {
     const transforms = [],
-          contentsLinkHTMLTransform = ContentsLinkHTMLTransform.fromNestedHeadingHTMLNode(nestedHeadingHTMLNode, context);
+          contentsLinkHTMLTransform = ContentsLinkHTMLTransform.fromNestedHeadingNode(nestedHeadingNode, context);
 
     if (contentsLinkHTMLTransform !== null) {
-      const node = nestedHeadingHTMLNode.getNode(),
+      const node = nestedHeadingNode.getNode(),
             headingHTMLNode = node;  ///
 
       headingHTMLNode.addAnchor(context);
@@ -27,13 +27,13 @@ export default class ContentsItemHTMLTransform extends HTMLTransform {
       transforms.push(transform);
     }
 
-    const childNestedNodes = nestedHeadingHTMLNode.getChildNestedNodes(),
-          nestedHeadingHTMLNodes = childNestedNodes,  ///
-          nestedHeadingHTMLNodesLength = nestedHeadingHTMLNodes.length;
+    const childNestedNodes = nestedHeadingNode.getChildNestedNodes(),
+          nestedHeadingNodes = childNestedNodes,  ///
+          nestedHeadingNodesLength = nestedHeadingNodes.length;
 
-    if (nestedHeadingHTMLNodesLength > 0) {
+    if (nestedHeadingNodesLength > 0) {
       const { ContentsListHTMLTransform } = ContentsItemHTMLTransform,
-            contentsListHTMLTransform = ContentsListHTMLTransform.fromNestedHeadingHTMLNodes(nestedHeadingHTMLNodes, context),
+            contentsListHTMLTransform = ContentsListHTMLTransform.fromNestedHeadingNodes(nestedHeadingNodes, context),
             transform = contentsListHTMLTransform; ///
 
       transforms.push(transform);

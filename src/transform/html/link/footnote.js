@@ -51,7 +51,7 @@ export default class FootnoteLinkHTMLTransform extends HTMLTransform {
 
   static fromFootnoteLinkHTMLNode(footnoteLinkHTMLNode) {
     const htmlNode = footnoteLinkHTMLNode,  ///
-          footnoteLinkHTMLTransform = HTMLTransform.fromHTNLNOde(FootnoteLinkHTMLTransform, htmlNode);
+          footnoteLinkHTMLTransform = HTMLTransform.fromHTMLNode(FootnoteLinkHTMLTransform, htmlNode);
 
     return footnoteLinkHTMLTransform;
   }

@@ -15,8 +15,8 @@ class ContentsListHTMLTransform extends HTMLTransform {
   //   super.replace(replacedNode, context)
   // }
 
-  static fromNestedHeadingHTMLNodes(nestedHeadingHTMLNodes, context) {
-    const contentsItemHTMLTransforms = contentsItemHTMLTransformsFromNestedHeadingHTMLNodes(nestedHeadingHTMLNodes, context),
+  static fromNestedHeadingNodes(nestedHeadingNodes, context) {
+    const contentsItemHTMLTransforms = contentsItemHTMLTransformsFromNestedHeadingNodes(nestedHeadingNodes, context),
           contentsListHTMLNode = ContentsListHTMLNode.fromContentsItemHTMLTransforms(contentsItemHTMLTransforms),
           node = contentsListHTMLNode, ///
           tokens = [];
@@ -38,8 +38,8 @@ class ContentsListHTMLTransform extends HTMLTransform {
           headingHTMLNodesLength = headingHTMLNodes.length;
 
     if (headingHTMLNodesLength > 0) {
-      const nestedHeadingHTMLNodes = nestedHeadingHTMLNodesFromHeadingHTMLNodes(headingHTMLNodes),
-            contentsItemHTMLTransforms = contentsItemHTMLTransformsFromNestedHeadingHTMLNodes(nestedHeadingHTMLNodes, context),
+      const nestedHeadingNodes = nestedHeadingNodesFromHeadingHTMLNodes(headingHTMLNodes),
+            contentsItemHTMLTransforms = contentsItemHTMLTransformsFromNestedHeadingNodes(nestedHeadingNodes, context),
             contentsListHTMLNode = ContentsListHTMLNode.fromContentsItemHTMLTransforms(contentsItemHTMLTransforms),
             node = contentsListHTMLNode, ///
             tokens = [];
@@ -61,18 +61,18 @@ Object.assign(ContentsItemHTMLTransform, {  ///
 
 export default ContentsListHTMLTransform;
 
-function nestedHeadingHTMLNodesFromHeadingHTMLNodes(headingHTMLNodes) {
+function nestedHeadingNodesFromHeadingHTMLNodes(headingHTMLNodes) {
   const htmlNodes = headingHTMLNodes, ///
         nestedNode = nestHTMLNodes(htmlNodes),
         childNestedNodes = nestedNode.getChildNestedNodes(),
-        nestedHeadingHTMLNodes = childNestedNodes;  ///
+        nestedHeadingNodes = childNestedNodes;  ///
 
-  return nestedHeadingHTMLNodes;
+  return nestedHeadingNodes;
 }
 
-function contentsItemHTMLTransformsFromNestedHeadingHTMLNodes(nestedHeadingHTMLNodes, context) {
-  const contentsItemHTMLTransforms = nestedHeadingHTMLNodes.map((nestedHeadingHTMLNode) => {
-    const contentsItemHTMLTransform = ContentsItemHTMLTransform.fromNestedHeadingHTMLNode(nestedHeadingHTMLNode, context);
+function contentsItemHTMLTransformsFromNestedHeadingNodes(nestedHeadingNodes, context) {
+  const contentsItemHTMLTransforms = nestedHeadingNodes.map((nestedHeadingNode) => {
+    const contentsItemHTMLTransform = ContentsItemHTMLTransform.fromNestedHeadingNode(nestedHeadingNode, context);
 
     return contentsItemHTMLTransform;
   });

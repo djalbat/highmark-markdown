@@ -26,7 +26,7 @@ export default class DivisionHTMLTransform extends HTMLTransform {
 
   static fromDivisionHTMLNode(divisionHTMLNode) {
     const htmlNode = divisionHTMLNode, ///
-          paragraphHTMLTransform = HTMLTransform.fromHTNLNOde(DivisionHTMLTransform, htmlNode);
+          paragraphHTMLTransform = HTMLTransform.fromHTMLNode(DivisionHTMLTransform, htmlNode);
 
     return paragraphHTMLTransform;
   }
