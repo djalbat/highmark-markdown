@@ -4,6 +4,7 @@ import HTMLNode from "../../../node/html";
 
 import { CONTENTS_PREPEND } from "../../../prepends";
 import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
+import { CONTENTS_LINK_RULE_NAME } from "../../../ruleNames";
 
 export default class ContentsLinkHTMLNode extends HTMLNode {
   constructor(outerNode, parentNode, childNodes, domElement, identifier) {
@@ -14,6 +15,12 @@ export default class ContentsLinkHTMLNode extends HTMLNode {
 
   getIdentifier() {
     return this.identifier;
+  }
+
+  getRuleName() {
+    const ruleName = CONTENTS_LINK_RULE_NAME;
+
+    return ruleName;
   }
 
   attributeName(context) {
@@ -27,6 +34,13 @@ export default class ContentsLinkHTMLNode extends HTMLNode {
           attributeValue = `#${prepend}-${this.identifier}`;
 
     return attributeValue;
+  }
+
+  asString() {
+    const ruleName = this.getRuleName(),
+          string = ruleName;  ///
+
+    return string;
   }
 
   static tagName = "a";

@@ -58,8 +58,8 @@ export default class TopmostHTMLNode extends HTMLNode {
       return;
     }
 
-    const topmostHTMLNOde = this, ///
-          contentsListHTMLTransform = ContentsListHTMLTransform.fromTopmostHTMLNode(topmostHTMLNOde, context);
+    const topmostHTMLNode = this, ///
+          contentsListHTMLTransform = ContentsListHTMLTransform.fromContentsDirectiveHTMLTransformAndTopmostHTMLNode(contentsDirectiveHTMLTransform, topmostHTMLNode, context);
 
     contentsListHTMLTransform.replaceContentsDirectiveHTMLTransform(contentsDirectiveHTMLTransform);
   }

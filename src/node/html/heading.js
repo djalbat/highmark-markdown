@@ -47,9 +47,9 @@ function identifierFromPlainText(plainText) {
 
   string = removeLeadingWhitespace(string);
 
-  string = removeNonAlphabeticCharacters(string);
-
   string = replaceSpacesWithHyphens(string);
+
+  string = removeNonAlphabeticCharacters(string);
 
   const identifier = string;  ///
 

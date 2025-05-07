@@ -10,4 +10,4 @@ export function removeTrailingWhitespace(string) { return string.replace(/[\n ]+
 
 export function replaceSpacesWithHyphens(string) { return string.replace(/ +/g, HYPHEN); }
 
-export function removeNonAlphabeticCharacters(string) { return string.replace(/[^a-z]/g, EMPTY_STRING); }
+export function removeNonAlphabeticCharacters(string) { return string.replace(/[^a-z\-]/g, EMPTY_STRING); }

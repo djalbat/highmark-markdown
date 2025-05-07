@@ -9,6 +9,20 @@ export default class HTMLTransform {
     return this.htmlNode;
   }
 
+  appendTo(parentHTMLNode) {
+    const childNode = this.htmlNode, ///
+          parentNode = parentHTMLNode;  ///
+
+    parentNode.appendChildNode(childNode);
+  }
+
+  prependTo(parentHTMLNode) {
+    const childNode = this.htmlNode, ///
+        parentNode = parentHTMLNode;  ///
+
+    parentNode.prependChildNode(childNode);
+  }
+
   addAfter(exitingHTMLNode) {
     const childNode = exitingHTMLNode,  ///
           parentNode = childNode.getParentNode(),
@@ -17,13 +31,6 @@ export default class HTMLTransform {
           addedChildNode = this.htmlNode;  ///
 
     parentNode.addChildNode(addedChildNode, startIndex);
-  }
-
-  appendTo(parentHTMLNode) {
-    const childNode = this.htmlNode, ///
-          parentNode = parentHTMLNode;  ///
-
-    parentNode.appendChildNode(childNode);
   }
 
   replace(replacedHTMLNode) {

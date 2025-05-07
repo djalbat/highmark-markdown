@@ -2,7 +2,22 @@
 
 import HTMLNode from "../../../node/html";
 
+import { CONTENTS_LIST_RULE_NAME } from "../../../ruleNames";
+
 export default class ContentsListHTMLNode extends HTMLNode {
+  getRuleName() {
+    const ruleName = CONTENTS_LIST_RULE_NAME;
+
+    return ruleName;
+  }
+
+  asString() {
+    const ruleName = this.getRuleName(),
+          string = ruleName;  ///
+
+    return string;
+  }
+
   static tagName = "ul";
 
   static className = "contents";

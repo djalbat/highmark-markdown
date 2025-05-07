@@ -1,11 +1,17 @@
 "use strict";
 
+import { nodeUtilities } from "occam-dom";
+import { arrayUtilities } from "necessary";
+
 import HTMLTransform from "../../../transform/html";
 import ContentsListHTMLNode from "../../../node/html/list/contents";
 import ContentsItemHTMLTransform from "../../../transform/html/item/contents";
 
 import { nestHTMLNodes } from "../../../utilities/contents";
 import { headingHTMLNodesFromNode } from "../../../utilities/html";
+
+const { filter } = arrayUtilities,
+      { isLessThan } = nodeUtilities;
 
 class ContentsListHTMLTransform extends HTMLTransform {
   replaceContentsDirectiveHTMLTransform(contentsDirectiveHTMLTransform) {
@@ -15,12 +21,22 @@ class ContentsListHTMLTransform extends HTMLTransform {
     super.replace(replacedHTMLNode);
   }
 
-  static fromTopmostHTMLNode(topmostHTMLNode, context) {
+  static fromContentsDirectiveHTMLTransformAndTopmostHTMLNode(contentsDirectiveHTMLTransform, topmostHTMLNode, context) {
     let contentsListHTMLTransform = null;
 
     const node = topmostHTMLNode, ///
           headingHTMLNodes = headingHTMLNodesFromNode(node),
-          headingHTMLNodesLength = headingHTMLNodes.length;
+          contentsDirectiveHTMLNode = contentsDirectiveHTMLTransform.getContentsDirectiveHTMLNode();
+
+    filter(headingHTMLNodes, (headingHTMLNode) => {
+      const contentsDirectiveHTMLNodeLessThanHeadingHTMLNode = isLessThan(contentsDirectiveHTMLNode, headingHTMLNode);
+
+      if (contentsDirectiveHTMLNodeLessThanHeadingHTMLNode) {
+        return true;
+      }
+    });
+
+    const headingHTMLNodesLength = headingHTMLNodes.length;
 
     if (headingHTMLNodesLength > 0) {
       const nestedHeadingNodes = nestedHeadingNodesFromHeadingHTMLNodes(headingHTMLNodes),
