@@ -1,12 +1,12 @@
 "use strict";
 
 export default class HTMLTransform {
-  constructor(node) {
-    this.node = node;
+  constructor(htmlNode) {
+    this.htmlNode = htmlNode;
   }
 
-  getNode() {
-    return this.node;
+  getHTMLNode() {
+    return this.htmlNode;
   }
 
   addAfter(exitingHTMLNode) {
@@ -14,20 +14,20 @@ export default class HTMLTransform {
           parentNode = childNode.getParentNode(),
           index = parentNode.indexOfChildNode(childNode),
           startIndex = index + 1,
-          addedChildNode = this.node;  ///
+          addedChildNode = this.htmlNode;  ///
 
     parentNode.addChildNode(addedChildNode, startIndex);
   }
 
   appendTo(parentHTMLNode) {
-    const childNode = this.node, ///
+    const childNode = this.htmlNode, ///
           parentNode = parentHTMLNode;  ///
 
     parentNode.appendChildNode(childNode);
   }
 
   remove() {
-    const childNode = this.node, ///
+    const childNode = this.htmlNode, ///
           parentNode = childNode.getParentNode();
 
     parentNode.removeChildNode(childNode);
@@ -40,8 +40,8 @@ export default class HTMLTransform {
       Class = HTMLTransform;  ///
     }
 
-    const node = ascendantNode, ///
-          transform = new Class(node);
+    const htmlNode = ascendantNode, ///
+          transform = new Class(htmlNode);
 
     return transform;
   }
@@ -53,12 +53,12 @@ export default class HTMLTransform {
   //     Class = Transform;  ///
   //   }
   //
-  //   const node = descendentNode,  ///
+  //   const htmlNode = descendentNode,  ///
   //     tokens = this.tokens, ///
   //     context = { ///
   //       tokens
   //     },
-  //     transform = Class.fromNode(node, ...remainingArguments, context);
+  //     transform = Class.fromNode(htmlNode, ...remainingArguments, context);
   //
   //   return transform;
   // }
@@ -70,8 +70,7 @@ export default class HTMLTransform {
       Class = HTMLTransform;  ///
     }
 
-    const node = htmlNode,  ///
-          htmlTransform = new Class(node);
+    const htmlTransform = new Class(htmlNode);
 
     return htmlTransform;
   }

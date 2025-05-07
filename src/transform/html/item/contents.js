@@ -6,25 +6,25 @@ import ContentsLinkHTMLTransform from "../../../transform/html/link/contents";
 
 export default class ContentsItemHTMLTransform extends HTMLTransform {
   getContentsItemHTMLNode() {
-    const node = this.getNode(),
-          contentsItemHTMLNode = node;  ///
+    const htmlNode = this.getHTMLNode(),
+          contentsItemHTMLNode = htmlNode;  ///
 
     return contentsItemHTMLNode;
   }
 
   static fromNestedHeadingNode(nestedHeadingNode, context) {
-    const transforms = [],
+    const htmlTransforms = [],
           contentsLinkHTMLTransform = ContentsLinkHTMLTransform.fromNestedHeadingNode(nestedHeadingNode, context);
 
     if (contentsLinkHTMLTransform !== null) {
-      const node = nestedHeadingNode.getNode(),
-            headingHTMLNode = node;  ///
+      const htmlNode = nestedHeadingNode.getHTMLNode(),
+            headingHTMLNode = htmlNode;  ///
 
-      headingHTMLNode.addAnchor(context);
+      headingHTMLNode.anchor(context);
 
-      const transform = contentsLinkHTMLTransform;
+      const htmlTransform = contentsLinkHTMLTransform;  ///
 
-      transforms.push(transform);
+      htmlTransforms.push(htmlTransform);
     }
 
     const childNestedNodes = nestedHeadingNode.getChildNestedNodes(),
@@ -34,20 +34,14 @@ export default class ContentsItemHTMLTransform extends HTMLTransform {
     if (nestedHeadingNodesLength > 0) {
       const { ContentsListHTMLTransform } = ContentsItemHTMLTransform,
             contentsListHTMLTransform = ContentsListHTMLTransform.fromNestedHeadingNodes(nestedHeadingNodes, context),
-            transform = contentsListHTMLTransform; ///
+            htmlTransform = contentsListHTMLTransform; ///
 
-      transforms.push(transform);
+      htmlTransforms.push(htmlTransform);
     }
 
-    const contentsItemHTMLNode = ContentsItemHTMLNode.fromHTMLTransforms(transforms),
-          node = contentsItemHTMLNode,  ///
-          tokens = [];
-
-    transforms.forEach((transform) => {
-      transform.getTokens(tokens);
-    });
-
-    const contentsItemHTMLTransform = HTMLTransform.fromNodeAndTokens(ContentsItemHTMLTransform, node, tokens);
+    const contentsItemHTMLNode = ContentsItemHTMLNode.fromHTMLTransforms(htmlTransforms),
+          htmlNode = contentsItemHTMLNode,  ///
+          contentsItemHTMLTransform = HTMLTransform.fromHTMLNode(ContentsItemHTMLTransform, htmlNode);
 
     return contentsItemHTMLTransform;
   }

@@ -4,15 +4,15 @@ import HTMLTransform from "../../transform/html"
 
 export default class DivisionHTMLTransform extends HTMLTransform {
   getDivisionHTMLNode() {
-    const node = this.getNode(),
-          divisionHTMLNode = node;  ///;
+    const htmlNode = this.getHTMLNode(),
+          divisionHTMLNode = htmlNode;  ///;
 
     return divisionHTMLNode;
   }
 
   appendToTopmostHTMLNode(topmostHTMLNode) {
-    const node = this.getNode(),
-          childNode = node, ///
+    const htmlNode = this.getHTMLNode(),
+          childNode = htmlNode, ///
           parentNode = topmostHTMLNode; ///
 
     parentNode.appendChildNode(childNode);

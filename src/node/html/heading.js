@@ -1,6 +1,7 @@
 "use strict";
 
 import HTMLNode from "../../node/html";
+import AnchorHTMLNode from "../../node/html/anchor";
 
 import { removeLeadingWhitespace, replaceSpacesWithHyphens, removeNonAlphabeticCharacters } from "../../utilities/string";
 
@@ -20,6 +21,14 @@ export default class HeadingHTMLNode extends HTMLNode {
           identifier = identifierFromPlainText(plainText);
 
     return identifier;
+  }
+
+  anchor(context) {
+    const identifier = this.identifier(context),
+          anchorHTMLNode = AnchorHTMLNode.fromIdentifier(identifier),
+          childNode = anchorHTMLNode; ///
+
+    this.prependChildNode(childNode);
   }
 
   static tagName = "h1";

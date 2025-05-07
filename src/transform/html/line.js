@@ -4,8 +4,8 @@ import HTMLTransform from "../../transform/html"
 
 export default class LineHTMLTransform extends HTMLTransform {
   getLineHTMLNode() {
-    const node = this.getNode(),
-          lineHTMLNode = node;  ///;
+    const htmlNode = this.getHTMLNode(),
+          lineHTMLNode = htmlNode;  ///;
 
     return lineHTMLNode;
   }

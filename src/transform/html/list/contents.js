@@ -18,14 +18,13 @@ class ContentsListHTMLTransform extends HTMLTransform {
   static fromNestedHeadingNodes(nestedHeadingNodes, context) {
     const contentsItemHTMLTransforms = contentsItemHTMLTransformsFromNestedHeadingNodes(nestedHeadingNodes, context),
           contentsListHTMLNode = ContentsListHTMLNode.fromContentsItemHTMLTransforms(contentsItemHTMLTransforms),
-          node = contentsListHTMLNode, ///
-          tokens = [];
+          htmlNode = contentsListHTMLNode;  ///
 
     contentsItemHTMLTransforms.forEach((contentsItemHTMLTransform) => {
       contentsItemHTMLTransform.getTokens(tokens);
     });
 
-    const contentsListHTMLTransform = HTMLTransform.fromNodeAndTokens(ContentsListHTMLTransform, node, tokens);
+    const contentsListHTMLTransform = HTMLTransform.fromHTMLNode(ContentsListHTMLTransform, htmlNode);
 
     return contentsListHTMLTransform;
   }
@@ -41,14 +40,13 @@ class ContentsListHTMLTransform extends HTMLTransform {
       const nestedHeadingNodes = nestedHeadingNodesFromHeadingHTMLNodes(headingHTMLNodes),
             contentsItemHTMLTransforms = contentsItemHTMLTransformsFromNestedHeadingNodes(nestedHeadingNodes, context),
             contentsListHTMLNode = ContentsListHTMLNode.fromContentsItemHTMLTransforms(contentsItemHTMLTransforms),
-            node = contentsListHTMLNode, ///
-            tokens = [];
+            htmlNode = contentsListHTMLNode;  ///
 
       contentsItemHTMLTransforms.forEach((contentsItemHTMLTransform) => {
         contentsItemHTMLTransform.getTokens(tokens);
       });
 
-      contentsListHTMLTransform = HTMLTransform.fromNodeAndTokens(ContentsListHTMLTransform, node, tokens);
+      contentsListHTMLTransform = HTMLTransform.fromHTMLNode(ContentsListHTMLTransform, htmlNode);
     }
 
     return contentsListHTMLTransform;

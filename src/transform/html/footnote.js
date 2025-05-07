@@ -22,8 +22,8 @@ export default class FootnoteHTMLTransform extends HTMLTransform {
   }
 
   getFootnoteHTMLNode() {
-    const node = this.getNode(),
-          footnoteHTMLNode = node;  ///
+    const htmlNode = this.getHTMLNode(),
+          footnoteHTMLNode = htmlNode;  ///
 
     return footnoteHTMLNode;
   }

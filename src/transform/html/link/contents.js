@@ -5,6 +5,20 @@ import LineHTMLTransform from "../../../transform/html/line";
 import ContentsLinkHTMLNode from "../../../node/html/link/contents";
 
 export default class ContentsLinkHTMLTransform extends HTMLTransform {
+  getIdentifier() {
+    const contentsLinkHTMLNode = this.getContentsLinkHTMLNode(),
+          identifier = contentsLinkHTMLNode.getIdentifier();
+
+    return identifier;
+  }
+
+  getContentsLinkHTMLNode() {
+    const htmlNode = this.getHTMLNode(),
+          contentsLinkHTMLNode = htmlNode;  ///
+
+    return contentsLinkHTMLNode;
+  }
+
   static fromNestedHeadingNode(nestedHeadingNode, context) {
     let contentsLinkHTMLTransform = null;
 
