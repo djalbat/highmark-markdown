@@ -61,7 +61,7 @@ export default class TopmostHTMLNode extends HTMLNode {
     const topmostHTMLNOde = this, ///
           contentsListHTMLTransform = ContentsListHTMLTransform.fromTopmostHTMLNode(topmostHTMLNOde, context);
 
-    ///
+    contentsListHTMLTransform.replaceContentsDirectiveHTMLTransform(contentsDirectiveHTMLTransform);
   }
 
   adjustIndent(indent) {

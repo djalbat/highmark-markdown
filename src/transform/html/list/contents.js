@@ -8,25 +8,11 @@ import { nestHTMLNodes } from "../../../utilities/contents";
 import { headingHTMLNodesFromNode } from "../../../utilities/html";
 
 class ContentsListHTMLTransform extends HTMLTransform {
-  // replaceContentsDirectiveSubdivisionHTMLTransform(contentsDirectiveSubDivisionHTMLTransform, context) {
-  //   const subDivisionHTMLNode = contentsDirectiveSubDivisionHTMLTransform.getSubDivisionHTMLNode(),
-  //         replacedNode = subDivisionHTMLNode;  ///
-  //
-  //   super.replace(replacedNode, context)
-  // }
+  replaceContentsDirectiveHTMLTransform(contentsDirectiveHTMLTransform) {
+    const contentsDirectiveHTMLNode = contentsDirectiveHTMLTransform.getContentsDirectiveHTMLNode(),
+          replacedHTMLNode = contentsDirectiveHTMLNode;  ///
 
-  static fromNestedHeadingNodes(nestedHeadingNodes, context) {
-    const contentsItemHTMLTransforms = contentsItemHTMLTransformsFromNestedHeadingNodes(nestedHeadingNodes, context),
-          contentsListHTMLNode = ContentsListHTMLNode.fromContentsItemHTMLTransforms(contentsItemHTMLTransforms),
-          htmlNode = contentsListHTMLNode;  ///
-
-    contentsItemHTMLTransforms.forEach((contentsItemHTMLTransform) => {
-      contentsItemHTMLTransform.getTokens(tokens);
-    });
-
-    const contentsListHTMLTransform = HTMLTransform.fromHTMLNode(ContentsListHTMLTransform, htmlNode);
-
-    return contentsListHTMLTransform;
+    super.replace(replacedHTMLNode);
   }
 
   static fromTopmostHTMLNode(topmostHTMLNode, context) {
@@ -42,12 +28,17 @@ class ContentsListHTMLTransform extends HTMLTransform {
             contentsListHTMLNode = ContentsListHTMLNode.fromContentsItemHTMLTransforms(contentsItemHTMLTransforms),
             htmlNode = contentsListHTMLNode;  ///
 
-      contentsItemHTMLTransforms.forEach((contentsItemHTMLTransform) => {
-        contentsItemHTMLTransform.getTokens(tokens);
-      });
-
       contentsListHTMLTransform = HTMLTransform.fromHTMLNode(ContentsListHTMLTransform, htmlNode);
     }
+
+    return contentsListHTMLTransform;
+  }
+
+  static fromNestedHeadingNodes(nestedHeadingNodes, context) {
+    const contentsItemHTMLTransforms = contentsItemHTMLTransformsFromNestedHeadingNodes(nestedHeadingNodes, context),
+          contentsListHTMLNode = ContentsListHTMLNode.fromContentsItemHTMLTransforms(contentsItemHTMLTransforms),
+          htmlNode = contentsListHTMLNode,  ///
+          contentsListHTMLTransform = HTMLTransform.fromHTMLNode(ContentsListHTMLTransform, htmlNode);
 
     return contentsListHTMLTransform;
   }
