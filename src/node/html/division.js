@@ -1,6 +1,7 @@
 "use strict";
 
 import HTMLNode from "../../node/html";
+import PageNumberHTMLNode from "../../node/html/pageNumber";
 import PageNumberHTMLTransform from "../../transform/html/pageNumber";
 import FootnotesListHTMLTransform from "../../transform/html/list/footnotes";
 
@@ -90,6 +91,24 @@ export default class DivisionHTMLNode extends HTMLNode {
         pageNumber
       });
     });
+  }
+
+  pageNumber() {
+    const pageNumber = this.fromFirstLastChildNode((firstLastChildNode) => {
+      let pageNumber = null;
+
+      const firstLastChildNodePageNumberHTMLNode = (firstLastChildNode instanceof PageNumberHTMLNode);
+
+      if (firstLastChildNodePageNumberHTMLNode) {
+        const pageNumberHTMLNode = firstLastChildNode;  ///
+
+        pageNumber = pageNumberHTMLNode.getPageNumber();
+      }
+
+      return pageNumber;
+    });
+
+    return pageNumber;
   }
 
   resolveFootnotes(identifierMap, context) {

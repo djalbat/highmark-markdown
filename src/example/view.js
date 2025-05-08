@@ -6,6 +6,7 @@ import { Element } from "easy";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 import { MarkdownLexer, MarkdownParser, MarkdownStyleLexer, MarkdownStyleParser } from "../index";
 
+import indexOptions from "./indexOptions";
 import PageButtonsDiv from "./view/div/pageButtons";
 import LeftSizeableDiv from "./view/div/sizeable/left";
 import CSSContainerDiv from "./view/div/container/css";
@@ -133,9 +134,7 @@ class View extends Element {
 
     context = {
       tokens,
-      importer,
-      nodeFromTokens,
-      tokensFromContent
+      importer
     };
 
     topmostMarkdownNode.resolve(context);
@@ -143,6 +142,7 @@ class View extends Element {
     const topmostHTMLNode = htmlNodeFromMarkdownNode(topmostMarkdownNode);
 
     context = {
+      indexOptions,
       tokens
     };
 
@@ -338,22 +338,6 @@ export default withStyle(View)`
   padding: 1rem;
   
 `;
-
-function tokensFromContent(content) {
-  const tokens = markdownLexer.tokenise(content);
-
-  return tokens;
-}
-
-function nodeFromTokens(tokens, startRuleName = null) {
-  const ruleMap = markdownParser.getRuleMap(),
-        startRule = (startRuleName !== null) ?
-                      ruleMap[startRuleName] :
-                        markdownParser.getStartRule(),
-        node = markdownParser.parse(tokens, startRule);
-
-  return node;
-}
 
 function pathToURL(path) {
   const url = `https://static.djalbat.com/${path}`;

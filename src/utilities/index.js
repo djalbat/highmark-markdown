@@ -9,8 +9,8 @@ import { Y_STRING, S_STRING, IES_STRING, EMPTY_STRING, SINGLE_SPACE, PARENTHESIS
 
 const { compress } = arrayUtilities;
 
-export function indexMapFromDivisionMarkdownNodes(divisionMarkdownNodes, context) {
-  const indexMap = createIndexMap(divisionMarkdownNodes, context);
+export function indexMapFromDivisionHTMLNodes(divisionHTMLNodes, context) {
+  const indexMap = createIndexMap(divisionHTMLNodes, context);
 
   removeIgnoredWords(indexMap, context);
 
@@ -29,7 +29,7 @@ export function indexMapFromDivisionMarkdownNodes(divisionMarkdownNodes, context
   return indexMap;
 }
 
-function createIndexMap(divisionMarkdownNodes, context) {
+function createIndexMap(divisionHTMLNodes, context) {
   const indexMap = {};
 
   const { indexOptions } = context,
@@ -40,11 +40,11 @@ function createIndexMap(divisionMarkdownNodes, context) {
           return indexMatch;
         });
 
-  divisionMarkdownNodes.forEach((divisionMarkdownNode) => {
-    const pageNumber = divisionMarkdownNode.getPageNumber();
+  divisionHTMLNodes.forEach((divisionHTMLNode) => {
+    const pageNumber = divisionHTMLNode.pageNumber();
 
     if (pageNumber !== null) {
-      const plainText = divisionMarkdownNode.asPlainText(context),
+      const plainText = divisionHTMLNode.asPlainText(context),
             wordsOrPhrases = wordsOrPhrasesFromPlainTextAndIndexMatches(plainText, indexMatches);
 
       wordsOrPhrases.forEach((wordOrPhrase) => {

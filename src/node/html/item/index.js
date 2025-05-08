@@ -2,7 +2,24 @@
 
 import HTMLNode from "../../../node/html";
 
+import { COMMA } from "../../../constants";
+
 export default class IndexItemHTMLNode extends HTMLNode {
+  constructor(outerNode, parentNode, childNodes, domElement, pageNumbers, wordOrPhrase) {
+    super(outerNode, parentNode, childNodes, domElement, pageNumbers, wordOrPhrase);
+
+    this.pageNumbers = pageNumbers;
+    this.wordOrPhrase = wordOrPhrase;
+  }
+
+  getPageNumbers() {
+    return this.pageNumbers;
+  }
+
+  getWordOrPhrase() {
+    return this.wordOrPhrase;
+  }
+
 //   asHTML(indent, context) {
 //     indent = this.adjustIndent(indent);
 //
@@ -12,9 +29,11 @@ export default class IndexItemHTMLNode extends HTMLNode {
 //           html = `${indent}${startingTag}${childNodesHTML}${closingTag}
 // `;
 //
+//   pageNumbersContent = pageNumbers.join(COMMA),
+//   content = `${wordOrPhrase},${pageNumbersContent}`,
 //     return html;
 //   }
-//
+
 //   childNodesAsHTML(indent, context) {
 //     indent = null;
 //
@@ -30,4 +49,12 @@ export default class IndexItemHTMLNode extends HTMLNode {
   static fromNothing() { return HTMLNode.fromNothing(IndexItemHTMLNode); }
 
   static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(IndexItemHTMLNode, outerNode); }
+
+  static fromIndexItem(indexItem) {
+    const pageNumbers = indexItem.getPageNumbers(),
+          wordOrPhrase = indexItem.getWordOrPhrase(),
+          indexItemHTMLNode = HTMLNode.fromNothing(IndexItemHTMLNode, pageNumbers, wordOrPhrase);
+
+    return indexItemHTMLNode;
+  }
 }

@@ -33,14 +33,15 @@ import TableHeadRowHTMLNode from "../../node/html/tableHeadRow";
 import TableBodyRowHTMLNode from "../../node/html/tableBodyRow";
 import FootnoteLinkHTMLNode from "../../node/html/link/footnote";
 import FootnoteItemHTMLNode from "../../node/html/item/footnote";
-import FootnotesListHTMLNode from "../../node/html/list/footnotes";
-import InlineListingHTMLNode from "../../node/html/listing/inline";
 import TableHeadCellHTMLNode from "../../node/html/tableHeadCell";
 import TableBodyCellHTMLNode from "../../node/html/tableBodyCell";
+import FootnotesListHTMLNode from "../../node/html/list/footnotes";
+import InlineListingHTMLNode from "../../node/html/listing/inline";
 import UnorderedItemHTMLNode from "../../node/html/item/unordered";
 import UnorderedListHTMLNode from "../../node/html/list/unordered";
 import PrimaryHeadingHTMLNode from "../../node/html/heading/primary";
 import EmphasisedTextHTMLNode from "../../node/html/text/emphasised";
+import IndexDirectiveHTMLNode from "../../node/html/directive/index";
 import TertiaryHeadingHTMLNode from "../../node/html/heading/tertiary";
 import SecondaryHeadingHTMLNode from "../../node/html/heading/secondary";
 import QuaternaryHeadingHTMLNode from "../../node/html/heading/quaternary";
@@ -86,6 +87,7 @@ import { HTML_RULE_NAME,
          INLINE_LISTING_RULE_NAME,
          UNORDERED_ITEM_RULE_NAME,
          UNORDERED_LIST_RULE_NAME,
+         INDEX_DIRECTIVE_RULE_NAME,
          TABLE_HEAD_CELL_RULE_NAME,
          TABLE_BODY_CELL_RULE_NAME,
          EMPHASISED_TEXT_RULE_NAME,
@@ -140,6 +142,7 @@ const htmlNodeMap = {
   [TABLE_BODY_CELL_RULE_NAME]: TableBodyCellHTMLNode,
   [EMPHASISED_TEXT_RULE_NAME]: EmphasisedTextHTMLNode,
   [PRIMARY_HEADING_RULE_NAME]: PrimaryHeadingHTMLNode,
+  [INDEX_DIRECTIVE_RULE_NAME]: IndexDirectiveHTMLNode,
   [TERTIARY_HEADING_RULE_NAME]: TertiaryHeadingHTMLNode,
   [SECONDARY_HEADING_RULE_NAME]: SecondaryHeadingHTMLNode,
   [QUATERNARY_HEADING_RULE_NAME]: QuaternaryHeadingHTMLNode,

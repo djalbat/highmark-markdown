@@ -4,7 +4,8 @@ import { Query } from "occam-query";
 
 import { nodeFromNodeAndQuery, nodesFromNodeAndQuery } from "../utilities/query";
 
-const contentsDirectiveHTMLNodeQuery = Query.fromExpressionString("//contentsDirective"),
+const indexDirectiveHTMLNodeQuery = Query.fromExpressionString("//indexDirective"),
+      contentsDirectiveHTMLNodeQuery = Query.fromExpressionString("//contentsDirective"),
       footnotesDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/footnotesDirective"),
       pageNumberDirectiveHTMLNodeQuery = Query.fromExpressionString("//pageNumberDirective"),
       htmlNodesQuery = Query.fromExpressionString("/division/*"),
@@ -14,6 +15,12 @@ const contentsDirectiveHTMLNodeQuery = Query.fromExpressionString("//contentsDir
       footnotesHTMLNodesQuery = Query.fromExpressionString("//footnote"),
       footnoteLinkHTMLNodesQuery = Query.fromExpressionString("//footnoteLink"),
       nestedFootnoteLinkHTMLNodesQuery = Query.fromExpressionString("//footnote//footnoteLink");
+
+export function indexDirectiveHTMLNodeFromNode(node) {
+  const indexDirectiveHTMLNode = nodeFromNodeAndQuery(node, indexDirectiveHTMLNodeQuery);
+
+  return indexDirectiveHTMLNode;
+}
 
 export function contentsDirectiveHTMLNodeFromNode(node) {
   const contentsDirectiveHTMLNode = nodeFromNodeAndQuery(node, contentsDirectiveHTMLNodeQuery);
@@ -76,6 +83,7 @@ export function nestedFootnoteLinkHTMLNodesFromNode(node, nestedFootnoteLinkHTML
 }
 
 export default {
+  indexDirectiveHTMLNodeFromNode,
   contentsDirectiveHTMLNodeFromNode,
   footnotesDirectiveHTMLNodeFromNode,
   pageNumberDirectiveHTMLNodeFromNode,

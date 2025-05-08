@@ -46,6 +46,7 @@ export const initialMarkdown = `@ignore
 
 @include ${FRONT_MATTER_PATH}
 @include ${CONTENT_PATH}
+@include ${INDEX_PATH}
 `;
 
 const indexContent = `## Index
@@ -65,7 +66,8 @@ const indexContent = `## Index
       frontMatterContent = `@ignore
 
 @include ${HALF_TITLE_PATH}
-@include ${CONTENTS_PATH}`,
+@include ${CONTENTS_PATH}
+@include ${INTRODUCTION_PATH}`,
 
       introductionContent = `# Introduction
       

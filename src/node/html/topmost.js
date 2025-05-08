@@ -1,18 +1,22 @@
 "use strict";
 
 import HTMLNode from "../../node/html";
+import IndexHTMLTransform from "../../transform/html/index";
 import DivisionHTMLTransform from "../../transform/html/division";
 import ContentsListHTMLTransform from "../../transform/html/list/contents";
+import IndexDirectiveHTMLTransform from "../../transform/html/directive/index";
 import ContentsDirectiveHTMLTransform from "../../transform/html/directive/contents";
 
 import { HTML_RULE_NAME } from "../../ruleNames";
-import { divisionHTMLNodesFromNode, contentsDirectiveHTMLNodeFromNode } from "../../utilities/html";
+import { divisionHTMLNodesFromNode, indexDirectiveHTMLNodeFromNode, contentsDirectiveHTMLNodeFromNode } from "../../utilities/html";
 
 export default class TopmostHTMLNode extends HTMLNode {
   resolve(context) {
     this.paginate(context);
 
     this.addContents(context);
+
+    this.addIndex(context);
   }
 
   paginate(context) {
@@ -48,6 +52,20 @@ export default class TopmostHTMLNode extends HTMLNode {
     divisionHTMLTransforms.forEach((divisionHTMLTransform) => {
       divisionHTMLTransform.appendToTopmostHTMLNode(topmostHTMLNode);
     });
+  }
+
+  addIndex(context) {
+    const node = this,  ///
+          indexDirectiveHTMLTransform = removeIndexDirectiveHTMLNode(node);
+
+    if (indexDirectiveHTMLTransform === null) {
+      return;
+    }
+
+    const divisionHTMLNodes = this.getDivisionHTMLNodes(),
+          indexHTMLTransform = IndexHTMLTransform.fromDivisionHTMLNodes(divisionHTMLNodes, context);
+
+    indexHTMLTransform.replaceIndexDirectiveHTMLTransform(indexDirectiveHTMLTransform);
   }
 
   addContents(context) {
@@ -103,6 +121,18 @@ function divisionHTMLTransformsFromDivisionHTMLNodes(divisionHTMLNodes) {
   });
 
   return divisionHTMLTransforms;
+}
+
+export function removeIndexDirectiveHTMLNode(node) {
+  let indexDirectiveHTMLTransform = null;
+
+  const indexDirectiveHTMLNode = indexDirectiveHTMLNodeFromNode(node);
+
+  if (indexDirectiveHTMLNode !== null) {
+    indexDirectiveHTMLTransform = IndexDirectiveHTMLTransform.fromIndexDirectiveHTMLNode(indexDirectiveHTMLNode);
+  }
+
+  return indexDirectiveHTMLTransform;
 }
 
 export function removeContentsDirectiveHTMLNode(node) {
