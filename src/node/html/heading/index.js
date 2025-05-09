@@ -21,6 +21,13 @@ export default class IndexHeadingHTMLNode extends HTMLNode {
     return ruleName;
   }
 
+  childNodesAsHTML(indent, context) {
+    const childNodesHTML = `${this.letter}
+`;
+
+    return childNodesHTML;
+  }
+
   asString() {
     const ruleName = this.getRuleName(),
           string = ruleName;  ///

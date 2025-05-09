@@ -64,14 +64,14 @@ export default class HTMLTransform {
     return transform;
   }
 
-  static fromHTMLNode(Class, htmlNode) {
+  static fromHTMLNode(Class, htmlNode, ...remainingArguments) {
     if (htmlNode === undefined) {
       htmlNode = Class; ///
 
       Class = HTMLTransform;  ///
     }
 
-    const htmlTransform = new Class(htmlNode);
+    const htmlTransform = new Class(htmlNode, ...remainingArguments);
 
     return htmlTransform;
   }

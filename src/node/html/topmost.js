@@ -56,30 +56,36 @@ export default class TopmostHTMLNode extends HTMLNode {
 
   addIndex(context) {
     const node = this,  ///
-          indexDirectiveHTMLTransform = removeIndexDirectiveHTMLNode(node);
+          indexDirectiveHTMLNode = indexDirectiveHTMLNodeFromNode(node);
 
-    if (indexDirectiveHTMLTransform === null) {
+    if (indexDirectiveHTMLNode === null) {
       return;
     }
 
     const divisionHTMLNodes = this.getDivisionHTMLNodes(),
-          indexHTMLTransform = IndexHTMLTransform.fromDivisionHTMLNodes(divisionHTMLNodes, context);
+          indexHTMLTransform = IndexHTMLTransform.fromDivisionHTMLNodes(divisionHTMLNodes, context),
+          indexDirectiveHTMLTransform = IndexDirectiveHTMLTransform.fromIndexDirectiveHTMLNode(indexDirectiveHTMLNode);
 
-    indexHTMLTransform.replaceIndexDirectiveHTMLTransform(indexDirectiveHTMLTransform);
+    (indexHTMLTransform !== null) ?
+      indexHTMLTransform.replaceIndexDirectiveHTMLTransform(indexDirectiveHTMLTransform) :
+        indexDirectiveHTMLTransform.remove();
   }
 
   addContents(context) {
     const node = this,  ///
-          contentsDirectiveHTMLTransform = removeContentsDirectiveHTMLNode(node);
+          contentsDirectiveHTMLNode = contentsDirectiveHTMLNodeFromNode(node);
 
-    if (contentsDirectiveHTMLTransform === null) {
+    if (contentsDirectiveHTMLNode === null) {
       return;
     }
 
     const topmostHTMLNode = this, ///
+          contentsDirectiveHTMLTransform = ContentsDirectiveHTMLTransform.fromContentsDirectiveHTMLNode(contentsDirectiveHTMLNode),
           contentsListHTMLTransform = ContentsListHTMLTransform.fromContentsDirectiveHTMLTransformAndTopmostHTMLNode(contentsDirectiveHTMLTransform, topmostHTMLNode, context);
 
-    contentsListHTMLTransform.replaceContentsDirectiveHTMLTransform(contentsDirectiveHTMLTransform);
+    (contentsListHTMLTransform !== null) ?
+      contentsListHTMLTransform.replaceContentsDirectiveHTMLTransform(contentsDirectiveHTMLTransform) :
+        contentsDirectiveHTMLTransform.remove();
   }
 
   adjustIndent(indent) {
@@ -121,28 +127,4 @@ function divisionHTMLTransformsFromDivisionHTMLNodes(divisionHTMLNodes) {
   });
 
   return divisionHTMLTransforms;
-}
-
-export function removeIndexDirectiveHTMLNode(node) {
-  let indexDirectiveHTMLTransform = null;
-
-  const indexDirectiveHTMLNode = indexDirectiveHTMLNodeFromNode(node);
-
-  if (indexDirectiveHTMLNode !== null) {
-    indexDirectiveHTMLTransform = IndexDirectiveHTMLTransform.fromIndexDirectiveHTMLNode(indexDirectiveHTMLNode);
-  }
-
-  return indexDirectiveHTMLTransform;
-}
-
-export function removeContentsDirectiveHTMLNode(node) {
-  let contentsDirectiveHTMLTransform = null;
-
-  const contentsDirectiveHTMLNode = contentsDirectiveHTMLNodeFromNode(node);
-
-  if (contentsDirectiveHTMLNode !== null) {
-    contentsDirectiveHTMLTransform = ContentsDirectiveHTMLTransform.fromContentsDirectiveHTMLNode(contentsDirectiveHTMLNode);
-  }
-
-  return contentsDirectiveHTMLTransform;
 }
