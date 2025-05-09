@@ -2,7 +2,7 @@
 
 import HTMLNode from "../../../node/html";
 
-import { COMMA } from "../../../constants";
+import { INDEX_ITEM_RULE_NAME } from "../../../ruleNames";
 
 export default class IndexItemHTMLNode extends HTMLNode {
   constructor(outerNode, parentNode, childNodes, domElement, pageNumbers, wordOrPhrase) {
@@ -42,13 +42,22 @@ export default class IndexItemHTMLNode extends HTMLNode {
 //     return childNodesHTML;
 //   }
 
+  getRuleName() {
+    const ruleName = INDEX_ITEM_RULE_NAME;
+
+    return ruleName;
+  }
+
+  asString() {
+    const ruleName = this.getRuleName(),
+          string = ruleName;  ///
+
+    return string;
+  }
+
   static tagName = "li";
 
   static className = "index";
-
-  static fromNothing() { return HTMLNode.fromNothing(IndexItemHTMLNode); }
-
-  static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(IndexItemHTMLNode, outerNode); }
 
   static fromIndexItem(indexItem) {
     const pageNumbers = indexItem.getPageNumbers(),

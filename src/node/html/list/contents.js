@@ -22,10 +22,6 @@ export default class ContentsListHTMLNode extends HTMLNode {
 
   static className = "contents";
 
-  static fromNothing() { return HTMLNode.fromNothing(ContentsListHTMLNode); }
-
-  static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(ContentsListHTMLNode, outerNode); }
-
   static fromContentsItemHTMLTransforms(contentsItemHTMLTransforms) {
     const contentsItemHTMLNodes = contentsItemHTMLTransforms.map((contentsItemHTMLTransform) => {
           const contentsItemHTMLNode = contentsItemHTMLTransform.getContentsItemHTMLNode();

@@ -47,10 +47,6 @@ export default class ContentsLinkHTMLNode extends HTMLNode {
 
   static className = "contents-link";
 
-  static fromNothing() { return HTMLNode.fromNothing(ContentsLinkHTMLNode); }
-
-  static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(ContentsLinkHTMLNode, outerNode); }
-
   static fromLineHTMLTransformAndIdentifier(lineHTMLTransform, identifier) {
     const lineHTMLNode = lineHTMLTransform.getLineHTMLNode(),
           childNodes = [

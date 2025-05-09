@@ -2,34 +2,35 @@
 
 import HTMLNode from "../../../node/html";
 
+import { INDEX_LIST_RULE_NAME } from "../../../ruleNames";
+
 export default class IndexListHTMLNode extends HTMLNode {
+  getRuleName() {
+    const ruleName = INDEX_LIST_RULE_NAME;
+
+    return ruleName;
+  }
+
+  asString() {
+    const ruleName = this.getRuleName(),
+          string = ruleName;  ///
+
+    return string;
+  }
+
   static tagName = "ul";
 
   static className = "index";
 
-  static fromNothing() { return HTMLNode.fromNothing(IndexListHTMLNode); }
+  static fromIndexItemHTMLTransforms(indexItemHTMLTransforms) {
+    const indexItemHTMLNodes = indexItemHTMLTransforms.map((indexItemHTMLTransform) => {
+            const indexListHTMLNode = indexItemHTMLTransform.getIndexItemHTMLNode();
 
-  static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(IndexListHTMLNode, outerNode); }
+            return indexListHTMLNode;
+          }),
+          childNodes = indexItemHTMLNodes,
+          indexListHTMLNode = HTMLNode.fromChildNodes(IndexListHTMLNode, childNodes);
+
+    return indexListHTMLNode;
+  }
 }
-
-// "use strict";
-//
-// import MarkdownNode from "../../../node/markdown";
-//
-// import { INDEX_LIST_RULE_NAME } from "../../../ruleNames";
-//
-// export default class IndexListMarkdownNode extends MarkdownNode {
-//   static fromIndexItemReplacements(indexItemReplacements) {
-//     const ruleName = INDEX_LIST_RULE_NAME,
-//       childNodes = indexItemReplacements.map((indexItemReplacement) => {
-//         const indexItemReplacementNode = indexItemReplacement.getIndexItemMarkdownNode(),
-//           childNode = indexItemReplacementNode;  ///
-//
-//         return childNode;
-//       }),
-//       opacity = null,
-//       indexListMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(IndexListMarkdownNode, ruleName, childNodes, opacity);
-//
-//     return indexListMarkdownNode;
-//   }
-// }

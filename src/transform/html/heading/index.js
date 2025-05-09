@@ -1,13 +1,12 @@
 "use strict";
 
 import HTMLTransform from "../../../transform/html";
-
-import { INDEX_HEADING_RULE_NAME } from "../../../ruleNames";
+import IndexHeadingHTMLNode from "../../../node/html/heading/index";
 
 export default class IndexHeadingHTMLTransform extends HTMLTransform {
   static fromLetter(letter) {
-    const startRuleName = INDEX_HEADING_RULE_NAME,
-          content = `${letter}`,
+    const indexHeadingHTMLNode = IndexHeadingHTMLNode.fromLetter(letter),
+          htmlNode = indexHeadingHTMLNode,  ///
           indexHeadingHTMLTransform = HTMLTransform.fromHTMLNode(IndexHeadingHTMLTransform, htmlNode);
 
     return indexHeadingHTMLTransform;

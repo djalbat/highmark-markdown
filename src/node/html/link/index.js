@@ -65,8 +65,4 @@ export default class IndexLinkHTMLNode extends HTMLNode {
   static tagName = "a";
 
   static className = "index";
-
-  static fromNothing() { return HTMLNode.fromNothing(IndexLinkHTMLNode); }
-
-  static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(IndexLinkHTMLNode, outerNode); }
 }

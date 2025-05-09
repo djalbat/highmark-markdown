@@ -1,9 +1,8 @@
 "use strict";
 
-import HTMLTransform from "../../transform/html";
-
 import letters from "../../letters";
 import IndexList from "../../index/list";
+import HTMLTransform from "../../transform/html";
 import IndexListHTMLTransform from "../../transform/html/list/index";
 import IndexHeadingHTMLTransform from "../../transform/html/heading/index";
 
@@ -18,27 +17,20 @@ export default class IndexHTMLTransform extends HTMLTransform {
     return this.htmlNodes;
   }
 
-  // replace(replacedNode, parentNode, context) {
-  //   let tokens;
-  //
-  //   tokens = this.getTokens();
-  //
-  //   const replacementNodes = this.nodes,  ///
-  //         replacementTokens = tokens; ///
-  //
-  //   ({ tokens } = context);
-  //
-  //   replaceNodes(replacementNodes, replacedNode, parentNode);
-  //
-  //   replaceTokens(replacementTokens, replacedNode, tokens);
-  // }
+  replace(replacedHTMLNode) {
+    const parentNode = replacedHTMLNode.getParentNode(),
+          replacedChildNode = replacedHTMLNode, ///
+          replacementChildNodes = this.htmlNodes; ///
 
-  // replaceIndexDirectiveSubdivisionHTMLTransform(indexDirectiveSubDivisionHTMLTransform, context) {
-  //   const subDivisionHTMLNode = indexDirectiveSubDivisionHTMLTransform.getSubDivisionHTMLNode(),
-  //         replacedNode = subDivisionHTMLNode;  ///
-  //
-  //   this.replace(replacedNode, context)
-  // }
+    parentNode.replaceChildNode(replacedChildNode, replacementChildNodes);
+  }
+
+  replaceIndexDirectiveHTMLTransform(indexDirectiveHTMLTransform) {
+    const indexDirectiveHTMLNode = indexDirectiveHTMLTransform.getIndexDirectiveHTMLNode(),
+          replacedHTMLNode = indexDirectiveHTMLNode;  ///
+
+    this.replace(replacedHTMLNode)
+  }
 
   static fromDivisionHTMLNodes(divisionHTMLNodes, context) {
     let indexHTMLTransform = null;
@@ -71,12 +63,12 @@ export default class IndexHTMLTransform extends HTMLTransform {
             htmlNodes = [];
 
       indexHTMLTransforms.forEach((indexHTMLTransform) => {
-        const htmlNode = indexHTMLTransform.getNode();
+        const htmlNode = indexHTMLTransform.getHTMLNode();
 
         htmlNodes.push(htmlNode);
       });
 
-      indexHTMLTransform = HTMLTransform.fromHTNLNode(IndexHTMLTransform, htmlNode, htmlNodes);
+      indexHTMLTransform = HTMLTransform.fromHTMLNode(IndexHTMLTransform, htmlNode, htmlNodes);
     }
 
     return indexHTMLTransform;
