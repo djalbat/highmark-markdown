@@ -4,7 +4,7 @@ import { stringUtilities } from "necessary";
 
 import IndexItem from "../index/item";
 
-import { indexMapFromDivisionHTMLNodes } from "../utilities/index";
+import { indexMapFromIndexDirectiveHTMLNodeAndDivisionHTMLNodes } from "../utilities/index";
 
 const { strcmp } = stringUtilities;
 
@@ -31,8 +31,8 @@ export default class IndexList {
     return result;
   }
 
-  static fromDivisionHTMLNodes(divisionHTMLNodes, context) {
-    const indexMap = indexMapFromDivisionHTMLNodes(divisionHTMLNodes, context),
+  static fromIndexDirectiveHTMLNodeAndDivisionHTMLNodes(indexDirectiveHTMLNode, divisionHTMLNodes, context) {
+    const indexMap = indexMapFromIndexDirectiveHTMLNodeAndDivisionHTMLNodes(indexDirectiveHTMLNode, divisionHTMLNodes, context),
           indexItems = indexItemsFromIndexMap(indexMap),
           indexList = new IndexList(indexItems);
 

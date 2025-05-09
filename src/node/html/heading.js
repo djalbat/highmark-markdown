@@ -3,6 +3,7 @@
 import HTMLNode from "../../node/html";
 import AnchorHTMLNode from "../../node/html/anchor";
 
+import { CONTENTS_PREPEND } from "../../prepends";
 import { removeLeadingWhitespace, replaceSpacesWithHyphens, removeNonAlphabeticCharacters } from "../../utilities/string";
 
 export default class HeadingHTMLNode extends HTMLNode {
@@ -24,8 +25,9 @@ export default class HeadingHTMLNode extends HTMLNode {
   }
 
   anchor(context) {
-    const identifier = this.identifier(context),
-          anchorHTMLNode = AnchorHTMLNode.fromIdentifier(identifier),
+    const prepend = CONTENTS_PREPEND,
+          identifier = this.identifier(context),
+          anchorHTMLNode = AnchorHTMLNode.fromPrependAndIdentifier(prepend, identifier),
           childNode = anchorHTMLNode; ///
 
     this.prependChildNode(childNode);

@@ -3,6 +3,7 @@
 import HTMLNode from "../../../node/html";
 import AnchorHTMLNode from "../../../node/html/anchor";
 
+import { FOOTNOTE_PREPEND } from "../../../prepends";
 import { FOOTNOTE_ITEM_RULE_NAME } from "../../../ruleNames";
 
 export default class FootnoteItemHTMLNode extends HTMLNode {
@@ -24,7 +25,8 @@ export default class FootnoteItemHTMLNode extends HTMLNode {
   static className = "footnote";
 
   static fromLineTMLTransformAndIdentifier(lineHTMLTransform, identifier) {
-    const anchorHTMLNode = AnchorHTMLNode.fromIdentifier(identifier),
+    const prepend = FOOTNOTE_PREPEND,
+          anchorHTMLNode = AnchorHTMLNode.fromPrependAndIdentifier(prepend, identifier),
           lineHTMLNode = lineHTMLTransform.getLineHTMLNode(),
           childNodes = [
             anchorHTMLNode,

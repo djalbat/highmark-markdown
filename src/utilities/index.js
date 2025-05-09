@@ -1,5 +1,6 @@
 "use strict";
 
+import { nodeUtilities } from "occam-dom"
 import { arrayUtilities } from "necessary";
 
 import IndexMatch from "../index/match";
@@ -7,10 +8,11 @@ import IndexMatch from "../index/match";
 import { forEach, mapKeys, mapValues } from "../utilities/object";
 import { Y_STRING, S_STRING, IES_STRING, EMPTY_STRING, SINGLE_SPACE, PARENTHESISED_S_STRING } from "../constants";
 
-const { compress } = arrayUtilities;
+const { compress } = arrayUtilities,
+      { isLessThan, isAncestorOf } = nodeUtilities;
 
-export function indexMapFromDivisionHTMLNodes(divisionHTMLNodes, context) {
-  const indexMap = createIndexMap(divisionHTMLNodes, context);
+export function indexMapFromIndexDirectiveHTMLNodeAndDivisionHTMLNodes(indexDirectiveHTMLNode, divisionHTMLNodes, context) {
+  const indexMap = createIndexMap(indexDirectiveHTMLNode, divisionHTMLNodes, context);
 
   removeIgnoredWords(indexMap, context);
 
@@ -29,7 +31,7 @@ export function indexMapFromDivisionHTMLNodes(divisionHTMLNodes, context) {
   return indexMap;
 }
 
-function createIndexMap(divisionHTMLNodes, context) {
+function createIndexMap(indexDirectiveHTMLNode, divisionHTMLNodes, context) {
   const indexMap = {};
 
   const { indexOptions } = context,
@@ -41,21 +43,29 @@ function createIndexMap(divisionHTMLNodes, context) {
         });
 
   divisionHTMLNodes.forEach((divisionHTMLNode) => {
-    const pageNumber = divisionHTMLNode.pageNumber();
+    const divisionHTMLNodeLessThanIndexDirectiveHTMLNode = isLessThan(divisionHTMLNode, indexDirectiveHTMLNode);
 
-    if (pageNumber !== null) {
-      const plainText = divisionHTMLNode.asPlainText(context),
-            wordsOrPhrases = wordsOrPhrasesFromPlainTextAndIndexMatches(plainText, indexMatches);
+    if (divisionHTMLNodeLessThanIndexDirectiveHTMLNode) {
+      const divisionHTMLNodeAncestorOfIndexDirectiveHTMLNode = isAncestorOf(divisionHTMLNode, indexDirectiveHTMLNode);
 
-      wordsOrPhrases.forEach((wordOrPhrase) => {
-        const pageNumbers = indexMap.hasOwnProperty(wordOrPhrase) ?
-                              indexMap[wordOrPhrase] :
-                                [];
+      if (!divisionHTMLNodeAncestorOfIndexDirectiveHTMLNode) {
+        const pageNumber = divisionHTMLNode.pageNumber();
 
-        indexMap[wordOrPhrase] = pageNumbers;
+        if (pageNumber !== null) {
+          const plainText = divisionHTMLNode.asPlainText(context),
+                wordsOrPhrases = wordsOrPhrasesFromPlainTextAndIndexMatches(plainText, indexMatches);
 
-        pageNumbers.push(pageNumber);
-      });
+          wordsOrPhrases.forEach((wordOrPhrase) => {
+            const pageNumbers = indexMap.hasOwnProperty(wordOrPhrase) ?
+                    indexMap[wordOrPhrase] :
+                      [];
+
+            indexMap[wordOrPhrase] = pageNumbers;
+
+            pageNumbers.push(pageNumber);
+          });
+        }
+      }
     }
   });
 

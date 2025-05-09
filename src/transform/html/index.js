@@ -32,10 +32,11 @@ export default class IndexHTMLTransform extends HTMLTransform {
     this.replace(replacedHTMLNode)
   }
 
-  static fromDivisionHTMLNodes(divisionHTMLNodes, context) {
+  static fromIndexDirectiveHTMLTransformAndDivisionHTMLNodes(indexDirectiveHTMLTransform, divisionHTMLNodes, context) {
     let indexHTMLTransform = null;
 
-    const indexList = IndexList.fromDivisionHTMLNodes(divisionHTMLNodes, context),
+    const indexDirectiveHTMLNode = indexDirectiveHTMLTransform.getIndexDirectiveHTMLNode(),
+          indexList = IndexList.fromIndexDirectiveHTMLNodeAndDivisionHTMLNodes(indexDirectiveHTMLNode, divisionHTMLNodes, context),
           indexHTMLTransforms = [];
 
     letters.forEach((letter) => {

@@ -63,8 +63,8 @@ export default class TopmostHTMLNode extends HTMLNode {
     }
 
     const divisionHTMLNodes = this.getDivisionHTMLNodes(),
-          indexHTMLTransform = IndexHTMLTransform.fromDivisionHTMLNodes(divisionHTMLNodes, context),
-          indexDirectiveHTMLTransform = IndexDirectiveHTMLTransform.fromIndexDirectiveHTMLNode(indexDirectiveHTMLNode);
+          indexDirectiveHTMLTransform = IndexDirectiveHTMLTransform.fromIndexDirectiveHTMLNode(indexDirectiveHTMLNode),
+          indexHTMLTransform = IndexHTMLTransform.fromIndexDirectiveHTMLTransformAndDivisionHTMLNodes(indexDirectiveHTMLTransform, divisionHTMLNodes, context);
 
     (indexHTMLTransform !== null) ?
       indexHTMLTransform.replaceIndexDirectiveHTMLTransform(indexDirectiveHTMLTransform) :
