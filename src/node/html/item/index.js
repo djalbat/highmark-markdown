@@ -1,47 +1,13 @@
 "use strict";
 
 import HTMLNode from "../../../node/html";
+import IndexTextHTMLNode from "../../../node/html/text/index";
+import IndexLinkHTMLNode from "../../../node/html/link/index";
 
 import { INDEX_ITEM_RULE_NAME } from "../../../ruleNames";
+import CommaTextHTMLNode from "../text/comma";
 
 export default class IndexItemHTMLNode extends HTMLNode {
-  constructor(outerNode, parentNode, childNodes, domElement, pageNumbers, wordOrPhrase) {
-    super(outerNode, parentNode, childNodes, domElement, pageNumbers, wordOrPhrase);
-
-    this.pageNumbers = pageNumbers;
-    this.wordOrPhrase = wordOrPhrase;
-  }
-
-  getPageNumbers() {
-    return this.pageNumbers;
-  }
-
-  getWordOrPhrase() {
-    return this.wordOrPhrase;
-  }
-
-//   asHTML(indent, context) {
-//     indent = this.adjustIndent(indent);
-//
-//     const childNodesHTML = this.childNodesAsHTML(indent, context),
-//           startingTag = this.startingTag(context),
-//           closingTag = this.closingTag(context),
-//           html = `${indent}${startingTag}${childNodesHTML}${closingTag}
-// `;
-//
-//   pageNumbersContent = pageNumbers.join(COMMA),
-//   content = `${wordOrPhrase},${pageNumbersContent}`,
-//     return html;
-//   }
-
-//   childNodesAsHTML(indent, context) {
-//     indent = null;
-//
-//     const childNodesHTML = super.childNodesAsHTML(indent, context);
-//
-//     return childNodesHTML;
-//   }
-
   getRuleName() {
     const ruleName = INDEX_ITEM_RULE_NAME;
 
@@ -60,9 +26,26 @@ export default class IndexItemHTMLNode extends HTMLNode {
   static className = "index";
 
   static fromIndexItem(indexItem) {
-    const pageNumbers = indexItem.getPageNumbers(),
-          wordOrPhrase = indexItem.getWordOrPhrase(),
-          indexItemHTMLNode = HTMLNode.fromNothing(IndexItemHTMLNode, pageNumbers, wordOrPhrase);
+    const wordOrPhrase = indexItem.getWordOrPhrase(),
+          pageNumbers = indexItem.getPageNumbers(),
+          indexSpanHTMLNode = IndexTextHTMLNode.fromWordOrPhrase(wordOrPhrase),
+          childNodes = [
+            indexSpanHTMLNode
+          ];
+
+    pageNumbers.forEach((pageNumber) => {
+      const indexLinkHTMLNOde = IndexLinkHTMLNode.fromPageNumber(pageNumber);
+
+      childNodes.push(indexLinkHTMLNOde);
+
+      const commaTextHTMLNode = CommaTextHTMLNode.fromNothing();
+
+      childNodes.push(commaTextHTMLNode);
+    });
+
+    childNodes.pop();
+
+    const indexItemHTMLNode = HTMLNode.fromChildNodes(IndexItemHTMLNode, childNodes);
 
     return indexItemHTMLNode;
   }

@@ -16,6 +16,8 @@ export const BLOCK_END_RULE_NAME = "blockEnd";
 export const REFERENCE_RULE_NAME = "reference";
 export const PARAGRAPH_RULE_NAME = "paragraph";
 export const HYPERLINK_RULE_NAME = "hyperlink";
+export const COMMA_TEXT_RULE_NAME = "commaText";
+export const INDEX_TEXT_RULE_NAME = "indexText";
 export const INDEX_LIST_RULE_NAME = "indexList";
 export const INDEX_ITEM_RULE_NAME = "indexItem";
 export const INDEX_LINK_RULE_NAME = "indexLink";
@@ -85,6 +87,8 @@ const ruleNames = [
   PARAGRAPH_RULE_NAME,
   HYPERLINK_RULE_NAME,
   BLOCK_END_RULE_NAME,
+  COMMA_TEXT_RULE_NAME,
+  INDEX_TEXT_RULE_NAME,
   INDEX_LIST_RULE_NAME,
   INDEX_ITEM_RULE_NAME,
   INDEX_LINK_RULE_NAME,

@@ -3,7 +3,7 @@
 import HTMLNode from "../../node/html";
 
 export default class TextHTMLNode extends HTMLNode {
-  text(content) { return this.outerNode.text(content); }
+  text(context) { return this.outerNode.text(context); }
 
   createDOMElement(context) {
     const text = this.text(context),
@@ -28,7 +28,7 @@ export default class TextHTMLNode extends HTMLNode {
     return plainText;
   }
 
-  static fromNothing(Class) { return HTMLNode.fromNothing(Class); }
+  static fromNothing(Class, ...remainingArguments) { return HTMLNode.fromNothing(Class, ...remainingArguments); }
 
-  static fromOuterNode(Class, outerNode) { return HTMLNode.fromOuterNode(Class, outerNode); }
+  static fromOuterNode(Class, outerNode, ...remainingArguments) { return HTMLNode.fromOuterNode(Class, outerNode, ...remainingArguments); }
 }

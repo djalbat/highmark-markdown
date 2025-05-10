@@ -3,6 +3,7 @@
 import HTMLNode from "../../node/html";
 import PageNumberHTMLNode from "../../node/html/pageNumber";
 import PageNumberHTMLTransform from "../../transform/html/pageNumber";
+import IndexAnchorHTMLTransform from "../../transform/html/indexAnchor";
 import FootnotesListHTMLTransform from "../../transform/html/list/footnotes";
 
 import { DIVISION_RULE_NAME } from "../../ruleNames";
@@ -78,7 +79,10 @@ export default class DivisionHTMLNode extends HTMLNode {
       divisionHTMLNode.resolveFootnotes(identifierMap, context);
 
       if (pageNumbers) {
-        const pageNumberHTMLTransform = PageNumberHTMLTransform.fromPageNumber(pageNumber);
+        const indexAnchorHTMLTransform = IndexAnchorHTMLTransform.fromPageNumber(pageNumber),
+              pageNumberHTMLTransform = PageNumberHTMLTransform.fromPageNumber(pageNumber);
+
+        indexAnchorHTMLTransform.prependToDivisionHTMLNode(divisionHTMLNode);
 
         pageNumberHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
       }
