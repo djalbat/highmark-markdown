@@ -38,7 +38,7 @@ class LeftTabButtonsDiv extends TabButtonsDiv {
   }
 
   didMount() {
-    this.markdown();
+    this.markdownStyle();
   }
 
   willUnmount() {
@@ -48,8 +48,8 @@ class LeftTabButtonsDiv extends TabButtonsDiv {
   childElements() {
     return ([
 
-      <MarkdownTabButton onClick={this.markdownTabButtonClickHandler} />,
-      <MarkdownStyleTabButton onClick={this.markdownStyleTabButtonClickHandler} />
+      <MarkdownStyleTabButton onClick={this.markdownStyleTabButtonClickHandler} />,
+      <MarkdownTabButton onClick={this.markdownTabButtonClickHandler} />
 
     ]);
   }

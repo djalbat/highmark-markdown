@@ -6,10 +6,14 @@ import ParseTreeTextarea from "../../textarea/parseTree";
 
 class HTMLParseTreeTextarea extends ParseTreeTextarea {
   parentContext() {
-    const clearHTMLParseTreeTextarea = this.clear.bind(this), ///
+    const showHTMLParseTreeTextarea = this.show.bind(this), ///
+          hideHTMLParseTreeTextarea = this.hide.bind(this), ///
+          clearHTMLParseTreeTextarea = this.clear.bind(this), ///
           updateHTMLParseTreeTextarea = this.update.bind(this); ///
 
     return ({
+      showHTMLParseTreeTextarea,
+      hideHTMLParseTreeTextarea,
       clearHTMLParseTreeTextarea,
       updateHTMLParseTreeTextarea
     });

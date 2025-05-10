@@ -15,8 +15,9 @@ import LeftTabButtonsDiv from "./view/div/tabButtons/left";
 import RightTabButtonsDiv from "./view/div/tabButtons/right";
 import PreviewContainerDiv from "./view/div/container/preview";
 import MarkdownContainerDiv from "./view/div/container/markdown";
-import PlainTextContainerDiv from "./view/div/container/plainText";
+import CSSParseTreeTextarea from "./view/textarea/parseTree/css";
 import HTMLParseTreeTextarea from "./view/textarea/parseTree/html";
+import PlainTextContainerDiv from "./view/div/container/plainText";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
 import { htmlNodeFromMarkdownNode } from "../utilities/dom";
@@ -28,22 +29,22 @@ const markdownLexer = MarkdownLexer.fromNothing(),
       markdownStyleParser = MarkdownStyleParser.fromNothing();
 
 class View extends Element {
-  markdownStyleCustomHandler = (event, element) => {
-    this.markdownStyle();
-  }
-
   pageUpdateCustomHandler = (event, element, index) => {
     this.updateMarkdown();
 
     this.updateHTML(index);
   }
 
-  plainTextCustomHandler = (event, element) => {
-    this.plainText();
+  markdownStyleCustomHandler = (event, element) => {
+    this.markdownStyle();
   }
 
   markdownCustomHandler = (event, element) => {
     this.markdown();
+  }
+
+  plainTextCustomHandler = (event, element) => {
+    this.plainText();
   }
 
   previewCustomHandler = (event, element) => {
@@ -196,16 +197,19 @@ class View extends Element {
     this.showMarkdownStyleContainerDiv();
   }
 
+  markdown() {
+    this.showMarkdownContainerDiv();
+    this.hideMarkdownStyleContainerDiv();
+  }
+
   plainText() {
     this.hideCSSContainerDiv();
     this.hideHTMLContainerDiv();
     this.hidePreviewContainerDiv();
     this.showPlainTextContainerDiv();
-  }
 
-  markdown() {
-    this.showMarkdownContainerDiv();
-    this.hideMarkdownStyleContainerDiv();
+    this.hideCSSParseTreeTextarea();
+    this.showHTMLParseTreeTextarea();
   }
 
   preview() {
@@ -213,6 +217,9 @@ class View extends Element {
     this.hideHTMLContainerDiv();
     this.showPreviewContainerDiv();
     this.hidePlainTextContainerDiv();
+
+    this.hideCSSParseTreeTextarea();
+    this.showHTMLParseTreeTextarea();
   }
 
   html() {
@@ -220,6 +227,9 @@ class View extends Element {
     this.showHTMLContainerDiv();
     this.hidePreviewContainerDiv();
     this.hidePlainTextContainerDiv();
+
+    this.hideCSSParseTreeTextarea();
+    this.showHTMLParseTreeTextarea();
   }
 
   css() {
@@ -227,6 +237,9 @@ class View extends Element {
     this.hideHTMLContainerDiv();
     this.hidePreviewContainerDiv();
     this.hidePlainTextContainerDiv();
+
+    this.showCSSParseTreeTextarea();
+    this.hideHTMLParseTreeTextarea();
   }
 
   resetTokens() {
@@ -293,11 +306,12 @@ class View extends Element {
                                 onCustomPlainText={this.plainTextCustomHandler}
             />
             <PageButtonsDiv onCustomPageUpdate={this.pageUpdateCustomHandler} />
+            <CSSContainerDiv/>
             <HTMLContainerDiv/>
             <PreviewContainerDiv/>
             <PlainTextContainerDiv/>
-            <CSSContainerDiv/>
             <HTMLParseTreeTextarea/>
+            <CSSParseTreeTextarea/>
           </RowsDiv>
         </ColumnDiv>
       </ColumnsDiv>
@@ -314,18 +328,18 @@ class View extends Element {
           markdownStyle = initialMarkdownStyle, ///
           markdown = initialMarkdown; ///
 
-    this.setMarkdown(markdown);
-
     this.setMarkdownStyle(markdownStyle);
 
-    this.update();
+    this.setMarkdown(markdown);
 
-    this.css();
+    this.update();
   }
 
   static initialMarkdown = initialMarkdown;
 
-  static initialMarkdownStyle = ``;
+  static initialMarkdownStyle = `primaryHeading {
+   color: red; 
+}`;
 
   static tagName = "div";
 
