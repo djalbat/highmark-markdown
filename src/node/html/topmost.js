@@ -7,7 +7,7 @@ import ContentsListHTMLTransform from "../../transform/html/list/contents";
 import IndexDirectiveHTMLTransform from "../../transform/html/directive/index";
 import ContentsDirectiveHTMLTransform from "../../transform/html/directive/contents";
 
-import { HTML_RULE_NAME } from "../../ruleNames";
+import { HTML_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
 import { divisionHTMLNodesFromNode, indexDirectiveHTMLNodeFromNode, contentsDirectiveHTMLNodeFromNode } from "../../utilities/html";
 
 export default class TopmostHTMLNode extends HTMLNode {
@@ -93,7 +93,7 @@ export default class TopmostHTMLNode extends HTMLNode {
   }
 
   getRuleName() {
-    const ruleName = HTML_RULE_NAME;
+    const ruleName = HTML_MARKDOWN_RULE_NAME;
 
     return ruleName;
   }

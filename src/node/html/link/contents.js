@@ -4,7 +4,7 @@ import HTMLNode from "../../../node/html";
 
 import { CONTENTS_PREPEND } from "../../../prepends";
 import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
-import { CONTENTS_LINK_RULE_NAME } from "../../../ruleNames";
+import { CONTENTS_LINK_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
 
 export default class ContentsLinkHTMLNode extends HTMLNode {
   constructor(outerNode, parentNode, childNodes, domElement, identifier) {
@@ -18,7 +18,7 @@ export default class ContentsLinkHTMLNode extends HTMLNode {
   }
 
   getRuleName() {
-    const ruleName = CONTENTS_LINK_RULE_NAME;
+    const ruleName = CONTENTS_LINK_MARKDOWN_RULE_NAME;
 
     return ruleName;
   }

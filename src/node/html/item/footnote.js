@@ -4,11 +4,11 @@ import HTMLNode from "../../../node/html";
 import AnchorHTMLNode from "../../../node/html/anchor";
 
 import { FOOTNOTE_PREPEND } from "../../../prepends";
-import { FOOTNOTE_ITEM_RULE_NAME } from "../../../ruleNames";
+import { FOOTNOTE_ITEM_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
 
 export default class FootnoteItemHTMLNode extends HTMLNode {
   getRuleName() {
-    const ruleName = FOOTNOTE_ITEM_RULE_NAME; ///
+    const ruleName = FOOTNOTE_ITEM_MARKDOWN_RULE_NAME; ///
 
     return ruleName;
   }

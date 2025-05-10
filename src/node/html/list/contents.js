@@ -2,11 +2,11 @@
 
 import HTMLNode from "../../../node/html";
 
-import { CONTENTS_LIST_RULE_NAME } from "../../../ruleNames";
+import { CONTENTS_LIST_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
 
 export default class ContentsListHTMLNode extends HTMLNode {
   getRuleName() {
-    const ruleName = CONTENTS_LIST_RULE_NAME;
+    const ruleName = CONTENTS_LIST_MARKDOWN_RULE_NAME;
 
     return ruleName;
   }

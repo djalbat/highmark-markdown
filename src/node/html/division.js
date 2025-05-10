@@ -6,7 +6,7 @@ import PageNumberHTMLTransform from "../../transform/html/pageNumber";
 import IndexAnchorHTMLTransform from "../../transform/html/indexAnchor";
 import FootnotesListHTMLTransform from "../../transform/html/list/footnotes";
 
-import { DIVISION_RULE_NAME } from "../../ruleNames";
+import { DIVISION_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
 import { groupHTMLNodes,
          removeHTMLNodes,
          addFootnoteHTMLNodes,
@@ -37,7 +37,7 @@ export default class DivisionHTMLNode extends HTMLNode {
   }
 
   getRuleName() {
-    const ruleNme = DIVISION_RULE_NAME;
+    const ruleNme = DIVISION_MARKDOWN_RULE_NAME;
 
     return ruleNme;
   }

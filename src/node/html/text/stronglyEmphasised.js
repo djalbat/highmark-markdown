@@ -4,13 +4,13 @@ import HTMLNode from "../../../node/html";
 import tagNameMap from "../../../map/tagName";
 
 import { EMPTY_STRING } from "../../../constants";
-import { STRONG_TEXT_RULE_NAME } from "../../../ruleNames";
+import { STRONG_TEXT_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
 
 export default class StronglyEmphasisedTextHTMLNode extends HTMLNode {
   createChildDOMElement(context) {
     let domElement;
 
-    const tagName = tagNameMap[STRONG_TEXT_RULE_NAME],
+    const tagName = tagNameMap[STRONG_TEXT_MARKDOWN_RULE_NAME],
           plainText = this.childNodesAsPlainText(context),
           content = plainText,  ///
           textNode = document.createTextNode(content);

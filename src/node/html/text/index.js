@@ -2,7 +2,7 @@
 
 import TextHTMLNode from "../../../node/html/text";
 
-import { INDEX_TEXT_RULE_NAME } from "../../../ruleNames";
+import { INDEX_TEXT_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
 
 export default class IndexTextHTMLNode extends TextHTMLNode {
   constructor(outerNode, parentNode, childNodes, domElement, wordOrPhrase) {
@@ -16,7 +16,7 @@ export default class IndexTextHTMLNode extends TextHTMLNode {
   }
 
   getRuleName() {
-    const ruleName = INDEX_TEXT_RULE_NAME;
+    const ruleName = INDEX_TEXT_MARKDOWN_RULE_NAME;
 
     return ruleName;
   }

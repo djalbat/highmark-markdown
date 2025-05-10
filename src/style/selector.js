@@ -1,20 +1,20 @@
 "use strict";
 
-import ruleNames from "../ruleNames";
 import tagNameMap from "../map/tagName";
 import classNameMap from "../map/className";
+import markdownRuleNames from "../ruleNames/markdown";
 
 import { nodeQuery } from "../utilities/query";
 import { EMPTY_STRING } from "../constants";
-import { DIVISION_RULE_NAME } from "../ruleNames";
+import { DIVISION_MARKDOWN_RULE_NAME } from "../ruleNames/markdown";
 import { remainingContentFromNodeTokensAndOffset } from "../utilities/content";
 
-const { STRONG_TEXT_RULE_NAME,
-        ORDERED_LIST_RULE_NAME,
-        ORDERED_ITEM_RULE_NAME,
-        UNORDERED_ITEM_RULE_NAME,
-        UNORDERED_LIST_RULE_NAME,
-        STRONGLY_EMPHASISED_TEXT_RULE_NAME } = ruleNames;
+const { STRONG_TEXT_MARKDOWN_RULE_NAME,
+        ORDERED_LIST_MARKDOWN_RULE_NAME,
+        ORDERED_ITEM_MARKDOWN_RULE_NAME,
+        UNORDERED_ITEM_MARKDOWN_RULE_NAME,
+        UNORDERED_LIST_MARKDOWN_RULE_NAME,
+        STRONGLY_EMPHASISED_TEXT_MARKDOWN_RULE_NAME } = markdownRuleNames;
 
 const ruleNameTerminalNodeQuery = nodeQuery("/selector/@rule-name");
 
@@ -63,12 +63,12 @@ function contentFromNodeAndTokens(node, tokens) {
     const ruleNameTerminalNodeContent = ruleNameTerminalNode.getContent(),
           ruleName = ruleNameTerminalNodeContent; ///
 
-    if (ruleName === DIVISION_RULE_NAME) {
+    if (ruleName === DIVISION_MARKDOWN_RULE_NAME) {
       content = null;
     } else {
       content = EMPTY_STRING;
 
-      const ruleNamesIncludesRuleName = ruleNames.includes(ruleName);
+      const ruleNamesIncludesRuleName = markdownRuleNames.includes(ruleName);
 
       if (ruleNamesIncludesRuleName) {
         const tagName = tagNameMap[ruleName];
@@ -78,24 +78,24 @@ function contentFromNodeAndTokens(node, tokens) {
         }
 
         switch (ruleName) {
-          case ORDERED_ITEM_RULE_NAME: {
-            const tagName = tagNameMap[ORDERED_LIST_RULE_NAME],
+          case ORDERED_ITEM_MARKDOWN_RULE_NAME: {
+            const tagName = tagNameMap[ORDERED_LIST_MARKDOWN_RULE_NAME],
 
             content = `${tagName} > ${content}`;
 
             break;
           }
 
-          case UNORDERED_ITEM_RULE_NAME: {
-            const tagName = tagNameMap[UNORDERED_LIST_RULE_NAME];
+          case UNORDERED_ITEM_MARKDOWN_RULE_NAME: {
+            const tagName = tagNameMap[UNORDERED_LIST_MARKDOWN_RULE_NAME];
 
             content = `${tagName} > ${content}`;
 
             break;
           }
 
-          case STRONGLY_EMPHASISED_TEXT_RULE_NAME: {
-            const tagName = tagNameMap[STRONG_TEXT_RULE_NAME];
+          case STRONGLY_EMPHASISED_TEXT_MARKDOWN_RULE_NAME: {
+            const tagName = tagNameMap[STRONG_TEXT_MARKDOWN_RULE_NAME];
 
             content = `${content} > ${tagName}`;
 

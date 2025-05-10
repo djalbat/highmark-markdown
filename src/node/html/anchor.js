@@ -3,8 +3,8 @@
 import HTMLNode from "../../node/html";
 
 import { EMPTY_STRING } from "../../constants";
-import { ANCHOR_RULE_NAME } from "../../ruleNames";
 import { ID_ATTRIBUTE_NAME } from "../../attributeNames";
+import { ANCHOR_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
 
 export default class AnchorHTMLNode extends HTMLNode {
   constructor(outerNode, parentNode, childNodes, domElement, prepend, identifier) {
@@ -23,7 +23,7 @@ export default class AnchorHTMLNode extends HTMLNode {
   }
 
   getRuleName() {
-    const ruleName = ANCHOR_RULE_NAME;  ///
+    const ruleName = ANCHOR_MARKDOWN_RULE_NAME;  ///
 
     return ruleName;
   }

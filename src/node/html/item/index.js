@@ -1,15 +1,15 @@
 "use strict";
 
 import HTMLNode from "../../../node/html";
+import CommaTextHTMLNode from "../../../node/html/text/comma";
 import IndexTextHTMLNode from "../../../node/html/text/index";
 import IndexLinkHTMLNode from "../../../node/html/link/index";
 
-import { INDEX_ITEM_RULE_NAME } from "../../../ruleNames";
-import CommaTextHTMLNode from "../text/comma";
+import { INDEX_ITEM_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
 
 export default class IndexItemHTMLNode extends HTMLNode {
   getRuleName() {
-    const ruleName = INDEX_ITEM_RULE_NAME;
+    const ruleName = INDEX_ITEM_MARKDOWN_RULE_NAME;
 
     return ruleName;
   }

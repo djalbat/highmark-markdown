@@ -2,7 +2,7 @@
 
 import HTMLNode from "../../../node/html";
 
-import { INDEX_HEADING_RULE_NAME } from "../../../ruleNames";
+import { INDEX_HEADING_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
 
 export default class IndexHeadingHTMLNode extends HTMLNode {
   constructor(outerNode, parentNode, childNodes, domElement, letter) {
@@ -16,7 +16,7 @@ export default class IndexHeadingHTMLNode extends HTMLNode {
   }
 
   getRuleName() {
-    const ruleName = INDEX_HEADING_RULE_NAME;
+    const ruleName = INDEX_HEADING_MARKDOWN_RULE_NAME;
 
     return ruleName;
   }

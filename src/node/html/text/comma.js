@@ -3,11 +3,11 @@
 import TextHTMLNode from "../../../node/html/text";
 
 import { COMMA } from "../../../constants";
-import { INDEX_TEXT_RULE_NAME } from "../../../ruleNames";
+import { INDEX_TEXT_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
 
 export default class CommaTextHTMLNode extends TextHTMLNode {
   getRuleName() {
-    const ruleName = INDEX_TEXT_RULE_NAME;
+    const ruleName = INDEX_TEXT_MARKDOWN_RULE_NAME;
 
     return ruleName;
   }

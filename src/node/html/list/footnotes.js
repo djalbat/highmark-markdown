@@ -3,7 +3,7 @@
 import HTMLNode from "../../../node/html";
 
 import { START_ATTRIBUTE_NAME } from "../../../attributeNames";
-import { FOOTNOTES_LIST_RULE_NAME } from "../../../ruleNames";
+import { FOOTNOTES_LIST_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
 
 export default class FootnotesListHTMLNode extends HTMLNode {
   constructor(outerNode, parentNode, childNodes, domElement, start) {
@@ -17,7 +17,7 @@ export default class FootnotesListHTMLNode extends HTMLNode {
   }
 
   getRuleName() {
-    const ruleName = FOOTNOTES_LIST_RULE_NAME;
+    const ruleName = FOOTNOTES_LIST_MARKDOWN_RULE_NAME;
 
     return ruleName;
   }

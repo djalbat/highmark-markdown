@@ -5,7 +5,7 @@ import HTMLNode from "../../../node/html";
 import { EMPTY_STRING } from "../../../constants";
 import { INDEX_PREPEND } from "../../../prepends";
 import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
-import { INDEX_LINK_RULE_NAME } from "../../../ruleNames";
+import { INDEX_LINK_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
 
 export default class IndexLinkHTMLNode extends HTMLNode {
   constructor(outerNode, parentNode, childNodes, domElement, pageNumber) {
@@ -19,7 +19,7 @@ export default class IndexLinkHTMLNode extends HTMLNode {
   }
 
   getRuleName() {
-    const ruleName = INDEX_LINK_RULE_NAME;
+    const ruleName = INDEX_LINK_MARKDOWN_RULE_NAME;
 
     return ruleName;
   }

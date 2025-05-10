@@ -3,7 +3,7 @@
 import HTMLNode from "../../node/html";
 
 import { EMPTY_STRING } from "../../constants";
-import { PAGE_NUMBER_RULE_NAME } from "../../ruleNames";
+import { PAGE_NUMBER_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
 
 export default class PageNumberHTMLNode extends HTMLNode {
   constructor(outerNode, parentNode, childNodes, domElement, pageNumber) {
@@ -17,7 +17,7 @@ export default class PageNumberHTMLNode extends HTMLNode {
   }
 
   getRuleName() {
-    const ruleName = PAGE_NUMBER_RULE_NAME;
+    const ruleName = PAGE_NUMBER_MARKDOWN_RULE_NAME;
 
     return ruleName;
   }

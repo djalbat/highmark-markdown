@@ -2,11 +2,11 @@
 
 import HTMLNode from "../../../node/html";
 
-import { INDEX_LIST_RULE_NAME } from "../../../ruleNames";
+import { INDEX_LIST_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
 
 export default class IndexListHTMLNode extends HTMLNode {
   getRuleName() {
-    const ruleName = INDEX_LIST_RULE_NAME;
+    const ruleName = INDEX_LIST_MARKDOWN_RULE_NAME;
 
     return ruleName;
   }
