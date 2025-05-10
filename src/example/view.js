@@ -73,26 +73,31 @@ class View extends Element {
   updateHTML(index = 0) {
     const topmostHTMLNode = this.getTopmostHTMLNode();
 
+    this.clearXMP();
+
+    this.clearPreviewDiv();
+
+    this.clearPlainTextTextarea();
+
+    this.clearHTMLParseTreeTextarea();
+
+    this.clearPageButtonsDiv();
+
     if (topmostHTMLNode === null) {
-      this.clearXMP();
-
-      this.clearPreviewDiv();
-
-      this.clearPlainTextTextarea();
-
-      this.clearHTMLParseTreeTextarea();
-
-      this.clearPageButtonsDiv();
-
       return;
     }
 
-    let context;
+    const divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNodeAt(index);
 
-    const tokens = this.getTokens(),
-          divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNodeAt(index),
-          divisionHTMLNOdeParseTree = divisionHTMLNOde.asParseTree(),
-          htmlParseTree = divisionHTMLNOdeParseTree; ///
+    if (divisionHTMLNOde === null) {
+      return;
+    }
+
+    const divisionHTMLNOdeParseTree = divisionHTMLNOde.asParseTree(),
+          htmlParseTree = divisionHTMLNOdeParseTree,  ///
+          tokens = this.getTokens();
+
+    let context;
 
     context = {
       tokens,
