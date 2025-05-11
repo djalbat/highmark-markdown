@@ -5,6 +5,22 @@ import withStyle from "easy-with-style";  ///
 import { Button } from "easy";
 
 class TabButton extends Button {
+  didMount() {
+    const { disabled = false } = this.properties;
+
+    if (disabled) {
+      this.disable();
+    }
+  }
+
+  willUnmount() {
+    ///
+  }
+
+  static ignoredProperties = [
+    "disabled"
+  ];
+
   static defaultProperties = {
     className: "tab"
   };

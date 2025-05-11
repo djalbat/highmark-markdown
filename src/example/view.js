@@ -30,8 +30,6 @@ const markdownLexer = MarkdownLexer.fromNothing(),
 
 class View extends Element {
   pageUpdateCustomHandler = (event, element, index) => {
-    this.updateMarkdown();
-
     this.updateHTML(index);
   }
 
@@ -96,6 +94,8 @@ class View extends Element {
 
     const divisionHTMLNOdeParseTree = divisionHTMLNOde.asParseTree(),
           htmlParseTree = divisionHTMLNOdeParseTree,  ///
+          multiplicity = topmostHTMLNode.getMultiplicity(),
+          length = multiplicity,  ///
           tokens = this.getTokens();
 
     let context;
@@ -113,7 +113,7 @@ class View extends Element {
 
     this.updateHTMLParseTreeTextarea(htmlParseTree);
 
-    this.updatePageButtonsDiv(index);
+    this.updatePageButtonsDiv(length, index);
   }
 
   updateMarkdown() {
@@ -155,16 +155,11 @@ class View extends Element {
     topmostHTMLNode.resolve(context);
 
     const topmostMarkdownNodeParseTree = topmostMarkdownNode.asParseTree(tokens),
-          markdownParseTree = topmostMarkdownNodeParseTree, ///
-          multiplicity = topmostHTMLNode.getMultiplicity(),
-          length = multiplicity,  ///
-          index = 0;
+          markdownParseTree = topmostMarkdownNodeParseTree; ///
 
     this.setTokens(tokens);
 
     this.setTopmostHTMLNode(topmostHTMLNode);
-
-    this.updatePageButtonsDiv(length, index);
 
     this.updateMarkdownParseTreeTextarea(markdownParseTree);
   }
@@ -288,6 +283,18 @@ class View extends Element {
     });
   }
 
+  didMount() {
+    this.markdownStyle();
+
+    this.css();
+
+    this.update();
+  }
+
+  willUnmount() {
+    ///
+  }
+
   childElements() {
     return (
 
@@ -331,8 +338,6 @@ class View extends Element {
     this.setMarkdownStyle(markdownStyle);
 
     this.setMarkdown(markdown);
-
-    this.update();
   }
 
   static initialMarkdown = initialMarkdown;

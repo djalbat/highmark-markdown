@@ -75,18 +75,10 @@ class RightTabButtonsDiv extends TabButtonsDiv {
     this.callCustomHandlers(eventType, event, element);
   }
 
-  didMount() {
-    this.css();
-  }
-
-  willUnmount() {
-    ///
-  }
-
   childElements() {
     return ([
 
-      <CSSTabButton onClick={this.cssTabButtonClickHandler} />,
+      <CSSTabButton onClick={this.cssTabButtonClickHandler} disabled />,
       <HTMLTabButton onClick={this.htmlTabButtonClickHandler} />,
       <PreviewTabButton onClick={this.previewTabButtonClickHandler} />,
       <PlainTextTabButton onClick={this.plainTextTabButtonClickHandler} />

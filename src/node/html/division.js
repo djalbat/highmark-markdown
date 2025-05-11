@@ -42,6 +42,14 @@ export default class DivisionHTMLNode extends HTMLNode {
     return ruleNme;
   }
 
+  fromFirstHTMLNode(callback) {
+    this.fromFirstChildNode((firstChildNode) => {
+      const firstHTMLNode = firstChildNode;  ///
+
+      callback(firstHTMLNode);
+    });
+  }
+
   resolve(divisionHTMLNodes, context) {
     const node = this;
 
@@ -79,12 +87,16 @@ export default class DivisionHTMLNode extends HTMLNode {
       divisionHTMLNode.resolveFootnotes(identifierMap, context);
 
       if (pageNumbers) {
-        const indexAnchorHTMLTransform = IndexAnchorHTMLTransform.fromPageNumber(pageNumber),
-              pageNumberHTMLTransform = PageNumberHTMLTransform.fromPageNumber(pageNumber);
-
-        indexAnchorHTMLTransform.prependToDivisionHTMLNode(divisionHTMLNode);
+        const pageNumberHTMLTransform = PageNumberHTMLTransform.fromPageNumber(pageNumber);
 
         pageNumberHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
+
+        this.fromFirstHTMLNode((firstHTMLNode) => {
+          const indexAnchorHTMLTransform = IndexAnchorHTMLTransform.fromPageNumber(pageNumber),
+                htmlNode = firstHTMLNode;  ///
+
+          indexAnchorHTMLTransform.appendToHTMLNode(htmlNode);
+        });
       }
 
       divisionHTMLNodes.push(divisionHTMLNode);

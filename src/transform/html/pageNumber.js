@@ -5,7 +5,7 @@ import PageNumberHTMLNode from "../../node/html/pageNumber";
 
 export default class PageNumberTMLTransform extends HTMLTransform {
   appendToDivisionHTMLNode(divisionHTMLNode) {
-    const parentHTMLNode = divisionHTMLNode;
+    const parentHTMLNode = divisionHTMLNode;  ///
 
     this.appendTo(parentHTMLNode);
   }

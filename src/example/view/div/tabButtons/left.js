@@ -37,18 +37,10 @@ class LeftTabButtonsDiv extends TabButtonsDiv {
     this.callCustomHandlers(eventType, event, element);
   }
 
-  didMount() {
-    this.markdownStyle();
-  }
-
-  willUnmount() {
-    ///
-  }
-
   childElements() {
     return ([
 
-      <MarkdownStyleTabButton onClick={this.markdownStyleTabButtonClickHandler} />,
+      <MarkdownStyleTabButton onClick={this.markdownStyleTabButtonClickHandler} disabled />,
       <MarkdownTabButton onClick={this.markdownTabButtonClickHandler} />
 
     ]);

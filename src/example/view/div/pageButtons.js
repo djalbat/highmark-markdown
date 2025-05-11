@@ -45,26 +45,27 @@ class PageButtonsDiv extends Element {
 
   getPageButtons() {
     const pageButtonChildElements = this.getChildElements("button.page"),
-      pageButtons = pageButtonChildElements;  ///
+          pageButtons = pageButtonChildElements;  ///
 
     return pageButtons;
   }
 
   update(length, index) {
-    if (index === undefined) {
-      index = length; ///
+    let pageButtons;
 
-      length = null;
-    }
+    pageButtons = this.getPageButtons();
 
-    if (length !== null) {
+    const pageButtonsLength = pageButtons.length;
+
+    if (length !== pageButtonsLength) {
       this.unmountPageButtons();
 
       this.mountPageButtons(length);
     }
 
-    const pageButtons = this.getPageButtons(),
-          currentIndex = index; ///
+    pageButtons = this.getPageButtons();
+
+    const currentIndex = index; ///
 
     pageButtons.forEach((pageButton, index) => {
       (index === currentIndex) ?

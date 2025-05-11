@@ -6,10 +6,10 @@ import AnchorHTMLNode from "../../node/html/anchor";
 import { INDEX_PREPEND } from "../../prepends";
 
 export default class IndexAnchorTMLTransform extends HTMLTransform {
-  prependToDivisionHTMLNode(divisionHTMLNode) {
-    const parentHTMLNode = divisionHTMLNode;
+  appendToHTMLNode(htmlNode) {
+    const parentHTMLNode = htmlNode;  ///
 
-    this.prependTo(parentHTMLNode);
+    this.appendTo(parentHTMLNode);
   }
 
   static fromPageNumber(pageNumber) {
