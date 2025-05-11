@@ -20,8 +20,8 @@ import HTMLParseTreeTextarea from "./view/textarea/parseTree/html";
 import PlainTextContainerDiv from "./view/div/container/plainText";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
-import { htmlNodeFromMarkdownNode } from "../utilities/dom";
 import { importer, initialMarkdown } from "./importer";
+import { topmostHTMLNodeFromMarkdownNode, topmostCSSNodeFromMarkdownStyleNode } from "../utilities/dom";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
@@ -67,53 +67,38 @@ class View extends Element {
     this.updateMarkdown();
 
     this.updateHTML();
+
+    this.updateCSS();
   }
 
-  updateHTML(index = 0) {
-    const topmostHTMLNode = this.getTopmostHTMLNode();
+  updateMarkdownStyle() {
+    const markdownStyle = this.getMarkdownStyle(),
+          lexer = markdownStyleLexer, ///
+          parser = markdownStyleParser, ///
+          content = markdownStyle,  ///
+          tokens = lexer.tokenise(content),
+          startRule = parser.getStartRule(),
+          node = parser.parse(tokens, startRule);
 
-    this.clearXMP();
+    if (node === null) {
+      this.resetMarkdownStyleTokens();
 
-    this.clearPreviewDiv();
+      this.resetTopmostMarkdownStyleNode();
 
-    this.clearPlainTextTextarea();
+      this.clearMarkdownStyleParseTreeTextarea();
 
-    this.clearHTMLParseTreeTextarea();
-
-    this.clearPageButtonsDiv();
-
-    if (topmostHTMLNode === null) {
       return;
     }
 
-    const divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNodeAt(index);
+    const parseTree = node.asParseTree(tokens),
+          markdownStyleTokens = tokens, ///
+          topmostMarkdownStyleNode = node; ///
 
-    if (divisionHTMLNOde === null) {
-      return;
-    }
+    this.setMarkdownStyleTokens(markdownStyleTokens);
 
-    const divisionHTMLNOdeParseTree = divisionHTMLNOde.asParseTree(),
-          htmlParseTree = divisionHTMLNOdeParseTree,  ///
-          multiplicity = topmostHTMLNode.getMultiplicity(),
-          length = multiplicity,  ///
-          tokens = this.getTokens();
+    this.setTopmostMarkdownStyleNode(topmostMarkdownStyleNode);
 
-    let context;
-
-    context = {
-      tokens,
-      pathToURL
-    };
-
-    this.updateXMP(divisionHTMLNOde, context);
-
-    this.updatePreviewDiv(divisionHTMLNOde, context);
-
-    this.updatePlainTextTextarea(divisionHTMLNOde, context);
-
-    this.updateHTMLParseTreeTextarea(htmlParseTree);
-
-    this.updatePageButtonsDiv(length, index);
+    this.updateMarkdownStyleParseTreeTextarea(parseTree);
   }
 
   updateMarkdown() {
@@ -125,9 +110,9 @@ class View extends Element {
           node = parser.parse(tokens);
 
     if (node === null) {
-      this.resetTokens();
+      this.resetMarkdownTokens();
 
-      this.resetTopmostHTMLNode();
+      this.resetTopmostMarkdownNode();
 
       this.clearMarkdownParseTreeTextarea();
 
@@ -145,7 +130,39 @@ class View extends Element {
 
     topmostMarkdownNode.resolve(context);
 
-    const topmostHTMLNode = htmlNodeFromMarkdownNode(topmostMarkdownNode);
+    const topmostMarkdownNodeParseTree = topmostMarkdownNode.asParseTree(tokens),
+          markdownParseTree = topmostMarkdownNodeParseTree, ///
+          markdownTokens = tokens;  ///
+
+    this.setMarkdownTokens(markdownTokens);
+
+    this.setTopmostMarkdownNode(topmostMarkdownNode);
+
+    this.updateMarkdownParseTreeTextarea(markdownParseTree);
+  }
+
+  updateHTML(index = 0) {
+    this.clearXMP();
+
+    this.clearPreviewDiv();
+
+    this.clearPlainTextTextarea();
+
+    this.clearHTMLParseTreeTextarea();
+
+    this.clearPageButtonsDiv();
+
+    const topmostMarkdownNode = this.getTopmostMarkdownNode(),
+          topmostHTMLNode = topmostHTMLNodeFromMarkdownNode(topmostMarkdownNode);
+
+    if (topmostHTMLNode === null) {
+      return;
+    }
+
+    let context;
+
+    const markdownTokens = this.getMarkdownTokens(),
+          tokens = markdownTokens;  ///
 
     context = {
       indexOptions,
@@ -154,37 +171,62 @@ class View extends Element {
 
     topmostHTMLNode.resolve(context);
 
-    const topmostMarkdownNodeParseTree = topmostMarkdownNode.asParseTree(tokens),
-          markdownParseTree = topmostMarkdownNodeParseTree; ///
+    const divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNodeAt(index);
 
-    this.setTokens(tokens);
+    if (divisionHTMLNOde === null) {
+      return;
+    }
 
-    this.setTopmostHTMLNode(topmostHTMLNode);
+    const divisionHTMLNOdeParseTree = divisionHTMLNOde.asParseTree(),
+          htmlParseTree = divisionHTMLNOdeParseTree,  ///
+          multiplicity = topmostHTMLNode.getMultiplicity(),
+          length = multiplicity;
 
-    this.updateMarkdownParseTreeTextarea(markdownParseTree);
+    context = {
+      tokens,
+      pathToURL
+    };
+
+    this.updateXMP(divisionHTMLNOde, context);
+
+    this.updatePreviewDiv(divisionHTMLNOde, context);
+
+    this.updatePlainTextTextarea(divisionHTMLNOde, context);
+
+    this.updateHTMLParseTreeTextarea(htmlParseTree);
+
+    this.updatePageButtonsDiv(length, index);
   }
 
-  updateMarkdownStyle() {
+  updateCSS() {
     const { markdownStyleElement } = this.properties,
           markdownStyle = this.getMarkdownStyle(),
           css = markdownStyleElement.update(markdownStyle);
 
     this.setCSS(css);
 
-    const lexer = markdownStyleLexer, ///
-          parser = markdownStyleParser, ///
-          content = markdownStyle,  ///
-          tokens = lexer.tokenise(content),
-          startRule = parser.getStartRule(),
-          node = parser.parse(tokens, startRule);
+    const topmostMarkdownStyleNode = this.getTopmostMarkdownStyleNode(),
+          topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(topmostMarkdownStyleNode);
 
-    if (node !== null) {
-      const parseTree = node.asParseTree(tokens);
-
-      this.updateMarkdownStyleParseTreeTextarea(parseTree);
-    } else {
-      this.clearMarkdownStyleParseTreeTextarea();
+    if (topmostCSSNode === null) {
+      return;
     }
+
+    let context;
+
+    const markdownStyleTokens = this.getMarkdownStyleTokens(),
+          tokens = markdownStyleTokens;  ///
+
+    context = {
+      tokens
+    };
+
+    topmostCSSNode.resolve(context);
+
+    const topmostCSSNodeParseTree = topmostCSSNode.asParseTree(tokens),
+          cssParseTree = topmostCSSNodeParseTree;
+
+    this.updateCSSParseTreeTextarea(cssParseTree);
   }
 
   markdownStyle() {
@@ -237,49 +279,89 @@ class View extends Element {
     this.hideHTMLParseTreeTextarea();
   }
 
-  resetTokens() {
-    const tokens = null;
+  resetMarkdownTokens() {
+    const markdownTokens = null;
 
-    this.setTokens(tokens);
+    this.setMarkdownTokens(markdownTokens);
   }
 
-  resetTopmostHTMLNode() {
-    const topmostHTMLNode = null;
+  resetMarkdownStyleTokens() {
+    const markdownStyleTokens = null;
 
-    this.setTopmostHTMLNode(topmostHTMLNode);
+    this.setMarkdownStyleTokens(markdownStyleTokens);
   }
 
-  getTokens() {
-    const { tokens } = this.getState();
+  resetTopmostMarkdownNode() {
+    const topmostMarkdownNode = null;
 
-    return tokens;
+    this.setTopmostMarkdownNode(topmostMarkdownNode);
   }
 
-  getTopmostHTMLNode() {
-    const { topmostMHTMLNode } = this.getState();
+  resetTopmostMarkdownStyleNode() {
+    const topmostMarkdownStyleNode = null;
 
-    return topmostMHTMLNode;
+    this.setTopmostMarkdownStyleNode(topmostMarkdownStyleNode);
   }
 
-  setTokens(tokens) {
+  getMarkdownTokens() {
+    const { markdownTokens } = this.getState();
+
+    return markdownTokens;
+  }
+
+  getMarkdownStyleTokens() {
+    const { markdownStyleTokens } = this.getState();
+
+    return markdownStyleTokens;
+  }
+
+  getTopmostMarkdownNode() {
+    const { topmostMMarkdownNode } = this.getState();
+
+    return topmostMMarkdownNode;
+  }
+
+  getTopmostMarkdownStyleNode() {
+    const { topmostMMarkdownStyleNode } = this.getState();
+
+    return topmostMMarkdownStyleNode;
+  }
+
+  setMarkdownTokens(markdownTokens) {
     this.updateState({
-      tokens
+      markdownTokens
     });
   }
 
-  setTopmostHTMLNode(topmostMHTMLNode) {
+  setMarkdownStyleTokens(markdownStyleTokens) {
     this.updateState({
-      topmostMHTMLNode
+      markdownStyleTokens
+    });
+  }
+
+  setTopmostMarkdownNode(topmostMMarkdownNode) {
+    this.updateState({
+      topmostMMarkdownNode
+    });
+  }
+
+  setTopmostMarkdownStyleNode(topmostMMarkdownStyleNode) {
+    this.updateState({
+      topmostMMarkdownStyleNode
     });
   }
 
   setInitialState() {
-    const tokens = null,
-          topmostHTMLNode = null;
+    const markdownTokens = null,
+          markdownStyleTokens = null,
+          topmostMarkdownNode = null,
+          topmostMarkdownStyleNode = null;
 
     this.setState({
-      tokens,
-      topmostHTMLNode
+      markdownTokens,
+      markdownStyleTokens,
+      topmostMarkdownNode,
+      topmostMarkdownStyleNode
     });
   }
 

@@ -3,5 +3,7 @@
 import CSSNode from "../../node/css";
 
 export default class RuleSetCSSNode extends CSSNode {
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return CSSNode.fromRuleNameChildNodesAndOpacity(RuleSetCSSNode, ruleName, childNodes, opacity); }
+  static fromNothing() { return CSSNode.fromNothing(RuleSetCSSNode); }
+
+  static fromOuterNode(outerNode) { return CSSNode.fromOuterNode(RuleSetCSSNode, outerNode); }
 }

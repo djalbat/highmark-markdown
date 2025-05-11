@@ -20,14 +20,6 @@ class ParseTreeTextarea extends Textarea {
     this.setValue(value);
   }
 
-  parentContext() {
-    const setCSS = this.setCSS.bind(this);
-
-    return ({
-      setCSS
-    });
-  }
-
   static defaultProperties = {
     readOnly: true,
     className: "parse-tree",

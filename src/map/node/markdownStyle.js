@@ -2,10 +2,10 @@
 
 import NameMarkdownStyleNode from "../../node/markdownStyle/name";
 import ValueMarkdownStyleNode from "../../node/markdownStyle/value";
-import StyleMarkdownStyleNode from "../../node/markdownStyle/style";
 import ClassMarkdownStyleNode from "../../node/markdownStyle/class";
 import ErrorMarkdownStyleNode from "../../node/markdownStyle/error";
 import ValuesMarkdownStyleNode from "../../node/markdownStyle/values";
+import TopmostMarkdownStyleNode from "../../node/markdownStyle/topmost";
 import RuleSetMarkdownStyleNode from "../../node/markdownStyle/ruleSet";
 import NonsenseMarkdownStyleNode from "../../node/markdownStyle/nonsense";
 import ArgumentMarkdownStyleNode from "../../node/markdownStyle/argument";
@@ -19,7 +19,6 @@ import SelectorsListMarkdownStyleNode from "../../node/markdownStyle/selectorsLi
 
 import { NAME_MARKDOWN_STYLE_RULE_NAME,
          VALUE_MARKDOWN_STYLE_RULE_NAME,
-         STYLE_MARKDOWN_STYLE_RULE_NAME,
          CLASS_MARKDOWN_STYLE_RULE_NAME,
          ERROR_MARKDOWN_STYLE_RULE_NAME,
          VALUES_MARKDOWN_STYLE_RULE_NAME,
@@ -32,12 +31,12 @@ import { NAME_MARKDOWN_STYLE_RULE_NAME,
          IDENTIFIER_MARKDOWN_STYLE_RULE_NAME,
          DECLARATION_MARKDOWN_STYLE_RULE_NAME,
          PSEUDO_CLASS_MARKDOWN_STYLE_RULE_NAME,
-         SELECTORS_LIST_MARKDOWN_STYLE_RULE_NAME } from "../../ruleNames/markdown";
+         SELECTORS_LIST_MARKDOWN_STYLE_RULE_NAME,
+         MARKDOWN_STYLE_MARKDOWN_STYLE_RULE_NAME } from "../../ruleNames/markdownStyle";
 
 const markdownStyleNodeMap = {
   [NAME_MARKDOWN_STYLE_RULE_NAME]: NameMarkdownStyleNode,
   [VALUE_MARKDOWN_STYLE_RULE_NAME]: ValueMarkdownStyleNode,
-  [STYLE_MARKDOWN_STYLE_RULE_NAME]: StyleMarkdownStyleNode,
   [CLASS_MARKDOWN_STYLE_RULE_NAME]: ClassMarkdownStyleNode,
   [ERROR_MARKDOWN_STYLE_RULE_NAME]: ErrorMarkdownStyleNode,
   [VALUES_MARKDOWN_STYLE_RULE_NAME]: ValuesMarkdownStyleNode,
@@ -50,7 +49,8 @@ const markdownStyleNodeMap = {
   [IDENTIFIER_MARKDOWN_STYLE_RULE_NAME]: IdentifierMarkdownStyleNode,
   [DECLARATION_MARKDOWN_STYLE_RULE_NAME]: DeclarationMarkdownStyleNode,
   [PSEUDO_CLASS_MARKDOWN_STYLE_RULE_NAME]: PseudoClassMarkdownStyleNode,
-  [SELECTORS_LIST_MARKDOWN_STYLE_RULE_NAME]: SelectorsListMarkdownStyleNode
+  [SELECTORS_LIST_MARKDOWN_STYLE_RULE_NAME]: SelectorsListMarkdownStyleNode,
+  [MARKDOWN_STYLE_MARKDOWN_STYLE_RULE_NAME]: TopmostMarkdownStyleNode
 };
 
 export default markdownStyleNodeMap;

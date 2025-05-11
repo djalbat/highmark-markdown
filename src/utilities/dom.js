@@ -2,27 +2,31 @@
 
 import { nodeUtilities } from "occam-dom";
 
+import CSSNode from "../node/css";
 import HTMLNode from "../node/html";
+import cssNodeMap from "../map/node/css";
 import htmlNodeMap from "../map/node/html";
-import markdownQueries from "../queries/markdown";
+import TopmostCSSNode from "../node/css/topmost";
 import TopmostHTMLNode from "../node/html/topmost";
+import markdownQueries from "../queries/markdown";
+import markdownStyleQueries from "../queries/markdownStyle";
 
 import { nodesFromNodeAndQueries } from "../utilities/query";
 
 const { topmostNodeFromOuterNodes } = nodeUtilities;
 
-export function htmlNodeFromMarkdownNode(markdownNode) {
+export function topmostHTMLNodeFromMarkdownNode(markdownNode) {
   const node = markdownNode,  ///
         queries = markdownQueries, ///
         nodes = nodesFromNodeAndQueries(node, queries),
         outerNodes = nodes, ///
-        topmostNOde = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes),
-        topmostHTMLNode = topmostNOde;  ///
+        topmostNode = topmostNodeFromOuterNodes(HTMLClassFromOuterNode, outerNodes),
+        topmostHTMLNode = topmostNode;  ///
 
   return topmostHTMLNode;
 }
 
-export function htmlNodeFromMarkdownNodes(markdownNodes) {
+export function topmostHTMLNodeFromMarkdownNodes(markdownNodes) {
   const nodes = [],
         queries = markdownQueries;  ///
 
@@ -33,18 +37,63 @@ export function htmlNodeFromMarkdownNodes(markdownNodes) {
   });
 
   const outerNodes = nodes, ///
-        topmostNOde = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes),
-        topmostHTMLNode = topmostNOde;  ///
+        topmostNode = topmostNodeFromOuterNodes(HTMLClassFromOuterNode, outerNodes),
+        topmostHTMLNode = topmostNode;  ///
 
   return topmostHTMLNode;
 }
 
+export function topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode) {
+  const node = markdownStyleNode,  ///
+        queries = markdownStyleQueries, ///
+        nodes = nodesFromNodeAndQueries(node, queries),
+        outerNodes = nodes, ///
+        topmostNode = topmostNodeFromOuterNodes(CSSClassFromOuterNode, outerNodes),
+        topmostCSSNode = topmostNode;  ///
+
+  return topmostCSSNode;
+}
+
+export function topmostCSSNodeFromMarkdownStyleNodes(markdownStyleNodes) {
+  const nodes = [],
+        queries = markdownStyleQueries;  ///
+
+  markdownStyleNodes.forEach((markdownStyleNode) => {
+    const node = markdownStyleNode;  ///
+
+    nodesFromNodeAndQueries(node, queries, nodes);
+  });
+
+  const outerNodes = nodes, ///
+        topmostNode = topmostNodeFromOuterNodes(CSSClassFromOuterNode, outerNodes),
+        topmostCSSNode = topmostNode;  ///
+
+  return topmostCSSNode;
+}
+
 export default {
-  htmlNodeFromMarkdownNode,
-  htmlNodeFromMarkdownNodes
+  topmostHTMLNodeFromMarkdownNode,
+  topmostHTMLNodeFromMarkdownNodes,
+  topmostCSSNodeFromMarkdownStyleNode,
+  topmostCSSNodeFromMarkdownStyleNodes,
 };
 
-function ClassFromOuterNode(outerNode) {
+function CSSClassFromOuterNode(outerNode) {
+  let Class;
+
+  if (outerNode === null) {
+    Class = TopmostCSSNode;  ///
+  } else {
+    const nonTerminalNode = outerNode,  ///
+          ruleName = nonTerminalNode.getRuleName();
+
+    Class = cssNodeMap[ruleName] || CSSNode;
+  }
+
+  return Class;
+}
+
+function HTMLClassFromOuterNode(outerNode) {
   let Class;
 
   if (outerNode === null) {
