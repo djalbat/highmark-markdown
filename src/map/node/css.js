@@ -53,4 +53,15 @@ const cssNodeMap = {
   [SELECTORS_LIST_MARKDOWN_STYLE_RULE_NAME]: SelectorsListCSSNode
 };
 
+export function forEachCSSNode(callback) {
+  const ruleNames = Object.keys(cssNodeMap);
+
+  ruleNames.forEach((ruleName) => {
+    const CSSNode = cssNodeMap[ruleName],
+          Class = CSSNode;
+
+    callback(Class, ruleName);
+  });
+}
+
 export default cssNodeMap;

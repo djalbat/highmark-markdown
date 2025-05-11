@@ -3,6 +3,7 @@
 import { CommonParser } from "occam-parsers";
 
 import bnf from "./bnf";
+import MarkdownNode from "../node/markdown";
 import markdownNodeMap from "../map/node/markdown";
 
 import { setNonTerminalNodes } from "../utilities/parser";
@@ -22,9 +23,10 @@ export default class MarkdownParser extends CommonParser {
     }
 
     const { nodeMap } = Class,
-          markdownParser = CommonParser.fromBNF(Class, bnf);
+          markdownParser = CommonParser.fromBNF(Class, bnf),
+          DefaultNonTerminalNode = MarkdownNode;  ///
 
-    setNonTerminalNodes(markdownParser, nodeMap);
+    setNonTerminalNodes(markdownParser, nodeMap, DefaultNonTerminalNode);
 
     return markdownParser;
   }
@@ -37,9 +39,10 @@ export default class MarkdownParser extends CommonParser {
     }
 
     const { nodeMap } = Class,
-          markdownParser = CommonParser.fromRules(Class, rules);
+          markdownParser = CommonParser.fromRules(Class, rules),
+          DefaultNonTerminalNode = MarkdownNode;  ///
 
-    setNonTerminalNodes(markdownParser, nodeMap);
+    setNonTerminalNodes(markdownParser, nodeMap, DefaultNonTerminalNode);
 
     return markdownParser;
   }
@@ -50,9 +53,10 @@ export default class MarkdownParser extends CommonParser {
     }
 
     const { nodeMap } = Class,
-          markdownParser = CommonParser.fromNothing(Class);
+          markdownParser = CommonParser.fromNothing(Class),
+          DefaultNonTerminalNode = MarkdownNode;  ///
 
-    setNonTerminalNodes(markdownParser, nodeMap);
+    setNonTerminalNodes(markdownParser, nodeMap, DefaultNonTerminalNode);
 
     return markdownParser;
   }
