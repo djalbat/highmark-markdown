@@ -14,6 +14,13 @@ class CSSNode extends Node {
     return markdownStyleNode;
   }
 
+  getParentCSSNode() {
+    const parentNode = this.getParentNode(),
+          parentCSSNode = parentNode; ///
+
+    return parentCSSNode;
+  }
+
   getRuleName() {
     const markdownStyleNode = this.getMarkdownStyleNode(),
           ruleName = markdownStyleNode.getRuleName();

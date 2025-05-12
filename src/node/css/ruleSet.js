@@ -1,10 +1,42 @@
 "use strict";
 
 import CSSNode from "../../node/css";
+import RuleSetCSSTransform from "../../transform/css/ruleSet";
+import SelectorsListCSSTransform from "../../transform/css/selectorsList";
 
 import { EMPTY_STRING } from "../../constants";
+import { ruleSetCSSNodesFromNode } from "../../utilities/css";
 
 export default class RuleSetCSSNode extends CSSNode {
+  getSelectorsListCSSNode() {
+    const selectorsListCSSNode = this.fromFirstChildNode((firstChildNode) => {
+      const selectorsListCSSNode = firstChildNode;  ///
+
+      return selectorsListCSSNode;
+    });
+
+    return selectorsListCSSNode;
+  }
+
+  resolve(context) {
+    const node = this,  ///
+          ruleSetCSSNodes = ruleSetCSSNodesFromNode(node);
+
+    ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
+      const parentNCSSNode = this.getParentCSSNode(),  ///
+            ruleSetCSSTransform = RuleSetCSSTransform.fromRuleSetCSSNode(ruleSetCSSNode),
+            selectorsListCSSTTransform = SelectorsListCSSTransform.fromRuleSetCSSNode(ruleSetCSSNode);
+
+      ruleSetCSSTransform.resolve(context);
+
+      ruleSetCSSTransform.remove();
+
+      ruleSetCSSTransform.appendTo(parentNCSSNode);
+
+      selectorsListCSSTTransform.mergeWithRuleSetCSSTransform(ruleSetCSSTransform);
+    });
+  }
+
   asCSS(context) {
     let css;
 
@@ -23,7 +55,9 @@ export default class RuleSetCSSNode extends CSSNode {
       }
 
       if (index === lastIndex) {
-        css = `${css}}`;
+        css = `${css}}
+
+`;
       }
 
       return css;

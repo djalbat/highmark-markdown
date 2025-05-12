@@ -438,7 +438,11 @@ ${topmostCSSNodeCSS}`;
   static initialMarkdown = initialMarkdown;
 
   static initialMarkdownStyle = `primaryHeading {
-   color: red; 
+   color: blue;
+   
+   line {
+     color: red; 
+   }
 }`;
 
   static tagName = "div";

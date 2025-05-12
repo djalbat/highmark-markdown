@@ -1,5 +1,9 @@
 "use strict";
 
+import { Query } from "occam-query";
+
+import { nodeFromNodeAndQuery, nodesFromNodeAndQuery } from "../utilities/query";
+
 import Division from "../style/division";
 import SelectorsList from "../style/selectorsList";
 import MarkdownStyleLexer from "../markdownStyle/lexer";
@@ -9,6 +13,14 @@ import { EMPTY_STRING } from "../constants";
 
 const markdownStyleLexer = MarkdownStyleLexer.fromNothing(),
       markdownStyleParser = MarkdownStyleParser.fromNothing();
+
+const ruleSetCSSNodesQuery = Query.fromExpressionString("/*/ruleSet");
+
+export function ruleSetCSSNodesFromNode(node, ruleSetCSSNodes = []) {
+  nodesFromNodeAndQuery(node, ruleSetCSSNodesQuery, ruleSetCSSNodes);
+
+  return ruleSetCSSNodes;
+}
 
 export function cssFromMarkdownStyleAndSelectorsList(markdownStyle, selectorsList) {
   let css = EMPTY_STRING;
@@ -36,6 +48,7 @@ export function cssFromMarkdownStyleAndSelectorString(markdownStyle, selectorStr
 }
 
 export default {
+  ruleSetCSSNodesFromNode,
   cssFromMarkdownStyleAndSelectorsList,
   cssFromMarkdownStyleAndSelectorString
 };
