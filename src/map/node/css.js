@@ -3,11 +3,9 @@
 import NameCSSNode from "../../node/css/name";
 import ValueCSSNode from "../../node/css/value";
 import ClassCSSNode from "../../node/css/class";
-import ErrorCSSNode from "../../node/css/error";
 import ValuesCSSNode from "../../node/css/values";
 import TopmostCSSNode from "../../node/css/topmost";
 import RuleSetCSSNode from "../../node/css/ruleSet";
-import NonsenseCSSNode from "../../node/css/nonsense";
 import ArgumentCSSNode from "../../node/css/argument";
 import SelectorCSSNode from "../../node/css/selector";
 import SelectorsCSSNode from "../../node/css/selectors";
@@ -21,10 +19,8 @@ import { CSS_MARKDOWN_STYLE_RULE_NAME,
          NAME_MARKDOWN_STYLE_RULE_NAME,
          VALUE_MARKDOWN_STYLE_RULE_NAME,
          CLASS_MARKDOWN_STYLE_RULE_NAME,
-         ERROR_MARKDOWN_STYLE_RULE_NAME,
          VALUES_MARKDOWN_STYLE_RULE_NAME,
          RULE_SET_MARKDOWN_STYLE_RULE_NAME,
-         NONSENSE_MARKDOWN_STYLE_RULE_NAME,
          ARGUMENT_MARKDOWN_STYLE_RULE_NAME,
          SELECTOR_MARKDOWN_STYLE_RULE_NAME,
          SELECTORS_MARKDOWN_STYLE_RULE_NAME,
@@ -39,10 +35,8 @@ const cssNodeMap = {
   [NAME_MARKDOWN_STYLE_RULE_NAME]: NameCSSNode,
   [VALUE_MARKDOWN_STYLE_RULE_NAME]: ValueCSSNode,
   [CLASS_MARKDOWN_STYLE_RULE_NAME]: ClassCSSNode,
-  [ERROR_MARKDOWN_STYLE_RULE_NAME]: ErrorCSSNode,
   [VALUES_MARKDOWN_STYLE_RULE_NAME]: ValuesCSSNode,
   [RULE_SET_MARKDOWN_STYLE_RULE_NAME]: RuleSetCSSNode,
-  [NONSENSE_MARKDOWN_STYLE_RULE_NAME]: NonsenseCSSNode,
   [ARGUMENT_MARKDOWN_STYLE_RULE_NAME]: ArgumentCSSNode,
   [SELECTOR_MARKDOWN_STYLE_RULE_NAME]: SelectorCSSNode,
   [SELECTORS_MARKDOWN_STYLE_RULE_NAME]: SelectorsCSSNode,

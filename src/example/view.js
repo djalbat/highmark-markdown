@@ -21,6 +21,7 @@ import PlainTextContainerDiv from "./view/div/container/plainText";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
 import { importer, initialMarkdown } from "./importer";
+import { PREVIEWED_DIV_SELECTORS_STRING } from "./constants";
 import { topmostHTMLNodeFromMarkdownNode, topmostCSSNodeFromMarkdownStyleNode } from "../utilities/dom";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
@@ -201,9 +202,7 @@ class View extends Element {
   updateCSS() {
     const { markdownStyleElement } = this.properties,
           markdownStyle = this.getMarkdownStyle(),
-          css = markdownStyleElement.update(markdownStyle);
-
-    this.setCSS(css);
+          markdownStyleElementCSS = markdownStyleElement.update(markdownStyle);
 
     const topmostMarkdownStyleNode = this.getTopmostMarkdownStyleNode(),
           topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(topmostMarkdownStyleNode);
@@ -223,10 +222,24 @@ class View extends Element {
 
     topmostCSSNode.resolve(context);
 
+    const selectorsString = PREVIEWED_DIV_SELECTORS_STRING;
+
+    context = {
+      selectorsString
+    };
+
     const topmostCSSNodeParseTree = topmostCSSNode.asParseTree(tokens),
+          topmostCSSNodeCSS = topmostCSSNode.asCSS(context),
           cssParseTree = topmostCSSNodeParseTree;
 
     this.updateCSSParseTreeTextarea(cssParseTree);
+
+    const css = `${markdownStyleElementCSS}    
+___
+
+${topmostCSSNodeCSS}`;
+
+    this.setCSS(css);
   }
 
   markdownStyle() {

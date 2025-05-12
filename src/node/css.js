@@ -4,7 +4,7 @@ import { Node } from "occam-dom";
 
 import nodeMixins from "../mixins/node";
 
-import { EMPTY_STRING, DOUBLE_SPACE } from "../constants";
+import { EMPTY_STRING } from "../constants";
 
 class CSSNode extends Node {
   getMarkdownStyleNode() {
@@ -33,27 +33,14 @@ class CSSNode extends Node {
     return nonTerminalNode;
   }
 
-  adjustIndent(indent) {
-    indent = (indent === null) ?
-               EMPTY_STRING :
-                `${DOUBLE_SPACE}${indent}`;
+  asCSS(context) {
+    const css = this.reduceChildNode((css, childNode) => {
+      const childNodeCSS = childNode.asCSS(context);
 
-    return indent;
-  }
+      css = `${css}${childNodeCSS}`;
 
-  asCSS(indent, context) {
-    if (context === undefined) {
-      context = indent; ///
-
-      indent = EMPTY_STRING;
-    }
-
-    let css;
-
-    indent = this.adjustIndent(indent);
-
-    debugger
-
+      return css;
+    }, EMPTY_STRING);
 
     return css;
   }
