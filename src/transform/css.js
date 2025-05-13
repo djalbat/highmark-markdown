@@ -24,7 +24,7 @@ export default class CSSTransform {
     const node = cssNode, ///
           childNodes = node.getChildNodes();
 
-    parentNode.appendChildNodes(childNodes);
+    parentNode.prependChildNodes(childNodes);
   }
 
   remove() {

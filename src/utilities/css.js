@@ -14,12 +14,19 @@ import { EMPTY_STRING } from "../constants";
 const markdownStyleLexer = MarkdownStyleLexer.fromNothing(),
       markdownStyleParser = MarkdownStyleParser.fromNothing();
 
-const ruleSetCSSNodesQuery = Query.fromExpressionString("/*/ruleSet");
+const ruleSetCSSNodesQuery = Query.fromExpressionString("/*/ruleSet"),
+      selectorsCSSNodesQuery = Query.fromExpressionString("/selectorsList/selectors");
 
 export function ruleSetCSSNodesFromNode(node, ruleSetCSSNodes = []) {
   nodesFromNodeAndQuery(node, ruleSetCSSNodesQuery, ruleSetCSSNodes);
 
   return ruleSetCSSNodes;
+}
+
+export function selectorsCSSNodesFromNode(node, selectorsCSSNodes = []) {
+  nodesFromNodeAndQuery(node, selectorsCSSNodesQuery, selectorsCSSNodes);
+
+  return selectorsCSSNodes;
 }
 
 export function cssFromMarkdownStyleAndSelectorsList(markdownStyle, selectorsList) {
@@ -49,6 +56,7 @@ export function cssFromMarkdownStyleAndSelectorString(markdownStyle, selectorStr
 
 export default {
   ruleSetCSSNodesFromNode,
+  selectorsCSSNodesFromNode,
   cssFromMarkdownStyleAndSelectorsList,
   cssFromMarkdownStyleAndSelectorString
 };

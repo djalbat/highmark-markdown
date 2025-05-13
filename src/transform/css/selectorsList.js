@@ -1,21 +1,45 @@
 "use strict";
 
 import CSSTransform from "../../transform/css"
+import SelectorsCSSTransform from "./selectors";
 
 export default class SelectorsListCSSTransform extends CSSTransform {
-  mergeWithRuleSetCSSTransform(ruleSetCSSTransform) {
-    const ruleSetCSSNode = ruleSetCSSTransform.getRuleSetCSSNode(),
-          selectorsListCSSNode = ruleSetCSSNode.getSelectorsListCSSNode(),
-          cssNode = selectorsListCSSNode; ///
+  constructor(cssNode, selectorsCSSTransforms) {
+    super(cssNode);
 
-    this.mergeWith(cssNode);
+    this.selectorsCSSTransforms = selectorsCSSTransforms;
   }
 
-  static fromRuleSetCSSNode(ruleSetCSSNode) {
-    const selectorsListCSSNode = ruleSetCSSNode.getSelectorsListCSSNode(),
-          cssNode = selectorsListCSSNode, ///
-          paragraphCSSTransform = CSSTransform.fromCSSNode(SelectorsListCSSTransform, cssNode);
-
-    return paragraphCSSTransform;
+  getSelectorsCSSTransforms() {
+    return this.selectorsCSSTransforms;
   }
+
+  mergeWithSelectorsListCSSNode(selectorsListCSSNode) {
+    const selectorsCSSNodes = selectorsListCSSNode.getSelectorsCSSNodes();
+
+    this.selectorsCSSTransforms.forEach((selectorsCSSTransform) => {
+      selectorsCSSNodes.forEach((selectorsCSSNode) => {
+        selectorsCSSTransform.mergeWithSelectorsCSSNode(selectorsCSSNode);
+      });
+    });
+  }
+
+  static fromSelectorsListCSSNode(selectorsListCSSNode) {
+    const selectorsCSSTransforms = selectorsCSSTransformsFromSelectorsListCSSNode(selectorsListCSSNode),
+          cssNode = null,
+          selectorsListCSSTransform = CSSTransform.fromCSSNode(SelectorsListCSSTransform, cssNode, selectorsCSSTransforms);
+
+    return selectorsListCSSTransform;
+  }
+}
+
+function selectorsCSSTransformsFromSelectorsListCSSNode(selectorsListCSSNode) {
+  const selectorsCSSNodes = selectorsListCSSNode.getSelectorsCSSNodes(),
+        selectorsCSSTransforms = selectorsCSSNodes.map((selectorsCSSNode) => {
+          const selectorsCSSTransform = SelectorsCSSTransform.fromSelectorsCSSNode(selectorsCSSNode);
+
+          return selectorsCSSTransform;
+        });
+
+  return selectorsCSSTransforms;
 }

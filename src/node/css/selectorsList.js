@@ -2,7 +2,16 @@
 
 import CSSNode from "../../node/css";
 
+import { selectorsCSSNodesFromNode } from "../../utilities/css";
+
 export default class SelectorsListCSSNode extends CSSNode {
+  getSelectorsCSSNodes() {
+    const node = this,
+          selectorsCSSNodes = selectorsCSSNodesFromNode(node);
+
+    return selectorsCSSNodes;
+  }
+
   asCSS(context) {
     const css = this.reduceChildNode((css, childNode) => {
       const childNodeCSS = childNode.asCSS(context);
