@@ -1,17 +1,14 @@
 "use strict";
 
 import CSSTransform from "../../transform/css"
-import SelectorsListCSSTransform from "./selectorsList";
+import SelectorsListCSSTransform from "../../transform/css/selectorsList";
 
 export default class RuleSetCSSTransform extends CSSTransform {
-  constructor(cssNode, selectorsListCSSTransform) {
-    super(cssNode);
+  getSelectorsListCSSNode() {
+    const ruleSetCSSNode = this.getRuleSetCSSNode(),
+          selectorsListCSSNode = ruleSetCSSNode.getSelectorsListCSSNode();
 
-    this.selectorsListCSSTransform = selectorsListCSSTransform;
-  }
-
-  getSelectorsListCSSTransform() {
-    return this.selectorsListCSSTransform;
+    return selectorsListCSSNode;
   }
 
   getRuleSetCSSNode() {
@@ -28,16 +25,27 @@ export default class RuleSetCSSTransform extends CSSTransform {
   }
 
   mergeWithRuleSetCSSNode(ruleSetCSSNode) {
-    const selectorsListCSSNode = ruleSetCSSNode.getSelectorsListCSSNode();
+    let selectorsListCSSNode,
+        selectorsListCSSTransform;
 
-    this.selectorsListCSSTransform.mergeWithSelectorsListCSSNode(selectorsListCSSNode);
+    selectorsListCSSNode = ruleSetCSSNode.getSelectorsListCSSNode();
+
+    selectorsListCSSTransform = SelectorsListCSSTransform.fromSelectorsListCSSNode(selectorsListCSSNode);
+
+    selectorsListCSSTransform.remove();
+
+    selectorsListCSSNode = this.getSelectorsListCSSNode();
+
+    selectorsListCSSTransform.mergeWithSelectorsListCSSNode(selectorsListCSSNode);
+
+    selectorsListCSSTransform = SelectorsListCSSTransform.fromSelectorsListCSSNode(selectorsListCSSNode);
+
+    selectorsListCSSTransform.prependToRuleSetCSSNode(ruleSetCSSNode);
   }
 
   static fromRuleSetCSSNode(ruleSetCSSNode) {
     const cssNode = ruleSetCSSNode, ///
-          selectorsListCSSNode = ruleSetCSSNode.getSelectorsListCSSNode(),
-          selectorsListCSSTransform = SelectorsListCSSTransform.fromSelectorsListCSSNode(selectorsListCSSNode),
-          ruleSetCSSTransform = CSSTransform.fromCSSNode(RuleSetCSSTransform, cssNode, selectorsListCSSTransform);
+          ruleSetCSSTransform = CSSTransform.fromCSSNode(RuleSetCSSTransform, cssNode);
 
     return ruleSetCSSTransform;
   }

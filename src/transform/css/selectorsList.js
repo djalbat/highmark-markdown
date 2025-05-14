@@ -17,16 +17,23 @@ export default class SelectorsListCSSTransform extends CSSTransform {
   mergeWithSelectorsListCSSNode(selectorsListCSSNode) {
     const selectorsCSSNodes = selectorsListCSSNode.getSelectorsCSSNodes();
 
-    this.selectorsCSSTransforms.forEach((selectorsCSSTransform) => {
-      selectorsCSSNodes.forEach((selectorsCSSNode) => {
-        selectorsCSSTransform.mergeWithSelectorsCSSNode(selectorsCSSNode);
+    selectorsCSSNodes.forEach((selectorsCSSNode) => {
+      this.selectorsCSSTransforms.forEach((selectorsCSSTransform) => {
+        // selectorsCSSTransform.mergeWithSelectorsCSSNode(selectorsCSSNode);
       });
     });
   }
 
+  prependToRuleSetCSSNode(ruleSetCSSNode) {
+    const parentCSSNode = ruleSetCSSNode, ///
+          clone = true;
+
+    this.prependTo(parentCSSNode, clone);
+  }
+
   static fromSelectorsListCSSNode(selectorsListCSSNode) {
-    const selectorsCSSTransforms = selectorsCSSTransformsFromSelectorsListCSSNode(selectorsListCSSNode),
-          cssNode = null,
+    const cssNode = selectorsListCSSNode, ///
+          selectorsCSSTransforms = selectorsCSSTransformsFromSelectorsListCSSNode(selectorsListCSSNode),
           selectorsListCSSTransform = CSSTransform.fromCSSNode(SelectorsListCSSTransform, cssNode, selectorsCSSTransforms);
 
     return selectorsListCSSTransform;

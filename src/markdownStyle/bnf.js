@@ -23,13 +23,16 @@ const bnf = `
     selectors      ::=  selector+ ;
 
 
-    selector       ::=  [rule-name] class* pseudoClass* 
+    selector       ::=  ruleName class* pseudoClass* 
     
                      |  class+ pseudoClass*
 
                      |  pseudoClass+
 
                      ;
+
+    
+    ruleName.      ::=  [rule-name] ;
 
     
     values         ::=  value+ ;

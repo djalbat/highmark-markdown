@@ -9,22 +9,32 @@ export default class CSSTransform {
     return this.cssNode;
   }
 
-  appendTo(parentCSSNode) {
-    const childNode = this.cssNode, ///
+  appendTo(parentCSSNode, clone = false) {
+    const cssNode = clone ?
+                      this.cssNode.clone() :
+                        this.cssNode,
+          childNode = cssNode, ///
           parentNode = parentCSSNode;  ///
 
     parentNode.appendChildNode(childNode);
   }
 
+  prependTo(parentCSSNode, clone = false) {
+    const cssNode = clone ?
+                      this.cssNode.clone() :
+                        this.cssNode,
+          childNode = cssNode, ///
+          parentNode = parentCSSNode;  ///
+
+    parentNode.prependChildNode(childNode);
+  }
+
   mergeWith(cssNode) {
-    const parentNode = cssNode; ///
+    const parentCSSNode = cssNode.getParentCSSNode(),
+          parentNode = parentCSSNode, ///
+          childNode = this.cssNode; ///
 
-    cssNode = this.cssNode.clone();
-
-    const node = cssNode, ///
-          childNodes = node.getChildNodes();
-
-    parentNode.prependChildNodes(childNodes);
+    parentNode.appendChildNode(childNode);
   }
 
   remove() {

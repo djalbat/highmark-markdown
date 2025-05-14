@@ -3,8 +3,8 @@
 import CSSTransform from "../../transform/css"
 
 export default class SelectorsCSSTransform extends CSSTransform {
-  mergeWithSelectorsCSSNode(selectorsCSSNode) {
-    const cssNode = selectorsCSSNode; ///
+  mergeWithSelectorsCSSNode(selectorsListCSSNode) {
+    const cssNode = selectorsListCSSNode; ///
 
     this.mergeWith(cssNode);
   }

@@ -7,6 +7,7 @@ import ErrorMarkdownStyleNode from "../../node/markdownStyle/error";
 import ValuesMarkdownStyleNode from "../../node/markdownStyle/values";
 import TopmostMarkdownStyleNode from "../../node/markdownStyle/topmost";
 import RuleSetMarkdownStyleNode from "../../node/markdownStyle/ruleSet";
+import RuleNameMarkdownStyleNode from "../../node/markdownStyle/ruleName";
 import NonsenseMarkdownStyleNode from "../../node/markdownStyle/nonsense";
 import ArgumentMarkdownStyleNode from "../../node/markdownStyle/argument";
 import SelectorMarkdownStyleNode from "../../node/markdownStyle/selector";
@@ -22,10 +23,11 @@ import { NAME_MARKDOWN_STYLE_RULE_NAME,
          CLASS_MARKDOWN_STYLE_RULE_NAME,
          ERROR_MARKDOWN_STYLE_RULE_NAME,
          VALUES_MARKDOWN_STYLE_RULE_NAME,
-         RULE_SET_MARKDOWN_STYLE_RULE_NAME,
          NONSENSE_MARKDOWN_STYLE_RULE_NAME,
          ARGUMENT_MARKDOWN_STYLE_RULE_NAME,
          SELECTOR_MARKDOWN_STYLE_RULE_NAME,
+         RULE_SET_MARKDOWN_STYLE_RULE_NAME,
+         RULE_NAME_MARKDOWN_STYLE_RULE_NAME,
          SELECTORS_MARKDOWN_STYLE_RULE_NAME,
          ARGUMENTS_MARKDOWN_STYLE_RULE_NAME,
          IDENTIFIER_MARKDOWN_STYLE_RULE_NAME,
@@ -40,10 +42,11 @@ const markdownStyleNodeMap = {
   [CLASS_MARKDOWN_STYLE_RULE_NAME]: ClassMarkdownStyleNode,
   [ERROR_MARKDOWN_STYLE_RULE_NAME]: ErrorMarkdownStyleNode,
   [VALUES_MARKDOWN_STYLE_RULE_NAME]: ValuesMarkdownStyleNode,
-  [RULE_SET_MARKDOWN_STYLE_RULE_NAME]: RuleSetMarkdownStyleNode,
   [NONSENSE_MARKDOWN_STYLE_RULE_NAME]: NonsenseMarkdownStyleNode,
   [ARGUMENT_MARKDOWN_STYLE_RULE_NAME]: ArgumentMarkdownStyleNode,
   [SELECTOR_MARKDOWN_STYLE_RULE_NAME]: SelectorMarkdownStyleNode,
+  [RULE_SET_MARKDOWN_STYLE_RULE_NAME]: RuleSetMarkdownStyleNode,
+  [RULE_NAME_MARKDOWN_STYLE_RULE_NAME]: RuleNameMarkdownStyleNode,
   [SELECTORS_MARKDOWN_STYLE_RULE_NAME]: SelectorsMarkdownStyleNode,
   [ARGUMENTS_MARKDOWN_STYLE_RULE_NAME]: ArgumentsMarkdownStyleNode,
   [IDENTIFIER_MARKDOWN_STYLE_RULE_NAME]: IdentifierMarkdownStyleNode,

@@ -16,7 +16,7 @@ const { STRONG_TEXT_MARKDOWN_RULE_NAME,
         UNORDERED_LIST_MARKDOWN_RULE_NAME,
         STRONGLY_EMPHASISED_TEXT_MARKDOWN_RULE_NAME } = markdownRuleNames;
 
-const ruleNameTerminalNodeQuery = nodeQuery("/selector/@rule-name");
+const ruleNameNodeQuery = nodeQuery("/selector/ruleName");
 
 export default class Selector {
   constructor(content, whitespace) {
@@ -48,8 +48,8 @@ export default class Selector {
 }
 
 function whitespaceFromNode(node) {
-  const ruleNameTerminalNode = ruleNameTerminalNodeQuery(node),
-        whitespace = (ruleNameTerminalNode !== null);
+  const ruleNameNode = ruleNameNodeQuery(node),
+        whitespace = (ruleNameNode !== null);
 
   return whitespace;
 }
@@ -57,11 +57,10 @@ function whitespaceFromNode(node) {
 function contentFromNodeAndTokens(node, tokens) {
   let content;
 
-  const ruleNameTerminalNode = ruleNameTerminalNodeQuery(node);
+  const ruleNameNode = ruleNameNodeQuery(node);
 
-  if (ruleNameTerminalNode !== null) {
-    const ruleNameTerminalNodeContent = ruleNameTerminalNode.getContent(),
-          ruleName = ruleNameTerminalNodeContent; ///
+  if (ruleNameNode !== null) {
+    const ruleName = ruleNameFromRuleNameNode(ruleNameNode);
 
     if (ruleName === DIVISION_MARKDOWN_RULE_NAME) {
       content = null;
@@ -123,4 +122,16 @@ function contentFromNodeAndTokens(node, tokens) {
   }
 
   return content;
+}
+
+function ruleNameFromRuleNameNode(ruleNameNode) {
+  const ruleNameTerminalNode = ruleNameNode.fromFirstChildNode((firstChildNode) => {
+          const ruleNameTerminalNode = firstChildNode;  ///
+
+          return ruleNameTerminalNode;
+        }),
+        ruleNameTerminalNodeContent = ruleNameTerminalNode.getContent(),
+        ruleName = ruleNameTerminalNodeContent; ///
+
+  return ruleName;
 }

@@ -6,6 +6,7 @@ import ClassCSSNode from "../../node/css/class";
 import ValuesCSSNode from "../../node/css/values";
 import TopmostCSSNode from "../../node/css/topmost";
 import RuleSetCSSNode from "../../node/css/ruleSet";
+import RuleNameCSSNode from "../../node/css/ruleName";
 import ArgumentCSSNode from "../../node/css/argument";
 import SelectorCSSNode from "../../node/css/selector";
 import SelectorsCSSNode from "../../node/css/selectors";
@@ -20,8 +21,9 @@ import { CSS_MARKDOWN_STYLE_RULE_NAME,
          VALUE_MARKDOWN_STYLE_RULE_NAME,
          CLASS_MARKDOWN_STYLE_RULE_NAME,
          VALUES_MARKDOWN_STYLE_RULE_NAME,
-         RULE_SET_MARKDOWN_STYLE_RULE_NAME,
          ARGUMENT_MARKDOWN_STYLE_RULE_NAME,
+         RULE_SET_MARKDOWN_STYLE_RULE_NAME,
+         RULE_NAME_MARKDOWN_STYLE_RULE_NAME,
          SELECTOR_MARKDOWN_STYLE_RULE_NAME,
          SELECTORS_MARKDOWN_STYLE_RULE_NAME,
          ARGUMENTS_MARKDOWN_STYLE_RULE_NAME,
@@ -36,9 +38,10 @@ const cssNodeMap = {
   [VALUE_MARKDOWN_STYLE_RULE_NAME]: ValueCSSNode,
   [CLASS_MARKDOWN_STYLE_RULE_NAME]: ClassCSSNode,
   [VALUES_MARKDOWN_STYLE_RULE_NAME]: ValuesCSSNode,
-  [RULE_SET_MARKDOWN_STYLE_RULE_NAME]: RuleSetCSSNode,
   [ARGUMENT_MARKDOWN_STYLE_RULE_NAME]: ArgumentCSSNode,
   [SELECTOR_MARKDOWN_STYLE_RULE_NAME]: SelectorCSSNode,
+  [RULE_SET_MARKDOWN_STYLE_RULE_NAME]: RuleSetCSSNode,
+  [RULE_NAME_MARKDOWN_STYLE_RULE_NAME]: RuleNameCSSNode,
   [SELECTORS_MARKDOWN_STYLE_RULE_NAME]: SelectorsCSSNode,
   [ARGUMENTS_MARKDOWN_STYLE_RULE_NAME]: ArgumentsCSSNode,
   [IDENTIFIER_MARKDOWN_STYLE_RULE_NAME]: IdentifierCSSNode,
