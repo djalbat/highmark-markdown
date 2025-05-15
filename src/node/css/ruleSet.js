@@ -2,6 +2,7 @@
 
 import CSSNode from "../../node/css";
 import RuleSetCSSTransform from "../../transform/css/ruleSet";
+import SelectorsListCSSTransform from "../../transform/css/selectorsList";
 
 import { EMPTY_STRING } from "../../constants";
 import { ruleSetCSSNodesFromNode } from "../../utilities/css";
@@ -18,25 +19,26 @@ export default class RuleSetCSSNode extends CSSNode {
   }
 
   resolve(context) {
-    const node = this,  ///
-          parentNCSSNode = this.getParentCSSNode(),  ///
+    const node = this,
           ruleSetCSSNodes = ruleSetCSSNodesFromNode(node);
 
     ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
-      const ruleSetCSSTransform = RuleSetCSSTransform.fromRuleSetCSSNode(ruleSetCSSNode);
+      ruleSetCSSNode.resolve(context);
+    });
 
-      ruleSetCSSTransform.resolve(context);
+    const parentCSSNode = this.getParentCSSNode(),
+          selectorsListCSSNode = this.getSelectorsListCSSNode(),
+          selectorsListCSSTransform = SelectorsListCSSTransform.fromSelectorsListCSSNode(selectorsListCSSNode);
+
+    ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
+      const ruleSetCSSTransform = RuleSetCSSTransform.fromRuleSetCSSNode(ruleSetCSSNode),
+            selectorsListCSSNode = ruleSetCSSNode.getSelectorsListCSSNode();
 
       ruleSetCSSTransform.remove();
 
-      ruleSetCSSTransform.appendTo(parentNCSSNode);
-    });
+      ruleSetCSSTransform.appendTo(parentCSSNode);
 
-    const ruleSetCSSNode = this,  ///
-          ruleSetCSSTransform = RuleSetCSSTransform.fromRuleSetCSSNode(ruleSetCSSNode);
-
-    ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
-      ruleSetCSSTransform.mergeWithRuleSetCSSNode(ruleSetCSSNode);
+      // selectorsListCSSTransform.mergeWithSelectorsListCSSNode(selectorsListCSSNode);
     });
   }
 

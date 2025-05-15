@@ -234,10 +234,13 @@ class View extends Element {
 
     this.updateCSSParseTreeTextarea(cssParseTree);
 
-    const css = `${markdownStyleElementCSS}    
-___
+    const css = `
 
-${topmostCSSNodeCSS}`;
+${markdownStyleElementCSS}    
+
+${topmostCSSNodeCSS}
+
+`;
 
     this.setCSS(css);
   }
@@ -437,11 +440,11 @@ ${topmostCSSNodeCSS}`;
 
   static initialMarkdown = initialMarkdown;
 
-  static initialMarkdownStyle = `primaryHeading, secondaryHeading {
-   color: blue;
-   
+  static initialMarkdownStyle = `primaryHeading {
+   color: red;
+     
    line {
-     color: red; 
+     color: blue;
    }
 }`;
 

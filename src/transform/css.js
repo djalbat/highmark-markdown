@@ -29,12 +29,17 @@ export default class CSSTransform {
     parentNode.prependChildNode(childNode);
   }
 
-  mergeWith(cssNode) {
+  mergeWith(cssNode, clone = false) {
     const parentCSSNode = cssNode.getParentCSSNode(),
-          parentNode = parentCSSNode, ///
-          childNode = this.cssNode; ///
+          parentNode = parentCSSNode; ///
 
-    parentNode.appendChildNode(childNode);
+    cssNode = clone ?
+                this.cssNode.clone() :
+                  this.cssNode;
+
+    const childNode = cssNode;  ///
+
+    parentNode.prependChildNode(childNode);
   }
 
   remove() {
