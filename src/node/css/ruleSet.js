@@ -18,27 +18,24 @@ export default class RuleSetCSSNode extends CSSNode {
     return selectorsListCSSNode;
   }
 
-  resolve(context) {
+  resolve(context, selectorsListCSSTransforms = []) {
     const node = this,
-          ruleSetCSSNodes = ruleSetCSSNodesFromNode(node);
+          ruleSetCSSNodes = ruleSetCSSNodesFromNode(node),
+          selectorsListCSSNode = this.getSelectorsListCSSNode(),
+          selectorsListCSSTransform = SelectorsListCSSTransform.fromSelectorsListCSSNode(selectorsListCSSNode);
 
     ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
       ruleSetCSSNode.resolve(context);
     });
 
-    const parentCSSNode = this.getParentCSSNode(),
-          selectorsListCSSNode = this.getSelectorsListCSSNode(),
-          selectorsListCSSTransform = SelectorsListCSSTransform.fromSelectorsListCSSNode(selectorsListCSSNode);
+    const parentCSSNode = this.getParentCSSNode();
 
     ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
-      const ruleSetCSSTransform = RuleSetCSSTransform.fromRuleSetCSSNode(ruleSetCSSNode),
-            selectorsListCSSNode = ruleSetCSSNode.getSelectorsListCSSNode();
+      const ruleSetCSSTransform = RuleSetCSSTransform.fromRuleSetCSSNode(ruleSetCSSNode);
 
       ruleSetCSSTransform.remove();
 
       ruleSetCSSTransform.appendTo(parentCSSNode);
-
-      // selectorsListCSSTransform.mergeWithSelectorsListCSSNode(selectorsListCSSNode);
     });
   }
 

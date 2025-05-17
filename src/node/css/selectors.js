@@ -2,7 +2,16 @@
 
 import CSSNode from "../../node/css";
 
+import { selectorCSSNodesFromNode } from "../../utilities/css";
+
 export default class SelectorsCSSNode extends CSSNode {
+  getSelectorCSSNodes() {
+    const node = this,
+          selectorCSSNodes = selectorCSSNodesFromNode(node);
+
+    return selectorCSSNodes;
+  }
+
   asCSS(context) {
     let css;
 

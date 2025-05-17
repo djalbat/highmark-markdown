@@ -445,6 +445,10 @@ ${topmostCSSNodeCSS}
      
    line {
      color: blue;
+     
+     hyperlink {
+       color: green;
+     }
    }
 }`;
 

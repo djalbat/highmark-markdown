@@ -2,7 +2,7 @@
 
 import { Query } from "occam-query";
 
-import { nodeFromNodeAndQuery, nodesFromNodeAndQuery } from "../utilities/query";
+import { nodesFromNodeAndQuery } from "../utilities/query";
 
 import Division from "../style/division";
 import SelectorsList from "../style/selectorsList";
@@ -15,12 +15,19 @@ const markdownStyleLexer = MarkdownStyleLexer.fromNothing(),
       markdownStyleParser = MarkdownStyleParser.fromNothing();
 
 const ruleSetCSSNodesQuery = Query.fromExpressionString("/*/ruleSet"),
+      selectorCSSNodesQuery = Query.fromExpressionString("/selectors/selector"),
       selectorsCSSNodesQuery = Query.fromExpressionString("/selectorsList/selectors");
 
 export function ruleSetCSSNodesFromNode(node, ruleSetCSSNodes = []) {
   nodesFromNodeAndQuery(node, ruleSetCSSNodesQuery, ruleSetCSSNodes);
 
   return ruleSetCSSNodes;
+}
+
+export function selectorCSSNodesFromNode(node, selectorCSSNodes = []) {
+  nodesFromNodeAndQuery(node, selectorCSSNodesQuery, selectorCSSNodes);
+
+  return selectorCSSNodes;
 }
 
 export function selectorsCSSNodesFromNode(node, selectorsCSSNodes = []) {
@@ -56,6 +63,7 @@ export function cssFromMarkdownStyleAndSelectorString(markdownStyle, selectorStr
 
 export default {
   ruleSetCSSNodesFromNode,
+  selectorCSSNodesFromNode,
   selectorsCSSNodesFromNode,
   cssFromMarkdownStyleAndSelectorsList,
   cssFromMarkdownStyleAndSelectorString
