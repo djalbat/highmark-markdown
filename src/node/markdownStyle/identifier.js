@@ -3,16 +3,19 @@
 import MarkdownStyleNode from "../../node/markdownStyle";
 
 export default class IdentifierMarkdownStyleNode extends MarkdownStyleNode {
-  name() {
-    const name = this.fromFirstChildNode((firstChildNode) => {
-      const nameTerminalNode = firstChildNode,  ///
-            content = nameTerminalNode.getContent(),
-            name = content; ///
+  content() {
+    const content = this.reduceChildNode((content, childNode) => {
+      const terminalNode = childNode,  ///
+            terminalNodeContent = terminalNode.getContent();
 
-      return name;
-    });
+      content = (content !== null) ?
+                 `${content}${terminalNodeContent}` :
+                    terminalNodeContent;  ///
 
-    return name;
+      return content;
+    }, null);
+
+    return content;
   }
 
   static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownStyleNode.fromRuleNameChildNodesAndOpacity(IdentifierMarkdownStyleNode, ruleName, childNodes, opacity); }

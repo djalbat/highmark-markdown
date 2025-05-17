@@ -204,16 +204,16 @@ class View extends Element {
           markdownStyle = this.getMarkdownStyle(),
           markdownStyleElementCSS = markdownStyleElement.update(markdownStyle);
 
-    const topmostMarkdownStyleNode = this.getTopmostMarkdownStyleNode(),
-          topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(topmostMarkdownStyleNode);
+    const topmostMarkdownStyleNode = this.getTopmostMarkdownStyleNode();
 
-    if (topmostCSSNode === null) {
+    if (topmostMarkdownStyleNode === null) {
       return;
     }
 
     let context;
 
     const markdownStyleTokens = this.getMarkdownStyleTokens(),
+          topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(topmostMarkdownStyleNode),
           tokens = markdownStyleTokens;  ///
 
     context = {
@@ -440,16 +440,8 @@ ${topmostCSSNodeCSS}
 
   static initialMarkdown = initialMarkdown;
 
-  static initialMarkdownStyle = `primaryHeading, paragraph {
-   color: red;
-     
-   line {
-     color: blue;
-     
-     hyperlink {
-       color: green;
-     }
-   }
+  static initialMarkdownStyle = `orderedItem.half-title {
+  colour: red;
 }`;
 
   static tagName = "div";

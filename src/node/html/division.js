@@ -154,6 +154,8 @@ export default class DivisionHTMLNode extends HTMLNode {
 
   static tagName = "div";
 
+  static className = null;
+
   static fromNothing() {
     const divisionClassName = null,
           divisionHTMLNode = HTMLNode.fromNothing(DivisionHTMLNode, divisionClassName);

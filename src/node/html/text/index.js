@@ -35,6 +35,10 @@ export default class IndexTextHTMLNode extends TextHTMLNode {
     return string;
   }
 
+  static tagName = null;
+
+  static className = null;
+
   static fromWordOrPhrase(wordOrPhrase) {
     const indexTextHTMLNode = TextHTMLNode.fromNothing(IndexTextHTMLNode, wordOrPhrase);
 

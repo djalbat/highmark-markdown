@@ -3,11 +3,11 @@
 import CSSNode from "../../node/css";
 
 export default class IdentifierCSSNode extends CSSNode {
-  name() { return this.outerNode.name(); }
+  content() { return this.outerNode.content(); }
 
   asCSS(context) {
-    const name = this.name(),
-          css = name; ///
+    const content = this.content(),
+          css = content; ///
 
     return css;
   }

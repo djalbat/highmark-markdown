@@ -6,15 +6,14 @@ import markdownRuleNames from "../ruleNames/markdown";
 
 import { nodeQuery } from "../utilities/query";
 import { EMPTY_STRING } from "../constants";
-import { DIVISION_MARKDOWN_RULE_NAME } from "../ruleNames/markdown";
 import { remainingContentFromNodeTokensAndOffset } from "../utilities/content";
-
-const { STRONG_TEXT_MARKDOWN_RULE_NAME,
-        ORDERED_LIST_MARKDOWN_RULE_NAME,
-        ORDERED_ITEM_MARKDOWN_RULE_NAME,
-        UNORDERED_ITEM_MARKDOWN_RULE_NAME,
-        UNORDERED_LIST_MARKDOWN_RULE_NAME,
-        STRONGLY_EMPHASISED_TEXT_MARKDOWN_RULE_NAME } = markdownRuleNames;
+import { DIVISION_MARKDOWN_RULE_NAME,
+         STRONG_TEXT_MARKDOWN_RULE_NAME,
+         ORDERED_LIST_MARKDOWN_RULE_NAME,
+         ORDERED_ITEM_MARKDOWN_RULE_NAME,
+         UNORDERED_ITEM_MARKDOWN_RULE_NAME,
+         UNORDERED_LIST_MARKDOWN_RULE_NAME,
+         STRONGLY_EMPHASISED_TEXT_MARKDOWN_RULE_NAME } from "../ruleNames/markdown";
 
 const ruleNameNodeQuery = nodeQuery("/selector/ruleName");
 

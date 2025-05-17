@@ -25,5 +25,9 @@ export default class CommaTextHTMLNode extends TextHTMLNode {
     return string;
   }
 
+  static tagName = null;
+
+  static className = null;
+
   static fromNothing() { return TextHTMLNode.fromNothing(CommaTextHTMLNode); }
 }
