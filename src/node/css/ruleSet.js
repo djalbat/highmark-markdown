@@ -1,7 +1,6 @@
 "use strict";
 
 import CSSNode from "../../node/css";
-import RuleSetCSSTransform from "../../transform/css/ruleSet";
 import SelectorsListCSSTransform from "../../transform/css/selectorsList";
 
 import { EMPTY_STRING } from "../../constants";
@@ -18,12 +17,12 @@ export default class RuleSetCSSNode extends CSSNode {
     return selectorsListCSSNode;
   }
 
-  resolve(context) {
+  resolveSelectors(context) {
     const node = this,
           ruleSetCSSNodes = ruleSetCSSNodesFromNode(node);
 
     ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
-      ruleSetCSSNode.resolve(context);
+      ruleSetCSSNode.resolveSelectors(context);
     });
 
     const ruleSetCSSNode = this,  ///
@@ -33,16 +32,6 @@ export default class RuleSetCSSNode extends CSSNode {
     selectorsListCSSNodes.forEach((selectorsListCSSNode) => {
       selectorsListCSSTransform.mergeWithSelectorsListCSSNode(selectorsListCSSNode);
     });
-
-    // const parentCSSNode = this.getParentCSSNode();
-    //
-    // ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
-    //   const ruleSetCSSTransform = RuleSetCSSTransform.fromRuleSetCSSNode(ruleSetCSSNode);
-    //
-    //   ruleSetCSSTransform.remove();
-    //
-    //   ruleSetCSSTransform.appendTo(parentCSSNode);
-    // });
   }
 
   asCSS(context) {

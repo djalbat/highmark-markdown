@@ -1,9 +1,10 @@
 "use strict";
 
 import CSSNode from "../../node/css";
+import RuleSetCSSTransform from "../../transform/css/ruleSet";
 
-import { ruleSetCSSNodesFromNode } from "../../utilities/css";
 import { CSS_MARKDOWN_STYLE_RULE_NAME } from "../../ruleNames/markdownStyle";
+import { ruleSetCSSNodesFromNode, nestedRuleSetCSSNodesFromNode } from "../../utilities/css";
 
 export default class TopmostCSSNode extends CSSNode {
   getRuleName() {
@@ -13,11 +14,32 @@ export default class TopmostCSSNode extends CSSNode {
   }
 
   resolve(context) {
-    const node = this,
+    this.resolveSelectors(context);
+
+    this.flatten(context);
+  }
+
+  resolveSelectors(context) {
+    const node = this,  ///
           ruleSetCSSNodes = ruleSetCSSNodesFromNode(node);
 
     ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
-      ruleSetCSSNode.resolve(context);
+      ruleSetCSSNode.resolveSelectors(context);
+    });
+  }
+
+  flatten(context) {
+    const node = this,  ///
+          topmostCSSNode = this,  ///
+          nestedRuleSetCSSNodes = nestedRuleSetCSSNodesFromNode(node);
+
+    nestedRuleSetCSSNodes.forEach((nestedRuleSetCSSNode) => {
+      const ruleSetCSSNode = nestedRuleSetCSSNode,  ///
+            ruleSetCSSTransform = RuleSetCSSTransform.fromRuleSetCSSNode(ruleSetCSSNode);
+
+      ruleSetCSSTransform.remove();
+
+      ruleSetCSSTransform.appendToTopmostCSSNode(topmostCSSNode);
     });
   }
 

@@ -24,17 +24,21 @@ export default class CSSTransform {
   }
 
   mergeWith(cssNode) {
+    cssNode = cssNode.clone();  ///
+
     const parentNode = cssNode; ///
 
-    let childNodes;
+    let childCSSNodes;
 
-    const node = this.cssNode; ///
+    childCSSNodes = this.cssNode.getChildCSSNodes();
 
-    childNodes = node.getChildNodes();
+    childCSSNodes = cloneChildCSSNodes(childCSSNodes);  ///
 
-    childNodes = cloneChildNodes(childNodes); ///
+    const childNodes = childCSSNodes; ///
 
     parentNode.prependChildNodes(childNodes);
+
+    return cssNode;
   }
 
   remove() {
@@ -58,13 +62,13 @@ export default class CSSTransform {
   }
 }
 
-function cloneChildNodes(childNodes) {
-  childNodes = childNodes.map((childNode) => {  ///
-    childNode = childNode.clone();  ///
+function cloneChildCSSNodes(childCSSNodes) {
+  childCSSNodes = childCSSNodes.map((childCSSNode) => {  ///
+    childCSSNode = childCSSNode.clone();  ///
 
-    return childNode;
+    return childCSSNode;
   });
 
-  return childNodes;
+  return childCSSNodes;
 }
 

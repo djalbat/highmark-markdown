@@ -15,24 +15,26 @@ export default class SelectorsListCSSTransform extends CSSTransform {
   }
 
   mergeWithSelectorsListCSSNode(selectorsListCSSNode) {
-    const selectorsCSSNodes = selectorsListCSSNode.getSelectorsCSSNodes();
+    const selectorsCSSNodes = selectorsListCSSNode.getSelectorsCSSNodes(),
+          selectorsCSSTransforms = selectorsCSSTransformsFromSelectorsListCSSNode(selectorsListCSSNode);
 
-    this.selectorsCSSTransforms.forEach((selectorsCSSTransform) => {
-      selectorsCSSNodes.forEach((selectorsCSSNode) => {
-        selectorsCSSTransform.mergeWithSelectorsCSSNode(selectorsCSSNode);
+    selectorsCSSNodes.forEach((selectorsCSSNode) => {
+      this.selectorsCSSTransforms.forEach((selectorsCSSTransform) => {
+        selectorsCSSTransform = selectorsCSSTransform.mergeWithSelectorsCSSNode(selectorsCSSNode);  ///
+
+        selectorsCSSTransform.appendToSelectorsListCSSNode(selectorsListCSSNode);
       });
+    });
+
+    selectorsCSSTransforms.forEach((selectorsCSSTransform) => {
+      selectorsCSSTransform.remove();
     });
   }
 
   static fromRuleSetCSSNode(ruleSetCSSNode) {
-    let selectorsListCSSNode;
-
-    selectorsListCSSNode = ruleSetCSSNode.getSelectorsListCSSNode();
-
-    selectorsListCSSNode = selectorsListCSSNode.clone();  ///
-
-    const selectorsCSSTransforms = selectorsCSSTransformsFromSelectorsListCSSNode(selectorsListCSSNode),
+    const selectorsListCSSNode = ruleSetCSSNode.getSelectorsListCSSNode(),
           cssNode = null, ///
+          selectorsCSSTransforms = selectorsCSSTransformsFromSelectorsListCSSNode(selectorsListCSSNode),
           selectorsListCSSTransform = CSSTransform.fromCSSNode(SelectorsListCSSTransform, cssNode, selectorsCSSTransforms);
 
     return selectorsListCSSTransform;

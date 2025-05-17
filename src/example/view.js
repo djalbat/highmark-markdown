@@ -440,7 +440,7 @@ ${topmostCSSNodeCSS}
 
   static initialMarkdown = initialMarkdown;
 
-  static initialMarkdownStyle = `primaryHeading {
+  static initialMarkdownStyle = `primaryHeading, paragraph {
    color: red;
      
    line {

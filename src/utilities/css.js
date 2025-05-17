@@ -17,6 +17,7 @@ const markdownStyleLexer = MarkdownStyleLexer.fromNothing(),
 const ruleSetCSSNodesQuery = Query.fromExpressionString("/*/ruleSet"),
       selectorCSSNodesQuery = Query.fromExpressionString("/selectors/selector"),
       selectorsCSSNodesQuery = Query.fromExpressionString("/selectorsList/selectors"),
+      nestedRuleSetCSSNodesQuery = Query.fromExpressionString("/*//ruleSet"),
       selectorsListCSSNodesQuery = Query.fromExpressionString("/*//ruleSet/selectorsList"); ///
 
 export function ruleSetCSSNodesFromNode(node, ruleSetCSSNodes = []) {
@@ -35,6 +36,12 @@ export function selectorsCSSNodesFromNode(node, selectorsCSSNodes = []) {
   nodesFromNodeAndQuery(node, selectorsCSSNodesQuery, selectorsCSSNodes);
 
   return selectorsCSSNodes;
+}
+
+export function nestedRuleSetCSSNodesFromNode(node, nestedRuleSetCSSNodes = []) {
+  nodesFromNodeAndQuery(node, nestedRuleSetCSSNodesQuery, nestedRuleSetCSSNodes);
+
+  return nestedRuleSetCSSNodes;
 }
 
 export function selectorsListCSSNodesFromNode(node, selectorsListCSSNodes = []) {
