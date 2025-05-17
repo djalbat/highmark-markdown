@@ -24,9 +24,15 @@ export default class SelectorsListCSSTransform extends CSSTransform {
     });
   }
 
-  static fromSelectorsListCSSNode(selectorsListCSSNode) {
-    const cssNode = selectorsListCSSNode, ///
-          selectorsCSSTransforms = selectorsCSSTransformsFromSelectorsListCSSNode(selectorsListCSSNode),
+  static fromRuleSetCSSNode(ruleSetCSSNode) {
+    let selectorsListCSSNode;
+
+    selectorsListCSSNode = ruleSetCSSNode.getSelectorsListCSSNode();
+
+    selectorsListCSSNode = selectorsListCSSNode.clone();  ///
+
+    const selectorsCSSTransforms = selectorsCSSTransformsFromSelectorsListCSSNode(selectorsListCSSNode),
+          cssNode = null, ///
           selectorsListCSSTransform = CSSTransform.fromCSSNode(SelectorsListCSSTransform, cssNode, selectorsCSSTransforms);
 
     return selectorsListCSSTransform;

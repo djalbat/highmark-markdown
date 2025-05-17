@@ -9,42 +9,38 @@ export default class CSSTransform {
     return this.cssNode;
   }
 
-  appendTo(parentCSSNode, clone = false) {
-    const cssNode = clone ?
-                      this.cssNode.clone() :
-                        this.cssNode,
-          childNode = cssNode, ///
-          parentNode = parentCSSNode;  ///
+  appendTo(parentCSSNode) {
+    const parentNode = parentCSSNode,  ///
+          childNode = this.cssNode; ///
 
     parentNode.appendChildNode(childNode);
   }
 
-  prependTo(parentCSSNode, clone = false) {
-    const cssNode = clone ?
-                      this.cssNode.clone() :
-                        this.cssNode,
-          childNode = cssNode, ///
-          parentNode = parentCSSNode;  ///
+  prependTo(parentCSSNode) {
+    const parentNode = parentCSSNode,  ///
+          childNode = this.cssNode; ///
 
     parentNode.prependChildNode(childNode);
   }
 
-  mergeWith(cssNode, clone = false) {
-    const parentCSSNode = cssNode.getParentCSSNode(),
-          parentNode = parentCSSNode; ///
+  mergeWith(cssNode) {
+    const parentNode = cssNode; ///
 
-    cssNode = clone ?
-                this.cssNode.clone() :
-                  this.cssNode;
+    let childNodes;
 
-    const childNode = cssNode;  ///
+    const node = this.cssNode; ///
 
-    parentNode.prependChildNode(childNode);
+    childNodes = node.getChildNodes();
+
+    childNodes = cloneChildNodes(childNodes); ///
+
+    parentNode.prependChildNodes(childNodes);
   }
 
   remove() {
-    const childNode = this.cssNode, ///
-          parentNode = childNode.getParentNode();
+    const parentCSSNode = this.cssNode.getParentCSSNode(),
+          parentNode = parentCSSNode, ///
+          childNode = this.cssNode; ///
 
     parentNode.removeChildNode(childNode);
   }
@@ -61,3 +57,14 @@ export default class CSSTransform {
     return cssTransform;
   }
 }
+
+function cloneChildNodes(childNodes) {
+  childNodes = childNodes.map((childNode) => {  ///
+    childNode = childNode.clone();  ///
+
+    return childNode;
+  });
+
+  return childNodes;
+}
+

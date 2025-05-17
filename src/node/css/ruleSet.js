@@ -5,7 +5,7 @@ import RuleSetCSSTransform from "../../transform/css/ruleSet";
 import SelectorsListCSSTransform from "../../transform/css/selectorsList";
 
 import { EMPTY_STRING } from "../../constants";
-import { ruleSetCSSNodesFromNode } from "../../utilities/css";
+import { ruleSetCSSNodesFromNode, selectorsListCSSNodesFromNode } from "../../utilities/css";
 
 export default class RuleSetCSSNode extends CSSNode {
   getSelectorsListCSSNode() {
@@ -18,25 +18,31 @@ export default class RuleSetCSSNode extends CSSNode {
     return selectorsListCSSNode;
   }
 
-  resolve(context, selectorsListCSSTransforms = []) {
+  resolve(context) {
     const node = this,
-          ruleSetCSSNodes = ruleSetCSSNodesFromNode(node),
-          selectorsListCSSNode = this.getSelectorsListCSSNode(),
-          selectorsListCSSTransform = SelectorsListCSSTransform.fromSelectorsListCSSNode(selectorsListCSSNode);
+          ruleSetCSSNodes = ruleSetCSSNodesFromNode(node);
 
     ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
       ruleSetCSSNode.resolve(context);
     });
 
-    const parentCSSNode = this.getParentCSSNode();
+    const ruleSetCSSNode = this,  ///
+          selectorsListCSSNodes = selectorsListCSSNodesFromNode(node),
+          selectorsListCSSTransform = SelectorsListCSSTransform.fromRuleSetCSSNode(ruleSetCSSNode);
 
-    ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
-      const ruleSetCSSTransform = RuleSetCSSTransform.fromRuleSetCSSNode(ruleSetCSSNode);
-
-      ruleSetCSSTransform.remove();
-
-      ruleSetCSSTransform.appendTo(parentCSSNode);
+    selectorsListCSSNodes.forEach((selectorsListCSSNode) => {
+      selectorsListCSSTransform.mergeWithSelectorsListCSSNode(selectorsListCSSNode);
     });
+
+    // const parentCSSNode = this.getParentCSSNode();
+    //
+    // ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
+    //   const ruleSetCSSTransform = RuleSetCSSTransform.fromRuleSetCSSNode(ruleSetCSSNode);
+    //
+    //   ruleSetCSSTransform.remove();
+    //
+    //   ruleSetCSSTransform.appendTo(parentCSSNode);
+    // });
   }
 
   asCSS(context) {

@@ -1,45 +1,18 @@
 "use strict";
 
 import CSSTransform from "../../transform/css"
-import SelectorCSSTransform from "../../transform/css/selector";
 
 export default class SelectorsCSSTransform extends CSSTransform {
-  constructor(cssNode, selectorCSSTransforms) {
-    super(cssNode);
-
-    this.selectorCSSTransforms = selectorCSSTransforms;
-  }
-
-  getSelectorCSSTransforms() {
-    return this.selectorCSSTransforms;
-  }
-
   mergeWithSelectorsCSSNode(selectorsCSSNode) {
-    const selectorCSSNodes = selectorsCSSNode.getSelectorCSSNodes();
+    const cssNode = selectorsCSSNode; ///
 
-    this.selectorCSSTransforms.forEach((selectorCSSTransform) => {
-      selectorCSSNodes.forEach((selectorCSSNode) => {
-        selectorCSSTransform.mergeWithSelectorCSSNode(selectorCSSNode);
-      });
-    });
+    this.mergeWith(cssNode);
   }
 
   static fromSelectorsCSSNode(selectorsCSSNode) {
     const cssNode = selectorsCSSNode, ///
-          selectorCSSTransforms = selectorCSSTransformsFromSelectorsCSSNode(selectorsCSSNode),
-          selectorsCSSTransform = CSSTransform.fromCSSNode(SelectorsCSSTransform, cssNode, selectorCSSTransforms);
+          selectorsCSSTransform = CSSTransform.fromCSSNode(SelectorsCSSTransform, cssNode);
 
     return selectorsCSSTransform;
   }
-}
-
-function selectorCSSTransformsFromSelectorsCSSNode(selectorsCSSNode) {
-  const selectorCSSNodes = selectorsCSSNode.getSelectorCSSNodes(),
-        selectorCSSTransforms = selectorCSSNodes.map((selectorCSSNode) => {
-          const selectorCSSTransform = SelectorCSSTransform.fromSelectorCSSNode(selectorCSSNode);
-
-          return selectorCSSTransform;
-        });
-
-  return selectorCSSTransforms;
 }
