@@ -1,25 +1,24 @@
 "use strict";
 
 import StyleElement from "../styleElement";
-import SelectorsList from "../style/selectorsList";
 
 import { EMPTY_STRING } from "../constants";
 import { createDOMElement } from "../styleElement";
-import { cssFromMarkdownStyleAndSelectorsList } from "../utilities/css";
+import { cssFromMarkdownStyleAndSelectorsString } from "../utilities/dom";
 
 export default class MarkdownStyleElement extends StyleElement {
-  constructor(domElement, selectorsList) {
+  constructor(domElement, selectorsString) {
     super(domElement);
 
-    this.selectorsList = selectorsList;
+    this.selectorsString = selectorsString;
   }
 
-  getSelectorsList() {
-    return this.selectorsList;
+  getSelectorsString() {
+    return this.selectorsString;
   }
 
   update(markdownStyle) {
-    const css = cssFromMarkdownStyleAndSelectorsList(markdownStyle, this.selectorsList);
+    const css = cssFromMarkdownStyleAndSelectorsString(markdownStyle, this.selectorsString);
 
     this.setCSS(css);
 
@@ -38,16 +37,15 @@ export default class MarkdownStyleElement extends StyleElement {
     this.destroy();
   }
 
-  static fromSelectorsString(Class, selectorString) {
-    if (selectorString === undefined) {
-      selectorString = Class; ///
+  static fromSelectorsString(Class, selectorsString) {
+    if (selectorsString === undefined) {
+      selectorsString = Class; ///
 
       Class = MarkdownStyleElement; ///
     }
 
     const domElement = createDOMElement(),
-          selectorsList = SelectorsList.fromSelectorsString(selectorString),
-          markdownStyleElement = new Class(domElement, selectorsList);
+          markdownStyleElement = new Class(domElement, selectorsString);
 
     return markdownStyleElement;
   }

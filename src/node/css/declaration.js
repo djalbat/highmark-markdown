@@ -12,7 +12,7 @@ export default class DeclarationCSSNode extends CSSNode {
             return name;
           }),
           values = this.fromSecondChildNode((secondChildNode) => {
-            const valuesCSSNode = secondChildNode,
+            const valuesCSSNode = secondChildNode,  ///
                   valuesCSSNodeCSS = valuesCSSNode.asCSS(context),
                   values = valuesCSSNodeCSS;  ///
 

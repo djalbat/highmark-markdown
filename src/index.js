@@ -10,7 +10,7 @@ export { default as cssUtilities } from "./utilities/css";
 export { default as htmlUtilities } from "./utilities/html";
 export { default as queryUtilities } from "./utilities/query";
 export { default as markdownUtilities } from "./utilities/markdown";
-export { default as footnotesUtilities } from "./utilities/footnotes";
+export { default as markdownStyleUtilities } from "./utilities/markdownStyle";
 
 export { default as tagNameMap } from "./map/tagName";
 export { default as cssNodeMap } from "./map/node/css";

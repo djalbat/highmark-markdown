@@ -3,8 +3,8 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
+import { domUtilities } from "../index";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
-import { MarkdownLexer, MarkdownParser, MarkdownStyleLexer, MarkdownStyleParser } from "../index";
 
 import indexOptions from "./indexOptions";
 import PageButtonsDiv from "./view/div/pageButtons";
@@ -22,12 +22,13 @@ import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
 import { importer, initialMarkdown } from "./importer";
 import { PREVIEWED_DIV_SELECTORS_STRING } from "./constants";
-import { topmostHTMLNodeFromMarkdownNode, topmostCSSNodeFromMarkdownStyleNode } from "../utilities/dom";
 
-const markdownLexer = MarkdownLexer.fromNothing(),
-      markdownParser = MarkdownParser.fromNothing(),
-      markdownStyleLexer = MarkdownStyleLexer.fromNothing(),
-      markdownStyleParser = MarkdownStyleParser.fromNothing();
+const { tokensFromMarkdown,
+        markdownNodeFromTokens,
+        tokensFromMarkdownStyle,
+        markdownStyleNodeFromTokens,
+        topmostHTMLNodeFromMarkdownNode,
+        topmostCSSNodeFromMarkdownStyleNode } = domUtilities;
 
 class View extends Element {
   pageUpdateCustomHandler = (event, element, index) => {
@@ -74,14 +75,10 @@ class View extends Element {
 
   updateMarkdownStyle() {
     const markdownStyle = this.getMarkdownStyle(),
-          lexer = markdownStyleLexer, ///
-          parser = markdownStyleParser, ///
-          content = markdownStyle,  ///
-          tokens = lexer.tokenise(content),
-          startRule = parser.getStartRule(),
-          node = parser.parse(tokens, startRule);
+          tokens = tokensFromMarkdownStyle(markdownStyle),
+          markdownStyleNode = markdownStyleNodeFromTokens(tokens);
 
-    if (node === null) {
+    if (markdownStyleNode === null) {
       this.resetMarkdownStyleTokens();
 
       this.resetTopmostMarkdownStyleNode();
@@ -91,7 +88,8 @@ class View extends Element {
       return;
     }
 
-    const parseTree = node.asParseTree(tokens),
+    const node = markdownStyleNode, ///
+          parseTree = node.asParseTree(tokens),
           markdownStyleTokens = tokens, ///
           topmostMarkdownStyleNode = node; ///
 
@@ -104,13 +102,10 @@ class View extends Element {
 
   updateMarkdown() {
     const markdown = this.getMarkdown(),
-          lexer = markdownLexer,  ///
-          parser =  markdownParser, ///
-          content = markdown, ///
-          tokens = lexer.tokenise(content),
-          node = parser.parse(tokens);
+          tokens = tokensFromMarkdown(markdown),
+          markdownNode = markdownNodeFromTokens(tokens);
 
-    if (node === null) {
+    if (markdownNode === null) {
       this.resetMarkdownTokens();
 
       this.resetTopmostMarkdownNode();
@@ -122,7 +117,7 @@ class View extends Element {
 
     let context;
 
-    const topmostMarkdownNode = node; ///
+    const topmostMarkdownNode = markdownNode; ///
 
     context = {
       tokens,
@@ -154,7 +149,8 @@ class View extends Element {
     this.clearPageButtonsDiv();
 
     const topmostMarkdownNode = this.getTopmostMarkdownNode(),
-          topmostHTMLNode = topmostHTMLNodeFromMarkdownNode(topmostMarkdownNode);
+          markdownNode = topmostMarkdownNode, ///
+          topmostHTMLNode = topmostHTMLNodeFromMarkdownNode(markdownNode);
 
     if (topmostHTMLNode === null) {
       return;
@@ -200,20 +196,12 @@ class View extends Element {
   }
 
   updateCSS() {
-    const { markdownStyleElement } = this.properties,
-          markdownStyle = this.getMarkdownStyle(),
-          markdownStyleElementCSS = markdownStyleElement.update(markdownStyle);
-
-    const topmostMarkdownStyleNode = this.getTopmostMarkdownStyleNode();
-
-    if (topmostMarkdownStyleNode === null) {
-      return;
-    }
-
     let context;
 
-    const markdownStyleTokens = this.getMarkdownStyleTokens(),
-          topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(topmostMarkdownStyleNode),
+    const topmostMarkdownStyleNode = this.getTopmostMarkdownStyleNode(),
+          markdownStyleTokens = this.getMarkdownStyleTokens(),
+          markdownStyleNode = topmostMarkdownStyleNode, ///
+          topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode),
           tokens = markdownStyleTokens;  ///
 
     context = {
@@ -229,18 +217,10 @@ class View extends Element {
     };
 
     const topmostCSSNodeParseTree = topmostCSSNode.asParseTree(tokens),
-          topmostCSSNodeCSS = topmostCSSNode.asCSS(context),
-          cssParseTree = topmostCSSNodeParseTree;
+          cssParseTree = topmostCSSNodeParseTree, ///
+          css = topmostCSSNode.asCSS(context);
 
     this.updateCSSParseTreeTextarea(cssParseTree);
-
-    const css = `
-
-${markdownStyleElementCSS}    
-
-${topmostCSSNodeCSS}
-
-`;
 
     this.setCSS(css);
   }
