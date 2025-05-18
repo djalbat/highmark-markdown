@@ -115,13 +115,20 @@ export function topmostCSSNodeFromMarkdownStyleNodes(markdownStyleNodes) {
 }
 
 export function cssFromMarkdownStyleAndSelectorsString(markdownStyle, selectorsString) {
+  markdownStyle = `${selectorsString} {
+  ${markdownStyle}
+}`;
+
   const tokens = tokensFromMarkdownStyle(markdownStyle),
         markdownStyleNode = markdownStyleNodeFromTokens(tokens),
         topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode),
         context = {
-          selectorsString
-        },
-        css = topmostCSSNode.asCSS(context);
+          tokens
+        };
+
+  topmostCSSNode.resolve(context);
+
+  const css = topmostCSSNode.asCSS(context);
 
   return css;
 }

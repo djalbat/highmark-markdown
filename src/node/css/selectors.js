@@ -13,17 +13,15 @@ export default class SelectorsCSSNode extends CSSNode {
   }
 
   asCSS(context) {
-    let css;
-
-    const { selectorsString } = context;
-
-    css = this.reduceChildNode((css, childNode) => {
+    const css = this.reduceChildNode((css, childNode) => {
       const childNodeCSS = childNode.asCSS(context);
 
-      css = `${css} ${childNodeCSS}`;
+      css = (css !== null) ?
+              `${css} ${childNodeCSS}` :
+                childNodeCSS; ///
 
       return css;
-    }, selectorsString);
+    }, null);
 
     return css;
   }

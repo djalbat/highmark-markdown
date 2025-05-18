@@ -21,7 +21,7 @@ import PlainTextContainerDiv from "./view/div/container/plainText";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
 import { importer, initialMarkdown } from "./importer";
-import { PREVIEWED_DIV_SELECTORS_STRING } from "./constants";
+import { PREVIEW_DIVISION_SELECTORS_STRING } from "./constants";
 
 const { tokensFromMarkdown,
         markdownNodeFromTokens,
@@ -74,8 +74,17 @@ class View extends Element {
   }
 
   updateMarkdownStyle() {
-    const markdownStyle = this.getMarkdownStyle(),
-          tokens = tokensFromMarkdownStyle(markdownStyle),
+    let markdownStyle;
+
+    markdownStyle = this.getMarkdownStyle();
+
+    const selectorsString = PREVIEW_DIVISION_SELECTORS_STRING
+
+    markdownStyle = `${selectorsString} {
+  ${markdownStyle}
+}`;
+
+    const tokens = tokensFromMarkdownStyle(markdownStyle),
           markdownStyleNode = markdownStyleNodeFromTokens(tokens);
 
     if (markdownStyleNode === null) {
@@ -196,25 +205,16 @@ class View extends Element {
   }
 
   updateCSS() {
-    let context;
-
     const topmostMarkdownStyleNode = this.getTopmostMarkdownStyleNode(),
           markdownStyleTokens = this.getMarkdownStyleTokens(),
           markdownStyleNode = topmostMarkdownStyleNode, ///
           topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode),
-          tokens = markdownStyleTokens;  ///
-
-    context = {
-      tokens
-    };
+          tokens = markdownStyleTokens, ///
+          context = {
+            tokens
+          };
 
     topmostCSSNode.resolve(context);
-
-    const selectorsString = PREVIEWED_DIV_SELECTORS_STRING;
-
-    context = {
-      selectorsString
-    };
 
     const topmostCSSNodeParseTree = topmostCSSNode.asParseTree(tokens),
           cssParseTree = topmostCSSNodeParseTree, ///
@@ -420,7 +420,9 @@ class View extends Element {
 
   static initialMarkdown = initialMarkdown;
 
-  static initialMarkdownStyle = `orderedItem.half-title {
+  static initialMarkdownStyle = `colour: blue;
+  
+line.red {
   colour: red;
 }`;
 
