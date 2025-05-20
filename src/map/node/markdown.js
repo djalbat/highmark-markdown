@@ -48,7 +48,7 @@ const markdownNodeMap = {
   [PATH_MARKDOWN_RULE_NAME]: PathMarkdownNode,
   [IMAGE_MARKDOWN_RULE_NAME]: ImageMarkdownNode,
   [ERROR_MARKDOWN_RULE_NAME]: ErrorMarkdownNode,
-  [MARKDOWN_MARKDOWN_RULE_NAME]: TopmostMarkdownNode,
+  [MARKDOWN_MARKDOWN_RULE_NAME]: TopmostMarkdownNode, ///
   [DIVISION_MARKDOWN_RULE_NAME]: DivisionMarkdownNode,
   [FOOTNOTE_MARKDOWN_RULE_NAME]: FootnoteMarkdownNode,
   [BLOCK_END_MARKDOWN_RULE_NAME]: BlockEndMarkdownNode,

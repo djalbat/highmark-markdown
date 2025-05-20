@@ -9,11 +9,11 @@ import { MarkdownStyleElement, DefaultMarkdownStyleElement } from "./index";  //
 
 import View from "./example/view";
 
-import { PREVIEW_DIVISION_SELECTORS_STRING } from "./example/constants";
+import { PREVIEW_SELECTORS_STRING } from "./example/constants";
 
 const { renderStyles } = withStyle;
 
-const selectorsString = PREVIEW_DIVISION_SELECTORS_STRING;
+const selectorsString = PREVIEW_SELECTORS_STRING;
 
 DefaultMarkdownStyleElement.fromSelectorsString(selectorsString);
 

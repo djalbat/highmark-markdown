@@ -20,8 +20,8 @@ import HTMLParseTreeTextarea from "./view/textarea/parseTree/html";
 import PlainTextContainerDiv from "./view/div/container/plainText";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
+import { PREVIEW_SELECTORS_STRING } from "./constants";
 import { importer, initialMarkdown } from "./importer";
-import { PREVIEW_DIVISION_SELECTORS_STRING } from "./constants";
 
 const { tokensFromMarkdown,
         markdownNodeFromTokens,
@@ -78,7 +78,7 @@ class View extends Element {
 
     markdownStyle = this.getMarkdownStyle();
 
-    const selectorsString = PREVIEW_DIVISION_SELECTORS_STRING
+    const selectorsString = PREVIEW_SELECTORS_STRING
 
     markdownStyle = `${selectorsString} {
   ${markdownStyle}
@@ -420,11 +420,10 @@ class View extends Element {
 
   static initialMarkdown = initialMarkdown;
 
-  static initialMarkdownStyle = `colour: blue;
-  
-line.red {
-  colour: red;
-}`;
+  static initialMarkdownStyle = `primaryHeading {
+  font-size: 32pt;
+}
+`;
 
   static tagName = "div";
 

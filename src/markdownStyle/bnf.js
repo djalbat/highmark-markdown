@@ -17,6 +17,9 @@ const bnf = `
     error.         ::=  . ;
 
 
+    values         ::=  value+ ;
+
+    
     selectorsList  ::=  selectors ( "," selectors )* ;
 
 
@@ -35,13 +38,10 @@ const bnf = `
     ruleName.      ::=  [rule-name] ;
 
     
-    values         ::=  value+ ;
+    class.         ::=  <NO_WHITESPACE>"."<NO_WHITESPACE>identifier ;
 
     
-    class          ::=  <NO_WHITESPACE>"."<NO_WHITESPACE>identifier ;
-
-    
-    pseudoClass    ::=  <NO_WHITESPACE>":"<NO_WHITESPACE>identifier ;
+    pseudoClass.   ::=  <NO_WHITESPACE>":"<NO_WHITESPACE>identifier ;
     
     
     name.          ::=  identifier ;
@@ -49,13 +49,11 @@ const bnf = `
     
     value.         ::=  identifier ( <NO_WHITESPACE>"(" arguments ")" )?
     
-                     |  [number]<NO_WHITESPACE>[unit]
+                     |  amount
     
-                     |  [string-literal] 
+                     |  string 
                               
-                     |  [number]
-                              
-                     |  [colour]
+                     |  colour
                               
                      ;
                      
@@ -63,22 +61,21 @@ const bnf = `
     arguments      ::=  argument ( "," argument )* ;
     
 
-    argument       ::=  identifier
-    
-                     |  [number]<NO_WHITESPACE>[unit]
-    
-                     |  [string-literal] 
-                              
-                     |  [number]
-                              
-                     |  [colour]
-                     
-                     ;
+    argument       ::=  identifier | amount | string | colour ;
 
 
     identifier     ::=  ( [rule-name] | [name] ) ( <NO_WHITESPACE>"-"<NO_WHITESPACE>( [rule-name] | [name] ) )* ;
 
     
+    amount         ::=  [number] ( <NO_WHITESPACE>[unit] )? ;
+
+
+    string         ::=  [string-literal] ; 
+
+
+    colour         ::=  [colour] ;
+
+
 `;
 
 export default bnf;

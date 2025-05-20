@@ -3,6 +3,9 @@
 import NameCSSNode from "../../node/css/name";
 import ValueCSSNode from "../../node/css/value";
 import ClassCSSNode from "../../node/css/class";
+import ColourCSSNode from "../../node/css/colour";
+import StringCSSNode from "../../node/css/string";
+import AmountCSSNode from "../../node/css/amount";
 import ValuesCSSNode from "../../node/css/values";
 import TopmostCSSNode from "../../node/css/topmost";
 import RuleSetCSSNode from "../../node/css/ruleSet";
@@ -20,6 +23,9 @@ import { CSS_MARKDOWN_STYLE_RULE_NAME,
          NAME_MARKDOWN_STYLE_RULE_NAME,
          VALUE_MARKDOWN_STYLE_RULE_NAME,
          CLASS_MARKDOWN_STYLE_RULE_NAME,
+         AMOUNT_MARKDOWN_STYLE_RULE_NAME,
+         STRING_MARKDOWN_STYLE_RULE_NAME,
+         COLOUR_MARKDOWN_STYLE_RULE_NAME,
          VALUES_MARKDOWN_STYLE_RULE_NAME,
          ARGUMENT_MARKDOWN_STYLE_RULE_NAME,
          RULE_SET_MARKDOWN_STYLE_RULE_NAME,
@@ -37,6 +43,9 @@ const cssNodeMap = {
   [NAME_MARKDOWN_STYLE_RULE_NAME]: NameCSSNode,
   [VALUE_MARKDOWN_STYLE_RULE_NAME]: ValueCSSNode,
   [CLASS_MARKDOWN_STYLE_RULE_NAME]: ClassCSSNode,
+  [AMOUNT_MARKDOWN_STYLE_RULE_NAME]: AmountCSSNode,
+  [COLOUR_MARKDOWN_STYLE_RULE_NAME]: ColourCSSNode,
+  [STRING_MARKDOWN_STYLE_RULE_NAME]: StringCSSNode,
   [VALUES_MARKDOWN_STYLE_RULE_NAME]: ValuesCSSNode,
   [ARGUMENT_MARKDOWN_STYLE_RULE_NAME]: ArgumentCSSNode,
   [SELECTOR_MARKDOWN_STYLE_RULE_NAME]: SelectorCSSNode,

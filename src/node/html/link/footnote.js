@@ -23,8 +23,8 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
 
   content(context) {
     const content = (this.number !== null) ?
-                      this.number :
-                        EMPTY_STRING;
+                       this.number :
+                         EMPTY_STRING;
 
     return content;
   }

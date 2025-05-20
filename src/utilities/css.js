@@ -5,7 +5,6 @@ import { Query } from "occam-query";
 import { nodesFromNodeAndQuery } from "../utilities/query";
 
 const ruleSetCSSNodesQuery = Query.fromExpressionString("/*/ruleSet"),
-      selectorCSSNodesQuery = Query.fromExpressionString("/selectors/selector"),
       selectorsCSSNodesQuery = Query.fromExpressionString("/selectorsList/selectors"),
       nestedRuleSetCSSNodesQuery = Query.fromExpressionString("/*//ruleSet"),
       selectorsListCSSNodesQuery = Query.fromExpressionString("/*//ruleSet/selectorsList"); ///
@@ -14,12 +13,6 @@ export function ruleSetCSSNodesFromNode(node, ruleSetCSSNodes = []) {
   nodesFromNodeAndQuery(node, ruleSetCSSNodesQuery, ruleSetCSSNodes);
 
   return ruleSetCSSNodes;
-}
-
-export function selectorCSSNodesFromNode(node, selectorCSSNodes = []) {
-  nodesFromNodeAndQuery(node, selectorCSSNodesQuery, selectorCSSNodes);
-
-  return selectorCSSNodes;
 }
 
 export function selectorsCSSNodesFromNode(node, selectorsCSSNodes = []) {
@@ -42,7 +35,6 @@ export function selectorsListCSSNodesFromNode(node, selectorsListCSSNodes = []) 
 
 export default {
   ruleSetCSSNodesFromNode,
-  selectorCSSNodesFromNode,
   selectorsCSSNodesFromNode,
   selectorsListCSSNodesFromNode
 };
