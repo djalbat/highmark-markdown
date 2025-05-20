@@ -17,9 +17,8 @@ export { default as cssNodeMap } from "./map/node/css";
 export { default as htmlNodeMap } from "./map/node/html";
 export { default as classNameMap } from "./map/className";
 export { default as markdownNodeMap } from "./map/node/markdown";
-export { default as markdownStyleNodeMap } from "./map/node/markdownStyle";
-
 export { default as markdownRuleNames } from "./ruleNames/markdown";
+export { default as markdownStyleNodeMap } from "./map/node/markdownStyle";
 export { default as markdownStyleRuleNames } from "./ruleNames/markdownStyle";
 
 export { default as CSSNode } from "./node/css";

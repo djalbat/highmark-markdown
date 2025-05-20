@@ -71,7 +71,7 @@ export const FOOTNOTES_DIRECTIVE_MARKDOWN_RULE_NAME = "footnotesDirective";
 export const PAGE_NUMBER_DIRECTIVE_MARKDOWN_RULE_NAME = "pageNumberDirective";
 export const STRONGLY_EMPHASISED_TEXT_MARKDOWN_RULE_NAME = "stronglyEmphasisedText";
 
-const markdownRuleNames = [
+const markdownRuleNames = {
   HTML_MARKDOWN_RULE_NAME,
   LINE_MARKDOWN_RULE_NAME,
   PATH_MARKDOWN_RULE_NAME,
@@ -142,6 +142,6 @@ const markdownRuleNames = [
   FOOTNOTES_DIRECTIVE_MARKDOWN_RULE_NAME,
   PAGE_NUMBER_DIRECTIVE_MARKDOWN_RULE_NAME,
   STRONGLY_EMPHASISED_TEXT_MARKDOWN_RULE_NAME
-];
+};
 
 export default markdownRuleNames;

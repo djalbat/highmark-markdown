@@ -22,7 +22,7 @@ export const PSEUDO_CLASS_MARKDOWN_STYLE_RULE_NAME = "pseudoClass";
 export const SELECTORS_LIST_MARKDOWN_STYLE_RULE_NAME = "selectorsList";
 export const MARKDOWN_STYLE_MARKDOWN_STYLE_RULE_NAME = "markdownStyle";  ///
 
-const markdownStyleRuleNames = [
+const markdownStyleRuleNames = {
   CSS_MARKDOWN_STYLE_RULE_NAME,
   NAME_MARKDOWN_STYLE_RULE_NAME,
   VALUE_MARKDOWN_STYLE_RULE_NAME,
@@ -44,6 +44,6 @@ const markdownStyleRuleNames = [
   PSEUDO_CLASS_MARKDOWN_STYLE_RULE_NAME,
   SELECTORS_LIST_MARKDOWN_STYLE_RULE_NAME,
   MARKDOWN_STYLE_MARKDOWN_STYLE_RULE_NAME
-];
+};
 
 export default markdownStyleRuleNames;
