@@ -32,6 +32,36 @@ export function tokensFromMarkdown(markdown) {
   return tokens;
 }
 
+export function CSSClassFromOuterNode(outerNode) {
+  let Class;
+
+  if (outerNode === null) {
+    Class = TopmostCSSNode;  ///
+  } else {
+    const nonTerminalNode = outerNode,  ///
+          ruleName = nonTerminalNode.getRuleName();
+
+    Class = cssNodeMap[ruleName] || CSSNode;
+  }
+
+  return Class;
+}
+
+export function HTMLClassFromOuterNode(outerNode) {
+  let Class;
+
+  if (outerNode === null) {
+    Class = TopmostHTMLNode;  ///
+  } else {
+    const nonTerminalNode = outerNode,  ///
+          ruleName = nonTerminalNode.getRuleName();
+
+    Class = htmlNodeMap[ruleName] || HTMLNode;
+  }
+
+  return Class;
+}
+
 export function markdownNodeFromTokens(tokens) {
   const parser = markdownParser, ///
         startRule = parser.getStartRule(),
@@ -135,6 +165,8 @@ export function cssFromMarkdownStyleAndSelectorsString(markdownStyle, selectorsS
 
 export default {
   tokensFromMarkdown,
+  CSSClassFromOuterNode,
+  HTMLClassFromOuterNode,
   markdownNodeFromTokens,
   tokensFromMarkdownStyle,
   markdownStyleNodeFromTokens,
@@ -144,33 +176,3 @@ export default {
   topmostCSSNodeFromMarkdownStyleNodes,
   cssFromMarkdownStyleAndSelectorsString
 };
-
-function CSSClassFromOuterNode(outerNode) {
-  let Class;
-
-  if (outerNode === null) {
-    Class = TopmostCSSNode;  ///
-  } else {
-    const nonTerminalNode = outerNode,  ///
-          ruleName = nonTerminalNode.getRuleName();
-
-    Class = cssNodeMap[ruleName] || CSSNode;
-  }
-
-  return Class;
-}
-
-function HTMLClassFromOuterNode(outerNode) {
-  let Class;
-
-  if (outerNode === null) {
-    Class = TopmostHTMLNode;  ///
-  } else {
-    const nonTerminalNode = outerNode,  ///
-          ruleName = nonTerminalNode.getRuleName();
-
-    Class = htmlNodeMap[ruleName] || HTMLNode;
-  }
-
-  return Class;
-}
