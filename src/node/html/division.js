@@ -164,7 +164,8 @@ export default class DivisionHTMLNode extends HTMLNode {
   }
 
   static fromOuterNode(outerNode) {
-    const divisionClassName = null,
+    const divisionMarkdownNode = outerNode, ///
+          divisionClassName = divisionMarkdownNode.getDivisionClassName(),
           divisionHTMLNode = HTMLNode.fromOuterNode(DivisionHTMLNode, outerNode, divisionClassName);
 
     return divisionHTMLNode;
