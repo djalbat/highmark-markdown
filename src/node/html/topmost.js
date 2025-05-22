@@ -11,6 +11,18 @@ import { HTML_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
 import { divisionHTMLNodesFromNode, indexDirectiveHTMLNodeFromNode, contentsDirectiveHTMLNodeFromNode } from "../../utilities/html";
 
 export default class TopmostHTMLNode extends HTMLNode {
+  mount(parentDOMElement, siblingDOMElement, context) {
+    this.childNodes.forEach((childNode) => {
+      childNode.mount(parentDOMElement, siblingDOMElement, context);
+    });
+  }
+
+  unmount(parentDOMElement, context) {
+    this.childNodes.forEach((childNode) => {
+      childNode.unmount(parentDOMElement, context);
+    });
+  }
+
   resolve(context) {
     this.paginate(context);
 
