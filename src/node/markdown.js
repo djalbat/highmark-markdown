@@ -26,7 +26,21 @@ class MarkdownNode extends NonTerminalNode {
     return ancestorMarkdownNodes;
   }
 
-  static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments) { return NonTerminalNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments); }
+  static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments) {
+    if (opacity === undefined) {
+      opacity = childNodes; ///
+
+      childNodes = ruleName;  ///
+
+      ruleName = Class; ///
+
+      Class = MarkdownNode; ///
+    }
+
+    const markdownNode = NonTerminalNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments);
+
+    return markdownNode;
+  }
 }
 
 Object.assign(MarkdownNode.prototype, nodeMixins);

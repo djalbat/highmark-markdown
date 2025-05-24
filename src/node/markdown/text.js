@@ -75,5 +75,19 @@ export default class TextMarkdownNode extends MarkdownNode {
     return text;
   }
 
-  static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity) {
+    if (opacity === undefined) {
+      opacity = childNodes; ///
+
+      childNodes = ruleName;  ///
+
+      ruleName = Class; ///
+
+      Class = TextMarkdownNode; ///
+    }
+
+    const textMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity);
+
+    return textMarkdownNode;
+  }
 }
