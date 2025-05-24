@@ -5,6 +5,27 @@ import { NonTerminalNode } from "occam-parsers";
 import nodeMixins from "../mixins/node";
 
 class MarkdownNode extends NonTerminalNode {
+  getParentMarkdownNode() {
+    const parentNode = this.getParentNode(),
+          parentMarkdownNode = parentNode;  ///
+
+    return parentMarkdownNode;
+  }
+
+  getChildMarkdownNodes() {
+    const childNodes = this.getChildNodes(),
+          childMarkdownNodes = childNodes;  ///
+
+    return childMarkdownNodes;
+  }
+
+  getAncestorMarkdownNodes() {
+    const ancestorNodes = this.getAncestorNodes(),
+          ancestorMarkdownNodes = ancestorNodes;  ///
+
+    return ancestorMarkdownNodes;
+  }
+
   static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments) { return NonTerminalNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments); }
 }
 
