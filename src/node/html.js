@@ -74,9 +74,8 @@ class HTMLNode extends Node {
 
   someAncestorHTMLNode(callback) { return this.someAncestorNode(callback); }
 
-  matchMarkdownNode(htmlNode) {
-    const markdownNode = htmlNode.getMarkdownNode(),
-          outerNode = markdownNode, ///
+  matchMarkdownNode(markdownNode) {
+    const outerNode = markdownNode, ///
           outerNodeMatches = (this.outerNode === outerNode),
           markdownNodeMatches = outerNodeMatches; ///
 
