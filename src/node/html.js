@@ -81,6 +81,30 @@ class HTMLNode extends Node {
     return markdownNodeMatches;
   }
 
+  retrieveHTMLNode(callback) {
+    let htmlNode;
+
+    htmlNode = this;  ///
+
+    const result = callback(htmlNode);
+
+    if (!result) {
+      htmlNode = null;
+
+      const childHTMLNodes = this.getChildHTMLNodes();
+
+      childHTMLNodes.some((childHTMLNode) => {
+        htmlNode = childHTMLNode.retrieveHTMLNode(callback)
+
+        if (htmlNode !== null) {
+          return true;
+        }
+      });
+    }
+
+    return htmlNode;
+  }
+
   addChildHTMLNodes(addedChildHTMLNodes, startIndex) {
     const addedChildNodes = addedChildHTMLNodes;  ///
 
