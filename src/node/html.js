@@ -25,13 +25,6 @@ class HTMLNode extends Node {
     this.domElement = null;
   }
 
-  getMarkdownNode() {
-    const outerNode = this.getOuterNode(),
-          markdownNode = outerNode; ///
-
-    return markdownNode;
-  }
-
   getRuleName() {
     const markdownNode = this.getMarkdownNode(),
           ruleName = markdownNode.getRuleName();
@@ -51,11 +44,77 @@ class HTMLNode extends Node {
     return nonTerminalNode;
   }
 
-  matchOuterNode(htmlNode) {
-    const outerNode = htmlNode.getOuterNode(),
-          outerNodeMatches = (this.outerNode === outerNode);
+  getMarkdownNode() {
+    const outerNode = this.getOuterNode(),
+          markdownNode = outerNode; ///
 
-    return outerNodeMatches;
+    return markdownNode;
+  }
+
+  getParentHTMLNode() {
+    const parentNode = this.getParentNode(),
+          parentHTMLNode = parentNode;  ///
+
+    return parentHTMLNode;
+  }
+
+  getChildHTMLNodes() {
+    const childNodes = this.getChildNodes(),
+          childHTMLNodes = childNodes;  ///
+
+    return childHTMLNodes;
+  }
+
+  getAncestorHTMLNodes() {
+    const ancestorNodes = this.getAncestorNodes(),
+          ancestorHTMLNodes = ancestorNodes;  ///
+
+    return ancestorHTMLNodes;
+  }
+
+  matchMarkdownNode(htmlNode) {
+    const markdownNode = htmlNode.getMarkdownNode(),
+          outerNode = markdownNode, ///
+          outerNodeMatches = (this.outerNode === outerNode),
+          markdownNodeMatches = outerNodeMatches; ///
+
+    return markdownNodeMatches;
+  }
+
+  addChildHTMLNodes(addedChildHTMLNodes, startIndex) {
+    const addedChildNodes = addedChildHTMLNodes;  ///
+
+    this.addChildNodes(addedChildNodes, startIndex);
+  }
+
+  removeChildHTMLNodes(removedChildHTMLNodes = null) {
+    let childHTMLNodes;
+
+    childHTMLNodes = this.getChildHTMLNodes();
+
+    if (removedChildHTMLNodes !== null) {
+      childHTMLNodes = childHTMLNodes.filter((childHTMLNode) => {
+        const index = removedChildHTMLNodes.findIndex((removedChildHTMLNode) => {
+          const outerNodeMatches = childHTMLNode.matchOuterNode(removedChildHTMLNode);
+
+          if (outerNodeMatches) {
+            return true;
+          }
+        });
+
+        if (index !== -1) {
+          return true;
+        }
+      });
+    }
+
+    let removedChildNodes = childHTMLNodes;  ///
+
+    removedChildNodes = this.removeChildNodes(removedChildNodes);
+
+    removedChildHTMLNodes = removedChildNodes;  ///
+
+    return removedChildHTMLNodes;
   }
 
   adjustIndent(indent) {
