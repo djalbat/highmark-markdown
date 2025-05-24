@@ -147,7 +147,7 @@ export default class TopmostHTMLNode extends HTMLNode {
 
     removedChildNodes = childNodes; ///
 
-    super.removeChildNodes(removedChildNodes);
+    removedChildNodes = super.removeChildNodes(removedChildNodes);
 
     return removedChildNodes;
   }
