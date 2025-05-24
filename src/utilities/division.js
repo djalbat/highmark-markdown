@@ -176,17 +176,17 @@ export function removeFootnotesDirectiveHTMLNode(node) {
 }
 
 export function removePageNumberDirectiveHTMLNode(node) {
-  let pageNumberDirectiveHTNLTransform = null;
+  let pageNumberDirectiveHTMLTransform = null;
 
   const pageNumberDirectiveHTMLNode = pageNumberDirectiveHTMLNodeFromNode(node);
 
   if (pageNumberDirectiveHTMLNode !== null) {
-    pageNumberDirectiveHTNLTransform = PageNumberDirectiveHTMLTransform.fromPageNumberDirectiveHTMLNode(pageNumberDirectiveHTMLNode);
+    pageNumberDirectiveHTMLTransform = PageNumberDirectiveHTMLTransform.fromPageNumberDirectiveHTMLNode(pageNumberDirectiveHTMLNode);
 
-    pageNumberDirectiveHTNLTransform.remove();
+    pageNumberDirectiveHTMLTransform.remove();
   }
 
-  return pageNumberDirectiveHTNLTransform;
+  return pageNumberDirectiveHTMLTransform;
 }
 
 export function removeNestedFootnoteLinkHTMLNodes(node) {

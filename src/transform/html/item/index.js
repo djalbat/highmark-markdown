@@ -12,8 +12,8 @@ export default class IndexItemHTMLTransform extends HTMLTransform {
   }
 
   static fromIndexItem(indexItem) {
-    const indexItemHTNLMode = IndexItemHTMLNode.fromIndexItem(indexItem),
-          htmlNode = indexItemHTNLMode, ///
+    const indexItemHTMLMode = IndexItemHTMLNode.fromIndexItem(indexItem),
+          htmlNode = indexItemHTMLMode, ///
           indexItemHTMLTransform = HTMLTransform.fromHTMLNode(IndexItemHTMLTransform, htmlNode);
 
     return indexItemHTMLTransform;

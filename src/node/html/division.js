@@ -55,7 +55,7 @@ export default class DivisionHTMLNode extends HTMLNode {
 
     removeNestedFootnoteLinkHTMLNodes(node);
 
-    const pageNumberDirectiveHTNLTransform = removePageNumberDirectiveHTMLNode(node),
+    const pageNumberDirectiveHTMLTransform = removePageNumberDirectiveHTMLNode(node),
           footnotesDirectiveHTMLNode = removeFootnotesDirectiveHTMLNode(node),
           footnoteHTMLTransforms = removeFootnoteHTMLNodes(node);
 
@@ -63,13 +63,13 @@ export default class DivisionHTMLNode extends HTMLNode {
       addFootnoteHTMLNodes(footnoteHTMLTransforms, node, context);
     }
 
-    this.paginate(pageNumberDirectiveHTNLTransform, divisionHTMLNodes, context);
+    this.paginate(pageNumberDirectiveHTMLTransform, divisionHTMLNodes, context);
   }
 
-  paginate(pageNumberDirectiveHTNLTransform, divisionHTMLNodes, context) {
+  paginate(pageNumberDirectiveHTMLTransform, divisionHTMLNodes, context) {
     const node = this,  ///
           outerNode = this.getOuterNode(),
-          pageNumbers = (pageNumberDirectiveHTNLTransform !== null),
+          pageNumbers = (pageNumberDirectiveHTMLTransform !== null),
           identifierMap = {},
           divisionClassName = outerNode.className(context);
 
