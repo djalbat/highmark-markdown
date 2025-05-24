@@ -124,24 +124,26 @@ export default class TopmostHTMLNode extends HTMLNode {
     return divisionHTMLNode;
   }
 
-  removeChildNodes(removedChildNodes) {
+  removeChildNodes(removedChildNodes = null) {
     let childNodes;
 
     childNodes = this.getChildNodes();
 
-    childNodes = childNodes.filter((childNode) => {
-      const index = removedChildNodes.findIndex((removedChildNode) => {
-        const outerNodeMatches = childNode.matchOuterNode(removedChildNode);
+    if (removedChildNodes !== null) {
+      childNodes = childNodes.filter((childNode) => {
+        const index = removedChildNodes.findIndex((removedChildNode) => {
+          const outerNodeMatches = childNode.matchOuterNode(removedChildNode);
 
-        if (outerNodeMatches) {
+          if (outerNodeMatches) {
+            return true;
+          }
+        });
+
+        if (index !== -1) {
           return true;
         }
       });
-
-      if (index !== -1) {
-        return true;
-      }
-    });
+    }
 
     removedChildNodes = childNodes; ///
 
