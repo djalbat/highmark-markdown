@@ -51,6 +51,12 @@ class HTMLNode extends Node {
     return nonTerminalNode;
   }
 
+  matchOuterNode(outerNode) {
+    const outerNodeMatches = (this.outerNode === outerNode);
+
+    return outerNodeMatches;
+  }
+
   adjustIndent(indent) {
     indent = (indent === null) ?
                EMPTY_STRING :
