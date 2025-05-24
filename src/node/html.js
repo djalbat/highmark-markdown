@@ -51,8 +51,9 @@ class HTMLNode extends Node {
     return nonTerminalNode;
   }
 
-  matchOuterNode(outerNode) {
-    const outerNodeMatches = (this.outerNode === outerNode);
+  matchOuterNode(htmlNode) {
+    const outerNode = htmlNode.getOuterNode(),
+          outerNodeMatches = (this.outerNode === outerNode);
 
     return outerNodeMatches;
   }
