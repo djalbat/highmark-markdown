@@ -7,8 +7,10 @@ import { EMPTY_STRING } from "../../../constants";
 export default class InlineTextHTMLNode extends HTMLNode {
   mount(parentDOMElement, siblingDOMElement, context) {
     this.childNodes.forEach((childNode) => {
-      childNode.mount(parentDOMElement, siblingDOMElement, context);
+      siblingDOMElement = childNode.mount(parentDOMElement, siblingDOMElement, context);
     });
+
+    return siblingDOMElement;
   }
 
   unmount(parentDOMElement, context) {

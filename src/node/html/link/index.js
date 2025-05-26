@@ -2,10 +2,10 @@
 
 import HTMLNode from "../../../node/html";
 
-import { insertAfter } from "../../../utilities/dom";
 import { EMPTY_STRING } from "../../../constants";
 import { INDEX_PREPEND } from "../../../prepends";
 import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
+import { remove, insertAfterwards } from "../../../utilities/dom";
 import { INDEX_LINK_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
 
 export default class IndexLinkHTMLNode extends HTMLNode {
@@ -39,22 +39,26 @@ export default class IndexLinkHTMLNode extends HTMLNode {
   }
 
   mount(parentDOMElement, siblingDOMElement, context) {
-    super.mount(parentDOMElement, siblingDOMElement, context);
-
     let domElement;
+
+    super.mount(parentDOMElement, siblingDOMElement, context);
 
     domElement = this.getDOMElement();
 
     parentDOMElement = domElement;  ///
-
-    siblingDOMElement = null;
 
     const content = this.pageNumber,  ///
           textNode = document.createTextNode(content);
 
     domElement = textNode;  ///
 
-    insertAfter(domElement, parentDOMElement, siblingDOMElement);
+    insertAfterwards(domElement, parentDOMElement);
+
+    domElement = this.getDOMElement();
+
+    siblingDOMElement = domElement; ///
+
+    return siblingDOMElement;
   }
 
   unmount(parentDOMElement, context) {
@@ -68,7 +72,7 @@ export default class IndexLinkHTMLNode extends HTMLNode {
 
       domElement = lastChild;  ///
 
-      parentDOMElement.removeChild(domElement);
+      remove(domElement, parentDOMElement);
     }
 
     super.unmount(parentDOMElement, context);

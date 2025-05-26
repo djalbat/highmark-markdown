@@ -3,7 +3,7 @@
 import HTMLNode from "../../node/html";
 
 import { EMPTY_STRING } from "../../constants";
-import { insertAfter } from "../../utilities/dom";
+import { remove, insertAfter, insertAfterwards } from "../../utilities/dom";
 import { ALT_ATTRIBUTE_NAME, SRC_ATTRIBUTE_NAME } from "../../attributeNames";
 
 export default class ImageHTMLNode extends HTMLNode {
@@ -65,13 +65,19 @@ export default class ImageHTMLNode extends HTMLNode {
 
     this.setDOMElement(domElement);
 
-    insertAfter(domElement, parentDOMElement, siblingDOMElement);
+    (siblingDOMElement !== null) ?
+      insertAfter(domElement, parentDOMElement, siblingDOMElement) :
+        insertAfterwards(domElement, parentDOMElement);
+
+    siblingDOMElement = domElement; ///
+
+    return siblingDOMElement;
   }
 
   unmount(parentDOMElement, context) {
     const domElement = this.getDOMElement();
 
-    parentDOMElement.removeChild(domElement);
+    remove(domElement, parentDOMElement);
 
     this.resetDOMElement();
   }

@@ -2,8 +2,8 @@
 
 import HTMLNode from "../../node/html";
 
-import { insertAfter } from "../../utilities/dom";
 import { EMPTY_STRING } from "../../constants";
+import { remove, insertAfterwards } from "../../utilities/dom";
 import { PAGE_NUMBER_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
 
 export default class PageNumberHTMLNode extends HTMLNode {
@@ -24,22 +24,26 @@ export default class PageNumberHTMLNode extends HTMLNode {
   }
 
   mount(parentDOMElement, siblingDOMElement, context) {
-    super.mount(parentDOMElement, siblingDOMElement, context);
-
     let domElement;
+
+    super.mount(parentDOMElement, siblingDOMElement, context);
 
     domElement = this.getDOMElement();
 
     parentDOMElement = domElement;  ///
-
-    siblingDOMElement = null;
 
     const content = this.pageNumber,  ///
           textNode = document.createTextNode(content);
 
     domElement = textNode;  ///
 
-    insertAfter(domElement, parentDOMElement, siblingDOMElement);
+    insertAfterwards(domElement, parentDOMElement);
+
+    domElement = this.getDOMElement();
+
+    siblingDOMElement = domElement; ///
+
+    return siblingDOMElement;
   }
 
   unmount(parentDOMElement, context) {
@@ -53,7 +57,7 @@ export default class PageNumberHTMLNode extends HTMLNode {
 
       domElement = lastChild;  ///
 
-      parentDOMElement.removeChild(domElement);
+      remove(domElement, parentDOMElement);
     }
 
     super.unmount(parentDOMElement, context);

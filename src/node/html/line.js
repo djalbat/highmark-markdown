@@ -22,9 +22,11 @@ export default class LineHTMLNode extends HTMLNode {
 
     assignIndexes(node, context);
 
-    super.mount(parentDOMElement, siblingDOMElement, context);
+    siblingDOMElement = super.mount(parentDOMElement, siblingDOMElement, context);
 
     deleteIndexes(context);
+
+    return siblingDOMElement;
   }
 
   unmount(parentDOMElement, context) {

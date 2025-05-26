@@ -1,13 +1,37 @@
 "use strict";
 
-export function insertAfter(domElement, parentDOMElement, siblingDOMElement) {
-  const nextSiblingDOMElement = (siblingDOMElement !== null) ?
-                                   siblingDOMElement.nextSibling :  ///
-                                     parentDOMElement.firstChild; ///
+export function remove(domElement, parentDOMElement) {
+  parentDOMElement.removeChild(domElement);
+}
 
-  parentDOMElement.insertBefore(domElement, nextSiblingDOMElement);
+export function insertAfter(domElement, parentDOMElement, siblingDOMElement) {
+  const referenceDOMElement = siblingDOMElement.nextSibling;  ///
+
+  parentDOMElement.insertBefore(domElement, referenceDOMElement);
+}
+
+export function insertBefore(domElement, parentDOMElement, siblingDOMElement) {
+  const referenceDOMElement = siblingDOMElement;  ///
+
+  parentDOMElement.insertBefore(domElement, referenceDOMElement);
+}
+
+export function insertAfterwards(domElement, parentDOMElement) {
+  const referenceDOMElement = null;
+
+  parentDOMElement.insertBefore(domElement, referenceDOMElement);
+}
+
+export function insertBeforehand(domElement, parentDOMElement) {
+  const referenceDOMElement = parentDOMElement.firstChild;  ///
+
+  parentDOMElement.insertBefore(domElement, referenceDOMElement);
 }
 
 export default {
-  insertAfter
+  remove,
+  insertAfter,
+  insertBefore,
+  insertAfterwards,
+  insertBeforehand
 };

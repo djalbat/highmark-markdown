@@ -2,8 +2,8 @@
 
 import HTMLNode from "../../../node/html";
 
-import { insertAfter } from "../../../utilities/dom";
 import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
+import { remove, insertAfter, insertAfterwards } from "../../../utilities/dom";
 
 export default class HyperlinkHTMLNode extends HTMLNode {
   isSimple() { return this.outerNode.isSimple(); }
@@ -31,32 +31,36 @@ export default class HyperlinkHTMLNode extends HTMLNode {
   }
 
   mount(parentDOMElement, siblingDOMElement, context) {
+    let domElement;
+
     const simple = this.isSimple();
 
     if (!simple) {
       super.mount(parentDOMElement, siblingDOMElement, context);
+    } else {
+      domElement = this.createDOMElement(context);
 
-      return;
+      this.setDOMElement(domElement);
+
+      (siblingDOMElement !== null) ?
+        insertAfter(domElement, parentDOMElement, siblingDOMElement) :
+          insertAfterwards(domElement, parentDOMElement);
+
+      parentDOMElement = domElement; ///
+
+      const content = this.content(context),
+            textNode = document.createTextNode(content);
+
+      domElement = textNode;  ///
+
+      insertAfterwards(domElement, parentDOMElement);
     }
 
-    let domElement;
+    domElement = this.getDOMElement();
 
-    domElement = this.createDOMElement(context);
+    siblingDOMElement = domElement; ///
 
-    this.setDOMElement(domElement);
-
-    insertAfter(domElement, parentDOMElement, siblingDOMElement);
-
-    parentDOMElement = domElement; ///
-
-    siblingDOMElement = null;
-
-    const content = this.content(context),
-          textNode = document.createTextNode(content);
-
-    domElement = textNode;  ///
-
-    insertAfter(domElement, parentDOMElement, siblingDOMElement);
+    return siblingDOMElement;
   }
 
   unmount(parentDOMElement, context) {
@@ -74,11 +78,11 @@ export default class HyperlinkHTMLNode extends HTMLNode {
       domElement = this.getDOMElement();
 
       const parentDOMElement = domElement,  ///
-            firstChild = domElement.firstChild
+            firstChild = domElement.firstChild;
 
       domElement = firstChild;  ///
 
-      parentDOMElement.removeChild(domElement);
+      remove(domElement, parentDOMElement);
     }
 
     domElement = this.getDOMElement();

@@ -2,10 +2,10 @@
 
 import HTMLNode from "../../../node/html";
 
-import { insertAfter } from "../../../utilities/dom";
 import { EMPTY_STRING } from "../../../constants";
 import { FOOTNOTE_PREPEND } from "../../../prepends";
 import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
+import { remove, insertAfter, insertAfterwards } from "../../../utilities/dom";
 
 export default class FootnoteLinkHTMLNode extends HTMLNode {
   constructor(outerNode, parentNode, childNodes, domElement, number) {
@@ -53,18 +53,24 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
 
     this.setDOMElement(domElement);
 
-    insertAfter(domElement, parentDOMElement, siblingDOMElement);
+    (siblingDOMElement !== null) ?
+      insertAfter(domElement, parentDOMElement, siblingDOMElement) :
+        insertAfterwards(domElement, parentDOMElement);
 
     parentDOMElement = domElement; ///
-
-    siblingDOMElement = null;
 
     const content = this.content(context),
           textNode = document.createTextNode(content);
 
     domElement = textNode;  ///
 
-    insertAfter(domElement, parentDOMElement, siblingDOMElement);
+    insertAfterwards(domElement, parentDOMElement);
+
+    domElement = this.getDOMElement();
+
+    siblingDOMElement = domElement; ///
+
+    return siblingDOMElement;
   }
 
   unmount(parentDOMElement, context) {
@@ -78,7 +84,7 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
 
       domElement = firstChild;  ///
 
-      parentDOMElement.removeChild(domElement);
+      remove(domElement, parentDOMElement);
     }
 
     domElement = this.getDOMElement();

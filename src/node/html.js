@@ -4,8 +4,8 @@ import { Node } from "occam-dom";
 
 import nodeMixins from "../mixins/node";
 
-import { insertAfter } from "../utilities/dom";
 import { EMPTY_STRING, DOUBLE_SPACE } from "../constants";
+import { remove, insertAfter, insertAfterwards } from "../utilities/dom";
 
 class HTMLNode extends Node {
   constructor(outerNode, parentNode, childNodes, domElement) {
@@ -269,15 +269,21 @@ class HTMLNode extends Node {
   mount(parentDOMElement, siblingDOMElement, context) {
     this.domElement = this.createDOMElement(context);
 
-    insertAfter(this.domElement, parentDOMElement, siblingDOMElement)
+    (siblingDOMElement !== null) ?
+      insertAfter(this.domElement, parentDOMElement, siblingDOMElement) :
+        insertAfterwards(this.domElement, parentDOMElement);
 
     parentDOMElement = this.domElement; ///
 
     siblingDOMElement = null;
 
     this.childNodes.forEach((childNode) => {
-      childNode.mount(parentDOMElement, siblingDOMElement, context);
+      siblingDOMElement = childNode.mount(parentDOMElement, siblingDOMElement, context);
     });
+
+    siblingDOMElement = this.domElement;  ///
+
+    return siblingDOMElement;
   }
 
   unmount(parentDOMElement, context) {
@@ -289,7 +295,7 @@ class HTMLNode extends Node {
       });
     }
 
-    parentDOMElement.removeChild(this.domElement);
+    remove(this.domElement, parentDOMElement);
 
     this.domElement = null;
   }

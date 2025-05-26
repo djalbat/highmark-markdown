@@ -2,34 +2,38 @@
 
 import HTMLNode from "../../node/html";
 
-import { insertAfter } from "../../utilities/dom";
+import { remove, insertAfterwards } from "../../utilities/dom";
 import { assignIndexes, deleteIndexes } from "../../utilities/whitespace";
 import { EMPTY_STRING, CARRIAGE_RETURN } from "../../constants";
 
 export default class BlockLineHTMLNode extends HTMLNode {
   mount(parentDOMElement, siblingDOMElement, context) {
+    let domElement;
+
     const node = this;  ///
 
     assignIndexes(node, context);
 
     super.mount(parentDOMElement, siblingDOMElement, context);
 
-    let domElement;
-
     domElement = this.getDOMElement();
 
     parentDOMElement = domElement;  ///
-
-    siblingDOMElement = null;
 
     const content = CARRIAGE_RETURN,
           textNode = document.createTextNode(content);
 
     domElement = textNode;  ///
 
-    insertAfter(domElement, parentDOMElement, siblingDOMElement);
+    insertAfterwards(domElement, parentDOMElement);
 
     deleteIndexes(context);
+
+    domElement = this.getDOMElement();
+
+    siblingDOMElement = domElement; ///
+
+    return siblingDOMElement;
   }
 
   unmount(parentDOMElement, context) {
@@ -43,7 +47,7 @@ export default class BlockLineHTMLNode extends HTMLNode {
 
       domElement = lastChild;  ///
 
-      parentDOMElement.removeChild(domElement);
+      remove(domElement, parentDOMElement);
     }
 
     super.unmount(parentDOMElement, context);
