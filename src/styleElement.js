@@ -1,6 +1,7 @@
 "use strict";
 
 import { HEAD, STYLE } from "./constants";
+import { insertAfterwards } from "./utilities/dom";
 import { constructElement, destroyElement } from "./utilities/element";
 
 export default class StyleElement {
@@ -39,11 +40,11 @@ ${css}
 
 export function createDOMElement() {
   const headDOMElement = document.querySelector(HEAD),
-        styleDOMElement = document.createElement(STYLE);
+        styleDOMElement = document.createElement(STYLE),
+        parentDOMElement = headDOMElement,  ///
+        domElement = styleDOMElement; ///
 
-  headDOMElement.appendChild(styleDOMElement);
-
-  const domElement = styleDOMElement; ///
+  insertAfterwards(domElement, parentDOMElement);
 
   return domElement;
 }

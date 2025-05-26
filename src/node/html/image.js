@@ -3,7 +3,7 @@
 import HTMLNode from "../../node/html";
 
 import { EMPTY_STRING } from "../../constants";
-import { remove, insertAfter, insertAfterwards } from "../../utilities/dom";
+import {remove, insertAfter, insertBeforehand } from "../../utilities/dom";
 import { ALT_ATTRIBUTE_NAME, SRC_ATTRIBUTE_NAME } from "../../attributeNames";
 
 export default class ImageHTMLNode extends HTMLNode {
@@ -67,7 +67,7 @@ export default class ImageHTMLNode extends HTMLNode {
 
     (siblingDOMElement !== null) ?
       insertAfter(domElement, parentDOMElement, siblingDOMElement) :
-        insertAfterwards(domElement, parentDOMElement);
+        insertBeforehand(domElement, parentDOMElement);
 
     siblingDOMElement = domElement; ///
 

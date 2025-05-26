@@ -2,6 +2,8 @@
 
 import HTMLNode from "../../../node/html";
 
+import { insertAfterwards } from "../../../utilities/dom";
+
 export default class InlineListingHTMLNode extends HTMLNode {
   content(context) { return this.outerNode.content(context); }
 
@@ -17,7 +19,7 @@ export default class InlineListingHTMLNode extends HTMLNode {
 
     domElement = textNode; ///
 
-    parentDOMElement.appendChild(domElement);
+    insertAfterwards(domElement, parentDOMElement);
 
     domElement = parentDOMElement;  ///
 

@@ -5,7 +5,7 @@ import { Node } from "occam-dom";
 import nodeMixins from "../mixins/node";
 
 import { EMPTY_STRING, DOUBLE_SPACE } from "../constants";
-import { remove, insertAfter, insertAfterwards } from "../utilities/dom";
+import { remove, insertAfter, insertBeforehand } from "../utilities/dom";
 
 class HTMLNode extends Node {
   constructor(outerNode, parentNode, childNodes, domElement) {
@@ -271,7 +271,7 @@ class HTMLNode extends Node {
 
     (siblingDOMElement !== null) ?
       insertAfter(this.domElement, parentDOMElement, siblingDOMElement) :
-        insertAfterwards(this.domElement, parentDOMElement);
+        insertBeforehand(this.domElement, parentDOMElement);
 
     parentDOMElement = this.domElement; ///
 

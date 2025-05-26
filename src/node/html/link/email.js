@@ -3,7 +3,7 @@
 import HTMLNode from "../../../node/html";
 
 import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
-import { remove, insertAfter, insertAfterwards } from "../../../utilities/dom";
+import { remove, insertAfter, insertAfterwards, insertBeforehand } from "../../../utilities/dom";
 
 export default class EmailLinkHTMLNode extends HTMLNode {
   isSimple() { return this.outerNode.isSimple(); }
@@ -44,7 +44,7 @@ export default class EmailLinkHTMLNode extends HTMLNode {
 
       (siblingDOMElement !== null) ?
         insertAfter(domElement, parentDOMElement, siblingDOMElement) :
-          insertAfterwards(domElement, parentDOMElement);
+          insertBeforehand(domElement, parentDOMElement);
 
       parentDOMElement = domElement; ///
 
@@ -87,7 +87,7 @@ export default class EmailLinkHTMLNode extends HTMLNode {
 
     domElement = this.getDOMElement();
 
-    parentDOMElement.removeChild(domElement);
+    remove(domElement, parentDOMElement);
 
     this.resetDOMElement();
   }

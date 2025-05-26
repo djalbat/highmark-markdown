@@ -1,6 +1,7 @@
 "use strict";
 
 import HTMLNode from "../../node/html";
+import { insertAfterwards } from "../../utilities/dom";
 
 export default class ErrorHTMLNode extends HTMLNode {
   error(context) { return this.outerNode.error(context); }
@@ -18,7 +19,7 @@ export default class ErrorHTMLNode extends HTMLNode {
 
     domElement = textNode; ///
 
-    parentDOMElement.appendChild(domElement);
+    insertAfterwards(domElement, parentDOMElement);
 
     domElement = parentDOMElement;  ///
 

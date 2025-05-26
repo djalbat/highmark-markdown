@@ -3,7 +3,7 @@
 import HTMLNode from "../../../node/html";
 
 import { INDEX_HEADING_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
-import { remove, insertAfter, insertAfterwards } from "../../../utilities/dom";
+import { remove, insertAfter, insertAfterwards, insertBeforehand } from "../../../utilities/dom";
 
 export default class IndexHeadingHTMLNode extends HTMLNode {
   constructor(outerNode, parentNode, childNodes, domElement, letter) {
@@ -31,7 +31,7 @@ export default class IndexHeadingHTMLNode extends HTMLNode {
 
     (siblingDOMElement !== null) ?
       insertAfter(domElement, parentDOMElement, siblingDOMElement) :
-        insertAfterwards(domElement, parentDOMElement);
+        insertBeforehand(domElement, parentDOMElement);
 
     parentDOMElement = domElement; ///
 
@@ -65,7 +65,7 @@ export default class IndexHeadingHTMLNode extends HTMLNode {
 
     domElement = this.getDOMElement();
 
-    parentDOMElement.removeChild(domElement);
+    remove(domElement, parentDOMElement);
 
     this.resetDOMElement();
   }
