@@ -151,7 +151,7 @@ const bnf = `
     tableCell                ::=  line tableCellDivider ;
     
     
-    line                     ::=  ( inlineListing 
+    line.                    ::=  ( inlineListing 
     
                                   | footnoteLink 
                                  
