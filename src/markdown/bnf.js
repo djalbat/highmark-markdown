@@ -122,9 +122,6 @@ const bnf = `
     unorderedItem            ::=  [bullet] line ( endOfLine line )* ;
 
 
-    blockLine.               ::=  blockText* endOfLine ;
-    
-
     tableHeadRow             ::=  tableCellDivider tableHeadCell+ ;
 
     
@@ -170,24 +167,27 @@ const bnf = `
                                   | stronglyEmphasisedText )+ ;
     
     
-    footnoteLink.            ::=  [link] ;
+    blockLine.               ::=  blockText* endOfLine ;
     
 
-    emailLink.               ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [email-address] ")" 
+    footnoteLink             ::=  [link] ;
+    
+
+    emailLink                ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [email-address] ")" 
     
                                |  [email-address] 
                               
                                ;
 
 
-    hyperlink.               ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [url] ")" 
+    hyperlink                ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [url] ")" 
     
                                |  [url]
                               
                                ;
 
 
-    image.                   ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" path ")" ;
+    image                    ::=  "![" inlineText... "]"<NO_WHITESPACE>"(" path ")" ;
 
 
     strongText               ::=  "***" inlineText "***" ;
@@ -196,10 +196,10 @@ const bnf = `
     emphasisedText           ::=  "**" inlineText "**" ;
 
 
-    stronglyEmphasisedText.  ::=  "****" inlineText "****" ;
+    stronglyEmphasisedText   ::=  "****" inlineText "****" ;
     
 
-    inlineText.              ::=  plainText+ ;
+    inlineText               ::=  plainText+ ;
     
     
     className                ::=  <NO_WHITESPACE>[identifier] ;
@@ -217,28 +217,7 @@ const bnf = `
     tableDivider             ::=  [dashes] ;
     
     
-    plainText.               ::=  [escaped] 
-                              
-                               |  [number] 
-                              
-                               |  [identifier] 
-                              
-                               |  [email-address]
-                              
-                               |  [url] 
-                              
-                               |  [path] 
-                              
-                               |  [word] 
-                              
-                               |  [special] 
-                              
-                               |  [unassigned] 
-                              
-                               ;
-    
-
-    blockText.               ::=  [escaped] 
+    blockText                ::=  [escaped] 
                               
                                |  [number] 
                               
@@ -263,7 +242,28 @@ const bnf = `
                                ;
     
 
-    inlineListing.           ::=  [backticked-literal] ;
+    plainText                ::=  [escaped] 
+                              
+                               |  [number] 
+                              
+                               |  [identifier] 
+                              
+                               |  [email-address]
+                              
+                               |  [url] 
+                              
+                               |  [path] 
+                              
+                               |  [word] 
+                              
+                               |  [special] 
+                              
+                               |  [unassigned] 
+                              
+                               ;
+    
+
+    inlineListing            ::=  [backticked-literal] ;
     
 
     reference                ::=  [reference] ;
