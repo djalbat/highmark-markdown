@@ -4,7 +4,7 @@ import StyleElement from "../styleElement";
 
 import { EMPTY_STRING } from "../constants";
 import { createDOMElement } from "../styleElement";
-import { cssFromMarkdownStyleAndSelectorsString } from "../utilities/dom";
+import { cssFromMarkdownStyleAndSelectorsString } from "../utilities/grammar";
 
 export default class MarkdownStyleElement extends StyleElement {
   constructor(domElement, selectorsString) {

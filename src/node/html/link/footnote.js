@@ -2,6 +2,7 @@
 
 import HTMLNode from "../../../node/html";
 
+import { insertAfter } from "../../../utilities/dom";
 import { EMPTY_STRING } from "../../../constants";
 import { FOOTNOTE_PREPEND } from "../../../prepends";
 import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
@@ -52,7 +53,7 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
 
     this.setDOMElement(domElement);
 
-    parentDOMElement.insertBefore(domElement, siblingDOMElement);
+    insertAfter(domElement, parentDOMElement, siblingDOMElement);
 
     parentDOMElement = domElement; ///
 
@@ -63,7 +64,7 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
 
     domElement = textNode;  ///
 
-    parentDOMElement.insertBefore(domElement, siblingDOMElement);
+    insertAfter(domElement, parentDOMElement, siblingDOMElement);
   }
 
   unmount(parentDOMElement, context) {

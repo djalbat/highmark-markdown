@@ -3,6 +3,7 @@
 import HTMLNode from "../../../node/html";
 import tagNameMap from "../../../map/tagName";
 
+import { insertAfter } from "../../../utilities/dom";
 import { EMPTY_STRING } from "../../../constants";
 import { STRONG_TEXT_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
 
@@ -35,7 +36,7 @@ export default class StronglyEmphasisedTextHTMLNode extends HTMLNode {
 
     this.setDOMElement(domElement);
 
-    parentDOMElement.insertBefore(domElement, siblingDOMElement);
+    insertAfter(domElement, parentDOMElement, siblingDOMElement);
 
     parentDOMElement = domElement; ///
 
@@ -45,7 +46,7 @@ export default class StronglyEmphasisedTextHTMLNode extends HTMLNode {
 
     domElement = childDOMElement; ///
 
-    parentDOMElement.insertBefore(domElement, siblingDOMElement);
+    insertAfter(domElement, parentDOMElement, siblingDOMElement);
   }
 
   unmount(parentDOMElement, context) {

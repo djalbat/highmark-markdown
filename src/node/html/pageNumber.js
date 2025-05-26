@@ -2,6 +2,7 @@
 
 import HTMLNode from "../../node/html";
 
+import { insertAfter } from "../../utilities/dom";
 import { EMPTY_STRING } from "../../constants";
 import { PAGE_NUMBER_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
 
@@ -38,7 +39,7 @@ export default class PageNumberHTMLNode extends HTMLNode {
 
     domElement = textNode;  ///
 
-    parentDOMElement.insertBefore(domElement, siblingDOMElement);
+    insertAfter(domElement, parentDOMElement, siblingDOMElement);
   }
 
   unmount(parentDOMElement, context) {

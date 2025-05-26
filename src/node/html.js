@@ -4,6 +4,7 @@ import { Node } from "occam-dom";
 
 import nodeMixins from "../mixins/node";
 
+import { insertAfter } from "../utilities/dom";
 import { EMPTY_STRING, DOUBLE_SPACE } from "../constants";
 
 class HTMLNode extends Node {
@@ -268,7 +269,7 @@ class HTMLNode extends Node {
   mount(parentDOMElement, siblingDOMElement, context) {
     this.domElement = this.createDOMElement(context);
 
-    parentDOMElement.insertBefore(this.domElement, siblingDOMElement)
+    insertAfter(this.domElement, parentDOMElement, siblingDOMElement)
 
     parentDOMElement = this.domElement; ///
 

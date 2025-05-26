@@ -2,6 +2,7 @@
 
 import HTMLNode from "../../../node/html";
 
+import { insertAfter } from "../../../utilities/dom";
 import { INDEX_HEADING_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
 
 export default class IndexHeadingHTMLNode extends HTMLNode {
@@ -28,7 +29,7 @@ export default class IndexHeadingHTMLNode extends HTMLNode {
 
     this.setDOMElement(domElement);
 
-    parentDOMElement.insertBefore(domElement, siblingDOMElement);
+    insertAfter(domElement, parentDOMElement, siblingDOMElement);
 
     parentDOMElement = domElement; ///
 
@@ -39,7 +40,7 @@ export default class IndexHeadingHTMLNode extends HTMLNode {
 
     domElement = textNode;  ///
 
-    parentDOMElement.insertBefore(domElement, siblingDOMElement);
+    insertAfter(domElement, parentDOMElement, siblingDOMElement);
   }
 
   unmount(parentDOMElement, context) {

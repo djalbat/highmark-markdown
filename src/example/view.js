@@ -3,7 +3,7 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { domUtilities } from "../index";  ///
+import { grammarUtilities } from "../index";  ///
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 
 import indexOptions from "./indexOptions";
@@ -28,7 +28,7 @@ const { tokensFromMarkdown,
         tokensFromMarkdownStyle,
         markdownStyleNodeFromTokens,
         topmostHTMLNodeFromMarkdownNode,
-        topmostCSSNodeFromMarkdownStyleNode } = domUtilities;
+        topmostCSSNodeFromMarkdownStyleNode } = grammarUtilities;
 
 class View extends Element {
   pageUpdateCustomHandler = (event, element, index) => {

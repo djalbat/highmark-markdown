@@ -2,6 +2,7 @@
 
 import HTMLNode from "../../../node/html";
 
+import { insertAfter } from "../../../utilities/dom";
 import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
 
 export default class EmailLinkHTMLNode extends HTMLNode {
@@ -44,7 +45,7 @@ export default class EmailLinkHTMLNode extends HTMLNode {
 
     this.setDOMElement(domElement);
 
-    parentDOMElement.insertBefore(domElement, siblingDOMElement);
+    insertAfter(domElement, parentDOMElement, siblingDOMElement);
 
     parentDOMElement = domElement; ///
 
@@ -55,7 +56,7 @@ export default class EmailLinkHTMLNode extends HTMLNode {
 
     domElement = textNode;  ///
 
-    parentDOMElement.insertBefore(domElement, siblingDOMElement);
+    insertAfter(domElement, parentDOMElement, siblingDOMElement);
   }
 
   unmount(parentDOMElement, context) {

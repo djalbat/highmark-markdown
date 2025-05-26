@@ -2,6 +2,7 @@
 
 import HTMLNode from "../../node/html";
 
+import { insertAfter } from "../../utilities/dom";
 import { assignIndexes, deleteIndexes } from "../../utilities/whitespace";
 import { EMPTY_STRING, CARRIAGE_RETURN } from "../../constants";
 
@@ -26,7 +27,7 @@ export default class BlockLineHTMLNode extends HTMLNode {
 
     domElement = textNode;  ///
 
-    parentDOMElement.insertBefore(domElement, siblingDOMElement);
+    insertAfter(domElement, parentDOMElement, siblingDOMElement);
 
     deleteIndexes(context);
   }

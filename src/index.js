@@ -9,6 +9,7 @@ export { default as domUtilities } from "./utilities/dom";
 export { default as cssUtilities } from "./utilities/css";
 export { default as htmlUtilities } from "./utilities/html";
 export { default as queryUtilities } from "./utilities/query";
+export { default as grammarUtilities } from "./utilities/grammar";
 export { default as markdownUtilities } from "./utilities/markdown";
 export { default as markdownStyleUtilities } from "./utilities/markdownStyle";
 
