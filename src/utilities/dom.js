@@ -3,11 +3,11 @@
 export function insertAfter(domElement, parentDOMElement, siblingDOMElement) {
   const nextSiblingDOMElement = (siblingDOMElement !== null) ?
                                    siblingDOMElement.nextSibling :  ///
-                                     null;
+                                     parentDOMElement.firstChild; ///
 
   parentDOMElement.insertBefore(domElement, nextSiblingDOMElement);
 }
 
 export default {
-  insertAfter,
+  insertAfter
 };
