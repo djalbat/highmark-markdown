@@ -73,6 +73,8 @@ class HTMLNode extends Node {
     return ancestorHTMLNodes;
   }
 
+  someChildHTMLNode(callback) { return this.someChildNode(callback); }
+
   someAncestorHTMLNode(callback) { return this.someAncestorNode(callback); }
 
   matchMarkdownNode(markdownNode) {
