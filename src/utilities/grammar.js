@@ -9,8 +9,8 @@ import htmlNodeMap from "../map/node/html";
 import MarkdownLexer from "../markdown/lexer";
 import MarkdownParser from "../markdown/parser";
 import TopmostCSSNode from "../node/css/topmost";
-import TopmostHTMLNode from "../node/html/topmost";
 import markdownQueries from "../queries/markdown";
+import TopmostHTMLNode from "../node/html/topmost";
 import MarkdownStyleLexer from "../markdownStyle/lexer";
 import MarkdownStyleParser from "../markdownStyle/parser";
 import markdownStyleQueries from "../queries/markdownStyle";
@@ -92,25 +92,9 @@ export function topmostHTMLNodeFromMarkdownNode(markdownNode) {
   const node = markdownNode,  ///
         queries = markdownQueries, ///
         nodes = nodesFromNodeAndQueries(node, queries),
+        ClassFromOuterNode = HTMLClassFromMarkdownNode, ///
         outerNodes = nodes, ///
-        topmostNode = topmostNodeFromOuterNodes(HTMLClassFromMarkdownNode, outerNodes),
-        topmostHTMLNode = topmostNode;  ///
-
-  return topmostHTMLNode;
-}
-
-export function topmostHTMLNodeFromMarkdownNodes(markdownNodes) {
-  const nodes = [],
-        queries = markdownQueries;  ///
-
-  markdownNodes.forEach((markdownNode) => {
-    const node = markdownNode;  ///
-
-    nodesFromNodeAndQueries(node, queries, nodes);
-  });
-
-  const outerNodes = nodes, ///
-        topmostNode = topmostNodeFromOuterNodes(HTMLClassFromMarkdownNode, outerNodes),
+        topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes),
         topmostHTMLNode = topmostNode;  ///
 
   return topmostHTMLNode;
@@ -120,25 +104,9 @@ export function topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode) {
   const node = markdownStyleNode,  ///
         queries = markdownStyleQueries, ///
         nodes = nodesFromNodeAndQueries(node, queries),
+        ClassFromOuterNode = CSSClassFromMarkdownStyleNode, ///
         outerNodes = nodes, ///
-        topmostNode = topmostNodeFromOuterNodes(CSSClassFromMarkdownStyleNode, outerNodes),
-        topmostCSSNode = topmostNode;  ///
-
-  return topmostCSSNode;
-}
-
-export function topmostCSSNodeFromMarkdownStyleNodes(markdownStyleNodes) {
-  const nodes = [],
-        queries = markdownStyleQueries;  ///
-
-  markdownStyleNodes.forEach((markdownStyleNode) => {
-    const node = markdownStyleNode;  ///
-
-    nodesFromNodeAndQueries(node, queries, nodes);
-  });
-
-  const outerNodes = nodes, ///
-        topmostNode = topmostNodeFromOuterNodes(CSSClassFromMarkdownStyleNode, outerNodes),
+        topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes),
         topmostCSSNode = topmostNode;  ///
 
   return topmostCSSNode;
@@ -171,8 +139,6 @@ export default {
   markdownStyleNodeFromTokens,
   CSSClassFromMarkdownStyleNode,
   topmostHTMLNodeFromMarkdownNode,
-  topmostHTMLNodeFromMarkdownNodes,
   topmostCSSNodeFromMarkdownStyleNode,
-  topmostCSSNodeFromMarkdownStyleNodes,
   cssFromMarkdownStyleAndSelectorsString
 };

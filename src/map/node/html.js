@@ -153,13 +153,13 @@ const htmlNodeMap = {
 }
 
 export function forEachHTMLNode(callback) {
-  const ruleNames = Object.keys(htmlNodeMap);
+  const markdownRuleNames = Object.keys(htmlNodeMap);
 
-  ruleNames.forEach((ruleName) => {
-    const HTMLNode = htmlNodeMap[ruleName],
+  markdownRuleNames.forEach((markdownRuleName) => {
+    const HTMLNode = htmlNodeMap[markdownRuleName],
           Class = HTMLNode;
 
-    callback(Class, ruleName);
+    callback(Class, markdownRuleName);
   });
 }
 

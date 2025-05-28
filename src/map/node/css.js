@@ -60,13 +60,13 @@ const cssNodeMap = {
 };
 
 export function forEachCSSNode(callback) {
-  const ruleNames = Object.keys(cssNodeMap);
+  const markdownStyleRuleNames = Object.keys(cssNodeMap);
 
-  ruleNames.forEach((ruleName) => {
-    const CSSNode = cssNodeMap[ruleName],
+  markdownStyleRuleNames.forEach((markdownStyleRuleName) => {
+    const CSSNode = cssNodeMap[markdownStyleRuleName],
           Class = CSSNode;
 
-    callback(Class, ruleName);
+    callback(Class, markdownStyleRuleName);
   });
 }
 

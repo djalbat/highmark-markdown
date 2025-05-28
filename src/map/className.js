@@ -4,10 +4,10 @@ import { forEachHTMLNode } from "../map/node/html";
 
 const classNameMap = {};
 
-forEachHTMLNode((Class, ruleName) => {
+forEachHTMLNode((Class, markdownRuleName) => {
   const { className } = Class;
 
-  classNameMap[ruleName] = className;
+  classNameMap[markdownRuleName] = className;
 });
 
 export default classNameMap;

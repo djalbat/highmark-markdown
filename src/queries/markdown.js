@@ -2,12 +2,12 @@
 
 import { Query } from "occam-query";
 
-import { forEachHTMLNode } from "../map/node//html";
+import { forEachHTMLNode } from "../map/node/html";
 
 const markdownQueries = [];
 
-forEachHTMLNode((Class, ruleName) => {
-  const expressionString = `//${ruleName}`,
+forEachHTMLNode((Class, markdownRuleName) => {
+  const expressionString = `//${markdownRuleName}`,
         query = Query.fromExpressionString(expressionString),
         markdownQuery = query;  ///
 

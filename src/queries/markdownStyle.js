@@ -2,12 +2,12 @@
 
 import { Query } from "occam-query";
 
-import { forEachCSSNode } from "../map/node//css";
+import { forEachCSSNode } from "../map/node/css";
 
 const markdownStyleQueries = [];
 
-forEachCSSNode((Class, ruleName) => {
-  const expressionString = `//${ruleName}`,
+forEachCSSNode((Class, markdownStyleRuleName) => {
+  const expressionString = `//${markdownStyleRuleName}`,
         query = Query.fromExpressionString(expressionString),
         markdownStyleQuery = query;  ///
 

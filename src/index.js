@@ -25,8 +25,9 @@ export { default as markdownStyleRuleNames } from "./ruleNames/markdownStyle";
 export { default as CSSNode } from "./node/css";
 export { default as HTMLNode } from "./node/html";
 export { default as MarkdownNode } from "./node/markdown";
-export { default as MarkdownStyleNode } from "./node/markdownStyle";
 export { default as TopmostHTMLNode } from "./node/html/topmost";
+export { default as MarkdownStyleNode } from "./node/markdownStyle";
+export { default as TopmostMarkdownNode } from "./node/markdown/topmost";
 
 export { default as tokenTypes } from "./tokenTypes";
 export { default as defaultMarkdownStyle } from "./defaultMarkdownStyle";
