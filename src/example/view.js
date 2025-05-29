@@ -418,7 +418,9 @@ class View extends Element {
     this.setMarkdown(markdown);
   }
 
-  static initialMarkdown = `a 
+  static _initialMarkdown = initialMarkdown;
+
+  static initialMarkdown = `a
 b`;
 
   static initialMarkdownStyle = `primaryHeading {

@@ -13,17 +13,8 @@ const nodeMap = markdownStyleNodeMap;  ///
 export default class MarkdownStyleParser extends CommonParser {
   static bnf = bnf;
 
-  static nodeMap = nodeMap;
-
-  static fromBNF(Class, bnf) {
-    if (bnf === undefined) {
-      bnf = Class;  ///
-
-      Class = MarkdownStyleParser; ///
-    }
-
-    const { nodeMap } = Class,
-          markdownStyleParser = CommonParser.fromBNF(Class, bnf),
+  static fromBNF(bnf) {
+    const markdownStyleParser = CommonParser.fromBNF(MarkdownStyleParser, bnf),
           DefaultNonTerminalNode = MarkdownStyleNode;  ///
 
     setNonTerminalNodes(markdownStyleParser, nodeMap, DefaultNonTerminalNode);
@@ -31,15 +22,8 @@ export default class MarkdownStyleParser extends CommonParser {
     return markdownStyleParser;
   }
 
-  static fromRules(Class, rules) {
-    if (rules === undefined) {
-      rules = Class;  ///
-
-      Class = MarkdownStyleParser; ///
-    }
-
-    const { nodeMap } = Class,
-          markdownStyleParser = CommonParser.fromRules(Class, rules),
+  static fromRules(rules) {
+    const markdownStyleParser = CommonParser.fromRules(MarkdownStyleParser, rules),
           DefaultNonTerminalNode = MarkdownStyleNode;  ///
 
     setNonTerminalNodes(markdownStyleParser, nodeMap, DefaultNonTerminalNode);
@@ -47,13 +31,8 @@ export default class MarkdownStyleParser extends CommonParser {
     return markdownStyleParser;
   }
 
-  static fromNothing(Class) {
-    if (Class === undefined) {
-      Class = MarkdownStyleParser; ///
-    }
-
-    const { nodeMap } = Class,
-          markdownStyleParser = CommonParser.fromNothing(Class),
+  static fromNothing() {
+    const markdownStyleParser = CommonParser.fromNothing(MarkdownStyleParser),
           DefaultNonTerminalNode = MarkdownStyleNode;  ///
 
     setNonTerminalNodes(markdownStyleParser, nodeMap, DefaultNonTerminalNode);

@@ -88,11 +88,10 @@ export function CSSClassFromMarkdownStyleNode(markdownStyleNode) {
   return Class;
 }
 
-export function topmostHTMLNodeFromMarkdownNode(markdownNode) {
+export function topmostHTMLNodeFromMarkdownNode(markdownNode, ClassFromOuterNode = HTMLClassFromMarkdownNode) {
   const node = markdownNode,  ///
         queries = markdownQueries, ///
         nodes = nodesFromNodeAndQueries(node, queries),
-        ClassFromOuterNode = HTMLClassFromMarkdownNode, ///
         outerNodes = nodes, ///
         topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes),
         topmostHTMLNode = topmostNode;  ///
@@ -100,11 +99,10 @@ export function topmostHTMLNodeFromMarkdownNode(markdownNode) {
   return topmostHTMLNode;
 }
 
-export function topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode) {
+export function topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode, ClassFromOuterNode = CSSClassFromMarkdownStyleNode) {
   const node = markdownStyleNode,  ///
         queries = markdownStyleQueries, ///
         nodes = nodesFromNodeAndQueries(node, queries),
-        ClassFromOuterNode = CSSClassFromMarkdownStyleNode, ///
         outerNodes = nodes, ///
         topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes),
         topmostCSSNode = topmostNode;  ///
