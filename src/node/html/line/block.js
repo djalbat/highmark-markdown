@@ -31,7 +31,7 @@ export default class BlockLineHTMLNode extends LineHTMLNode {
 
   static className = "block-line";
 
-  static fromNothing() { return HTMLNode.fromNothing(BlockLineHTMLNode); }
+  static fromNothing() { return LineHTMLNode.fromNothing(BlockLineHTMLNode); }
 
-  static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(BlockLineHTMLNode, outerNode); }
+  static fromOuterNode(outerNode) { return LineHTMLNode.fromOuterNode(BlockLineHTMLNode, outerNode); }
 }

@@ -130,7 +130,25 @@ export default class LineHTMLNode extends HTMLNode {
 
   static className = "line";
 
-  static fromNothing() { return HTMLNode.fromNothing(LineHTMLNode); }
+  static fromNothing(Class) {
+    if (Class === undefined) {
+      Class = LineHTMLNode; ///
+    }
 
-  static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(LineHTMLNode, outerNode); }
+    const lineHTMLNode = HTMLNode.fromNothing(Class);
+
+    return lineHTMLNode;
+  }
+
+  static fromOuterNode(Class, outerNode) {
+    if (outerNode === undefined) {
+      outerNode = Class;  ///
+
+      Class = LineHTMLNode; ///
+    }
+
+    const lineHTMLNode = HTMLNode.fromOuterNode(Class, outerNode);
+
+    return lineHTMLNode;
+  }
 }
