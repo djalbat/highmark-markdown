@@ -158,19 +158,16 @@ const bnf = `
                                  
                                   | image 
                                  
-                                  | plainText 
-                                 
                                   | strongText 
                                  
                                   | emphasisedText 
                                  
-                                  | stronglyEmphasisedText )+ ;
+                                  | stronglyEmphasisedText 
+                                 
+                                  | plainText )+ ;
     
     
     blockLine.               ::=  blockText* endOfLine ;
-    
-
-    footnoteLink             ::=  [link] ;
     
 
     emailLink                ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [email-address] ")" 
@@ -202,21 +199,15 @@ const bnf = `
     inlineText               ::=  plainText+ ;
     
     
-    className                ::=  <NO_WHITESPACE>[identifier] ;
-    
-
     blockStart               ::=  [backticks] className? <END_OF_LINE> ;
 
 
     blockEnd                 ::=  [backticks] ;
 
 
-    tableCellDivider         ::=  [vertical-bar] ;
+    className                ::=  <NO_WHITESPACE>[identifier] ;
     
-    
-    tableDivider             ::=  [dashes] ;
-    
-    
+
     blockText                ::=  [escaped] 
                               
                                |  [number] 
@@ -263,7 +254,16 @@ const bnf = `
                                ;
     
 
+    tableCellDivider         ::=  [vertical-bar] ;
+    
+    
+    tableDivider             ::=  [dashes] ;
+    
+    
     inlineListing            ::=  [backticked-literal] ;
+    
+
+    footnoteLink             ::=  [link] ;
     
 
     reference                ::=  [reference] ;

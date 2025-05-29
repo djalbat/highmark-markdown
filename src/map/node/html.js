@@ -16,7 +16,7 @@ import IndexItemHTMLNode from "../../node/html/item/index";
 import IndexLinkHTMLNode from "../../node/html/link/index";
 import IndexListHTMLNode from "../../node/html/list/index";
 import EmailLinkHTMLNode from "../../node/html/link/email";
-import BlockLineHTMLNode from "../../node/html/blockLine";
+import BlockLineHTMLNode from "../../node/html/line/block";
 import PlainTextHTMLNode from "../../node/html/text/plain";
 import BlockTextHTMLNode from "../../node/html/text/block";
 import PageNumberHTMLNode from "../../node/html/pageNumber";

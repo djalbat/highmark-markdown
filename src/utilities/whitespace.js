@@ -1,10 +1,10 @@
 "use strict";
 
-export function assignIndexes(node, context) {
+export function assignIndexes(htmlNode, context) {
   const { tokens } = context,
-        outerNode = node.getOuterNode(),
-        firstSignificantTokenIndex = outerNode.getFirstSignificantTokenIndex(tokens),
-        lastSignificantTokenIndex = outerNode.getLastSignificantTokenIndex(tokens),
+        markdownNode = htmlNode.getMarkdownNode(),
+        firstSignificantTokenIndex = markdownNode.getFirstSignificantTokenIndex(tokens),
+        lastSignificantTokenIndex = markdownNode.getLastSignificantTokenIndex(tokens),
         whitespaceTokenIndexes = [];
 
   Object.assign(context, {

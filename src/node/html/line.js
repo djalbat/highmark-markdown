@@ -3,8 +3,9 @@
 import HTMLNode from "../../node/html";
 import PlainTextHTMLNode from "./text/plain";
 
+import {insertAfterwards, remove} from "../../utilities/dom";
 import { assignIndexes, deleteIndexes } from "../../utilities/whitespace";
-import { EMPTY_STRING, DEFAULT_MAXIMUM_LINE_CHARACTERS } from "../../constants";
+import { EMPTY_STRING, CARRIAGE_RETURN, DEFAULT_MAXIMUM_LINE_CHARACTERS } from "../../constants";
 
 export default class LineHTMLNode extends HTMLNode {
   lines(context) {
@@ -18,27 +19,57 @@ export default class LineHTMLNode extends HTMLNode {
   }
 
   mount(parentDOMElement, siblingDOMElement, context) {
-    const node = this;  ///
+    let domElement;
 
-    assignIndexes(node, context);
+    const htmlNode = this;  ///
 
-    siblingDOMElement = super.mount(parentDOMElement, siblingDOMElement, context);
+    assignIndexes(htmlNode, context);
+
+    super.mount(parentDOMElement, siblingDOMElement, context);
+
+    domElement = this.getDOMElement();
+
+    parentDOMElement = domElement;  ///
+
+    const content = CARRIAGE_RETURN,
+      textNode = document.createTextNode(content);
+
+    domElement = textNode;  ///
+
+    insertAfterwards(domElement, parentDOMElement);
 
     deleteIndexes(context);
+
+    domElement = this.getDOMElement();
+
+    siblingDOMElement = domElement; ///
 
     return siblingDOMElement;
   }
 
   unmount(parentDOMElement, context) {
+    {
+      let domElement;
+
+      domElement = this.getDOMElement();
+
+      const parentDOMElement = domElement,  ///
+            lastChild = domElement.lastChild
+
+      domElement = lastChild;  ///
+
+      remove(domElement, parentDOMElement);
+    }
+
     super.unmount(parentDOMElement, context);
   }
 
   childNodesAsHTML(indent, context) {
     let childNodesHTML;
 
-    const node = this;  ///
+    const htmlNode = this;  ///
 
-    assignIndexes(node, context);
+    assignIndexes(htmlNode, context);
 
     let previousChildNode = null;
 
@@ -78,9 +109,9 @@ export default class LineHTMLNode extends HTMLNode {
   childNodesAsPlainText(context) {
     let childNodesPlainText;
 
-    const node = this;  ///
+    const htmlNode = this;  ///
 
-    assignIndexes(node, context)
+    assignIndexes(htmlNode, context)
 
     childNodesPlainText = this.reduceChildNode((childNodesPlainText, childNode) => {
       const childNodePlainText = childNode.asPlainText(context);

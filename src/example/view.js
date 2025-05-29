@@ -362,9 +362,9 @@ class View extends Element {
   }
 
   didMount() {
-    this.markdownStyle();
+    this.markdown();
 
-    this.css();
+    this.preview();
 
     this.update();
   }
@@ -418,7 +418,8 @@ class View extends Element {
     this.setMarkdown(markdown);
   }
 
-  static initialMarkdown = initialMarkdown;
+  static initialMarkdown = `a 
+b`;
 
   static initialMarkdownStyle = `primaryHeading {
   font-size: 32pt;

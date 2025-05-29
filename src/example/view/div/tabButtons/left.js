@@ -40,8 +40,8 @@ class LeftTabButtonsDiv extends TabButtonsDiv {
   childElements() {
     return ([
 
-      <MarkdownStyleTabButton onClick={this.markdownStyleTabButtonClickHandler} disabled />,
-      <MarkdownTabButton onClick={this.markdownTabButtonClickHandler} />
+      <MarkdownTabButton onClick={this.markdownTabButtonClickHandler} disabled />,
+      <MarkdownStyleTabButton onClick={this.markdownStyleTabButtonClickHandler} />
 
     ]);
   }

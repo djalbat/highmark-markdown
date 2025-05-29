@@ -48,7 +48,7 @@ export default class TextMarkdownNode extends MarkdownNode {
         }
       }
 
-      if (nextIndex < lastSignificantTokenIndex) {
+      if (nextIndex <= lastSignificantTokenIndex) {
         const nextToken = tokens[nextIndex],
               nextTokenWhitespaceToken = nextToken.isWhitespaceToken();
 
