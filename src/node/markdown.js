@@ -26,8 +26,6 @@ class MarkdownNode extends NonTerminalNode {
     return ancestorMarkdownNodes;
   }
 
-  reduceChildMarkdownNode(callback, initialValue) { return this.reduceChildNode(callback, initialValue); }
-
   someDescendantMarkdownNode(callback) { return this.someDescendantNode(callback); }
 
   static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments) {
