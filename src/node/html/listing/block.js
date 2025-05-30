@@ -32,24 +32,24 @@ ${blockLineHTMLNodeContent}` :
 
   static className = null;
 
-  static fromNothing(Class) {
+  static fromNothing(Class, ...remainingArguments) {
     if (Class === undefined) {
       Class = BlockListingHTMLNode; ///
     }
 
-    const blockListingHTMLNode = HTMLNode.fromNothing(Class);
+    const blockListingHTMLNode = HTMLNode.fromNothing(Class, ...remainingArguments);
 
     return blockListingHTMLNode;
   }
 
-  static fromOuterNode(Class, outerNode) {
+  static fromOuterNode(Class, outerNode, ...remainingArguments) {
     if (Class === undefined) {
       outerNode = Class;  ///
 
       Class = BlockListingHTMLNode; ///
     }
 
-    const blockListingHTMLNode = HTMLNode.fromOuterNode(Class, outerNode);
+    const blockListingHTMLNode = HTMLNode.fromOuterNode(Class, outerNode, ...remainingArguments);
 
     return blockListingHTMLNode;
   }
