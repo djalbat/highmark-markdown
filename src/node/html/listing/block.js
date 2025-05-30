@@ -16,7 +16,25 @@ export default class BlockListingHTMLNode extends HTMLNode {
 
   static className = null;
 
-  static fromNothing() { return HTMLNode.fromNothing(BlockListingHTMLNode); }
+  static fromNothing(Class) {
+    if (Class === undefined) {
+      Class = BlockListingHTMLNode; ///
+    }
 
-  static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(BlockListingHTMLNode, outerNode); }
+    const blockListingHTMLNode = HTMLNode.fromNothing(Class);
+
+    return blockListingHTMLNode;
+  }
+
+  static fromOuterNode(Class, outerNode) {
+    if (Class === undefined) {
+      outerNode = Class;  ///
+
+      Class = BlockListingHTMLNode; ///
+    }
+
+    const blockListingHTMLNode = HTMLNode.fromOuterNode(Class, outerNode);
+
+    return blockListingHTMLNode;
+  }
 }
