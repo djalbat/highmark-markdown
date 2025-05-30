@@ -4,7 +4,7 @@ import HTMLNode from "../../../node/html";
 
 export default class BlockListingHTMLNode extends HTMLNode {
   content(context) {
-    const content = this.reduceChildHTMLNode((childHTNLNode, content) => {
+    const content = this.reduceChildHTMLNode((content, childHTNLNode) => {
       const blockLineHTMLNode = childHTNLNode,  ///
             blockLineHTMLNodeContent = blockLineHTMLNode.content(context);
 
