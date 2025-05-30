@@ -8,13 +8,6 @@ import { assignIndexes, deleteIndexes } from "../../utilities/whitespace";
 import { EMPTY_STRING, CARRIAGE_RETURN, DEFAULT_MAXIMUM_LINE_CHARACTERS } from "../../constants";
 
 export default class LineHTMLNode extends HTMLNode {
-  content(context) {
-    const plainText = this.asPlainText(context),
-          content = plainText;  ///
-
-    return content;
-  }
-
   lines(context) {
     const { maximumLineCharacters = DEFAULT_MAXIMUM_LINE_CHARACTERS } = context,
           plainText = this.asPlainText(context),

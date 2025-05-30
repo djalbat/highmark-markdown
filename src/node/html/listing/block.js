@@ -3,6 +3,21 @@
 import HTMLNode from "../../../node/html";
 
 export default class BlockListingHTMLNode extends HTMLNode {
+  content(context) {
+    const content = this.reduceChildHTMLNode((childHTNLNode, content) => {
+      const blockLineHTMLNode = childHTNLNode,  ///
+            blockLineHTMLNodeContent = blockLineHTMLNode.content(context);
+
+      content = (content !== null) ?
+                  `${content}${blockLineHTMLNodeContent}` :
+                    blockLineHTMLNodeContent; ///
+
+      return content;
+    }, null);
+
+    return content;
+  }
+
   className(context) {
     const markdownNode = this.getMarkdownNode(),
           className = markdownNode.className(context);
