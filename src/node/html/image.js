@@ -7,7 +7,12 @@ import {remove, insertAfter, insertBeforehand } from "../../utilities/dom";
 import { ALT_ATTRIBUTE_NAME, SRC_ATTRIBUTE_NAME } from "../../attributeNames";
 
 export default class ImageHTMLNode extends HTMLNode {
-  src(context) { return this.outerNode.src(context); }
+  src(context) {
+    const markdownNode = this.getMarkdownNode(),
+          src = markdownNode.src(context);
+
+    return src;
+  }
 
   alt(context) {
     const alt = this.fromFirstChildNode((firstChildNode) => {

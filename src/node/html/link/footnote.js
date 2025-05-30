@@ -30,7 +30,12 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
     return content;
   }
 
-  identifier(context) { return this.outerNode.identifier(context); }
+  identifier(context) {
+    const markdownNode = this.getMarkdownNode(),
+          identifier = markdownNode.identifier(context);
+
+    return identifier;
+  }
 
   attributeName(context) {
     const attributeName = HREF_ATTRIBUTE_NAME;

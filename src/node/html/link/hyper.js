@@ -6,9 +6,19 @@ import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
 import { remove, insertAfter, insertAfterwards, insertBeforehand } from "../../../utilities/dom";
 
 export default class HyperlinkHTMLNode extends HTMLNode {
-  isSimple() { return this.outerNode.isSimple(); }
+  isSimple() {
+    const markdownNode = this.getMarkdownNode(),
+          simple = markdownNode.isSimple();
 
-  url(context) { return this.outerNode.url(context); }
+    return simple;
+  }
+
+  url(context) {
+    const markdownNode = this.getMarkdownNode(),
+          url = markdownNode.url(context);
+
+    return url;
+  }
 
   content(context) {
     const url = this.url(context),

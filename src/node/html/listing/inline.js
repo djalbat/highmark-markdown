@@ -5,7 +5,12 @@ import HTMLNode from "../../../node/html";
 import { insertAfterwards } from "../../../utilities/dom";
 
 export default class InlineListingHTMLNode extends HTMLNode {
-  content(context) { return this.outerNode.content(context); }
+  content(context) {
+    const markdownNode = this.getMarkdownNode(),
+          content = markdownNode.content(context);
+
+    return content;
+  }
 
   createDOMElement(context) {
     let domElement;

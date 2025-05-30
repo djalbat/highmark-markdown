@@ -3,7 +3,12 @@
 import HTMLNode from "../../../node/html";
 
 export default class BlockListingHTMLNode extends HTMLNode {
-  className(context) { return this.outerNode.className(context); }
+  className(context) {
+    const markdownNode = this.getMarkdownNode(),
+          className = markdownNode.className(context);
+
+    return className;
+  }
 
   static lines = 2;
 

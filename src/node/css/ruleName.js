@@ -13,7 +13,12 @@ import { STRONG_TEXT_MARKDOWN_RULE_NAME,
          STRONGLY_EMPHASISED_TEXT_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
 
 export default class RuleNameCSSNode extends CSSNode {
-  markdownRuleName() { return this.outerNode.markdownRuleName(); }
+  markdownRuleName() {
+    const markdownStyleNode = this.getMarkdownStyleNode(),
+          markdownRuleName = markdownStyleNode.markdownRuleName();
+
+    return markdownRuleName;
+  }
 
   asCSS(context) {
     let css = EMPTY_STRING;

@@ -4,7 +4,12 @@ import HTMLNode from "../../node/html";
 import { insertAfterwards } from "../../utilities/dom";
 
 export default class ErrorHTMLNode extends HTMLNode {
-  error(context) { return this.outerNode.error(context); }
+  error(context) {
+    const markdownNode = this.getMarkdownNode(),
+          error = markdownNode.error(context);
+
+    return error;
+  }
 
   createDOMElement(context) {
     let domElement;

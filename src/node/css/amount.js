@@ -3,7 +3,12 @@
 import CSSNode from "../../node/css";
 
 export default class AmountCSSNode extends CSSNode {
-  content() { return this.outerNode.content(); }
+  content() {
+    const markdownStyleNode = this.getMarkdownStyleNode(),
+          content = markdownStyleNode.content();
+
+    return content;
+  }
 
   asCSS(context) {
     const content = this.content(),

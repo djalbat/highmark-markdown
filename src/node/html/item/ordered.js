@@ -5,7 +5,12 @@ import HTMLNode from "../../../node/html";
 import { VALUE_ATTRIBUTE_NAME } from "../../../attributeNames";
 
 export default class OrderedItemHTMLNode extends HTMLNode {
-  value(context) { return this.outerNode.value(context); }
+  value(context) {
+    const markdownNode = this.getMarkdownNode(),
+          value = markdownNode.value(context);
+
+    return value;
+  }
 
   attributeName(context) {
     const attributeName = VALUE_ATTRIBUTE_NAME;

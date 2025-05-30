@@ -3,7 +3,12 @@
 import HTMLNode from "../../node/html";
 
 export default class FootnoteHTMLNode extends HTMLNode {
-  identifier(context) { return this.outerNode.identifier(context); }
+  identifier(context) {
+    const markdownNode = this.getMarkdownNode(),
+          identifier = markdownNode.identifier(context);
+
+    return identifier;
+  }
 
   static tagName = null;
 

@@ -3,7 +3,12 @@
 import HTMLNode from "../../node/html";
 
 export default class TextHTMLNode extends HTMLNode {
-  text(context) { return this.outerNode.text(context); }
+  text(context) {
+    const markdownNode = this.getMarkdownNode(),
+          text = markdownNode.text(context);
+
+    return text;
+  }
 
   createDOMElement(context) {
     const text = this.text(context),

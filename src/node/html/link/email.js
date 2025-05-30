@@ -6,7 +6,12 @@ import { HREF_ATTRIBUTE_NAME } from "../../../attributeNames";
 import { remove, insertAfter, insertAfterwards, insertBeforehand } from "../../../utilities/dom";
 
 export default class EmailLinkHTMLNode extends HTMLNode {
-  isSimple() { return this.outerNode.isSimple(); }
+  isSimple() {
+    const markdownNode = this.getMarkdownNode(),
+          simple = markdownNode.isSimple();
+
+    return simple;
+  }
 
   content(context) {
     const emailAddress = this.emailAddress(context),
@@ -15,7 +20,12 @@ export default class EmailLinkHTMLNode extends HTMLNode {
     return content;
   }
 
-  emailAddress(context) { return this.outerNode.emailAddress(context); }
+  emailAddress(context) {
+    const markdownNode = this.getMarkdownNode(),
+          emailAddress = markdownNode.emailAddress(context);
+
+    return emailAddress;
+  }
 
   attributeName(context) {
     const attributeName = HREF_ATTRIBUTE_NAME;
