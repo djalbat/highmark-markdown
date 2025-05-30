@@ -9,7 +9,8 @@ export default class BlockListingHTMLNode extends HTMLNode {
             blockLineHTMLNodeContent = blockLineHTMLNode.content(context);
 
       content = (content !== null) ?
-                  `${content}${blockLineHTMLNodeContent}` :
+                  `${content}
+${blockLineHTMLNodeContent}` :
                     blockLineHTMLNodeContent; ///
 
       return content;
