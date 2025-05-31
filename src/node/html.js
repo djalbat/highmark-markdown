@@ -123,37 +123,6 @@ class HTMLNode extends Node {
     this.addChildNodes(addedChildNodes, startIndex);
   }
 
-  removeChildHTMLNodes(removedChildHTMLNodes = null) {
-    let childHTMLNodes;
-
-    childHTMLNodes = this.getChildHTMLNodes();
-
-    if (removedChildHTMLNodes !== null) {
-      childHTMLNodes = childHTMLNodes.filter((childHTMLNode) => { ///
-        const markdownNode = childHTMLNode.getMarkdownNode(),
-              index = removedChildHTMLNodes.findIndex((removedChildHTMLNode) => {
-                const markdownNodeMatches = removedChildHTMLNode.matchMarkdownNode(markdownNode);
-
-                if (markdownNodeMatches) {
-                  return true;
-                }
-              });
-
-        if (index !== -1) {
-          return true;
-        }
-      });
-    }
-
-    let removedChildNodes = childHTMLNodes;  ///
-
-    removedChildNodes = this.removeChildNodes(removedChildNodes);
-
-    removedChildHTMLNodes = removedChildNodes;  ///
-
-    return removedChildHTMLNodes;
-  }
-
   adjustIndent(indent) {
     indent = (indent === null) ?
                EMPTY_STRING :

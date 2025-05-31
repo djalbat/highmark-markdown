@@ -26,6 +26,12 @@ class MarkdownNode extends NonTerminalNode {
     return ancestorMarkdownNodes;
   }
 
+  setParentMarkdownNode(parentMarkdownNode) {
+    const parentNode = parentMarkdownNode;  ///
+
+    this.setParentNode(parentNode);
+  }
+
   someDescendantMarkdownNode(callback) { return this.someDescendantNode(callback); }
 
   static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity, ...remainingArguments) {

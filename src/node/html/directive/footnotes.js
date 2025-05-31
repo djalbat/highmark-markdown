@@ -1,13 +1,9 @@
 "use strict";
 
-import HTMLNode from "../../../node/html";
+import DirectiveHTMLNode from "../../../node/html/directive";
 
-export default class FootnotesDirectiveHTMLNode extends HTMLNode {
-  static tagName = null;
+export default class FootnotesDirectiveHTMLNode extends DirectiveHTMLNode {
+  static fromNothing() { return DirectiveHTMLNode.fromNothing(FootnotesDirectiveHTMLNode); }
 
-  static className = null;
-
-  static fromNothing() { return HTMLNode.fromNothing(FootnotesDirectiveHTMLNode); }
-
-  static fromOuterNode(outerNode) { return HTMLNode.fromOuterNode(FootnotesDirectiveHTMLNode, outerNode); }
+  static fromOuterNode(outerNode) { return DirectiveHTMLNode.fromOuterNode(FootnotesDirectiveHTMLNode, outerNode); }
 }
