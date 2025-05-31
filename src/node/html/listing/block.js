@@ -43,7 +43,7 @@ ${blockLineHTMLNodeContent}` :
   }
 
   static fromOuterNode(Class, outerNode, ...remainingArguments) {
-    if (Class === undefined) {
+    if (outerNode === undefined) {
       outerNode = Class;  ///
 
       Class = BlockListingHTMLNode; ///

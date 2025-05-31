@@ -2,8 +2,6 @@
 
 import LineHTMLNode from "../../../node/html/line";
 
-import { assignIndexes, deleteIndexes } from "../../../utilities/whitespace";
-
 export default class BlockLineHTMLNode extends LineHTMLNode {
   lines(context) {
     const { lines } = this.constructor;
@@ -16,20 +14,6 @@ export default class BlockLineHTMLNode extends LineHTMLNode {
           content = plainText;  ///
 
     return content;
-  }
-
-  childNodesAsHTML(indent, context) {
-    let childNodesHTML;
-
-    const htmlNode = this;  ///
-
-    assignIndexes(htmlNode, context);
-
-    childNodesHTML = super.childNodesAsHTML(indent, context);
-
-    deleteIndexes(context);
-
-    return childNodesHTML;
   }
 
   static lines = 2;

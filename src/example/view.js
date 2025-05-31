@@ -420,8 +420,11 @@ class View extends Element {
 
   static _initialMarkdown = initialMarkdown;
 
-  static initialMarkdown = `a
-b`;
+  static initialMarkdown = `\`\`\`json
+{
+  "foo": "bah"
+}  
+\`\`\``;
 
   static initialMarkdownStyle = `primaryHeading {
   font-size: 32pt;

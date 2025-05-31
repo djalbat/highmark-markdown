@@ -3,8 +3,7 @@
 import HTMLNode from "../../node/html";
 import PlainTextHTMLNode from "./text/plain";
 
-import {insertAfterwards, remove} from "../../utilities/dom";
-import { assignIndexes, deleteIndexes } from "../../utilities/whitespace";
+import { remove, insertAfterwards } from "../../utilities/dom";
 import { EMPTY_STRING, CARRIAGE_RETURN, DEFAULT_MAXIMUM_LINE_CHARACTERS } from "../../constants";
 
 export default class LineHTMLNode extends HTMLNode {
@@ -21,10 +20,6 @@ export default class LineHTMLNode extends HTMLNode {
   mount(parentDOMElement, siblingDOMElement, context) {
     let domElement;
 
-    const htmlNode = this;  ///
-
-    assignIndexes(htmlNode, context);
-
     super.mount(parentDOMElement, siblingDOMElement, context);
 
     domElement = this.getDOMElement();
@@ -37,8 +32,6 @@ export default class LineHTMLNode extends HTMLNode {
     domElement = textNode;  ///
 
     insertAfterwards(domElement, parentDOMElement);
-
-    deleteIndexes(context);
 
     domElement = this.getDOMElement();
 
@@ -66,10 +59,6 @@ export default class LineHTMLNode extends HTMLNode {
 
   childNodesAsHTML(indent, context) {
     let childNodesHTML;
-
-    const htmlNode = this;  ///
-
-    assignIndexes(htmlNode, context);
 
     let previousChildNode = null;
 
@@ -101,17 +90,11 @@ export default class LineHTMLNode extends HTMLNode {
 `;
     }
 
-    deleteIndexes(context);
-
     return childNodesHTML;
   }
 
   childNodesAsPlainText(context) {
     let childNodesPlainText;
-
-    const htmlNode = this;  ///
-
-    assignIndexes(htmlNode, context)
 
     childNodesPlainText = this.reduceChildNode((childNodesPlainText, childNode) => {
       const childNodePlainText = childNode.asPlainText(context);
@@ -120,8 +103,6 @@ export default class LineHTMLNode extends HTMLNode {
 
       return childNodesPlainText;
     }, EMPTY_STRING);
-
-    deleteIndexes(context);
 
     return childNodesPlainText;
   }

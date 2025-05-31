@@ -22,51 +22,23 @@ export default class TextMarkdownNode extends MarkdownNode {
         text = text.substring(start);
       }
 
-      const { tokens, firstSignificantTokenIndex, lastSignificantTokenIndex, whitespaceTokenIndexes } = context,
-            index = tokens.indexOf(significantToken),
-            nextIndex = index + 1,
-            previousIndex = index - 1;
+      const { tokens } = context,
+            significantTokenIndex = tokens.indexOf(significantToken),
+            lastIndex = significantTokenIndex - 1,
+            firstIndex = 0;
 
-      if (previousIndex > firstSignificantTokenIndex) {
-        const previousToken = tokens[previousIndex],
-              previousTokenWhitespaceToken = previousToken.isWhitespaceToken();
+      for (let index = lastIndex; index >= firstIndex; index++) {
+        const token = tokens[index],
+              tokenWhitespaceToken = token.isWhitespaceToken();
 
-        if (previousTokenWhitespaceToken) {
-          const whitespaceTokenIndexesIncludesPreviousIndex = whitespaceTokenIndexes.includes(previousIndex);
-
-          if (!whitespaceTokenIndexesIncludesPreviousIndex) {
-            const whitespaceToken = previousToken,  ///
-                  whitespaceTokenContent = whitespaceToken.getContent(),
-                  whitespace = whitespaceTokenContent;  ///
-
-            text = `${whitespace}${text}`;
-
-            const whitespaceTokenIndex = previousIndex;  ///
-
-            whitespaceTokenIndexes.push(whitespaceTokenIndex);
-          }
+        if (!tokenWhitespaceToken) {
+          break;
         }
-      }
 
-      if (nextIndex <= lastSignificantTokenIndex) {
-        const nextToken = tokens[nextIndex],
-              nextTokenWhitespaceToken = nextToken.isWhitespaceToken();
+        const whitespaceToken = token,
+              whitespaceTokenContent = whitespaceToken.getContent();
 
-        if (nextTokenWhitespaceToken) {
-          const whitespaceTokenIndexesIncludesPreviousIndex = whitespaceTokenIndexes.includes(nextIndex);
-
-          if (!whitespaceTokenIndexesIncludesPreviousIndex) {
-            const whitespaceToken = nextToken,  ///
-                  whitespaceTokenContent = whitespaceToken.getContent(),
-                  whitespace = whitespaceTokenContent;  ///
-
-            text = `${text}${whitespace}`;
-
-            const whitespaceTokenIndex = nextIndex;  ///
-
-            whitespaceTokenIndexes.push(whitespaceTokenIndex);
-          }
-        }
+        text = `${whitespaceTokenContent}${text}`;
       }
 
       return text;

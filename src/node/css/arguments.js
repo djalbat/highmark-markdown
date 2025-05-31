@@ -12,6 +12,7 @@ export default class ArgumentCSSNode extends CSSNode {
 
     return css;
   }
+
   static fromNothing() { return CSSNode.fromNothing(ArgumentsCSSNode); }
 
   static fromOuterNode(outerNode) { return CSSNode.fromOuterNode(ArgumentCSSNode, outerNode); }
