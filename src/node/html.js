@@ -136,10 +136,12 @@ class HTMLNode extends Node {
     }
 
     if (htmlNode === null) {
+      htmlNode = this;
+
       const result = callback(htmlNode);
 
-      if (result) {
-        htmlNode = this;
+      if (!result) {
+        htmlNode = null;
       }
     }
 
