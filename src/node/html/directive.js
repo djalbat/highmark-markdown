@@ -2,6 +2,8 @@
 
 import HTMLNode from "../../node/html";
 
+import { EMPTY_STRING } from "../../constants";
+
 export default class DirectiveHTMLNode extends HTMLNode {
   mount(parentDOMElement, siblingDOMElement, context) {
     return siblingDOMElement;
@@ -11,9 +13,17 @@ export default class DirectiveHTMLNode extends HTMLNode {
     ///
   }
 
-  static tagName = null;
+  asHTML(indent, context) {
+    const html = EMPTY_STRING;
 
-  static className = null;
+    return html;
+  }
+
+  asPlainText(context) {
+    const plainText = EMPTY_STRING;
+
+    return plainText;
+  }
 
   static fromNothing(Class) { return HTMLNode.fromNothing(Class); }
 
