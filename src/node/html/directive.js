@@ -9,7 +9,7 @@ export default class DirectiveHTMLNode extends HTMLNode {
     return siblingDOMElement;
   }
 
-  unmount(parentDOMElement, context) {
+  unmount(parentDOMElement) {
     ///
   }
 

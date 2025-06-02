@@ -79,7 +79,7 @@ export default class ImageHTMLNode extends HTMLNode {
     return siblingDOMElement;
   }
 
-  unmount(parentDOMElement, context) {
+  unmount(parentDOMElement) {
     const domElement = this.getDOMElement();
 
     remove(domElement, parentDOMElement);

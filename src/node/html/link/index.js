@@ -61,7 +61,7 @@ export default class IndexLinkHTMLNode extends HTMLNode {
     return siblingDOMElement;
   }
 
-  unmount(parentDOMElement, context) {
+  unmount(parentDOMElement) {
     {
       let domElement;
 
@@ -75,7 +75,7 @@ export default class IndexLinkHTMLNode extends HTMLNode {
       remove(domElement, parentDOMElement);
     }
 
-    super.unmount(parentDOMElement, context);
+    super.unmount(parentDOMElement);
   }
 
   asPlainText(context) {

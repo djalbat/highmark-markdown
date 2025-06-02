@@ -73,11 +73,11 @@ export default class EmailLinkHTMLNode extends HTMLNode {
     return siblingDOMElement;
   }
 
-  unmount(parentDOMElement, context) {
+  unmount(parentDOMElement) {
     const simple = this.isSimple();
 
     if (!simple) {
-      super.unmount(parentDOMElement, context);
+      super.unmount(parentDOMElement);
 
       return;
     }

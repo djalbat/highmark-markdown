@@ -49,7 +49,7 @@ export default class IndexHeadingHTMLNode extends HTMLNode {
     return siblingDOMElement;
   }
 
-  unmount(parentDOMElement, context) {
+  unmount(parentDOMElement) {
     let domElement;
 
     {

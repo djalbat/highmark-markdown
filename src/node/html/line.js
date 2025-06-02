@@ -40,7 +40,7 @@ export default class LineHTMLNode extends HTMLNode {
     return siblingDOMElement;
   }
 
-  unmount(parentDOMElement, context) {
+  unmount(parentDOMElement) {
     {
       let domElement;
 
@@ -54,7 +54,7 @@ export default class LineHTMLNode extends HTMLNode {
       remove(domElement, parentDOMElement);
     }
 
-    super.unmount(parentDOMElement, context);
+    super.unmount(parentDOMElement);
   }
 
   childNodesAsHTML(indent, context) {

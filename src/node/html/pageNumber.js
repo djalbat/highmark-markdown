@@ -46,7 +46,7 @@ export default class PageNumberHTMLNode extends HTMLNode {
     return siblingDOMElement;
   }
 
-  unmount(parentDOMElement, context) {
+  unmount(parentDOMElement) {
     {
       let domElement;
 
@@ -60,7 +60,7 @@ export default class PageNumberHTMLNode extends HTMLNode {
       remove(domElement, parentDOMElement);
     }
 
-    super.unmount(parentDOMElement, context);
+    super.unmount(parentDOMElement);
   }
 
   asPlainText(context) {

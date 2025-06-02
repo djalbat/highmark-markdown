@@ -287,12 +287,12 @@ class HTMLNode extends Node {
     return siblingDOMElement;
   }
 
-  unmount(parentDOMElement, context) {
+  unmount(parentDOMElement) {
     {
       const parentDOMElement = this.domElement; ///
 
       this.childNodes.forEach((childNode) => {
-        childNode.unmount(parentDOMElement, context);
+        childNode.unmount(parentDOMElement);
       });
     }
 

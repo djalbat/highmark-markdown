@@ -55,7 +55,7 @@ export default class StronglyEmphasisedTextHTMLNode extends HTMLNode {
     return siblingDOMElement;
   }
 
-  unmount(parentDOMElement, context) {
+  unmount(parentDOMElement) {
     let domElement;
 
     domElement = this.getDOMElement();

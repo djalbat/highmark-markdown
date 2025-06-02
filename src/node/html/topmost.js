@@ -19,9 +19,9 @@ export default class TopmostHTMLNode extends HTMLNode {
     return siblingDOMElement;
   }
 
-  unmount(parentDOMElement, context) {
+  unmount(parentDOMElement) {
     this.childNodes.forEach((childNode) => {
-      childNode.unmount(parentDOMElement, context);
+      childNode.unmount(parentDOMElement);
     });
   }
 
