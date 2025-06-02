@@ -28,8 +28,8 @@ export default class ContentsItemHTMLNode extends HTMLNode {
 
             return htmlNode;
           }),
-          childNodes = htmlNodes, ///
-          contentsItemHTMLNode = HTMLNode.fromChildNodes(ContentsItemHTMLNode, childNodes);
+          childHTMLNodes = htmlNodes, ///
+          contentsItemHTMLNode = HTMLNode.fromChildHTMLNodes(ContentsItemHTMLNode, childHTMLNodes);
 
     return contentsItemHTMLNode;
   }

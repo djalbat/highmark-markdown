@@ -28,11 +28,11 @@ export default class FootnoteItemHTMLNode extends HTMLNode {
     const prepend = FOOTNOTE_PREPEND,
           anchorHTMLNode = AnchorHTMLNode.fromPrependAndIdentifier(prepend, identifier),
           lineHTMLNode = lineHTMLTransform.getLineHTMLNode(),
-          childNodes = [
+          childHTMLNodes = [
             anchorHTMLNode,
             lineHTMLNode
           ],
-          footnoteItemHTMLNode = HTMLNode.fromChildNodes(FootnoteItemHTMLNode, childNodes);
+          footnoteItemHTMLNode = HTMLNode.fromChildHTMLNodes(FootnoteItemHTMLNode, childHTMLNodes);
 
     return footnoteItemHTMLNode;
   }

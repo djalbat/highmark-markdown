@@ -172,8 +172,8 @@ export default class DivisionHTMLNode extends HTMLNode {
   }
 
   static fromPaginatedHTMLNodesAndDivisionClassName(paginatedHTMLNodes, divisionClassName) {
-    const childNodes = paginatedHTMLNodes,  ///
-          divisionHTMLNode = HTMLNode.fromChildNodes(DivisionHTMLNode, childNodes, divisionClassName);
+    const childHTMLNodes = paginatedHTMLNodes,  ///
+          divisionHTMLNode = HTMLNode.fromChildHTMLNodes(DivisionHTMLNode, childHTMLNodes, divisionClassName);
 
     return divisionHTMLNode;
   }

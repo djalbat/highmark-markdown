@@ -29,23 +29,23 @@ export default class IndexItemHTMLNode extends HTMLNode {
     const wordOrPhrase = indexItem.getWordOrPhrase(),
           pageNumbers = indexItem.getPageNumbers(),
           indexSpanHTMLNode = IndexTextHTMLNode.fromWordOrPhrase(wordOrPhrase),
-          childNodes = [
+          childNHTMLodes = [
             indexSpanHTMLNode
           ];
 
     pageNumbers.forEach((pageNumber) => {
       const indexLinkHTMLNOde = IndexLinkHTMLNode.fromPageNumber(pageNumber);
 
-      childNodes.push(indexLinkHTMLNOde);
+      childNHTMLodes.push(indexLinkHTMLNOde);
 
       const commaTextHTMLNode = CommaTextHTMLNode.fromNothing();
 
-      childNodes.push(commaTextHTMLNode);
+      childNHTMLodes.push(commaTextHTMLNode);
     });
 
-    childNodes.pop();
+    childNHTMLodes.pop();
 
-    const indexItemHTMLNode = HTMLNode.fromChildNodes(IndexItemHTMLNode, childNodes);
+    const indexItemHTMLNode = HTMLNode.fromChildHTMLNodes(IndexItemHTMLNode, childNHTMLodes);
 
     return indexItemHTMLNode;
   }

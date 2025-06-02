@@ -81,14 +81,15 @@ class CSSNode extends Node {
     return node;
   }
 
-  static fromChildNodes(Class, childNodes, ...remainingArguments) {
-    if (childNodes === undefined) {
-      childNodes = Class;  ///
+  static fromChildCSSNodes(Class, childCssNodes, ...remainingArguments) {
+    if (childCssNodes === undefined) {
+      childCssNodes = Class;  ///
 
       Class = CSSNode; ///
     }
 
-    const node = Node.fromChildNodes(Class, childNodes, ...remainingArguments);
+    const childNodes = childCssNodes, ///
+          node = Node.fromChildNodes(Class, childNodes, ...remainingArguments);
 
     return node;
   }

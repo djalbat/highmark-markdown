@@ -390,14 +390,15 @@ ${childNodePlainText}`;
     return node;
   }
 
-  static fromChildNodes(Class, childNodes, ...remainingArguments) {
-    if (childNodes === undefined) {
-      childNodes = Class;  ///
+  static fromChildHTMLNodes(Class, childHTMLNodes, ...remainingArguments) {
+    if (childHTMLNodes === undefined) {
+      childHTMLNodes = Class;  ///
 
       Class = HTMLNode; ///
     }
 
-    const domElement = null,
+    const childNodes = childHTMLNodes,  ///
+          domElement = null,
           node = Node.fromChildNodes(Class, childNodes, domElement, ...remainingArguments);
 
     return node;

@@ -49,10 +49,10 @@ export default class ContentsLinkHTMLNode extends HTMLNode {
 
   static fromLineHTMLTransformAndIdentifier(lineHTMLTransform, identifier) {
     const lineHTMLNode = lineHTMLTransform.getLineHTMLNode(),
-          childNodes = [
+          childHTMLNodes = [
             lineHTMLNode
           ],
-          contentsLinkHTMLNode = HTMLNode.fromChildNodes(ContentsLinkHTMLNode, childNodes, identifier);
+          contentsLinkHTMLNode = HTMLNode.fromChildHTMLNodes(ContentsLinkHTMLNode, childHTMLNodes, identifier);
 
     return contentsLinkHTMLNode;
   }

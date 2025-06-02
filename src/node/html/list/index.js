@@ -28,8 +28,8 @@ export default class IndexListHTMLNode extends HTMLNode {
 
             return indexListHTMLNode;
           }),
-          childNodes = indexItemHTMLNodes,
-          indexListHTMLNode = HTMLNode.fromChildNodes(IndexListHTMLNode, childNodes);
+          childHTMLNodes = indexItemHTMLNodes,
+          indexListHTMLNode = HTMLNode.fromChildHTMLNodes(IndexListHTMLNode, childHTMLNodes);
 
     return indexListHTMLNode;
   }
