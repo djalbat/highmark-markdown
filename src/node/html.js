@@ -372,9 +372,9 @@ ${childNodePlainText}`;
     }
 
     const domElement = null,
-          node = Node.fromNothing(Class, domElement, ...remainingArguments);
+          htmlNode = Node.fromNothing(Class, domElement, ...remainingArguments);
 
-    return node;
+    return htmlNode;
   }
 
   static fromOuterNode(Class, outerNode, ...remainingArguments) {
@@ -385,9 +385,21 @@ ${childNodePlainText}`;
     }
 
     const domElement = null,
-          node = Node.fromOuterNode(Class, outerNode, domElement, ...remainingArguments);
+          htmlNode = Node.fromOuterNode(Class, outerNode, domElement, ...remainingArguments);
 
-    return node;
+    return htmlNode;
+  }
+
+  static fromDOMElement(Class, domElement, ...remainingArguments) {
+    if (domElement === undefined) {
+      domElement = Class; ///
+
+      Class = HTMLNode; ///
+    }
+
+    const htmlNode = Node.fromNothing(Class, domElement, ...remainingArguments);
+
+    return htmlNode;
   }
 
   static fromChildHTMLNodes(Class, childHTMLNodes, ...remainingArguments) {
@@ -399,9 +411,9 @@ ${childNodePlainText}`;
 
     const childNodes = childHTMLNodes,  ///
           domElement = null,
-          node = Node.fromChildNodes(Class, childNodes, domElement, ...remainingArguments);
+          htmlNode = Node.fromChildNodes(Class, childNodes, domElement, ...remainingArguments);
 
-    return node;
+    return htmlNode;
   }
 }
 

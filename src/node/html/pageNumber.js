@@ -87,8 +87,11 @@ export default class PageNumberHTMLNode extends HTMLNode {
 
   static className = "page-number";
 
-  static fromPageNumber(pageNumber) {
-    const pageNumberHTMLNode = HTMLNode.fromNothing(PageNumberHTMLNode, pageNumber);
+  static fromPageNumber(pageNumber) { return HTMLNode.fromNothing(PageNumberHTMLNode, pageNumber); }
+
+  static fromPageNumberDOMElement(pageNumberDOMElement) {
+    const domElement = pageNumberDOMElement,  ///
+          pageNumberHTMLNode = HTMLNode.fromDOMElement(PageNumberHTMLNode, domElement);
 
     return pageNumberHTMLNode;
   }

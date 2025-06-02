@@ -64,9 +64,9 @@ class CSSNode extends Node {
       Class = CSSNode; ///
     }
 
-    const node = Node.fromNothing(Class, ...remainingArguments);
+    const cssNode = Node.fromNothing(Class, ...remainingArguments);
 
-    return node;
+    return cssNode;
   }
 
   static fromOuterNode(Class, outerNode, ...remainingArguments) {
@@ -76,9 +76,9 @@ class CSSNode extends Node {
       Class = CSSNode; ///
     }
 
-    const node = Node.fromOuterNode(Class, outerNode, ...remainingArguments);
+    const cssNode = Node.fromOuterNode(Class, outerNode, ...remainingArguments);
 
-    return node;
+    return cssNode;
   }
 
   static fromChildCSSNodes(Class, childCssNodes, ...remainingArguments) {
@@ -89,9 +89,9 @@ class CSSNode extends Node {
     }
 
     const childNodes = childCssNodes, ///
-          node = Node.fromChildNodes(Class, childNodes, ...remainingArguments);
+          cssNode = Node.fromChildNodes(Class, childNodes, ...remainingArguments);
 
-    return node;
+    return cssNode;
   }
 }
 
