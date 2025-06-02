@@ -131,6 +131,8 @@ export default class TopmostHTMLNode extends HTMLNode {
   static className = null;
 
   static fromNothing() { return HTMLNode.fromNothing(TopmostHTMLNode); }
+
+  static fromChildHTMLNodes(childHTMLNodes) { return HTMLNode.fromChildHTMLNodes(TopmostHTMLNode, childHTMLNodes); }
 }
 
 function divisionHTMLTransformsFromDivisionHTMLNodes(divisionHTMLNodes) {
