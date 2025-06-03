@@ -6,7 +6,7 @@ import { nodeFromNodeAndQuery, nodesFromNodeAndQuery } from "../utilities/query"
 
 const indexDirectiveHTMLNodeQuery = Query.fromExpressionString("//indexDirective"),
       contentsDirectiveHTMLNodeQuery = Query.fromExpressionString("//contentsDirective"),
-      footnotesDirectiveHTMLNodeQuery = Query.fromExpressionString("/division/footnotesDirective"),
+      footnotesDirectiveHTMLNodeQuery = Query.fromExpressionString("//footnotesDirective"),
       pageNumberDirectiveHTMLNodeQuery = Query.fromExpressionString("//pageNumberDirective"),
       htmlNodesQuery = Query.fromExpressionString("/division/*"),
       headingHTMLNodesQuery = Query.fromExpressionString("//primaryHeading|secondaryHeading|tertiaryHeading|tertiaryHeading"),
