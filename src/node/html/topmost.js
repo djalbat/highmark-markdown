@@ -112,6 +112,13 @@ export default class TopmostHTMLNode extends HTMLNode {
     return ruleName;
   }
 
+  getDivisionHTMLNode() {
+    const index = 0,
+          divisionHTMLNode = this.getDivisionHTMLNodeAt(index);
+
+    return divisionHTMLNode;
+  }
+
   getDivisionHTMLNodes() {
     const node = this,  ///
           divisionHTMLNodes = divisionHTMLNodesFromNode(node);
