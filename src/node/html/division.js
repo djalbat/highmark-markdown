@@ -128,21 +128,24 @@ export default class DivisionHTMLNode extends HTMLNode {
   }
 
   resolveFootnotes(identifierMap, context) {
+    let footnotesListHTMLTransform = null;
+
     const node = this,  ///
           footnoteHTMLTransforms = removeFootnoteHTMLNodes(node),
           footnoteHTMLTransformsLength = footnoteHTMLTransforms.length;
 
-    if (footnoteHTMLTransformsLength === 0) {
-      return;
+    if (footnoteHTMLTransformsLength > 0) {
+      const divisionHTMLNode = node,  ///
+            start = numberFootnoteLinkHTMLNodes(footnoteHTMLTransforms, identifierMap, node, context),
+            lineHTMLTransforms = lineHTMLTransformsFromFootnoteHTMLTransforms(footnoteHTMLTransforms),
+            footnoteItemHTMLTransforms = footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms, identifierMap, start);
+
+      footnotesListHTMLTransform = FootnotesListHTMLTransform.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms);
+
+      footnotesListHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
     }
 
-    const divisionHTMLNode = node,  ///
-          start = numberFootnoteLinkHTMLNodes(footnoteHTMLTransforms, identifierMap, node, context),
-          lineHTMLTransforms = lineHTMLTransformsFromFootnoteHTMLTransforms(footnoteHTMLTransforms),
-          footnoteItemHTMLTransforms = footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms, identifierMap, start),
-          footnotesListHTMLTransform = FootnotesListHTMLTransform.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms);
-
-    footnotesListHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
+    return footnotesListHTMLTransform;
   }
 
   asString() {

@@ -5,9 +5,13 @@ import FootnotesListHTMLNode from "../../../node/html/list/footnotes";
 
 export default class FootnotesListHTMLTransform extends HTMLTransform {
   appendToDivisionHTMLNode(divisionHTMLNode) {
-    const parentHTMLNode = divisionHTMLNode;
+    const parentHTMLNode = divisionHTMLNode;  ///
 
     this.appendTo(parentHTMLNode);
+  }
+
+  removeFromDivisionHTMLNode(divisionHTMLNode) {
+    this.remove();
   }
 
   static fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms) {
