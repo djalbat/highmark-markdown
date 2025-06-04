@@ -2,7 +2,9 @@
 
 const defaultMarkdownStyle = `
 colour: black;
+display: grid;
 padding: 24pt;
+row-gap: 18pt;
 position: relative;
 min-height: 100%;
 font-family: "Computer Modern Serif";
@@ -45,40 +47,11 @@ unorderedItem {
   line-height: 20pt;
 }
 
-table,
-paragraph,
-orderedList,
-unorderedList,
-blockListing,
-primaryHeading,
-secondaryHeading,
-tertiaryHeading,
-quaternaryHeading {
-  margin: 13pt 0 13pt 0;
-}
-
 orderedItem,
 unorderedItem {
   margin: 6pt 0 6pt 0;
   margin-left: 13pt;
-}
 
-inlineListing {
-  margin: 0;
-}
-
-table,
-paragraph,
-orderedItem,
-unorderedItem,
-orderedList,
-unorderedList,
-inlineListing,
-blockListing,
-primaryHeading,
-secondaryHeading,
-tertiaryHeading,
-quaternaryHeading {
   :first-child {
     margin-top: 0;
   }
@@ -86,6 +59,10 @@ quaternaryHeading {
   :last-child {
     margin-bottom: 0;
   }
+}
+
+inlineListing {
+  margin: 0;
 }
 
 paragraph,
@@ -166,6 +143,7 @@ contentsLink {
 }
 
 footnotesList {
+  align-self: end;
   border-top: 1pt solid black;
   padding-top: 13pt;
 }
