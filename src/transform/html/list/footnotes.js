@@ -4,6 +4,13 @@ import HTMLTransform from "../../../transform/html";
 import FootnotesListHTMLNode from "../../../node/html/list/footnotes";
 
 export default class FootnotesListHTMLTransform extends HTMLTransform {
+  getFootnotesListHTMLNode() {
+    const htmlNode = this.getHTMLNode(),
+          footnotesListHTMLNode = htmlNode; ///
+
+    return footnotesListHTMLNode;
+  }
+
   appendToDivisionHTMLNode(divisionHTMLNode) {
     const parentHTMLNode = divisionHTMLNode;  ///
 
