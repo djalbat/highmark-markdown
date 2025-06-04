@@ -1,6 +1,7 @@
 "use strict";
 
 import HTMLNode from "../../node/html";
+import {EMPTY_STRING} from "../../constants";
 
 export default class FootnoteHTMLNode extends HTMLNode {
   identifier(context) {
@@ -10,9 +11,25 @@ export default class FootnoteHTMLNode extends HTMLNode {
     return identifier;
   }
 
-  static tagName = null;
+  mount(parentDOMElement, siblingDOMElement, context) {
+    return siblingDOMElement;
+  }
 
-  static className = null;
+  unmount(parentDOMElement) {
+    ///
+  }
+
+  asHTML(indent, context) {
+    const html = EMPTY_STRING;
+
+    return html;
+  }
+
+  asPlainText(context) {
+    const plainText = EMPTY_STRING;
+
+    return plainText;
+  }
 
   static fromNothing() { return HTMLNode.fromNothing(FootnoteHTMLNode); }
 
