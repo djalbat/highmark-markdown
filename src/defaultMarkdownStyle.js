@@ -7,7 +7,10 @@ padding: 24pt;
 row-gap: 18pt;
 position: relative;
 min-height: 100%;
+align-items: start;    
 font-family: "Computer Modern Serif";
+grid-auto-flow: row;
+grid-auto-rows: min-content;
 padding-bottom: 64pt;
 background-colour: white;
 

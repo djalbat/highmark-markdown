@@ -86,6 +86,5 @@ export default withStyle(PreviewDiv)`
 
   height: 100%;
   overflow: scroll;
-  position: relative;
   
 `;

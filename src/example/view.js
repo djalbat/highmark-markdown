@@ -20,9 +20,7 @@ import HTMLParseTreeTextarea from "./view/textarea/parseTree/html";
 import PlainTextContainerDiv from "./view/div/container/plainText";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
-import { PREVIEW_SELECTORS_STRING } from "./constants";
 import { importer, initialMarkdown } from "./importer";
-
 const { tokensFromMarkdown,
         markdownNodeFromTokens,
         tokensFromMarkdownStyle,
@@ -78,7 +76,7 @@ class View extends Element {
 
     markdownStyle = this.getMarkdownStyle();
 
-    const selectorsString = PREVIEW_SELECTORS_STRING
+    const selectorsString = this.getSelectorsString();
 
     markdownStyle = `${selectorsString} {
   ${markdownStyle}
@@ -107,6 +105,18 @@ class View extends Element {
     this.setTopmostMarkdownStyleNode(topmostMarkdownStyleNode);
 
     this.updateMarkdownStyleParseTreeTextarea(parseTree);
+
+    const markdownStyleElement = this.getMarkdownStyleElement(),
+          topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode),
+          context = {
+            tokens
+          };
+
+    topmostCSSNode.resolve(context);
+
+    const css = topmostCSSNode.asCSS(context);
+
+    markdownStyleElement.setCSS(css);
   }
 
   updateMarkdown() {
@@ -299,6 +309,18 @@ class View extends Element {
     this.setTopmostMarkdownStyleNode(topmostMarkdownStyleNode);
   }
 
+  getMarkdownStyleElement() {
+    const { markdownStyleElement } = this.properties;
+
+    return markdownStyleElement;
+  }
+
+  getSelectorsString() {
+    const { selectorsString } = this.properties;
+
+    return selectorsString;
+  }
+
   getMarkdownTokens() {
     const { markdownTokens } = this.getState();
 
@@ -420,14 +442,16 @@ class View extends Element {
 
   static _initialMarkdown = initialMarkdown;
 
-  static initialMarkdown = `\`\`\`json
+  static initialMarkdown = `# Heading
+  
+\`\`\`json
 {
   "foo": "bah"
 }  
 \`\`\``;
 
   static initialMarkdownStyle = `primaryHeading {
-  font-size: 32pt;
+  colour: red;
 }
 `;
 
