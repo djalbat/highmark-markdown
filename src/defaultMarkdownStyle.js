@@ -2,16 +2,15 @@
 
 const defaultMarkdownStyle = `
 colour: black;
-display: grid;
+display: flex;
 padding: 24pt;
 row-gap: 18pt;
 position: relative;
 min-height: 100%;
-align-items: start;    
 font-family: "Computer Modern Serif";
-grid-auto-flow: row;
-grid-auto-rows: min-content;
 padding-bottom: 64pt;
+flex-direction: column;
+justify-content: flex-start;
 background-colour: white;
 
 primaryHeading {
@@ -146,7 +145,7 @@ contentsLink {
 }
 
 footnotesList {
-  align-self: end;
+  margin-top: auto;
   border-top: 1pt solid black;
   padding-top: 13pt;
 }

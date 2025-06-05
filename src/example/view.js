@@ -442,16 +442,22 @@ class View extends Element {
 
   static _initialMarkdown = initialMarkdown;
 
-  static initialMarkdown = `# Heading
+  static initialMarkdown = `# Heading[^foo]
   
 \`\`\`json
 {
   "foo": "bah"
 }  
-\`\`\``;
+\`\`\`
+
+[^foo]: Foo.
+
+@footnotes`;
 
   static initialMarkdownStyle = `primaryHeading {
-  colour: red;
+  :first-child {
+    colour: red;
+  }
 }
 `;
 

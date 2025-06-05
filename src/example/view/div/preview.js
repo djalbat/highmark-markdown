@@ -84,7 +84,9 @@ class PreviewDiv extends Element {
 
 export default withStyle(PreviewDiv)`
 
+  width: 100%;
   height: 100%;
   overflow: scroll;
+  position: absolute;
   
 `;

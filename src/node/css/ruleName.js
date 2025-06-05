@@ -28,14 +28,14 @@ export default class RuleNameCSSNode extends CSSNode {
           tagName = tagNameMap[markdownRuleName];
 
     if (tagName !== null) {
-      css = tagName;  ///
+      css = ` ${tagName}`;
     }
 
     switch (markdownRuleName) {
       case ORDERED_ITEM_MARKDOWN_RULE_NAME: {
         const tagName = tagNameMap[ORDERED_LIST_MARKDOWN_RULE_NAME];
 
-        css = `${tagName} > ${css}`;
+        css = ` ${tagName} > ${css}`;
 
         break;
       }
@@ -43,7 +43,7 @@ export default class RuleNameCSSNode extends CSSNode {
       case UNORDERED_ITEM_MARKDOWN_RULE_NAME: {
         const tagName = tagNameMap[UNORDERED_LIST_MARKDOWN_RULE_NAME];
 
-        css = `${tagName} > ${css}`;
+        css = ` ${tagName} > ${css}`;
 
         break;
       }
