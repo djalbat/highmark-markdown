@@ -68,8 +68,13 @@ export default class DivisionHTMLNode extends HTMLNode {
           groupedHTMLNodesArray = groupHTMLNodes(htmlNodes),
           paginatedHTMLNodesArray = paginateGroupedHTMLNodes(groupedHTMLNodesArray, context);
 
-    const outerNode = this.getOuterNode(),
+    const start = 0,
+          outerNode = this.getOuterNode(),
           divisionClassName = outerNode.className(context);
+
+    Object.assign(context, {
+      start
+    });
 
     paginatedHTMLNodesArray.forEach((paginatedHTMLNodes) => {
       let pageNumber;
@@ -94,16 +99,22 @@ export default class DivisionHTMLNode extends HTMLNode {
         pageNumber
       });
     });
+
+    delete context.start;
   }
 
   resolveFootnotes(context) {
+    let start;
+
     const node = this,  ///
           footnoteHTMLNodes = footnotesHTMLNodesFromNode(node),
           footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node);
 
-    let start = 0;
+    ({ start } = context);
 
     const footnoteItemHTMLTransforms = [];
+
+    let number = start; ///
 
     footnoteLinkHTMLNodes.forEach((footnoteLinkHTMLNode) => {
       const identifier = footnoteLinkHTMLNode.identifier(context),
@@ -116,8 +127,6 @@ export default class DivisionHTMLNode extends HTMLNode {
             }) || null;
 
       if (footnoteHTMLNode !== null) {
-        const number = start; ///
-
         footnoteLinkHTMLNode.setNumber(number);
 
         const paragraphHTMLNode = footnoteHTMLNode.getParagraphHTMLNode(),
@@ -125,7 +134,7 @@ export default class DivisionHTMLNode extends HTMLNode {
 
         footnoteItemHTMLTransforms.push(footnoteItemHTMLTransform);
 
-        start++;
+        number++;
       } else {
         footnoteLinkHTMLNode.resetNumber()
       }
@@ -139,6 +148,12 @@ export default class DivisionHTMLNode extends HTMLNode {
 
       footnotesListHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
     }
+
+    start = number; ///
+
+    Object.assign(context, {
+      start
+    });
   }
 
   resolvePageNumber(pageNumber, context) {
