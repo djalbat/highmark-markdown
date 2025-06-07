@@ -4,13 +4,6 @@ import HTMLTransform from "../../transform/html"
 import PageNumberHTMLNode from "../../node/html/pageNumber";
 
 export default class PageNumberTMLTransform extends HTMLTransform {
-  getPageNumberHTMLNode() {
-    const htmlNode = this.getHTMLNode(),
-          pageNumberHTNONode = htmlNode; ///
-
-    return pageNumberHTNONode;
-  }
-
   appendToDivisionHTMLNode(divisionHTMLNode) {
     const parentHTMLNode = divisionHTMLNode;  ///
 
