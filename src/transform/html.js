@@ -23,8 +23,8 @@ export default class HTMLTransform {
     parentNode.prependChildNode(childNode);
   }
 
-  addAfter(exitingHTMLNode) {
-    const childNode = exitingHTMLNode,  ///
+  addAfter(siblingHTMLNode) {
+    const childNode = siblingHTMLNode,  ///
           parentNode = childNode.getParentNode(),
           index = parentNode.indexOfChildNode(childNode),
           startIndex = index + 1,
@@ -38,19 +38,6 @@ export default class HTMLTransform {
           parentNode = childNode.getParentNode();
 
     parentNode.removeChildNode(childNode);
-  }
-
-  expand(Class, ascendantNode) {
-    if (ascendantNode === undefined) {
-      ascendantNode = Class;  ///
-
-      Class = HTMLTransform;  ///
-    }
-
-    const htmlNode = ascendantNode, ///
-          transform = new Class(htmlNode);
-
-    return transform;
   }
 
   static fromHTMLNode(Class, htmlNode, ...remainingArguments) {

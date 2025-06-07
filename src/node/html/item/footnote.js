@@ -24,13 +24,12 @@ export default class FootnoteItemHTMLNode extends HTMLNode {
 
   static className = "footnote";
 
-  static fromLineTMLTransformAndIdentifier(lineHTMLTransform, identifier) {
+  static fromParagraphTMLNodeAndIdentifier(paragraphHTMLNode, identifier) {
     const prepend = FOOTNOTE_PREPEND,
           anchorHTMLNode = AnchorHTMLNode.fromPrependAndIdentifier(prepend, identifier),
-          lineHTMLNode = lineHTMLTransform.getLineHTMLNode(),
           childHTMLNodes = [
             anchorHTMLNode,
-            lineHTMLNode
+            paragraphHTMLNode
           ],
           footnoteItemHTMLNode = HTMLNode.fromChildHTMLNodes(FootnoteItemHTMLNode, childHTMLNodes);
 

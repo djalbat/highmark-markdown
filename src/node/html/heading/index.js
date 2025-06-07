@@ -56,7 +56,7 @@ export default class IndexHeadingHTMLNode extends HTMLNode {
       domElement = this.getDOMElement();
 
       const parentDOMElement = domElement,  ///
-            firstChild = domElement.firstChild
+            firstChild = domElement.firstChild;
 
       domElement = firstChild;  ///
 

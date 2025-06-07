@@ -9,7 +9,7 @@ export default class IndexAnchorTMLTransform extends HTMLTransform {
   appendToHTMLNode(htmlNode) {
     const parentHTMLNode = htmlNode;  ///
 
-    this.appendTo(parentHTMLNode);
+    this.prependTo(parentHTMLNode);
   }
 
   static fromPageNumber(pageNumber) {

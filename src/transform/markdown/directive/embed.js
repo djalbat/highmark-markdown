@@ -4,9 +4,9 @@ import MarkdownTransform from "../../../transform/markdown";
 
 export default class EmbedDirectiveMarkdownTransform extends MarkdownTransform {
   addAfterSubDivisionMarkdownNode(subDivisionMarkdownNode, context) {
-    const existingNode = subDivisionMarkdownNode;  ///
+    const siblingHTMLNode = subDivisionMarkdownNode;  ///
 
-    super.addAfter(existingNode, context);
+    super.addAfter(siblingHTMLNode, context);
   }
 
   static fromSubDivisionMarkdownNodeAndTokens(subDivisionMarkdownNode, tokens) {

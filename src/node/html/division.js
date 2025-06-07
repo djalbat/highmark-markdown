@@ -1,21 +1,22 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
+
 import HTMLNode from "../../node/html";
 import PageNumberHTMLNode from "../../node/html/pageNumber";
 import PageNumberHTMLTransform from "../../transform/html/pageNumber";
 import IndexAnchorHTMLTransform from "../../transform/html/indexAnchor";
+import FootnoteItemHTMLTransform from "../../transform/html/item/footnote";
 import FootnotesListHTMLTransform from "../../transform/html/list/footnotes";
 
 import { DIVISION_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
-import { footnotesDirectiveHTMLNodeFromNode, pageNumberDirectiveHTMLNodeFromNode } from "../../utilities/html";
-import { groupHTMLNodes,
-         removeHTMLNodes,
-         addFootnoteHTMLNodes,
-         removeFootnoteHTMLNodes,
-         paginateGroupedHTMLNodes,
-         numberFootnoteLinkHTMLNodes,
-         lineHTMLTransformsFromFootnoteHTMLTransforms,
-         footnoteItemHTMLTransformsFromLineHTMLTransforms } from "../../utilities/division";
+import { groupHTMLNodes, removeHTMLNodes, paginateGroupedHTMLNodes } from "../../utilities/division";
+import { footnotesHTMLNodesFromNode,
+         footnoteLinkHTMLNodesFromNode,
+         footnotesDirectiveHTMLNodeFromNode,
+         pageNumberDirectiveHTMLNodeFromNode } from "../../utilities/html";
+
+const { extract } = arrayUtilities;
 
 export default class DivisionHTMLNode extends HTMLNode {
   constructor(outerNode, parentNode, childNodes, domElement, divisionClassName) {
@@ -40,66 +41,6 @@ export default class DivisionHTMLNode extends HTMLNode {
     return ruleNme;
   }
 
-  fromFirstHTMLNode(callback) {
-    this.fromFirstChildNode((firstChildNode) => {
-      const firstHTMLNode = firstChildNode;  ///
-
-      callback(firstHTMLNode);
-    });
-  }
-
-  paginate(divisionHTMLNodes, context) {
-    const node = this;
-
-    const pageNumberDirectiveHTMLNode = pageNumberDirectiveHTMLNodeFromNode(node),
-          footnotesDirectiveHTMLNode = footnotesDirectiveHTMLNodeFromNode(node);
-
-    if (footnotesDirectiveHTMLNode !== null) {
-      const footnoteHTMLTransforms = removeFootnoteHTMLNodes(node);
-
-      addFootnoteHTMLNodes(footnoteHTMLTransforms, node, context);
-    }
-
-    const outerNode = this.getOuterNode(),
-          identifierMap = {},
-          divisionClassName = outerNode.className(context);
-
-    const htmlNodes = removeHTMLNodes(node),
-          groupedHTMLNodesArray = groupHTMLNodes(htmlNodes),
-          paginatedHTMLNodesArray = paginateGroupedHTMLNodes(groupedHTMLNodesArray, context);
-
-    paginatedHTMLNodesArray.forEach((paginatedHTMLNodes) => {
-      let pageNumber;
-
-      ({ pageNumber } = context);
-
-      const divisionHTMLNode = DivisionHTMLNode.fromPaginatedHTMLNodesAndDivisionClassName(paginatedHTMLNodes, divisionClassName);
-
-      divisionHTMLNode.resolveFootnotes(identifierMap, context);
-
-      if (pageNumberDirectiveHTMLNode !== null) {
-        const pageNumberHTMLTransform = PageNumberHTMLTransform.fromPageNumber(pageNumber);
-
-        pageNumberHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
-
-        this.fromFirstHTMLNode((firstHTMLNode) => {
-          const indexAnchorHTMLTransform = IndexAnchorHTMLTransform.fromPageNumber(pageNumber),
-                htmlNode = firstHTMLNode;  ///
-
-          indexAnchorHTMLTransform.appendToHTMLNode(htmlNode);
-        });
-      }
-
-      divisionHTMLNodes.push(divisionHTMLNode);
-
-      pageNumber++;
-
-      Object.assign(context, {
-        pageNumber
-      });
-    });
-  }
-
   pageNumber() {
     const pageNumber = this.fromFirstLastChildNode((firstLastChildNode) => {
       let pageNumber = null;
@@ -118,25 +59,100 @@ export default class DivisionHTMLNode extends HTMLNode {
     return pageNumber;
   }
 
-  resolveFootnotes(identifierMap, context) {
-    let footnotesListHTMLTransform = null;
+  paginate(divisionHTMLNodes, context) {
+    const node = this,
+          footnotesDirectiveHTMLNode = footnotesDirectiveHTMLNodeFromNode(node),
+          pageNumberDirectiveHTMLNode = pageNumberDirectiveHTMLNodeFromNode(node);
 
+    const htmlNodes = removeHTMLNodes(node),
+          groupedHTMLNodesArray = groupHTMLNodes(htmlNodes),
+          paginatedHTMLNodesArray = paginateGroupedHTMLNodes(groupedHTMLNodesArray, context);
+
+    const outerNode = this.getOuterNode(),
+          divisionClassName = outerNode.className(context);
+
+    paginatedHTMLNodesArray.forEach((paginatedHTMLNodes) => {
+      let pageNumber;
+
+      ({ pageNumber } = context);
+
+      const divisionHTMLNode = DivisionHTMLNode.fromPaginatedHTMLNodesAndDivisionClassName(paginatedHTMLNodes, divisionClassName);
+
+      if (footnotesDirectiveHTMLNode !== null) {
+        divisionHTMLNode.resolveFootnotes(context);
+      }
+
+      if (pageNumberDirectiveHTMLNode !== null) {
+        divisionHTMLNode.resolvePageNumber(pageNumber, context);
+      }
+
+      divisionHTMLNodes.push(divisionHTMLNode);
+
+      pageNumber++;
+
+      Object.assign(context, {
+        pageNumber
+      });
+    });
+  }
+
+  resolveFootnotes(context) {
     const node = this,  ///
-          footnoteHTMLTransforms = removeFootnoteHTMLNodes(node),
-          footnoteHTMLTransformsLength = footnoteHTMLTransforms.length;
+          footnoteHTMLNodes = footnotesHTMLNodesFromNode(node),
+          footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node);
 
-    if (footnoteHTMLTransformsLength > 0) {
+    let start = 0;
+
+    const footnoteItemHTMLTransforms = [];
+
+    footnoteLinkHTMLNodes.forEach((footnoteLinkHTMLNode) => {
+      const identifier = footnoteLinkHTMLNode.identifier(context),
+            footnoteHTMLNode = extract(footnoteHTMLNodes, (footnoteHTMLNode) => {
+              const identifierMatches = footnoteHTMLNode.matchIdentifier(identifier);
+
+              if (identifierMatches) {
+                return true;
+              }
+            }) || null;
+
+      if (footnoteHTMLNode !== null) {
+        const number = start; ///
+
+        footnoteLinkHTMLNode.setNumber(number);
+
+        const paragraphHTMLNode = footnoteHTMLNode.getParagraphHTMLNode(),
+              footnoteItemHTMLTransform = FootnoteItemHTMLTransform.fromParagraphHTMLNOdeAndIdentifier(paragraphHTMLNode, identifier)
+
+        footnoteItemHTMLTransforms.push(footnoteItemHTMLTransform);
+
+        start++;
+      } else {
+        footnoteLinkHTMLNode.resetNumber()
+      }
+    });
+
+    const footnoteItemHTMLTransformsLength = footnoteItemHTMLTransforms.length;
+
+    if (footnoteItemHTMLTransformsLength > 0) {
       const divisionHTMLNode = node,  ///
-            start = numberFootnoteLinkHTMLNodes(footnoteHTMLTransforms, identifierMap, node, context),
-            lineHTMLTransforms = lineHTMLTransformsFromFootnoteHTMLTransforms(footnoteHTMLTransforms),
-            footnoteItemHTMLTransforms = footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms, identifierMap, start);
-
-      footnotesListHTMLTransform = FootnotesListHTMLTransform.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms);
+            footnotesListHTMLTransform = FootnotesListHTMLTransform.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms);
 
       footnotesListHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
     }
+  }
 
-    return footnotesListHTMLTransform;
+  resolvePageNumber(pageNumber, context) {
+    const divisionHTMLNode = this,  ///
+          pageNumberHTMLTransform = PageNumberHTMLTransform.fromPageNumber(pageNumber);
+
+    pageNumberHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
+
+    this.fromFirstChildNode((firstChildNode) => {
+      const indexAnchorHTMLTransform = IndexAnchorHTMLTransform.fromPageNumber(pageNumber),
+            htmlNode = firstChildNode;  ///
+
+      indexAnchorHTMLTransform.appendToHTMLNode(htmlNode);
+    });
   }
 
   asString() {

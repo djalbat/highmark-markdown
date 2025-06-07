@@ -17,7 +17,7 @@ class ContentsListHTMLTransform extends HTMLTransform {
   addAfterContentsDirectiveHTMLNode(contentsDirectiveHTMLNode) {
     const siblingHTMLNode = contentsDirectiveHTMLNode;  ///
 
-    super.replace(siblingHTMLNode);
+    super.addAfter(siblingHTMLNode);
   }
 
   static fromContentsDirectiveHTMLNodeAndTopmostHTMLNode(contentsDirectiveHTMLNode, topmostHTMLNode, context) {

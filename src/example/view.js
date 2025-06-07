@@ -440,13 +440,7 @@ class View extends Element {
     this.setMarkdown(markdown);
   }
 
-  static _initialMarkdown = initialMarkdown;
-
-  static initialMarkdown = `# Heading[^foo]
-  
-[^foo]: Foo.
-
-@footnotes`;
+  static initialMarkdown = initialMarkdown;
 
   static initialMarkdownStyle = `primaryHeading {
   :first-child {

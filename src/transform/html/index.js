@@ -17,10 +17,20 @@ export default class IndexHTMLTransform extends HTMLTransform {
     return this.htmlNodes;
   }
 
+  addAfter(siblingHTMLNode) {
+    const childNode = siblingHTMLNode,  ///
+          parentNode = childNode.getParentNode(),
+          index = parentNode.indexOfChildNode(childNode),
+          startIndex = index + 1,
+          addedChildNodes = this.htmlNodes;  ///
+
+    parentNode.addChildNodes(addedChildNodes, startIndex);
+  }
+
   addAfterIndexDirectiveHTMLNode(indexDirectiveHTMLNode) {
     const siblingHTMLNode = indexDirectiveHTMLNode;  ///
 
-    this.addAfter(siblingHTMLNode)
+    this.addAfter(siblingHTMLNode);
   }
 
   static fromIndexDirectiveHTMLNodeAndDivisionHTMLNodes(indexDirectiveHTMLNode, divisionHTMLNodes, context) {

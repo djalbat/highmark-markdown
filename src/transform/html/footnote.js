@@ -10,17 +10,6 @@ export default class FootnoteHTMLTransform extends HTMLTransform {
     return identifier;
   }
 
-  getLineHTMLNode() {
-    const paragraphHTMLNode = this.getParagraphHTMLNode(),
-          lineHTMLNode = paragraphHTMLNode.fromFirstChildNode((firstChildNode) => {
-            const lineHTMLNode = firstChildNode;  ///
-
-            return lineHTMLNode;
-          });
-
-    return lineHTMLNode;
-  }
-
   getFootnoteHTMLNode() {
     const htmlNode = this.getHTMLNode(),
           footnoteHTMLNode = htmlNode;  ///
@@ -39,22 +28,11 @@ export default class FootnoteHTMLTransform extends HTMLTransform {
     return paragraphHTMLNode;
   }
 
-  matchIdentifier(identifier, context) {
-    const identifierA = identifier; ///
-
-    identifier = this.identifier(context);
-
-    const identifierB = identifier, ///
-          identifierMatches = (identifierA === identifierB);
-
-    return identifierMatches;
-  }
-
   addAfterFootnoteLinkHTMLTransform(footnoteLinkHTMLTransform) {
     const containingHTMLNode = footnoteLinkHTMLTransform.getContainingHTMLNode(),
-          existingHTMLNode = containingHTMLNode;  ///
+          siblingHTMLNode = containingHTMLNode;  ///
 
-    this.addAfter(existingHTMLNode);
+    this.addAfter(siblingHTMLNode);
   }
 
   static fromFootnoteHTMLNode(footnoteHTMLNde) {

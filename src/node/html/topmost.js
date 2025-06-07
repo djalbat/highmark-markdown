@@ -77,7 +77,9 @@ export default class TopmostHTMLNode extends HTMLNode {
     const divisionHTMLNodes = this.getDivisionHTMLNodes(),
           indexHTMLTransform = IndexHTMLTransform.fromIndexDirectiveHTMLNodeAndDivisionHTMLNodes(indexDirectiveHTMLNode, divisionHTMLNodes, context);
 
-    indexHTMLTransform.addAfterIndexDirectiveHTMLNode(indexDirectiveHTMLNode);
+    if (indexHTMLTransform !== null) {
+      indexHTMLTransform.addAfterIndexDirectiveHTMLNode(indexDirectiveHTMLNode);
+    }
   }
 
   addContents(context) {
@@ -91,7 +93,9 @@ export default class TopmostHTMLNode extends HTMLNode {
     const topmostHTMLNode = this, ///
           contentsListHTMLTransform = ContentsListHTMLTransform.fromContentsDirectiveHTMLNodeAndTopmostHTMLNode(contentsDirectiveHTMLNode, topmostHTMLNode, context);
 
-    contentsListHTMLTransform.addAfterContentsDirectiveHTMLNode(contentsDirectiveHTMLNode);
+    if (contentsListHTMLTransform !== null) {
+      contentsListHTMLTransform.addAfterContentsDirectiveHTMLNode(contentsDirectiveHTMLNode);
+    }
   }
 
   adjustIndent(indent) {

@@ -1,20 +1,10 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
-
 import HTMLTransform from "../transform/html";
 import FootnoteHTMLNode from "../node/html/footnote";
-import LineHTMLTransform from "../transform/html/line";
-import FootnoteHTMLTransform from "../transform/html/footnote";
-import FootnoteItemHTMLTransform from "../transform/html/item/footnote";
-import FootnoteLinkHTMLTransform from "../transform/html/link/footnote";
 
+import { htmlNodesFromNode } from "../utilities/html";
 import { DEFAULT_MAXIMUM_PAGE_LINES } from "../constants";
-import { htmlNodesFromNode,
-         footnoteHTMLNodesFromNode,
-         footnoteLinkHTMLNodesFromNode } from "../utilities/html";
-
-const { backwardsForEach } = arrayUtilities;
 
 export function groupHTMLNodes(htmlNodes) {
   const groupedHTMLNodesArray = [];
@@ -41,7 +31,7 @@ export function groupHTMLNodes(htmlNodes) {
 
   const groupedHTMLNodeLength = groupedHTMLNodes.length;
 
-  if (groupedHTMLNodeLength) {
+  if (groupedHTMLNodeLength > 0) {
     groupedHTMLNodesArray.push(groupedHTMLNodes);
   }
 
@@ -60,37 +50,6 @@ export function removeHTMLNodes(node) {
   return htmlNodes;
 }
 
-export function addFootnoteHTMLNodes(footnoteHTMLTransforms, node, context) {
-  const footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node),
-        footnoteLinkHTMLTransforms = footnoteLinkHTMLTransformsFromFootnoteLinkHTMLNodes(footnoteLinkHTMLNodes);
-
-  backwardsForEach(footnoteLinkHTMLTransforms, (footnoteLinkHTMLTransform) => {
-    const identifier = footnoteLinkHTMLTransform.identifier(context),
-          footnoteHTMLTransform = footnoteHTMLTransforms.find((footnoteHTMLTransform) => {
-            const identifierMatches = footnoteHTMLTransform.matchIdentifier(identifier, context);
-
-            if (identifierMatches) {
-              return true;
-            }
-          }) || null;
-
-    if (footnoteHTMLTransform !== null) {
-      footnoteHTMLTransform.addAfterFootnoteLinkHTMLTransform(footnoteLinkHTMLTransform);
-    }
-  });
-}
-
-export function removeFootnoteHTMLNodes(node) {
-  const footnoteHTMLNodes = footnoteHTMLNodesFromNode(node),
-        footnoteHTMLTransforms = footnoteHTMLTransformsFromFootnoteHTMLNodes(footnoteHTMLNodes);
-
-  footnoteHTMLTransforms.forEach((footnoteHTMLTransform) => {
-    footnoteHTMLTransform.remove();
-  });
-
-  return footnoteHTMLTransforms;
-}
-
 export function paginateGroupedHTMLNodes(groupedHTMLNodesArray, context) {
   const paginatedHTMLNodesArray = [];
 
@@ -100,18 +59,18 @@ export function paginateGroupedHTMLNodes(groupedHTMLNodesArray, context) {
       paginatedHTMLNodes = [];
 
   groupedHTMLNodesArray.forEach((groupedHTMLNodes) => {
-    const groupLines = groupedHTMLNodes.reduce((groupLines, groupedHTMLNode) => {
+    const groupedLines = groupedHTMLNodes.reduce((groupedLines, groupedHTMLNode) => {
       const lines = groupedHTMLNode.lines(context);
 
-      groupLines += lines;
+      groupedLines += lines;
 
-      return groupLines;
+      return groupedLines;
     }, 0);
 
     const paginatedHTMLNodesLength = paginatedHTMLNodes.length;
 
     if (paginatedHTMLNodesLength > 0) {
-      if (pageLines + groupLines > maximumPageLines) {
+      if (pageLines + groupedLines > maximumPageLines) {
         paginatedHTMLNodesArray.push(paginatedHTMLNodes);
 
         pageLines = 0;
@@ -122,84 +81,14 @@ export function paginateGroupedHTMLNodes(groupedHTMLNodesArray, context) {
 
     paginatedHTMLNodes.push(...groupedHTMLNodes);
 
-    pageLines += groupLines;
+    pageLines += groupedLines;
   });
 
   const paginatedHTMLNodesLength = paginatedHTMLNodes.length;
 
-  if (paginatedHTMLNodesLength) {
+  if (paginatedHTMLNodesLength > 0) {
     paginatedHTMLNodesArray.push(paginatedHTMLNodes);
   }
 
   return paginatedHTMLNodesArray;
-}
-
-export function numberFootnoteLinkHTMLNodes(footnoteHTMLTransforms, identifierMap, node, context) {
-  const footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node),
-        identifiers = Object.keys(identifierMap),
-        identifiersLength = identifiers.length,
-        start = identifiersLength + 1;
-
-  footnoteHTMLTransforms.forEach((footnoteHTMLTransform, index) => {
-    const identifier = footnoteHTMLTransform.identifier(context),
-          number = start + index;
-
-    identifierMap[identifier] = number;
-  });
-
-  footnoteLinkHTMLNodes.forEach((footnoteLinkHTMLNode) => {
-    const identifier = footnoteLinkHTMLNode.identifier(context),
-          number = identifierMap[identifier];
-
-    footnoteLinkHTMLNode.setNumber(number);
-  })
-
-  return start;
-}
-
-export function lineHTMLTransformsFromFootnoteHTMLTransforms(footnoteHTMLTransforms) {
-  const lineHTMLTransforms = footnoteHTMLTransforms.map((footnoteHTMLTransform) => {
-    const lineHTMLTransform = LineHTMLTransform.fromFootnoteHTMLTransform(footnoteHTMLTransform);
-
-    return lineHTMLTransform;
-  });
-
-  return lineHTMLTransforms;
-}
-
-export function footnoteItemHTMLTransformsFromLineHTMLTransforms(lineHTMLTransforms, identifierMap, start) {
-  const numbers = Object.values(identifierMap),
-        identifiers = Object.keys(identifierMap),
-        footnoteItemHTMLTransforms = lineHTMLTransforms.map((lineHTMLTransform, index) => {
-          const number = start + index;
-
-          index = numbers.indexOf(number);
-
-          const identifier = identifiers[index],
-                footnoteItemHTMLTransform = FootnoteItemHTMLTransform.fromLineTMLTransformAndIdentifier(lineHTMLTransform, identifier);
-
-          return footnoteItemHTMLTransform;
-        });
-
-  return footnoteItemHTMLTransforms;
-}
-
-function footnoteHTMLTransformsFromFootnoteHTMLNodes(footnoteHTMLNodes) {
-  const footnoteHTMLTransforms = footnoteHTMLNodes.map((footnoteHTMLNode) => {
-    const footnoteHTMLTransform = FootnoteHTMLTransform.fromFootnoteHTMLNode(footnoteHTMLNode);
-
-    return footnoteHTMLTransform;
-  });
-
-  return footnoteHTMLTransforms;
-}
-
-function footnoteLinkHTMLTransformsFromFootnoteLinkHTMLNodes(footnoteLinkHTMLNodes) {
-  const footnoteLinkHTMLTransforms = footnoteLinkHTMLNodes.map((footnoteLinkHTMLNode) => {
-    const footnoteLinkHTMLTransform = FootnoteLinkHTMLTransform.fromFootnoteLinkHTMLNode(footnoteLinkHTMLNode);
-
-    return footnoteLinkHTMLTransform;
-  });
-
-  return footnoteLinkHTMLTransforms;
 }

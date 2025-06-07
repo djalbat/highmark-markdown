@@ -16,12 +16,4 @@ export default class LineHTMLTransform extends HTMLTransform {
 
     return paragraphHTMLTransform;
   }
-
-  static fromFootnoteHTMLTransform(footnoteHTMLTransform) {
-    const lineHTMLNode = footnoteHTMLTransform.getLineHTMLNode(),
-          htmlNode = lineHTMLNode, ///
-          paragraphHTMLTransform = HTMLTransform.fromHTMLNode(LineHTMLTransform, htmlNode);
-
-    return paragraphHTMLTransform;
-  }
 }

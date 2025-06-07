@@ -22,10 +22,12 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
     this.number = number;
   }
 
+  resetNumber() {
+    this.number = null;
+  }
+
   content(context) {
-    const content = (this.number !== null) ?
-                       this.number :
-                         EMPTY_STRING;
+    const content = this.number;  ///
 
     return content;
   }
@@ -52,66 +54,80 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
   }
 
   mount(parentDOMElement, siblingDOMElement, context) {
-    let domElement;
+    if (this.number !== null) {
+      let domElement;
 
-    domElement = this.createDOMElement(context);
+      domElement = this.createDOMElement(context);
 
-    this.setDOMElement(domElement);
+      this.setDOMElement(domElement);
 
-    (siblingDOMElement !== null) ?
-      insertAfter(domElement, parentDOMElement, siblingDOMElement) :
-        insertBeforehand(domElement, parentDOMElement);
+      (siblingDOMElement !== null) ?
+        insertAfter(domElement, parentDOMElement, siblingDOMElement) :
+          insertBeforehand(domElement, parentDOMElement);
 
-    parentDOMElement = domElement; ///
+      parentDOMElement = domElement; ///
 
-    const content = this.content(context),
-          textNode = document.createTextNode(content);
+      const content = this.content(context),
+            textNode = document.createTextNode(content);
 
-    domElement = textNode;  ///
+      domElement = textNode;  ///
 
-    insertAfterwards(domElement, parentDOMElement);
+      insertAfterwards(domElement, parentDOMElement);
 
-    domElement = this.getDOMElement();
+      domElement = this.getDOMElement();
 
-    siblingDOMElement = domElement; ///
+      siblingDOMElement = domElement; ///
+    }
 
     return siblingDOMElement;
   }
 
   unmount(parentDOMElement) {
-    let domElement;
+    if (this.number !== null) {
+      let domElement;
 
-    {
+      {
+        domElement = this.getDOMElement();
+
+        const parentDOMElement = domElement,  ///
+              firstChild = domElement.firstChild;
+
+        domElement = firstChild;  ///
+
+        remove(domElement, parentDOMElement);
+      }
+
       domElement = this.getDOMElement();
 
-      const parentDOMElement = domElement,  ///
-            firstChild = domElement.firstChild
-
-      domElement = firstChild;  ///
-
       remove(domElement, parentDOMElement);
+
+      this.resetDOMElement();
     }
-
-    domElement = this.getDOMElement();
-
-    remove(domElement, parentDOMElement);
-
-    this.resetDOMElement();
   }
 
   asHTML(indent, context) {
     let html;
 
-    indent = this.adjustIndent(indent);
+    if (this.number === null) {
+      html = EMPTY_STRING;
+    } else {
+      indent = this.adjustIndent(indent);
 
-    const childNodesHTML = this.childNodesAsHTML(indent, context),
-          startingTag = this.startingTag(context),
-          closingTag = this.closingTag(context);
+      const childNodesHTML = this.childNodesAsHTML(indent, context),
+            startingTag = this.startingTag(context),
+            closingTag = this.closingTag(context);
 
-    html = `${indent}${startingTag}${childNodesHTML}${closingTag}
+      html = `${indent}${startingTag}${childNodesHTML}${closingTag}
 `;
+    }
 
     return html;
+  }
+
+  asPlainText(context) {
+    const plainText = EMPTY_STRING;
+
+    return plainText;
   }
 
   childNodesAsHTML(indent, context) {

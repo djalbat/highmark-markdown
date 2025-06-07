@@ -4,6 +4,27 @@ import HTMLNode from "../../node/html";
 import {EMPTY_STRING} from "../../constants";
 
 export default class FootnoteHTMLNode extends HTMLNode {
+  getParagraphHTMLNode() {
+    const paragraphHTMLNode = this.fromSecondChildNode((secondChildNode) => {
+      const paragraphHTMLNode = secondChildNode;  ///
+
+      return paragraphHTMLNode;
+    });
+
+    return paragraphHTMLNode;
+  }
+
+  matchIdentifier(identifier, context) {
+    const identifierA = identifier; ///
+
+    identifier = this.identifier(context);
+
+    const identifierB = identifier, ///
+          identifierMatches = (identifierA === identifierB);
+
+    return identifierMatches;
+  }
+
   identifier(context) {
     const markdownNode = this.getMarkdownNode(),
           identifier = markdownNode.identifier(context);
