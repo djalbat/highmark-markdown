@@ -4,8 +4,6 @@ import HTMLNode from "../../node/html";
 import IndexHTMLTransform from "../../transform/html/index";
 import DivisionHTMLTransform from "../../transform/html/division";
 import ContentsListHTMLTransform from "../../transform/html/list/contents";
-import IndexDirectiveHTMLTransform from "../../transform/html/directive/index";
-import ContentsDirectiveHTMLTransform from "../../transform/html/directive/contents";
 
 import { HTML_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
 import { divisionHTMLNodesFromNode, indexDirectiveHTMLNodeFromNode, contentsDirectiveHTMLNodeFromNode } from "../../utilities/html";
@@ -54,7 +52,7 @@ export default class TopmostHTMLNode extends HTMLNode {
     divisionHTMLTransforms.forEach((divisionHTMLTransform) => {
       divisionHTMLTransform.remove();
 
-      divisionHTMLTransform.resolve(divisionHTMLNodes, context);
+      divisionHTMLTransform.paginate(divisionHTMLNodes, context);
     });
 
     delete context.pageNumber;
@@ -77,12 +75,9 @@ export default class TopmostHTMLNode extends HTMLNode {
     }
 
     const divisionHTMLNodes = this.getDivisionHTMLNodes(),
-          indexDirectiveHTMLTransform = IndexDirectiveHTMLTransform.fromIndexDirectiveHTMLNode(indexDirectiveHTMLNode),
-          indexHTMLTransform = IndexHTMLTransform.fromIndexDirectiveHTMLTransformAndDivisionHTMLNodes(indexDirectiveHTMLTransform, divisionHTMLNodes, context);
+          indexHTMLTransform = IndexHTMLTransform.fromIndexDirectiveHTMLNodeAndDivisionHTMLNodes(indexDirectiveHTMLNode, divisionHTMLNodes, context);
 
-    (indexHTMLTransform !== null) ?
-      indexHTMLTransform.replaceIndexDirectiveHTMLTransform(indexDirectiveHTMLTransform) :
-        indexDirectiveHTMLTransform.remove();
+    indexHTMLTransform.addAfterIndexDirectiveHTMLNode(indexDirectiveHTMLNode);
   }
 
   addContents(context) {
@@ -94,12 +89,9 @@ export default class TopmostHTMLNode extends HTMLNode {
     }
 
     const topmostHTMLNode = this, ///
-          contentsDirectiveHTMLTransform = ContentsDirectiveHTMLTransform.fromContentsDirectiveHTMLNode(contentsDirectiveHTMLNode),
-          contentsListHTMLTransform = ContentsListHTMLTransform.fromContentsDirectiveHTMLTransformAndTopmostHTMLNode(contentsDirectiveHTMLTransform, topmostHTMLNode, context);
+          contentsListHTMLTransform = ContentsListHTMLTransform.fromContentsDirectiveHTMLNodeAndTopmostHTMLNode(contentsDirectiveHTMLNode, topmostHTMLNode, context);
 
-    (contentsListHTMLTransform !== null) ?
-      contentsListHTMLTransform.replaceContentsDirectiveHTMLTransform(contentsDirectiveHTMLTransform) :
-        contentsDirectiveHTMLTransform.remove();
+    contentsListHTMLTransform.addAfterContentsDirectiveHTMLNode(contentsDirectiveHTMLNode);
   }
 
   adjustIndent(indent) {

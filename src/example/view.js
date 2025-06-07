@@ -444,12 +444,6 @@ class View extends Element {
 
   static initialMarkdown = `# Heading[^foo]
   
-\`\`\`json
-{
-  "foo": "bah"
-}  
-\`\`\`
-
 [^foo]: Foo.
 
 @footnotes`;

@@ -33,17 +33,6 @@ export default class HTMLTransform {
     parentNode.addChildNode(addedChildNode, startIndex);
   }
 
-  replace(replacedHTMLNode) {
-    const parentNode = replacedHTMLNode.getParentNode(),
-          replacedChildNode = replacedHTMLNode, ///
-          replacementChildNode = this.htmlNode,  ///
-          replacementChildNodes = [
-            replacementChildNode
-          ];
-
-    parentNode.replaceChildNode(replacedChildNode, replacementChildNodes);
-  }
-
   remove() {
     const childNode = this.htmlNode, ///
           parentNode = childNode.getParentNode();

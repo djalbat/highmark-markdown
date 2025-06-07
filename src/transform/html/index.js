@@ -17,26 +17,16 @@ export default class IndexHTMLTransform extends HTMLTransform {
     return this.htmlNodes;
   }
 
-  replace(replacedHTMLNode) {
-    const parentNode = replacedHTMLNode.getParentNode(),
-          replacedChildNode = replacedHTMLNode, ///
-          replacementChildNodes = this.htmlNodes; ///
+  addAfterIndexDirectiveHTMLNode(indexDirectiveHTMLNode) {
+    const siblingHTMLNode = indexDirectiveHTMLNode;  ///
 
-    parentNode.replaceChildNode(replacedChildNode, replacementChildNodes);
+    this.addAfter(siblingHTMLNode)
   }
 
-  replaceIndexDirectiveHTMLTransform(indexDirectiveHTMLTransform) {
-    const indexDirectiveHTMLNode = indexDirectiveHTMLTransform.getIndexDirectiveHTMLNode(),
-          replacedHTMLNode = indexDirectiveHTMLNode;  ///
-
-    this.replace(replacedHTMLNode)
-  }
-
-  static fromIndexDirectiveHTMLTransformAndDivisionHTMLNodes(indexDirectiveHTMLTransform, divisionHTMLNodes, context) {
+  static fromIndexDirectiveHTMLNodeAndDivisionHTMLNodes(indexDirectiveHTMLNode, divisionHTMLNodes, context) {
     let indexHTMLTransform = null;
 
-    const indexDirectiveHTMLNode = indexDirectiveHTMLTransform.getIndexDirectiveHTMLNode(),
-          indexList = IndexList.fromIndexDirectiveHTMLNodeAndDivisionHTMLNodes(indexDirectiveHTMLNode, divisionHTMLNodes, context),
+    const indexList = IndexList.fromIndexDirectiveHTMLNodeAndDivisionHTMLNodes(indexDirectiveHTMLNode, divisionHTMLNodes, context),
           indexHTMLTransforms = [];
 
     letters.forEach((letter) => {

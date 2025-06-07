@@ -14,19 +14,17 @@ const { filter } = arrayUtilities,
       { isLessThan } = nodeUtilities;
 
 class ContentsListHTMLTransform extends HTMLTransform {
-  replaceContentsDirectiveHTMLTransform(contentsDirectiveHTMLTransform) {
-    const contentsDirectiveHTMLNode = contentsDirectiveHTMLTransform.getContentsDirectiveHTMLNode(),
-          replacedHTMLNode = contentsDirectiveHTMLNode;  ///
+  addAfterContentsDirectiveHTMLNode(contentsDirectiveHTMLNode) {
+    const siblingHTMLNode = contentsDirectiveHTMLNode;  ///
 
-    super.replace(replacedHTMLNode);
+    super.replace(siblingHTMLNode);
   }
 
-  static fromContentsDirectiveHTMLTransformAndTopmostHTMLNode(contentsDirectiveHTMLTransform, topmostHTMLNode, context) {
+  static fromContentsDirectiveHTMLNodeAndTopmostHTMLNode(contentsDirectiveHTMLNode, topmostHTMLNode, context) {
     let contentsListHTMLTransform = null;
 
     const node = topmostHTMLNode, ///
-          headingHTMLNodes = headingHTMLNodesFromNode(node),
-          contentsDirectiveHTMLNode = contentsDirectiveHTMLTransform.getContentsDirectiveHTMLNode();
+          headingHTMLNodes = headingHTMLNodesFromNode(node);
 
     filter(headingHTMLNodes, (headingHTMLNode) => {
       const contentsDirectiveHTMLNodeLessThanHeadingHTMLNode = isLessThan(contentsDirectiveHTMLNode, headingHTMLNode);

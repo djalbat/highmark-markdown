@@ -7,15 +7,13 @@ import IndexAnchorHTMLTransform from "../../transform/html/indexAnchor";
 import FootnotesListHTMLTransform from "../../transform/html/list/footnotes";
 
 import { DIVISION_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
+import { footnotesDirectiveHTMLNodeFromNode, pageNumberDirectiveHTMLNodeFromNode } from "../../utilities/html";
 import { groupHTMLNodes,
          removeHTMLNodes,
          addFootnoteHTMLNodes,
          removeFootnoteHTMLNodes,
          paginateGroupedHTMLNodes,
          numberFootnoteLinkHTMLNodes,
-         removeFootnotesDirectiveHTMLNode,
-         removePageNumberDirectiveHTMLNode,
-         removeNestedFootnoteLinkHTMLNodes,
          lineHTMLTransformsFromFootnoteHTMLTransforms,
          footnoteItemHTMLTransformsFromLineHTMLTransforms } from "../../utilities/division";
 
@@ -50,26 +48,19 @@ export default class DivisionHTMLNode extends HTMLNode {
     });
   }
 
-  resolve(divisionHTMLNodes, context) {
+  paginate(divisionHTMLNodes, context) {
     const node = this;
 
-    removeNestedFootnoteLinkHTMLNodes(node);
-
-    const pageNumberDirectiveHTMLTransform = removePageNumberDirectiveHTMLNode(node),
-          footnotesDirectiveHTMLNode = removeFootnotesDirectiveHTMLNode(node),
-          footnoteHTMLTransforms = removeFootnoteHTMLNodes(node);
+    const pageNumberDirectiveHTMLNode = pageNumberDirectiveHTMLNodeFromNode(node),
+          footnotesDirectiveHTMLNode = footnotesDirectiveHTMLNodeFromNode(node);
 
     if (footnotesDirectiveHTMLNode !== null) {
+      const footnoteHTMLTransforms = removeFootnoteHTMLNodes(node);
+
       addFootnoteHTMLNodes(footnoteHTMLTransforms, node, context);
     }
 
-    this.paginate(pageNumberDirectiveHTMLTransform, divisionHTMLNodes, context);
-  }
-
-  paginate(pageNumberDirectiveHTMLTransform, divisionHTMLNodes, context) {
-    const node = this,  ///
-          outerNode = this.getOuterNode(),
-          pageNumbers = (pageNumberDirectiveHTMLTransform !== null),
+    const outerNode = this.getOuterNode(),
           identifierMap = {},
           divisionClassName = outerNode.className(context);
 
@@ -86,7 +77,7 @@ export default class DivisionHTMLNode extends HTMLNode {
 
       divisionHTMLNode.resolveFootnotes(identifierMap, context);
 
-      if (pageNumbers) {
+      if (pageNumberDirectiveHTMLNode !== null) {
         const pageNumberHTMLTransform = PageNumberHTMLTransform.fromPageNumber(pageNumber);
 
         pageNumberHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
