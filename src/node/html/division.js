@@ -88,7 +88,7 @@ export default class DivisionHTMLNode extends HTMLNode {
       }
 
       if (pageNumberDirectiveHTMLNode !== null) {
-        divisionHTMLNode.resolvePageNumber(pageNumber, context);
+        divisionHTMLNode.resolvePageNumber(pageNumber);
       }
 
       divisionHTMLNodes.push(divisionHTMLNode);
@@ -104,11 +104,13 @@ export default class DivisionHTMLNode extends HTMLNode {
   }
 
   resolveFootnotes(context) {
-    let start;
+    let footnotesListHTMLNode = null;
 
     const node = this,  ///
           footnoteHTMLNodes = footnotesHTMLNodesFromNode(node),
           footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node);
+
+    let start;
 
     ({ start } = context);
 
@@ -143,10 +145,12 @@ export default class DivisionHTMLNode extends HTMLNode {
     const footnoteItemHTMLTransformsLength = footnoteItemHTMLTransforms.length;
 
     if (footnoteItemHTMLTransformsLength > 0) {
-      const divisionHTMLNode = node,  ///
+      const divisionHTMLNode = node,
             footnotesListHTMLTransform = FootnotesListHTMLTransform.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms);
 
       footnotesListHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
+
+      footnotesListHTMLNode = footnotesListHTMLTransform.getFootnotesListHTMLNode();
     }
 
     start = number; ///
@@ -154,20 +158,28 @@ export default class DivisionHTMLNode extends HTMLNode {
     Object.assign(context, {
       start
     });
+
+    return footnotesListHTMLNode;
   }
 
-  resolvePageNumber(pageNumber, context) {
+  resolvePageNumber(pageNumber, includeIndexAnchor = true) {
     const divisionHTMLNode = this,  ///
           pageNumberHTMLTransform = PageNumberHTMLTransform.fromPageNumber(pageNumber);
 
     pageNumberHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
 
-    this.fromFirstChildNode((firstChildNode) => {
-      const indexAnchorHTMLTransform = IndexAnchorHTMLTransform.fromPageNumber(pageNumber),
-            htmlNode = firstChildNode;  ///
+    if (includeIndexAnchor) {
+      this.fromFirstChildNode((firstChildNode) => {
+        const indexAnchorHTMLTransform = IndexAnchorHTMLTransform.fromPageNumber(pageNumber),
+              htmlNode = firstChildNode;  ///
 
-      indexAnchorHTMLTransform.appendToHTMLNode(htmlNode);
-    });
+        indexAnchorHTMLTransform.appendToHTMLNode(htmlNode);
+      });
+    }
+
+    const pageNumberHTMLNode = pageNumberHTMLTransform.getPageNumberHTMLNode();
+
+    return pageNumberHTMLNode
   }
 
   asString() {
