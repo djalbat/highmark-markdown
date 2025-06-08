@@ -13,7 +13,8 @@ const indexDirectiveHTMLNodeQuery = Query.fromExpressionString("//indexDirective
       divisionHTMLNodesQuery = Query.fromExpressionString("/html/division"),
       footnoteHTMLNodesQuery = Query.fromExpressionString("/division/footnote"),
       footnotesHTMLNodesQuery = Query.fromExpressionString("//footnote"),
-      footnoteLinkHTMLNodesQuery = Query.fromExpressionString("//footnoteLink");
+      footnoteLinkHTMLNodesQuery = Query.fromExpressionString("//footnoteLink"),
+      footnoteFootnoteLinkFootnotesDirectiveHTMLNodesQuery = Query.fromExpressionString("//footnote|footnoteLink|footnotesDirective");
 
 export function indexDirectiveHTMLNodeFromNode(node) {
   const indexDirectiveHTMLNode = nodeFromNodeAndQuery(node, indexDirectiveHTMLNodeQuery);
@@ -69,10 +70,16 @@ export function footnotesHTMLNodesFromNode(node, footnotesHTMLNodes = []) {
   return footnotesHTMLNodes;
 }
 
-export function footnoteLinkHTMLNodesFromNode(node, linkHTMLNodes = []) {
-  nodesFromNodeAndQuery(node, footnoteLinkHTMLNodesQuery, linkHTMLNodes);
+export function footnoteLinkHTMLNodesFromNode(node, footnoteLinkHTMLNodes = []) {
+  nodesFromNodeAndQuery(node, footnoteLinkHTMLNodesQuery, footnoteLinkHTMLNodes);
 
-  return linkHTMLNodes;
+  return footnoteLinkHTMLNodes;
+}
+
+export function footnoteFootnoteLinkFootnotesDirectiveHTMLNodesFromNode(node, footnoteFootnoteLinkFootnotesDirectiveHTMLNodes = []) {
+  nodesFromNodeAndQuery(node, footnoteFootnoteLinkFootnotesDirectiveHTMLNodesQuery, footnoteFootnoteLinkFootnotesDirectiveHTMLNodes);
+
+  return footnoteFootnoteLinkFootnotesDirectiveHTMLNodes;
 }
 
 export default {
@@ -85,5 +92,6 @@ export default {
   divisionHTMLNodesFromNode,
   footnoteHTMLNodesFromNode,
   footnotesHTMLNodesFromNode,
-  footnoteLinkHTMLNodesFromNode
+  footnoteLinkHTMLNodesFromNode,
+  footnoteFootnoteLinkFootnotesDirectiveHTMLNodesFromNode
 };
