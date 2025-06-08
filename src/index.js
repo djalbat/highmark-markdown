@@ -30,6 +30,7 @@ export { default as MarkdownStyleNode } from "./node/markdownStyle";
 export { default as PageNumberHTMLNode } from "./node/html/pageNumber";
 export { default as TopmostMarkdownNode } from "./node/markdown/topmost";
 export { default as BlockListingHTMLNode } from "./node/html/listing/block";
+export { default as FootnotesListHTMLNode } from "./node/html/list/footnotes";
 
 export { default as tokenTypes } from "./tokenTypes";
 export { default as defaultMarkdownStyle } from "./defaultMarkdownStyle";

@@ -45,6 +45,13 @@ export default class FootnotesListHTMLNode extends HTMLNode {
 
   static className = "footnotes";
 
+  static fromFootnotesListDOMElement(footnotesListDOMElement) {
+    const domElement = footnotesListDOMElement,  ///
+          footnotesListHTMLNode = HTMLNode.fromDOMElement(FootnotesListHTMLNode, domElement);
+
+    return footnotesListHTMLNode;
+  }
+
   static fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms) {
     const footnoteItemHTMLNodes = footnoteItemHTMLTransforms.map((footnoteItemHTMLTransform) => {
             const footnoteItemHTMLNode = footnoteItemHTMLTransform.getFootnoteItemHTMLNode();
