@@ -29,11 +29,11 @@ export default class DivisionHTMLNode extends HTMLNode {
     return this.divisionClassName;
   }
 
-  getDivisionDOMElement() {
+  getDivDOMElement() {
     const domElement = this.getDOMElement(),
-          divisionDOMElement = domElement;  ///
+          divDOMElement = domElement;  ///
 
-    return divisionDOMElement;
+    return divDOMElement;
   }
 
   className(context) {
