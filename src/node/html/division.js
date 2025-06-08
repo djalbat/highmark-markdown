@@ -29,6 +29,13 @@ export default class DivisionHTMLNode extends HTMLNode {
     return this.divisionClassName;
   }
 
+  getDivisionDOMElement() {
+    const domElement = this.getDOMElement(),
+          divisionDOMElement = domElement;  ///
+
+    return divisionDOMElement;
+  }
+
   className(context) {
     const className = this.divisionClassName; ///
 
