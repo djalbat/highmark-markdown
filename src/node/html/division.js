@@ -84,11 +84,19 @@ export default class DivisionHTMLNode extends HTMLNode {
       const divisionHTMLNode = DivisionHTMLNode.fromPaginatedHTMLNodesAndDivisionClassName(paginatedHTMLNodes, divisionClassName);
 
       if (footnotesDirectiveHTMLNode !== null) {
-        divisionHTMLNode.resolveFootnotes(context);
+        const footnotesListHTMLTransform  = divisionHTMLNode.resolveFootnotes(context);
+
+        if (footnotesListHTMLTransform !== null) {
+          footnotesListHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
+        }
       }
 
       if (pageNumberDirectiveHTMLNode !== null) {
-        divisionHTMLNode.resolvePageNumber(pageNumber);
+        const pageNumberHTMLTransform = divisionHTMLNode.resolvePageNumber(pageNumber);
+
+        pageNumberHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
+
+        divisionHTMLNode.resolveIndexAnchor(pageNumber);
       }
 
       divisionHTMLNodes.push(divisionHTMLNode);
@@ -104,8 +112,6 @@ export default class DivisionHTMLNode extends HTMLNode {
   }
 
   resolveFootnotes(context) {
-    let footnotesListHTMLTransform = null;
-
     const node = this,  ///
           footnoteHTMLNodes = footnotesHTMLNodesFromNode(node),
           footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node);
@@ -129,12 +135,12 @@ export default class DivisionHTMLNode extends HTMLNode {
             }) || null;
 
       if (footnoteHTMLNode !== null) {
-        footnoteLinkHTMLNode.setNumber(number);
-
         const paragraphHTMLNode = footnoteHTMLNode.getParagraphHTMLNode(),
               footnoteItemHTMLTransform = FootnoteItemHTMLTransform.fromParagraphHTMLNOdeAndIdentifier(paragraphHTMLNode, identifier)
 
         footnoteItemHTMLTransforms.push(footnoteItemHTMLTransform);
+
+        footnoteLinkHTMLNode.setNumber(number);
 
         number++;
       } else {
@@ -142,15 +148,7 @@ export default class DivisionHTMLNode extends HTMLNode {
       }
     });
 
-    const footnoteItemHTMLTransformsLength = footnoteItemHTMLTransforms.length;
-
-    if (footnoteItemHTMLTransformsLength > 0) {
-      const divisionHTMLNode = node;  ///
-
-      footnotesListHTMLTransform = FootnotesListHTMLTransform.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms);
-
-      footnotesListHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
-    }
+    const footnotesListHTMLTransform = FootnotesListHTMLTransform.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms);
 
     start = number; ///
 
@@ -161,22 +159,19 @@ export default class DivisionHTMLNode extends HTMLNode {
     return footnotesListHTMLTransform;
   }
 
-  resolvePageNumber(pageNumber, includeIndexAnchor = true) {
-    const pageNumberHTMLTransform = PageNumberHTMLTransform.fromPageNumber(pageNumber),
-          divisionHTMLNode = this;  ///
-
-    pageNumberHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
-
-    if (includeIndexAnchor) {
-      this.fromFirstChildNode((firstChildNode) => {
-        const indexAnchorHTMLTransform = IndexAnchorHTMLTransform.fromPageNumber(pageNumber),
-              htmlNode = firstChildNode;  ///
-
-        indexAnchorHTMLTransform.appendToHTMLNode(htmlNode);
-      });
-    }
+  resolvePageNumber(pageNumber) {
+    const pageNumberHTMLTransform = PageNumberHTMLTransform.fromPageNumber(pageNumber);
 
     return pageNumberHTMLTransform;
+  }
+
+  resolveIndexAnchor(pageNumber) {
+    this.fromFirstChildNode((firstChildNode) => {
+      const indexAnchorHTMLTransform = IndexAnchorHTMLTransform.fromPageNumber(pageNumber),
+            htmlNode = firstChildNode;  ///
+
+      indexAnchorHTMLTransform.appendToHTMLNode(htmlNode);
+    });
   }
 
   asString() {

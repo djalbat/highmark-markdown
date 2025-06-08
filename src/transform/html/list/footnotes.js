@@ -17,14 +17,17 @@ export default class FootnotesListHTMLTransform extends HTMLTransform {
     this.appendTo(parentHTMLNode);
   }
 
-  removeFromDivisionHTMLNode(divisionHTMLNode) {
-    this.remove();
-  }
-
   static fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms) {
-    const footnotesListHTMLNode = FootnotesListHTMLNode.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms),
-          htmlNode = footnotesListHTMLNode, ///
-          footnotesListHTMLTransform = HTMLTransform.fromHTMLNode(FootnotesListHTMLTransform, htmlNode);
+    let footnotesListHTMLTransform = null;
+
+    const footnoteItemHTMLTransformsLength = footnoteItemHTMLTransforms.length;
+
+    if (footnoteItemHTMLTransformsLength > 0) {
+      const footnotesListHTMLNode = FootnotesListHTMLNode.fromStartAndFootnoteItemHTMLTransforms(start, footnoteItemHTMLTransforms),
+            htmlNode = footnotesListHTMLNode; ///
+
+      footnotesListHTMLTransform = HTMLTransform.fromHTMLNode(FootnotesListHTMLTransform, htmlNode);
+    }
 
     return footnotesListHTMLTransform;
   }
