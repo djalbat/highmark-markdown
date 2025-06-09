@@ -19,9 +19,9 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
   }
 
   setNumber(number) {
-    this.number = number;
-
     this.removeNumber();
+
+    this.number = number;
 
     this.addNumber();
   }
@@ -116,6 +116,10 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
   }
 
   addNumber() {
+    if (this.number === null) {
+      return;
+    }
+
     let domElement;
 
     domElement = this.getDOMElement();
@@ -134,6 +138,10 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
   }
 
   removeNumber() {
+    if (this.number === null) {
+      return;
+    }
+
     let domElement;
 
     domElement = this.getDOMElement();
