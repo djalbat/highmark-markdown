@@ -11,7 +11,7 @@ const indexDirectiveHTMLNodeQuery = Query.fromExpressionString("//indexDirective
       htmlNodesQuery = Query.fromExpressionString("/division/*"),
       headingHTMLNodesQuery = Query.fromExpressionString("//primaryHeading|secondaryHeading|tertiaryHeading|tertiaryHeading"),
       divisionHTMLNodesQuery = Query.fromExpressionString("/html/division"),
-      footnoteHTMLNodesQuery = Query.fromExpressionString("/footnote"),
+      footnoteHTMLNodesQuery = Query.fromExpressionString("//footnote"),
       footnoteLinkHTMLNodesQuery = Query.fromExpressionString("//footnoteLink");
 
 export function indexDirectiveHTMLNodeFromNode(node) {
