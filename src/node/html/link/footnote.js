@@ -19,11 +19,11 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
   }
 
   setNumber(number) {
-    this.removeNumber();
+    this.unmountNumber();
 
     this.number = number;
 
-    this.addNumber();
+    this.mountNumber();
   }
 
   resetNumber() {
@@ -62,9 +62,7 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
       insertAfter(domElement, parentDOMElement, siblingDOMElement) :
         insertBeforehand(domElement, parentDOMElement);
 
-    if (this.number !== null) {
-      this.addNumber(this.number);
-    }
+    this.mountNumber();
 
     siblingDOMElement = domElement; ///
 
@@ -72,11 +70,9 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
   }
 
   unmount(parentDOMElement) {
-    if (this.number !== null) {
-      this.removeNumber();
-    }
-
     const domElement = this.getDOMElement();
+
+    this.unmountNumber();
 
     remove(domElement, parentDOMElement);
 
@@ -115,7 +111,7 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
     return childNodesHTML;
   }
 
-  addNumber() {
+  mountNumber() {
     if (this.number === null) {
       return;
     }
@@ -137,7 +133,7 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
     insertAfterwards(domElement, parentDOMElement);
   }
 
-  removeNumber() {
+  unmountNumber() {
     if (this.number === null) {
       return;
     }
