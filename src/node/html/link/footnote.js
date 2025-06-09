@@ -20,16 +20,16 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
 
   setNumber(number) {
     this.number = number;
+
+    this.removeNumber();
+
+    this.addNumber();
   }
 
   resetNumber() {
-    this.number = null;
-  }
+    const number = null;
 
-  content(context) {
-    const content = this.number;  ///
-
-    return content;
+    this.setNumber(number);
   }
 
   identifier(context) {
@@ -54,55 +54,33 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
   }
 
   mount(parentDOMElement, siblingDOMElement, context) {
+    const domElement = this.createDOMElement(context);
+
+    this.setDOMElement(domElement);
+
+    (siblingDOMElement !== null) ?
+      insertAfter(domElement, parentDOMElement, siblingDOMElement) :
+        insertBeforehand(domElement, parentDOMElement);
+
     if (this.number !== null) {
-      let domElement;
-
-      domElement = this.createDOMElement(context);
-
-      this.setDOMElement(domElement);
-
-      (siblingDOMElement !== null) ?
-        insertAfter(domElement, parentDOMElement, siblingDOMElement) :
-          insertBeforehand(domElement, parentDOMElement);
-
-      parentDOMElement = domElement; ///
-
-      const content = this.content(context),
-            textNode = document.createTextNode(content);
-
-      domElement = textNode;  ///
-
-      insertAfterwards(domElement, parentDOMElement);
-
-      domElement = this.getDOMElement();
-
-      siblingDOMElement = domElement; ///
+      this.addNumber(this.number);
     }
+
+    siblingDOMElement = domElement; ///
 
     return siblingDOMElement;
   }
 
   unmount(parentDOMElement) {
     if (this.number !== null) {
-      let domElement;
-
-      {
-        domElement = this.getDOMElement();
-
-        const parentDOMElement = domElement,  ///
-              firstChild = domElement.firstChild;
-
-        domElement = firstChild;  ///
-
-        remove(domElement, parentDOMElement);
-      }
-
-      domElement = this.getDOMElement();
-
-      remove(domElement, parentDOMElement);
-
-      this.resetDOMElement();
+      this.removeNumber();
     }
+
+    const domElement = this.getDOMElement();
+
+    remove(domElement, parentDOMElement);
+
+    this.resetDOMElement();
   }
 
   asHTML(indent, context) {
@@ -131,10 +109,45 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
   }
 
   childNodesAsHTML(indent, context) {
-    const content = this.content(context),
+    const content = this.number,  ///
           childNodesHTML = content; ///
 
     return childNodesHTML;
+  }
+
+  addNumber() {
+    let domElement;
+
+    domElement = this.getDOMElement();
+
+    if (domElement === null) {
+      return;
+    }
+
+    const parentDOMElement = domElement, ///
+          content = this.number,  ///
+          textNode = document.createTextNode(content);
+
+    domElement = textNode;  ///
+
+    insertAfterwards(domElement, parentDOMElement);
+  }
+
+  removeNumber() {
+    let domElement;
+
+    domElement = this.getDOMElement();
+
+    if (domElement === null) {
+      return;
+    }
+
+    const parentDOMElement = domElement,  ///
+          firstChild = domElement.firstChild;
+
+    domElement = firstChild;  ///
+
+    remove(domElement, parentDOMElement);
   }
 
   static tagName = "a";
