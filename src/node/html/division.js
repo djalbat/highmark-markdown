@@ -11,7 +11,7 @@ import FootnotesListHTMLTransform from "../../transform/html/list/footnotes";
 
 import { DIVISION_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
 import { groupHTMLNodes, removeHTMLNodes, paginateGroupedHTMLNodes } from "../../utilities/division";
-import { footnotesHTMLNodesFromNode,
+import { footnoteHTMLNodesFromNode,
          footnoteLinkHTMLNodesFromNode,
          footnotesDirectiveHTMLNodeFromNode,
          pageNumberDirectiveHTMLNodeFromNode } from "../../utilities/html";
@@ -120,7 +120,7 @@ export default class DivisionHTMLNode extends HTMLNode {
 
   resolveFootnotes(context) {
     const node = this,  ///
-          footnoteHTMLNodes = footnotesHTMLNodesFromNode(node),
+          footnoteHTMLNodes = footnoteHTMLNodesFromNode(node),
           footnoteLinkHTMLNodes = footnoteLinkHTMLNodesFromNode(node);
 
     let start;
