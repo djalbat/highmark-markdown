@@ -108,7 +108,7 @@ class HTMLNode extends Node {
 
   matchMarkdownNode(markdownNode) {
     const outerNode = markdownNode, ///
-          outerNodeMatches = (this.outerNode === outerNode),
+          outerNodeMatches = this.matchOuterNode(outerNode),
           markdownNodeMatches = outerNodeMatches; ///
 
     return markdownNodeMatches;
