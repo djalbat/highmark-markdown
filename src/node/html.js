@@ -121,7 +121,7 @@ class HTMLNode extends Node {
       const childHTMLNodes = this.getChildHTMLNodes();
 
       childHTMLNodes.some((childHTMLNode) => {
-        htmlNode = childHTMLNode.retrieveHTMLNode(callback)
+        htmlNode = childHTMLNode.retrieveHTMLNode(callback);
 
         if (htmlNode !== null) {
           return true;
@@ -142,8 +142,9 @@ class HTMLNode extends Node {
     return htmlNode;
   }
 
-  addChildHTMLNodes(addedChildHTMLNodes, startIndex) {
-    const addedChildNodes = addedChildHTMLNodes;  ///
+  addChildHTMLNodes(addedChildHTMLNodes, startHTNLIndex) {
+    const addedChildNodes = addedChildHTMLNodes,  ///
+          startIndex = startHTNLIndex;  ///
 
     this.addChildNodes(addedChildNodes, startIndex);
   }
