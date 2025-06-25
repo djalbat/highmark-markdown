@@ -33,7 +33,7 @@ const bnf = `
                                ;
 
     
-    verticalSpace            ::=  <END_OF_LINE>+ ;
+    verticalSpace            ::=  endOfLine+ ;
 
 
     error.                   ::=  . ;
@@ -199,7 +199,7 @@ const bnf = `
     inlineText               ::=  plainText+ ;
     
     
-    blockStart               ::=  [backticks] className? <END_OF_LINE> ;
+    blockStart               ::=  [backticks] className? endOfLine ;
 
 
     blockEnd                 ::=  [backticks] ;
