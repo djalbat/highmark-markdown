@@ -56,16 +56,16 @@ const bnf = `
                                ; 
   
 
-    primaryHeading           ::=  "#" line ;
+    primaryHeading.          ::=  "#" line ;
 
 
-    secondaryHeading         ::=  "##" line ;
+    secondaryHeading.        ::=  "##" line ;
 
 
-    tertiaryHeading          ::=  "###" line ;
+    tertiaryHeading.         ::=  "###" line ;
     
     
-    quaternaryHeading        ::=  "####" line ;
+    quaternaryHeading.       ::=  "####" line ;
 
 
     table                    ::=  tableHead endOfLine tableDivider endOfLine tableBody ;
@@ -107,7 +107,7 @@ const bnf = `
     pageNumberDirective      ::=  "@pageNumber" ;
 
 
-    nonsense                 ::=  ( [escaped] | [number] | [identifier] | [word] | [special] | [unassigned] )+ ;
+    nonsense.                ::=  ( [escaped] | [number] | [identifier] | [word] | [special] | [unassigned] )+ ;
 
 
     tableHead                ::=  tableHeadRow ;
@@ -254,13 +254,13 @@ const bnf = `
                                ;
     
 
-    tableCellDivider         ::=  [vertical-bar] ;
+    tableCellDivider.        ::=  [vertical-bar] ;
     
     
-    tableDivider             ::=  [dashes] ;
+    tableDivider.            ::=  [dashes] ;
     
     
-    inlineListing            ::=  [backticked-literal] ;
+    inlineListing.           ::=  [backticked-literal] ;
     
 
     footnoteLink             ::=  [link] ;
