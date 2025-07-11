@@ -73,6 +73,8 @@ class HTMLNode extends Node {
     return ancestorHTMLNodes;
   }
 
+  reduceChildHTMLNode(callback, initialValue) { return this.reduceChildNode(callback, initialValue); }
+
   someAncestorHTMLNode(callback) { return this.someAncestorNode(callback); }
 
   removeChildHTMLNodes(removedChildHTMLNodes = null) {
