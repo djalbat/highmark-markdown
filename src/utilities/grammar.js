@@ -6,23 +6,21 @@ import CSSNode from "../node/css";
 import HTMLNode from "../node/html";
 import cssNodeMap from "../map/node/css";
 import htmlNodeMap from "../map/node/html";
-import MarkdownLexer from "../markdown/lexer";
-import MarkdownParser from "../markdown/parser";
 import TopmostCSSNode from "../node/css/topmost";
 import markdownQueries from "../queries/markdown";
 import TopmostHTMLNode from "../node/html/topmost";
-import MarkdownStyleLexer from "../markdownStyle/lexer";
-import MarkdownStyleParser from "../markdownStyle/parser";
 import markdownStyleQueries from "../queries/markdownStyle";
 
 import { nodesFromNodeAndQueries } from "../utilities/query";
+import { markdownLexerFromNothing, markdownStyleLexerFromNothing } from "../utilities/lexers";
+import { markdownParserFromNothing, markdownStyleParserFromNothing } from "../utilities/parsers";
 
 const { topmostNodeFromOuterNodes } = nodeUtilities;
 
-const markdownLexer = MarkdownLexer.fromNothing(),
-      markdownParser = MarkdownParser.fromNothing(),
-      markdownStyleLexer = MarkdownStyleLexer.fromNothing(),
-      markdownStyleParser = MarkdownStyleParser.fromNothing();
+const markdownLexer = markdownLexerFromNothing(),
+      markdownParser = markdownParserFromNothing(),
+      markdownStyleLexer = markdownStyleLexerFromNothing(),
+      markdownStyleParser = markdownStyleParserFromNothing();
 
 export function tokensFromMarkdown(markdown) {
   const lexer = markdownLexer, ///

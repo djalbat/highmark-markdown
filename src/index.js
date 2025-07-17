@@ -1,14 +1,11 @@
 "use strict";
 
-export { default as MarkdownLexer } from "./markdown/lexer";
-export { default as MarkdownParser } from "./markdown/parser";
-export { default as MarkdownStyleLexer } from "./markdownStyle/lexer";
-export { default as MarkdownStyleParser } from "./markdownStyle/parser";
-
 export { default as domUtilities } from "./utilities/dom";
 export { default as cssUtilities } from "./utilities/css";
 export { default as htmlUtilities } from "./utilities/html";
 export { default as queryUtilities } from "./utilities/query";
+export { default as lexersUtilities } from "./utilities/lexers";
+export { default as parsersUtilities } from "./utilities/parsers";
 export { default as grammarUtilities } from "./utilities/grammar";
 export { default as markdownUtilities } from "./utilities/markdown";
 export { default as markdownStyleUtilities } from "./utilities/markdownStyle";
