@@ -57,7 +57,7 @@ function fromThirdChildNode(callback) {
 function fromFourthChildNode(callback) {
   let result;
 
-  const fourthIndex = 4;
+  const fourthIndex = 3;
 
   this.forwardsSomeChildNode((childNode, index) => {
     if (index === fourthIndex) {
@@ -75,7 +75,7 @@ function fromFourthChildNode(callback) {
 function fromFifthChildNode(callback) {
   let result;
 
-  const fifthIndex = 2;
+  const fifthIndex = 4;
 
   this.forwardsSomeChildNode((childNode, index) => {
     if (index === fifthIndex) {
@@ -132,7 +132,7 @@ function fromThirdLastChildNode(callback) {
   let result;
 
   const multiplicity = this.getMultiplicity(),
-        thirdLastIndex = multiplicity - 2;
+        thirdLastIndex = multiplicity - 3;
 
   this.backwardsSomeChildNode((childNode, index) => {
     if (index === thirdLastIndex) {
@@ -151,7 +151,7 @@ function fromFourthLastChildNode(callback) {
   let result;
 
   const multiplicity = this.getMultiplicity(),
-        fourthLastIndex = multiplicity - 2;
+        fourthLastIndex = multiplicity - 4;
 
   this.backwardsSomeChildNode((childNode, index) => {
     if (index === fourthLastIndex) {
@@ -170,7 +170,7 @@ function fromFifthLastChildNode(callback) {
   let result;
 
   const multiplicity = this.getMultiplicity(),
-        fifthLastIndex = multiplicity - 2;
+        fifthLastIndex = multiplicity - 5;
 
   this.backwardsSomeChildNode((childNode, index) => {
     if (index === fifthLastIndex) {
