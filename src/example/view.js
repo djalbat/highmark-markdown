@@ -20,7 +20,7 @@ import HTMLParseTreeTextarea from "./view/textarea/parseTree/html";
 import PlainTextContainerDiv from "./view/div/container/plainText";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
-import { importer, initialMarkdown } from "./importer";
+import { importer } from "./importer";
 const { tokensFromMarkdown,
         markdownNodeFromTokens,
         tokensFromMarkdownStyle,

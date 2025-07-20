@@ -40,7 +40,7 @@ import { NAME_MARKDOWN_STYLE_RULE_NAME,
          SELECTORS_LIST_MARKDOWN_STYLE_RULE_NAME,
          MARKDOWN_STYLE_MARKDOWN_STYLE_RULE_NAME } from "../../ruleNames/markdownStyle";
 
-const markdownStyleNodeMap = {
+const markdownStyleNonTerminalNodeMap = {
   [NAME_MARKDOWN_STYLE_RULE_NAME]: NameMarkdownStyleNode,
   [VALUE_MARKDOWN_STYLE_RULE_NAME]: ValueMarkdownStyleNode,
   [ERROR_MARKDOWN_STYLE_RULE_NAME]: ErrorMarkdownStyleNode,
@@ -62,4 +62,4 @@ const markdownStyleNodeMap = {
   [MARKDOWN_STYLE_MARKDOWN_STYLE_RULE_NAME]: TopmostMarkdownStyleNode ///
 };
 
-export default markdownStyleNodeMap;
+export default markdownStyleNonTerminalNodeMap;

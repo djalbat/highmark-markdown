@@ -1,14 +1,11 @@
 "use strict";
 
-import { lexersUtilities, parsersUtilities } from "../index";
+import { MarkdownLexer, MarkdownParser } from "../index"; ///
 
 import { EMPTY_STRING } from "./constants";
 
-const { markdownLexerFromNothing } = lexersUtilities,
-      { markdownParserFromNothing } = parsersUtilities;
-
-const markdownLexer = markdownLexerFromNothing(),
-      markdownParser = markdownParserFromNothing();
+const markdownLexer = MarkdownLexer.fromNothing(),
+      markdownParser = MarkdownParser.fromNothing();
 
 export function importer(filePath, context) {
   const content = contentMap[filePath] || null;

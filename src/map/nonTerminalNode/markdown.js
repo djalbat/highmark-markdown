@@ -44,7 +44,7 @@ import { PATH_MARKDOWN_RULE_NAME,
          EMBED_DIRECTIVE_MARKDOWN_RULE_NAME,
          INCLUDE_DIRECTIVE_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
 
-const markdownNodeMap = {
+const markdownNonTerminalNodeMap = {
   [PATH_MARKDOWN_RULE_NAME]: PathMarkdownNode,
   [IMAGE_MARKDOWN_RULE_NAME]: ImageMarkdownNode,
   [ERROR_MARKDOWN_RULE_NAME]: ErrorMarkdownNode,
@@ -68,4 +68,4 @@ const markdownNodeMap = {
   [INCLUDE_DIRECTIVE_MARKDOWN_RULE_NAME]: IncludeDirectiveMarkdownNode
 };
 
-export default markdownNodeMap;
+export default markdownNonTerminalNodeMap;
