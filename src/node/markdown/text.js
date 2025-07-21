@@ -47,8 +47,10 @@ export default class TextMarkdownNode extends MarkdownNode {
     return text;
   }
 
-  static fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity) {
-    if (opacity === undefined) {
+  static fromRuleNameChildNodesOpacityAndPrecedence(Class, ruleName, childNodes, opacity, precedence) {
+    if (precedence === undefined) {
+      precedence = opacity; ///
+
       opacity = childNodes; ///
 
       childNodes = ruleName;  ///
@@ -58,7 +60,7 @@ export default class TextMarkdownNode extends MarkdownNode {
       Class = TextMarkdownNode; ///
     }
 
-    const textMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(Class, ruleName, childNodes, opacity);
+    const textMarkdownNode = MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(Class, ruleName, childNodes, opacity, precedence);
 
     return textMarkdownNode;
   }

@@ -104,9 +104,9 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
   clone() { return super.clone(this.divisionClassName); }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) {
+  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) {
     const divisionClassName = null,
-          divisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(DivisionMarkdownNode, ruleName, childNodes, opacity, divisionClassName);
+          divisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(DivisionMarkdownNode, ruleName, childNodes, opacity, precedence, divisionClassName);
 
     return divisionMarkdownNode;
   }

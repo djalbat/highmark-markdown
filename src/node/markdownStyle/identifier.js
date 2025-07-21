@@ -18,5 +18,5 @@ export default class IdentifierMarkdownStyleNode extends MarkdownStyleNode {
     return content;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownStyleNode.fromRuleNameChildNodesAndOpacity(IdentifierMarkdownStyleNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownStyleNode.fromRuleNameChildNodesOpacityAndPrecedence(IdentifierMarkdownStyleNode, ruleName, childNodes, opacity, precedence); }
 }

@@ -3,5 +3,5 @@
 import MarkdownStyleNode from "../../node/markdownStyle";
 
 export default class NonsenseMarkdownStyleNode extends MarkdownStyleNode {
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownStyleNode.fromRuleNameChildNodesAndOpacity(NonsenseMarkdownStyleNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownStyleNode.fromRuleNameChildNodesOpacityAndPrecedence(NonsenseMarkdownStyleNode, ruleName, childNodes, opacity, precedence); }
 }

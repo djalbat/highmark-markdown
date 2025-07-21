@@ -49,7 +49,7 @@ export default class HyperlinkMarkdownNode extends MarkdownNode {
     return simple;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(HyperlinkMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(HyperlinkMarkdownNode, ruleName, childNodes, opacity, precedence); }
 }
 
 function urlFromTerminalNode(terminalNode) {

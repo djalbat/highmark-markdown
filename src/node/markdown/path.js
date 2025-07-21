@@ -15,5 +15,5 @@ export default class PathMarkdownNode extends MarkdownNode {
     return path;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(PathMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(PathMarkdownNode, ruleName, childNodes, opacity, precedence); }
 }

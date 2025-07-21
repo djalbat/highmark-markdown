@@ -61,10 +61,11 @@ export default class TopmostMarkdownNode extends MarkdownNode {
     const ruleName = null,
           childNodes = childMarkdownNodes,  ///
           opacity = null,
-          topmostMarkdownNode = MarkdownNode.fromRuleNameChildNodesAndOpacity(TopmostMarkdownNode, ruleName, childNodes, opacity);
+          precedence = null,
+          topmostMarkdownNode = MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(TopmostMarkdownNode, ruleName, childNodes, opacity, precedence);
 
     return topmostMarkdownNode;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(TopmostMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(TopmostMarkdownNode, ruleName, childNodes, opacity, precedence); }
 }

@@ -15,5 +15,5 @@ export default class ErrorMarkdownNode extends MarkdownNode {
     return error;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ErrorMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(ErrorMarkdownNode, ruleName, childNodes, opacity, precedence); }
 }

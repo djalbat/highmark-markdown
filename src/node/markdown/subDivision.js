@@ -54,5 +54,5 @@ export default class SubDivisionMarkdownNode extends MarkdownNode {
     return footnotesListDivisionTransform;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(SubDivisionMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(SubDivisionMarkdownNode, ruleName, childNodes, opacity, precedence); }
 }

@@ -18,5 +18,5 @@ export default class ImageMarkdownNode extends MarkdownNode {
     return src;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ImageMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(ImageMarkdownNode, ruleName, childNodes, opacity, precedence); }
 }

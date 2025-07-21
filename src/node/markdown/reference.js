@@ -18,7 +18,7 @@ export default class ReferenceMarkdownNode extends MarkdownNode {
     return identifier;
   }
 
-  static fromRuleNameChildNodesAndOpacity(ruleName, childNodes, opacity) { return MarkdownNode.fromRuleNameChildNodesAndOpacity(ReferenceMarkdownNode, ruleName, childNodes, opacity); }
+  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(ReferenceMarkdownNode, ruleName, childNodes, opacity, precedence); }
 }
 
 function identifierFromReferenceTerminalNode(referenceTerminalNode) {
