@@ -14,6 +14,8 @@ export { default as MarkdownStyleLexer } from "./markdownStyle/lexer";
 export { default as MarkdownStyleParser } from "./markdownStyle/parser";
 
 export { default as tagNameMap } from "./map/tagName";
+export { default as cssNodeMap } from "./map/node/css";
+export { default as htmlNodeMap } from "./map/node/html";
 export { default as classNameMap } from "./map/className";
 export { default as markdownRuleNames } from "./ruleNames/markdown";
 export { default as markdownStyleRuleNames } from "./ruleNames/markdownStyle";
