@@ -4,7 +4,6 @@ const defaultMarkdownStyle = `
 colour: black;
 display: flex;
 padding: 24pt;
-row-gap: 18pt;
 position: relative;
 min-height: 100%;
 font-family: "Computer Modern Serif";
