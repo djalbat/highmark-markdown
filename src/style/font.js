@@ -1,6 +1,6 @@
 "use strict";
 
-const stixStyle = `
+const fontStyle = `
 
   @font-face {
     src: url("font/STIXTwoMath-Regular.woff2");
@@ -53,4 +53,4 @@ const stixStyle = `
     
 `;
 
-export default stixStyle;
+export default fontStyle;
