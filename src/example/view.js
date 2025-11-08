@@ -439,9 +439,15 @@ class View extends Element {
   
   `;
 
-  static initialMarkdownStyle = `\`\`\`web
-margin: left;
-\`\`\`
+  static initialMarkdownStyle = `
+
+primaryHeading {
+
+  \`\`\`odf
+  margin: left;
+  \`\`\`
+}  
+  
 
 `;
 

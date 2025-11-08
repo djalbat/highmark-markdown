@@ -5,13 +5,13 @@ const bnf = `
     markdownStyle  ::=  ( ruleSet | declaration | verbatim | error )+ ;
 
     
-    ruleSet..      ::=  selectorsList "{" ( ruleSet | declaration | nonsense )* "}" ;
+    ruleSet..      ::=  selectorsList "{" ( ruleSet | declaration | verbatim | nonsense )* "}" ;
     
     
     declaration    ::=  name ":" values ";" ;
     
     
-    verbatim.      ::=  [backticks] [target] content [backticks] ;
+    verbatim.      ::=  [backticks] target content... [backticks] ;
 
 
     selectorsList  ::=  selectors ( "," selectors )* ;
@@ -71,6 +71,9 @@ const bnf = `
 
 
     colour         ::=  [colour] ;
+
+
+    target         ::=  [target] ;
 
 
     content        ::=  stuff+ ;

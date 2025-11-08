@@ -6,15 +6,26 @@ import { WEB_TARGET } from "../../targets";
 import { EMPTY_STRING } from "../../constants";
 
 export default class VerbatimCSSNode extends CSSNode {
-  getTarget() {
+  target(content) {
     const target = this.fromFirstChildNode((firstChildNode) => {
       const targetCSSNode = firstChildNode, ///
-            target = targetCSSNode.getTarget();
+            target = targetCSSNode.target(content);
 
       return target;
     });
 
     return target;
+  }
+
+  content(context) {
+    const content = this.fromSecondChildNode((secondChildNode) => {
+      const contentCSSNode = secondChildNode, ///
+            content = contentCSSNode.content(context);
+
+      return content;
+    });
+
+    return content;
   }
 
   asCSS(context) {
@@ -25,7 +36,13 @@ export default class VerbatimCSSNode extends CSSNode {
     ({ target } = context);
 
     if (target === WEB_TARGET) {
-      css = super.asCSS(context);
+      target = this.target(context);
+
+      if (target === WEB_TARGET) {
+        const content = this.content(context);
+
+        css = content;  ///
+      }
     }
 
     return css;

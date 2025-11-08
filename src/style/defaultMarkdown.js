@@ -1,15 +1,19 @@
 "use strict";
 
 const defaultMarkdownStyle = `
-colour: black;
+
+\`\`\`otf
 display: flex;
-padding: 24pt;
 position: relative;
 min-height: 100%;
-font-family: "STIXTwoText";
-padding-bottom: 64pt;
 flex-direction: column;
 justify-content: flex-start;
+\`\`\`
+
+colour: black;
+padding: 24pt;
+font-family: "STIXTwoText";
+padding-bottom: 64pt;
 background-colour: white;
 
 primaryHeading {

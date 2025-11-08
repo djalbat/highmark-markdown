@@ -3,7 +3,7 @@
 import CSSNode from "../../node/css";
 
 export default class ContentCSSNode extends CSSNode {
-  asCSS(context) {
+  content(context) {
     const markdownStyleNode = this.getMarkdownStyleNode(),
           contentMarkdownStyleNode = markdownStyleNode,  ///
           content = contentMarkdownStyleNode.content(context);

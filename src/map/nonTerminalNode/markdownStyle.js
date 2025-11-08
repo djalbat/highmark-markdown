@@ -7,6 +7,7 @@ import AmountMarkdownStyleNode from "../../node/markdownStyle/amount";
 import StringMarkdownStyleNode from "../../node/markdownStyle/string";
 import ColourMarkdownStyleNode from "../../node/markdownStyle/colour";
 import ValuesMarkdownStyleNode from "../../node/markdownStyle/values";
+import TargetMarkdownStyleNode from "../../node/markdownStyle/target";
 import ContentMarkdownStyleNode from "../../node/markdownStyle/content";
 import TopmostMarkdownStyleNode from "../../node/markdownStyle/topmost";
 import RuleSetMarkdownStyleNode from "../../node/markdownStyle/ruleSet";
@@ -29,6 +30,7 @@ import { NAME_MARKDOWN_STYLE_RULE_NAME,
          STRING_MARKDOWN_STYLE_RULE_NAME,
          COLOUR_MARKDOWN_STYLE_RULE_NAME,
          VALUES_MARKDOWN_STYLE_RULE_NAME,
+         TARGET_MARKDOWN_STYLE_RULE_NAME,
          CONTENT_MARKDOWN_STYLE_RULE_NAME,
          RULE_SET_MARKDOWN_STYLE_RULE_NAME,
          NONSENSE_MARKDOWN_STYLE_RULE_NAME,
@@ -52,6 +54,7 @@ const markdownStyleNonTerminalNodeMap = {
   [STRING_MARKDOWN_STYLE_RULE_NAME]: StringMarkdownStyleNode,
   [COLOUR_MARKDOWN_STYLE_RULE_NAME]: ColourMarkdownStyleNode,
   [VALUES_MARKDOWN_STYLE_RULE_NAME]: ValuesMarkdownStyleNode,
+  [TARGET_MARKDOWN_STYLE_RULE_NAME]: TargetMarkdownStyleNode,
   [CONTENT_MARKDOWN_STYLE_RULE_NAME]: ContentMarkdownStyleNode,
   [RULE_SET_MARKDOWN_STYLE_RULE_NAME]: RuleSetMarkdownStyleNode,
   [NONSENSE_MARKDOWN_STYLE_RULE_NAME]: NonsenseMarkdownStyleNode,
