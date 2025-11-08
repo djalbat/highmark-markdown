@@ -2,7 +2,7 @@
 
 const defaultMarkdownStyle = `
 
-\`\`\`otf
+\`\`\`web
 display: flex;
 position: relative;
 min-height: 100%;
@@ -207,6 +207,9 @@ indexLink {
 }
 
 pageNumber {
+
+\`\`\`web
+
   left: 0;
   width: 100%;
   bottom: 0;
@@ -215,6 +218,9 @@ pageNumber {
   font-size: 13pt;
   text-align: center;
   padding-bottom: 24pt;
+  
+\`\`\`
+  
 }
 
 error {
