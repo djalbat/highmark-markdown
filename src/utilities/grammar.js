@@ -16,6 +16,7 @@ import MarkdownStyleParser from "../markdownStyle/parser";
 import markdownStyleQueries from "../queries/markdownStyle";
 
 import { WEB_TARGET } from "../targets";
+import { EMPTY_STRING } from "../constants";
 import { nodesFromNodeAndQueries } from "../utilities/query";
 
 const { topmostNodeFromOuterNodes } = nodeUtilities;
@@ -112,20 +113,23 @@ export function topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode, ClassFrom
 }
 
 export function cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSelectorsString) {
-  let css;
+  let css = EMPTY_STRING;
 
   const target = WEB_TARGET,
         tokens = tokensFromMarkdownStyle(markdownStyle),
-        markdownStyleNode = markdownStyleNodeFromTokens(tokens),
-        topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode),
-        context = {
-          target,
-          tokens
-        };
+        markdownStyleNode = markdownStyleNodeFromTokens(tokens);
 
-  topmostCSSNode.resolve(context);
+  if (markdownStyleNode !== null) {
+    const topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode),
+          context = {
+            target,
+            tokens
+          };
 
-  css = topmostCSSNode.asCSS(context);
+    topmostCSSNode.resolve(context);
+
+    css = topmostCSSNode.asCSS(context);
+  }
 
   css = `${cssSelectorsString} {
   ${css}
