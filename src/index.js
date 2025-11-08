@@ -20,6 +20,9 @@ export { default as classNameMap } from "./map/className";
 export { default as markdownRuleNames } from "./ruleNames/markdown";
 export { default as markdownStyleRuleNames } from "./ruleNames/markdownStyle";
 
+export { default as targets } from "./targets";
+export { default as tokenTypes } from "./tokenTypes";
+
 export { default as CSSNode } from "./node/css";
 export { default as HTMLNode } from "./node/html";
 export { default as MarkdownNode } from "./node/markdown";
@@ -30,7 +33,7 @@ export { default as TopmostMarkdownNode } from "./node/markdown/topmost";
 export { default as BlockListingHTMLNode } from "./node/html/listing/block";
 export { default as FootnotesListHTMLNode } from "./node/html/list/footnotes";
 
-export { default as tokenTypes } from "./tokenTypes";
-export { default as defaultMarkdownStyle } from "./defaultMarkdownStyle";
+export { default as fontStyle } from "./style/font";
+export { default as defaultMarkdownStyle } from "./style/defaultMarkdown";
 export { default as MarkdownStyleElement } from "./styleElement/markdown";
 export { default as DefaultMarkdownStyleElement } from "./styleElement/markdown/default";

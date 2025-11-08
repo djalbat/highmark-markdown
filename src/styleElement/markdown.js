@@ -4,21 +4,21 @@ import StyleElement from "../styleElement";
 
 import { EMPTY_STRING } from "../constants";
 import { createDOMElement } from "../styleElement";
-import { cssFromMarkdownStyleAndSelectorsString } from "../utilities/grammar";
+import { cssFromMarkdownStyleAndCSSSelectorsString } from "../utilities/grammar";
 
 export default class MarkdownStyleElement extends StyleElement {
-  constructor(domElement, selectorsString) {
+  constructor(domElement, ccsSelectorsString) {
     super(domElement);
 
-    this.selectorsString = selectorsString;
+    this.ccsSelectorsString = ccsSelectorsString;
   }
 
-  getSelectorsString() {
-    return this.selectorsString;
+  getCSSSelectorsString() {
+    return this.ccsSelectorsString;
   }
 
   update(markdownStyle) {
-    const css = cssFromMarkdownStyleAndSelectorsString(markdownStyle, this.selectorsString);
+    const css = cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, this.ccsSelectorsString);
 
     this.setCSS(css);
 
@@ -37,15 +37,15 @@ export default class MarkdownStyleElement extends StyleElement {
     this.destroy();
   }
 
-  static fromSelectorsString(Class, selectorsString) {
-    if (selectorsString === undefined) {
-      selectorsString = Class; ///
+  static fromCSSSelectorsString(Class, ccsSelectorsString) {
+    if (ccsSelectorsString === undefined) {
+      ccsSelectorsString = Class; ///
 
       Class = MarkdownStyleElement; ///
     }
 
     const domElement = createDOMElement(),
-          markdownStyleElement = new Class(domElement, selectorsString);
+          markdownStyleElement = new Class(domElement, ccsSelectorsString);
 
     return markdownStyleElement;
   }

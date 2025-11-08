@@ -2,24 +2,18 @@
 
 const bnf = `
 
-    markdownStyle  ::=  ( ruleSet | declaration | nonsense | error )+ ;
+    markdownStyle  ::=  ( ruleSet | declaration | verbatim | error )+ ;
 
     
     ruleSet..      ::=  selectorsList "{" ( ruleSet | declaration | nonsense )* "}" ;
     
     
     declaration    ::=  name ":" values ";" ;
-
     
-    nonsense.      ::=  [string-literal] | [escaped] | [rule-name] | [number] | [colour] | [unit] | [name] | [special] | [unassigned] ;
-
-
-    error.         ::=  . ;
-
-
-    values         ::=  value+ ;
-
     
+    verbatim.      ::=  [backticks] [target] content [backticks] ;
+
+
     selectorsList  ::=  selectors ( "," selectors )* ;
 
 
@@ -43,6 +37,9 @@ const bnf = `
     
     pseudoClass.   ::=  <NO_WHITESPACE>":"<NO_WHITESPACE>identifier ;
     
+    
+    values         ::=  value+ ;
+
     
     name.          ::=  identifier ;
 
@@ -75,6 +72,17 @@ const bnf = `
 
     colour         ::=  [colour] ;
 
+
+    content        ::=  stuff+ ;
+
+
+    stuff.         ::=  [string-literal] | [escaped] | [rule-name] | [number] | [colour] | [unit] | [name] | [special] | [unassigned] | [bracket] ;
+
+
+    nonsense.      ::=  [string-literal] | [escaped] | [rule-name] | [number] | [colour] | [unit] | [name] | [special] | [unassigned] | [target] ;
+
+    
+    error.         ::=  . ;
 
 `;
 

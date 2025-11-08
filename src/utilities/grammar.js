@@ -15,6 +15,7 @@ import MarkdownStyleLexer from "../markdownStyle/lexer";
 import MarkdownStyleParser from "../markdownStyle/parser";
 import markdownStyleQueries from "../queries/markdownStyle";
 
+import { WEB_TARGET } from "../targets";
 import { nodesFromNodeAndQueries } from "../utilities/query";
 
 const { topmostNodeFromOuterNodes } = nodeUtilities;
@@ -38,7 +39,7 @@ export function markdownNodeFromTokens(tokens) {
         node = parser.parse(tokens, startRule),
         markdownNode = node;  ///
 
-  return node;
+  return markdownNode;
 }
 
 export function tokensFromMarkdownStyle(markdownStyle) {
@@ -110,21 +111,25 @@ export function topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode, ClassFrom
   return topmostCSSNode;
 }
 
-export function cssFromMarkdownStyleAndSelectorsString(markdownStyle, selectorsString) {
-  markdownStyle = `${selectorsString} {
-  ${markdownStyle}
-}`;
+export function cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSelectorsString) {
+  let css;
 
-  const tokens = tokensFromMarkdownStyle(markdownStyle),
+  const target = WEB_TARGET,
+        tokens = tokensFromMarkdownStyle(markdownStyle),
         markdownStyleNode = markdownStyleNodeFromTokens(tokens),
         topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode),
         context = {
+          target,
           tokens
         };
 
   topmostCSSNode.resolve(context);
 
-  const css = topmostCSSNode.asCSS(context);
+  css = topmostCSSNode.asCSS(context);
+
+  css = `${cssSelectorsString} {
+  ${css}
+}`;
 
   return css;
 }
@@ -138,5 +143,5 @@ export default {
   CSSClassFromMarkdownStyleNode,
   topmostHTMLNodeFromMarkdownNode,
   topmostCSSNodeFromMarkdownStyleNode,
-  cssFromMarkdownStyleAndSelectorsString
+  cssFromMarkdownStyleAndCSSSelectorsString
 };

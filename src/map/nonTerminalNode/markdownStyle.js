@@ -7,12 +7,14 @@ import AmountMarkdownStyleNode from "../../node/markdownStyle/amount";
 import StringMarkdownStyleNode from "../../node/markdownStyle/string";
 import ColourMarkdownStyleNode from "../../node/markdownStyle/colour";
 import ValuesMarkdownStyleNode from "../../node/markdownStyle/values";
+import ContentMarkdownStyleNode from "../../node/markdownStyle/content";
 import TopmostMarkdownStyleNode from "../../node/markdownStyle/topmost";
 import RuleSetMarkdownStyleNode from "../../node/markdownStyle/ruleSet";
 import RuleNameMarkdownStyleNode from "../../node/markdownStyle/ruleName";
 import NonsenseMarkdownStyleNode from "../../node/markdownStyle/nonsense";
 import ArgumentMarkdownStyleNode from "../../node/markdownStyle/argument";
 import SelectorMarkdownStyleNode from "../../node/markdownStyle/selector";
+import VerbatimMarkdownStyleNode from "../../node/markdownStyle/verbatim";
 import SelectorsMarkdownStyleNode from "../../node/markdownStyle/selectors";
 import ArgumentsMarkdownStyleNode from "../../node/markdownStyle/arguments";
 import IdentifierMarkdownStyleNode from "../../node/markdownStyle/identifier";
@@ -27,10 +29,12 @@ import { NAME_MARKDOWN_STYLE_RULE_NAME,
          STRING_MARKDOWN_STYLE_RULE_NAME,
          COLOUR_MARKDOWN_STYLE_RULE_NAME,
          VALUES_MARKDOWN_STYLE_RULE_NAME,
+         CONTENT_MARKDOWN_STYLE_RULE_NAME,
+         RULE_SET_MARKDOWN_STYLE_RULE_NAME,
          NONSENSE_MARKDOWN_STYLE_RULE_NAME,
          ARGUMENT_MARKDOWN_STYLE_RULE_NAME,
          SELECTOR_MARKDOWN_STYLE_RULE_NAME,
-         RULE_SET_MARKDOWN_STYLE_RULE_NAME,
+         VERBATIM_MARKDOWN_STYLE_RULE_NAME,
          RULE_NAME_MARKDOWN_STYLE_RULE_NAME,
          SELECTORS_MARKDOWN_STYLE_RULE_NAME,
          ARGUMENTS_MARKDOWN_STYLE_RULE_NAME,
@@ -48,10 +52,12 @@ const markdownStyleNonTerminalNodeMap = {
   [STRING_MARKDOWN_STYLE_RULE_NAME]: StringMarkdownStyleNode,
   [COLOUR_MARKDOWN_STYLE_RULE_NAME]: ColourMarkdownStyleNode,
   [VALUES_MARKDOWN_STYLE_RULE_NAME]: ValuesMarkdownStyleNode,
+  [CONTENT_MARKDOWN_STYLE_RULE_NAME]: ContentMarkdownStyleNode,
+  [RULE_SET_MARKDOWN_STYLE_RULE_NAME]: RuleSetMarkdownStyleNode,
   [NONSENSE_MARKDOWN_STYLE_RULE_NAME]: NonsenseMarkdownStyleNode,
   [ARGUMENT_MARKDOWN_STYLE_RULE_NAME]: ArgumentMarkdownStyleNode,
   [SELECTOR_MARKDOWN_STYLE_RULE_NAME]: SelectorMarkdownStyleNode,
-  [RULE_SET_MARKDOWN_STYLE_RULE_NAME]: RuleSetMarkdownStyleNode,
+  [VERBATIM_MARKDOWN_STYLE_RULE_NAME]: VerbatimMarkdownStyleNode,
   [RULE_NAME_MARKDOWN_STYLE_RULE_NAME]: RuleNameMarkdownStyleNode,
   [SELECTORS_MARKDOWN_STYLE_RULE_NAME]: SelectorsMarkdownStyleNode,
   [ARGUMENTS_MARKDOWN_STYLE_RULE_NAME]: ArgumentsMarkdownStyleNode,

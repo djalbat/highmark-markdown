@@ -7,8 +7,10 @@ import ColourCSSNode from "../../node/css/colour";
 import StringCSSNode from "../../node/css/string";
 import AmountCSSNode from "../../node/css/amount";
 import ValuesCSSNode from "../../node/css/values";
+import ContentCSSNode from "../../node/css/content";
 import TopmostCSSNode from "../../node/css/topmost";
 import RuleSetCSSNode from "../../node/css/ruleSet";
+import VerbatimCSSNode from "../../node/css/verbatim";
 import RuleNameCSSNode from "../../node/css/ruleName";
 import ArgumentCSSNode from "../../node/css/argument";
 import SelectorCSSNode from "../../node/css/selector";
@@ -27,10 +29,12 @@ import { CSS_MARKDOWN_STYLE_RULE_NAME,
          STRING_MARKDOWN_STYLE_RULE_NAME,
          COLOUR_MARKDOWN_STYLE_RULE_NAME,
          VALUES_MARKDOWN_STYLE_RULE_NAME,
-         ARGUMENT_MARKDOWN_STYLE_RULE_NAME,
+         CONTENT_MARKDOWN_STYLE_RULE_NAME,
          RULE_SET_MARKDOWN_STYLE_RULE_NAME,
-         RULE_NAME_MARKDOWN_STYLE_RULE_NAME,
+         VERBATIM_MARKDOWN_STYLE_RULE_NAME,
+         ARGUMENT_MARKDOWN_STYLE_RULE_NAME,
          SELECTOR_MARKDOWN_STYLE_RULE_NAME,
+         RULE_NAME_MARKDOWN_STYLE_RULE_NAME,
          SELECTORS_MARKDOWN_STYLE_RULE_NAME,
          ARGUMENTS_MARKDOWN_STYLE_RULE_NAME,
          IDENTIFIER_MARKDOWN_STYLE_RULE_NAME,
@@ -47,9 +51,11 @@ const cssNodeMap = {
   [COLOUR_MARKDOWN_STYLE_RULE_NAME]: ColourCSSNode,
   [STRING_MARKDOWN_STYLE_RULE_NAME]: StringCSSNode,
   [VALUES_MARKDOWN_STYLE_RULE_NAME]: ValuesCSSNode,
+  [CONTENT_MARKDOWN_STYLE_RULE_NAME]: ContentCSSNode,
+  [RULE_SET_MARKDOWN_STYLE_RULE_NAME]: RuleSetCSSNode,
+  [VERBATIM_MARKDOWN_STYLE_RULE_NAME]: VerbatimCSSNode,
   [ARGUMENT_MARKDOWN_STYLE_RULE_NAME]: ArgumentCSSNode,
   [SELECTOR_MARKDOWN_STYLE_RULE_NAME]: SelectorCSSNode,
-  [RULE_SET_MARKDOWN_STYLE_RULE_NAME]: RuleSetCSSNode,
   [RULE_NAME_MARKDOWN_STYLE_RULE_NAME]: RuleNameCSSNode,
   [SELECTORS_MARKDOWN_STYLE_RULE_NAME]: SelectorsCSSNode,
   [ARGUMENTS_MARKDOWN_STYLE_RULE_NAME]: ArgumentsCSSNode,

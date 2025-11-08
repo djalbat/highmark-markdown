@@ -1,6 +1,6 @@
 "use strict";
 
-import defaultMarkdownStyle from "../../defaultMarkdownStyle";
+import defaultMarkdownStyle from "../../style/defaultMarkdown";
 import MarkdownStyleElement from "../../styleElement/markdown";
 
 export default class DefaultMarkdownStyleElement extends MarkdownStyleElement {
@@ -14,14 +14,14 @@ export default class DefaultMarkdownStyleElement extends MarkdownStyleElement {
     this.update(defaultMarkdownStyle)
   }
 
-  static fromSelectorsString(Class, selectorsString) {
-    if (selectorsString === undefined) {
-      selectorsString = Class; ///
+  static fromCSSSelectorsString(Class, cssSelectorsString) {
+    if (cssSelectorsString === undefined) {
+      cssSelectorsString = Class; ///
 
       Class = DefaultMarkdownStyleElement;  ///
     }
 
-    const defaultMarkdownStyleElement = MarkdownStyleElement.fromSelectorsString(Class, selectorsString);
+    const defaultMarkdownStyleElement = MarkdownStyleElement.fromCSSSelectorsString(Class, cssSelectorsString);
 
     defaultMarkdownStyleElement.reset();
   }

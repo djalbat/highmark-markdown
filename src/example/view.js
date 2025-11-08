@@ -21,6 +21,8 @@ import PlainTextContainerDiv from "./view/div/container/plainText";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
 import { importer } from "./importer";
+import { WEB_TARGET } from "../targets";
+
 const { tokensFromMarkdown,
         markdownNodeFromTokens,
         tokensFromMarkdownStyle,
@@ -72,17 +74,8 @@ class View extends Element {
   }
 
   updateMarkdownStyle() {
-    let markdownStyle;
-
-    markdownStyle = this.getMarkdownStyle();
-
-    const selectorsString = this.getSelectorsString();
-
-    markdownStyle = `${selectorsString} {
-  ${markdownStyle}
-}`;
-
-    const tokens = tokensFromMarkdownStyle(markdownStyle),
+    const markdownStyle = this.getMarkdownStyle(),
+          tokens = tokensFromMarkdownStyle(markdownStyle),
           markdownStyleNode = markdownStyleNodeFromTokens(tokens);
 
     if (markdownStyleNode === null) {
@@ -108,7 +101,9 @@ class View extends Element {
 
     const markdownStyleElement = this.getMarkdownStyleElement(),
           topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode),
+          target = WEB_TARGET,
           context = {
+            target,
             tokens
           };
 
@@ -219,8 +214,10 @@ class View extends Element {
           markdownStyleTokens = this.getMarkdownStyleTokens(),
           markdownStyleNode = topmostMarkdownStyleNode, ///
           topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode),
+          target = WEB_TARGET,
           tokens = markdownStyleTokens, ///
           context = {
+            target,
             tokens
           };
 
@@ -313,12 +310,6 @@ class View extends Element {
     const { markdownStyleElement } = this.properties;
 
     return markdownStyleElement;
-  }
-
-  getSelectorsString() {
-    const { selectorsString } = this.properties;
-
-    return selectorsString;
   }
 
   getMarkdownTokens() {
@@ -440,13 +431,18 @@ class View extends Element {
     this.setMarkdown(markdown);
   }
 
-  static initialMarkdown = `# Foundations`;
+  static initialMarkdown = `# Foundations
+  
+ \`\`\`
+ Block listing
+ \`\`\`
+  
+  `;
 
-  static initialMarkdownStyle = `primaryHeading {
-  :first-child {
-    colour: red;
-  }
-}
+  static initialMarkdownStyle = `\`\`\`web
+margin: left;
+\`\`\`
+
 `;
 
   static tagName = "div";
@@ -467,7 +463,7 @@ export default withStyle(View)`
 `;
 
 function pathToURL(path) {
-  const url = `https://static.djalbat.com/${path}`;
+  const url = `https://djalbat.com/${path}`;
 
   return url;
 }

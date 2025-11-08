@@ -32,11 +32,8 @@ const bnf = `
                                
                                ;
 
-    
+
     verticalSpace            ::=  endOfLine+ ;
-
-
-    error.                   ::=  . ;
 
 
     directives               ::=  indexDirective 
@@ -271,8 +268,11 @@ const bnf = `
 
     path                     ::=  [path] ;
 
-
+    
     endOfLine                ::=  <END_OF_LINE> ;
+
+
+    error.                   ::=  . ;
 
 `;
 
