@@ -22,13 +22,16 @@ import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
 import { importer } from "./importer";
 import { WEB_TARGET } from "../targets";
+import { PREVIEW_CSS_SELECTORS_STRING } from "./constants";
 
 const { tokensFromMarkdown,
         markdownNodeFromTokens,
         tokensFromMarkdownStyle,
         markdownStyleNodeFromTokens,
         topmostHTMLNodeFromMarkdownNode,
-        topmostCSSNodeFromMarkdownStyleNode } = grammarUtilities;
+        htmlFromMarkdownOptionsAndImporter,
+        topmostCSSNodeFromMarkdownStyleNode,
+        cssFromMarkdownStyleAndCSSSelectorsString } = grammarUtilities;
 
 class View extends Element {
   pageUpdateCustomHandler = (event, element, index) => {
@@ -98,20 +101,6 @@ class View extends Element {
     this.setTopmostMarkdownStyleNode(topmostMarkdownStyleNode);
 
     this.updateMarkdownStyleParseTreeTextarea(parseTree);
-
-    const markdownStyleElement = this.getMarkdownStyleElement(),
-          topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode),
-          target = WEB_TARGET,
-          context = {
-            target,
-            tokens
-          };
-
-    topmostCSSNode.resolve(context);
-
-    const css = topmostCSSNode.asCSS(context);
-
-    markdownStyleElement.setCSS(css);
   }
 
   updateMarkdown() {
@@ -176,7 +165,6 @@ class View extends Element {
           tokens = markdownTokens;  ///
 
     context = {
-      indexOptions,
       tokens
     };
 
@@ -191,14 +179,12 @@ class View extends Element {
     const divisionHTMLNOdeParseTree = divisionHTMLNOde.asParseTree(),
           htmlParseTree = divisionHTMLNOdeParseTree,  ///
           multiplicity = topmostHTMLNode.getMultiplicity(),
-          length = multiplicity;
+          length = multiplicity;  ///
 
     context = {
       tokens,
       pathToURL
     };
-
-    this.updateXMP(divisionHTMLNOde, context);
 
     this.updatePreviewDiv(divisionHTMLNOde, context);
 
@@ -207,6 +193,12 @@ class View extends Element {
     this.updateHTMLParseTreeTextarea(htmlParseTree);
 
     this.updatePageButtonsDiv(length, index);
+
+    const markdown = this.getMarkdown(),
+          options = indexOptions, ///
+          html = htmlFromMarkdownOptionsAndImporter(markdown, options, importer);
+
+    this.updateXMP(html, context);
   }
 
   updateCSS() {
@@ -224,10 +216,16 @@ class View extends Element {
     topmostCSSNode.resolve(context);
 
     const topmostCSSNodeParseTree = topmostCSSNode.asParseTree(tokens),
-          cssParseTree = topmostCSSNodeParseTree, ///
-          css = topmostCSSNode.asCSS(context);
+          cssParseTree = topmostCSSNodeParseTree; ///
 
     this.updateCSSParseTreeTextarea(cssParseTree);
+
+    const markdownStyleElement = this.getMarkdownStyleElement(),
+          cssSelectorsString = PREVIEW_CSS_SELECTORS_STRING,
+          markdownStyle = this.getMarkdownStyle(),
+          css = cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSelectorsString);
+
+    markdownStyleElement.setCSS(css);
 
     this.setCSS(css);
   }

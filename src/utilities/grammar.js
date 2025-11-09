@@ -101,6 +101,34 @@ export function topmostHTMLNodeFromMarkdownNode(markdownNode, ClassFromOuterNode
   return topmostHTMLNode;
 }
 
+export function htmlFromMarkdownOptionsAndImporter(markdown, options, importer) {
+  let html = null;
+
+  const tokens = tokensFromMarkdown(markdown),
+        markdownNode = markdownNodeFromTokens(tokens);
+
+  if (markdownNode !== null) {
+    const topmostMarkdownNode = markdownNode, ///
+          context = {
+            tokens,
+            importer,
+            ...options
+          };
+
+    topmostMarkdownNode.resolve(context);
+
+    const topmostHTMLNode = topmostHTMLNodeFromMarkdownNode(markdownNode);
+
+    topmostHTMLNode.resolve(context);
+
+    const divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNode();
+
+    html = divisionHTMLNOde.asHTML(context);
+  }
+
+  return html;
+}
+
 export function topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode, ClassFromOuterNode = CSSClassFromMarkdownStyleNode) {
   const node = markdownStyleNode,  ///
         queries = markdownStyleQueries, ///
@@ -132,7 +160,7 @@ export function cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSele
   }
 
   css = `${cssSelectorsString} {
-  ${css}
+${css}
 }`;
 
   return css;
@@ -146,6 +174,7 @@ export default {
   markdownStyleNodeFromTokens,
   CSSClassFromMarkdownStyleNode,
   topmostHTMLNodeFromMarkdownNode,
+  htmlFromMarkdownOptionsAndImporter,
   topmostCSSNodeFromMarkdownStyleNode,
   cssFromMarkdownStyleAndCSSSelectorsString
 };

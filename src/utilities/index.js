@@ -34,8 +34,7 @@ export function indexMapFromIndexDirectiveHTMLNodeAndDivisionHTMLNodes(indexDire
 function createIndexMap(indexDirectiveHTMLNode, divisionHTMLNodes, context) {
   const indexMap = {};
 
-  const { indexOptions } = context,
-        { phrases } = indexOptions,
+  const { phrases } = context,
         indexMatches = phrases.map((phrase) => {
           const indexMatch = IndexMatch.fromPhrase(phrase);
 
@@ -115,8 +114,7 @@ function compressPageNumbers(indexMap) {
 }
 
 function removeIgnoredWords(indexMap, context) {
-  const { indexOptions } = context,
-        { ignoredWords } = indexOptions;
+  const { ignoredWords } = context;
 
   ignoredWords.forEach((ignoredWord) => {
     delete indexMap[ignoredWord];
@@ -124,14 +122,12 @@ function removeIgnoredWords(indexMap, context) {
 }
 
 function adjustProperNouns(indexMap, context) {
-  const { indexOptions } = context,
-        { properNouns } = indexOptions;
+  const { properNouns } = context,
+        lowerCaseProperNouns = properNouns.map((properNoun) => {
+          const lowerCaseProperNoun = properNoun.toLowerCase();
 
-  const lowerCaseProperNouns = properNouns.map((properNoun) => {
-    const lowerCaseProperNoun = properNoun.toLowerCase();
-
-    return lowerCaseProperNoun;
-  });
+          return lowerCaseProperNoun;
+        });
 
   mapKeys(indexMap, (wordOrPhrase) => {
     const index = lowerCaseProperNouns.findIndex((lowerCaseProperName) => {
@@ -163,14 +159,12 @@ function preparePlainText(plainText) {
 }
 
 function adjustAcronyms(indexMap, context) {
-  const { indexOptions } = context,
-        { acronyms } = indexOptions;
+  const { acronyms } = context,
+        lowerCaseAcronyms = acronyms.map((acronym) => {
+          const lowerCaseAcronym = acronym.toLowerCase();
 
-  const lowerCaseAcronyms = acronyms.map((acronym) => {
-    const lowerCaseAcronym = acronym.toLowerCase();
-
-    return lowerCaseAcronym;
-  });
+          return lowerCaseAcronym;
+        });
 
   mapKeys(indexMap, (wordOrPhrase) => {
     const index = lowerCaseAcronyms.findIndex((lowerCaseProperName) => {
@@ -190,8 +184,7 @@ function adjustAcronyms(indexMap, context) {
 }
 
 function adjustMixedPlurals(indexMap, context) {
-  const { indexOptions } = context,
-        { plurals } = indexOptions,
+  const { plurals } = context,
         mixedPlurals = reducePlurals(plurals, isMixed),
         pluralPlurals = mapPlurals(mixedPlurals, mixedToPlural),
         singularPlurals = mapPlurals(mixedPlurals, mixedToSingular);
@@ -236,8 +229,7 @@ function adjustMixedPlurals(indexMap, context) {
 }
 
 function adjustPluralPlurals(indexMap, context) {
-  const { indexOptions } = context,
-        { plurals } = indexOptions,
+  const { plurals } = context,
         pluralPlurals = reducePlurals(plurals, isPlural),
         singularPlurals = mapPlurals(pluralPlurals, pluralToSingular);
 
@@ -263,8 +255,7 @@ function adjustPluralPlurals(indexMap, context) {
 }
 
 function adjustSingularPlurals(indexMap, context) {
-  const { indexOptions } = context,
-        { plurals } = indexOptions,
+  const { plurals } = context,
         singularPlurals = reducePlurals(plurals, isSingular),
         pluralPlurals = mapPlurals(singularPlurals, singularToPlural);
 

@@ -7,10 +7,7 @@ import { Element } from "easy";
 import { EMPTY_STRING } from "../constants";
 
 class XMP extends Element {
-  update(divisionHTMLNode, context) {
-    const indent = null,
-          html = divisionHTMLNode.asHTML(indent, context);
-
+  update(html) {
     this.html(html);
   }
 
