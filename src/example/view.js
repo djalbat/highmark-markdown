@@ -439,12 +439,16 @@ class View extends Element {
 
   static initialMarkdownStyle = `
 
+\`\`\`web
+margin: 10pt;
+\`\`\`
+
 primaryHeading {
 
   \`\`\`web
-  margin: 10pt;
   padding: auto;
   \`\`\`
+
 }  
   
 
