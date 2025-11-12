@@ -99,10 +99,10 @@ ${cssSelectorsString} {`;
 
     css = cssNodesAsCSS(verbatimCSSNodes, css, context);
 
-    css = cssNodesAsCSS(ruleSetCSSNodes, css, context);
-
     css = `${css}
 }`;
+
+    css = cssNodesAsCSS(ruleSetCSSNodes, css, context);
 
     return css;
   }
