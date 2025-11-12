@@ -441,8 +441,9 @@ class View extends Element {
 
 primaryHeading {
 
-  \`\`\`odf
-  margin: left;
+  \`\`\`web
+  margin: 10pt;
+  padding: auto;
   \`\`\`
 }  
   

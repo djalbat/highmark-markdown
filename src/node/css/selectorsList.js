@@ -13,7 +13,11 @@ export default class SelectorsListCSSNode extends CSSNode {
   }
 
   asCSS(context) {
-    const css = this.reduceChildNode((css, childNode) => {
+    let css;
+
+    const { cssSelectorsString } = context;
+
+    css = this.reduceChildNode((css, childNode) => {
       const childNodeCSS = childNode.asCSS(context);
 
       css = (css !== null) ?
@@ -23,6 +27,8 @@ ${childNodeCSS}` :
 
       return css;
     }, null);
+
+    css = `${cssSelectorsString} ${css}`;
 
     return css;
   }

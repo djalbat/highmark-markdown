@@ -151,17 +151,14 @@ export function cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSele
     const topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode),
           context = {
             target,
-            tokens
+            tokens,
+            cssSelectorsString
           };
 
     topmostCSSNode.resolve(context);
 
     css = topmostCSSNode.asCSS(context);
   }
-
-  css = `${cssSelectorsString} {
-${css}
-}`;
 
   return css;
 }
