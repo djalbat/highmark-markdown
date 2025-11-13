@@ -102,7 +102,7 @@ export function topmostHTMLNodeFromMarkdownNode(markdownNode, ClassFromOuterNode
 }
 
 export function htmlFromMarkdownOptionsAndImporter(markdown, options, importer) {
-  let html = null;
+  let html = EMPTY_STRING;
 
   const tokens = tokensFromMarkdown(markdown),
         markdownNode = markdownNodeFromTokens(tokens);
@@ -121,9 +121,15 @@ export function htmlFromMarkdownOptionsAndImporter(markdown, options, importer) 
 
     topmostHTMLNode.resolve(context);
 
-    const divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNode();
+    const divisionHTMLNOdes = topmostHTMLNode.getDivisionHTMLNodes();
 
-    html = divisionHTMLNOde.asHTML(context);
+    divisionHTMLNOdes.forEach((divisionHTMLNOde) => {
+      const divisionHTMLNOdeHTML = divisionHTMLNOde.asHTML(context);
+
+      html = `${html}
+
+${divisionHTMLNOdeHTML}`;
+    });
   }
 
   return html;
