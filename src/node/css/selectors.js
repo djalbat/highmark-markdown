@@ -4,15 +4,21 @@ import CSSNode from "../../node/css";
 
 export default class SelectorsCSSNode extends CSSNode {
   asCSS(context) {
-    const css = this.reduceChildNode((css, childNode) => {
+    let css;
+
+    const { cssSelectorsString } = context;
+
+    css = this.reduceChildNode((css, childNode) => {
       const childNodeCSS = childNode.asCSS(context);
 
       css = (css !== null) ?
-              `${css}${childNodeCSS}` :
+              `${css} ${childNodeCSS}` :
                 childNodeCSS; ///
 
       return css;
     }, null);
+
+    css = `${cssSelectorsString} ${css}`;
 
     return css;
   }
