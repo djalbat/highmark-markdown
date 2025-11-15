@@ -15,7 +15,7 @@ justify-content: flex-start;
 
 colour: black;
 font-family: "STIXTwoText";
-padding-top: 32pt;
+padding-top: 48pt;
 padding-left: 24pt;
 padding-right: 24pt;
 padding-bottom: 64pt;
