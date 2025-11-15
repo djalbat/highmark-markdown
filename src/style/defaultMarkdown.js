@@ -8,13 +8,16 @@ display: flex;
 position: relative;
 max-width: 600pt;
 min-height: 100%;
+flex-shrink: 0;
 flex-direction: column;
 justify-content: flex-start;
 \`\`\`
 
 colour: black;
-padding: 24pt;
 font-family: "STIXTwoText";
+padding-top: 32pt;
+padding-left: 24pt;
+padding-right: 24pt;
 padding-bottom: 64pt;
 background-colour: white;
 

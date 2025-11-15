@@ -125,7 +125,7 @@ export default class DivisionHTMLNode extends HTMLNode {
 
     let start;
 
-    ({ start } = context);
+    ({ start = 1 } = context);
 
     const footnoteItemHTMLTransforms = [];
 
