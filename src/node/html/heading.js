@@ -8,10 +8,13 @@ import { removeLeadingWhitespace, replaceSpacesWithHyphens, removeNonAlphabeticC
 
 export default class HeadingHTMLNode extends HTMLNode {
   getLineHTMLNode() {
-    const lineHTMLNode = this.fromFirstChildNode((firstChildNode) => {
-      const lineHTMLNode = firstChildNode; ///
+    const lineHTMLNode = this.findChildNode((childNode) => {
+      const childNodeAnchorHTMLNode = (childNode instanceof AnchorHTMLNode),
+            childNodeLineHTMLNode = !childNodeAnchorHTMLNode;
 
-      return lineHTMLNode;
+      if (childNodeLineHTMLNode) {
+        return true;
+      }
     });
 
     return lineHTMLNode;

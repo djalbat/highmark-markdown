@@ -3,8 +3,10 @@
 const defaultMarkdownStyle = `
 
 \`\`\`web
+width: 100%;
 display: flex;
 position: relative;
+max-width: 600pt;
 min-height: 100%;
 flex-direction: column;
 justify-content: flex-start;
@@ -38,6 +40,11 @@ tertiaryHeading,
 quaternaryHeading {
   line-height: 1;
   font-weight: bold;
+  padding-top: 8pt
+  
+  :first-child {
+    padding-top: 0;
+  }
 }
 
 paragraph,
@@ -52,31 +59,28 @@ unorderedItem {
 }
 
 paragraph,
+orderedList,
+unorderedList,
 primaryHeading,
 secondaryHeading,
 tertiaryHeading,
 quaternaryHeading {
-  padding-top: 13pt;
-  padding-bottom: 13pt;
+  padding-bottom: 16pt;
 
-  :first-child {
-    padding-top: 0;
-  }
-  
   :last-child {
     padding-bottom: 0;
   }
 }
 
+orderedList,
+unorderedList {
+  padding-left: 16pt;
+}
+
 orderedItem,
 unorderedItem {
-  padding-top: 6pt;
-  padding-bottom: 6pt;
+  padding-bottom: 8pt;
 
-  :first-child {
-    padding-top: 0;
-  }
-  
   :last-child {
     padding-bottom: 0;
   }
@@ -148,13 +152,18 @@ contentsList {
   list-style-type: none;
 
   contentsList {
+    padding-top: 13pt;
     padding-left: 13pt;
   }
 }
 
 contentsItem {
-  padding: 13pt;
   padding-left: 0;
+  padding-bottom: 13pt;
+  
+  :last-child {
+    padding-bottom: 0;
+  }
 }
 
 contentsLink {
@@ -164,16 +173,20 @@ contentsLink {
 }
 
 footnotesList {
-  margin-top: auto;
   border-top: 1pt solid black;
   padding-top: 13pt;
+  padding-bottom: 0;
 }
 
 footnoteItem {
   font-size: 11pt;
-  text-align: justify;
-  line-height: 17pt;
-  padding-left: 13pt;
+
+  paragraph {
+    font-size: 11pt;
+    text-align: justify;
+    line-height: 17pt;
+    padding-left: 3pt;
+  }
 }
 
 indexList {
@@ -186,11 +199,9 @@ indexHeading {
   line-height: 1;
   font-weight: normal;
   text-transform: uppercase;
-}
 
-indexHeading {
-  padding-top: 0;
   padding-top: 13pt;
+  padding-bottom: 6pt;
 
   :first-child {
     padding-top: 0;
@@ -208,8 +219,8 @@ indexLink {
 
 pageNumber {
 
-\`\`\`web
-
+  \`\`\`web
+  
   left: 0;
   width: 100%;
   bottom: 0;
@@ -219,7 +230,7 @@ pageNumber {
   text-align: center;
   padding-bottom: 24pt;
   
-\`\`\`
+  \`\`\`
   
 }
 
@@ -227,6 +238,7 @@ error {
   colour: red;
   font-size: 13pt;
 }
+
 `;
 
 export default defaultMarkdownStyle;

@@ -86,7 +86,11 @@ export default withStyle(PreviewDiv)`
 
   width: 100%;
   height: 100%;
+  display: flex;
   overflow: scroll;
   position: absolute;
-  
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;  
+
 `;

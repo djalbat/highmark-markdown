@@ -49,7 +49,7 @@ export const initialMarkdown = `@ignore
 @include ${INDEX_PATH}
 `;
 
-const indexContent = `## Index
+const indexContent = `# Index
 
 @index`,
 
@@ -57,7 +57,7 @@ const indexContent = `## Index
 
 @include ${GETTING_STARTED_PATH}`,
 
-      contentsContent = `## Contents
+      contentsContent = `# Contents
 
 @contents`,
 

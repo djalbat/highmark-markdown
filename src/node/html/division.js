@@ -75,7 +75,7 @@ export default class DivisionHTMLNode extends HTMLNode {
           groupedHTMLNodesArray = groupHTMLNodes(htmlNodes),
           paginatedHTMLNodesArray = paginateGroupedHTMLNodes(groupedHTMLNodesArray, context);
 
-    const start = 0,
+    const start = 1,
           outerNode = this.getOuterNode(),
           divisionClassName = outerNode.className(context);
 
@@ -125,7 +125,7 @@ export default class DivisionHTMLNode extends HTMLNode {
 
     let start;
 
-    ({ start = 1 } = context);
+    ({ start } = context);
 
     const footnoteItemHTMLTransforms = [];
 

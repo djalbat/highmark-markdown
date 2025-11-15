@@ -20,9 +20,9 @@ import HTMLParseTreeTextarea from "./view/textarea/parseTree/html";
 import PlainTextContainerDiv from "./view/div/container/plainText";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
-import { importer } from "./importer";
 import { WEB_TARGET } from "../targets";
-import { PREVIEW_CSS_SELECTORS_STRING } from "./constants";
+import { initialMarkdown, importer } from "./importer";
+import { EMPTY_STRING, PREVIEW_CSS_SELECTORS_STRING } from "./constants";
 
 const { tokensFromMarkdown,
         markdownNodeFromTokens,
@@ -203,9 +203,23 @@ class View extends Element {
 
   updateCSS() {
     const topmostMarkdownStyleNode = this.getTopmostMarkdownStyleNode(),
+          markdownStyleElement = this.getMarkdownStyleElement(),
           markdownStyleTokens = this.getMarkdownStyleTokens(),
-          markdownStyleNode = topmostMarkdownStyleNode, ///
-          topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode),
+          markdownStyleNode = topmostMarkdownStyleNode; ///
+
+    if (markdownStyleNode === null) {
+      const css = EMPTY_STRING;
+
+      markdownStyleElement.setCSS(css);
+
+      this.clearCSSParseTreeTextarea();
+
+      this.clearCSS();
+
+      return;
+    }
+
+    const topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode),
           target = WEB_TARGET,
           tokens = markdownStyleTokens, ///
           context = {
@@ -220,8 +234,7 @@ class View extends Element {
 
     this.updateCSSParseTreeTextarea(cssParseTree);
 
-    const markdownStyleElement = this.getMarkdownStyleElement(),
-          cssSelectorsString = PREVIEW_CSS_SELECTORS_STRING,
+    const cssSelectorsString = PREVIEW_CSS_SELECTORS_STRING,
           markdownStyle = this.getMarkdownStyle(),
           css = cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSelectorsString);
 
@@ -429,30 +442,9 @@ class View extends Element {
     this.setMarkdown(markdown);
   }
 
-  static initialMarkdown = `# Foundations
-  
- \`\`\`
- Block listing
- \`\`\`
-  
-  `;
+  static initialMarkdown = initialMarkdown;
 
-  static initialMarkdownStyle = `
-
-\`\`\`web
-margin: 10pt;
-\`\`\`
-
-primaryHeading {
-
-  \`\`\`web
-  padding: auto;
-  \`\`\`
-
-}  
-  
-
-`;
+  static initialMarkdownStyle = "";
 
   static tagName = "div";
 

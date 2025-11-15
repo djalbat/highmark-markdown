@@ -34,7 +34,7 @@ export function indexMapFromIndexDirectiveHTMLNodeAndDivisionHTMLNodes(indexDire
 function createIndexMap(indexDirectiveHTMLNode, divisionHTMLNodes, context) {
   const indexMap = {};
 
-  const { phrases } = context,
+  const { phrases = [] } = context,
         indexMatches = phrases.map((phrase) => {
           const indexMatch = IndexMatch.fromPhrase(phrase);
 
@@ -114,7 +114,7 @@ function compressPageNumbers(indexMap) {
 }
 
 function removeIgnoredWords(indexMap, context) {
-  const { ignoredWords } = context;
+  const { ignoredWords = [] } = context;
 
   ignoredWords.forEach((ignoredWord) => {
     delete indexMap[ignoredWord];
@@ -122,7 +122,7 @@ function removeIgnoredWords(indexMap, context) {
 }
 
 function adjustProperNouns(indexMap, context) {
-  const { properNouns } = context,
+  const { properNouns = [] } = context,
         lowerCaseProperNouns = properNouns.map((properNoun) => {
           const lowerCaseProperNoun = properNoun.toLowerCase();
 
@@ -159,7 +159,7 @@ function preparePlainText(plainText) {
 }
 
 function adjustAcronyms(indexMap, context) {
-  const { acronyms } = context,
+  const { acronyms = [] } = context,
         lowerCaseAcronyms = acronyms.map((acronym) => {
           const lowerCaseAcronym = acronym.toLowerCase();
 
@@ -184,7 +184,7 @@ function adjustAcronyms(indexMap, context) {
 }
 
 function adjustMixedPlurals(indexMap, context) {
-  const { plurals } = context,
+  const { plurals = [] } = context,
         mixedPlurals = reducePlurals(plurals, isMixed),
         pluralPlurals = mapPlurals(mixedPlurals, mixedToPlural),
         singularPlurals = mapPlurals(mixedPlurals, mixedToSingular);
@@ -229,7 +229,7 @@ function adjustMixedPlurals(indexMap, context) {
 }
 
 function adjustPluralPlurals(indexMap, context) {
-  const { plurals } = context,
+  const { plurals = [] } = context,
         pluralPlurals = reducePlurals(plurals, isPlural),
         singularPlurals = mapPlurals(pluralPlurals, pluralToSingular);
 
@@ -255,7 +255,7 @@ function adjustPluralPlurals(indexMap, context) {
 }
 
 function adjustSingularPlurals(indexMap, context) {
-  const { plurals } = context,
+  const { plurals = [] } = context,
         singularPlurals = reducePlurals(plurals, isSingular),
         pluralPlurals = mapPlurals(singularPlurals, singularToPlural);
 
