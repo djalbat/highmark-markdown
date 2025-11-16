@@ -41,6 +41,7 @@ primaryHeading,
 secondaryHeading,
 tertiaryHeading,
 quaternaryHeading {
+  text-align: left;
   line-height: 1;
   font-weight: bold;
   padding-top: 8pt
@@ -67,7 +68,8 @@ unorderedList,
 primaryHeading,
 secondaryHeading,
 tertiaryHeading,
-quaternaryHeading {
+quaternaryHeading,
+container.listing {
   padding-bottom: 16pt;
 
   :last-child {

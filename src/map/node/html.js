@@ -7,6 +7,7 @@ import TableHTMLNode from "../../node/html/table";
 import TopmostHTMLNode from "../../node/html/topmost";
 import DivisionHTMLNode from "../../node/html/division";
 import FootnoteHTMLNode from "../../node/html/footnote";
+import ContainerHTMLNode from "../../node/html/container";
 import ReferenceHTMLNode from "../../node/html/reference";
 import ParagraphHTMLNode from "../../node/html/paragraph";
 import TableHeadHTMLNode from "../../node/html/tableHead";
@@ -57,6 +58,7 @@ import { HTML_MARKDOWN_RULE_NAME,
          TABLE_MARKDOWN_RULE_NAME,
          DIVISION_MARKDOWN_RULE_NAME,
          FOOTNOTE_MARKDOWN_RULE_NAME,
+         CONTAINER_MARKDOWN_RULE_NAME,
          REFERENCE_MARKDOWN_RULE_NAME,
          PARAGRAPH_MARKDOWN_RULE_NAME,
          HYPERLINK_MARKDOWN_RULE_NAME,
@@ -108,6 +110,7 @@ const htmlNodeMap = {
   [TABLE_MARKDOWN_RULE_NAME]: TableHTMLNode,
   [DIVISION_MARKDOWN_RULE_NAME]: DivisionHTMLNode,
   [FOOTNOTE_MARKDOWN_RULE_NAME]: FootnoteHTMLNode,
+  [CONTAINER_MARKDOWN_RULE_NAME]: ContainerHTMLNode,
   [REFERENCE_MARKDOWN_RULE_NAME]: ReferenceHTMLNode,
   [PARAGRAPH_MARKDOWN_RULE_NAME]: ParagraphHTMLNode,
   [HYPERLINK_MARKDOWN_RULE_NAME]: HyperlinkHTMLNode,

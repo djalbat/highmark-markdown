@@ -4,8 +4,8 @@ import MarkdownStyleNode from "../../node/markdownStyle";
 
 export default class TargetMarkdownStyleNode extends MarkdownStyleNode {
   target(context) {
-    const target = this.fromFirstChildNode((firstChildNode) => {
-      const targetTerminalNode = firstChildNode,  ///
+    const target = this.fromSecondChildNode((secondChildNode) => {
+      const targetTerminalNode = secondChildNode,  ///
             targetTerminalNodeContent = targetTerminalNode.getContent(),
             target = targetTerminalNodeContent; ///
 

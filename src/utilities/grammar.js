@@ -91,12 +91,17 @@ export function CSSClassFromMarkdownStyleNode(markdownStyleNode) {
 }
 
 export function topmostHTMLNodeFromMarkdownNode(markdownNode, ClassFromOuterNode = HTMLClassFromMarkdownNode) {
-  const node = markdownNode,  ///
-        queries = markdownQueries, ///
-        nodes = nodesFromNodeAndQueries(node, queries),
-        outerNodes = nodes, ///
-        topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes),
-        topmostHTMLNode = topmostNode;  ///
+  let topmostHTMLNode = null;
+
+  if (markdownNode !== null) {
+    const node = markdownNode,  ///
+          queries = markdownQueries, ///
+          nodes = nodesFromNodeAndQueries(node, queries),
+          outerNodes = nodes, ///
+          topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes);
+
+    topmostHTMLNode = topmostNode;  ///
+  }
 
   return topmostHTMLNode;
 }
@@ -119,17 +124,19 @@ export function htmlFromMarkdownOptionsAndImporter(markdown, options, importer) 
 
     const topmostHTMLNode = topmostHTMLNodeFromMarkdownNode(markdownNode);
 
-    topmostHTMLNode.resolve(context);
+    if (topmostHTMLNode !== null) {
+      topmostHTMLNode.resolve(context);
 
-    const divisionHTMLNOdes = topmostHTMLNode.getDivisionHTMLNodes();
+      const divisionHTMLNOdes = topmostHTMLNode.getDivisionHTMLNodes();
 
-    divisionHTMLNOdes.forEach((divisionHTMLNOde) => {
-      const divisionHTMLNOdeHTML = divisionHTMLNOde.asHTML(context);
+      divisionHTMLNOdes.forEach((divisionHTMLNOde) => {
+        const divisionHTMLNOdeHTML = divisionHTMLNOde.asHTML(context);
 
-      html = `${html}
+        html = `${html}
 
 ${divisionHTMLNOdeHTML}`;
-    });
+      });
+    }
   }
 
   return html;

@@ -10,6 +10,8 @@ const bnf = `
     
     subDivision..            ::=  directives 
     
+                               |  container 
+
                                |  primaryHeading 
 
                                |  secondaryHeading 
@@ -52,6 +54,27 @@ const bnf = `
 
                                ; 
   
+
+    container.               ::=  [colons] className? <END_OF_LINE>+ ( primaryHeading 
+
+                                                                     | secondaryHeading 
+                                   
+                                                                     | tertiaryHeading 
+                                   
+                                                                     | quaternaryHeading 
+                                   
+                                                                     | table 
+                                   
+                                                                     | footnote
+                                   
+                                                                     | orderedList 
+                                   
+                                                                     | unorderedList 
+                                   
+                                                                     | blockListing 
+      
+                                                                     | paragraph ) <END_OF_LINE>+ [colons] ;
+
 
     primaryHeading.          ::=  "#" line ;
 

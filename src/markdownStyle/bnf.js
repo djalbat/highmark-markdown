@@ -73,7 +73,7 @@ const bnf = `
     colour         ::=  [colour] ;
 
 
-    target         ::=  [target] ;
+    target         ::=  <NO_WHITESPACE>[target] ;
 
 
     content        ::=  stuff+ ;

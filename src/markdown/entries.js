@@ -23,6 +23,9 @@ const entries = [
     "number": "^[1-9][0-9]*"
   },
   {
+    "colons": "^:::"
+  },
+  {
     "backticks": "^```"
   },
   {

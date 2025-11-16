@@ -7,6 +7,7 @@ import TopmostMarkdownNode from "../../node/markdown/topmost";
 import DivisionMarkdownNode from "../../node/markdown/division";
 import FootnoteMarkdownNode from "../../node/markdown/footnote";
 import BlockEndMarkdownNode from "../../node/markdown/blockEnd";
+import ContainerMarkdownNode from "../../node/markdown/container";
 import ReferenceMarkdownNode from "../../node/markdown/reference";
 import HyperlinkMarkdownNode from "../../node/markdown/hyperlink";
 import EmailLinkMarkdownNode from "../../node/markdown/link/email";
@@ -29,6 +30,7 @@ import { PATH_MARKDOWN_RULE_NAME,
          DIVISION_MARKDOWN_RULE_NAME,
          FOOTNOTE_MARKDOWN_RULE_NAME,
          BLOCK_END_MARKDOWN_RULE_NAME,
+         CONTAINER_MARKDOWN_RULE_NAME,
          REFERENCE_MARKDOWN_RULE_NAME,
          HYPERLINK_MARKDOWN_RULE_NAME,
          EMAIL_LINK_MARKDOWN_RULE_NAME,
@@ -52,6 +54,7 @@ const markdownNonTerminalNodeMap = {
   [DIVISION_MARKDOWN_RULE_NAME]: DivisionMarkdownNode,
   [FOOTNOTE_MARKDOWN_RULE_NAME]: FootnoteMarkdownNode,
   [BLOCK_END_MARKDOWN_RULE_NAME]: BlockEndMarkdownNode,
+  [CONTAINER_MARKDOWN_RULE_NAME]: ContainerMarkdownNode,
   [REFERENCE_MARKDOWN_RULE_NAME]: ReferenceMarkdownNode,
   [HYPERLINK_MARKDOWN_RULE_NAME]: HyperlinkMarkdownNode,
   [EMAIL_LINK_MARKDOWN_RULE_NAME]: EmailLinkMarkdownNode,
