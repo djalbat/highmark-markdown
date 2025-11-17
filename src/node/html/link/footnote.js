@@ -53,6 +53,12 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
     return attributeValue;
   }
 
+  adjustIndent(indent) {
+    indent = null;
+
+    return indent;
+  }
+
   mount(parentDOMElement, siblingDOMElement, context) {
     const domElement = this.createDOMElement(context);
 
@@ -77,25 +83,6 @@ export default class FootnoteLinkHTMLNode extends HTMLNode {
     remove(domElement, parentDOMElement);
 
     this.resetDOMElement();
-  }
-
-  asHTML(indent, context) {
-    let html;
-
-    if (this.number === null) {
-      html = EMPTY_STRING;
-    } else {
-      indent = this.adjustIndent(indent);
-
-      const childNodesHTML = this.childNodesAsHTML(indent, context),
-            startingTag = this.startingTag(context),
-            closingTag = this.closingTag(context);
-
-      html = `${indent}${startingTag}${childNodesHTML}${closingTag}
-`;
-    }
-
-    return html;
   }
 
   asPlainText(context) {

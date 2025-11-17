@@ -442,7 +442,10 @@ class View extends Element {
     this.setMarkdown(markdown);
   }
 
-  static initialMarkdown = initialMarkdown;
+  static initialMarkdown = `
+
+A [link](https://djalbat.com).  
+`;
 
   static initialMarkdownStyle = "";
 

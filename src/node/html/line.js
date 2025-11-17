@@ -1,7 +1,6 @@
 "use strict";
 
 import HTMLNode from "../../node/html";
-import PlainTextHTMLNode from "./text/plain";
 
 import { remove, insertAfterwards } from "../../utilities/dom";
 import { EMPTY_STRING, CARRIAGE_RETURN, DEFAULT_MAXIMUM_LINE_CHARACTERS } from "../../constants";
@@ -27,7 +26,7 @@ export default class LineHTMLNode extends HTMLNode {
     parentDOMElement = domElement;  ///
 
     const content = CARRIAGE_RETURN,
-      textNode = document.createTextNode(content);
+          textNode = document.createTextNode(content);
 
     domElement = textNode;  ///
 
@@ -57,46 +56,8 @@ export default class LineHTMLNode extends HTMLNode {
     super.unmount(parentDOMElement);
   }
 
-  childNodesAsHTML(indent, context) {
-    let childNodesHTML;
-
-    let previousChildNode = null;
-
-    childNodesHTML = this.reduceChildNode((childNodesHTML, childNode) => {
-      const previousChildNodePlainTextHTMLNode = (previousChildNode instanceof PlainTextHTMLNode);
-
-      if (previousChildNodePlainTextHTMLNode) {
-        const childNodePlainTextHTMLNode = (childNode instanceof PlainTextHTMLNode);
-
-        if (!childNodePlainTextHTMLNode) {
-          childNodesHTML = `${childNodesHTML}
-`;
-        }
-      }
-
-      const childNodeHTML = childNode.asHTML(indent, context);
-
-      childNodesHTML = `${childNodesHTML}${childNodeHTML}`;
-
-      previousChildNode = childNode;  ///
-
-      return childNodesHTML;
-    }, EMPTY_STRING);
-
-    const previousChildNodePlainTextHTMLNode = (previousChildNode instanceof PlainTextHTMLNode);
-
-    if (previousChildNodePlainTextHTMLNode) {
-      childNodesHTML = `${childNodesHTML}
-`;
-    }
-
-    return childNodesHTML;
-  }
-
   childNodesAsPlainText(context) {
-    let childNodesPlainText;
-
-    childNodesPlainText = this.reduceChildNode((childNodesPlainText, childNode) => {
+    const childNodesPlainText = this.reduceChildNode((childNodesPlainText, childNode) => {
       const childNodePlainText = childNode.asPlainText(context);
 
       childNodesPlainText = `${childNodesPlainText}${childNodePlainText}`;

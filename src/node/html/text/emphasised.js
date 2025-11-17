@@ -3,6 +3,12 @@
 import HTMLNode from "../../../node/html";
 
 export default class EmphasisedTextHTMLNode extends HTMLNode {
+  adjustIndent(indent) {
+    indent = null;
+
+    return indent;
+  }
+
   static tagName = "em";
 
   static className = null;

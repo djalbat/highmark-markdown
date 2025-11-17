@@ -3,6 +3,12 @@
 import HTMLNode from "../../../node/html";
 
 export default class StrongTextHTMLNode extends HTMLNode {
+  adjustIndent(indent) {
+    indent = null;
+
+    return indent;
+  }
+
   static tagName = "strong";
 
   static className = null;

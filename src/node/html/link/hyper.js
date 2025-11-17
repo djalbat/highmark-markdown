@@ -40,6 +40,12 @@ export default class HyperlinkHTMLNode extends HTMLNode {
     return attributeValue;
   }
 
+  adjustIndent(indent) {
+    indent = null;
+
+    return indent;
+  }
+
   mount(parentDOMElement, siblingDOMElement, context) {
     let domElement;
 
@@ -126,8 +132,7 @@ export default class HyperlinkHTMLNode extends HTMLNode {
     if (simple) {
       const url = this.url(context);
 
-      childNodesHTML = `${url}
-`;
+      childNodesHTML = `${url}`;
     } else {
       childNodesHTML = super.childNodesAsHTML(indent, context);
     }

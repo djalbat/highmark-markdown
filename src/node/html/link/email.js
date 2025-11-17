@@ -40,6 +40,12 @@ export default class EmailLinkHTMLNode extends HTMLNode {
     return attributeValue;
   }
 
+  adjustIndent(indent) {
+    indent = null;
+
+    return indent;
+  }
+
   mount(parentDOMElement, siblingDOMElement, context) {
     let domElement;
 
@@ -126,8 +132,7 @@ export default class EmailLinkHTMLNode extends HTMLNode {
     if (simple) {
       const emailAddress = this.emailAddress(context);
 
-      childNodesHTML = `${emailAddress}
-`;
+      childNodesHTML = `${emailAddress}`;
     } else {
       childNodesHTML = super.childNodesAsHTML(indent, context);
     }

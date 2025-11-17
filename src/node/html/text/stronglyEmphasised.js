@@ -29,6 +29,12 @@ export default class StronglyEmphasisedTextHTMLNode extends HTMLNode {
     return domElement;
   }
 
+  adjustIndent(indent) {
+    indent = null;
+
+    return indent;
+  }
+
   mount(parentDOMElement, siblingDOMElement, context) {
     let domElement;
 
@@ -85,9 +91,7 @@ export default class StronglyEmphasisedTextHTMLNode extends HTMLNode {
 
     const startingTag = `<${strongTextTagName}>`,
           closingTag = `</${strongTextTagName}>`,
-          html = `${indent}${startingTag}
-${childNodesHTML}${indent}${closingTag}
-`;
+          html = `${startingTag}${childNodesHTML}${closingTag}`;
 
     childNodesHTML = html;  ///
 

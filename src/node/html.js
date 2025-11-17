@@ -152,9 +152,9 @@ class HTMLNode extends Node {
   }
 
   adjustIndent(indent) {
-    indent = (indent === null) ?
-               EMPTY_STRING :
-                `${DOUBLE_SPACE}${indent}`;
+    if (indent !== null) {
+      indent = `${DOUBLE_SPACE}${indent}`;
+    }
 
     return indent;
   }
@@ -321,13 +321,17 @@ class HTMLNode extends Node {
       const startingTag = this.startingTag(context),
             closingTag = this.closingTag(context);
 
-      html = `${indent}${startingTag}
+      html = (indent === null) ?
+               `${startingTag}${childNodesHTML}${closingTag}` :
+                 `${indent}${startingTag}
 ${childNodesHTML}${indent}${closingTag}
 `;
     } else {
       const selfClosingTag = this.selfClosingTag(context);
 
-      html = `${indent}${selfClosingTag}
+      html = (indent === null) ?
+               `${selfClosingTag}` :
+                 `${indent}${selfClosingTag}
 `;
     }
 

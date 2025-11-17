@@ -12,6 +12,12 @@ export default class InlineListingHTMLNode extends HTMLNode {
     return content;
   }
 
+  adjustIndent(indent) {
+    indent = null;
+
+    return indent;
+  }
+
   createDOMElement(context) {
     let domElement;
 
@@ -29,21 +35,6 @@ export default class InlineListingHTMLNode extends HTMLNode {
     domElement = parentDOMElement;  ///
 
     return domElement;
-  }
-
-  asHTML(indent, context) {
-    let html;
-
-    indent = this.adjustIndent(indent);
-
-    const childNodesHTML = this.childNodesAsHTML(indent, context),
-          startingTag = this.startingTag(context),
-          closingTag = this.closingTag(context);
-
-    html = `${indent}${startingTag}${childNodesHTML}${closingTag}
-`;
-
-    return html;
   }
 
   childNodesAsHTML(indent, context) {

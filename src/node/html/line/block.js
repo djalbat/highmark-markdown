@@ -16,7 +16,7 @@ export default class BlockLineHTMLNode extends LineHTMLNode {
     return content;
   }
 
-  static lines = 2;
+  static lines = 1;
 
   static tagName = "span";
 

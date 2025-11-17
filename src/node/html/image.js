@@ -65,6 +65,12 @@ export default class ImageHTMLNode extends HTMLNode {
     return attributeValues;
   }
 
+  adjustIndent(indent) {
+    indent = null;
+
+    return indent;
+  }
+
   mount(parentDOMElement, siblingDOMElement, context) {
     const domElement = this.createDOMElement(context);
 

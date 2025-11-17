@@ -168,6 +168,9 @@ const bnf = `
     tableCell                ::=  line tableCellDivider ;
     
     
+    blockLine.               ::=  blockText* endOfLine ;
+    
+
     line.                    ::=  ( inlineListing 
     
                                   | footnoteLink 
@@ -187,9 +190,6 @@ const bnf = `
                                   | plainText )+ ;
     
     
-    blockLine.               ::=  blockText* endOfLine ;
-    
-
     emailLink                ::=  "[" inlineText... "]"<NO_WHITESPACE>"(" [email-address] ")" 
     
                                |  [email-address] 
