@@ -339,11 +339,8 @@ ${childNodesHTML}${indent}${closingTag}
   }
 
   asPlainText(context) {
-    let plainText;
-
-    const childNodesPlainText = this.childNodesAsPlainText(context);
-
-    plainText = childNodesPlainText;  ///
+    const childNodesPlainText = this.childNodesAsPlainText(context),
+          plainText = childNodesPlainText;  ///
 
     return plainText;
   }

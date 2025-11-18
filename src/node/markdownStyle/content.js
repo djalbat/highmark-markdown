@@ -7,13 +7,12 @@ import { EMPTY_STRING, CARRIAGE_RETURN } from "../../constants";
 
 export default class ContentMarkdownStyleNode extends MarkdownStyleNode {
   content(context) {
-    let { tokens } = context;
+    const firstTokenIndex = this.getFirstTokenIndex(context),
+          lastTokenIndex = this.getLastTokenIndex(context),
+          start = firstTokenIndex,  ///
+          end = lastTokenIndex + 1;
 
-    const nonTerminalNode = this, ///
-          firstSignificantTokenIndex = nonTerminalNode.getFirstSignificantTokenIndex(tokens),
-          lastSignificantTokenIndex = nonTerminalNode.getLastSignificantTokenIndex(tokens),
-          start = firstSignificantTokenIndex,
-          end = lastSignificantTokenIndex + 1;
+    let { tokens } = context;
 
     tokens = tokens.slice(start, end);
 

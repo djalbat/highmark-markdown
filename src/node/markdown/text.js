@@ -22,24 +22,50 @@ export default class TextMarkdownNode extends MarkdownNode {
         text = text.substring(start);
       }
 
-      const { tokens } = context,
-            significantTokenIndex = tokens.indexOf(significantToken),
-            lastIndex = significantTokenIndex - 1,
-            firstIndex = 0;
+      let { tokenIndex } = context;
 
-      for (let index = lastIndex; index >= firstIndex; index++) {
-        const token = tokens[index],
+      const { tokens } = context,
+            tokensLength = tokens.length,
+            minimumTokenIndex = 0,
+            maximumTokenIndex = tokensLength - 1,
+            significantTokenIndex = tokens.indexOf(significantToken),
+            previousTokenIndex = significantTokenIndex - 1,
+            nextTokenIndex = significantTokenIndex + 1,
+            lastTokenIndex = tokenIndex;  ///
+
+      for (tokenIndex = previousTokenIndex; tokenIndex >= minimumTokenIndex; tokenIndex--) {
+        if (tokenIndex === lastTokenIndex) {
+          break;
+        }
+
+        const token = tokens[tokenIndex],
               tokenWhitespaceToken = token.isWhitespaceToken();
 
         if (!tokenWhitespaceToken) {
           break;
         }
 
-        const whitespaceToken = token,
-              whitespaceTokenContent = whitespaceToken.getContent();
+        const whitespaceTokenContent = token.getContent();
 
         text = `${whitespaceTokenContent}${text}`;
       }
+
+      for (tokenIndex = nextTokenIndex; tokenIndex <= maximumTokenIndex; tokenIndex++) {
+        const token = tokens[tokenIndex],
+              tokenWhitespaceToken = token.isWhitespaceToken();
+
+        if (!tokenWhitespaceToken) {
+          break;
+        }
+
+        const whitespaceTokenContent = token.getContent();
+
+        text = `${text}${whitespaceTokenContent}`;
+      }
+
+      Object.assign(context, {
+        tokenIndex
+      });
 
       return text;
     });

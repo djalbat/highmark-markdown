@@ -3,6 +3,7 @@
 import { NonTerminalNode } from "occam-parsers";
 
 import nodeMixins from "../mixins/node";
+import tokenMixins from "../mixins/token";
 
 class MarkdownNode extends NonTerminalNode {
   getParentMarkdownNode() {
@@ -54,5 +55,6 @@ class MarkdownNode extends NonTerminalNode {
 }
 
 Object.assign(MarkdownNode.prototype, nodeMixins);
+Object.assign(MarkdownNode.prototype, tokenMixins);
 
 export default MarkdownNode;

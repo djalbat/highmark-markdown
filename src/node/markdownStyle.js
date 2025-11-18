@@ -3,8 +3,10 @@
 import { NonTerminalNode } from "occam-parsers";
 
 import nodeMixins from "../mixins/node";
+import tokenMixins from "../mixins/token";
 
 class MarkdownStyleNode extends NonTerminalNode {
+
   static fromRuleNameChildNodesOpacityAndPrecedence(Class, ruleName, childNodes, opacity, precedence, ...remainingArguments) {
     if (precedence === undefined) {
       precedence = opacity; ///
@@ -25,5 +27,6 @@ class MarkdownStyleNode extends NonTerminalNode {
 }
 
 Object.assign(MarkdownStyleNode.prototype, nodeMixins);
+Object.assign(MarkdownStyleNode.prototype, tokenMixins);
 
 export default MarkdownStyleNode;

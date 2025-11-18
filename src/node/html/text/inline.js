@@ -26,17 +26,6 @@ export default class InlineTextHTMLNode extends HTMLNode {
     return html;
   }
 
-  childNodesAsHTML(indent, context) {
-    let childNodesHTML;
-
-    childNodesHTML = super.childNodesAsHTML(indent, context);
-
-    childNodesHTML = `${childNodesHTML}
-`;
-
-    return childNodesHTML;
-  }
-
   childNodesAsPlainText(context) {
     const childNodesPlainText = this.reduceChildNode((childNodesPlainText, childNode) => {
       const childNodePlainText = childNode.asPlainText(context);

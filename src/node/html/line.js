@@ -16,8 +16,24 @@ export default class LineHTMLNode extends HTMLNode {
     return lines;
   }
 
+  prepare(context) {
+    const markdownNode = this.getMarkdownNode(),
+          firstTokenIndex = markdownNode.getFirstTokenIndex(context),
+          tokenIndex = firstTokenIndex; ///
+
+    Object.assign(context, {
+      tokenIndex
+    });
+  }
+
+  dispose(context) {
+    delete context.tokenIndex;
+  }
+
   mount(parentDOMElement, siblingDOMElement, context) {
     let domElement;
+
+    this.prepare(context);
 
     super.mount(parentDOMElement, siblingDOMElement, context);
 
@@ -35,6 +51,8 @@ export default class LineHTMLNode extends HTMLNode {
     domElement = this.getDOMElement();
 
     siblingDOMElement = domElement; ///
+
+    this.dispose(context);
 
     return siblingDOMElement;
   }
@@ -54,6 +72,38 @@ export default class LineHTMLNode extends HTMLNode {
     }
 
     super.unmount(parentDOMElement);
+  }
+
+  asHTML(indent, context) {
+    let html;
+
+    this.prepare(context);
+
+    indent = this.adjustIndent(indent);
+
+    const childNodesHTML = this.childNodesAsHTML(indent, context);
+
+    const startingTag = this.startingTag(context),
+          closingTag = this.closingTag(context);
+
+    html = `${indent}${startingTag}${childNodesHTML}${closingTag}
+`;
+
+    this.dispose(context);
+
+    return html;
+  }
+
+  asPlainText(context) {
+    let plainText;
+
+    this.prepare(context);
+
+    plainText = super.asPlainText(context);
+
+    this.dispose(context);
+
+    return plainText;
   }
 
   childNodesAsPlainText(context) {
