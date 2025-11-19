@@ -4,26 +4,21 @@ function getFirstTokenIndex(context) {
   let firstTokenIndex;
 
   const { tokens } = context,
-        minimumTokenIndex = 0,
-        firstSignificantTokenIndex = this.getFirstSignificantTokenIndex(tokens);
+        firstSignificantTokenIndex = this.getFirstSignificantTokenIndex(tokens),
+        previousTokenIndex = firstSignificantTokenIndex - 1,
+        minimumTokenIndex = 0;
 
   firstTokenIndex = firstSignificantTokenIndex; ///
 
-  if (firstTokenIndex > minimumTokenIndex) {
-    firstTokenIndex--;
+  for (let tokenIndex = previousTokenIndex; tokenIndex >= minimumTokenIndex; tokenIndex--) {
+    const token = tokens[tokenIndex],
+          tokenWhitespaceToken = token.isWhitespaceToken();
 
-    while (firstTokenIndex >= minimumTokenIndex) {
-      const token = tokens[firstTokenIndex],
-            tokenWhitespaceToken = token.isWhitespaceToken();
-
-      if (!tokenWhitespaceToken) {
-        firstTokenIndex++;
-
-        break;
-      }
-
-      firstTokenIndex--;
+    if (!tokenWhitespaceToken) {
+      break;
     }
+
+    firstTokenIndex = tokenIndex; ///
   }
 
   return firstTokenIndex;
@@ -34,26 +29,21 @@ function getLastTokenIndex(context) {
 
   const { tokens } = context,
         tokensLength = tokens.length,
-        maximumTokenIndex = tokensLength - 1,
-        lastSignificantTokenIndex = this.getLastSignificantTokenIndex(tokens);
+        lastSignificantTokenIndex = this.getLastSignificantTokenIndex(tokens),
+        nextTokenIndex = lastSignificantTokenIndex + 1,
+        maximumTokenIndex = tokensLength - 1;
 
   lastTokenIndex = lastSignificantTokenIndex; ///
 
-  if (lastTokenIndex < maximumTokenIndex) {
-    lastTokenIndex++;
+  for (let tokenIndex = nextTokenIndex; tokenIndex <= maximumTokenIndex; tokenIndex++) {
+    const token = tokens[tokenIndex],
+          tokenWhitespaceToken = token.isWhitespaceToken();
 
-    while (lastTokenIndex <= maximumTokenIndex) {
-      const token = tokens[lastTokenIndex],
-            tokenWhitespaceToken = token.isWhitespaceToken();
-
-      if (!tokenWhitespaceToken) {
-        lastTokenIndex--;
-
-        break;
-      }
-
-      lastTokenIndex++;
+    if (!tokenWhitespaceToken) {
+      break;
     }
+
+    lastTokenIndex = tokenIndex; ///
   }
 
   return lastTokenIndex;
