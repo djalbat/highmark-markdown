@@ -15,10 +15,10 @@ justify-content: flex-start;
 
 colour: black;
 font-family: "STIXTwoText";
-padding-top: 48pt;
-padding-left: 24pt;
-padding-right: 24pt;
-padding-bottom: 64pt;
+padding-top: 56pt;
+padding-left: 56pt;
+padding-right: 56pt;
+padding-bottom: 88pt;
 background-colour: white;
 
 primaryHeading {
