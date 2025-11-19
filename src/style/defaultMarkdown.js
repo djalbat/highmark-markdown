@@ -154,6 +154,7 @@ stronglyEmphasisedText {
 }
 
 contentsList {
+  padding-left: 0;
   list-style-type: none;
 
   contentsList {

@@ -13,7 +13,7 @@ export default class CommaTextHTMLNode extends TextHTMLNode {
   }
 
   text(context) {
-    const text = COMMA;
+    const text = COMMA; ///
 
     return text;
   }

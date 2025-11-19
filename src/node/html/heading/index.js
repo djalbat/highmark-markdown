@@ -70,9 +70,24 @@ export default class IndexHeadingHTMLNode extends HTMLNode {
     this.resetDOMElement();
   }
 
-  childNodesAsHTML(indent, context) {
-    const childNodesHTML = `${this.letter}
+  asHTML(indent, context) {
+    let html;
+
+    indent = this.adjustIndent(indent);
+
+    const childNodesHTML = this.childNodesAsHTML(indent, context);
+
+    const startingTag = this.startingTag(context),
+          closingTag = this.closingTag(context);
+
+    html = `${indent}${startingTag}${childNodesHTML}${closingTag}
 `;
+
+    return html;
+  }
+
+  childNodesAsHTML(indent, context) {
+    const childNodesHTML = this.letter;
 
     return childNodesHTML;
   }

@@ -78,6 +78,12 @@ export default class IndexLinkHTMLNode extends HTMLNode {
     super.unmount(parentDOMElement);
   }
 
+  adjustIndent(indent) {
+    indent = null;
+
+    return indent;
+  }
+
   asPlainText(context) {
     const plainText = EMPTY_STRING;
 
@@ -85,8 +91,7 @@ export default class IndexLinkHTMLNode extends HTMLNode {
   }
 
   childNodesAsHTML(indent, context) {
-    const childNodesHTML = `${this.pageNumber}
-`;
+    const childNodesHTML = this.pageNumber; ///
 
     return childNodesHTML;
   }

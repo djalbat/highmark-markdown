@@ -63,6 +63,22 @@ export default class PageNumberHTMLNode extends HTMLNode {
     super.unmount(parentDOMElement);
   }
 
+  asHTML(indent, context) {
+    let html;
+
+    indent = this.adjustIndent(indent);
+
+    const childNodesHTML = this.childNodesAsHTML(indent, context);
+
+    const startingTag = this.startingTag(context),
+          closingTag = this.closingTag(context);
+
+    html = `${indent}${startingTag}${childNodesHTML}${closingTag}
+`;
+
+    return html;
+  }
+
   asPlainText(context) {
     const plainText = EMPTY_STRING;
 
@@ -70,8 +86,7 @@ export default class PageNumberHTMLNode extends HTMLNode {
   }
 
   childNodesAsHTML(indent, context) {
-    const childNodesHTML = `${this.pageNumber}
-`;
+    const childNodesHTML = this.pageNumber; ///
 
     return childNodesHTML;
   }

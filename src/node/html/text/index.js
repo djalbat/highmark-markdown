@@ -22,8 +22,7 @@ export default class IndexTextHTMLNode extends TextHTMLNode {
   }
 
   text(context) {
-    const text = `${this.wordOrPhrase}
-`;
+    const text = this.wordOrPhrase; ///
 
     return text;
   }

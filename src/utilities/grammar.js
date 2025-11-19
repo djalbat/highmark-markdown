@@ -132,9 +132,7 @@ export function htmlFromMarkdownOptionsAndImporter(markdown, options, importer) 
       divisionHTMLNOdes.forEach((divisionHTMLNOde) => {
         const divisionHTMLNOdeHTML = divisionHTMLNOde.asHTML(context);
 
-        html = `${html}
-
-${divisionHTMLNOdeHTML}`;
+        html = `${html}${divisionHTMLNOdeHTML}`;
       });
     }
   }

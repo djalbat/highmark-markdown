@@ -14,6 +14,22 @@ export default class IndexItemHTMLNode extends HTMLNode {
     return ruleName;
   }
 
+  asHTML(indent, context) {
+    let html;
+
+    indent = this.adjustIndent(indent);
+
+    const childNodesHTML = this.childNodesAsHTML(indent, context);
+
+    const startingTag = this.startingTag(context),
+          closingTag = this.closingTag(context);
+
+    html = `${indent}${startingTag}${childNodesHTML}${closingTag}
+`;
+
+    return html;
+  }
+
   asString() {
     const ruleName = this.getRuleName(),
           string = ruleName;  ///
