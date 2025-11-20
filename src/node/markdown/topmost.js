@@ -37,8 +37,14 @@ export default class TopmostMarkdownNode extends MarkdownNode {
   }
 
   getFirstDivisionMarkdownNode() {
+    let firstDivisionMarkdownNode = null;
+
     const divisionMarkdownNodes = this.getDivisionMarkdownNodes(),
-          firstDivisionMarkdownNode = first(divisionMarkdownNodes) || null;
+          divisionMarkdownNodesLength = divisionMarkdownNodes.length;
+
+    if (divisionMarkdownNodesLength > 0) {
+      firstDivisionMarkdownNode = first(divisionMarkdownNodes);
+    }
 
     return firstDivisionMarkdownNode;
   }
