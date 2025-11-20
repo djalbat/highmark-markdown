@@ -22,22 +22,17 @@ export default class TextMarkdownNode extends MarkdownNode {
         text = text.substring(start);
       }
 
-      let { tokenIndex } = context;
-
       const { tokens } = context,
             tokensLength = tokens.length,
             minimumTokenIndex = 0,
             maximumTokenIndex = tokensLength - 1,
             significantTokenIndex = tokens.indexOf(significantToken),
             previousTokenIndex = significantTokenIndex - 1,
-            nextTokenIndex = significantTokenIndex + 1,
-            lastTokenIndex = tokenIndex;  ///
+            nextTokenIndex = significantTokenIndex + 1;
+
+      let tokenIndex;
 
       for (tokenIndex = previousTokenIndex; tokenIndex >= minimumTokenIndex; tokenIndex--) {
-        if (tokenIndex === lastTokenIndex) {
-          break;
-        }
-
         const token = tokens[tokenIndex],
               tokenWhitespaceToken = token.isWhitespaceToken();
 

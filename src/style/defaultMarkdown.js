@@ -104,13 +104,10 @@ inlineListing {
   background-colour: black;
 }
 
-blockListing {
+container.listing blockListing {
+  padding: 6pt;
   display: block;
   overflow-x: scroll;
-  padding-top: 6pt;
-  padding-left: 6pt;
-  padding-right: 6pt;
-  padding-bottom: 6pt;
 }
 
 inlineListing {

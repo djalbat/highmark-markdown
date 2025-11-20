@@ -9,13 +9,6 @@ export default class BlockLineHTMLNode extends LineHTMLNode {
     return lines;
   }
 
-  content(context) {
-    const plainText = this.asPlainText(context),
-          content = plainText;  ///
-
-    return content;
-  }
-
   static lines = 1;
 
   static tagName = "span";

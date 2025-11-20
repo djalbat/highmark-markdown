@@ -12,7 +12,7 @@ export default class SelectorsCSSNode extends CSSNode {
       const childNodeCSS = childNode.asCSS(context);
 
       css = (css !== null) ?
-              `${css} ${childNodeCSS}` :
+              `${css}${childNodeCSS}` :
                 childNodeCSS; ///
 
       return css;
