@@ -79,6 +79,34 @@ class HTMLNode extends Node {
 
   someChildHTMLNode(callback) { return this.someChildNode(callback); }
 
+  retrieveHTMLNode(callback) {
+    let htmlNode = null;
+
+    if (htmlNode === null) {
+      const childHTMLNodes = this.getChildHTMLNodes();
+
+      childHTMLNodes.some((childHTMLNode) => {
+        htmlNode = childHTMLNode.retrieveHTMLNode(callback);
+
+        if (htmlNode !== null) {
+          return true;
+        }
+      });
+    }
+
+    if (htmlNode === null) {
+      htmlNode = this;
+
+      const result = callback(htmlNode);
+
+      if (!result) {
+        htmlNode = null;
+      }
+    }
+
+    return htmlNode;
+  }
+
   removeChildHTMLNodes(removedChildHTMLNodes = null) {
     let childHTMLNodes;
 
