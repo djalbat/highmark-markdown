@@ -77,6 +77,8 @@ class HTMLNode extends Node {
 
   someAncestorHTMLNode(callback) { return this.someAncestorNode(callback); }
 
+  someChildHTMLNode(callback) { return this.someChildNode(callback); }
+
   removeChildHTMLNodes(removedChildHTMLNodes = null) {
     let childHTMLNodes;
 
@@ -114,34 +116,6 @@ class HTMLNode extends Node {
           markdownNodeMatches = outerNodeMatches; ///
 
     return markdownNodeMatches;
-  }
-
-  retrieveHTMLNode(callback) {
-    let htmlNode = null;
-
-    if (htmlNode === null) {
-      const childHTMLNodes = this.getChildHTMLNodes();
-
-      childHTMLNodes.some((childHTMLNode) => {
-        htmlNode = childHTMLNode.retrieveHTMLNode(callback);
-
-        if (htmlNode !== null) {
-          return true;
-        }
-      });
-    }
-
-    if (htmlNode === null) {
-      htmlNode = this;
-
-      const result = callback(htmlNode);
-
-      if (!result) {
-        htmlNode = null;
-      }
-    }
-
-    return htmlNode;
   }
 
   addChildHTMLNodes(addedChildHTMLNodes, startHTNLIndex) {
