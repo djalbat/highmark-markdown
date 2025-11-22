@@ -49,11 +49,11 @@ export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
               divisionMarkdownNode = divisionMarkdownNodeFromNode(node);
 
         if (divisionMarkdownNode !== null) {
-          const topmostMarkdownNode = node, ///
+          const documentMarkdownNode = node, ///
                 divisionClassName = importedClassName,  ///
                 tokens = importedTokens;  ///
 
-          topmostMarkdownNode.removeDivisionMarkdownNode(divisionMarkdownNode);
+          documentMarkdownNode.removeDivisionMarkdownNode(divisionMarkdownNode);
 
           divisionMarkdownNode.setDivisionClassName(divisionClassName);
 

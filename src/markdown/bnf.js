@@ -2,10 +2,10 @@
 
 const bnf = `
 
-    markdown                 ::=  ( division | error )+ ;
+    document                 ::=  division ;
     
     
-    division                 ::=  ( subDivision | verticalSpace )+ ;
+    division                 ::=  ( subDivision | verticalSpace | error )+ ;
     
     
     subDivision..            ::=  directives 

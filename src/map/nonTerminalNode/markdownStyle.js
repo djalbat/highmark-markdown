@@ -9,7 +9,7 @@ import ColourMarkdownStyleNode from "../../node/markdownStyle/colour";
 import ValuesMarkdownStyleNode from "../../node/markdownStyle/values";
 import TargetMarkdownStyleNode from "../../node/markdownStyle/target";
 import ContentMarkdownStyleNode from "../../node/markdownStyle/content";
-import TopmostMarkdownStyleNode from "../../node/markdownStyle/topmost";
+import DocumentMarkdownStyleNode from "../../node/markdownStyle/document";
 import RuleSetMarkdownStyleNode from "../../node/markdownStyle/ruleSet";
 import RuleNameMarkdownStyleNode from "../../node/markdownStyle/ruleName";
 import NonsenseMarkdownStyleNode from "../../node/markdownStyle/nonsense";
@@ -32,6 +32,7 @@ import { NAME_MARKDOWN_STYLE_RULE_NAME,
          VALUES_MARKDOWN_STYLE_RULE_NAME,
          TARGET_MARKDOWN_STYLE_RULE_NAME,
          CONTENT_MARKDOWN_STYLE_RULE_NAME,
+         DOCUMENT_MARKDOWN_STYLE_RULE_NAME,
          RULE_SET_MARKDOWN_STYLE_RULE_NAME,
          NONSENSE_MARKDOWN_STYLE_RULE_NAME,
          ARGUMENT_MARKDOWN_STYLE_RULE_NAME,
@@ -43,8 +44,7 @@ import { NAME_MARKDOWN_STYLE_RULE_NAME,
          IDENTIFIER_MARKDOWN_STYLE_RULE_NAME,
          DECLARATION_MARKDOWN_STYLE_RULE_NAME,
          PSEUDO_CLASS_MARKDOWN_STYLE_RULE_NAME,
-         SELECTORS_LIST_MARKDOWN_STYLE_RULE_NAME,
-         MARKDOWN_STYLE_MARKDOWN_STYLE_RULE_NAME } from "../../ruleNames/markdownStyle";
+         SELECTORS_LIST_MARKDOWN_STYLE_RULE_NAME } from "../../ruleNames/markdownStyle";
 
 const markdownStyleNonTerminalNodeMap = {
   [NAME_MARKDOWN_STYLE_RULE_NAME]: NameMarkdownStyleNode,
@@ -61,14 +61,14 @@ const markdownStyleNonTerminalNodeMap = {
   [ARGUMENT_MARKDOWN_STYLE_RULE_NAME]: ArgumentMarkdownStyleNode,
   [SELECTOR_MARKDOWN_STYLE_RULE_NAME]: SelectorMarkdownStyleNode,
   [VERBATIM_MARKDOWN_STYLE_RULE_NAME]: VerbatimMarkdownStyleNode,
+  [DOCUMENT_MARKDOWN_STYLE_RULE_NAME]: DocumentMarkdownStyleNode,
   [RULE_NAME_MARKDOWN_STYLE_RULE_NAME]: RuleNameMarkdownStyleNode,
   [SELECTORS_MARKDOWN_STYLE_RULE_NAME]: SelectorsMarkdownStyleNode,
   [ARGUMENTS_MARKDOWN_STYLE_RULE_NAME]: ArgumentsMarkdownStyleNode,
   [IDENTIFIER_MARKDOWN_STYLE_RULE_NAME]: IdentifierMarkdownStyleNode,
   [DECLARATION_MARKDOWN_STYLE_RULE_NAME]: DeclarationMarkdownStyleNode,
   [PSEUDO_CLASS_MARKDOWN_STYLE_RULE_NAME]: PseudoClassMarkdownStyleNode,
-  [SELECTORS_LIST_MARKDOWN_STYLE_RULE_NAME]: SelectorsListMarkdownStyleNode,
-  [MARKDOWN_STYLE_MARKDOWN_STYLE_RULE_NAME]: TopmostMarkdownStyleNode ///
+  [SELECTORS_LIST_MARKDOWN_STYLE_RULE_NAME]: SelectorsListMarkdownStyleNode
 };
 
 export default markdownStyleNonTerminalNodeMap;

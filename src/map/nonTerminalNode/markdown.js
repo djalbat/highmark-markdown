@@ -3,7 +3,7 @@
 import PathMarkdownNode from "../../node/markdown/path";
 import ImageMarkdownNode from "../../node/markdown/image";
 import ErrorMarkdownNode from "../../node/markdown/error";
-import TopmostMarkdownNode from "../../node/markdown/topmost";
+import DocumentMarkdownNode from "../../node/markdown/document";
 import DivisionMarkdownNode from "../../node/markdown/division";
 import FootnoteMarkdownNode from "../../node/markdown/footnote";
 import BlockEndMarkdownNode from "../../node/markdown/blockEnd";
@@ -26,7 +26,7 @@ import IncludeDirectiveMarkdownNode from "../../node/markdown/directive/include"
 import { PATH_MARKDOWN_RULE_NAME,
          IMAGE_MARKDOWN_RULE_NAME,
          ERROR_MARKDOWN_RULE_NAME,
-         MARKDOWN_MARKDOWN_RULE_NAME,
+         DOCUMENT_MARKDOWN_RULE_NAME,
          DIVISION_MARKDOWN_RULE_NAME,
          FOOTNOTE_MARKDOWN_RULE_NAME,
          BLOCK_END_MARKDOWN_RULE_NAME,
@@ -50,7 +50,7 @@ const markdownNonTerminalNodeMap = {
   [PATH_MARKDOWN_RULE_NAME]: PathMarkdownNode,
   [IMAGE_MARKDOWN_RULE_NAME]: ImageMarkdownNode,
   [ERROR_MARKDOWN_RULE_NAME]: ErrorMarkdownNode,
-  [MARKDOWN_MARKDOWN_RULE_NAME]: TopmostMarkdownNode, ///
+  [DOCUMENT_MARKDOWN_RULE_NAME]: DocumentMarkdownNode, ///
   [DIVISION_MARKDOWN_RULE_NAME]: DivisionMarkdownNode,
   [FOOTNOTE_MARKDOWN_RULE_NAME]: FootnoteMarkdownNode,
   [BLOCK_END_MARKDOWN_RULE_NAME]: BlockEndMarkdownNode,

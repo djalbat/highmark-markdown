@@ -10,8 +10,8 @@ export default class IncludeDirectiveMarkdownTransform extends MarkdownTransform
     return divisionMarkdownNode;
   }
 
-  appendToTopmostMarkdownNode(topmostMarkdownNode, context) {
-    const parentNode = topmostMarkdownNode;  ///
+  appendToDocumentMarkdownNode(documentMarkdownNode, context) {
+    const parentNode = documentMarkdownNode;  ///
 
     super.appendTo(parentNode, context);
 

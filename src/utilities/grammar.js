@@ -113,14 +113,14 @@ export function htmlFromMarkdownOptionsAndImporter(markdown, options, importer) 
         markdownNode = markdownNodeFromTokens(tokens);
 
   if (markdownNode !== null) {
-    const topmostMarkdownNode = markdownNode, ///
+    const documentMarkdownNode = markdownNode, ///
           context = {
             tokens,
             importer,
             ...options
           };
 
-    topmostMarkdownNode.resolve(context);
+    documentMarkdownNode.resolve(context);
 
     const topmostHTMLNode = topmostHTMLNodeFromMarkdownNode(markdownNode);
 

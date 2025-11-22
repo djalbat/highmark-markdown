@@ -35,7 +35,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     return className;
   }
 
-  resolveIgnored(topmostMarkdownNode, context) {
+  resolveIgnored(documentMarkdownNode, context) {
     const ignored = this.isIgnored();
 
     if (!ignored) {
@@ -48,7 +48,7 @@ export default class DivisionMarkdownNode extends MarkdownNode {
     ignoreDirectiveMarkdownTransform.remove(context);
   }
 
-  resolveIncludes(topmostMarkdownNode, context) {
+  resolveIncludes(documentMarkdownNode, context) {
     const node = this,  ///
           includeDirectiveMarkdownNodes = includeDirectiveMarkdownNodesFromNode(node),
           includeDirectiveMarkdownTransforms = includeDirectiveMarkdownNodes.reduce((includeDirectiveMarkdownTransforms, includeDirectiveMarkdownNode) => {
@@ -62,9 +62,9 @@ export default class DivisionMarkdownNode extends MarkdownNode {
           }, []);
 
     includeDirectiveMarkdownTransforms.forEach((includeDirectiveMarkdownTransform) => {
-      const divisionMarkdownNode = includeDirectiveMarkdownTransform.appendToTopmostMarkdownNode(topmostMarkdownNode, context);
+      const divisionMarkdownNode = includeDirectiveMarkdownTransform.appendToDocumentMarkdownNode(documentMarkdownNode, context);
 
-      divisionMarkdownNode.resolveIncludes(topmostMarkdownNode, context);
+      divisionMarkdownNode.resolveIncludes(documentMarkdownNode, context);
     });
   }
 

@@ -29,7 +29,7 @@ export { default as MarkdownNode } from "./node/markdown";
 export { default as TopmostHTMLNode } from "./node/html/topmost";
 export { default as MarkdownStyleNode } from "./node/markdownStyle";
 export { default as PageNumberHTMLNode } from "./node/html/pageNumber";
-export { default as TopmostMarkdownNode } from "./node/markdown/topmost";
+export { default as DocumentMarkdownNode } from "./node/markdown/document";
 export { default as BlockListingHTMLNode } from "./node/html/listing/block";
 export { default as FootnotesListHTMLNode } from "./node/html/list/footnotes";
 
