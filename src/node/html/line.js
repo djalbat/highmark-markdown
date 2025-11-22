@@ -30,6 +30,20 @@ export default class LineHTMLNode extends HTMLNode {
     delete context.tokenIndex;
   }
 
+  remount(context) {
+    const domElement = this.getDOMElement(),
+          parentDOMElement = domElement.parentElement,
+          siblingDOMElement = domElement.previousSibling;
+
+    this.prepare(context);
+
+    this.unmount(parentDOMElement);
+
+    this.mount(parentDOMElement, siblingDOMElement, context);
+
+    this.dispose(context);
+  }
+
   mount(parentDOMElement, siblingDOMElement, context) {
     let domElement;
 
