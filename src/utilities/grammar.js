@@ -34,15 +34,6 @@ export function tokensFromMarkdown(markdown) {
   return tokens;
 }
 
-export function markdownNodeFromTokens(tokens) {
-  const parser = markdownParser, ///
-        startRule = parser.getStartRule(),
-        node = parser.parse(tokens, startRule),
-        markdownNode = node;  ///
-
-  return markdownNode;
-}
-
 export function tokensFromMarkdownStyle(markdownStyle) {
   const lexer = markdownStyleLexer, ///
         content = markdownStyle,  ///
@@ -66,15 +57,6 @@ export function HTMLClassFromMarkdownNode(markdownNode) {
   return Class;
 }
 
-export function markdownStyleNodeFromTokens(tokens) {
-  const parser = markdownStyleParser, ///
-        startRule = parser.getStartRule(),
-        node = parser.parse(tokens, startRule),
-        markdownStyleNode = node; ///
-
-  return markdownStyleNode;
-}
-
 export function CSSClassFromMarkdownStyleNode(markdownStyleNode) {
   let Class;
 
@@ -90,31 +72,23 @@ export function CSSClassFromMarkdownStyleNode(markdownStyleNode) {
   return Class;
 }
 
-export function topmostHTMLNodeFromMarkdownNode(markdownNode, ClassFromOuterNode = HTMLClassFromMarkdownNode) {
-  let topmostHTMLNode = null;
+export function documentMarkdownNodeFromTokens(tokens) {
+  const parser = markdownParser, ///
+        startRule = parser.getStartRule(),
+        node = parser.parse(tokens, startRule),
+        documentMarkdownNode = node;  ///
 
-  if (markdownNode !== null) {
-    const node = markdownNode,  ///
-          queries = markdownQueries, ///
-          nodes = nodesFromNodeAndQueries(node, queries),
-          outerNodes = nodes, ///
-          topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes);
-
-    topmostHTMLNode = topmostNode;  ///
-  }
-
-  return topmostHTMLNode;
+  return documentMarkdownNode;
 }
 
 export function htmlFromMarkdownOptionsAndImporter(markdown, options, importer) {
   let html = EMPTY_STRING;
 
   const tokens = tokensFromMarkdown(markdown),
-        markdownNode = markdownNodeFromTokens(tokens);
+        documentMarkdownNode = documentMarkdownNodeFromTokens(tokens);
 
-  if (markdownNode !== null) {
-    const documentMarkdownNode = markdownNode, ///
-          context = {
+  if (documentMarkdownNode !== null) {
+    const context = {
             tokens,
             importer,
             ...options
@@ -122,7 +96,7 @@ export function htmlFromMarkdownOptionsAndImporter(markdown, options, importer) 
 
     documentMarkdownNode.resolve(context);
 
-    const topmostHTMLNode = topmostHTMLNodeFromMarkdownNode(markdownNode);
+    const topmostHTMLNode = topmostHTMLNodeFromDocumentMarkdownNode(documentMarkdownNode);
 
     if (topmostHTMLNode !== null) {
       topmostHTMLNode.resolve(context);
@@ -140,15 +114,29 @@ export function htmlFromMarkdownOptionsAndImporter(markdown, options, importer) 
   return html;
 }
 
-export function topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode, ClassFromOuterNode = CSSClassFromMarkdownStyleNode) {
-  const node = markdownStyleNode,  ///
-        queries = markdownStyleQueries, ///
-        nodes = nodesFromNodeAndQueries(node, queries),
-        outerNodes = nodes, ///
-        topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes),
-        topmostCSSNode = topmostNode;  ///
+export function documentMarkdownStyleNodeFromTokens(tokens) {
+  const parser = markdownStyleParser, ///
+        startRule = parser.getStartRule(),
+        node = parser.parse(tokens, startRule),
+        documentMarkdownStyleNode = node; ///
 
-  return topmostCSSNode;
+  return documentMarkdownStyleNode;
+}
+
+export function topmostHTMLNodeFromDocumentMarkdownNode(documentMarkdownNode, ClassFromOuterNode = HTMLClassFromMarkdownNode) {
+  let topmostHTMLNode = null;
+
+  if (documentMarkdownNode !== null) {
+    const node = documentMarkdownNode,  ///
+          queries = markdownQueries, ///
+          nodes = nodesFromNodeAndQueries(node, queries),
+          outerNodes = nodes, ///
+          topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes);
+
+    topmostHTMLNode = topmostNode;  ///
+  }
+
+  return topmostHTMLNode;
 }
 
 export function cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSelectorsString) {
@@ -156,10 +144,10 @@ export function cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSele
 
   const target = WEB_TARGET,
         tokens = tokensFromMarkdownStyle(markdownStyle),
-        markdownStyleNode = markdownStyleNodeFromTokens(tokens);
+        documentMarkdownStyleNode = documentMarkdownStyleNodeFromTokens(tokens);
 
-  if (markdownStyleNode !== null) {
-    const topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode),
+  if (documentMarkdownStyleNode !== null) {
+    const topmostCSSNode = topmostCSSNodeFromDocumentMarkdownStyleNode(documentMarkdownStyleNode),
           context = {
             target,
             tokens,
@@ -174,15 +162,26 @@ export function cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSele
   return css;
 }
 
+export function topmostCSSNodeFromDocumentMarkdownStyleNode(documentMarkdownStyleNode, ClassFromOuterNode = CSSClassFromMarkdownStyleNode) {
+  const node = documentMarkdownStyleNode,  ///
+        queries = markdownStyleQueries, ///
+        nodes = nodesFromNodeAndQueries(node, queries),
+        outerNodes = nodes, ///
+        topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes),
+        topmostCSSNode = topmostNode;  ///
+
+  return topmostCSSNode;
+}
+
 export default {
   tokensFromMarkdown,
-  markdownNodeFromTokens,
   tokensFromMarkdownStyle,
   HTMLClassFromMarkdownNode,
-  markdownStyleNodeFromTokens,
   CSSClassFromMarkdownStyleNode,
-  topmostHTMLNodeFromMarkdownNode,
+  documentMarkdownNodeFromTokens,
   htmlFromMarkdownOptionsAndImporter,
-  topmostCSSNodeFromMarkdownStyleNode,
-  cssFromMarkdownStyleAndCSSSelectorsString
+  documentMarkdownStyleNodeFromTokens,
+  topmostHTMLNodeFromDocumentMarkdownNode,
+  cssFromMarkdownStyleAndCSSSelectorsString,
+  topmostCSSNodeFromDocumentMarkdownStyleNode
 };

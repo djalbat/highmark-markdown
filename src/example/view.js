@@ -22,16 +22,16 @@ import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
 import { WEB_TARGET } from "../targets";
 import { initialMarkdown, importer } from "./importer";
-import { EMPTY_STRING, PREVIEW_CSS_SELECTORS_STRING } from "./constants";
+import { EMPTY_STRING, CSS_SELECTORS_STRING } from "./constants";
 
 const { tokensFromMarkdown,
-        markdownNodeFromTokens,
         tokensFromMarkdownStyle,
-        markdownStyleNodeFromTokens,
-        topmostHTMLNodeFromMarkdownNode,
+        documentMarkdownNodeFromTokens,
         htmlFromMarkdownOptionsAndImporter,
-        topmostCSSNodeFromMarkdownStyleNode,
-        cssFromMarkdownStyleAndCSSSelectorsString } = grammarUtilities;
+        documentMarkdownStyleNodeFromTokens,
+        topmostHTMLNodeFromDocumentMarkdownNode,
+        cssFromMarkdownStyleAndCSSSelectorsString,
+        topmostCSSNodeFromDocumentMarkdownStyleNode } = grammarUtilities;
 
 class View extends Element {
   pageUpdateCustomHandler = (event, element, index) => {
@@ -79,9 +79,9 @@ class View extends Element {
   updateMarkdownStyle() {
     const markdownStyle = this.getMarkdownStyle(),
           tokens = tokensFromMarkdownStyle(markdownStyle),
-          markdownStyleNode = markdownStyleNodeFromTokens(tokens);
+          documentMarkdownStyleNode = documentMarkdownStyleNodeFromTokens(tokens);
 
-    if (markdownStyleNode === null) {
+    if (documentMarkdownStyleNode === null) {
       this.resetMarkdownStyleTokens();
 
       this.resetDocumentMarkdownStyleNode();
@@ -91,10 +91,9 @@ class View extends Element {
       return;
     }
 
-    const node = markdownStyleNode, ///
+    const node = documentMarkdownStyleNode, ///
           parseTree = node.asParseTree(tokens),
-          markdownStyleTokens = tokens, ///
-          documentMarkdownStyleNode = node; ///
+          markdownStyleTokens = tokens; ///
 
     this.setMarkdownStyleTokens(markdownStyleTokens);
 
@@ -106,9 +105,9 @@ class View extends Element {
   updateMarkdown() {
     const markdown = this.getMarkdown(),
           tokens = tokensFromMarkdown(markdown),
-          markdownNode = markdownNodeFromTokens(tokens);
+          documentMarkdownNode = documentMarkdownNodeFromTokens(tokens);
 
-    if (markdownNode === null) {
+    if (documentMarkdownNode === null) {
       this.resetMarkdownTokens();
 
       this.resetDocumentMarkdownNode();
@@ -119,8 +118,6 @@ class View extends Element {
     }
 
     let context;
-
-    const documentMarkdownNode = markdownNode; ///
 
     context = {
       tokens,
@@ -152,8 +149,7 @@ class View extends Element {
     this.clearPageButtonsDiv();
 
     const documentMarkdownNode = this.getDocumentMarkdownNode(),
-          markdownNode = documentMarkdownNode, ///
-          topmostHTMLNode = topmostHTMLNodeFromMarkdownNode(markdownNode);
+          topmostHTMLNode = topmostHTMLNodeFromDocumentMarkdownNode(documentMarkdownNode);
 
     if (topmostHTMLNode === null) {
       return;
@@ -202,12 +198,11 @@ class View extends Element {
   }
 
   updateCSS() {
-    const documentMarkdownStyleNode = this.getDocumentMarkdownStyleNode(),
+    const markdownStyleTokens = this.getMarkdownStyleTokens(),
           markdownStyleElement = this.getMarkdownStyleElement(),
-          markdownStyleTokens = this.getMarkdownStyleTokens(),
-          markdownStyleNode = documentMarkdownStyleNode; ///
+          documentMarkdownStyleNode = this.getDocumentMarkdownStyleNode();
 
-    if (markdownStyleNode === null) {
+    if (documentMarkdownStyleNode === null) {
       const css = EMPTY_STRING;
 
       markdownStyleElement.setCSS(css);
@@ -219,7 +214,7 @@ class View extends Element {
       return;
     }
 
-    const topmostCSSNode = topmostCSSNodeFromMarkdownStyleNode(markdownStyleNode),
+    const topmostCSSNode = topmostCSSNodeFromDocumentMarkdownStyleNode(documentMarkdownStyleNode),
           target = WEB_TARGET,
           tokens = markdownStyleTokens, ///
           context = {
@@ -234,7 +229,7 @@ class View extends Element {
 
     this.updateCSSParseTreeTextarea(cssParseTree);
 
-    const cssSelectorsString = PREVIEW_CSS_SELECTORS_STRING,
+    const cssSelectorsString = CSS_SELECTORS_STRING,
           markdownStyle = this.getMarkdownStyle(),
           css = cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSelectorsString);
 
@@ -442,11 +437,7 @@ class View extends Element {
     this.setMarkdown(markdown);
   }
 
-  static initialMarkdown = `\`\`\`listing
-18.8.1
-\`\`\`
-  
-  `;
+  static initialMarkdown = initialMarkdown;
 
   static initialMarkdownStyle = "";
 

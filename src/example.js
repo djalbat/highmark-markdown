@@ -9,11 +9,11 @@ import { MarkdownStyleElement, DefaultMarkdownStyleElement } from "./index";  //
 
 import View from "./example/view";
 
-import { PREVIEW_CSS_SELECTORS_STRING } from "./example/constants";
+import { CSS_SELECTORCS_STRING } from "./example/constants";
 
 const { renderStyles } = withStyle;
 
-const cssSelectorsString = PREVIEW_CSS_SELECTORS_STRING;
+const cssSelectorsString = CSS_SELECTORCS_STRING;
 
 DefaultMarkdownStyleElement.fromCSSSelectorsString(cssSelectorsString);
 

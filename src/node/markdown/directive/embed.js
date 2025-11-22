@@ -4,7 +4,7 @@ import MarkdownNode from "../../../node/markdown";
 import PathMarkdownNode from "../../../node/markdown/path";
 import EmbedDirectiveMarkdownTransform from "../../../transform/markdown/directive/embed";
 
-import { divisionMarkdownNodeFromNode, subDivisionMarkdownNodeFromNode } from "../../../utilities/markdown";
+import { subDivisionMarkdownNodeFromNode } from "../../../utilities/markdown";
 
 export default class EmbedDirectiveMarkdownNode extends MarkdownNode {
   filePath(context) {
@@ -43,8 +43,8 @@ export default class EmbedDirectiveMarkdownNode extends MarkdownNode {
         delete context.importedNode;
         delete context.importedTokens;
 
-        const node = importedNode,  ///
-              divisionMarkdownNode = divisionMarkdownNodeFromNode(node);
+        const documentMarkdownNode = importedNode,  ///
+              divisionMarkdownNode = documentMarkdownNode.getDivisionMarkdownNode();
 
         if (divisionMarkdownNode !== null) {
           const node = divisionMarkdownNode,  ///

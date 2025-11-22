@@ -4,21 +4,14 @@ import { arrayUtilities } from "necessary";
 
 import MarkdownNode from "../../node/markdown";
 
-import { divisionMarkdownNodesFromNode } from "../../utilities/markdown";
-
 const { first } = arrayUtilities;
 
 export default class DocumentMarkdownNode extends MarkdownNode {
   resolve(context) {
-    const firstDivisionMarkdownNode = this.getFirstDivisionMarkdownNode();
+    const documentMarkdownNode = this,  ///
+          divisionMarkdownNode = this.getDivisionMarkdownNode();
 
-    if (firstDivisionMarkdownNode === null) {
-      return;
-    }
-
-    const documentMarkdownNode = this; ///
-
-    firstDivisionMarkdownNode.resolveIncludes(documentMarkdownNode, context);
+    divisionMarkdownNode.resolveIncludes(documentMarkdownNode, context);
 
     this.forEachDivisionMarkdownNode((divisionMarkdownNode) => {
       divisionMarkdownNode.resolveIgnored(documentMarkdownNode, context);
@@ -29,24 +22,26 @@ export default class DocumentMarkdownNode extends MarkdownNode {
     });
   }
 
-  getDivisionMarkdownNodes() {
-    const node = this,  ///
-          divisionMarkdownNodes = divisionMarkdownNodesFromNode(node);
+  getDivisionMarkdownNode() {
+    let divisionMarkdownNode = null;
 
-    return divisionMarkdownNodes;
-  }
+    const multiplicity = this.getMultiplicity();
 
-  getFirstDivisionMarkdownNode() {
-    let firstDivisionMarkdownNode = null;
+    if (multiplicity === 1) {
+      const divisionMarkdownNodes = this.getDivisionMarkdownNodes(),
+            firstDivisionMarkdownNode = first(divisionMarkdownNodes);
 
-    const divisionMarkdownNodes = this.getDivisionMarkdownNodes(),
-          divisionMarkdownNodesLength = divisionMarkdownNodes.length;
-
-    if (divisionMarkdownNodesLength > 0) {
-      firstDivisionMarkdownNode = first(divisionMarkdownNodes);
+      divisionMarkdownNode = firstDivisionMarkdownNode; ///
     }
 
-    return firstDivisionMarkdownNode;
+    return divisionMarkdownNode;
+  }
+
+  getDivisionMarkdownNodes() {
+    const childNodes = this.getChildNodes(),
+          divisionMarkdownNodes = childNodes; ///
+
+    return divisionMarkdownNodes;
   }
 
   forEachDivisionMarkdownNode(callback) {
