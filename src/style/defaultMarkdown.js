@@ -3,10 +3,9 @@
 const defaultMarkdownStyle = `
 
 \`\`\`web
-width: 100%;
+width: 600pt;
 display: flex;
 position: relative;
-max-width: 600pt;
 min-height: 848pt;
 flex-shrink: 0;
 flex-direction: column;
