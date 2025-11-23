@@ -16,6 +16,13 @@ export default class LineHTMLNode extends HTMLNode {
     return lines;
   }
 
+  content(context) {
+    const plainText = this.asPlainText(context),
+          content = plainText;  ///
+
+    return content;
+  }
+
   prepare(context) {
     const markdownNode = this.getMarkdownNode(),
           firstTokenIndex = markdownNode.getFirstTokenIndex(context),
