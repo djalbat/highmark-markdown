@@ -83,7 +83,7 @@ unorderedList {
 
 orderedItem,
 unorderedItem {
-  padding-bottom: 8pt;
+  padding-bottom: 4pt;
 
   :last-child {
     padding-bottom: 0;
