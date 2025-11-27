@@ -222,16 +222,7 @@ class HTMLNode extends Node {
 
   selfClosingTag(context) {
     const tagName = this.tagName(context),
-          className = this.className(context),
-          attributeName = this.attributeName(context),
-          attributeValue = this.attributeValue(context),
-          classHTML = (className !== null) ?
-                       ` class="${className}"` :
-                          EMPTY_STRING,
-          attributeHTML = ((attributeName !== null) && (attributeValue !== null)) ?
-                           ` ${attributeName}="${attributeValue}"` :
-                              EMPTY_STRING,
-          selfClosingTag = `<${tagName}${classHTML}${attributeHTML}/>`;
+          selfClosingTag = `<${tagName}/>`;
 
     return selfClosingTag;
   }
@@ -317,9 +308,11 @@ class HTMLNode extends Node {
 
     indent = this.adjustIndent(indent);
 
-    const childNodesHTML = this.childNodesAsHTML(indent, context);
+    const className = this.className(context),
+          attributeName = this.attributeName(context),
+          childNodesHTML = this.childNodesAsHTML(indent, context);
 
-    if (childNodesHTML !== EMPTY_STRING) {
+    if ((childNodesHTML !== EMPTY_STRING) || (className !== null) || (attributeName !== null)) {
       const startingTag = this.startingTag(context),
             closingTag = this.closingTag(context);
 

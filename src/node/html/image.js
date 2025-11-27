@@ -3,7 +3,7 @@
 import HTMLNode from "../../node/html";
 
 import { EMPTY_STRING } from "../../constants";
-import {remove, insertAfter, insertBeforehand } from "../../utilities/dom";
+import { remove, insertAfter, insertBeforehand } from "../../utilities/dom";
 import { ALT_ATTRIBUTE_NAME, SRC_ATTRIBUTE_NAME } from "../../attributeNames";
 
 export default class ImageHTMLNode extends HTMLNode {
@@ -26,7 +26,7 @@ export default class ImageHTMLNode extends HTMLNode {
     return alt;
   }
 
-  selfClosingTag(context) {
+  startingTag(context) {
     const tagName = this.tagName(context),
           attributeNames = this.attributeNames(context),
           attributeValues = this.attributeValues(context),
@@ -40,7 +40,7 @@ export default class ImageHTMLNode extends HTMLNode {
             return attributesHML;
 
           }, null),
-          selfClosingTag = `<${tagName} ${attributesHTML}/>`;
+          selfClosingTag = `<${tagName} ${attributesHTML}>`;
 
     return selfClosingTag;
   }

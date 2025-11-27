@@ -1,0 +1,14 @@
+.idea
+.npmrc
+.swcrc
+.vscode
+.DS_Store
+.gitignore
+example.js
+license.txt
+npm-debug.log
+package-lock.json
+lib
+ttf
+font
+node_modules
