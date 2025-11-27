@@ -41,7 +41,7 @@ export default class AnchorHTMLNode extends HTMLNode {
   }
 
   attributeValue(context) {
-    const attributeValue = `#${this.prepend}-${this.identifier}`; ///
+    const attributeValue = `${this.prepend}-${this.identifier}`; ///
 
     return attributeValue;
   }
