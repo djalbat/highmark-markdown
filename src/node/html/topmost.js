@@ -5,10 +5,13 @@ import IndexHTMLTransform from "../../transform/html/index";
 import DivisionHTMLTransform from "../../transform/html/division";
 import ContentsListHTMLTransform from "../../transform/html/list/contents";
 
+import { EMPTY_STRING } from "../../constants";
 import { HTML_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
 import { divisionHTMLNodesFromNode, indexDirectiveHTMLNodeFromNode, contentsDirectiveHTMLNodeFromNode } from "../../utilities/html";
 
 export default class TopmostHTMLNode extends HTMLNode {
+  forEachChildHTMLNOde(callback) { this.forEachChildNode(callback); }
+
   getRuleName() {
     const ruleName = HTML_MARKDOWN_RULE_NAME;
 
@@ -121,6 +124,18 @@ export default class TopmostHTMLNode extends HTMLNode {
     if (contentsListHTMLTransform !== null) {
       contentsListHTMLTransform.addAfterContentsDirectiveHTMLNode(contentsDirectiveHTMLNode);
     }
+  }
+
+  asHTML(context) {
+    let html = EMPTY_STRING;
+
+    this.forEachChildHTMLNOde((childHTMLNode) => {
+      const childHTNMLNodeHTML = childHTMLNode.asHTML(context);
+
+      html = `${html}${childHTNMLNodeHTML}`;
+    });
+
+    return html;
   }
 
   static tagName = "html";
