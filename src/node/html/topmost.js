@@ -43,20 +43,6 @@ export default class TopmostHTMLNode extends HTMLNode {
     return indent;
   }
 
-  mount(parentDOMElement, siblingDOMElement, context) {
-    this.childNodes.forEach((childNode) => {
-      siblingDOMElement = childNode.mount(parentDOMElement, siblingDOMElement, context);
-    });
-
-    return siblingDOMElement;
-  }
-
-  unmount(parentDOMElement) {
-    this.childNodes.forEach((childNode) => {
-      childNode.unmount(parentDOMElement);
-    });
-  }
-
   resolve(context) {
     this.paginate(context);
 
@@ -124,6 +110,20 @@ export default class TopmostHTMLNode extends HTMLNode {
     if (contentsListHTMLTransform !== null) {
       contentsListHTMLTransform.addAfterContentsDirectiveHTMLNode(contentsDirectiveHTMLNode);
     }
+  }
+
+  mount(parentDOMElement, siblingDOMElement, context) {
+    this.childNodes.forEach((childNode) => {
+      siblingDOMElement = childNode.mount(parentDOMElement, siblingDOMElement, context);
+    });
+
+    return siblingDOMElement;
+  }
+
+  unmount(parentDOMElement) {
+    this.childNodes.forEach((childNode) => {
+      childNode.unmount(parentDOMElement);
+    });
   }
 
   asHTML(context) {
