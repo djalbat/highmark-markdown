@@ -56,10 +56,4 @@ export default class AnchorHTMLNode extends HTMLNode {
   static tagName = "a";
 
   static className = "anchor";
-
-  static fromPrependAndIdentifier(prepend, identifier) {
-    const anchorHTMLNode = HTMLNode.fromNothing(AnchorHTMLNode, prepend, identifier);
-
-    return anchorHTMLNode;
-  }
 }

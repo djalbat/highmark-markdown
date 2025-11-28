@@ -17,19 +17,6 @@ export default class TopmostCSSNode extends CSSNode {
     return ruleNme;
   }
 
-  getCSSNodesByMarkdownStyleRuleName(markdownStyleRuleName) {
-    const cssNodes = this.filterChildNode((childNode) => {
-        const cssNode = childNode,  ///
-              markdownStyleRuleNameMatches = cssNode.matchMarkdownStyleRuleName(markdownStyleRuleName);
-
-        if (markdownStyleRuleNameMatches) {
-          return true;
-        }
-      });
-
-    return cssNodes;
-  }
-
   getDeclarationCSSNodes() {
     const markdownStyleRuleName = DECLARATION_MARKDOWN_STYLE_RULE_NAME,
           cssNodes = this.getCSSNodesByMarkdownStyleRuleName(markdownStyleRuleName),
@@ -54,6 +41,25 @@ export default class TopmostCSSNode extends CSSNode {
     return ruleSetCSSNodes;
   }
 
+  getCSSNodesByMarkdownStyleRuleName(markdownStyleRuleName) {
+    const cssNodes = this.filterChildNode((childNode) => {
+      const cssNode = childNode,  ///
+            markdownStyleRuleNameMatches = cssNode.matchMarkdownStyleRuleName(markdownStyleRuleName);
+
+      if (markdownStyleRuleNameMatches) {
+        return true;
+      }
+    });
+
+    return cssNodes;
+  }
+
+  resolve(context) {
+    this.resolveSelectors(context);
+
+    this.flatten(context);
+  }
+
   resolveSelectors(context) {
     const node = this,  ///
           ruleSetCSSNodes = ruleSetCSSNodesFromNode(node);
@@ -61,12 +67,6 @@ export default class TopmostCSSNode extends CSSNode {
     ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
       ruleSetCSSNode.resolveSelectors(context);
     });
-  }
-
-  resolve(context) {
-    this.resolveSelectors(context);
-
-    this.flatten(context);
   }
 
   flatten(context) {

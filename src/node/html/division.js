@@ -4,8 +4,9 @@ import { arrayUtilities } from "necessary";
 
 import HTMLNode from "../../node/html";
 import PageNumberHTMLNode from "../../node/html/pageNumber";
+import DivisionHTMLTransform from "../../transform/html/division";
 import PageNumberHTMLTransform from "../../transform/html/pageNumber";
-import IndexAnchorHTMLTransform from "../../transform/html/indexAnchor";
+import IndexAnchorHTMLTransform from "../../transform/html/anchor/index";
 import FootnoteItemHTMLTransform from "../../transform/html/item/footnote";
 import FootnotesListHTMLTransform from "../../transform/html/list/footnotes";
 
@@ -66,8 +67,8 @@ export default class DivisionHTMLNode extends HTMLNode {
     return pageNumber;
   }
 
-  paginate(divisionHTMLNodes, context) {
-    const node = this,
+  paginate(htmlTransforms, context) {
+    const node = this,  ///
           footnotesDirectiveHTMLNode = footnotesDirectiveHTMLNodeFromNode(node),
           pageNumberDirectiveHTMLNode = pageNumberDirectiveHTMLNodeFromNode(node);
 
@@ -75,20 +76,19 @@ export default class DivisionHTMLNode extends HTMLNode {
           groupedHTMLNodesArray = groupHTMLNodes(htmlNodes),
           paginatedHTMLNodesArray = paginateGroupedHTMLNodes(groupedHTMLNodesArray, context);
 
-    const start = 1,
-          outerNode = this.getOuterNode(),
-          divisionClassName = outerNode.className(context);
+    const start = 1;
 
     Object.assign(context, {
       start
     });
 
     paginatedHTMLNodesArray.forEach((paginatedHTMLNodes) => {
-      let pageNumber;
+      let pageNumber,
+          htmlTransform;
 
       ({ pageNumber } = context);
 
-      const divisionHTMLNode = DivisionHTMLNode.fromPaginatedHTMLNodesAndDivisionClassName(paginatedHTMLNodes, divisionClassName);
+      const divisionHTMLNode = DivisionHTMLNode.fromPaginatedHTMLNodesAndDivisionClassName(paginatedHTMLNodes, this.divisionClassName);
 
       if (footnotesDirectiveHTMLNode !== null) {
         const footnotesListHTMLTransform  = divisionHTMLNode.resolveFootnotes(context);
@@ -102,11 +102,19 @@ export default class DivisionHTMLNode extends HTMLNode {
         const pageNumberHTMLTransform = divisionHTMLNode.resolvePageNumber(pageNumber);
 
         pageNumberHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
-
-        divisionHTMLNode.resolveIndexAnchor(pageNumber);
       }
 
-      divisionHTMLNodes.push(divisionHTMLNode);
+      const indexAnchorHTMLTransform = IndexAnchorHTMLTransform.fromPageNumber(pageNumber);
+
+      htmlTransform = indexAnchorHTMLTransform;  ///
+
+      htmlTransforms.push(htmlTransform);
+
+      const divisionHTMLTransform = DivisionHTMLTransform.fromDivisionHTMLNode(divisionHTMLNode);
+
+      htmlTransform = divisionHTMLTransform;  ///
+
+      htmlTransforms.push(htmlTransform);
 
       pageNumber++;
 
@@ -170,15 +178,6 @@ export default class DivisionHTMLNode extends HTMLNode {
     const pageNumberHTMLTransform = PageNumberHTMLTransform.fromPageNumber(pageNumber);
 
     return pageNumberHTMLTransform;
-  }
-
-  resolveIndexAnchor(pageNumber) {
-    this.fromFirstChildNode((firstChildNode) => {
-      const indexAnchorHTMLTransform = IndexAnchorHTMLTransform.fromPageNumber(pageNumber),
-            htmlNode = firstChildNode;  ///
-
-      indexAnchorHTMLTransform.appendToHTMLNode(htmlNode);
-    });
   }
 
   asString() {

@@ -1,9 +1,8 @@
 "use strict";
 
 import HTMLNode from "../../../node/html";
-import AnchorHTMLNode from "../../../node/html/anchor";
+import FootnotesAnchorHTMLNode from "../../../node/html/anchor/footnotes";
 
-import { FOOTNOTE_PREPEND } from "../../../prepends";
 import { FOOTNOTE_ITEM_MARKDOWN_RULE_NAME } from "../../../ruleNames/markdown";
 
 export default class FootnoteItemHTMLNode extends HTMLNode {
@@ -25,10 +24,9 @@ export default class FootnoteItemHTMLNode extends HTMLNode {
   static className = "footnote";
 
   static fromParagraphTMLNodeAndIdentifier(paragraphHTMLNode, identifier) {
-    const prepend = FOOTNOTE_PREPEND,
-          anchorHTMLNode = AnchorHTMLNode.fromPrependAndIdentifier(prepend, identifier),
+    const footnotesAnchorHTMLNode = FootnotesAnchorHTMLNode.fromIdentifier(identifier),
           childHTMLNodes = [
-            anchorHTMLNode,
+            footnotesAnchorHTMLNode,
             paragraphHTMLNode
           ],
           footnoteItemHTMLNode = HTMLNode.fromChildHTMLNodes(FootnoteItemHTMLNode, childHTMLNodes);

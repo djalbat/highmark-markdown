@@ -1,15 +1,14 @@
 "use strict";
 
 import HTMLNode from "../../node/html";
-import AnchorHTMLNode from "../../node/html/anchor";
+import ContentsAnchorHTMLNode from "../../node/html/anchor/contents";
 
-import { CONTENTS_PREPEND } from "../../prepends";
 import { removeLeadingWhitespace, replaceSpacesWithHyphens, removeNonAlphabeticCharacters } from "../../utilities/string";
 
 export default class HeadingHTMLNode extends HTMLNode {
   getLineHTMLNode() {
     const lineHTMLNode = this.findChildNode((childNode) => {
-      const childNodeAnchorHTMLNode = (childNode instanceof AnchorHTMLNode),
+      const childNodeAnchorHTMLNode = (childNode instanceof ContentsAnchorHTMLNode),
             childNodeLineHTMLNode = !childNodeAnchorHTMLNode;
 
       if (childNodeLineHTMLNode) {
@@ -28,10 +27,9 @@ export default class HeadingHTMLNode extends HTMLNode {
   }
 
   anchor(context) {
-    const prepend = CONTENTS_PREPEND,
-          identifier = this.identifier(context),
-          anchorHTMLNode = AnchorHTMLNode.fromPrependAndIdentifier(prepend, identifier),
-          childNode = anchorHTMLNode; ///
+    const identifier = this.identifier(context),
+          contentsAnchorHTMLNode = ContentsAnchorHTMLNode.fromIdentifier(identifier),
+          childNode = contentsAnchorHTMLNode; ///
 
     this.prependChildNode(childNode);
   }

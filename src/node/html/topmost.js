@@ -9,6 +9,37 @@ import { HTML_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
 import { divisionHTMLNodesFromNode, indexDirectiveHTMLNodeFromNode, contentsDirectiveHTMLNodeFromNode } from "../../utilities/html";
 
 export default class TopmostHTMLNode extends HTMLNode {
+  getRuleName() {
+    const ruleName = HTML_MARKDOWN_RULE_NAME;
+
+    return ruleName;
+  }
+
+  getDivisionHTMLNode() {
+    const index = 0,
+          divisionHTMLNode = this.getDivisionHTMLNodeAt(index);
+
+    return divisionHTMLNode;
+  }
+
+  getDivisionHTMLNodes() {
+    const node = this,  ///
+          divisionHTMLNodes = divisionHTMLNodesFromNode(node);
+
+    return divisionHTMLNodes;
+  }
+
+  getDivisionHTMLNodeAt(index) {
+    const divisionHTMLNodes = this.getDivisionHTMLNodes(),
+          divisionHTMLNode = divisionHTMLNodes[index] || null;
+
+    return divisionHTMLNode;
+  }
+
+  adjustIndent(indent) {
+    return indent;
+  }
+
   mount(parentDOMElement, siblingDOMElement, context) {
     this.childNodes.forEach((childNode) => {
       siblingDOMElement = childNode.mount(parentDOMElement, siblingDOMElement, context);
@@ -32,15 +63,6 @@ export default class TopmostHTMLNode extends HTMLNode {
   }
 
   paginate(context) {
-    let divisionHTMLNodes,
-        divisionHTMLTransforms;
-
-    divisionHTMLNodes = this.getDivisionHTMLNodes();
-
-    divisionHTMLTransforms = divisionHTMLTransformsFromDivisionHTMLNodes(divisionHTMLNodes);
-
-    divisionHTMLNodes = [];
-
     let pageNumber;
 
     pageNumber = 1;
@@ -49,20 +71,23 @@ export default class TopmostHTMLNode extends HTMLNode {
       pageNumber
     });
 
-    divisionHTMLTransforms.forEach((divisionHTMLTransform) => {
-      divisionHTMLTransform.remove();
+    const htmlTransforms = [],
+          topmostHTMLNode = this,  //
+          divisionHTMLNodes = this.getDivisionHTMLNodes(),
+          divisionHTMLTransforms = divisionHTMLTransformsFromDivisionHTMLNodes(divisionHTMLNodes);
 
-      divisionHTMLTransform.paginate(divisionHTMLNodes, context);
+    divisionHTMLTransforms.forEach((divisionHTMLTransform) => {
+      divisionHTMLTransform.paginate(htmlTransforms, context);
     });
 
     delete context.pageNumber;
 
-    divisionHTMLTransforms = divisionHTMLTransformsFromDivisionHTMLNodes(divisionHTMLNodes);
-
-    const topmostHTMLNode = this; ///
-
     divisionHTMLTransforms.forEach((divisionHTMLTransform) => {
-      divisionHTMLTransform.appendToTopmostHTMLNode(topmostHTMLNode);
+      divisionHTMLTransform.remove();
+    });
+
+    htmlTransforms.forEach((htmlTransform) => {
+      htmlTransform.appendToTopmostHTMLNode(topmostHTMLNode);
     });
   }
 
@@ -96,37 +121,6 @@ export default class TopmostHTMLNode extends HTMLNode {
     if (contentsListHTMLTransform !== null) {
       contentsListHTMLTransform.addAfterContentsDirectiveHTMLNode(contentsDirectiveHTMLNode);
     }
-  }
-
-  adjustIndent(indent) {
-    return indent;
-  }
-
-  getRuleName() {
-    const ruleName = HTML_MARKDOWN_RULE_NAME;
-
-    return ruleName;
-  }
-
-  getDivisionHTMLNode() {
-    const index = 0,
-          divisionHTMLNode = this.getDivisionHTMLNodeAt(index);
-
-    return divisionHTMLNode;
-  }
-
-  getDivisionHTMLNodes() {
-    const node = this,  ///
-          divisionHTMLNodes = divisionHTMLNodesFromNode(node);
-
-    return divisionHTMLNodes;
-  }
-
-  getDivisionHTMLNodeAt(index) {
-    const divisionHTMLNodes = this.getDivisionHTMLNodes(),
-          divisionHTMLNode = divisionHTMLNodes[index] || null;
-
-    return divisionHTMLNode;
   }
 
   static tagName = "html";
