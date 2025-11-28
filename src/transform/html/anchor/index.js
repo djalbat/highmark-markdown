@@ -1,7 +1,7 @@
 "use strict";
 
 import HTMLTransform from "../../../transform/html"
-import ContentsAnchorHTMLNode from "../../../node/html/anchor/index";
+import IndexAnchorHTMLNode from "../../../node/html/anchor/index";
 
 export default class IndexAnchorTMLTransform extends HTMLTransform {
   appendToTopmostHTMLNode(topmostHTMLNode) {
@@ -14,7 +14,7 @@ export default class IndexAnchorTMLTransform extends HTMLTransform {
 
   static fromPageNumber(pageNumber) {
     const identifier = pageNumber,  ///
-          indexAnchorHTMLNode = ContentsAnchorHTMLNode.fromIdentifier(identifier),
+          indexAnchorHTMLNode = IndexAnchorHTMLNode.fromIdentifier(identifier),
           htmlNode = indexAnchorHTMLNode, ///
           indexAnchorHTMLTransform = HTMLTransform.fromHTMLNode(IndexAnchorTMLTransform, htmlNode);
 

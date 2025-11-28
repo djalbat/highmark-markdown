@@ -101,13 +101,7 @@ export function htmlFromMarkdownOptionsAndImporter(markdown, options, importer) 
     if (topmostHTMLNode !== null) {
       topmostHTMLNode.resolve(context);
 
-      const divisionHTMLNOdes = topmostHTMLNode.getDivisionHTMLNodes();
-
-      divisionHTMLNOdes.forEach((divisionHTMLNOde) => {
-        const divisionHTMLNOdeHTML = divisionHTMLNOde.asHTML(context);
-
-        html = `${html}${divisionHTMLNOdeHTML}`;
-      });
+      html = topmostHTMLNode.asHTML(context);
     }
   }
 

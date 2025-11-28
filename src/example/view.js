@@ -166,25 +166,25 @@ class View extends Element {
 
     topmostHTMLNode.resolve(context);
 
-    const divisionHTMLNOde = topmostHTMLNode.getDivisionHTMLNodeAt(index);
+    const divisionHTMLNode = topmostHTMLNode.getDivisionHTMLNodeAt(index);
 
-    if (divisionHTMLNOde === null) {
+    if (divisionHTMLNode === null) {
       return;
     }
 
-    const divisionHTMLNOdeParseTree = divisionHTMLNOde.asParseTree(),
+    const divisionHTMLNOdeParseTree = divisionHTMLNode.asParseTree(),
           htmlParseTree = divisionHTMLNOdeParseTree,  ///
-          multiplicity = topmostHTMLNode.getMultiplicity(),
-          length = multiplicity;  ///
+          divisionHTMLNodes = topmostHTMLNode.getDivisionHTMLNodes(),
+          length = divisionHTMLNodes.length;  ///
 
     context = {
       tokens,
       pathToURL
     };
 
-    this.updatePreviewDiv(divisionHTMLNOde, context);
+    this.updatePreviewDiv(divisionHTMLNode, context);
 
-    this.updatePlainTextTextarea(divisionHTMLNOde, context);
+    this.updatePlainTextTextarea(divisionHTMLNode, context);
 
     this.updateHTMLParseTreeTextarea(htmlParseTree);
 
