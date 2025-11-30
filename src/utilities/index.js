@@ -48,7 +48,7 @@ function createIndexMap(indexDirectiveHTMLNode, divisionHTMLNodes, context) {
       const divisionHTMLNodeAncestorOfIndexDirectiveHTMLNode = isAncestorOf(divisionHTMLNode, indexDirectiveHTMLNode);
 
       if (!divisionHTMLNodeAncestorOfIndexDirectiveHTMLNode) {
-        const pageNumber = divisionHTMLNode.pageNumber();
+        const pageNumber = divisionHTMLNode.pageNumber(context);
 
         if (pageNumber !== null) {
           const plainText = divisionHTMLNode.asPlainText(context),

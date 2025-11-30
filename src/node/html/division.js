@@ -11,7 +11,6 @@ import FootnoteItemHTMLTransform from "../../transform/html/item/footnote";
 import FootnotesListHTMLTransform from "../../transform/html/list/footnotes";
 
 import { DIVISION_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
-import { groupHTMLNodes, removeHTMLNodes, paginateGroupedHTMLNodes } from "../../utilities/division";
 import { footnoteHTMLNodesFromNode,
          footnoteLinkHTMLNodesFromNode,
          footnotesDirectiveHTMLNodeFromNode,
@@ -49,7 +48,15 @@ export default class DivisionHTMLNode extends HTMLNode {
     return ruleNme;
   }
 
-  pageNumber() {
+  isIgnored() {
+    const markdownNode = this.getMarkdownNode(),
+          divisionMarkdownNode = markdownNode,  ///
+          ignored = divisionMarkdownNode.isIgnored();
+
+    return ignored;
+  }
+
+  pageNumber(context) {
     const pageNumber = this.fromFirstLastChildNode((firstLastChildNode) => {
       let pageNumber = null;
 
@@ -68,59 +75,56 @@ export default class DivisionHTMLNode extends HTMLNode {
   }
 
   paginate(htmlTransforms, context) {
+    const ignored = this.isIgnored();
+
+    if (ignored) {
+      return;
+    }
+
     const node = this,  ///
+          start = 1,
+          divisionHTMLNode = this,
           footnotesDirectiveHTMLNode = footnotesDirectiveHTMLNodeFromNode(node),
           pageNumberDirectiveHTMLNode = pageNumberDirectiveHTMLNodeFromNode(node);
 
-    const htmlNodes = removeHTMLNodes(node),
-          groupedHTMLNodesArray = groupHTMLNodes(htmlNodes),
-          paginatedHTMLNodesArray = paginateGroupedHTMLNodes(groupedHTMLNodesArray, context);
-
-    const start = 1;
+    let { pageNumber } = context;
 
     Object.assign(context, {
       start
     });
 
-    paginatedHTMLNodesArray.forEach((paginatedHTMLNodes) => {
-      let pageNumber,
-          htmlTransform;
+    if (footnotesDirectiveHTMLNode !== null) {
+      const footnotesListHTMLTransform  = divisionHTMLNode.resolveFootnotes(context);
 
-      ({ pageNumber } = context);
-
-      const divisionHTMLNode = DivisionHTMLNode.fromPaginatedHTMLNodesAndDivisionClassName(paginatedHTMLNodes, this.divisionClassName);
-
-      if (footnotesDirectiveHTMLNode !== null) {
-        const footnotesListHTMLTransform  = divisionHTMLNode.resolveFootnotes(context);
-
-        if (footnotesListHTMLTransform !== null) {
-          footnotesListHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
-        }
+      if (footnotesListHTMLTransform !== null) {
+        footnotesListHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
       }
+    }
 
-      if (pageNumberDirectiveHTMLNode !== null) {
-        const pageNumberHTMLTransform = divisionHTMLNode.resolvePageNumber(pageNumber);
+    if (pageNumberDirectiveHTMLNode !== null) {
+      const pageNumberHTMLTransform = divisionHTMLNode.resolvePageNumber(pageNumber);
 
-        pageNumberHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
-      }
+      pageNumberHTMLTransform.appendToDivisionHTMLNode(divisionHTMLNode);
+    }
 
-      const indexAnchorHTMLTransform = IndexAnchorHTMLTransform.fromPageNumber(pageNumber);
+    let htmlTransform;
 
-      htmlTransform = indexAnchorHTMLTransform;  ///
+    const indexAnchorHTMLTransform = IndexAnchorHTMLTransform.fromPageNumber(pageNumber);
 
-      htmlTransforms.push(htmlTransform);
+    htmlTransform = indexAnchorHTMLTransform;  ///
 
-      const divisionHTMLTransform = DivisionHTMLTransform.fromDivisionHTMLNode(divisionHTMLNode);
+    htmlTransforms.push(htmlTransform);
 
-      htmlTransform = divisionHTMLTransform;  ///
+    const divisionHTMLTransform = DivisionHTMLTransform.fromDivisionHTMLNode(divisionHTMLNode);
 
-      htmlTransforms.push(htmlTransform);
+    htmlTransform = divisionHTMLTransform;  ///
 
-      pageNumber++;
+    htmlTransforms.push(htmlTransform);
 
-      Object.assign(context, {
-        pageNumber
-      });
+    pageNumber++;
+
+    Object.assign(context, {
+      pageNumber
     });
 
     delete context.start;
