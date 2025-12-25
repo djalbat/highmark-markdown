@@ -6,7 +6,6 @@ import nodeMixins from "../mixins/node";
 import tokenMixins from "../mixins/token";
 
 class MarkdownStyleNode extends NonTerminalNode {
-
   static fromRuleNameChildNodesOpacityAndPrecedence(Class, ruleName, childNodes, opacity, precedence, ...remainingArguments) {
     if (precedence === undefined) {
       precedence = opacity; ///
