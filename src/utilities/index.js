@@ -94,7 +94,7 @@ function wordsOrPhrasesFromPlainTextAndIndexMatches(plainText, indexMatches) {
 function compressPageNumbers(indexMap) {
   mapValues(indexMap, (wordOrPhrase, pageNumbers) => {
     compress(pageNumbers, (pageNumberA, pageNumberB) => {
-      if (pageNumberA === pageNumberB) {
+      if (pageNumberA !== pageNumberB) {
         return true;
       }
     });
