@@ -1,7 +1,7 @@
 {
   "name": "highmark-markdown",
   "author": "James Smith",
-  "version": "1.2.53",
+  "version": "1.2.54",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/highmark-markdown",
   "description": "Highmark's Markdown and Markdown Style languages.",
@@ -25,7 +25,7 @@
     "express": "^4.17.1",
     "juxtapose": "^4.0.128",
     "lively-cli": "^2.0.77",
-    "watchful-cli": "^1.7.63"
+    "watchful-cli": "^1.7.67"
   },
   "scripts": {
     "start": "node ./bin/main.js",
