@@ -1,7 +1,7 @@
 {
   "name": "highmark-markdown",
   "author": "James Smith",
-  "version": "1.2.72",
+  "version": "1.2.73",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/highmark-markdown",
   "description": "Highmark's Markdown and Markdown Style languages.",
@@ -40,5 +40,9 @@
     "watch": "npm run clean && npm run batch && npm run incremental",
     "watch-debug": "npm run clean && npm run batch-debug && npm run incremental-debug"
   },
+  "files": [
+    "src",
+    "lib"
+  ],
   "main": "./lib/index.js"
 }
