@@ -46,7 +46,7 @@ function indexItemsFromIndexMap(indexMap) {
   wordsOrPhrases.sort((wordOrPhraseA, wordOrPhraseB) => {
     const lowerCaseWordOrPhraseA = wordOrPhraseA.toLowerCase(),
           lowerCaseWordOrPhraseB = wordOrPhraseB.toLowerCase(),
-          difference = strcmp(lowerCaseWordOrPhraseB, lowerCaseWordOrPhraseA);
+          difference = strcmp(lowerCaseWordOrPhraseA, lowerCaseWordOrPhraseB);
 
     return difference;
   });
