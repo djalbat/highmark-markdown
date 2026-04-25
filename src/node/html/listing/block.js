@@ -6,15 +6,21 @@ import { EMPTY_STRING } from "../../../constants";
 
 export default class BlockListingHTMLNode extends HTMLNode {
   content(context) {
-    const content = this.reduceChildHTMLNode((content, childHTNLNode) => {
+    let content = this.reduceChildHTMLNode((content, childHTNLNode) => {
       const blockLineHTMLNode = childHTNLNode,  ///
             blockLineHTMLNodeContent = blockLineHTMLNode.content(context);
 
-      content = `${content}
-${blockLineHTMLNodeContent}`; ///
+      content = (content === null) ?
+                  blockLineHTMLNodeContent :
+                    `${content}
+${blockLineHTMLNodeContent}`;
 
       return content;
-    }, EMPTY_STRING);
+    }, null);
+
+    if (content === null) {
+      content = EMPTY_STRING;
+    }
 
     return content;
   }
