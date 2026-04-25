@@ -2,19 +2,19 @@
 
 import HTMLNode from "../../../node/html";
 
+import { EMPTY_STRING } from "../../../constants";
+
 export default class BlockListingHTMLNode extends HTMLNode {
   content(context) {
     const content = this.reduceChildHTMLNode((content, childHTNLNode) => {
       const blockLineHTMLNode = childHTNLNode,  ///
             blockLineHTMLNodeContent = blockLineHTMLNode.content(context);
 
-      content = (content !== null) ?
-                  `${content}
-${blockLineHTMLNodeContent}` :
-                    blockLineHTMLNodeContent; ///
+      content = `${content}
+${blockLineHTMLNodeContent}`; ///
 
       return content;
-    }, null);
+    }, EMPTY_STRING);
 
     return content;
   }
