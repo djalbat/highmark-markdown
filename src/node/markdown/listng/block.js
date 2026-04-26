@@ -3,15 +3,26 @@
 import MarkdownNode from "../../../node/markdown";
 
 export default class BlockListingMarkdownNode extends MarkdownNode {
-  className(context) {
-    const className = this.fromFirstChildNode((firstChildNode) => {
+  releaseName(context) {
+    const releaseName = this.fromFirstChildNode((firstChildNode) => {
       const blockStartMarkdownNode = firstChildNode, ///
-            className = blockStartMarkdownNode.className(context);
+            releaseName = blockStartMarkdownNode.releaseName(context);
 
-      return className;
+      return releaseName;
     });
 
-    return className;
+    return releaseName;
+  }
+
+  languageName(context) {
+    const languageName = this.fromFirstChildNode((firstChildNode) => {
+      const blockStartMarkdownNode = firstChildNode, ///
+            languageName = blockStartMarkdownNode.languageName(context);
+
+      return languageName;
+    });
+
+    return languageName;
   }
 
   static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(BlockListingMarkdownNode, ruleName, childNodes, opacity, precedence); }

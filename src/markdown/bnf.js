@@ -219,13 +219,19 @@ const bnf = `
     inlineText               ::=  plainText+ ;
     
     
-    blockStart               ::=  [backticks] className? endOfLine ;
+    blockStart               ::=  [backticks] ( languageName ( ":" releaseName )? )? endOfLine ;
 
 
     blockEnd                 ::=  [backticks] ;
 
 
     className                ::=  <NO_WHITESPACE>[identifier] ;
+    
+
+    languageName             ::=  <NO_WHITESPACE>[identifier] ;
+    
+
+    releaseName              ::=  <NO_WHITESPACE>[identifier] ;
     
 
     blockText                ::=  [escaped] 

@@ -12,7 +12,7 @@ export default class BlockListingHTMLNode extends HTMLNode {
 
       content = (content === null) ?
                   blockLineHTMLNodeContent :
-                    `${content}
+                   `${content}
 ${blockLineHTMLNodeContent}`;
 
       return content;
@@ -27,7 +27,8 @@ ${blockLineHTMLNodeContent}`;
 
   className(context) {
     const markdownNode = this.getMarkdownNode(),
-          className = markdownNode.className(context);
+          languageName = markdownNode.languageName(context),
+          className = languageName; ///
 
     return className;
   }

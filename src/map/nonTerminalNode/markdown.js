@@ -17,6 +17,8 @@ import BlockTextMarkdownNode from "../../node/markdown/text/block";
 import BlockStartMarkdownNode from "../../node/markdown/blockStart";
 import SubDivisionMarkdownNode from "../../node/markdown/subDivision";
 import OrderedItemMarkdownNode from "../../node/markdown/item/ordered";
+import ReleaseNameMarkdownNode from "../../node/markdown/releaseName";
+import LanguageNameMarkdownNode from "../../node/markdown/languageName";
 import BlockListingMarkdownNode from "../../node/markdown/listng/block";
 import FootnoteLinkMarkdownNode from "../../node/markdown/link/footnote";
 import InlineListingMarkdownNode from "../../node/markdown/listng/inline";
@@ -40,6 +42,8 @@ import { PATH_MARKDOWN_RULE_NAME,
          BLOCK_START_MARKDOWN_RULE_NAME,
          ORDERED_ITEM_MARKDOWN_RULE_NAME,
          SUB_DIVISION_MARKDOWN_RULE_NAME,
+         RELEASE_NAME_MARKDOWN_RULE_NAME,
+         LANGUAGE_NAME_MARKDOWN_RULE_NAME,
          BLOCK_LISTING_MARKDOWN_RULE_NAME,
          FOOTNOTE_LINK_MARKDOWN_RULE_NAME,
          INLINE_LISTING_MARKDOWN_RULE_NAME,
@@ -64,6 +68,8 @@ const markdownNonTerminalNodeMap = {
   [BLOCK_START_MARKDOWN_RULE_NAME]: BlockStartMarkdownNode,
   [ORDERED_ITEM_MARKDOWN_RULE_NAME]: OrderedItemMarkdownNode,
   [SUB_DIVISION_MARKDOWN_RULE_NAME]: SubDivisionMarkdownNode,
+  [RELEASE_NAME_MARKDOWN_RULE_NAME]: ReleaseNameMarkdownNode,
+  [LANGUAGE_NAME_MARKDOWN_RULE_NAME]: LanguageNameMarkdownNode,
   [BLOCK_LISTING_MARKDOWN_RULE_NAME]: BlockListingMarkdownNode,
   [FOOTNOTE_LINK_MARKDOWN_RULE_NAME]: FootnoteLinkMarkdownNode,
   [INLINE_LISTING_MARKDOWN_RULE_NAME]: InlineListingMarkdownNode,

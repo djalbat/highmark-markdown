@@ -1,25 +1,44 @@
 "use strict";
 
 import MarkdownNode from "../../node/markdown";
-import ClassNameMarkdownNode from "./className";
+import ReleaseNameMarkdownNode from "./releaseName";
+import LanguageNameMarkdownNode from "./languageName";
 
 export default class BlockStartMarkdownNode extends MarkdownNode {
-  className(context) {
-    const className = this.fromSecondChildNode((secondChildNode) => {
-      let className = null;
+  releaseName(context) {
+    const releaseName = this.fromThirdChildNode((thirdChildNode) => {
+      let releaseName = null;
 
-      const secondChildNodeClassNameMarkdownNode = (secondChildNode instanceof ClassNameMarkdownNode);
+      const thirdChildNodeClassNameMarkdownNode = (thirdChildNode instanceof ReleaseNameMarkdownNode);
 
-      if (secondChildNodeClassNameMarkdownNode) {
-        const classNameMarkdownNode = secondChildNode;  ///
+      if (thirdChildNodeClassNameMarkdownNode) {
+        const releaseNameMarkdownNode = thirdChildNode;  ///
 
-        className = classNameMarkdownNode.className(context);
+        releaseName = releaseNameMarkdownNode.releaseName(context);
       }
 
-      return className;
+      return releaseName;
     });
 
-    return className;
+    return releaseName;
+  }
+
+  languageName(context) {
+    const languageName = this.fromSecondChildNode((secondChildNode) => {
+      let languageName = null;
+
+      const secondChildNodeClassNameMarkdownNode = (secondChildNode instanceof LanguageNameMarkdownNode);
+
+      if (secondChildNodeClassNameMarkdownNode) {
+        const languageNameMarkdownNode = secondChildNode;  ///
+
+        languageName = languageNameMarkdownNode.languageName(context);
+      }
+
+      return languageName;
+    });
+
+    return languageName;
   }
 
   static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(BlockStartMarkdownNode, ruleName, childNodes, opacity, precedence); }
