@@ -6,13 +6,13 @@ import LanguageNameMarkdownNode from "./languageName";
 
 export default class BlockStartMarkdownNode extends MarkdownNode {
   releaseName(context) {
-    const releaseName = this.fromThirdChildNode((thirdChildNode) => {
+    const releaseName = this.fromFourthChildNode((fourthChildNode) => {
       let releaseName = null;
 
-      const thirdChildNodeClassNameMarkdownNode = (thirdChildNode instanceof ReleaseNameMarkdownNode);
+      const fourthChildNodeClassNameMarkdownNode = (fourthChildNode instanceof ReleaseNameMarkdownNode);
 
-      if (thirdChildNodeClassNameMarkdownNode) {
-        const releaseNameMarkdownNode = thirdChildNode;  ///
+      if (fourthChildNodeClassNameMarkdownNode) {
+        const releaseNameMarkdownNode = fourthChildNode;  ///
 
         releaseName = releaseNameMarkdownNode.releaseName(context);
       }
