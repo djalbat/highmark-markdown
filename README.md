@@ -21,6 +21,7 @@ There are several packages in the distribution.
 
 - [Highmark-CLI](https://github.com/djalbat/highmark-cli) Highmark's CLI tool.
 - [Highmark Yapp](https://github.com/djalbat/highmark-yapp) Highmark with Yapp listings.
+- [Highmark Occam](https://github.com/djalbat/highmark-yapp) Highmark support for Occam.
 - [Highmark Client](https://github.com/djalbat/highmark-client) Highmark's bundled client for viewing HTML.
 - [Highmark Markdown](https://github.com/djalbat/highmark-markdown) Highmark's Markdown and Markdown Style languages.
 
