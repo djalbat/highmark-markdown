@@ -434,7 +434,7 @@ class View extends Element {
     this.setMarkdown(markdown);
   }
 
-  static initialMarkdown = initialMarkdown;
+  static initialMarkdown = `<xml foo="bah">adsfasdf</xml>`;
 
   static initialMarkdownStyle = "";
 

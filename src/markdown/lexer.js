@@ -1,6 +1,6 @@
 "use strict";
 
-import { CommonLexer, WhitespaceToken, EndOfLineSignificantToken } from "occam-lexers";
+import { CommonLexer, WhitespaceToken, DoublyQuotedStringLiteralToken, EndOfLineSignificantToken } from "occam-lexers";
 
 import entries from "./entries";
 
@@ -25,7 +25,7 @@ export default class MarkdownLexer extends CommonLexer {
 
   static SinglyQuotedStringLiteralToken = null;
 
-  static DoublyQuotedStringLiteralToken = null;
+  static DoublyQuotedStringLiteralToken = DoublyQuotedStringLiteralToken;
 
   static fromRules(rules) { return CommonLexer.fromRules(MarkdownLexer, rules); }
 

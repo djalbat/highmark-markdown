@@ -9,6 +9,7 @@ export default withStyle(Textarea)`
   width: 100%;
   border: 1px solid darkgrey;
   resize: none;
+  outline: none;
   padding: 0.25rem;
   font-size: 1.2rem;
   min-height: 24rem;

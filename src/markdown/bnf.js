@@ -29,6 +29,8 @@ const bnf = `
                                |  unorderedList 
                                    
                                |  blockListing 
+                               
+                               |  xmlElement 
       
                                |  paragraph 
                                
@@ -103,6 +105,13 @@ const bnf = `
     blockListing             ::=  blockStart blockLine* blockEnd ;
 
 
+    xmlElement               ::=  simpleXMLElement 
+  
+                               |  complexXMLElement
+                                 
+                               ;
+                            
+                               
     paragraph                ::=  line ( endOfLine line )* ;
     
 
@@ -127,9 +136,30 @@ const bnf = `
     pageNumberDirective      ::=  "@pageNumber" ;
 
 
-    nonsense.                ::=  ( [escaped] | [number] | [identifier] | [word] | [special] | [unassigned] )+ ;
+    simpleXMLElement         ::=  completeXMLTag ;
 
 
+    complexXMLElement        ::=  startXMLTag ( xmlElement | xmlText )* endXMLTag ;
+
+
+    completeXMLTag           ::=  "<"<NO_WHITESPACE>xmlName xmlAttribute* "/>" ;
+
+
+    startXMLTag              ::=  "<"<NO_WHITESPACE>xmlName xmlAttribute* ">" ;
+
+
+    endXMLTag                ::=  "</"<NO_WHITESPACE>xmlName ">" ;
+  
+
+    xmlAttribute             ::=  ( [identifier] | [word] )<NO_WHITESPACE>"="<NO_WHITESPACE>[string-literal] ;
+
+
+    xmlName                  ::=  ( [identifier] | [word] ) ;
+
+
+    xmlText                  ::=  ( [escaped] | [number] | [identifier] | [word] | [special] | [string-literal] | [unassigned] )+ ;
+  
+    
     tableHead                ::=  tableHeadRow ;
     
     
@@ -250,6 +280,10 @@ const bnf = `
                               
                                |  [special] 
                               
+                               |  [string-literal]  
+                                
+                               |  [xml-delimiter]  
+                                
                                |  [unassigned]  
                                 
                                |  [dashes] 
@@ -275,6 +309,10 @@ const bnf = `
                               
                                |  [special] 
                               
+                               |  [string-literal] 
+                              
+                               |  [xml-delimiter]  
+                                
                                |  [unassigned] 
                               
                                ;
@@ -298,6 +336,9 @@ const bnf = `
     path                     ::=  [path] ;
 
     
+    nonsense.                ::=  ( [escaped] | [number] | [identifier] | [word] | [special] | [string-literal] | [xml-delimiter] | [unassigned] )+ ;
+
+
     endOfLine                ::=  <END_OF_LINE> ;
 
 
