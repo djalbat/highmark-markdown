@@ -14,7 +14,7 @@ const bnf = `
     
 
     
-    verbatim.      ::=  [backticks] target content... [backticks] ;
+    verbatim.      ::=  [backticks] content... [backticks] ;
 
 
 
@@ -65,14 +65,12 @@ const bnf = `
 
     colour         ::=  [colour] ;
 
-    target         ::=  <NO_WHITESPACE>[target] ;
-
     content        ::=  stuff+ ;
 
 
     stuff.         ::=  [string-literal] | [escaped] | [rule-name] | [number] | [colour] | [unit] | [name] | [special] | [unassigned] | [bracket] ;
 
-    nonsense.      ::=  [string-literal] | [escaped] | [rule-name] | [number] | [colour] | [unit] | [name] | [special] | [unassigned] | [target] ;
+    nonsense.      ::=  [string-literal] | [escaped] | [rule-name] | [number] | [colour] | [unit] | [name] | [special] | [unassigned] ;
 
     
     error.         ::=  . ;

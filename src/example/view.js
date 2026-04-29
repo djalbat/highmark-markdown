@@ -20,7 +20,6 @@ import HTMLParseTreeTextarea from "./view/textarea/parseTree/html";
 import PlainTextContainerDiv from "./view/div/container/plainText";
 import MarkdownStyleContainerDiv from "./view/div/container/markdownStyle";
 
-import { WEB_TARGET } from "../targets";
 import { initialMarkdown, importer } from "./importer";
 import { EMPTY_STRING, CSS_SELECTORS_STRING } from "./constants";
 
@@ -215,10 +214,8 @@ class View extends Element {
     }
 
     const topmostCSSNode = topmostCSSNodeFromDocumentMarkdownStyleNode(documentMarkdownStyleNode),
-          target = WEB_TARGET,
           tokens = markdownStyleTokens, ///
           context = {
-            target,
             tokens
           };
 

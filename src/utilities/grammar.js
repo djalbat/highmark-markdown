@@ -15,7 +15,6 @@ import MarkdownStyleLexer from "../markdownStyle/lexer";
 import MarkdownStyleParser from "../markdownStyle/parser";
 import markdownStyleQueries from "../queries/markdownStyle";
 
-import { WEB_TARGET } from "../targets";
 import { EMPTY_STRING } from "../constants";
 import { nodesFromNodeAndQueries } from "../utilities/query";
 
@@ -136,14 +135,12 @@ export function topmostHTMLNodeFromDocumentMarkdownNode(documentMarkdownNode, Cl
 export function cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSelectorsString) {
   let css = EMPTY_STRING;
 
-  const target = WEB_TARGET,
-        tokens = tokensFromMarkdownStyle(markdownStyle),
+  const tokens = tokensFromMarkdownStyle(markdownStyle),
         documentMarkdownStyleNode = documentMarkdownStyleNodeFromTokens(tokens);
 
   if (documentMarkdownStyleNode !== null) {
     const topmostCSSNode = topmostCSSNodeFromDocumentMarkdownStyleNode(documentMarkdownStyleNode),
           context = {
-            target,
             tokens,
             cssSelectorsString
           };

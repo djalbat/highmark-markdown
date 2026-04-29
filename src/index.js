@@ -20,7 +20,6 @@ export { default as classNameMap } from "./map/className";
 export { default as markdownRuleNames } from "./ruleNames/markdown";
 export { default as markdownStyleRuleNames } from "./ruleNames/markdownStyle";
 
-export { default as targets } from "./targets";
 export { default as tokenTypes } from "./tokenTypes";
 
 export { default as CSSNode } from "./node/css";
