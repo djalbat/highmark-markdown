@@ -3,7 +3,6 @@
 import PathMarkdownNode from "../../node/markdown/path";
 import ImageMarkdownNode from "../../node/markdown/image";
 import ErrorMarkdownNode from "../../node/markdown/error";
-import XMLNameMarkdownNode from "../../node/markdown/xmlName"
 import XMLTextMarkdownNode from "../../node/markdown/text/xml";
 import DocumentMarkdownNode from "../../node/markdown/document";
 import DivisionMarkdownNode from "../../node/markdown/division";
@@ -17,6 +16,7 @@ import EmailLinkMarkdownNode from "../../node/markdown/link/email";
 import PlainTextMarkdownNode from "../../node/markdown/text/plain";
 import BlockTextMarkdownNode from "../../node/markdown/text/block";
 import EndXMLTagMarkdownNode from "../../node/markdown/xmlTag/end";
+import XMLTagNameMarkdownNode from "../../node/markdown/xmlTagName"
 import BlockStartMarkdownNode from "../../node/markdown/blockStart";
 import SubDivisionMarkdownNode from "../../node/markdown/subDivision";
 import ReleaseNameMarkdownNode from "../../node/markdown/releaseName";
@@ -29,8 +29,10 @@ import FootnoteLinkMarkdownNode from "../../node/markdown/link/footnote";
 import InlineListingMarkdownNode from "../../node/markdown/listng/inline";
 import EmbedDirectiveMarkdownNode from "../../node/markdown/directive/embed";
 import CompleteXMLTagMarkdownNode from "../../node/markdown/xmlTag/complete";
+import XMLAttributeNameMarkdownNode from "../../node/markdown/xmlAttributeName"
 import IncludeDirectiveMarkdownNode from "../../node/markdown/directive/include";
 import SimpleXMLElementMarkdownNode from "../../node/markdown/xmlElement/simple";
+import XMLAttributeValueMarkdownNode from "../../node/markdown/xmlAttributeValue"
 import ComplexXMLElementMarkdownNode from "../../node/markdown/xmlElement/complex";
 
 import { PATH_MARKDOWN_RULE_NAME,
@@ -39,7 +41,6 @@ import { PATH_MARKDOWN_RULE_NAME,
          DOCUMENT_MARKDOWN_RULE_NAME,
          DIVISION_MARKDOWN_RULE_NAME,
          FOOTNOTE_MARKDOWN_RULE_NAME,
-         XML_NAME_MARKDOWN_RULE_NAME,
          XML_TEXT_MARKDOWN_RULE_NAME,
          BLOCK_END_MARKDOWN_RULE_NAME,
          CONTAINER_MARKDOWN_RULE_NAME,
@@ -54,6 +55,7 @@ import { PATH_MARKDOWN_RULE_NAME,
          ORDERED_ITEM_MARKDOWN_RULE_NAME,
          SUB_DIVISION_MARKDOWN_RULE_NAME,
          RELEASE_NAME_MARKDOWN_RULE_NAME,
+         XML_TAG_NAME_MARKDOWN_RULE_NAME,
          LANGUAGE_NAME_MARKDOWN_RULE_NAME,
          BLOCK_LISTING_MARKDOWN_RULE_NAME,
          FOOTNOTE_LINK_MARKDOWN_RULE_NAME,
@@ -64,6 +66,8 @@ import { PATH_MARKDOWN_RULE_NAME,
          COMPLETE_XML_TAG_MARKDOWN_RULE_NAME,
          INCLUDE_DIRECTIVE_MARKDOWN_RULE_NAME,
          SIMPLE_XML_ELEMENT_MARKDOWN_RULE_NAME,
+         XML_ATTRIBUTE_NAME_MARKDOWN_RULE_NAME,
+         XML_ATTRIBUTE_VALUE_MARKDOWN_RULE_NAME,
          COMPLEX_XML_ELEMENT_MARKDOWN_RULE_NAME } from "../../ruleNames/markdown";
 
 const markdownNonTerminalNodeMap = {
@@ -73,7 +77,6 @@ const markdownNonTerminalNodeMap = {
   [DOCUMENT_MARKDOWN_RULE_NAME]: DocumentMarkdownNode, ///
   [DIVISION_MARKDOWN_RULE_NAME]: DivisionMarkdownNode,
   [FOOTNOTE_MARKDOWN_RULE_NAME]: FootnoteMarkdownNode,
-  [XML_NAME_MARKDOWN_RULE_NAME]: XMLNameMarkdownNode,
   [XML_TEXT_MARKDOWN_RULE_NAME]: XMLTextMarkdownNode,
   [BLOCK_END_MARKDOWN_RULE_NAME]: BlockEndMarkdownNode,
   [CONTAINER_MARKDOWN_RULE_NAME]: ContainerMarkdownNode,
@@ -85,6 +88,7 @@ const markdownNonTerminalNodeMap = {
   [BLOCK_TEXT_MARKDOWN_RULE_NAME]: BlockTextMarkdownNode,
   [END_XML_TAG_MARKDOWN_RULE_NAME]: EndXMLTagMarkdownNode,
   [BLOCK_START_MARKDOWN_RULE_NAME]: BlockStartMarkdownNode,
+  [XML_TAG_NAME_MARKDOWN_RULE_NAME]: XMLTagNameMarkdownNode,
   [ORDERED_ITEM_MARKDOWN_RULE_NAME]: OrderedItemMarkdownNode,
   [SUB_DIVISION_MARKDOWN_RULE_NAME]: SubDivisionMarkdownNode,
   [RELEASE_NAME_MARKDOWN_RULE_NAME]: ReleaseNameMarkdownNode,
@@ -98,6 +102,8 @@ const markdownNonTerminalNodeMap = {
   [COMPLETE_XML_TAG_MARKDOWN_RULE_NAME]: CompleteXMLTagMarkdownNode,
   [INCLUDE_DIRECTIVE_MARKDOWN_RULE_NAME]: IncludeDirectiveMarkdownNode,
   [SIMPLE_XML_ELEMENT_MARKDOWN_RULE_NAME]: SimpleXMLElementMarkdownNode,
+  [XML_ATTRIBUTE_NAME_MARKDOWN_RULE_NAME]: XMLAttributeNameMarkdownNode,
+  [XML_ATTRIBUTE_VALUE_MARKDOWN_RULE_NAME]: XMLAttributeValueMarkdownNode,
   [COMPLEX_XML_ELEMENT_MARKDOWN_RULE_NAME]: ComplexXMLElementMarkdownNode
 };
 

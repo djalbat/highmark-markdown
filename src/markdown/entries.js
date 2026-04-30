@@ -53,16 +53,16 @@ const entries = [
     "directive": "@[a-z]+([A-Z][a-z]+)*"
   },
   {
-    "identifier": "[a-z]+(?:-[a-z]+)*"
+    "primary-identifier": "^[a-z0-9]+(?:-[a-z0-9]+)*"
   },
   {
-    "word": "^[\\w\\-]+"
+    "secondary-identifier": "^[A-Z][a-zA-Z0-9]*"
   },
   {
-    "xml-deliminter": "^<\\/|\\/>|<|>|\\/"
+    "xml-delimiter": "^(?:<\\/|\\/>|<|>|\\/)"
   },
   {
-    "special": "^\\.\\.\\.|\\.|\\?|\\(|\\)|!\\[|\\[\\^|\\]:|\\[|\\]|\\^|,|!|;|:|`|'|\"|="
+    "special": "^(?:\\.\\.\\.|\\.|\\?|\\(|\\)|!\\[|\\[\\^|\\]:|\\[|\\]|\\^|,|!|;|:|`|'|\"|=)"
   },
   {
     "unassigned": "^[^\\s]+"
@@ -70,3 +70,4 @@ const entries = [
 ];
 
 export default entries;
+

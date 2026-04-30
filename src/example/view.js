@@ -6,6 +6,7 @@ import { Element } from "easy";
 import { grammarUtilities } from "../index";  ///
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 
+import DownloadsDiv from "./view/div/Downloads";
 import indexOptions from "./indexOptions";
 import PageButtonsDiv from "./view/div/pageButtons";
 import LeftSizeableDiv from "./view/div/sizeable/left";
@@ -178,7 +179,8 @@ class View extends Element {
 
     context = {
       tokens,
-      pathToURL
+      pathToURL,
+      JSXElements
     };
 
     this.updatePreviewDiv(divisionHTMLNode, context);
@@ -434,12 +436,7 @@ class View extends Element {
     this.setMarkdown(markdown);
   }
 
-  static initialMarkdown = `<outer foo="bah">
-<inner>
-adsfasdf
-</inner>
-<simple foo="bah" />
-</outer>`;
+  static initialMarkdown = initialMarkdown;
 
   static initialMarkdownStyle = "";
 
@@ -459,6 +456,10 @@ export default withStyle(View)`
   padding: 1rem;
   
 `;
+
+const JSXElements = [
+  DownloadsDiv
+]
 
 function pathToURL(path) {
   const url = `https://djalbat.com/${path}`;

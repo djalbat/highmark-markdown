@@ -3,8 +3,19 @@
 import HTMLNode from "../../node/html";
 
 import { EMPTY_STRING } from "../../constants";
+import { mountElement, unmountElement } from "../../utilities/jsx";
+
+const jsxNameRegularExpression = /^[A-Z]/;
 
 export default class XMLElementHTMLNode extends HTMLNode {
+  isJSX(context) {
+    const tagName = this.tagName(context),
+          tagNameJSXName = jsxNameRegularExpression.test(tagName),
+          jsx = tagNameJSXName; ///
+
+    return jsx;
+  }
+
   tagName(context) {
     const markdownNode = this.getMarkdownNode(),
           tagName = markdownNode.tagName(context);
@@ -12,9 +23,16 @@ export default class XMLElementHTMLNode extends HTMLNode {
     return tagName;
   }
 
+  properties(context) {
+    const markdownNode = this.getMarkdownNode(),
+          properties = markdownNode.properties(context);
+
+    return properties;
+  }
+
   attributeNames(context) {
     const markdownNode = this.getMarkdownNode(),
-          attributeNames = markdownNode.attributeNames(context);
+      attributeNames = markdownNode.attributeNames(context);
 
     return attributeNames;
   }
@@ -77,22 +95,76 @@ export default class XMLElementHTMLNode extends HTMLNode {
   }
 
   createDOMElement(context) {
-    let domElement;
+    let domElement = null;
 
-    const tagName = this.tagName(context);
+    const jsx = this.isJSX(context);
 
-    domElement = document.createElement(tagName);
+    if (jsx) {
+      const jsxDOMElement = this.createJSXDomElement(context);
 
-    const attributeNames = this.attributeNames(context),
-          attributeValues = this.attributeValues(context);
+      domElement = jsxDOMElement; ///
+    } else {
+      const tagName = this.tagName(context);
 
-    attributeNames.forEach((attributeName, index) => {
-      const attributeValue = attributeValues[index];
+      domElement = document.createElement(tagName);
 
-      domElement.setAttribute(attributeName, attributeValue);
-    });
+      const attributeNames = this.attributeNames(context),
+            attributeValues = this.attributeValues(context);
+
+      attributeNames.forEach((attributeName, index) => {
+        const attributeValue = attributeValues[index];
+
+        domElement.setAttribute(attributeName, attributeValue);
+      });
+    }
 
     return domElement;
+  }
+
+  createJSXDomElement(context) {
+    let jsxDOMElement = null;
+
+    const { JSXElements = [] } = context,
+          tagName = this.tagName(context),
+          JSXElement = JSXElements.find((JSXElement) => {
+            const { defaultProperties = {} } = JSXElement,
+                  { name } = defaultProperties,
+                  nameTagName = (name === tagName);
+
+            if (nameTagName) {
+              return true;
+            }
+          }) || null;
+
+    if (JSXElement !== null) {
+      const properties = this.properties(context),
+            jsxElement =
+
+              <JSXElement {...properties} />
+
+            ,
+            domElement = jsxElement.getDOMElement();
+
+      jsxDOMElement = domElement; ///
+    }
+
+    return jsxDOMElement;
+  }
+
+  mount(parentDOMElement, siblingDOMElement, context) {
+    super.mount(parentDOMElement, siblingDOMElement, context);
+
+    if (this.domElement !== null) {
+      mountElement(this.domElement);
+    }
+  }
+
+  unmount(parentDOMElement) {
+    if (this.domElement !== null) {
+      unmountElement(this.domElement);
+    }
+
+    super.unmount(parentDOMElement);
   }
 
   static fromNothing(Class) { return HTMLNode.fromNothing(Class); }

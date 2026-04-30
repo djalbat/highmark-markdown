@@ -2,14 +2,25 @@
 
 import MarkdownNode from "../../node/markdown";
 
-import { trim } from "../../utilities/stringLiteral";
-
 export default class XMLAttributeMarkdownNode extends MarkdownNode {
+  propertyName(context) {
+    const attributeName = this.attributeName(context),
+          propertyName = attributeName; ///
+
+    return propertyName;
+  }
+
+  propertyValue(context) {
+    const attributeValue = this.attributeValue(context),
+          propertyValue = attributeValue; ///
+
+    return propertyValue;
+  }
+
   attributeName(context) {
     const attributeName = this.fromFirstChildNode((firstChildNode) => {
-      const terminalNode = firstChildNode,  ///
-            terminalNodeContent = terminalNode.getContent(),
-            attributeName = terminalNodeContent;
+      const xmlAttributeNameMakrdownNode = firstChildNode,  ///
+            attributeName = xmlAttributeNameMakrdownNode.attributeName(context);
 
       return attributeName;
     });
@@ -19,9 +30,8 @@ export default class XMLAttributeMarkdownNode extends MarkdownNode {
 
   attributeValue(context) {
     const attributeValue = this.fromFirstLastChildNode((firstLastChildNode) => {
-      const terminalNode = firstLastChildNode,  ///
-            terminalNodeContent = terminalNode.getContent(),
-            attributeValue = trim(terminalNodeContent); ///
+      const xmlAttributeValueMakrdownNode = firstLastChildNode,  ///
+            attributeValue = xmlAttributeValueMakrdownNode.attributeValue(context);
 
       return attributeValue;
     });

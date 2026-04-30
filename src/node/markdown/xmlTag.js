@@ -14,8 +14,8 @@ export default class XMLTagMarkdownNode extends MarkdownNode {
 
   tagName(context) {
     const tagName = this.fromThirdChildNode((thirdChildNode) => {
-      const XMLNameMarkdownNode = thirdChildNode, ///
-            tagName = XMLNameMarkdownNode.tagName(context);
+      const XMLTagNameMarkdownNode = thirdChildNode, ///
+            tagName = XMLTagNameMarkdownNode.tagName(context);
 
       return tagName;
     })
@@ -23,15 +23,29 @@ export default class XMLTagMarkdownNode extends MarkdownNode {
     return tagName;
   }
 
+  properties(context) {
+    const properties = {},
+          xmlAttributeMarkdownNodes = this.getXMLAttributeMarkdownNodes();
+
+    xmlAttributeMarkdownNodes.forEach((xmlAttributeMarkdownNode) => {
+      const propertyName = xmlAttributeMarkdownNode.propertyName(context),
+            propertyValue = xmlAttributeMarkdownNode.propertyValue(context);
+
+      properties[propertyName] = propertyValue;
+    });
+
+    return properties;
+  }
+
   attributeNames(context) {
     const xmlAttributeMarkdownNodes = this.getXMLAttributeMarkdownNodes(),
-          atributeNames = xmlAttributeMarkdownNodes.map((xmlAttributeMarkdownNode) => {
+          attributeNames = xmlAttributeMarkdownNodes.map((xmlAttributeMarkdownNode) => {
             const attributeName = xmlAttributeMarkdownNode.attributeName(context);
 
             return attributeName;
           });
 
-    return atributeNames;
+    return attributeNames;
   }
 
   attributeValues(context) {

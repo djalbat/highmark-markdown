@@ -266,35 +266,39 @@ class HTMLNode extends Node {
   mount(parentDOMElement, siblingDOMElement, context) {
     this.domElement = this.createDOMElement(context);
 
-    (siblingDOMElement !== null) ?
-      insertAfter(this.domElement, parentDOMElement, siblingDOMElement) :
-        insertBeforehand(this.domElement, parentDOMElement);
+    if (this.domElement !== null) {
+      (siblingDOMElement !== null) ?
+        insertAfter(this.domElement, parentDOMElement, siblingDOMElement) :
+          insertBeforehand(this.domElement, parentDOMElement);
 
-    parentDOMElement = this.domElement; ///
+      parentDOMElement = this.domElement; ///
 
-    siblingDOMElement = null;
+      siblingDOMElement = null;
 
-    this.childNodes.forEach((childNode) => {
-      siblingDOMElement = childNode.mount(parentDOMElement, siblingDOMElement, context);
-    });
+      this.childNodes.forEach((childNode) => {
+        siblingDOMElement = childNode.mount(parentDOMElement, siblingDOMElement, context);
+      });
 
-    siblingDOMElement = this.domElement;  ///
+      siblingDOMElement = this.domElement;  ///
+    }
 
     return siblingDOMElement;
   }
 
   unmount(parentDOMElement) {
-    {
-      const parentDOMElement = this.domElement; ///
+    if (this.domElement !== null) {
+      {
+        const parentDOMElement = this.domElement; ///
 
-      this.childNodes.forEach((childNode) => {
-        childNode.unmount(parentDOMElement);
-      });
+        this.childNodes.forEach((childNode) => {
+          childNode.unmount(parentDOMElement);
+        });
+      }
+
+      remove(this.domElement, parentDOMElement);
+
+      this.domElement = null;
     }
-
-    remove(this.domElement, parentDOMElement);
-
-    this.domElement = null;
   }
 
   asHTML(indent, context) {

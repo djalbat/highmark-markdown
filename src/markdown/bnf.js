@@ -142,22 +142,28 @@ const bnf = `
     complexXMLElement        ::=  startXMLTag ( xmlElement | xmlText )* endXMLTag ;
 
 
-    completeXMLTag           ::=  "<"<NO_WHITESPACE>xmlName xmlAttribute* "/>" endOfLine* ;
+    completeXMLTag           ::=  "<"<NO_WHITESPACE>xmlTagName xmlAttribute* "/>" endOfLine* ;
 
 
-    startXMLTag              ::=  "<"<NO_WHITESPACE>xmlName xmlAttribute* ">" endOfLine* ;
+    startXMLTag              ::=  "<"<NO_WHITESPACE>xmlTagName xmlAttribute* ">" endOfLine* ;
 
 
-    endXMLTag                ::=  "</"<NO_WHITESPACE>xmlName ">" endOfLine* ;
+    endXMLTag                ::=  "</"<NO_WHITESPACE>xmlTagName ">" endOfLine* ;
   
 
-    xmlText                  ::=  ( [escaped] | [number] | [identifier] | [word] | [special] | [string-literal] | [unassigned] )+ endOfLine* ;
+    xmlText                  ::=  ( [escaped] | [number] | [special] | [string-literal] | [primary-identifier] | [secondary-identifier] | [unassigned] )+ endOfLine* ;
   
     
-    xmlAttribute             ::=  ( [identifier] | [word] )<NO_WHITESPACE>"="<NO_WHITESPACE>[string-literal] ;
+    xmlAttribute             ::=  xmlAttributeName<NO_WHITESPACE>"="<NO_WHITESPACE>xmlAttributeValue ;
 
 
-    xmlName                  ::=  ( [identifier] | [word] ) ;
+    xmlTagName               ::=  ( [primary-identifier] | [secondary-identifier] ) ;
+    
+    
+    xmlAttributeName         ::=  [primary-identifier] ( <NO_WHITESPACE>[secondary-identifier] )* ;
+
+
+    xmlAttributeValue        ::=  [string-literal] ;
 
 
     tableHead                ::=  tableHeadRow ;
@@ -255,20 +261,18 @@ const bnf = `
     blockEnd                 ::=  [backticks] ;
 
 
-    className                ::=  <NO_WHITESPACE>[identifier] ;
+    className                ::=  <NO_WHITESPACE>[primary-identifier] ;
     
 
-    languageName             ::=  <NO_WHITESPACE>[identifier] ;
+    languageName             ::=  <NO_WHITESPACE>[primary-identifier] ;
     
 
-    releaseName              ::=  <NO_WHITESPACE>[identifier] ;
+    releaseName              ::=  <NO_WHITESPACE>[primary-identifier] ;
     
 
     blockText                ::=  [escaped] 
                               
                                |  [number] 
-                              
-                               |  [identifier] 
                               
                                |  [email-address]
                               
@@ -276,14 +280,14 @@ const bnf = `
                               
                                |  [path] 
                               
-                               |  [word] 
-                              
                                |  [special] 
                               
                                |  [string-literal]  
                                 
-                               |  [xml-delimiter]  
-                                
+                               |  [primary-identifier] 
+                              
+                               |  [secondary-identifier] 
+                              
                                |  [unassigned]  
                                 
                                |  [dashes] 
@@ -297,22 +301,20 @@ const bnf = `
                               
                                |  [number] 
                               
-                               |  [identifier] 
-                              
                                |  [email-address]
                               
                                |  [url] 
                               
                                |  [path] 
                               
-                               |  [word] 
-                              
                                |  [special] 
                               
                                |  [string-literal] 
                               
-                               |  [xml-delimiter]  
-                                
+                               |  [primary-identifier] 
+                              
+                               |  [secondary-identifier] 
+                              
                                |  [unassigned] 
                               
                                ;
@@ -336,7 +338,7 @@ const bnf = `
     path                     ::=  [path] ;
 
     
-    nonsense.                ::=  ( [escaped] | [number] | [identifier] | [word] | [special] | [string-literal] | [xml-delimiter] | [unassigned] )+ ;
+    nonsense.                ::=  ( [escaped] | [number] | [special] | [string-literal] | [primary-identifier] | [secondary-identifier] | [unassigned] )+ ;
 
 
     endOfLine                ::=  <END_OF_LINE> ;

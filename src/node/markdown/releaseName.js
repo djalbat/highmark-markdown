@@ -5,9 +5,9 @@ import MarkdownNode from "../../node/markdown";
 export default class ReleaseNameMarkdownNode extends MarkdownNode {
   releaseName(context) {
     const releaseName = this.fromSecondChildNode((secondChildNode) => {
-      const identifierTerminalNode = secondChildNode, ///
-            content = identifierTerminalNode.getContent(),
-            releaseName = content;  ///
+      const terminalNode = secondChildNode, ///
+            terminalNodeContent = terminalNode.getContent(),
+            releaseName = terminalNodeContent;  ///
 
       return releaseName;
     });

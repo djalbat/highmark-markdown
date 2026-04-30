@@ -3,6 +3,12 @@
 import XMLTagMarkdownNode from "../../../node/markdown/xmlTag";
 
 export default class EndXMLTagMarkdownNode extends XMLTagMarkdownNode {
+  properties(context) {
+    const properties = null;
+
+    return properties;
+  }
+
   attributeNames(context) {
     const attributeNames = null;
 
