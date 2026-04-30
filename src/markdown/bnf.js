@@ -142,24 +142,24 @@ const bnf = `
     complexXMLElement        ::=  startXMLTag ( xmlElement | xmlText )* endXMLTag ;
 
 
-    completeXMLTag           ::=  "<"<NO_WHITESPACE>xmlName xmlAttribute* "/>" ;
+    completeXMLTag           ::=  "<"<NO_WHITESPACE>xmlName xmlAttribute* "/>" endOfLine* ;
 
 
-    startXMLTag              ::=  "<"<NO_WHITESPACE>xmlName xmlAttribute* ">" ;
+    startXMLTag              ::=  "<"<NO_WHITESPACE>xmlName xmlAttribute* ">" endOfLine* ;
 
 
-    endXMLTag                ::=  "</"<NO_WHITESPACE>xmlName ">" ;
+    endXMLTag                ::=  "</"<NO_WHITESPACE>xmlName ">" endOfLine* ;
   
 
+    xmlText                  ::=  ( [escaped] | [number] | [identifier] | [word] | [special] | [string-literal] | [unassigned] )+ endOfLine* ;
+  
+    
     xmlAttribute             ::=  ( [identifier] | [word] )<NO_WHITESPACE>"="<NO_WHITESPACE>[string-literal] ;
 
 
     xmlName                  ::=  ( [identifier] | [word] ) ;
 
 
-    xmlText                  ::=  ( [escaped] | [number] | [identifier] | [word] | [special] | [string-literal] | [unassigned] )+ ;
-  
-    
     tableHead                ::=  tableHeadRow ;
     
     

@@ -4,8 +4,7 @@ import LineHTMLNode from "../../node/html/line";
 import ErrorHTMLNode from "../../node/html/error";
 import ImageHTMLNode from "../../node/html/image";
 import TableHTMLNode from "../../node/html/table";
-import XMLNameHTMLNode from "../../node/html/xmlName";
-import XMLTextHTMLNode from "../../node/html/xmlText";
+import XMLTextHTMLNode from "../../node/html/text/xml";
 import TopmostHTMLNode from "../../node/html/topmost";
 import DivisionHTMLNode from "../../node/html/division";
 import FootnoteHTMLNode from "../../node/html/footnote";
@@ -22,24 +21,20 @@ import EmailLinkHTMLNode from "../../node/html/link/email";
 import BlockLineHTMLNode from "../../node/html/line/block";
 import PlainTextHTMLNode from "../../node/html/text/plain";
 import BlockTextHTMLNode from "../../node/html/text/block";
-import EndXMLTagHTMLNode from "../../node/html/endXMLTag";
 import PageNumberHTMLNode from "../../node/html/pageNumber";
 import StrongTextHTMLNode from "../../node/html/text/strong";
 import InlineTextHTMLNode from "../../node/html/text/inline";
-import XMLElementHTMLNode from "../../node/html/xmlElement";
 import OrderedItemHTMLNode from "../../node/html/item/ordered";
 import OrderedListHTMLNode from "../../node/html/list/ordered";
-import StartXMLTagHTMLNode from "../../node/html/startXMLTag";
+import TableHeadRowHTMLNode from "../../node/html/tableHeadRow";
+import TableBodyRowHTMLNode from "../../node/html/tableBodyRow";
+import FootnoteLinkHTMLNode from "../../node/html/link/footnote";
+import FootnoteItemHTMLNode from "../../node/html/item/footnote";
 import ContentsItemHTMLNode from "../../node/html/item/contents";
 import ContentsListHTMLNode from "../../node/html/list/contents";
 import ContentsLinkHTMLNode from "../../node/html/link/contents";
 import BlockListingHTMLNode from "../../node/html/listing/block";
 import IndexHeadingHTMLNode from "../../node/html/heading/index";
-import TableHeadRowHTMLNode from "../../node/html/tableHeadRow";
-import TableBodyRowHTMLNode from "../../node/html/tableBodyRow";
-import FootnoteLinkHTMLNode from "../../node/html/link/footnote";
-import FootnoteItemHTMLNode from "../../node/html/item/footnote";
-import XMLAttributeHTMLNode from "../../node/html/xmlAttribute";
 import TableHeadCellHTMLNode from "../../node/html/tableHeadCell";
 import TableBodyCellHTMLNode from "../../node/html/tableBodyCell";
 import FootnotesListHTMLNode from "../../node/html/list/footnotes";
@@ -49,11 +44,10 @@ import UnorderedListHTMLNode from "../../node/html/list/unordered";
 import PrimaryHeadingHTMLNode from "../../node/html/heading/primary";
 import EmphasisedTextHTMLNode from "../../node/html/text/emphasised";
 import IndexDirectiveHTMLNode from "../../node/html/directive/index";
-import CompleteXMLTagHTMLNode from "../../node/html/completeXMLTag";
 import TertiaryHeadingHTMLNode from "../../node/html/heading/tertiary";
+import SimpleXMLElementHTMLNode from "../../node/html/xmlElement/simple";
 import SecondaryHeadingHTMLNode from "../../node/html/heading/secondary";
-import SimpleXMLElementHTMLNode from "../../node/html/simpleXMLElement";
-import ComplexXMLElementHTMLNode from "../../node/html/complexXMLElement";
+import ComplexXMLElementHTMLNode from "../../node/html/xmlElement/complex";
 import QuaternaryHeadingHTMLNode from "../../node/html/heading/quaternary";
 import ContentsDirectiveHTMLNode from "../../node/html/directive/contents";
 import FootnotesDirectiveHTMLNode from "../../node/html/directive/footnotes";
@@ -67,7 +61,6 @@ import { HTML_MARKDOWN_RULE_NAME,
          TABLE_MARKDOWN_RULE_NAME,
          DIVISION_MARKDOWN_RULE_NAME,
          FOOTNOTE_MARKDOWN_RULE_NAME,
-         XML_NAME_MARKDOWN_RULE_NAME,
          XML_TEXT_MARKDOWN_RULE_NAME,
          CONTAINER_MARKDOWN_RULE_NAME,
          REFERENCE_MARKDOWN_RULE_NAME,
@@ -85,8 +78,6 @@ import { HTML_MARKDOWN_RULE_NAME,
          PAGE_NUMBER_MARKDOWN_RULE_NAME,
          STRONG_TEXT_MARKDOWN_RULE_NAME,
          INLINE_TEXT_MARKDOWN_RULE_NAME,
-         END_XML_TAG_MARKDOWN_RULE_NAME,
-         XML_ELEMENT_MARKDOWN_RULE_NAME,
          ORDERED_ITEM_MARKDOWN_RULE_NAME,
          ORDERED_LIST_MARKDOWN_RULE_NAME,
          CONTENTS_ITEM_MARKDOWN_RULE_NAME,
@@ -96,8 +87,6 @@ import { HTML_MARKDOWN_RULE_NAME,
          BLOCK_LISTING_MARKDOWN_RULE_NAME,
          FOOTNOTE_LINK_MARKDOWN_RULE_NAME,
          FOOTNOTE_ITEM_MARKDOWN_RULE_NAME,
-         START_XML_TAG_MARKDOWN_RULE_NAME,
-         XML_ATTRIBUTE_MARKDOWN_RULE_NAME,
          FOOTNOTES_LIST_MARKDOWN_RULE_NAME,
          TABLE_HEAD_ROW_MARKDOWN_RULE_NAME,
          TABLE_BODY_ROW_MARKDOWN_RULE_NAME,
@@ -110,7 +99,6 @@ import { HTML_MARKDOWN_RULE_NAME,
          EMPHASISED_TEXT_MARKDOWN_RULE_NAME,
          PRIMARY_HEADING_MARKDOWN_RULE_NAME,
          TERTIARY_HEADING_MARKDOWN_RULE_NAME,
-         COMPLETE_XML_TAG_MARKDOWN_RULE_NAME,
          SECONDARY_HEADING_MARKDOWN_RULE_NAME,
          QUATERNARY_HEADING_MARKDOWN_RULE_NAME,
          CONTENTS_DIRECTIVE_MARKDOWN_RULE_NAME,
@@ -126,10 +114,9 @@ const htmlNodeMap = {
   [ERROR_MARKDOWN_RULE_NAME]: ErrorHTMLNode,
   [IMAGE_MARKDOWN_RULE_NAME]: ImageHTMLNode,
   [TABLE_MARKDOWN_RULE_NAME]: TableHTMLNode,
+  [XML_TEXT_MARKDOWN_RULE_NAME]: XMLTextHTMLNode,
   [DIVISION_MARKDOWN_RULE_NAME]: DivisionHTMLNode,
   [FOOTNOTE_MARKDOWN_RULE_NAME]: FootnoteHTMLNode,
-  [XML_NAME_MARKDOWN_RULE_NAME]: XMLNameHTMLNode,
-  [XML_TEXT_MARKDOWN_RULE_NAME]: XMLTextHTMLNode,
   [CONTAINER_MARKDOWN_RULE_NAME]: ContainerHTMLNode,
   [REFERENCE_MARKDOWN_RULE_NAME]: ReferenceHTMLNode,
   [PARAGRAPH_MARKDOWN_RULE_NAME]: ParagraphHTMLNode,
@@ -146,8 +133,6 @@ const htmlNodeMap = {
   [PAGE_NUMBER_MARKDOWN_RULE_NAME]: PageNumberHTMLNode,
   [STRONG_TEXT_MARKDOWN_RULE_NAME]: StrongTextHTMLNode,
   [INLINE_TEXT_MARKDOWN_RULE_NAME]: InlineTextHTMLNode,
-  [END_XML_TAG_MARKDOWN_RULE_NAME]: EndXMLTagHTMLNode,
-  [XML_ELEMENT_MARKDOWN_RULE_NAME]: XMLElementHTMLNode,
   [ORDERED_ITEM_MARKDOWN_RULE_NAME]: OrderedItemHTMLNode,
   [ORDERED_LIST_MARKDOWN_RULE_NAME]: OrderedListHTMLNode,
   [CONTENTS_ITEM_MARKDOWN_RULE_NAME]: ContentsItemHTMLNode,
@@ -157,8 +142,6 @@ const htmlNodeMap = {
   [BLOCK_LISTING_MARKDOWN_RULE_NAME]: BlockListingHTMLNode,
   [FOOTNOTE_LINK_MARKDOWN_RULE_NAME]: FootnoteLinkHTMLNode,
   [FOOTNOTE_ITEM_MARKDOWN_RULE_NAME]: FootnoteItemHTMLNode,
-  [START_XML_TAG_MARKDOWN_RULE_NAME]: StartXMLTagHTMLNode,
-  [XML_ATTRIBUTE_MARKDOWN_RULE_NAME]: XMLAttributeHTMLNode,
   [TABLE_HEAD_ROW_MARKDOWN_RULE_NAME]: TableHeadRowHTMLNode,
   [TABLE_BODY_ROW_MARKDOWN_RULE_NAME]: TableBodyRowHTMLNode,
   [INLINE_LISTING_MARKDOWN_RULE_NAME]: InlineListingHTMLNode,
@@ -171,11 +154,10 @@ const htmlNodeMap = {
   [PRIMARY_HEADING_MARKDOWN_RULE_NAME]: PrimaryHeadingHTMLNode,
   [INDEX_DIRECTIVE_MARKDOWN_RULE_NAME]: IndexDirectiveHTMLNode,
   [TERTIARY_HEADING_MARKDOWN_RULE_NAME]: TertiaryHeadingHTMLNode,
-  [COMPLETE_XML_TAG_MARKDOWN_RULE_NAME]: CompleteXMLTagHTMLNode,
   [SECONDARY_HEADING_MARKDOWN_RULE_NAME]: SecondaryHeadingHTMLNode,
+  [SIMPLE_XML_ELEMENT_MARKDOWN_RULE_NAME]: SimpleXMLElementHTMLNode,
   [QUATERNARY_HEADING_MARKDOWN_RULE_NAME]: QuaternaryHeadingHTMLNode,
   [CONTENTS_DIRECTIVE_MARKDOWN_RULE_NAME]: ContentsDirectiveHTMLNode,
-  [SIMPLE_XML_ELEMENT_MARKDOWN_RULE_NAME]: SimpleXMLElementHTMLNode,
   [COMPLEX_XML_ELEMENT_MARKDOWN_RULE_NAME]: ComplexXMLElementHTMLNode,
   [FOOTNOTES_DIRECTIVE_MARKDOWN_RULE_NAME]: FootnotesDirectiveHTMLNode,
   [PAGE_NUMBER_DIRECTIVE_MARKDOWN_RULE_NAME]: PageNumberDirectiveHTMLNode,

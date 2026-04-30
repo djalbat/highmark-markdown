@@ -1,6 +1,6 @@
 "use strict";
 
-import TextHTMLNode from "../../html/text";
+import TextHTMLNode from "../../../node/html/text";
 
 export default class BlockTextHTMLNode extends TextHTMLNode {
   static tagName = null;

@@ -380,7 +380,7 @@ class View extends Element {
   didMount() {
     this.markdown();
 
-    this.preview();
+    this.html();
 
     this.update();
   }
@@ -434,7 +434,12 @@ class View extends Element {
     this.setMarkdown(markdown);
   }
 
-  static initialMarkdown = `<xml foo="bah">adsfasdf</xml>`;
+  static initialMarkdown = `<outer foo="bah">
+<inner>
+adsfasdf
+</inner>
+<simple foo="bah" />
+</outer>`;
 
   static initialMarkdownStyle = "";
 

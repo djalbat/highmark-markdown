@@ -27,6 +27,24 @@ class MarkdownNode extends NonTerminalNode {
     return ancestorMarkdownNodes;
   }
 
+  getChildMarkdownNodesByRuleName(...ruleNames) {
+    const childMarkdownNodes = this.filterChildNode((childNode) => {
+      const childNodeNonTerminalNode = childNode.isNonTerminalNode();
+
+      if (childNodeNonTerminalNode) {
+        const markdownNode = childNode, ///
+              ruleName = markdownNode.getRuleName(),
+              ruleNamesIncludesRuleName = ruleNames.includes(ruleName);
+
+        if (ruleNamesIncludesRuleName) {
+          return true;
+        }
+      }
+    });
+
+    return childMarkdownNodes;
+  }
+
   setParentMarkdownNode(parentMarkdownNode) {
     const parentNode = parentMarkdownNode;  ///
 
