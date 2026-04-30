@@ -436,7 +436,57 @@ class View extends Element {
     this.setMarkdown(markdown);
   }
 
-  static initialMarkdown = initialMarkdown;
+  static initialMarkdown = `
+
+## Methods
+
+There is not a whole lot more to Juxtapose than primitive, functional and class elements.
+Aside from these, there are a few predefined elements, mainly form related, and a small amount of functionality to generally make life easy.
+
+To begin with, you can define and invoke methods on class elements directly:
+        
+\`\`\`javascript
+"use strict";
+
+import { Element } from "easy";
+
+import SubmitButton from "../button/submit";
+import EmailAddressInput from "../input/emailAddress";
+
+export default class FeedbackForm extends Element {
+  submit() {
+    /\\* ... \\*/
+  }
+
+  childElements() {
+    return ([
+
+      <EmailAddressInput/>,
+      <SubmitButton onClick={(event, element) => {
+
+                      event.preventDefault();
+              
+                      this.submit();
+              
+                    }}
+      />
+
+    ]);
+  }
+
+  static tagName = "form";
+
+  static defaultProperties = {
+    className: "feedback"
+  };
+}
+\`\`\`
+        
+Note that, as the name suggests, you can return an array of JSX elements from the \`childElements()\` method.
+You can also return a string or even \`null\` or \`undefined\`.
+Anything falsey is safely ignored.
+
+`;
 
   static initialMarkdownStyle = "";
 

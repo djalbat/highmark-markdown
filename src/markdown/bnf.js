@@ -288,6 +288,8 @@ const bnf = `
                               
                                |  [secondary-identifier] 
                               
+                               |  [xml-delimiter] 
+                              
                                |  [unassigned]  
                                 
                                |  [dashes] 

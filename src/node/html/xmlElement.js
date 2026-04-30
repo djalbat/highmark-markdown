@@ -152,11 +152,13 @@ export default class XMLElementHTMLNode extends HTMLNode {
   }
 
   mount(parentDOMElement, siblingDOMElement, context) {
-    super.mount(parentDOMElement, siblingDOMElement, context);
+    siblingDOMElement = super.mount(parentDOMElement, siblingDOMElement, context);
 
     if (this.domElement !== null) {
       mountElement(this.domElement);
     }
+
+    return siblingDOMElement;
   }
 
   unmount(parentDOMElement) {
