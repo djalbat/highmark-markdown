@@ -18,11 +18,11 @@ import PlainTextMarkdownNode from "../../node/markdown/text/plain";
 import BlockTextMarkdownNode from "../../node/markdown/text/block";
 import EndXMLTagMarkdownNode from "../../node/markdown/endXMLTag";
 import BlockStartMarkdownNode from "../../node/markdown/blockStart";
+import XMLElementeMarkdownNode from "../../node/markdown/xmlElement"
+import StartXMLTagMarkdownNode from "../../node/markdown/startXMLTag";
 import SubDivisionMarkdownNode from "../../node/markdown/subDivision";
 import OrderedItemMarkdownNode from "../../node/markdown/item/ordered";
 import ReleaseNameMarkdownNode from "../../node/markdown/releaseName";
-import StartXMLTagMarkdownNode from "../../node/markdown/startXMLTag";
-import XMLElementeMarkdownNode from "../../node/markdown/xmlElement"
 import LanguageNameMarkdownNode from "../../node/markdown/languageName";
 import BlockListingMarkdownNode from "../../node/markdown/listng/block";
 import FootnoteLinkMarkdownNode from "../../node/markdown/link/footnote";
@@ -85,8 +85,8 @@ const markdownNonTerminalNodeMap = {
   [CLASS_NAME_MARKDOWN_RULE_NAME]: ClassNameMarkdownNode,
   [PLAIN_TEXT_MARKDOWN_RULE_NAME]: PlainTextMarkdownNode,
   [BLOCK_TEXT_MARKDOWN_RULE_NAME]: BlockTextMarkdownNode,
-  [BLOCK_START_MARKDOWN_RULE_NAME]: BlockStartMarkdownNode,
   [END_XML_TAG_MARKDOWN_RULE_NAME]: EndXMLTagMarkdownNode,
+  [BLOCK_START_MARKDOWN_RULE_NAME]: BlockStartMarkdownNode,
   [XML_ELEMENT_MARKDOWN_RULE_NAME]: XMLElementeMarkdownNode,
   [ORDERED_ITEM_MARKDOWN_RULE_NAME]: OrderedItemMarkdownNode,
   [SUB_DIVISION_MARKDOWN_RULE_NAME]: SubDivisionMarkdownNode,
