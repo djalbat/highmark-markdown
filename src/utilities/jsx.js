@@ -1,13 +1,23 @@
 "use strict";
 
-export function mountElement(domElement) {
-  const element = domElement.__element__;
+export function findJSXElement(tagName, context) {
+  const { JSXElements = [] } = context,
+        JSXElement = JSXElements.find((JSXElement) => {
+          const { defaultProperties = {} } = JSXElement,
+                { name } = defaultProperties,
+                nameTagName = (name === tagName);
 
-  if (!element) { ///
-    return;
-  }
+          if (nameTagName) {
+            return true;
+          }
+        }) || null;
 
-  const descendantElements = element.getDescendantElements(),
+  return JSXElement;
+}
+
+export function mountJSXElement(jsxElement) {
+  const element = jsxElement, ///
+        descendantElements = element.getDescendantElements(),
         elements = [
           element,
           ...descendantElements
@@ -20,14 +30,9 @@ export function mountElement(domElement) {
   });
 }
 
-export function unmountElement(domElement) {
-  const element = domElement.__element__;
-
-  if (!element) { ///
-    return;
-  }
-
-  const descendantElements = element.getDescendantElements(),
+export function unmountJSXElement(jsxElement) {
+  const element = jsxElement, ///
+        descendantElements = element.getDescendantElements(),
         elements = [
           element,
           ...descendantElements

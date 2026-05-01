@@ -3,7 +3,7 @@
 import HTMLNode from "../../node/html";
 
 import { EMPTY_STRING } from "../../constants";
-import { mountElement, unmountElement } from "../../utilities/jsx";
+import { findJSXElement, mountJSXElement, unmountJSXElement } from "../../utilities/jsx";
 
 const jsxNameRegularExpression = /^[A-Z]/;
 
@@ -95,75 +95,82 @@ export default class XMLElementHTMLNode extends HTMLNode {
   }
 
   createDOMElement(context) {
-    let domElement = null;
+    let domElement;
 
-    const jsx = this.isJSX(context);
+    const jsxDOMElement = this.createJSXDOMElement(context);
 
-    if (jsx) {
-      const jsxDOMElement = this.createJSXDomElement(context);
-
+    if (jsxDOMElement !== null) {
       domElement = jsxDOMElement; ///
     } else {
-      const tagName = this.tagName(context);
+      const nativeDOMElement = this.createNativeDOMElement(context);
 
-      domElement = document.createElement(tagName);
-
-      const attributeNames = this.attributeNames(context),
-            attributeValues = this.attributeValues(context);
-
-      attributeNames.forEach((attributeName, index) => {
-        const attributeValue = attributeValues[index];
-
-        domElement.setAttribute(attributeName, attributeValue);
-      });
+      domElement = nativeDOMElement;  ///
     }
 
     return domElement;
   }
 
-  createJSXDomElement(context) {
+  createJSXDOMElement(context) {
     let jsxDOMElement = null;
 
-    const { JSXElements = [] } = context,
-          tagName = this.tagName(context),
-          JSXElement = JSXElements.find((JSXElement) => {
-            const { defaultProperties = {} } = JSXElement,
-                  { name } = defaultProperties,
-                  nameTagName = (name === tagName);
+    const jsx = this.isJSX(context);
 
-            if (nameTagName) {
-              return true;
-            }
-          }) || null;
+    if (jsx) {
+      const tagName = this.tagName(context),
+            JSXElement = findJSXElement(tagName, context);
 
-    if (JSXElement !== null) {
-      const properties = this.properties(context),
-            jsxElement =
+      if (JSXElement !== null) {
+        const properties = this.properties(context),
+              jsxElement =
 
-              <JSXElement {...properties} />
+                <JSXElement {...properties} />
 
-            ,
-            domElement = jsxElement.getDOMElement();
+              ,
+              domElement = jsxElement.getDOMElement();
 
-      jsxDOMElement = domElement; ///
+        jsxDOMElement = domElement; ///
+      }
     }
 
     return jsxDOMElement;
   }
 
+  createNativeDOMElement(context) {
+    let nativeDOMElement;
+
+    const tagName = this.tagName(context);
+
+    nativeDOMElement = document.createElement(tagName);
+
+    const attributeNames = this.attributeNames(context),
+          attributeValues = this.attributeValues(context);
+
+    attributeNames.forEach((attributeName, index) => {
+      const attributeValue = attributeValues[index];
+
+      nativeDOMElement.setAttribute(attributeName, attributeValue);
+    });
+
+    return nativeDOMElement;
+  }
+
   mount(parentDOMElement, siblingDOMElement, context) {
     siblingDOMElement = super.mount(parentDOMElement, siblingDOMElement, context);
 
-    if (this.domElement !== null) {
-      mountElement(this.domElement);
+    const jsxElement = this.domElement.__element__;  ///
+
+    if (jsxElement) { ///
+      mountJSXElement(jsxElement);
     }
 
     return siblingDOMElement;
   }
 
   unmount(parentDOMElement) {
-    if (this.domElement !== null) {
-      unmountElement(this.domElement);
+    const jsxElement = this.domElement.__element__;  ///
+
+    if (jsxElement) { ///
+      unmountJSXElement(jsxElement);
     }
 
     super.unmount(parentDOMElement);
