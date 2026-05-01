@@ -30,10 +30,10 @@ const bnf = `
                                    
                                |  blockListing 
                                
-                               |  xmlElement 
-      
                                |  paragraph 
                                
+                               |  xmlElement 
+      
                                ;
 
 
