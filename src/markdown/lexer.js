@@ -1,6 +1,6 @@
 "use strict";
 
-import { CommonLexer, WhitespaceToken, EndOfLineSignificantToken, SinglyQuotedStringLiteralToken, DoublyQuotedStringLiteralToken } from "occam-lexers";
+import { CommonLexer, WhitespaceToken, EndOfLineSignificantToken, DoublyQuotedStringLiteralToken } from "occam-lexers";
 
 import entries from "./entries";
 
@@ -23,7 +23,7 @@ export default class MarkdownLexer extends CommonLexer {
 
   static MiddleOfMultiLineCommentToken = null;
 
-  static SinglyQuotedStringLiteralToken = SinglyQuotedStringLiteralToken;
+  static SinglyQuotedStringLiteralToken = null;
 
   static DoublyQuotedStringLiteralToken = DoublyQuotedStringLiteralToken;
 
