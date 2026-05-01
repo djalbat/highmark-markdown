@@ -1,5 +1,7 @@
 "use strict";
 
+const jsxNameRegularExpression = /^[A-Z]/;
+
 export function findJSXElement(tagName, context) {
   const { JSXElements = [] } = context,
         JSXElement = JSXElements.find((JSXElement) => {
@@ -41,4 +43,10 @@ export function unmountJSXElement(jsxElement) {
   elements.forEach((element) => {
     element.willUnmount && element.willUnmount();
   });
+}
+
+export function isTagNameJSXTagName(tagName) {
+  const tagNameJSXTagName = jsxNameRegularExpression.test(tagName); ///
+
+  return tagNameJSXTagName;
 }

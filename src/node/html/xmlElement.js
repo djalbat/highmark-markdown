@@ -3,15 +3,13 @@
 import HTMLNode from "../../node/html";
 
 import { EMPTY_STRING } from "../../constants";
-import { findJSXElement, mountJSXElement, unmountJSXElement } from "../../utilities/jsx";
-
-const jsxNameRegularExpression = /^[A-Z]/;
+import { findJSXElement, mountJSXElement, unmountJSXElement, isTagNameJSXTagName } from "../../utilities/jsx";
 
 export default class XMLElementHTMLNode extends HTMLNode {
   isJSX(context) {
     const tagName = this.tagName(context),
-          tagNameJSXName = jsxNameRegularExpression.test(tagName),
-          jsx = tagNameJSXName; ///
+          tagNameJSXTagname = isTagNameJSXTagName(tagName),
+          jsx = tagNameJSXTagname; ///
 
     return jsx;
   }
