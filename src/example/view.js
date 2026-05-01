@@ -434,7 +434,7 @@ class View extends Element {
     this.setMarkdown(markdown);
   }
 
-  static initialMarkdown = `<DownloadsDiv/>`;
+  static initialMarkdown = initialMarkdown;
 
   static initialMarkdownStyle = "";
 
