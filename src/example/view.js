@@ -434,7 +434,53 @@ class View extends Element {
     this.setMarkdown(markdown);
   }
 
-  static initialMarkdown = initialMarkdown;
+  static initialMarkdown = `
+
+Juxtapose is a front end framework based on JSX.
+
+If you are coming from a React background then you will immediately notice that Juxtapose owes something to React.
+It borrows some of React's concepts, such as mounting, although it eschews many others, like diffing. 
+On the other hand if you are more comfortable with template based frameworks like Vue or Angular then you might find Juxtapose a little more palatable than React. 
+It might even convince you to re-evaluate JSX and begin to appreciate its utility.
+
+\`\`\`javascript
+"use strict";
+
+import "juxtapose";
+
+import withStyle from "easy-with-style";  ///
+
+import { Body } from "easy";
+
+const body = new Body();
+
+body.mount(
+
+  <p>
+    A simple application.
+  </p>
+
+);
+\`\`\`
+
+The combination of JSX and programmatic styles is a game changer and so in what follows the two are presented as working in tandem. 
+Juxtapose has its own associated package for programmatic styles but if you are familiar with Styled Components then you will be completely at home. 
+If you are not a fan of programmatic styles then, as with JSX, Juxtapose might just convince you to reconsider.
+
+Juxtpoase compares extreemly favorably with other front end frameworks in terms of size.
+Vue is roughly twenty times the size, for example.
+
+| .         | .                                                        | Files  | Lines of code |
+-------------------------------------------------------------------------------------------------
+| Juxtapose | \`npm install juxtapose sufficient easy-with-style\`     | 677    |       186,816 |
+| Angular   | \`npm install angular @angular/cli\`                     | 10,564 |       773,738 |
+| React     | \`npm install create-react-app redux styled-components\` | 2,471  |       252,305 |
+| Vue       | \`npm install vue @vue/cli\`                             | 19,841 |     2,415,161 |
+
+Juxtapose's other advantage is simplicity. 
+It is entirely possible to fully get to grips with it in a matter of a few hours.
+
+`;
 
   static initialMarkdownStyle = "";
 
