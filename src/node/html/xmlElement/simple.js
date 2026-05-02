@@ -2,26 +2,18 @@
 
 import XmLElementHTMLNode from "../../../node/html/xmlElement";
 
-import { EMPTY_STRING } from "../../../constants";
-
 export default class SimpleXMLElementHTMLNode extends XmLElementHTMLNode {
   asHTML(indent, context) {
     let html;
 
-    const jsx = this.isJSX(context);
+    indent = this.adjustIndent(indent);
 
-    if (jsx) {
-      html = EMPTY_STRING
-    } else {
-      indent = this.adjustIndent(indent);
+    const selfClosingTag = this.selfClosingTag(context);
 
-      const selfClosingTag = this.selfClosingTag(context);
-
-      html = (indent === null) ?
-               `${selfClosingTag}` :
-                 `${indent}${selfClosingTag}
+    html = (indent === null) ?
+             `${selfClosingTag}` :
+               `${indent}${selfClosingTag}
 `;
-    }
 
     return html;
   }

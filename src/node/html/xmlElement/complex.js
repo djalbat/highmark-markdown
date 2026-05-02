@@ -2,29 +2,21 @@
 
 import XMLElementHTMLNode from "../../../node/html/xmlElement";
 
-import { EMPTY_STRING } from "../../../constants";
-
 export default class ComplexXMLElementHTMLNode extends XMLElementHTMLNode {
   asHTML(indent, context) {
     let html;
 
-    const jsx = this.isJSX(context);
+    indent = this.adjustIndent(indent);
 
-    if (jsx) {
-      html = EMPTY_STRING;
-    } else {
-      indent = this.adjustIndent(indent);
+    const childNodesHTML = this.childNodesAsHTML(indent, context),
+          startingTag = this.startingTag(context),
+          closingTag = this.closingTag(context);
 
-      const childNodesHTML = this.childNodesAsHTML(indent, context),
-            startingTag = this.startingTag(context),
-            closingTag = this.closingTag(context);
-
-      html = (indent === null) ?
-              `${startingTag}${childNodesHTML}${closingTag}` :
-                `${indent}${startingTag}
+    html = (indent === null) ?
+            `${startingTag}${childNodesHTML}${closingTag}` :
+              `${indent}${startingTag}
 ${childNodesHTML}${indent}${closingTag}
 `;
-    }
 
     return html;
   }
