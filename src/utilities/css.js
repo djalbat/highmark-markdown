@@ -1,7 +1,7 @@
 "use strict";
 
 import { Query } from "occam-query";
-import { queryUtilities } from "occam-dom";
+import { queryUtilities } from "occam-query";
 
 const { nodesFromNodeAndQuery } = queryUtilities;
 
