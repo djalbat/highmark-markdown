@@ -116,12 +116,11 @@ export function documentMarkdownStyleNodeFromTokens(tokens) {
   return documentMarkdownStyleNode;
 }
 
-export function topmostHTMLNodeFromDocumentMarkdownNode(documentMarkdownNode, ClassFromOuterNode = HTMLClassFromMarkdownNode) {
+export function topmostHTMLNodeFromDocumentMarkdownNode(documentMarkdownNode, queries = markdownQueries, ClassFromOuterNode = HTMLClassFromMarkdownNode) {
   let topmostHTMLNode = null;
 
   if (documentMarkdownNode !== null) {
     const node = documentMarkdownNode,  ///
-          queries = markdownQueries, ///
           nodes = nodesFromNodeAndQueries(node, queries),
           outerNodes = nodes, ///
           topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes);
@@ -153,9 +152,8 @@ export function cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSele
   return css;
 }
 
-export function topmostCSSNodeFromDocumentMarkdownStyleNode(documentMarkdownStyleNode, ClassFromOuterNode = CSSClassFromMarkdownStyleNode) {
+export function topmostCSSNodeFromDocumentMarkdownStyleNode(documentMarkdownStyleNode, queries = markdownStyleQueries, ClassFromOuterNode = CSSClassFromMarkdownStyleNode) {
   const node = documentMarkdownStyleNode,  ///
-        queries = markdownStyleQueries, ///
         nodes = nodesFromNodeAndQueries(node, queries),
         outerNodes = nodes, ///
         topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes),
@@ -165,7 +163,9 @@ export function topmostCSSNodeFromDocumentMarkdownStyleNode(documentMarkdownStyl
 }
 
 export default {
+  markdownQueries,
   tokensFromMarkdown,
+  markdownStyleQueries,
   tokensFromMarkdownStyle,
   HTMLClassFromMarkdownNode,
   CSSClassFromMarkdownStyleNode,
