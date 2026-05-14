@@ -1,8 +1,9 @@
 "use strict";
 
 import { Query } from "occam-query";
+import { queryUtilities } from "occam-dom";
 
-import { nodeFromNodeAndQuery, nodesFromNodeAndQuery } from "../utilities/query";
+const { nodeFromNodeAndQuery, nodesFromNodeAndQuery } = queryUtilities;
 
 const subDivisionMarkdownNodeQuery = Query.fromExpressionString("/division/subDivision"),
       ignoreDirectiveMarkdownNodeQuery = Query.fromExpressionString("/division/subDivision/directives/ignoreDirective"),

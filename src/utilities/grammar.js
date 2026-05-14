@@ -1,5 +1,7 @@
 "use strict";
 
+import { domUtilities } from "occam-dom";
+
 import CSSNode from "../node/css";
 import HTMLNode from "../node/html";
 import cssNodeMap from "../map/node/css";
@@ -14,7 +16,8 @@ import MarkdownStyleParser from "../markdownStyle/parser";
 import markdownStyleQueries from "../queries/markdownStyle";
 
 import { EMPTY_STRING } from "../constants";
-import { topmostNodeFromNodeAndQueries } from "../utilities/query";
+
+const { topmostNodeFromNodeAndQueries } = domUtilities;
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),

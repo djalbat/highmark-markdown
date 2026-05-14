@@ -1,8 +1,9 @@
 "use strict";
 
 import { Query } from "occam-query";
+import { queryUtilities } from "occam-query";
 
-import { nodesFromNodeAndQuery } from "../utilities/query";
+const { nodesFromNodeAndQuery } = queryUtilities;
 
 const ruleSetCSSNodesQuery = Query.fromExpressionString("/*/ruleSet"),
       selectorsCSSNodesQuery = Query.fromExpressionString("/selectorsList/selectors"),

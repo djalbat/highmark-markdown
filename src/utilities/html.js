@@ -1,8 +1,9 @@
 "use strict";
 
 import { Query } from "occam-query";
+import { queryUtilities } from "occam-query";
 
-import { nodeFromNodeAndQuery, nodesFromNodeAndQuery } from "../utilities/query";
+const { nodeFromNodeAndQuery, nodesFromNodeAndQuery } = queryUtilities;
 
 const headingHTMLNodesQuery = Query.fromExpressionString("//primaryHeading|secondaryHeading|tertiaryHeading|tertiaryHeading"),
       divisionHTMLNodesQuery = Query.fromExpressionString("/html/division"),
