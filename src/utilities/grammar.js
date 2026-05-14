@@ -17,7 +17,7 @@ import markdownStyleQueries from "../queries/markdownStyle";
 
 import { EMPTY_STRING } from "../constants";
 
-const { topmostNodeFromNodeAndQueries } = domUtilities;
+const { topmostNodeFromOuterNodeAndQueries } = domUtilities;
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
@@ -116,8 +116,8 @@ export function documentMarkdownStyleNodeFromTokens(tokens) {
 }
 
 export function topmostHTMLNodeFromDocumentMarkdownNode(documentMarkdownNode, queries = markdownQueries, ClassFromOuterNode = HTMLClassFromMarkdownNode) {
-  const node = documentMarkdownNode,  ///
-        topmostNode = topmostNodeFromNodeAndQueries(node, queries, ClassFromOuterNode),
+  const outerNode = documentMarkdownNode,  ///
+        topmostNode = topmostNodeFromOuterNodeAndQueries(outerNode, queries, ClassFromOuterNode),
         topmostHTMLNode = topmostNode; ///
 
   return topmostHTMLNode;
@@ -145,8 +145,8 @@ export function cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSele
 }
 
 export function topmostCSSNodeFromDocumentMarkdownStyleNode(documentMarkdownStyleNode, queries = markdownStyleQueries, ClassFromOuterNode = CSSClassFromMarkdownStyleNode) {
-  const node = documentMarkdownStyleNode, ///
-        topmostNode = topmostNodeFromNodeAndQueries(node, queries, ClassFromOuterNode),
+  const outerNode = documentMarkdownStyleNode, ///
+        topmostNode = topmostNodeFromOuterNodeAndQueries(outerNode, queries, ClassFromOuterNode),
         topmostCSSNode = topmostNode; ///
 
   return topmostCSSNode;
