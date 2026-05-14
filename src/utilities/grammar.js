@@ -1,7 +1,5 @@
 "use strict";
 
-import { nodeUtilities } from "occam-dom";
-
 import CSSNode from "../node/css";
 import HTMLNode from "../node/html";
 import cssNodeMap from "../map/node/css";
@@ -16,9 +14,7 @@ import MarkdownStyleParser from "../markdownStyle/parser";
 import markdownStyleQueries from "../queries/markdownStyle";
 
 import { EMPTY_STRING } from "../constants";
-import { topmostNodeFromNodeQueriesAndClassFromOuterNode } from "../utilities/query";
-
-const { topmostNodeFromOuterNodes } = nodeUtilities;
+import { topmostNodeFromNodeAndQueries } from "../utilities/query";
 
 const markdownLexer = MarkdownLexer.fromNothing(),
       markdownParser = MarkdownParser.fromNothing(),
@@ -118,7 +114,7 @@ export function documentMarkdownStyleNodeFromTokens(tokens) {
 
 export function topmostHTMLNodeFromDocumentMarkdownNode(documentMarkdownNode, queries = markdownQueries, ClassFromOuterNode = HTMLClassFromMarkdownNode) {
   const node = documentMarkdownNode,  ///
-        topmostNode = topmostNodeFromNodeQueriesAndClassFromOuterNode(node, queries, ClassFromOuterNode),
+        topmostNode = topmostNodeFromNodeAndQueries(node, queries, ClassFromOuterNode),
         topmostHTMLNode = topmostNode; ///
 
   return topmostHTMLNode;
@@ -147,7 +143,7 @@ export function cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSele
 
 export function topmostCSSNodeFromDocumentMarkdownStyleNode(documentMarkdownStyleNode, queries = markdownStyleQueries, ClassFromOuterNode = CSSClassFromMarkdownStyleNode) {
   const node = documentMarkdownStyleNode, ///
-        topmostNode = topmostNodeFromNodeQueriesAndClassFromOuterNode(node, queries, ClassFromOuterNode),
+        topmostNode = topmostNodeFromNodeAndQueries(node, queries, ClassFromOuterNode),
         topmostCSSNode = topmostNode; ///
 
   return topmostCSSNode;

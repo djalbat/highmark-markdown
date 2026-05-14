@@ -1,9 +1,11 @@
 "use strict";
 
 import { Query } from "occam-query";
+import { nodeUtilities } from "occam-dom";
 import { arrayUtilities } from "necessary";
 
-const { push } = arrayUtilities;
+const { push } = arrayUtilities,
+      { topmostNodeFromOuterNodes } = nodeUtilities;
 
 export function nodeQuery(expression) {
   const query = Query.fromExpressionString(expression);
@@ -36,7 +38,7 @@ export function nodeFromNodeAndQuery(node, query) {
   return node;
 }
 
-export function nodesFromNodeAndQuery(node, query, nodes) {
+export function nodesFromNodeAndQuery(node, query, nodes = []) {
   const queryNodes = query.execute(node);
 
   push(nodes, queryNodes);
@@ -54,14 +56,14 @@ export function nodesFromNodeAndQueries(node, queries, nodes = []) {
   return nodes;
 }
 
-export function topmostNodeFromNodeQueriesAndClassFromOuterNode(node, queries, ClassFromOuterNode) {
+export function topmostNodeFromNodeAndQueries(node, queries, ClassFromOuterNode) {
   let topmostNode = null;
 
   if (node !== null) {
     const nodes = nodesFromNodeAndQueries(node, queries),
           outerNodes = nodes; ///
 
-    topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes);
+    topmostNode = topmostNodeFromOuterNodes(outerNodes, ClassFromOuterNode);
   }
 
   return topmostNode;
