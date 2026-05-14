@@ -16,7 +16,7 @@ import MarkdownStyleParser from "../markdownStyle/parser";
 import markdownStyleQueries from "../queries/markdownStyle";
 
 import { EMPTY_STRING } from "../constants";
-import { nodesFromNodeAndQueries } from "../utilities/query";
+import { topmostNodeFromNodeQueriesAndClassFromOuterNode } from "../utilities/query";
 
 const { topmostNodeFromOuterNodes } = nodeUtilities;
 
@@ -117,16 +117,9 @@ export function documentMarkdownStyleNodeFromTokens(tokens) {
 }
 
 export function topmostHTMLNodeFromDocumentMarkdownNode(documentMarkdownNode, queries = markdownQueries, ClassFromOuterNode = HTMLClassFromMarkdownNode) {
-  let topmostHTMLNode = null;
-
-  if (documentMarkdownNode !== null) {
-    const node = documentMarkdownNode,  ///
-          nodes = nodesFromNodeAndQueries(node, queries),
-          outerNodes = nodes, ///
-          topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes);
-
-    topmostHTMLNode = topmostNode;  ///
-  }
+  const node = documentMarkdownNode,  ///
+        topmostNode = topmostNodeFromNodeQueriesAndClassFromOuterNode(node, queries, ClassFromOuterNode),
+        topmostHTMLNode = topmostNode; ///
 
   return topmostHTMLNode;
 }
@@ -153,11 +146,9 @@ export function cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSele
 }
 
 export function topmostCSSNodeFromDocumentMarkdownStyleNode(documentMarkdownStyleNode, queries = markdownStyleQueries, ClassFromOuterNode = CSSClassFromMarkdownStyleNode) {
-  const node = documentMarkdownStyleNode,  ///
-        nodes = nodesFromNodeAndQueries(node, queries),
-        outerNodes = nodes, ///
-        topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes),
-        topmostCSSNode = topmostNode;  ///
+  const node = documentMarkdownStyleNode, ///
+        topmostNode = topmostNodeFromNodeQueriesAndClassFromOuterNode(node, queries, ClassFromOuterNode),
+        topmostCSSNode = topmostNode; ///
 
   return topmostCSSNode;
 }

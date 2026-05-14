@@ -53,3 +53,16 @@ export function nodesFromNodeAndQueries(node, queries, nodes = []) {
 
   return nodes;
 }
+
+export function topmostNodeFromNodeQueriesAndClassFromOuterNode(node, queries, ClassFromOuterNode) {
+  let topmostNode = null;
+
+  if (node !== null) {
+    const nodes = nodesFromNodeAndQueries(node, queries),
+          outerNodes = nodes; ///
+
+    topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes);
+  }
+
+  return topmostNode;
+}
