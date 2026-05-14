@@ -107,50 +107,12 @@ class HTMLNode extends Node {
     return htmlNode;
   }
 
-  removeChildHTMLNodes(removedChildHTMLNodes = null) {
-    let childHTMLNodes;
-
-    childHTMLNodes = this.getChildHTMLNodes();
-
-    if (removedChildHTMLNodes !== null) {
-      childHTMLNodes = childHTMLNodes.filter((childHTMLNode) => { ///
-        const markdownNode = childHTMLNode.getMarkdownNode(),
-              index = removedChildHTMLNodes.findIndex((removedChildHTMLNode) => {
-                const markdownNodeMatches = removedChildHTMLNode.matchMarkdownNode(markdownNode);
-
-                if (markdownNodeMatches) {
-                  return true;
-                }
-              });
-
-        if (index !== -1) {
-          return true;
-        }
-      });
-    }
-
-    let removedChildNodes = childHTMLNodes;  ///
-
-    removedChildNodes = this.removeChildNodes(removedChildNodes);
-
-    removedChildHTMLNodes = removedChildNodes;  ///
-
-    return removedChildHTMLNodes;
-  }
-
   matchMarkdownNode(markdownNode) {
     const outerNode = markdownNode, ///
           outerNodeMatches = this.matchOuterNode(outerNode),
           markdownNodeMatches = outerNodeMatches; ///
 
     return markdownNodeMatches;
-  }
-
-  addChildHTMLNodes(addedChildHTMLNodes, startHTNLIndex) {
-    const addedChildNodes = addedChildHTMLNodes,  ///
-          startIndex = startHTNLIndex;  ///
-
-    this.addChildNodes(addedChildNodes, startIndex);
   }
 
   adjustIndent(indent) {
