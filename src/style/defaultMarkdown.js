@@ -2,7 +2,7 @@
 
 const defaultMarkdownStyle = `
 
-\`\`\`web
+\`\`\`
 width: 600pt;
 display: flex;
 position: relative;
@@ -224,8 +224,7 @@ indexLink {
 
 pageNumber {
 
-  \`\`\`web
-  
+  \`\`\`  
   left: 0;
   width: 100%;
   bottom: 0;
@@ -233,8 +232,7 @@ pageNumber {
   position: absolute;
   font-size: 13pt;
   text-align: center;
-  padding-bottom: 24pt;
-  
+  padding-bottom: 24pt;  
   \`\`\`
   
 }
