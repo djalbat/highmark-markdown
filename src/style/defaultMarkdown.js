@@ -7,7 +7,7 @@ width: 600pt;
 display: flex;
 position: relative;
 min-height: 848pt;
-flex-shrink: 0;
+align-items: flex-start;
 flex-direction: column;
 justify-content: flex-start;
 \`\`\`
