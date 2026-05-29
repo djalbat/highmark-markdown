@@ -1,7 +1,7 @@
 {
   "name": "highmark-markdown",
   "author": "James Smith",
-  "version": "1.2.161",
+  "version": "1.2.162",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/highmark-markdown",
   "description": "Highmark's Markdown and Markdown Style languages.",
@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "necessary": "^17.2.10",
-    "occam-dom": "^6.1.12",
+    "occam-dom": "^6.1.13",
     "occam-lexers": "^23.1.67",
-    "occam-parsers": "^23.1.77",
-    "occam-query": "^4.1.182"
+    "occam-parsers": "^23.1.80",
+    "occam-query": "^4.1.183"
   },
   "devDependencies": {
     "@swc/core": "1.13.20",
