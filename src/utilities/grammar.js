@@ -115,7 +115,7 @@ export function documentMarkdownStyleNodeFromTokens(tokens) {
   return documentMarkdownStyleNode;
 }
 
-export function topmostHTMLNodeFromDocumentMarkdownNode(documentMarkdownNode, queries = markdownQueries, ClassFromOuterNode = HTMLClassFromMarkdownNode) {
+export function topmostHTMLNodeFromDocumentMarkdownNode(documentMarkdownNode, ClassFromOuterNode = HTMLClassFromMarkdownNode, queries = markdownQueries) {
   const outerNode = documentMarkdownNode,  ///
         topmostNode = topmostNodeFromOuterNodeAndQueries(outerNode, queries, ClassFromOuterNode),
         topmostHTMLNode = topmostNode; ///
@@ -144,7 +144,7 @@ export function cssFromMarkdownStyleAndCSSSelectorsString(markdownStyle, cssSele
   return css;
 }
 
-export function topmostCSSNodeFromDocumentMarkdownStyleNode(documentMarkdownStyleNode, queries = markdownStyleQueries, ClassFromOuterNode = CSSClassFromMarkdownStyleNode) {
+export function topmostCSSNodeFromDocumentMarkdownStyleNode(documentMarkdownStyleNode, ClassFromOuterNode = CSSClassFromMarkdownStyleNode, queries = markdownStyleQueries) {
   const outerNode = documentMarkdownStyleNode, ///
         topmostNode = topmostNodeFromOuterNodeAndQueries(outerNode, queries, ClassFromOuterNode),
         topmostCSSNode = topmostNode; ///
