@@ -9,7 +9,7 @@ export default class BlockStartMarkdownNode extends MarkdownNode {
     const releaseName = this.fromFourthChildNode((fourthChildNode) => {
       let releaseName = null;
 
-      const fourthChildNodeClassNameMarkdownNode = (fourthChildNode instanceof ReleaseNameMarkdownNode);
+      const fourthChildNodeClassNameMarkdownNode = ReleaseNameMarkdownNode.prototype.isPrototypeOf(fourthChildNode);
 
       if (fourthChildNodeClassNameMarkdownNode) {
         const releaseNameMarkdownNode = fourthChildNode;  ///
@@ -27,7 +27,7 @@ export default class BlockStartMarkdownNode extends MarkdownNode {
     const languageName = this.fromSecondChildNode((secondChildNode) => {
       let languageName = null;
 
-      const secondChildNodeClassNameMarkdownNode = (secondChildNode instanceof LanguageNameMarkdownNode);
+      const secondChildNodeClassNameMarkdownNode = LanguageNameMarkdownNode.prototype.isPrototypeOf(secondChildNode);
 
       if (secondChildNodeClassNameMarkdownNode) {
         const languageNameMarkdownNode = secondChildNode;  ///

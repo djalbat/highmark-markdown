@@ -60,7 +60,7 @@ export default class DivisionHTMLNode extends HTMLNode {
     const pageNumber = this.fromFirstLastChildNode((firstLastChildNode) => {
       let pageNumber = null;
 
-      const firstLastChildNodePageNumberHTMLNode = (firstLastChildNode instanceof PageNumberHTMLNode);
+      const firstLastChildNodePageNumberHTMLNode = PageNumberHTMLNode.prototype.isPrototypeOf(firstLastChildNode);
 
       if (firstLastChildNodePageNumberHTMLNode) {
         const pageNumberHTMLNode = firstLastChildNode;  ///

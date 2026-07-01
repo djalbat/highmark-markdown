@@ -434,9 +434,7 @@ class View extends Element {
     this.setMarkdown(markdown);
   }
 
-  static initialMarkdown = `
-Licensed under the Apache License, Version 2.0 and Anti-996 License 
-`;
+  static initialMarkdown = initialMarkdown;
 
   static initialMarkdownStyle = "";
 

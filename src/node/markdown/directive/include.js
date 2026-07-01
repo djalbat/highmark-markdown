@@ -9,7 +9,7 @@ export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
     const filePath = this.fromFirstLastChildNode((firstLastChildNode) => {
       let filePath = null;
 
-      const firstLastChildNodePathMarkdownNode = (firstLastChildNode instanceof PathMarkdownNode);
+      const firstLastChildNodePathMarkdownNode = PathMarkdownNode.prototype.isPrototypeOf(firstLastChildNode);
 
       if (firstLastChildNodePathMarkdownNode) {
         const pathMarkdownNode = firstLastChildNode, ///

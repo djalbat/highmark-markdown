@@ -8,7 +8,7 @@ export default class ContainerNameMarkdownNode extends MarkdownNode {
     const className = this.fromSecondChildNode((secondChildNode) => {
       let className = null;
 
-      const secondChildNodeClassNameMarkdownNode = (secondChildNode instanceof ClassNameMarkdown);
+      const secondChildNodeClassNameMarkdownNode = ClassNameMarkdown.prototype.isPrototypeOf(secondChildNode);
 
       if (secondChildNodeClassNameMarkdownNode) {
         const classNameMarkdownNode = secondChildNode; ///

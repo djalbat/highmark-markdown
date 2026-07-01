@@ -7,7 +7,7 @@ export default class FootnoteLinkHTMLTransform extends HTMLTransform {
   getDivisionHTMLNode() {
     const footnoteLinkHTMLNode = this.getFootnoteLinkHTMLNode(),
           divisionHTMLNode = footnoteLinkHTMLNode.findAncestorNode((ancestorNode) => {
-            const ancestorNodeDivisionHTMLNode = (ancestorNode instanceof DivisionHTMLNode);
+            const ancestorNodeDivisionHTMLNode = DivisionHTMLNode.prototype.isPrototypeOf(ancestorNode);
 
             if (ancestorNodeDivisionHTMLNode) {
               return true;
@@ -23,7 +23,7 @@ export default class FootnoteLinkHTMLTransform extends HTMLTransform {
     const footnoteLinkHTMLNode = this.getFootnoteLinkHTMLNode();
 
     footnoteLinkHTMLNode.someAncestorNode((ancestorNode) => {
-      const ancestorNodeDivisionHTMLNode = (ancestorNode instanceof DivisionHTMLNode);
+      const ancestorNodeDivisionHTMLNode = DivisionHTMLNode.prototype.isPrototypeOf(ancestorNode);
 
       if (ancestorNodeDivisionHTMLNode) {
         return true;
