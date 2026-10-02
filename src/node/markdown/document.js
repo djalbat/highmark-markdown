@@ -63,10 +63,10 @@ export default class DocumentMarkdownNode extends MarkdownNode {
           childNodes = childMarkdownNodes,  ///
           opacity = null,
           precedence = null,
-          documentMarkdownNode = MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(DocumentMarkdownNode, ruleName, childNodes, opacity, precedence);
+          documentMarkdownNode = MarkdownNode.fromRuleNameChildNodesPrecedenceAndOpacity(DocumentMarkdownNode, ruleName, childNodes, precedence, opacity);
 
     return documentMarkdownNode;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(DocumentMarkdownNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity) { return MarkdownNode.fromRuleNameChildNodesPrecedenceAndOpacity(DocumentMarkdownNode, ruleName, childNodes, precedence, opacity); }
 }

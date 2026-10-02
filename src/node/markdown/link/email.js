@@ -49,7 +49,7 @@ export default class EmailLinkMarkdownNode extends MarkdownNode {
     return simple;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(EmailLinkMarkdownNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity) { return MarkdownNode.fromRuleNameChildNodesPrecedenceAndOpacity(EmailLinkMarkdownNode, ruleName, childNodes, precedence, opacity); }
 }
 
 function emailAddressFromTerminalNode(terminalNode) {

@@ -18,5 +18,5 @@ export default class XMLTagNameMarkdownNode extends MarkdownNode {
     return tagName;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(XMLTagNameMarkdownNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity) { return MarkdownNode.fromRuleNameChildNodesPrecedenceAndOpacity(XMLTagNameMarkdownNode, ruleName, childNodes, precedence, opacity); }
 }

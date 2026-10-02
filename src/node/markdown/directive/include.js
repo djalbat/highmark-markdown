@@ -62,5 +62,5 @@ export default class IncludeDirectiveMarkdownNode extends MarkdownNode {
     return includeDirectiveMarkdownTransform;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(IncludeDirectiveMarkdownNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity) { return MarkdownNode.fromRuleNameChildNodesPrecedenceAndOpacity(IncludeDirectiveMarkdownNode, ruleName, childNodes, precedence, opacity); }
 }

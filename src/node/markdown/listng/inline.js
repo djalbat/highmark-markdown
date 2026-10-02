@@ -24,5 +24,5 @@ export default class InlineListingMarkdownNode extends MarkdownNode {
     return content;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(InlineListingMarkdownNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity) { return MarkdownNode.fromRuleNameChildNodesPrecedenceAndOpacity(InlineListingMarkdownNode, ruleName, childNodes, precedence, opacity); }
 }

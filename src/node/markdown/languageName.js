@@ -15,5 +15,5 @@ export default class LanguageNameMarkdownNode extends MarkdownNode {
     return languageName;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(LanguageNameMarkdownNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity) { return MarkdownNode.fromRuleNameChildNodesPrecedenceAndOpacity(LanguageNameMarkdownNode, ruleName, childNodes, precedence, opacity); }
 }

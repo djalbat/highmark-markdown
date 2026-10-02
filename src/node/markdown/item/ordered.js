@@ -18,7 +18,7 @@ export default class OrderedItemMarkdownNode extends MarkdownNode {
     return value;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(OrderedItemMarkdownNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity) { return MarkdownNode.fromRuleNameChildNodesPrecedenceAndOpacity(OrderedItemMarkdownNode, ruleName, childNodes, precedence, opacity); }
 }
 
 function valueFromMarkerTerminalNode(markerTerminalNode) {

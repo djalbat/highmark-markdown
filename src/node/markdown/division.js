@@ -7,8 +7,8 @@ import IgnoreDirectiveMarkdownTransform from "../../transform/markdown/directive
 import { ignoreDirectiveMarkdownNodeFromNode, subDivisionMarkdownNodesFromNode, includeDirectiveMarkdownNodesFromNode } from "../../utilities/markdown";
 
 export default class DivisionMarkdownNode extends MarkdownNode {
-  constructor(ruleName, parentNode, childNodes, opacity, precedence, divisionClassName) {
-    super(ruleName, parentNode, childNodes, opacity, precedence);
+  constructor(ruleName, parentNode, childNodes, precedence, opacity, divisionClassName) {
+    super(ruleName, parentNode, childNodes, precedence, opacity);
 
     this.divisionClassName = divisionClassName;
   }
@@ -104,9 +104,9 @@ export default class DivisionMarkdownNode extends MarkdownNode {
 
   clone() { return super.clone(this.divisionClassName); }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) {
-    const divisionClassName = null,
-          divisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(DivisionMarkdownNode, ruleName, childNodes, opacity, precedence, divisionClassName);
+  static fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity) {
+    const divisionClassNode = null,
+          divisionMarkdownNode = MarkdownNode.fromRuleNameChildNodesPrecedenceAndOpacity(DivisionMarkdownNode, ruleName, childNodes, precedence, opacity, divisionClassNode);
 
     return divisionMarkdownNode;
   }

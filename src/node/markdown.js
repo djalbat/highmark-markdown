@@ -53,11 +53,11 @@ class MarkdownNode extends NonTerminalNode {
 
   someDescendantMarkdownNode(callback) { return this.someDescendantNode(callback); }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(Class, ruleName, childNodes, opacity, precedence, ...remainingArguments) {
-    if (precedence === undefined) {
-      precedence = opacity; ///
+  static fromRuleNameChildNodesPrecedenceAndOpacity(Class, ruleName, childNodes, precedence, opacity, ...remainingArguments) {
+    if (opacity === undefined) {
+      opacity = precedence; ///
 
-      opacity = childNodes; ///
+      precedence = childNodes; ///
 
       childNodes = ruleName;  ///
 
@@ -66,7 +66,7 @@ class MarkdownNode extends NonTerminalNode {
       Class = MarkdownNode; ///
     }
 
-    const markdownNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(Class, ruleName, childNodes, opacity, precedence, ...remainingArguments);
+    const markdownNode = NonTerminalNode.fromRuleNameChildNodesPrecedenceAndOpacity(Class, ruleName, childNodes, precedence, opacity, ...remainingArguments);
 
     return markdownNode;
   }

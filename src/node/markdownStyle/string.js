@@ -14,5 +14,5 @@ export default class StringMarkdownStyleNode extends MarkdownStyleNode {
     return content;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownStyleNode.fromRuleNameChildNodesOpacityAndPrecedence(StringMarkdownStyleNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity) { return MarkdownStyleNode.fromRuleNameChildNodesPrecedenceAndOpacity(StringMarkdownStyleNode, ruleName, childNodes, precedence, opacity); }
 }

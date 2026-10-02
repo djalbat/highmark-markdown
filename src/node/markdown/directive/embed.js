@@ -63,5 +63,5 @@ export default class EmbedDirectiveMarkdownNode extends MarkdownNode {
     return embedDirectiveMarkdownTransform;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(EmbedDirectiveMarkdownNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity) { return MarkdownNode.fromRuleNameChildNodesPrecedenceAndOpacity(EmbedDirectiveMarkdownNode, ruleName, childNodes, precedence, opacity); }
 }

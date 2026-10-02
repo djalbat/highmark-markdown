@@ -17,5 +17,5 @@ export default class XMLAttributeValueMarkdownNode extends MarkdownNode {
     return attributeValue;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(XMLAttributeValueMarkdownNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity) { return MarkdownNode.fromRuleNameChildNodesPrecedenceAndOpacity(XMLAttributeValueMarkdownNode, ruleName, childNodes, precedence, opacity); }
 }

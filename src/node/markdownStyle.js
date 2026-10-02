@@ -6,11 +6,11 @@ import nodeMixins from "../mixins/node";
 import tokenMixins from "../mixins/token";
 
 class MarkdownStyleNode extends NonTerminalNode {
-  static fromRuleNameChildNodesOpacityAndPrecedence(Class, ruleName, childNodes, opacity, precedence, ...remainingArguments) {
-    if (precedence === undefined) {
-      precedence = opacity; ///
+  static fromRuleNameChildNodesPrecedenceAndOpacity(Class, ruleName, childNodes, precedence, opacity, ...remainingArguments) {
+    if (opacity === undefined) {
+      opacity = precedence; ///
 
-      opacity = childNodes; ///
+      precedence = childNodes; ///
 
       childNodes = ruleName;  ///
 
@@ -19,7 +19,7 @@ class MarkdownStyleNode extends NonTerminalNode {
       Class = MarkdownStyleNode; ///
     }
 
-    const markdownStyleNode = NonTerminalNode.fromRuleNameChildNodesOpacityAndPrecedence(Class, ruleName, childNodes, opacity, precedence, ...remainingArguments);
+    const markdownStyleNode = NonTerminalNode.fromRuleNameChildNodesPrecedenceAndOpacity(Class, ruleName, childNodes, precedence, opacity, ...remainingArguments);
 
     return markdownStyleNode;
   }

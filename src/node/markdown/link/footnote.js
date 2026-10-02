@@ -21,5 +21,5 @@ export default class FootnoteLinkMarkdownNode extends MarkdownNode {
     return identifier;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(FootnoteLinkMarkdownNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity) { return MarkdownNode.fromRuleNameChildNodesPrecedenceAndOpacity(FootnoteLinkMarkdownNode, ruleName, childNodes, precedence, opacity); }
 }

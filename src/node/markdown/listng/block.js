@@ -25,5 +25,5 @@ export default class BlockListingMarkdownNode extends MarkdownNode {
     return languageName;
   }
 
-  static fromRuleNameChildNodesOpacityAndPrecedence(ruleName, childNodes, opacity, precedence) { return MarkdownNode.fromRuleNameChildNodesOpacityAndPrecedence(BlockListingMarkdownNode, ruleName, childNodes, opacity, precedence); }
+  static fromRuleNameChildNodesPrecedenceAndOpacity(ruleName, childNodes, precedence, opacity) { return MarkdownNode.fromRuleNameChildNodesPrecedenceAndOpacity(BlockListingMarkdownNode, ruleName, childNodes, precedence, opacity); }
 }
