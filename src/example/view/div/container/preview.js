@@ -25,6 +25,10 @@ class PreviewContainerDiv extends ContainerDiv {
       hidePreviewContainerDiv
     });
   }
+
+  static defaultProperties = {
+    className: "preview"
+  };
 }
 
 export default withStyle(PreviewContainerDiv)`

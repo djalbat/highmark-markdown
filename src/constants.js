@@ -3,6 +3,7 @@
 export const HEAD = "head";
 export const STYLE = "style";
 export const COMMA = ",";
+export const COLON = ":";
 export const COLOUR = "color";  ///
 export const HYPHEN = "-";
 export const Y_STRING = "y";

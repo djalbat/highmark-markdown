@@ -2,6 +2,8 @@
 
 import CSSNode from "../../node/css";
 
+import {COLON, EMPTY_STRING, SINGLE_SPACE} from "../../constants";
+
 export default class SelectorsCSSNode extends CSSNode {
   asCSS(context) {
     let css;
@@ -11,14 +13,19 @@ export default class SelectorsCSSNode extends CSSNode {
     css = this.reduceChildNode((css, childNode) => {
       const childNodeCSS = childNode.asCSS(context);
 
-      css = (css !== null) ?
-              `${css}${childNodeCSS}` :
-                childNodeCSS; ///
+      css = `${css}${childNodeCSS}`;
 
       return css;
-    }, null);
+    }, EMPTY_STRING);
 
-    css = `${cssSelectorsString} ${css}`;
+    if (cssSelectorsString !== EMPTY_STRING) {
+      const cssStartsWithColon = css.startsWith(COLON),
+            separator = cssStartsWithColon ?
+                          EMPTY_STRING :
+                            SINGLE_SPACE;
+
+      css = `${cssSelectorsString}${separator}${css}`;
+    }
 
     return css;
   }

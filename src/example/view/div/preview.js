@@ -76,10 +76,6 @@ class PreviewDiv extends Element {
   }
 
   static tagName = "div";
-
-  static defaultProperties = {
-    className: "preview"
-  };
 }
 
 export default withStyle(PreviewDiv)`

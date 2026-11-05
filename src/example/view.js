@@ -436,7 +436,15 @@ class View extends Element {
 
   static initialMarkdown = initialMarkdown;
 
-  static initialMarkdownStyle = "";
+  static initialMarkdownStyle = `
+  
+    quaternaryHeading {
+      :first-child {
+        padding-top: 0;
+      }
+    }
+
+  `;
 
   static tagName = "div";
 

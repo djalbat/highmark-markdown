@@ -2,6 +2,7 @@
 
 import CSSNode from "../../node/css";
 
+import { EMPTY_STRING } from "../../constants";
 import { selectorsCSSNodesFromNode } from "../../utilities/css";
 
 export default class SelectorsListCSSNode extends CSSNode {
@@ -16,13 +17,13 @@ export default class SelectorsListCSSNode extends CSSNode {
     const css = this.reduceChildNode((css, childNode) => {
       const childNodeCSS = childNode.asCSS(context);
 
-      css = (css !== null) ?
-              `${css},
+      css = (css !== EMPTY_STRING) ?
+             `${css}
 ${childNodeCSS}` :
                 childNodeCSS; ///
 
       return css;
-    }, null);
+    }, EMPTY_STRING);
 
     return css;
   }

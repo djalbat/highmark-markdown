@@ -19,7 +19,7 @@ export default class RuleSetCSSTransform extends CSSTransform {
 
   static fromDeclarationCSSNodes(declarationCSSNodes) {
     const ruleSetCSSNode = RuleSetCSSNode.fromDeclarationCSSNodes(declarationCSSNodes),
-          cssNode = ruleSetCSSNode,
+          cssNode = ruleSetCSSNode, ///
           ruleSetCSSTransform = CSSTransform.fromCSSNode(RuleSetCSSTransform, cssNode);
 
     return ruleSetCSSTransform;
