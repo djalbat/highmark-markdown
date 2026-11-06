@@ -23,22 +23,26 @@ export default class CSSTransform {
     parentNode.prependChildNode(childNode);
   }
 
-  mergeWith(cssNode) {
+  mergedWith(Class, cssNode) {
+    let parentNode;
+
     cssNode = cssNode.clone();  ///
 
-    const parentNode = cssNode; ///
+    parentNode = cssNode; ///
 
-    let childCSSNodes;
+    const removedChildCSSNodes = parentNode.removeChildNodes();
 
-    childCSSNodes = this.cssNode.getChildCSSNodes();
+    cssNode = this.cssNode.clone();  ///
 
-    childCSSNodes = cloneChildCSSNodes(childCSSNodes);  ///
+    parentNode = cssNode; ///
 
-    const childNodes = childCSSNodes; ///
+    const appendedChildNodes = removedChildCSSNodes;  ///
 
-    parentNode.prependChildNodes(childNodes);
+    parentNode.appendChildNodes(appendedChildNodes);
 
-    return cssNode;
+    const cssTransform = new Class(cssNode);
+
+    return cssTransform;
   }
 
   remove() {
@@ -47,6 +51,13 @@ export default class CSSTransform {
           childNode = this.cssNode; ///
 
     parentNode.removeChildNode(childNode);
+  }
+
+  clone(Class) {
+    const cssNode = this.cssNode.clone(),
+          cssTransform = new Class(cssNode);
+
+    return cssTransform;
   }
 
   static fromCSSNode(Class, cssNode, ...remainingArguments) {
@@ -61,14 +72,3 @@ export default class CSSTransform {
     return cssTransform;
   }
 }
-
-function cloneChildCSSNodes(childCSSNodes) {
-  childCSSNodes = childCSSNodes.map((childCSSNode) => {  ///
-    childCSSNode = childCSSNode.clone();  ///
-
-    return childCSSNode;
-  });
-
-  return childCSSNodes;
-}
-

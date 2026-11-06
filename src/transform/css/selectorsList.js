@@ -4,46 +4,81 @@ import CSSTransform from "../../transform/css"
 import SelectorsCSSTransform from "./selectors";
 
 export default class SelectorsListCSSTransform extends CSSTransform {
-  constructor(cssNode, selectorsCSSTransforms) {
+  constructor(cssNode, selectorsCSSTransforms, ancestorSelectorsCSSTransforms) {
     super(cssNode);
 
     this.selectorsCSSTransforms = selectorsCSSTransforms;
+    this.ancestorSelectorsCSSTransforms = ancestorSelectorsCSSTransforms;
   }
 
   getSelectorsCSSTransforms() {
     return this.selectorsCSSTransforms;
   }
 
-  mergeWithSelectorsListCSSNode(selectorsListCSSNode) {
-    const selectorsCSSNodes = selectorsListCSSNode.getSelectorsCSSNodes(),
-          selectorsCSSTransforms = selectorsCSSTransformsFromSelectorsListCSSNode(selectorsListCSSNode);
+  getAncestorSelectorsCSSTransforms() {
+    return this.ancestorSelectorsCSSTransforms;
+  }
 
-    selectorsCSSNodes.forEach((selectorsCSSNode) => {
-      this.selectorsCSSTransforms.forEach((selectorsCSSTransform) => {
-        selectorsCSSTransform = selectorsCSSTransform.mergeWithSelectorsCSSNode(selectorsCSSNode);  ///
+  getSelectorsListCSSNode() {
+    const cssNode = this.getCSSNode(),
+          selectorsListcSSNode = cssNode; ///
 
-        selectorsCSSTransform.appendToSelectorsListCSSNode(selectorsListCSSNode);
+    return selectorsListcSSNode;
+  }
+
+  replaceSelectorsCSSNodes() {
+    const selectorsCSSTransforms = [];
+
+    if (this.ancestorSelectorsCSSTransforms !== null) {
+      this.ancestorSelectorsCSSTransforms.forEach((ancestorSelectorsCSSTransform) => {
+        this.selectorsCSSTransforms.forEach((selectorsCSSTransform) => {
+          const selectorsCSSNode = selectorsCSSTransform.getSelectorsCSSNode();
+
+          selectorsCSSTransform = ancestorSelectorsCSSTransform.mergedWith(selectorsCSSNode);  ///
+
+          selectorsCSSTransforms.push(selectorsCSSTransform);
+        });
       });
-    });
+    } else {
+      this.selectorsCSSTransforms.forEach((selectorsCSSTransform) => {
+        selectorsCSSTransform = selectorsCSSTransform.clone();  ///
+
+        selectorsCSSTransforms.push(selectorsCSSTransform);
+      });
+    }
+
+    const selectorsListCSSNode = this.getSelectorsListCSSNode();
+
+    selectorsListCSSNode.removeChildNodes();
 
     selectorsCSSTransforms.forEach((selectorsCSSTransform) => {
-      // selectorsCSSTransform.remove();
+      selectorsCSSTransform.appendToSelectorsListCSSNode(selectorsListCSSNode);
     });
   }
 
-  static fromRuleSetCSSNode(ruleSetCSSNode) {
-    const selectorsListCSSNode = ruleSetCSSNode.getSelectorsListCSSNode(),
-          cssNode = null, ///
-          selectorsCSSTransforms = selectorsCSSTransformsFromSelectorsListCSSNode(selectorsListCSSNode),
-          selectorsListCSSTransform = CSSTransform.fromCSSNode(SelectorsListCSSTransform, cssNode, selectorsCSSTransforms);
+  static fromSelectorsListCSSNode(selectorsListCSSNode) {
+    const cssNode = selectorsListCSSNode, ///
+          selectorsCSSNodes = selectorsListCSSNode.getSelectorsCSSNodes(),
+          selectorsCSSTransforms = selectorsCSSTransformsFromSelectorsCSSNodes(selectorsCSSNodes),
+          ancestorSelectorsCSSTransforms = null,
+          selectorsListCSSTransform = CSSTransform.fromCSSNode(SelectorsListCSSTransform, cssNode, selectorsCSSTransforms, ancestorSelectorsCSSTransforms);
+
+    return selectorsListCSSTransform;
+  }
+
+  static fromSelectorsListCSSNodeAndAncestorSelectorsCSSNodes(selectorsListCSSNode, ancestorsSelectorsCSSNodes) {
+    const cssNode = selectorsListCSSNode, ///
+          selectorsCSSNodes = selectorsListCSSNode.getSelectorsCSSNodes(),
+          selectorsCSSTransforms = selectorsCSSTransformsFromSelectorsCSSNodes(selectorsCSSNodes),
+          ancestorSelectorsCSSTransforms = selectorsCSSTransformsFromSelectorsCSSNodes(ancestorsSelectorsCSSNodes),
+          selectorsListCSSTransform = CSSTransform.fromCSSNode(SelectorsListCSSTransform, cssNode, selectorsCSSTransforms, ancestorSelectorsCSSTransforms);
 
     return selectorsListCSSTransform;
   }
 }
 
-function selectorsCSSTransformsFromSelectorsListCSSNode(selectorsListCSSNode) {
-  const selectorsCSSNodes = selectorsListCSSNode.getSelectorsCSSNodes(),
-        selectorsCSSTransforms = selectorsCSSNodes.map((selectorsCSSNode) => {
+function selectorsCSSTransformsFromSelectorsCSSNodes(selectorsCSSNodes) {
+  const selectorsCSSTransforms = selectorsCSSNodes.map((selectorsCSSNode) => {
           const selectorsCSSTransform = SelectorsCSSTransform.fromSelectorsCSSNode(selectorsCSSNode);
 
           return selectorsCSSTransform;

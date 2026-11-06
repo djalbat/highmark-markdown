@@ -22,9 +22,9 @@ const bnf = `
 
     selectors      ::=  selector+ ;
 
-    selector       ::=  ruleName class* pseudoClass* 
+    selector       ::=  ruleName ( <NO_WHITESPACE>class )* ( <NO_WHITESPACE>pseudoClass )* 
     
-                     |  class+ pseudoClass*
+                     |  class+ ( <NO_WHITESPACE>pseudoClass )*
 
                      |  pseudoClass+
 
@@ -34,9 +34,9 @@ const bnf = `
     
     ruleName.      ::=  [rule-name] ;
     
-    class.         ::=  <NO_WHITESPACE>"."<NO_WHITESPACE>identifier ;
+    class.         ::=  "."<NO_WHITESPACE>identifier ;
     
-    pseudoClass.   ::=  <NO_WHITESPACE>":"<NO_WHITESPACE>identifier ;
+    pseudoClass.   ::=  ":"<NO_WHITESPACE>identifier ;
     
     values         ::=  value+ ;
     

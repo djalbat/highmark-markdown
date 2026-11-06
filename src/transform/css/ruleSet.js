@@ -1,9 +1,15 @@
 "use strict";
 
 import CSSTransform from "../../transform/css"
-import RuleSetCSSNode from "../../node/css/ruleSet";
 
 export default class RuleSetCSSTransform extends CSSTransform {
+  getRuleSetCSSNode() {
+    const cssNode = this.getCSSNode(),
+          ruleSetCSSNode = cssNode; ///
+
+    return ruleSetCSSNode;
+  }
+
   appendToTopmostCSSNode(topmostCSSNode) {
     const cssNode = topmostCSSNode; ///
 
@@ -12,14 +18,6 @@ export default class RuleSetCSSTransform extends CSSTransform {
 
   static fromRuleSetCSSNode(ruleSetCSSNode) {
     const cssNode = ruleSetCSSNode, ///
-          ruleSetCSSTransform = CSSTransform.fromCSSNode(RuleSetCSSTransform, cssNode);
-
-    return ruleSetCSSTransform;
-  }
-
-  static fromDeclarationCSSNodes(declarationCSSNodes) {
-    const ruleSetCSSNode = RuleSetCSSNode.fromDeclarationCSSNodes(declarationCSSNodes),
-          cssNode = ruleSetCSSNode, ///
           ruleSetCSSTransform = CSSTransform.fromCSSNode(RuleSetCSSTransform, cssNode);
 
     return ruleSetCSSTransform;

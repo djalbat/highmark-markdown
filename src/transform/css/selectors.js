@@ -3,23 +3,22 @@
 import CSSTransform from "../../transform/css"
 
 export default class SelectorsCSSTransform extends CSSTransform {
+  getSelectorsCSSNode() {
+    const cssNode = this.getCSSNode(),
+          selectorsCSSNode = cssNode; ///
+
+    return selectorsCSSNode;
+  }
+
   appendToSelectorsListCSSNode(selectorsListCSSNode) {
-    const cssNode = selectorsListCSSNode; ///
+    const parentCSSNode = selectorsListCSSNode; ///
 
-    this.appendTo(cssNode);
+    super.appendTo(parentCSSNode);
   }
 
-  mergeWithSelectorsCSSNode(selectorsCSSNode) {
-    let cssNode = selectorsCSSNode; ///
+  mergedWith(selectorsCSSNode) { return super.mergedWith(SelectorsCSSTransform, selectorsCSSNode); }
 
-    cssNode = this.mergeWith(cssNode);
-
-    selectorsCSSNode = cssNode;  ///
-
-    const selectorsCSSTransform = SelectorsCSSTransform.fromSelectorsCSSNode(selectorsCSSNode);
-
-    return selectorsCSSTransform;
-  }
+  clone() { return super.clone(SelectorsCSSTransform); }
 
   static fromSelectorsCSSNode(selectorsCSSNode) {
     const cssNode = selectorsCSSNode, ///

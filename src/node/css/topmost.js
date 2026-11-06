@@ -55,17 +55,18 @@ export default class TopmostCSSNode extends CSSNode {
   }
 
   resolve(context) {
-    // this.resolveSelectors(context);
+    this.resolveSelectors(context);
 
     this.flatten(context);
   }
 
   resolveSelectors(context) {
     const node = this,  ///
-          ruleSetCSSNodes = ruleSetCSSNodesFromNode(node);
+          ruleSetCSSNodes = ruleSetCSSNodesFromNode(node),
+          ancestorsSelectorsCSSNodes = null;
 
     ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
-      ruleSetCSSNode.resolveSelectors(context);
+      ruleSetCSSNode.resolveSelectors(ancestorsSelectorsCSSNodes, context);
     });
   }
 

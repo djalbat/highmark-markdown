@@ -7,8 +7,7 @@ const { nodesFromNodeAndQuery } = queryUtilities;
 
 const ruleSetCSSNodesQuery = Query.fromExpressionString("/*/ruleSet"),
       selectorsCSSNodesQuery = Query.fromExpressionString("/selectorsList/selectors"),
-      nestedRuleSetCSSNodesQuery = Query.fromExpressionString("/*//ruleSet"),
-      selectorsListCSSNodesQuery = Query.fromExpressionString("/*//ruleSet/selectorsList"); ///
+      nestedRuleSetCSSNodesQuery = Query.fromExpressionString("/*//ruleSet"); ///
 
 export function ruleSetCSSNodesFromNode(node, ruleSetCSSNodes = []) {
   nodesFromNodeAndQuery(node, ruleSetCSSNodesQuery, ruleSetCSSNodes);
@@ -28,14 +27,7 @@ export function nestedRuleSetCSSNodesFromNode(node, nestedRuleSetCSSNodes = []) 
   return nestedRuleSetCSSNodes;
 }
 
-export function selectorsListCSSNodesFromNode(node, selectorsListCSSNodes = []) {
-  nodesFromNodeAndQuery(node, selectorsListCSSNodesQuery, selectorsListCSSNodes);
-
-  return selectorsListCSSNodes;
-}
-
 export default {
   ruleSetCSSNodesFromNode,
-  selectorsCSSNodesFromNode,
-  selectorsListCSSNodesFromNode
+  selectorsCSSNodesFromNode
 };

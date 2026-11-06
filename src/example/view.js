@@ -437,13 +437,29 @@ class View extends Element {
   static initialMarkdown = initialMarkdown;
 
   static initialMarkdownStyle = `
-  
+
+\`\`\`
+width: 600pt;
+display: flex;
+position: relative;
+min-height: 848pt;
+align-items: flex-start;
+flex-direction: column;
+justify-content: flex-start;
+\`\`\`
+
+
+background: red;
+
+
+
     quaternaryHeading {
-      :first-child {
+      :last-child, :first-child {
         padding-top: 0;
       }
     }
 
+  
   `;
 
   static tagName = "div";

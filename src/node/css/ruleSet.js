@@ -4,17 +4,14 @@ import CSSNode from "../../node/css";
 import SelectorsListCSSTransform from "../../transform/css/selectorsList";
 
 import { EMPTY_STRING } from "../../constants";
-import { ruleSetCSSNodesFromNode, selectorsListCSSNodesFromNode } from "../../utilities/css";
+import { ruleSetCSSNodesFromNode } from "../../utilities/css";
 
 export default class RuleSetCSSNode extends CSSNode {
-  getSelectorsListCSSNode() {
-    const selectorsListCSSNode = this.fromFirstChildNode((firstChildNode) => {
-      const selectorsListCSSNode = firstChildNode;  ///
+  isEmpty() {
+    const multiplicity = this.getMultiplicity(),
+          empty = (multiplicity === 1);
 
-      return selectorsListCSSNode;
-    });
-
-    return selectorsListCSSNode;
+    return empty;
   }
 
   getRemainingCSSNodes() {
@@ -31,28 +28,40 @@ export default class RuleSetCSSNode extends CSSNode {
     return remainingCSSNodes;
   }
 
-  resolveSelectors(context) {
-    const node = this,  ///
-          ruleSetCSSNodes = ruleSetCSSNodesFromNode(node);
+  getSelectorsCSSNodes() {
+    const selectorsListCSSNode = this.getSelectorsListCSSNode(),
+          selectorsCSSNodes = selectorsListCSSNode.getSelectorsCSSNodes();
 
-    ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
-      ruleSetCSSNode.resolveSelectors(context);
-    });
-
-    const ruleSetCSSNode = this,  ///
-          selectorsListCSSNodes = selectorsListCSSNodesFromNode(node),
-          selectorsListCSSTransform = SelectorsListCSSTransform.fromRuleSetCSSNode(ruleSetCSSNode);
-
-    selectorsListCSSNodes.forEach((selectorsListCSSNode) => {
-      selectorsListCSSTransform.mergeWithSelectorsListCSSNode(selectorsListCSSNode);
-    });
+    return selectorsCSSNodes;
   }
 
-  isEmpty() {
-    const multiplicity = this.getMultiplicity(),
-          empty = (multiplicity === 1);
+  getSelectorsListCSSNode() {
+    const selectorsListCSSNode = this.fromFirstChildNode((firstChildNode) => {
+      const selectorsListCSSNode = firstChildNode;  ///
 
-    return empty;
+      return selectorsListCSSNode;
+    });
+
+    return selectorsListCSSNode;
+  }
+
+  resolveSelectors(ancestorsSelectorsCSSNodes, context) {
+    const selectorsListCSSNode = this.getSelectorsListCSSNode(),
+          selectorsListCSSTransform = (ancestorsSelectorsCSSNodes !== null) ?
+                                        SelectorsListCSSTransform.fromSelectorsListCSSNodeAndAncestorSelectorsCSSNodes(selectorsListCSSNode, ancestorsSelectorsCSSNodes) :
+                                          SelectorsListCSSTransform.fromSelectorsListCSSNode(selectorsListCSSNode);
+
+    selectorsListCSSTransform.replaceSelectorsCSSNodes();
+
+    const node = this,  ///
+          ruleSetCSSNodes = ruleSetCSSNodesFromNode(node),
+          selectorsCSSNodes = this.getSelectorsCSSNodes();
+
+    ancestorsSelectorsCSSNodes = selectorsCSSNodes; ///
+
+    ruleSetCSSNodes.forEach((ruleSetCSSNode) => {
+      ruleSetCSSNode.resolveSelectors(ancestorsSelectorsCSSNodes, context);
+    });
   }
 
   asCSS(context) {
@@ -61,11 +70,11 @@ export default class RuleSetCSSNode extends CSSNode {
     const empty = this.isEmpty();
 
     if (!empty) {
-      const selectorsListCSS = this.selectorsListCSS(context),
-            remainingCSS = this.remainingCSS(context);
+      const selectorsListCSSNodeCSS = this.selectorsListCSSNodeAsCSS(context),
+            remainingCSSNodesCSS = this.remainingCSSNodesAsCSS(context);
 
-      css = `${selectorsListCSS} {
-${remainingCSS}}`;
+      css = `${selectorsListCSSNodeCSS} {
+${remainingCSSNodesCSS}}`;
     } else {
       css = EMPTY_STRING;
     }
@@ -73,25 +82,25 @@ ${remainingCSS}}`;
     return css;
   }
 
-  remainingCSS(context) {
+  remainingCSSNodesAsCSS(context) {
     const remainingCSSNodes = this.getRemainingCSSNodes(),
-          remainingCSS = remainingCSSNodes.reduce((remainingCSS, remainingCSSNode) => {
+          remainingCSSNodesCSS = remainingCSSNodes.reduce((remainingCSSNodesCSS, remainingCSSNode) => {
             const remainingCSSNodeCSS = remainingCSSNode.asCSS(context);
 
-            remainingCSS = `${remainingCSS}${remainingCSSNodeCSS}`;
+            remainingCSSNodesCSS = `${remainingCSSNodesCSS}${remainingCSSNodeCSS}`;
 
-            return remainingCSS;
+            return remainingCSSNodesCSS;
           }, EMPTY_STRING);
 
-    return remainingCSS;
+    return remainingCSSNodesCSS;
   }
 
-  selectorsListCSS(context) {
+  selectorsListCSSNodeAsCSS(context) {
     const selectorsListCSSNode = this.getSelectorsListCSSNode(),
           selectorsListCSSNodeCSS = selectorsListCSSNode.asCSS(context),
-          selectorsListCSS = selectorsListCSSNodeCSS; ///
+          selectorsListNodeCSS = selectorsListCSSNodeCSS; ///
 
-    return selectorsListCSS;
+    return selectorsListNodeCSS;
   }
 
   static fromNothing() { return CSSNode.fromNothing(RuleSetCSSNode); }

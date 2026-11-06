@@ -7,7 +7,7 @@ import { selectorsCSSNodesFromNode } from "../../utilities/css";
 
 export default class SelectorsListCSSNode extends CSSNode {
   getSelectorsCSSNodes() {
-    const node = this,
+    const node = this,  ///
           selectorsCSSNodes = selectorsCSSNodesFromNode(node);
 
     return selectorsCSSNodes;
@@ -18,7 +18,7 @@ export default class SelectorsListCSSNode extends CSSNode {
       const childNodeCSS = childNode.asCSS(context);
 
       css = (css !== EMPTY_STRING) ?
-             `${css}
+             `${css},
 ${childNodeCSS}` :
                 childNodeCSS; ///
 
