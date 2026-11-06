@@ -27,7 +27,7 @@ export default class SelectorsListCSSTransform extends CSSTransform {
     });
 
     selectorsCSSTransforms.forEach((selectorsCSSTransform) => {
-      selectorsCSSTransform.remove();
+      // selectorsCSSTransform.remove();
     });
   }
 

@@ -55,7 +55,7 @@ export default class TopmostCSSNode extends CSSNode {
   }
 
   resolve(context) {
-    this.resolveSelectors(context);
+    // this.resolveSelectors(context);
 
     this.flatten(context);
   }
@@ -88,19 +88,23 @@ export default class TopmostCSSNode extends CSSNode {
     let css = EMPTY_STRING;
 
     const { cssSelectorsString } = context,
-          declarationCSSNodes = this.getDeclarationCSSNodes(),
           verbatimCSSNodes = this.getVerbatimCSSNodes(),
-          ruleSetCSSNodes = this.getRuleSetCSSNodes();
+          declarationCSSNodes = this.getDeclarationCSSNodes(),
+          verbatimCSSNodesLength = verbatimCSSNodes.length,
+          declarationCSSNodesLength = declarationCSSNodes.length;
 
-    css = `${css}
-${cssSelectorsString} {`;
+    if ((verbatimCSSNodesLength > 0) || (declarationCSSNodesLength > 0)) {
+      css = `${cssSelectorsString} {`;
 
-    css = cssNodesAsCSS(declarationCSSNodes, css, context);
+      css = cssNodesAsCSS(declarationCSSNodes, css, context);
 
-    css = cssNodesAsCSS(verbatimCSSNodes, css, context);
+      css = cssNodesAsCSS(verbatimCSSNodes, css, context);
 
-    css = `${css}
+      css = `${css}
 }`;
+    }
+
+    const ruleSetCSSNodes = this.getRuleSetCSSNodes();
 
     css = cssNodesAsCSS(ruleSetCSSNodes, css, context);
 
