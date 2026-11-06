@@ -74,7 +74,9 @@ export default class RuleSetCSSNode extends CSSNode {
             remainingCSSNodesCSS = this.remainingCSSNodesAsCSS(context);
 
       css = `${selectorsListCSSNodeCSS} {
-${remainingCSSNodesCSS}}`;
+${remainingCSSNodesCSS}}
+
+`;
     } else {
       css = EMPTY_STRING;
     }

@@ -6,12 +6,17 @@ import { EMPTY_STRING } from "../../constants";
 
 export default class VerbatimCSSNode extends CSSNode {
   content(context) {
-    const content = this.fromFirstChildNode((firstChildNode) => {
+    let content;
+
+    content = this.fromFirstChildNode((firstChildNode) => {
       const contentCSSNode = firstChildNode, ///
             content = contentCSSNode.content(context);
 
       return content;
     });
+
+    content = `${content}
+`;
 
     return content;
   }

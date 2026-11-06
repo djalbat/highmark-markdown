@@ -2,8 +2,8 @@
 
 import MarkdownStyleNode from "../../node/markdownStyle";
 
-import { removeWhitespace } from "../../utilities/string";
-import { EMPTY_STRING, CARRIAGE_RETURN } from "../../constants";
+import { EMPTY_STRING } from "../../constants";
+import { removeNewLines } from "../../utilities/string";
 
 export default class ContentMarkdownStyleNode extends MarkdownStyleNode {
   content(context) {
@@ -24,10 +24,7 @@ export default class ContentMarkdownStyleNode extends MarkdownStyleNode {
       content += tokenContent;
     });
 
-    content = removeWhitespace(content);
-
-    content += CARRIAGE_RETURN;
-    content += CARRIAGE_RETURN;
+    content = removeNewLines(content);
 
     return content;
   }

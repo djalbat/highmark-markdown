@@ -7,13 +7,10 @@ import nodeMixins from "../mixins/node";
 import { EMPTY_STRING } from "../constants";
 
 class CSSNode extends Node {
-  matchMarkdownStyleRuleName(markdownStyleRuleName) {
-    const markdownStyleRuleNameA = markdownStyleRuleName; ///
-
-    markdownStyleRuleName = this.getMarkdownStyleRuleName();
-
-    const markdownStyleRuleNameB = markdownStyleRuleName, ///
-          markdownStyleRuleNameMatches = (markdownStyleRuleNameA === markdownStyleRuleNameB);
+  matchMarkdownStyleRuleNames(markdownStyleRuleNames) {
+    const markdownStyleRuleName = this.getMarkdownStyleRuleName(),
+          markdownStyleRuleNamesIncludesMarkdownStyleRuleName = markdownStyleRuleNames.includes(markdownStyleRuleName),
+          markdownStyleRuleNameMatches = markdownStyleRuleNamesIncludesMarkdownStyleRuleName;
 
     return markdownStyleRuleNameMatches;
   }

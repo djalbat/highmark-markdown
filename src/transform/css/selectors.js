@@ -1,6 +1,7 @@
 "use strict";
 
 import CSSTransform from "../../transform/css"
+import WhitespaceCSSNode from "../../node/css/whitespace";
 
 export default class SelectorsCSSTransform extends CSSTransform {
   getSelectorsCSSNode() {
@@ -16,7 +17,13 @@ export default class SelectorsCSSTransform extends CSSTransform {
     super.appendTo(parentCSSNode);
   }
 
-  mergedWith(selectorsCSSNode) { return super.mergedWith(SelectorsCSSTransform, selectorsCSSNode); }
+  mergedWithSelectorsCSSNode(selectorsCSSNode) {
+    const cssNode = selectorsCSSNode, ///
+          whitespaceCSSNode = WhitespaceCSSNode.fromNothing(),
+          selectorsCSSTransform = super.mergedWith(SelectorsCSSTransform, cssNode, whitespaceCSSNode);
+
+    return selectorsCSSTransform;
+  }
 
   clone() { return super.clone(SelectorsCSSTransform); }
 

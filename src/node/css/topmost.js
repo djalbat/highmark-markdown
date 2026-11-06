@@ -3,7 +3,7 @@
 import CSSNode from "../../node/css";
 import RuleSetCSSTransform from "../../transform/css/ruleSet";
 
-import { EMPTY_STRING } from "../../constants";
+import { TOPMOST, EMPTY_STRING } from "../../constants";
 import { ruleSetCSSNodesFromNode, nestedRuleSetCSSNodesFromNode } from "../../utilities/css";
 import { CSS_MARKDOWN_STYLE_RULE_NAME,
          VERBATIM_MARKDOWN_STYLE_RULE_NAME,
@@ -17,12 +17,12 @@ export default class TopmostCSSNode extends CSSNode {
     return ruleNme;
   }
 
-  getDeclarationCSSNodes() {
-    const markdownStyleRuleName = DECLARATION_MARKDOWN_STYLE_RULE_NAME,
+  getRuleSetCSSNodes() {
+    const markdownStyleRuleName = RULE_SET_MARKDOWN_STYLE_RULE_NAME,
           cssNodes = this.getCSSNodesByMarkdownStyleRuleName(markdownStyleRuleName),
-          declarationCSSNodes = cssNodes; ///
+          ruleSetCSSNodes = cssNodes; ///
 
-    return declarationCSSNodes;
+    return ruleSetCSSNodes;
   }
 
   getVerbatimCSSNodes() {
@@ -33,18 +33,29 @@ export default class TopmostCSSNode extends CSSNode {
     return verbatimSSNodes;
   }
 
-  getRuleSetCSSNodes() {
-    const markdownStyleRuleName = RULE_SET_MARKDOWN_STYLE_RULE_NAME,
+  getDeclarationCSSNodes() {
+    const markdownStyleRuleName = DECLARATION_MARKDOWN_STYLE_RULE_NAME,
           cssNodes = this.getCSSNodesByMarkdownStyleRuleName(markdownStyleRuleName),
-          ruleSetCSSNodes = cssNodes; ///
+          declarationCSSNodes = cssNodes; ///
 
-    return ruleSetCSSNodes;
+    return declarationCSSNodes;
   }
 
-  getCSSNodesByMarkdownStyleRuleName(markdownStyleRuleName) {
+  getVerbatimAndDeclarationCSSNodes() {
+    const markdownStyleRuleNames = [
+            VERBATIM_MARKDOWN_STYLE_RULE_NAME,
+            DECLARATION_MARKDOWN_STYLE_RULE_NAME
+          ],
+          cssNodes = this.getCSSNodesByMarkdownStyleRuleName(...markdownStyleRuleNames),
+          verbatimAnddeclarationCSSNodes = cssNodes; ///
+
+    return verbatimAnddeclarationCSSNodes;
+  }
+
+  getCSSNodesByMarkdownStyleRuleName(...markdownStyleRuleNames) {
     const cssNodes = this.filterChildNode((childNode) => {
       const cssNode = childNode,  ///
-            markdownStyleRuleNameMatches = cssNode.matchMarkdownStyleRuleName(markdownStyleRuleName);
+            markdownStyleRuleNameMatches = cssNode.matchMarkdownStyleRuleNames(markdownStyleRuleNames);
 
       if (markdownStyleRuleNameMatches) {
         return true;
@@ -89,20 +100,17 @@ export default class TopmostCSSNode extends CSSNode {
     let css = EMPTY_STRING;
 
     const { cssSelectorsString } = context,
-          verbatimCSSNodes = this.getVerbatimCSSNodes(),
-          declarationCSSNodes = this.getDeclarationCSSNodes(),
-          verbatimCSSNodesLength = verbatimCSSNodes.length,
-          declarationCSSNodesLength = declarationCSSNodes.length;
+          verbatimAnddeclarationCSSNodes = this.getVerbatimAndDeclarationCSSNodes(),
+          verbatimAnddeclarationCSSNodesLength = verbatimAnddeclarationCSSNodes.length;
 
-    if ((verbatimCSSNodesLength > 0) || (declarationCSSNodesLength > 0)) {
-      css = `${cssSelectorsString} {`;
+    if (verbatimAnddeclarationCSSNodesLength > 0) {
+      css = `${cssSelectorsString} {
+`;
+      css = cssNodesAsCSS(verbatimAnddeclarationCSSNodes, css, context);
 
-      css = cssNodesAsCSS(declarationCSSNodes, css, context);
+      css = `${css}}
 
-      css = cssNodesAsCSS(verbatimCSSNodes, css, context);
-
-      css = `${css}
-}`;
+`;
     }
 
     const ruleSetCSSNodes = this.getRuleSetCSSNodes();
@@ -110,6 +118,12 @@ export default class TopmostCSSNode extends CSSNode {
     css = cssNodesAsCSS(ruleSetCSSNodes, css, context);
 
     return css;
+  }
+
+  asString() {
+    const string = TOPMOST; ///
+
+    return string;
   }
 
   static fromNothing() { return CSSNode.fromNothing(TopmostCSSNode); }
@@ -121,8 +135,7 @@ function cssNodesAsCSS(cssNodes, css, context) {
   cssNodes.forEach((cssNode) => {
     const cssNodeCSS = cssNode.asCSS(context);
 
-    css = `${css}
-${cssNodeCSS}`;
+    css = `${css}${cssNodeCSS}`;
   });
 
   return css;

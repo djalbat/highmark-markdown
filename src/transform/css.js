@@ -23,7 +23,7 @@ export default class CSSTransform {
     parentNode.prependChildNode(childNode);
   }
 
-  mergedWith(Class, cssNode) {
+  mergedWith(Class, cssNode, ...additionalChildCSSNodes) {
     let parentNode;
 
     cssNode = cssNode.clone();  ///
@@ -36,7 +36,10 @@ export default class CSSTransform {
 
     parentNode = cssNode; ///
 
-    const appendedChildNodes = removedChildCSSNodes;  ///
+    const appendedChildNodes = [
+      ...additionalChildCSSNodes,
+      ...removedChildCSSNodes
+    ]
 
     parentNode.appendChildNodes(appendedChildNodes);
 

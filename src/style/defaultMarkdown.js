@@ -3,13 +3,13 @@
 const defaultMarkdownStyle = `
 
 \`\`\`
-width: 600pt;
-display: flex;
-position: relative;
-min-height: 848pt;
-align-items: flex-start;
-flex-direction: column;
-justify-content: flex-start;
+  width: 600pt;
+  display: flex;
+  position: relative;
+  min-height: 848pt;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
 \`\`\`
 
 colour: black;

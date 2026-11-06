@@ -14,7 +14,7 @@ const bnf = `
     
 
     
-    verbatim.      ::=  [backticks] content... [backticks] ;
+    verbatim.      ::=  [backticks] ( content... [backticks] ) ;
 
 
 

@@ -3,7 +3,7 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { grammarUtilities } from "../index";  ///
+import { grammarUtilities, defaultMarkdownStyle } from "../index";  ///
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 
 import indexOptions from "./indexOptions";
@@ -437,28 +437,27 @@ class View extends Element {
   static initialMarkdown = initialMarkdown;
 
   static initialMarkdownStyle = `
+  
+contentsList {
+  padding-left: 0;
+  list-style-type: none;
 
-\`\`\`
-width: 600pt;
-display: flex;
-position: relative;
-min-height: 848pt;
-align-items: flex-start;
-flex-direction: column;
-justify-content: flex-start;
-\`\`\`
+  contentsList {
+    padding-top: 13pt;
+    padding-left: 13pt;
+  }
+}
 
+footnoteItem {
+  font-size: 11pt;
 
-background: red;
-
-
-
-    quaternaryHeading {
-      :last-child, :first-child {
-        padding-top: 0;
-      }
-    }
-
+  paragraph {
+    font-size: 11pt;
+    text-align: justify;
+    line-height: 17pt;
+    padding-left: 3pt;
+  }
+}
   
   `;
 

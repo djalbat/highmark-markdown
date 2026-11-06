@@ -34,7 +34,7 @@ export default class SelectorsListCSSTransform extends CSSTransform {
         this.selectorsCSSTransforms.forEach((selectorsCSSTransform) => {
           const selectorsCSSNode = selectorsCSSTransform.getSelectorsCSSNode();
 
-          selectorsCSSTransform = ancestorSelectorsCSSTransform.mergedWith(selectorsCSSNode);  ///
+          selectorsCSSTransform = ancestorSelectorsCSSTransform.mergedWithSelectorsCSSNode(selectorsCSSNode);  ///
 
           selectorsCSSTransforms.push(selectorsCSSTransform);
         });
